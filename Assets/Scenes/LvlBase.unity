@@ -257,7 +257,7 @@ MonoBehaviour:
   Lens:
     FieldOfView: 60.000004
     OrthographicSize: 5
-    NearClipPlane: 0.3
+    NearClipPlane: 0.01
     FarClipPlane: 1000
     Dutch: 0
     ModeOverride: 0
@@ -415,7 +415,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec15b84fa554a0c42b8fe2d97a1dbfbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 1
+  Camera: {fileID: 73488021}
+  speed: 2
   Forward: 119
   Backwards: 115
   Left: 97
@@ -637,7 +638,6 @@ GameObject:
   - component: {fileID: 812239021}
   - component: {fileID: 812239024}
   - component: {fileID: 812239023}
-  - component: {fileID: 812239022}
   m_Layer: 6
   m_Name: Eyes
   m_TagString: Untagged
@@ -660,27 +660,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 340927090}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &812239022
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 812239020}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &812239023
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -792,7 +771,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 60.000004
   orthographic: 0

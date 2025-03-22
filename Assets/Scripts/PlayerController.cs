@@ -1,11 +1,15 @@
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     private CharacterController _player;
 
-    [SerializeField] private int _speed = 1;
+    [SerializeField] private CinemachineCamera Camera;
+
+    [SerializeField] private int speed;
+
     [SerializeField] private KeyCode Forward;
     [SerializeField] private KeyCode Backwards;
     [SerializeField] private KeyCode Left;
@@ -18,21 +22,28 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        Vector3 dir = Vector3.zero;
+
         if (Input.GetKey(Forward))
         {
-            _player.Move(Vector3.forward * _speed * Time.deltaTime);
+            dir = transform.forward;
         }
         if (Input.GetKey(Backwards))
         {
-            _player.Move(-Vector3.forward * _speed * Time.deltaTime);
+            dir = dir - transform.forward;
         }
         if (Input.GetKey(Left))
         {
-            _player.Move(Vector3.left * _speed * Time.deltaTime);
+            dir = dir - transform.right;
         }
         if (Input.GetKey(Right))
         {
-            _player.Move(Vector3.right * _speed * Time.deltaTime);
+            dir = dir + transform.right;
         }
+
+        _player.Move(dir.normalized * speed * Time.deltaTime);
+
+        float cameraRotY = Camera.transform.eulerAngles.y;
+        transform.rotation = Quaternion.Euler(0f, Camera.transform.eulerAngles.y, 0f);
     }
 }
