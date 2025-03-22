@@ -21,7 +21,10 @@ public class PlayerController : MonoBehaviour
     {
         _player = GetComponent<CharacterController>();
     }
-
+    public void MoveDir(Vector3 force)
+    {
+        _player.Move(force);
+    }
     void Update()
     {
         Vector3 dir = Vector3.zero;
@@ -47,7 +50,10 @@ public class PlayerController : MonoBehaviour
             ActivableBox.SetActive(!ActivableBox.activeInHierarchy);
         }
 
-        _player.Move(dir.normalized * speed * Time.deltaTime);
+        if (dir != Vector3.zero)
+        {
+            _player.Move(dir.normalized * speed * Time.deltaTime);
+        }
 
         float cameraRotY = Camera.transform.eulerAngles.y;
         transform.rotation = Quaternion.Euler(0f, Camera.transform.eulerAngles.y, 0f);
