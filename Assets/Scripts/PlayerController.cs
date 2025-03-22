@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private CharacterController _player;
+    public GameObject ActivableBox;
 
     [SerializeField] private CinemachineCamera Camera;
 
@@ -14,6 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private KeyCode Backwards;
     [SerializeField] private KeyCode Left;
     [SerializeField] private KeyCode Right;
+    [SerializeField] private KeyCode Activable;
 
     void Start()
     {
@@ -39,6 +41,10 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(Right))
         {
             dir = dir + transform.right;
+        }
+        if (Input.GetKeyDown(Activable))
+        {
+            ActivableBox.SetActive(!ActivableBox.activeInHierarchy);
         }
 
         _player.Move(dir.normalized * speed * Time.deltaTime);
