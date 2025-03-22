@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     private CharacterController _player;
     public GameObject ActivableBox;
+    public Animator Anim;
 
     [SerializeField] private CinemachineCamera Camera;
 
@@ -21,9 +22,14 @@ public class PlayerController : MonoBehaviour
     {
         _player = GetComponent<CharacterController>();
     }
+    public void StopMoving()
+    {
+        Anim.SetBool("IsMoving", false);
+    }
     public void MoveDir(Vector3 force)
     {
         _player.Move(force);
+        Anim.SetBool("IsMoving", true);
     }
     void Update()
     {
