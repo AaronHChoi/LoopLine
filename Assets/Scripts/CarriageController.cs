@@ -23,6 +23,7 @@ public class CarriageController : MonoBehaviour
         else
         {
             Player.transform.SetParent(null);
+            Player.StopMoving();
         }
     }
     void Update()
