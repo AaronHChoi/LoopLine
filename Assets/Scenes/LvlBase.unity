@@ -469,7 +469,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 5
-  Move: 0
+  Player: {fileID: 340927091}
 --- !u!4 &291404056
 Transform:
   m_ObjectHideFlags: 0
@@ -648,7 +648,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -718,7 +718,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: e87677f4705db844282bad567bf52442, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 2044080284}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e87677f4705db844282bad567bf52442, type: 3}
 --- !u!1 &696855436
@@ -858,7 +861,7 @@ Light:
   serializedVersion: 11
   m_Type: 1
   m_Color: {r: 0.8392157, g: 0.8411696, b: 1, a: 1}
-  m_Intensity: 0.49
+  m_Intensity: 0.28
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1029,7 +1032,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 727c11811a53f524b9e7a3f804ade980, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5354152331305674073, guid: 727c11811a53f524b9e7a3f804ade980, type: 3}
       propertyPath: m_IsActive
@@ -1077,10 +1080,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 727c11811a53f524b9e7a3f804ade980, type: 3}
-      insertIndex: 0
-      addedObject: {fileID: 2044080284}
+    m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: -4837548156395952023, guid: 727c11811a53f524b9e7a3f804ade980, type: 3}
       insertIndex: -1
@@ -1514,7 +1514,7 @@ GameObject:
   - component: {fileID: 963429868}
   - component: {fileID: 963429867}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Torch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1793,7 +1793,7 @@ GameObject:
   - component: {fileID: 1083174415}
   - component: {fileID: 1083174414}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: House
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1995,14 +1995,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2044080280}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0060000005, y: 0.01075, z: -0.002624998}
-  m_LocalScale: {x: 0.0028749998, y: 0.0034, z: 0.0025}
+  m_LocalRotation: {x: -0, y: 0.70710576, z: -0, w: 0.70710784}
+  m_LocalPosition: {x: 0.004782837, y: 0.57103914, z: 0.005430241}
+  m_LocalScale: {x: 0.17289071, y: 0.20446208, z: 0.15033977}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2105644831}
   - {fileID: 279058135}
-  m_Father: {fileID: 1228318176}
+  m_Father: {fileID: 1067193458}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2044080285
 MonoBehaviour:

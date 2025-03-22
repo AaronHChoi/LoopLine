@@ -2,22 +2,36 @@ using UnityEngine;
 
 public class CarriageController : MonoBehaviour
 {
-    public float Speed;
-    public bool Move;
 
+    public float Speed;
+    public PlayerController Player;
+
+    private bool _move;
     CharacterController _carriage;
     
     void Start()
     {
         _carriage = GetComponent<CharacterController>();
     }
-
-    // Update is called once per frame
+    public void MoveCarriage(bool move)
+    {
+        _move = move;
+        if (move)
+        {
+            Player.transform.SetParent(transform);
+        }
+        else
+        {
+            Player.transform.SetParent(null);
+        }
+    }
     void Update()
     {
-        if (Move)
+        if (_move)
         {
-            _carriage.Move(transform.forward * Speed * Time.deltaTime);
+            Vector3 force = transform.forward * Speed * Time.deltaTime;
+            _carriage.Move(force);
+            Player.MoveDir(force);
         }
     }
 }
