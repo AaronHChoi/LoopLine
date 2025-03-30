@@ -23,7 +23,7 @@ public class CarriageController : MonoBehaviour
         else
         {
             Player.transform.SetParent(null);
-            Player.StopMoving();
+            //Player.StopMoving();
         }
     }
     void Update()
@@ -32,7 +32,7 @@ public class CarriageController : MonoBehaviour
         {
             Vector3 force = transform.forward * Speed * Time.deltaTime;
             _carriage.Move(force);
-            Player.MoveDir(force);
+            //Player.MoveDir(force);
         }
     }
 }
