@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
 {
     public Slider sliderSensivity;
 
-    [SerializeField] private string Scenename;
+    [SerializeField] private int sceneID;
     [SerializeField] private GameObject CreditsPanel;
     [SerializeField] private GameObject ControlPanel;
     [SerializeField] private GameObject MainMenuPanel;
@@ -20,7 +20,7 @@ public class MainMenu : MonoBehaviour
     }
     public void LoadScene1()
     {
-        SceneManager.LoadScene(Scenename);
+        SceneManager.LoadScene(sceneID);
     }
     public void QuitGame()
     {
