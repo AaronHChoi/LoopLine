@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private string nextScene;
 
     private DevelopmentManager developmentManager;
+    private float iniatialLoopTime;
 
     private void Awake()
     {
@@ -27,7 +28,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         developmentManager = FindObjectOfType<DevelopmentManager>();
-        LoopTime = 360f;
+        iniatialLoopTime = LoopTime;
     }
 
     private void Update()
@@ -36,7 +37,7 @@ public class GameManager : MonoBehaviour
         {
             LoopTime = 5f;
         }
-        if (SceneManager.GetActiveScene().name == "LvlBase 1")
+        if (SceneManager.GetActiveScene().name == "Main")
         {
             
             LoopTime -= Time.deltaTime;
@@ -51,7 +52,7 @@ public class GameManager : MonoBehaviour
         {
             if (developmentManager.developmentMode == true && Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.L)) 
             {
-                SceneManager.LoadScene("LvlBase 1");
+                SceneManager.LoadScene("Main");
             }
         }
     }
