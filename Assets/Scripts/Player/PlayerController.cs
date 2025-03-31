@@ -1,3 +1,4 @@
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,13 +10,16 @@ public class PlayerController : MonoBehaviour
     private Vector2 inputMovement;
 
     private InputAction moveAction;
-    [SerializeField] private Transform cameraTransform;
+    private CinemachineCamera virtualCamera;
+    private Transform cameraTransform;
     private void Awake()
     {
         playerView = GetComponent<PlayerView>();
         playerModel = new PlayerModel();
         var playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions["Move"];
+        virtualCamera = FindAnyObjectByType<CinemachineCamera>();
+        cameraTransform = virtualCamera.transform;
     }
     private void Update()
     {
