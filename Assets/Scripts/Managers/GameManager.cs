@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        developmentManager = FindObjectOfType<DevelopmentManager>();
+        developmentManager = FindAnyObjectByType<DevelopmentManager>();
         iniatialLoopTime = LoopTime;
     }
 
