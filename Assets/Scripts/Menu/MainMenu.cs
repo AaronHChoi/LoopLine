@@ -16,7 +16,8 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject OptionButton;
     private void Start()
     {
-       
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
     public void LoadScene1()
     {

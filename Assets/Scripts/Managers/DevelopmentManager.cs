@@ -33,7 +33,7 @@ public class DevelopmentManager : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(MenuLevel))
             {
                 Debug.Log("Comando CTRL + " + (MenuLevel.ToString()) + " presionado");
-                SceneManager.LoadScene("Main Menu");
+                SceneManager.LoadScene("MainMenu");
             }
         }
     }

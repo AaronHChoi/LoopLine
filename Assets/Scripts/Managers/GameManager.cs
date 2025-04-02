@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
     {
         developmentManager = FindObjectOfType<DevelopmentManager>();
         iniatialLoopTime = LoopTime;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Update()
