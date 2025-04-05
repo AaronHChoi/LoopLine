@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
@@ -24,6 +25,7 @@ public class PlayerInteract : MonoBehaviour
 
     public IInteract GetInteractableObject()
     {
+        //List<IInteract> InteractableList = new List<IInteract>();
 
         Ray ray = new Ray(rayCastPoint.transform.position, rayCastPoint.transform.forward);
         RaycastHit[] hits = Physics.RaycastAll(ray, raycastDistance, interactableLayer);
@@ -35,7 +37,7 @@ public class PlayerInteract : MonoBehaviour
             if (hit.collider.TryGetComponent(out IInteract interactable))
             {
                 interactableObject = interactable;
-                interactableLayer = hit.collider.gameObject.layer;
+                //interactableLayer = hit.collider.gameObject.layer;
             }
         }
 

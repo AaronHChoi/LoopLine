@@ -4,13 +4,13 @@ using UnityEngine;
 public class InteractUI : MonoBehaviour
 {
     [SerializeField] private GameObject containerInteractUI;
-    [SerializeField] PlayerInteract playerInteract;
+    [SerializeField] private PlayerInteract playerInteract;
     [SerializeField] private TextMeshProUGUI interactText;
 
     void Update()
     {
         if(playerInteract.GetInteractableObject() != null)
-        {
+        { 
             Show(playerInteract.GetInteractableObject());
         }
         else
