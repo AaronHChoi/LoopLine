@@ -6,10 +6,12 @@ public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager Instance { get; private set; }
     public bool IsDialogueInProgress { get; private set; }
+
     private Queue<DialogueTurn> dialogueTurnsQueue;
+    private PlayerController player;
+
     [SerializeField] private float typingSpeed = 0.05f;
     [SerializeField] private DialogueUI dialogueUI;
-    private PlayerController player;
     private void Awake()
     {
         if(Instance != null && Instance != this)

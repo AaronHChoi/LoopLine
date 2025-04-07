@@ -5,14 +5,15 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public bool CanMove { get; set; } = true;
+
     private PlayerView playerView;
     private PlayerModel playerModel;
+    private InputAction moveAction;
+    private CinemachineCamera virtualCamera;
+    private Transform cameraTransform; 
 
     private Vector2 inputMovement;
 
-    private InputAction moveAction;
-    private CinemachineCamera virtualCamera;
-    private Transform cameraTransform;
     private void Awake()
     {
         playerView = GetComponent<PlayerView>();
