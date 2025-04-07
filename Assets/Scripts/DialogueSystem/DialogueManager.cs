@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class DialogueManager : MonoBehaviour
 {
+    public static event Action OnDialogueEnded;
     public static DialogueManager Instance { get; private set; }
     public bool IsDialogueInProgress { get; private set; }
 
@@ -56,6 +58,7 @@ public class DialogueManager : MonoBehaviour
         IsDialogueInProgress = false;
 
         player.SetControllerEnabled(true);
+        OnDialogueEnded?.Invoke();
     }
     private IEnumerator TypeSentence(DialogueTurn dialogTurn)
     {

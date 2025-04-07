@@ -6,19 +6,35 @@ public class InteractUI : MonoBehaviour
     [SerializeField] private GameObject containerInteractUI;
     [SerializeField] private PlayerInteract playerInteract;
     [SerializeField] private TextMeshProUGUI interactText;
-
+    private bool interactionLocked = false;
     void Update()
     {
-        if(playerInteract.GetInteractableObject() != null)
-        { 
-            Show(playerInteract.GetInteractableObject());
+        if (interactionLocked)
+        {
+            Hide();
+            return;
+        }
+        var interactable = playerInteract.GetInteractableObject();
+
+        if(interactable != null)
+        {
+            Show(interactable);
         }
         else
         {
             Hide();
         }
     }
-
+    private void OnEnable()
+    {
+        DialogueTrigger.OnDialogueStarted += LockInteraction;
+        DialogueManager.OnDialogueEnded += UnlockInteraction;
+    }
+    private void OnDisable()
+    {
+        DialogueTrigger.OnDialogueStarted -= LockInteraction;
+        DialogueManager.OnDialogueEnded -= UnlockInteraction;
+    }
     private void Show(IInteract interactable)
     {
         containerInteractUI.SetActive(true);
@@ -27,6 +43,16 @@ public class InteractUI : MonoBehaviour
 
     private void Hide()
     {
+        Debug.Log("Ocultando Interact UI por evento");
         containerInteractUI.SetActive(false);
+    }
+    private void LockInteraction()
+    {
+        interactionLocked = true;
+        Hide();
+    }
+    private void UnlockInteraction()
+    {
+        interactionLocked = false;
     }
 }
