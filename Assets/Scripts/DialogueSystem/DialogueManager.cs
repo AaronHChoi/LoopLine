@@ -9,8 +9,7 @@ public class DialogueManager : MonoBehaviour
     private Queue<DialogueTurn> dialogueTurnsQueue;
     [SerializeField] private float typingSpeed = 0.05f;
     [SerializeField] private DialogueUI dialogueUI;
-
-
+    private PlayerController player;
     private void Awake()
     {
         if(Instance != null && Instance != this)
@@ -23,6 +22,7 @@ public class DialogueManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
         }
         dialogueUI.HideDialogueBox();
+        player = FindFirstObjectByType<PlayerController>();
     }
     public void StartDialogue(DialogueRoundSO dialogue)
     {
@@ -31,6 +31,8 @@ public class DialogueManager : MonoBehaviour
             Debug.LogWarning("Dialogue already in progress");
             return;
         }
+        player.SetControllerEnabled(false);
+
         IsDialogueInProgress = true;
         dialogueTurnsQueue = new Queue<DialogueTurn>(dialogue.DialogueTurnsList);
         StartCoroutine(DialogueCoroutine());
@@ -50,6 +52,8 @@ public class DialogueManager : MonoBehaviour
         }
         dialogueUI.HideDialogueBox();
         IsDialogueInProgress = false;
+
+        player.SetControllerEnabled(true);
     }
     private IEnumerator TypeSentence(DialogueTurn dialogTurn)
     {

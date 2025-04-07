@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public bool CanMove { get; set; } = true;
     private PlayerView playerView;
     private PlayerModel playerModel;
 
@@ -27,6 +28,7 @@ public class PlayerController : MonoBehaviour
     }
     public void HandleMovement()
     {
+        if (!CanMove) return;
         inputMovement = moveAction.ReadValue<Vector2>();
 
         Vector3 forward = cameraTransform.forward;
@@ -41,5 +43,10 @@ public class PlayerController : MonoBehaviour
         moveDirection *= playerModel.Speed;
 
         playerView.Move(moveDirection * Time.deltaTime);
+    }
+    public void SetControllerEnabled(bool enabled)
+    {
+        CanMove = enabled;
+        virtualCamera.enabled = enabled;
     }
 }
