@@ -38,7 +38,7 @@ public class DevelopmentManager : MonoBehaviour
             }
             if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(Mute))
             {
-                Debug.Log("Comando CTRL + " + (MenuLevel.ToString()) + " presionado");
+                Debug.Log("Comando CTRL + " + (Mute.ToString()) + " presionado");
                 bgm.SetActive(!bgm.activeInHierarchy);
             }
         }
