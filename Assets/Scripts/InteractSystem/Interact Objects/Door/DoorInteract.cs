@@ -6,6 +6,7 @@ public class DoorInteract : MonoBehaviour, IInteract
     [SerializeField] private Transform doorLeft, doorRight;
     [SerializeField] private float doorSpeed = 2f;
     [SerializeField] private float doorDistance = 2f;
+    [SerializeField] private float closeDoorsAfterTime = 3f;
 
     [SerializeField] private Vector3 doorLeftMovement = Vector3.forward;
     [SerializeField] private Vector3 doorRightMovement = Vector3.back;
@@ -37,6 +38,19 @@ public class DoorInteract : MonoBehaviour, IInteract
         StopAllCoroutines();
         StartCoroutine(MoveDoors(isOpen ? doorLeftClosed : doorLeftPosOpen, isOpen ? doorRightClosed : doorRightPosOpen));
         isOpen = !isOpen;
+    }
+
+    private void Update()
+    {
+        if (isOpen)
+        {
+            closeDoorsAfterTime -= Time.deltaTime;
+            if (closeDoorsAfterTime <= 0)
+            {
+                ToggleDoors();
+                closeDoorsAfterTime = 3f; 
+            }
+        }
     }
 
     private System.Collections.IEnumerator MoveDoors(Vector3 leftTarget, Vector3 rightTarget)
