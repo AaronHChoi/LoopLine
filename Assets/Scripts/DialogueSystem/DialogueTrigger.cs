@@ -8,6 +8,7 @@ public class DialogueTrigger : MonoBehaviour, IInteract
     [SerializeField] private DialogueRoundSO dialogue;
     [SerializeField] private string interactText = "Interact with me!";
     private DialogueManager dialogueManager;
+    
     private void Awake()
     {
         dialogueManager = FindFirstObjectByType<DialogueManager>();
