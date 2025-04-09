@@ -8,12 +8,17 @@ public class DoorInteract : MonoBehaviour, IInteract
     [SerializeField] private float doorDistance = 2f;
     [SerializeField] private float closeDoorsAfterTime = 3f;
 
+    private AudioSource openDoor;
     [SerializeField] private Vector3 doorLeftMovement = Vector3.forward;
     [SerializeField] private Vector3 doorRightMovement = Vector3.back;
 
     private Vector3 doorLeftPosOpen, doorRightPosOpen;
     private Vector3 doorLeftClosed, doorRightClosed;
     private bool isOpen = false;
+    private void Awake()
+    {
+        openDoor = GetComponent<AudioSource>();
+    }
     void Start()
     {
         doorLeftClosed = doorLeft.position;
@@ -55,6 +60,7 @@ public class DoorInteract : MonoBehaviour, IInteract
 
     private System.Collections.IEnumerator MoveDoors(Vector3 leftTarget, Vector3 rightTarget)
     {
+        openDoor.Play();
         while (Vector3.Distance(doorLeft.position, leftTarget) > 0.01f || Vector3.Distance(doorRight.position, rightTarget) > 0.01f)
         {
             doorLeft.position = Vector3.Lerp(doorLeft.position, leftTarget, Time.deltaTime * doorSpeed);
