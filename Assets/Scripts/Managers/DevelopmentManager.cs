@@ -9,13 +9,14 @@ public class DevelopmentManager : MonoBehaviour
     [SerializeField] private KeyCode developmentHacks;
     [SerializeField] private KeyCode resetLevel;
     [SerializeField] private KeyCode MenuLevel;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private KeyCode Mute;
+    [SerializeField] private GameObject bgm;
+
     void Start()
     {
         developmentMode = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(developmentHacks))
@@ -34,6 +35,11 @@ public class DevelopmentManager : MonoBehaviour
             {
                 Debug.Log("Comando CTRL + " + (MenuLevel.ToString()) + " presionado");
                 SceneManager.LoadScene("MainMenu");
+            }
+            if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(Mute))
+            {
+                Debug.Log("Comando CTRL + " + (MenuLevel.ToString()) + " presionado");
+                bgm.SetActive(!bgm.activeInHierarchy);
             }
         }
     }
