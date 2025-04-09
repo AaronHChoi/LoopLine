@@ -10,7 +10,7 @@ public class DialogueManager : MonoBehaviour
 
     private Queue<DialogueTurn> dialogueTurnsQueue;
     private PlayerController player;
-
+    [SerializeField] private AudioSource typingAudioSource;
     [SerializeField] private float typingSpeed = 0.05f;
     [SerializeField] private DialogueUI dialogueUI;
     private void Awake()
@@ -62,9 +62,11 @@ public class DialogueManager : MonoBehaviour
     private IEnumerator TypeSentence(DialogueTurn dialogTurn)
     {
         var typingWaitSeconds = new WaitForSeconds(typingSpeed);
+
         foreach(char letter in dialogTurn.DialogueLine.ToCharArray())
         {
             dialogueUI.AppendToDialogueArea(letter);
+            if (!char.IsWhiteSpace(letter)) typingAudioSource.Play();
             yield return typingWaitSeconds;
         }
     }
