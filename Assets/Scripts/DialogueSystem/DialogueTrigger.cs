@@ -7,7 +7,11 @@ public class DialogueTrigger : MonoBehaviour, IInteract
 
     [SerializeField] private DialogueRoundSO dialogue;
     [SerializeField] private string interactText = "Interact with me!";
-    [SerializeField] private InteractUI interactUI;
+    private DialogueManager dialogueManager;
+    private void Awake()
+    {
+        dialogueManager = FindFirstObjectByType<DialogueManager>();
+    }
     public string GetInteractText()
     {
         return interactText;
@@ -20,7 +24,7 @@ public class DialogueTrigger : MonoBehaviour, IInteract
 
     public void TriggerDialogue()
     {
-        DialogueManager.Instance.StartDialogue(dialogue);
+        dialogueManager.StartDialogue(dialogue);
         Debug.Log("Disparando evento OnDialogueStarted");
         OnDialogueStarted?.Invoke();
     }

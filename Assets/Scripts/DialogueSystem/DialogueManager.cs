@@ -6,7 +6,6 @@ using System;
 public class DialogueManager : MonoBehaviour
 {
     public static event Action OnDialogueEnded;
-    public static DialogueManager Instance { get; private set; }
     public bool IsDialogueInProgress { get; private set; }
 
     private Queue<DialogueTurn> dialogueTurnsQueue;
@@ -16,23 +15,23 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private DialogueUI dialogueUI;
     private void Awake()
     {
-        if(Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            Instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-        dialogueUI.HideDialogueBox();
+        dialogueUI = FindFirstObjectByType<DialogueUI>();
         player = FindFirstObjectByType<PlayerController>();
+    }
+    private void Start()
+    {
+        dialogueUI.HideDialogueBox();
     }
     public void StartDialogue(DialogueRoundSO dialogue)
     {
         if (IsDialogueInProgress)
         {
             Debug.LogWarning("Dialogue already in progress");
+            return;
+        }
+        if (player == null)
+        {
+            Debug.LogError("PlayerController not set! Cannot start dialogue.");
             return;
         }
         player.SetControllerEnabled(false);
