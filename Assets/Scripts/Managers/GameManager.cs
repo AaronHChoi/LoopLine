@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private string nextScene;
 
+    public bool changeLoopTime = false; 
+
     private DevelopmentManager developmentManager;
     private float iniatialLoopTime;
 
@@ -35,7 +37,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (developmentManager.developmentMode == true && Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.T))
+        if (changeLoopTime && LoopTime >= 5f)
         {
             LoopTime = 5f;
         }
@@ -43,18 +45,14 @@ public class GameManager : MonoBehaviour
         {
             
             LoopTime -= Time.deltaTime;
+            if (Input.GetKey(KeyCode.F))
+            {
+                LoopTime -= Time.deltaTime * 8f;
+            }
             if (LoopTime <= 0)
             {
                 LoopTime = 360f;
                 LoadNextScene(nextScene);
-            }
-        }
-
-        if (SceneManager.GetActiveScene().name == "ThinkingWorld")
-        {
-            if (developmentManager.developmentMode == true && Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.L)) 
-            {
-                SceneManager.LoadScene("Main");
             }
         }
     }
