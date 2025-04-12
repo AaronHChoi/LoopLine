@@ -5,42 +5,70 @@ using UnityEngine.UI;
 public class DevelopmentManager : MonoBehaviour
 {
 
-    public bool developmentMode { get; private set; } = false;
-    [SerializeField] private KeyCode developmentHacks;
-    [SerializeField] private KeyCode resetLevel;
-    [SerializeField] private KeyCode MenuLevel;
-    [SerializeField] private KeyCode Mute;
+    [SerializeField] private GameObject UIPrinciplal;
+    [SerializeField] private GameObject UIDeveloperMode;
     [SerializeField] private GameObject bgm;
 
     void Start()
     {
-        developmentMode = false;
+        GameManager.Instance.changeLoopTime = false;
     }
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(developmentHacks))
+        if (Input.GetKeyDown(KeyCode.Escape) && UIPrinciplal != null)
         {
-            developmentMode = !developmentMode;;
-            Debug.Log("Development Mode: " + developmentMode);
+            UIPrinciplal.SetActive(!UIPrinciplal.activeInHierarchy);
+            UIDeveloperMode.SetActive(!UIDeveloperMode.activeInHierarchy);
         }
-        if (developmentMode)
+
+        if (UIDeveloperMode.activeInHierarchy)
         {
-            if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(resetLevel))
-            {
-                Debug.Log("Comando CTRL + " + (resetLevel.ToString()) + " presionado");
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            } 
-            if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(MenuLevel))
-            {
-                Debug.Log("Comando CTRL + " + (MenuLevel.ToString()) + " presionado");
-                SceneManager.LoadScene("MainMenu");
-            }
-            if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(Mute))
-            {
-                Debug.Log("Comando CTRL + " + (Mute.ToString()) + " presionado");
-                bgm.SetActive(!bgm.activeInHierarchy);
-            }
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
+        else
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+    }
+
+    public void ResetLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void MenuLevel()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void Mute()
+    {
+        bgm.SetActive(!bgm.activeInHierarchy);
+    }
+
+    public void LoadMainLevel()
+    {
+        if (SceneManager.GetActiveScene().name == "ThinkingWorld")
+        {
+            SceneManager.LoadScene("Main");
+        }
+    }
+
+    public void CutTime()
+    {
+        if (SceneManager.GetActiveScene().name == "Main")
+        {
+            if (GameManager.Instance.LoopTime > 5f)
+            {
+                GameManager.Instance.changeLoopTime = true;
+            }
+            else
+            {
+                GameManager.Instance.changeLoopTime = false;
+            }
+        }    
     }
 }
