@@ -5,9 +5,6 @@ public class DialogueTurn
 {
     [field: SerializeField]public DialogueCharacterSO Character { get; private set; }
 
-    public AudioClip sound;
-
-    [SerializeField, TextArea(3,5)]private string dialogueLine = string.Empty;
+    [SerializeField, TextArea(2,4)]private string dialogueLine = string.Empty;
     public string DialogueLine => dialogueLine;
-
 }
