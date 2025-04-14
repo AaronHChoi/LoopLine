@@ -5,7 +5,7 @@ public class DialogueManager2 : MonoBehaviour
     public static DialogueManager2 Instance { get; private set; }
     public static DialogueSpeaker actualSpeaker;
     [SerializeField] private DialogueUI2 dialogueUI;
-    [SerializeField] private GameObject player;
+    PlayerController player;
 
     public QuestionManager QuestionManager;
     private void Awake()
@@ -21,6 +21,7 @@ public class DialogueManager2 : MonoBehaviour
         }
         dialogueUI = FindFirstObjectByType<DialogueUI2>();
         QuestionManager = FindFirstObjectByType<QuestionManager>();
+        player = FindFirstObjectByType<PlayerController>();
     }
     private void Start()
     {
@@ -31,13 +32,14 @@ public class DialogueManager2 : MonoBehaviour
         dialogueUI.gameObject.SetActive(show);
         if (!show)
         {
-            dialogueUI.localIndex = 0; 
+            dialogueUI.localIndex = 0;
+            player.SetControllerEnabled(true);
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
-            
         }
         else
         {
+            player.SetControllerEnabled(false);
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }
@@ -67,10 +69,12 @@ public class DialogueManager2 : MonoBehaviour
             dialogueUI.TextUpdate(0);
         }
     }
+    //metodo para cambiar el estado de reuse
     public void ChangeTheReUseStatus(DialogueSO _dialogo, bool status)
     {
         _dialogo.ReUse = status;
     }
+    //metodo para desbloquear x dialogo
     public void LockingAndUnlockinkUpdates(DialogueSO _dialogue, bool unlocking)
     {
         _dialogue.Unlocked = unlocking;

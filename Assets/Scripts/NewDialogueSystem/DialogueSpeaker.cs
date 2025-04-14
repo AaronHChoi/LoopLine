@@ -13,7 +13,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract
         dialogueIndex = 0;
         DialogueLocalIndex = 0;
 
-        //Solo para el editor COMENTAR CUANDO SE HACE BUILD
+        //
         foreach(var dial in AvailableDialogs)
         {
             dial.Finished = false;
@@ -26,7 +26,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract
                 }
             }
         }
-        ///////////////////////////////////////////////////
+        //
     }
     public void DialogueTrigger()
     {

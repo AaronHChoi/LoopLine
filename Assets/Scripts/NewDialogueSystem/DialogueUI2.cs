@@ -14,8 +14,9 @@ public class DialogueUI2 : MonoBehaviour
     [SerializeField] private TextMeshProUGUI name;
     [SerializeField] private TextMeshProUGUI dialogueText;
 
-    [SerializeField] private Button nextButton;
+    //[SerializeField] private Button nextButton;
 
+    [SerializeField] private AudioClip typingAudioSource;
     [SerializeField] private AudioSource audioSource;
     public int localIndex = 1;
 
@@ -26,16 +27,16 @@ public class DialogueUI2 : MonoBehaviour
         dialogueContainer.SetActive(true);
         questionContainer.SetActive(false);
 
-        nextButton.gameObject.SetActive(true);
+        //nextButton.gameObject.SetActive(true);
     }
     private void Update()
     {
-        //test
+        //
         if (Input.GetKeyDown(KeyCode.Q)) 
         {
             TextUpdate(1);
         }
-        ////////////////////
+        //
     }
     public void TextUpdate(int trigger)
     {
@@ -55,14 +56,14 @@ public class DialogueUI2 : MonoBehaviour
                     audioSource.Stop();
                     audioSource.PlayOneShot(Dialogue.Dialogues[localIndex].sound);
                 }
-                if(localIndex >= Dialogue.Dialogues.Length - 1)
-                {
-                    nextButton.GetComponentInChildren<TextMeshProUGUI>().text = "Finalizar";
-                }
-                else
-                {
-                    nextButton.GetComponentInChildren<TextMeshProUGUI>().text = "Continuar";
-                }
+                //if(localIndex >= Dialogue.Dialogues.Length - 1)
+                //{
+                //    nextButton.GetComponentInChildren<TextMeshProUGUI>().text = "Finalizar";
+                //}
+                //else
+                //{
+                //    nextButton.GetComponentInChildren<TextMeshProUGUI>().text = "Continuar";
+                //}
 
                     break;
             case 1:
@@ -80,14 +81,14 @@ public class DialogueUI2 : MonoBehaviour
                         audioSource.Stop();
                         audioSource.PlayOneShot(Dialogue.Dialogues[localIndex].sound);
                     }
-                    if (localIndex >= Dialogue.Dialogues.Length - 1)
-                    {
-                        nextButton.GetComponentInChildren<TextMeshProUGUI>().text = "Finalizar";
-                    }
-                    else
-                    {
-                        nextButton.GetComponentInChildren<TextMeshProUGUI>().text = "Continuar";
-                    }
+                    //if (localIndex >= Dialogue.Dialogues.Length - 1)
+                    //{
+                    //    nextButton.GetComponentInChildren<TextMeshProUGUI>().text = "Finalizar";
+                    //}
+                    //else
+                    //{
+                    //    nextButton.GetComponentInChildren<TextMeshProUGUI>().text = "Continuar";
+                    //}
                 }
                 else
                 {
@@ -121,9 +122,12 @@ public class DialogueUI2 : MonoBehaviour
         dialogueText.text = Dialogue.Dialogues[localIndex].dialogue;
         dialogueText.richText = true;
 
-        for (int i = 0; i < Dialogue.Dialogues[localIndex].dialogue.ToCharArray().Length; i++)
+        var dialogueContent = Dialogue.Dialogues[localIndex].dialogue.ToCharArray();
+        
+        foreach (char letter in dialogueContent)
         {
             dialogueText.maxVisibleCharacters++;
+            if (!char.IsWhiteSpace(letter)) audioSource.PlayOneShot(typingAudioSource);
             yield return new WaitForSeconds(1f / textSpeed);
         }
     }

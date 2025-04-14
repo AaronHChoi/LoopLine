@@ -251,14 +251,111 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Dialogue: {fileID: 0}
-  textSpeed: 100
+  textSpeed: 25
   dialogueContainer: {fileID: 1487907391}
   questionContainer: {fileID: 1377615066}
   name: {fileID: 735163483}
   dialogueText: {fileID: 67782764}
-  nextButton: {fileID: 1839381341}
+  typingAudioSource: {fileID: 8300000, guid: 897e505bcec5c6e4f8c2e29546e935e1, type: 3}
   audioSource: {fileID: 0}
   localIndex: 0
+--- !u!82 &24242891
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 24242888}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 897e505bcec5c6e4f8c2e29546e935e1, type: 3}
+  m_Resource: {fileID: 8300000, guid: 897e505bcec5c6e4f8c2e29546e935e1, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.4
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &41856354
 GameObject:
   m_ObjectHideFlags: 0
@@ -5340,17 +5437,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1833307865}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1839381341 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6877789066817363358, guid: f94f4c21249e3a34989e59cb3c6ae0c4, type: 3}
-  m_PrefabInstance: {fileID: 6803076904969127944}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1873646509
 GameObject:
   m_ObjectHideFlags: 0
@@ -5852,7 +5938,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueUI: {fileID: 24242890}
-  player: {fileID: 0}
   QuestionManager: {fileID: 1377615068}
 --- !u!1 &2062344435
 GameObject:
@@ -6438,13 +6523,41 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2538006514302297592, guid: f94f4c21249e3a34989e59cb3c6ae0c4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3447325912552668812, guid: f94f4c21249e3a34989e59cb3c6ae0c4, type: 3}
       propertyPath: m_Name
       value: DialogueBox
       objectReference: {fileID: 0}
+    - target: {fileID: 3793414273193852101, guid: f94f4c21249e3a34989e59cb3c6ae0c4, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3793414273193852101, guid: f94f4c21249e3a34989e59cb3c6ae0c4, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3793414273193852101, guid: f94f4c21249e3a34989e59cb3c6ae0c4, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3793414273193852101, guid: f94f4c21249e3a34989e59cb3c6ae0c4, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190080
+      objectReference: {fileID: 0}
+    - target: {fileID: 5052550003698410727, guid: f94f4c21249e3a34989e59cb3c6ae0c4, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 5052550003698410727, guid: f94f4c21249e3a34989e59cb3c6ae0c4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.000061035
+      objectReference: {fileID: 0}
     - target: {fileID: 6877789066817363358, guid: f94f4c21249e3a34989e59cb3c6ae0c4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6877789066817363358, guid: f94f4c21249e3a34989e59cb3c6ae0c4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -6483,6 +6596,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3447325912552668812, guid: f94f4c21249e3a34989e59cb3c6ae0c4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 24242890}
+    - targetCorrespondingSourceObject: {fileID: 3447325912552668812, guid: f94f4c21249e3a34989e59cb3c6ae0c4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 24242891}
     - targetCorrespondingSourceObject: {fileID: 1769917232003898759, guid: f94f4c21249e3a34989e59cb3c6ae0c4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1377615068}
