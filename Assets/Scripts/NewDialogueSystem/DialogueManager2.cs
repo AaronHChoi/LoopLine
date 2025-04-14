@@ -1,7 +1,10 @@
 using UnityEngine;
+using System;
 
 public class DialogueManager2 : MonoBehaviour
 {
+    public static event Action OnDialogueStarted;
+    public static event Action OnDialogueEnded;
     public static DialogueManager2 Instance { get; private set; }
     public static DialogueSpeaker actualSpeaker;
     [SerializeField] private DialogueUI2 dialogueUI;
@@ -33,12 +36,14 @@ public class DialogueManager2 : MonoBehaviour
         if (!show)
         {
             dialogueUI.localIndex = 0;
+            OnDialogueEnded?.Invoke();
             player.SetControllerEnabled(true);
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
         else
         {
+            OnDialogueStarted?.Invoke();
             player.SetControllerEnabled(false);
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
