@@ -31,8 +31,8 @@ public class GameManager : MonoBehaviour
     {
         developmentManager = FindAnyObjectByType<DevelopmentManager>();
         iniatialLoopTime = LoopTime;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Update()

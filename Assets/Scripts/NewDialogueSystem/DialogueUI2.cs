@@ -1,0 +1,128 @@
+using System.Collections;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class DialogueUI2 : MonoBehaviour
+{
+    public DialogueSO Dialogue;
+    [SerializeField] private float textSpeed = 10;
+
+    [SerializeField] private GameObject dialogueContainer;
+    [SerializeField] private GameObject questionContainer;
+
+    [SerializeField] private TextMeshProUGUI name;
+    [SerializeField] private TextMeshProUGUI dialogueText;
+
+    [SerializeField] private Button nextButton;
+
+    [SerializeField] private AudioSource audioSource;
+    public int localIndex = 1;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+
+        dialogueContainer.SetActive(true);
+        questionContainer.SetActive(false);
+
+        nextButton.gameObject.SetActive(true);
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q)) //test
+        {
+            TextUpdate(1);
+        }
+    }
+    public void TextUpdate(int trigger)
+    {
+        dialogueContainer.SetActive(true);
+        questionContainer.SetActive(false);
+        switch (trigger)
+        {
+            case 0:
+
+                print("Dialogo actualizado");
+                name.text = Dialogue.Dialogues[localIndex].character.name;
+                StopAllCoroutines();
+                StartCoroutine(WriteText());
+
+                if (Dialogue.Dialogues[localIndex].sound != null)
+                {
+                    audioSource.Stop();
+                    audioSource.PlayOneShot(Dialogue.Dialogues[localIndex].sound);
+                }
+                if(localIndex >= Dialogue.Dialogues.Length - 1)
+                {
+                    nextButton.GetComponentInChildren<TextMeshProUGUI>().text = "Finalizar";
+                }
+                else
+                {
+                    nextButton.GetComponentInChildren<TextMeshProUGUI>().text = "Continuar";
+                }
+
+                    break;
+            case 1:
+
+                if(localIndex < Dialogue.Dialogues.Length - 1)
+                {
+                    print("Dialogo Siguiente");
+                    localIndex++;
+                    name.text = Dialogue.Dialogues[localIndex].character.name;
+                    StopAllCoroutines();
+                    StartCoroutine(WriteText());
+
+                    if (Dialogue.Dialogues[localIndex].sound != null)
+                    {
+                        audioSource.Stop();
+                        audioSource.PlayOneShot(Dialogue.Dialogues[localIndex].sound);
+                    }
+                    if (localIndex >= Dialogue.Dialogues.Length - 1)
+                    {
+                        nextButton.GetComponentInChildren<TextMeshProUGUI>().text = "Finalizar";
+                    }
+                    else
+                    {
+                        nextButton.GetComponentInChildren<TextMeshProUGUI>().text = "Continuar";
+                    }
+                }
+                else
+                {
+                    print("Dialogo Termiando");
+                    localIndex = 0;
+                    DialogueManager2.actualSpeaker.DialogueLocalIndex = 0;
+                    Dialogue.Finished = true;
+
+                    if(Dialogue.Questions != null)
+                    {
+                        dialogueContainer.SetActive(false);
+                        questionContainer.SetActive(true);
+                        var question = Dialogue.Questions;
+                        DialogueManager2.Instance.QuestionManager.ActivateButtons(question.Options.Length, question.Question, question.Options);
+                        return;
+                    }
+                    DialogueManager2.Instance.ShowUI(false);
+                    return;
+                }
+                DialogueManager2.actualSpeaker.DialogueLocalIndex = localIndex;
+
+                break;
+            default:
+                Debug.LogWarning("Estas pasando un valor no valido");
+                break;
+        }
+    }
+    IEnumerator WriteText()
+    {
+        dialogueText.maxVisibleCharacters = 0;
+        dialogueText.text = Dialogue.Dialogues[localIndex].dialogue;
+        dialogueText.richText = true;
+
+        for (int i = 0; i < Dialogue.Dialogues[localIndex].dialogue.ToCharArray().Length; i++)
+        {
+            dialogueText.maxVisibleCharacters++;
+            yield return new WaitForSeconds(1f / textSpeed);
+        }
+    }
+}
