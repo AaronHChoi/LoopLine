@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 public class Word : MonoBehaviour, IWord, IInteract
 {
 
@@ -17,20 +18,6 @@ public class Word : MonoBehaviour, IWord, IInteract
     {
         return interactText;
     }
-
-    public void Interact()
-    {
-        if (isCorrectWord)
-        {
-            Material material = GetComponent<Renderer>().material;
-            material.color = Color.green;
-        }
-        else
-        {
-            Debug.Log("Incorrect word: " + word);
-        }
-    }
-
     private void Start()
     {
         playerController = FindAnyObjectByType<PlayerController>();
@@ -39,11 +26,29 @@ public class Word : MonoBehaviour, IWord, IInteract
             Debug.LogError("PlayerController not found in the scene.");
         }
         tmpro = GetComponentInChildren<TextMeshPro>();
-        tmpro.text = word;
+        if (tmpro == null)
+        {
+            Debug.LogError("TextMeshPro component not found in children.");
+        }
+
     }
+    public void Interact()
+    {
+        if (isCorrectWord)
+        {
+            tmpro.color = Color.green;
+        }
+        else
+        {
+            SceneManager.LoadScene("Main");
+        }
+    }
+
+    
 
     private void Update()
     {
+        tmpro.text = word;
         if (Vector3.Distance(transform.position, playerController.transform.position) <= range)
         {
 

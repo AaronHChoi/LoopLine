@@ -18,12 +18,16 @@ public class WordManager : MonoBehaviour
     {
         for (int i = 0; i < incorrectWordsObject.Count; i++)
         {
-            incorrectWordsObject[i].word = incorrectWords[Random.Range(0, incorrectWords.Count -1)];
+            int randomIndex = Random.Range(0, incorrectWords.Count - 1);
+            incorrectWordsObject[i].word = incorrectWords[randomIndex];
+            incorrectWords.RemoveAt(randomIndex);
         }
 
         for (int i = 0; i < correctWordsObject.Count; i++)
         {
-            correctWordsObject[i].word = correctWords[Random.Range(0, correctWords.Count - 1)];
+            int randomIndex = Random.Range(0, incorrectWords.Count - 1);
+            correctWordsObject[i].word = correctWords[randomIndex];
+            correctWords.RemoveAt(randomIndex); 
         }
     }
 }
