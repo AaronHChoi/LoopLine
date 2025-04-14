@@ -86,6 +86,7 @@ public class DialogueUI2 : MonoBehaviour
                         dialogueContainer.SetActive(false);
                         questionContainer.SetActive(true);
                         var question = Dialogue.Questions;
+                        name.text = question.CharacterName.name;
                         DialogueManager2.Instance.QuestionManager.ActivateButtons(question.Options.Length, question.Question, question.Options);
                         return;
                     }
