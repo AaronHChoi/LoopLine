@@ -7,7 +7,7 @@ public class DialogueManager2 : MonoBehaviour
     public static event Action OnDialogueEnded;
     public static DialogueManager2 Instance { get; private set; }
     public static DialogueSpeaker actualSpeaker;
-    [SerializeField] private DialogueUI2 dialogueUI;
+    private DialogueUI2 dialogueUI;
     PlayerController player;
 
     public QuestionManager QuestionManager;

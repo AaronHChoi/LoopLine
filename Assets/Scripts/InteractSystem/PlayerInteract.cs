@@ -1,13 +1,18 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
 {
-    [SerializeField] private GameObject rayCastPoint;
+    private CinemachineCamera rayCastPoint;
     [SerializeField] private float raycastDistance = 2f;
     [SerializeField] private LayerMask interactableLayer;
 
+    private void Awake()
+    {
+        rayCastPoint = FindFirstObjectByType<CinemachineCamera>();
+    }
     void Update()
     {
         Debug.DrawRay(rayCastPoint.transform.position, rayCastPoint.transform.forward * raycastDistance, Color.red);
