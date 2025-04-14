@@ -8,7 +8,6 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField] private float raycastDistance = 2f;
     [SerializeField] private LayerMask interactableLayer;
 
-    // Update is called once per frame
     void Update()
     {
         Debug.DrawRay(rayCastPoint.transform.position, rayCastPoint.transform.forward * raycastDistance, Color.red);

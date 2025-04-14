@@ -9,9 +9,11 @@ public class DevelopmentManager : MonoBehaviour
     [SerializeField] private GameObject UIDeveloperMode;
     [SerializeField] private GameObject bgm;
 
+    bool isCursorVisible = false;
     void Start()
     {
         GameManager.Instance.changeLoopTime = false;
+        UpdateCursorState();
     }
 
     void Update()
@@ -20,17 +22,20 @@ public class DevelopmentManager : MonoBehaviour
         {
             UIPrinciplal.SetActive(!UIPrinciplal.activeInHierarchy);
             UIDeveloperMode.SetActive(!UIDeveloperMode.activeInHierarchy);
-        }
 
-        if (UIDeveloperMode.activeInHierarchy)
-        {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            UpdateCursorState();
         }
-        else
+    }
+
+    void UpdateCursorState()
+    {
+        bool shouldShowCursor = UIDeveloperMode.activeInHierarchy;
+
+        if(isCursorVisible != shouldShowCursor)
         {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            isCursorVisible = shouldShowCursor;
+            Cursor.visible = isCursorVisible;
+            Cursor.lockState = isCursorVisible ? CursorLockMode.None : CursorLockMode.Locked;
         }
     }
 

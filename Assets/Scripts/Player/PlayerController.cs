@@ -10,9 +10,12 @@ public class PlayerController : MonoBehaviour
     private PlayerModel playerModel;
     private InputAction moveAction;
     private CinemachineCamera virtualCamera;
-    private Transform cameraTransform; 
+    private Transform cameraTransform;
+    private CinemachinePanTilt panTilt;
 
     private Vector2 inputMovement;
+    private float lockedPanValue;
+    private float lockedTiltValue;
 
     private void Awake()
     {
@@ -21,6 +24,10 @@ public class PlayerController : MonoBehaviour
         var playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions["Move"];
         virtualCamera = FindAnyObjectByType<CinemachineCamera>();
+        panTilt = FindFirstObjectByType<CinemachinePanTilt>();
+    }
+    private void Start()
+    {
         cameraTransform = virtualCamera.transform;
     }
     private void Update()
@@ -49,5 +56,19 @@ public class PlayerController : MonoBehaviour
     {
         CanMove = enabled;
         virtualCamera.enabled = enabled;
+
+        if(panTilt != null)
+        {
+            if (enabled)
+            {
+                panTilt.PanAxis.Value = lockedPanValue;
+                panTilt.TiltAxis.Value = lockedTiltValue;
+            }
+            else
+            {
+                lockedPanValue = panTilt.PanAxis.Value;
+                lockedTiltValue = panTilt.TiltAxis.Value;
+            }
+        }
     }
 }

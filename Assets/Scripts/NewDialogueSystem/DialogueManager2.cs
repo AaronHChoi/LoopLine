@@ -1,0 +1,87 @@
+using UnityEngine;
+using System;
+
+public class DialogueManager2 : MonoBehaviour
+{
+    public static event Action OnDialogueStarted;
+    public static event Action OnDialogueEnded;
+    public static DialogueManager2 Instance { get; private set; }
+    public static DialogueSpeaker actualSpeaker;
+    [SerializeField] private DialogueUI2 dialogueUI;
+    PlayerController player;
+
+    public QuestionManager QuestionManager;
+    private void Awake()
+    {
+        if(Instance = this)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        dialogueUI = FindFirstObjectByType<DialogueUI2>();
+        QuestionManager = FindFirstObjectByType<QuestionManager>();
+        player = FindFirstObjectByType<PlayerController>();
+    }
+    private void Start()
+    {
+        ShowUI(false);
+    }
+    public void ShowUI(bool show)
+    {
+        dialogueUI.gameObject.SetActive(show);
+        if (!show)
+        {
+            dialogueUI.localIndex = 0;
+            OnDialogueEnded?.Invoke();
+            player.SetControllerEnabled(true);
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            OnDialogueStarted?.Invoke();
+            player.SetControllerEnabled(false);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+    }
+    public void SetDialogue(DialogueSO _dialogue, DialogueSpeaker speaker)
+    {
+        if(speaker != null)
+        {
+            actualSpeaker = speaker;
+        }
+        else
+        {
+            dialogueUI.Dialogue = _dialogue;
+            dialogueUI.localIndex = 0;
+            dialogueUI.TextUpdate(0);
+        }
+        if (_dialogue.Finished && !_dialogue.ReUse)
+        {
+            dialogueUI.Dialogue = _dialogue;
+            dialogueUI.localIndex = _dialogue.Dialogues.Length;
+            dialogueUI.TextUpdate(1);
+        }
+        else
+        {
+            dialogueUI.Dialogue = _dialogue;
+            dialogueUI.localIndex = actualSpeaker.DialogueLocalIndex;
+            dialogueUI.TextUpdate(0);
+        }
+    }
+    //metodo para cambiar el estado de reuse
+    public void ChangeTheReUseStatus(DialogueSO _dialogo, bool status)
+    {
+        _dialogo.ReUse = status;
+    }
+    //metodo para desbloquear x dialogo
+    public void LockingAndUnlockinkUpdates(DialogueSO _dialogue, bool unlocking)
+    {
+        _dialogue.Unlocked = unlocking;
+    }
+}

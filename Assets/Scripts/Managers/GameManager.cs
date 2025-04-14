@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 
     public bool changeLoopTime = false; 
 
-    private DevelopmentManager developmentManager;
+    //private DevelopmentManager developmentManager;
     private float iniatialLoopTime;
 
     private void Awake()
@@ -29,10 +29,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        developmentManager = FindAnyObjectByType<DevelopmentManager>();
+        //developmentManager = FindAnyObjectByType<DevelopmentManager>();
         iniatialLoopTime = LoopTime;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Update()
