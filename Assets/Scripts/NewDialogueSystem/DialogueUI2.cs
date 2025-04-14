@@ -30,10 +30,12 @@ public class DialogueUI2 : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q)) //test
+        //test
+        if (Input.GetKeyDown(KeyCode.Q)) 
         {
             TextUpdate(1);
         }
+        ////////////////////
     }
     public void TextUpdate(int trigger)
     {

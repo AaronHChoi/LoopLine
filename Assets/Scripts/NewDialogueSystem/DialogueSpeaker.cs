@@ -26,6 +26,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract
                 }
             }
         }
+        ///////////////////////////////////////////////////
     }
     public void DialogueTrigger()
     {

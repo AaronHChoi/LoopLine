@@ -13,5 +13,6 @@ public class QuestionSO : ScriptableObject
 {
     [TextArea(3, 5)]
     public string Question;
+    public CharacterSO CharacterName;
     public Options[] Options;
 }

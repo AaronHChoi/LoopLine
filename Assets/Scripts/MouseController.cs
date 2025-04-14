@@ -4,8 +4,7 @@ public class MouseController : MonoBehaviour
 {
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        LockCursor();
     }
     public static void LockCursor()
     {
