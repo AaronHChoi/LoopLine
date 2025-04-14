@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class DialogueSpeaker : MonoBehaviour, IInteract
 {
-    //public static event Action OnDialogueStarted;
-
     [SerializeField] private string interactText = "Interact with me!";
     public List<DialogueSO> AvailableDialogs = new List<DialogueSO>();
     [SerializeField] private int dialogueIndex = 0;
@@ -32,7 +30,6 @@ public class DialogueSpeaker : MonoBehaviour, IInteract
     public void DialogueTrigger()
     {
         Debug.Log("Trigger");
-        //OnDialogueStarted?.Invoke();
         if (dialogueIndex <= AvailableDialogs.Count - 1)
         {
             if (AvailableDialogs[dialogueIndex].Unlocked)

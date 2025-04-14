@@ -14,25 +14,25 @@ public class DialogueUI2 : MonoBehaviour
     [SerializeField] private TextMeshProUGUI name;
     [SerializeField] private TextMeshProUGUI dialogueText;
 
-    //[SerializeField] private Button nextButton;
-
     [SerializeField] private AudioClip typingAudioSource;
     [SerializeField] private AudioSource audioSource;
+    
     public int localIndex = 1;
 
-    private void Start()
+    bool isTyping = false;
+    private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-
+    }
+    private void Start()
+    {
         dialogueContainer.SetActive(true);
         questionContainer.SetActive(false);
-
-        //nextButton.gameObject.SetActive(true);
     }
     private void Update()
     {
         //
-        if (Input.GetKeyDown(KeyCode.Q)) 
+        if (Input.GetKeyDown(KeyCode.Q) && !isTyping) 
         {
             TextUpdate(1);
         }
@@ -56,14 +56,6 @@ public class DialogueUI2 : MonoBehaviour
                     audioSource.Stop();
                     audioSource.PlayOneShot(Dialogue.Dialogues[localIndex].sound);
                 }
-                //if(localIndex >= Dialogue.Dialogues.Length - 1)
-                //{
-                //    nextButton.GetComponentInChildren<TextMeshProUGUI>().text = "Finalizar";
-                //}
-                //else
-                //{
-                //    nextButton.GetComponentInChildren<TextMeshProUGUI>().text = "Continuar";
-                //}
 
                     break;
             case 1:
@@ -81,14 +73,6 @@ public class DialogueUI2 : MonoBehaviour
                         audioSource.Stop();
                         audioSource.PlayOneShot(Dialogue.Dialogues[localIndex].sound);
                     }
-                    //if (localIndex >= Dialogue.Dialogues.Length - 1)
-                    //{
-                    //    nextButton.GetComponentInChildren<TextMeshProUGUI>().text = "Finalizar";
-                    //}
-                    //else
-                    //{
-                    //    nextButton.GetComponentInChildren<TextMeshProUGUI>().text = "Continuar";
-                    //}
                 }
                 else
                 {
@@ -118,6 +102,7 @@ public class DialogueUI2 : MonoBehaviour
     }
     IEnumerator WriteText()
     {
+        isTyping = true;
         dialogueText.maxVisibleCharacters = 0;
         dialogueText.text = Dialogue.Dialogues[localIndex].dialogue;
         dialogueText.richText = true;
@@ -130,5 +115,6 @@ public class DialogueUI2 : MonoBehaviour
             if (!char.IsWhiteSpace(letter)) audioSource.PlayOneShot(typingAudioSource);
             yield return new WaitForSeconds(1f / textSpeed);
         }
+        isTyping = false;
     }
 }
