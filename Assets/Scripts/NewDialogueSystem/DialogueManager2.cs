@@ -1,4 +1,3 @@
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class DialogueManager2 : MonoBehaviour
@@ -32,12 +31,15 @@ public class DialogueManager2 : MonoBehaviour
         dialogueUI.gameObject.SetActive(show);
         if (!show)
         {
-            dialogueUI.localIndex = 0;
-            MouseController.UnlockCursor();
+            dialogueUI.localIndex = 0; 
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            
         }
         else
         {
-            MouseController.LockCursor();
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
     }
     public void SetDialogue(DialogueSO _dialogue, DialogueSpeaker speaker)
