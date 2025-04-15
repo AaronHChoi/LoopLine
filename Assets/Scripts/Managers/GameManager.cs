@@ -9,7 +9,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private string nextScene;
 
-    private DevelopmentManager developmentManager;
+    public bool changeLoopTime = false; 
+
+    //private DevelopmentManager developmentManager;
     private float iniatialLoopTime;
 
     private void Awake()
@@ -27,15 +29,13 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        developmentManager = FindAnyObjectByType<DevelopmentManager>();
+        //developmentManager = FindAnyObjectByType<DevelopmentManager>();
         iniatialLoopTime = LoopTime;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Update()
     {
-        if (developmentManager.developmentMode == true && Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.T))
+        if (changeLoopTime && LoopTime >= 5f)
         {
             LoopTime = 5f;
         }
@@ -43,18 +43,14 @@ public class GameManager : MonoBehaviour
         {
             
             LoopTime -= Time.deltaTime;
+            if (Input.GetKey(KeyCode.F))
+            {
+                LoopTime -= Time.deltaTime * 8f;
+            }
             if (LoopTime <= 0)
             {
                 LoopTime = 360f;
                 LoadNextScene(nextScene);
-            }
-        }
-
-        if (SceneManager.GetActiveScene().name == "ThinkingWorld")
-        {
-            if (developmentManager.developmentMode == true && Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.L)) 
-            {
-                SceneManager.LoadScene("Main");
             }
         }
     }

@@ -4,14 +4,19 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public bool CanMove { get; set; } = true;
+
     private PlayerView playerView;
     private PlayerModel playerModel;
-
-    private Vector2 inputMovement;
-
     private InputAction moveAction;
     private CinemachineCamera virtualCamera;
     private Transform cameraTransform;
+    private CinemachinePanTilt panTilt;
+
+    private Vector2 inputMovement;
+    private float lockedPanValue;
+    private float lockedTiltValue;
+
     private void Awake()
     {
         playerView = GetComponent<PlayerView>();
@@ -19,6 +24,10 @@ public class PlayerController : MonoBehaviour
         var playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions["Move"];
         virtualCamera = FindAnyObjectByType<CinemachineCamera>();
+        panTilt = FindFirstObjectByType<CinemachinePanTilt>();
+    }
+    private void Start()
+    {
         cameraTransform = virtualCamera.transform;
     }
     private void Update()
@@ -27,6 +36,7 @@ public class PlayerController : MonoBehaviour
     }
     public void HandleMovement()
     {
+        if (!CanMove) return;
         inputMovement = moveAction.ReadValue<Vector2>();
 
         Vector3 forward = cameraTransform.forward;
@@ -41,5 +51,24 @@ public class PlayerController : MonoBehaviour
         moveDirection *= playerModel.Speed;
 
         playerView.Move(moveDirection * Time.deltaTime);
+    }
+    public void SetControllerEnabled(bool enabled)
+    {
+        CanMove = enabled;
+        virtualCamera.enabled = enabled;
+
+        if(panTilt != null)
+        {
+            if (enabled)
+            {
+                panTilt.PanAxis.Value = lockedPanValue;
+                panTilt.TiltAxis.Value = lockedTiltValue;
+            }
+            else
+            {
+                lockedPanValue = panTilt.PanAxis.Value;
+                lockedTiltValue = panTilt.TiltAxis.Value;
+            }
+        }
     }
 }

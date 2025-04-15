@@ -5,15 +5,13 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI contador_provicional;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        contador_provicional.text = GameManager.Instance.LoopTime.ToString();
+        contador_provicional.text = GetFormattedLoopTime(GameManager.Instance.LoopTime);
+    }
+
+    public string GetFormattedLoopTime(float loopTime)
+    {
+        return Mathf.FloorToInt(loopTime).ToString();
     }
 }

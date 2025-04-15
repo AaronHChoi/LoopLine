@@ -5,36 +5,75 @@ using UnityEngine.UI;
 public class DevelopmentManager : MonoBehaviour
 {
 
-    public bool developmentMode { get; private set; } = false;
-    [SerializeField] private KeyCode developmentHacks;
-    [SerializeField] private KeyCode resetLevel;
-    [SerializeField] private KeyCode MenuLevel;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [SerializeField] private GameObject UIPrinciplal;
+    [SerializeField] private GameObject UIDeveloperMode;
+    [SerializeField] private GameObject bgm;
+
+    bool isCursorVisible = false;
     void Start()
     {
-        developmentMode = false;
+        GameManager.Instance.changeLoopTime = false;
+        UpdateCursorState();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(developmentHacks))
+        if (Input.GetKeyDown(KeyCode.Escape) && UIPrinciplal != null)
         {
-            developmentMode = !developmentMode;;
-            Debug.Log("Development Mode: " + developmentMode);
+            UIPrinciplal.SetActive(!UIPrinciplal.activeInHierarchy);
+            UIDeveloperMode.SetActive(!UIDeveloperMode.activeInHierarchy);
+
+            UpdateCursorState();
         }
-        if (developmentMode)
+    }
+
+    void UpdateCursorState()
+    {
+        bool shouldShowCursor = UIDeveloperMode.activeInHierarchy;
+
+        if(isCursorVisible != shouldShowCursor)
         {
-            if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(resetLevel))
+            isCursorVisible = shouldShowCursor;
+            Cursor.visible = isCursorVisible;
+            Cursor.lockState = isCursorVisible ? CursorLockMode.None : CursorLockMode.Locked;
+        }
+    }
+
+    public void ResetLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void MenuLevel()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void Mute()
+    {
+        bgm.SetActive(!bgm.activeInHierarchy);
+    }
+
+    public void LoadMainLevel()
+    {
+        if (SceneManager.GetActiveScene().name == "ThinkingWorld")
+        {
+            SceneManager.LoadScene("Main");
+        }
+    }
+
+    public void CutTime()
+    {
+        if (SceneManager.GetActiveScene().name == "Main")
+        {
+            if (GameManager.Instance.LoopTime > 5f)
             {
-                Debug.Log("Comando CTRL + " + (resetLevel.ToString()) + " presionado");
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            } 
-            if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(MenuLevel))
-            {
-                Debug.Log("Comando CTRL + " + (MenuLevel.ToString()) + " presionado");
-                SceneManager.LoadScene("MainMenu");
+                GameManager.Instance.changeLoopTime = true;
             }
-        }
+            else
+            {
+                GameManager.Instance.changeLoopTime = false;
+            }
+        }    
     }
 }
