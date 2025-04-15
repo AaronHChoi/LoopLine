@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     //private DevelopmentManager developmentManager;
     private float iniatialLoopTime;
+    int timeMultiplier = 8;
+    private const int TIME_DEFAULT = 1;
 
     private void Awake()
     {
@@ -39,24 +41,35 @@ public class GameManager : MonoBehaviour
         {
             LoopTime = 5f;
         }
+
+        TimeForward();
+    }
+
+    private void LoadNextScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
+    private void TimeForward()
+    {
         if (SceneManager.GetActiveScene().name == "Main")
         {
-            
-            LoopTime -= Time.deltaTime;
-            if (Input.GetKey(KeyCode.F))
-            {
-                LoopTime -= Time.deltaTime * 8f;
-            }
+            AdjustGameSpeed(Input.GetKey(KeyCode.F) ? timeMultiplier : TIME_DEFAULT);
+
+            LoopTime -= Time.deltaTime * Time.timeScale;
+
             if (LoopTime <= 0)
             {
                 LoopTime = 360f;
                 LoadNextScene(nextScene);
             }
         }
+        else
+        {
+            AdjustGameSpeed(TIME_DEFAULT);
+        }
     }
-
-    private void LoadNextScene(string sceneName)
+    public void AdjustGameSpeed(float speedMultiplier)
     {
-        SceneManager.LoadScene(sceneName);
+        Time.timeScale = speedMultiplier;
     }
 }
