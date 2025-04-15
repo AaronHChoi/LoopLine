@@ -9,11 +9,14 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private string nextScene;
 
-    public bool changeLoopTime = false; 
+    public bool changeLoopTime = false;
+    public bool AllowFastForward = false;
 
     //private DevelopmentManager developmentManager;
     private float iniatialLoopTime;
-    int timeMultiplier = 8;
+    [SerializeField] private int timeMultiplier = 4;
+    
+    
     private const int TIME_DEFAULT = 1;
 
     private void Awake()
@@ -53,7 +56,9 @@ public class GameManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "Main")
         {
-            AdjustGameSpeed(Input.GetKey(KeyCode.F) ? timeMultiplier : TIME_DEFAULT);
+            float speedMultiplier = AllowFastForward && Input.GetKey(KeyCode.F) ? timeMultiplier : TIME_DEFAULT;
+
+            AdjustGameSpeed(speedMultiplier);
 
             LoopTime -= Time.deltaTime * Time.timeScale;
 
@@ -71,5 +76,9 @@ public class GameManager : MonoBehaviour
     public void AdjustGameSpeed(float speedMultiplier)
     {
         Time.timeScale = speedMultiplier;
+    }
+    public void AllowFastForwardMethod(bool enabled)
+    {
+        AllowFastForward = enabled;
     }
 }
