@@ -103,6 +103,7 @@ public class DialogueUI2 : MonoBehaviour
     }
     IEnumerator WriteText()
     {
+        GameManager.Instance.AllowFastForwardMethod(true);
         isTyping = true;
         dialogueText.maxVisibleCharacters = 0;
         dialogueText.text = Dialogue.Dialogues[localIndex].dialogue;
@@ -117,5 +118,6 @@ public class DialogueUI2 : MonoBehaviour
             yield return new WaitForSeconds(1f / textSpeed);
         }
         isTyping = false;
+        GameManager.Instance.AllowFastForwardMethod(false);
     }
 }
