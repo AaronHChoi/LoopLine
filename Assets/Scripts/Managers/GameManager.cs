@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
         }
 
         TimeForward();
+        AdvanceTime();
     }
 
     private void LoadNextScene(string sceneName)
@@ -55,7 +56,7 @@ public class GameManager : MonoBehaviour
     }
     private void TimeForward()
     {
-        if (SceneManager.GetActiveScene().name == "Main" && AllowFastForward)
+        if (SceneManager.GetActiveScene().name == "Train" && AllowFastForward)
         {
             float speedMultiplier = TIME_DEFAULT;
 
@@ -79,6 +80,11 @@ public class GameManager : MonoBehaviour
             AdjustGameSpeed(TIME_DEFAULT);
         }
     }
+
+    private void AdvanceTime()
+    {
+        LoopTime -= Time.deltaTime * Time.timeScale;
+    } 
     public void AdjustGameSpeed(float speedMultiplier)
     {
         Time.timeScale = speedMultiplier;
