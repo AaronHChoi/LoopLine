@@ -12,6 +12,6 @@ public class PrototypeButton : MonoBehaviour, IInteract
 
     public void Interact()
     {
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("Train");
     }
 }
