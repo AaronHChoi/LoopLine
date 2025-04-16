@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 public class DialogueManager2 : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class DialogueManager2 : MonoBehaviour
     PlayerController player;
 
     public QuestionManager QuestionManager;
+
+    public List<DialogueSO> AllDialogues = new List<DialogueSO>();
+
     private void Awake()
     {
         if(Instance = this)
@@ -83,5 +87,15 @@ public class DialogueManager2 : MonoBehaviour
     public void LockingAndUnlockinkUpdates(DialogueSO _dialogue, bool unlocking)
     {
         _dialogue.Unlocked = unlocking;
+    }
+    public void ResetAllDialogues()
+    {
+        foreach(DialogueSO dialogue in AllDialogues)
+        {
+            if(dialogue != null)
+            {
+                dialogue.ResetValues();
+            }
+        }
     }
 }

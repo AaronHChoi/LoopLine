@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class DialogueUI2 : MonoBehaviour
 {
     public DialogueSO Dialogue;
+    public DialogueSO MainDialogue;
     [SerializeField] private float textSpeed = 10;
 
     [SerializeField] private GameObject dialogueContainer;
@@ -16,10 +17,11 @@ public class DialogueUI2 : MonoBehaviour
 
     [SerializeField] private AudioClip typingAudioSource;
     [SerializeField] private AudioSource audioSource;
-    
+
     public int localIndex = 1;
 
     bool isTyping = false;
+    [SerializeField] bool isFirstDialogueSaved = false;
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -60,6 +62,12 @@ public class DialogueUI2 : MonoBehaviour
                     break;
             case 1:
 
+                if (!isFirstDialogueSaved)
+                {
+                    MainDialogue = Dialogue;
+                    isFirstDialogueSaved = true;
+                }
+
                 if(localIndex < Dialogue.Dialogues.Length - 1)
                 {
                     print("Dialogo Siguiente");
@@ -79,7 +87,7 @@ public class DialogueUI2 : MonoBehaviour
                     print("Dialogo Termiando");
                     localIndex = 0;
                     DialogueManager2.actualSpeaker.DialogueLocalIndex = 0;
-                    Dialogue.Finished = true;
+                    //Dialogue.Finished = true;
 
                     if(Dialogue.Questions != null)
                     {
@@ -91,6 +99,10 @@ public class DialogueUI2 : MonoBehaviour
                         return;
                     }
                     DialogueManager2.Instance.ShowUI(false);
+                    DialogueManager2.actualSpeaker.EndDialogue();
+                    MainDialogue.ReUse = true;
+                    isFirstDialogueSaved = false;
+
                     return;
                 }
                 DialogueManager2.actualSpeaker.DialogueLocalIndex = localIndex;

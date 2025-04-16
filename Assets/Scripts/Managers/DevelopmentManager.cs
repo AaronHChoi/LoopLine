@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,7 +11,12 @@ public class DevelopmentManager : MonoBehaviour
     [SerializeField] private GameObject UIDeveloperMode;
     [SerializeField] private GameObject bgm;
 
+    DialogueManager2 dialogueManager;
     bool isCursorVisible = false;
+    private void Awake()
+    {
+        dialogueManager = FindFirstObjectByType<DialogueManager2>();
+    }
     void Start()
     {
         GameManager.Instance.changeLoopTime = false;
@@ -37,6 +44,10 @@ public class DevelopmentManager : MonoBehaviour
             Cursor.visible = isCursorVisible;
             Cursor.lockState = isCursorVisible ? CursorLockMode.None : CursorLockMode.Locked;
         }
+    }
+    public void ResetDialogues()
+    {
+        dialogueManager.ResetAllDialogues();
     }
 
     public void ResetLevel()

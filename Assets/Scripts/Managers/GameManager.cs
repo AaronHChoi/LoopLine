@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     //private DevelopmentManager developmentManager;
     private float iniatialLoopTime;
     [SerializeField] private int timeMultiplier = 4;
-    
+    [SerializeField] DialogueUI2 dialogueUI;
     
     private const int TIME_DEFAULT = 1;
 
@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        dialogueUI = FindFirstObjectByType<DialogueUI2>();
     }
 
     private void Start()
@@ -54,10 +55,15 @@ public class GameManager : MonoBehaviour
     }
     private void TimeForward()
     {
-        if (SceneManager.GetActiveScene().name == "Main")
+        if (SceneManager.GetActiveScene().name == "Main" && AllowFastForward)
         {
-            float speedMultiplier = AllowFastForward && Input.GetKey(KeyCode.F) ? timeMultiplier : TIME_DEFAULT;
+            float speedMultiplier = TIME_DEFAULT;
 
+            if (dialogueUI != null && dialogueUI.Dialogue != null)
+            {
+                speedMultiplier = dialogueUI.Dialogue.ReUse && Input.GetKey(KeyCode.F) ? timeMultiplier : TIME_DEFAULT;
+            }
+           
             AdjustGameSpeed(speedMultiplier);
 
             LoopTime -= Time.deltaTime * Time.timeScale;
