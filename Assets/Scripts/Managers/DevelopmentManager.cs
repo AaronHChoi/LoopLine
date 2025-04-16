@@ -11,7 +11,7 @@ public class DevelopmentManager : MonoBehaviour
     [SerializeField] private GameObject UIDeveloperMode;
     [SerializeField] private GameObject bgm;
 
-    DialogueManager2 dialogueManager;
+    [SerializeField] DialogueManager2 dialogueManager;
     bool isCursorVisible = false;
     private void Awake()
     {
