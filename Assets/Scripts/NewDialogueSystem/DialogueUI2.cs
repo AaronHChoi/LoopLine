@@ -35,7 +35,7 @@ public class DialogueUI2 : MonoBehaviour
     private void Update()
     {
         //
-        if (Input.GetKeyDown(KeyCode.Q) && !isTyping && !isQuestionActive) 
+        if (Input.GetKeyDown(KeyCode.Mouse0) && !isTyping && !isQuestionActive) 
         {
             TextUpdate(1);
         }

@@ -12,8 +12,6 @@ public class GameManager : MonoBehaviour
     public bool changeLoopTime = false;
     public bool AllowFastForward = false;
 
-    //private DevelopmentManager developmentManager;
-    private float iniatialLoopTime;
     [SerializeField] private int timeMultiplier = 4;
     [SerializeField] DialogueUI2 dialogueUI;
     
@@ -35,8 +33,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        //developmentManager = FindAnyObjectByType<DevelopmentManager>();
-        iniatialLoopTime = LoopTime;
+        LoopTime = 360f;
     }
 
     private void Update()
@@ -66,14 +63,6 @@ public class GameManager : MonoBehaviour
             }
            
             AdjustGameSpeed(speedMultiplier);
-
-            LoopTime -= Time.deltaTime * Time.timeScale;
-
-            if (LoopTime <= 0)
-            {
-                LoopTime = 360f;
-                LoadNextScene(nextScene);
-            }
         }
         else
         {
@@ -84,6 +73,12 @@ public class GameManager : MonoBehaviour
     private void AdvanceTime()
     {
         LoopTime -= Time.deltaTime * Time.timeScale;
+
+        if (LoopTime <= 0)
+        {
+            LoopTime = 360f;
+            LoadNextScene(nextScene);
+        }
     } 
     public void AdjustGameSpeed(float speedMultiplier)
     {

@@ -67,15 +67,15 @@ public class DevelopmentManager : MonoBehaviour
 
     public void LoadMainLevel()
     {
-        if (SceneManager.GetActiveScene().name == "ThinkingWorld")
+        if (SceneManager.GetActiveScene().name == "MindPlace")
         {
-            SceneManager.LoadScene("Main");
+            SceneManager.LoadScene("Train");
         }
     }
 
     public void CutTime()
     {
-        if (SceneManager.GetActiveScene().name == "Main")
+        if (SceneManager.GetActiveScene().name == "Train")
         {
             if (GameManager.Instance.LoopTime > 5f)
             {
