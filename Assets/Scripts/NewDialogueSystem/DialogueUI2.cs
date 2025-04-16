@@ -21,6 +21,7 @@ public class DialogueUI2 : MonoBehaviour
     public int localIndex = 1;
 
     bool isTyping = false;
+    bool isQuestionActive = false;
     [SerializeField] bool isFirstDialogueSaved = false;
     private void Awake()
     {
@@ -34,7 +35,7 @@ public class DialogueUI2 : MonoBehaviour
     private void Update()
     {
         //
-        if (Input.GetKeyDown(KeyCode.Q) && !isTyping) 
+        if (Input.GetKeyDown(KeyCode.Q) && !isTyping && !isQuestionActive) 
         {
             TextUpdate(1);
         }
@@ -44,6 +45,8 @@ public class DialogueUI2 : MonoBehaviour
     {
         dialogueContainer.SetActive(true);
         questionContainer.SetActive(false);
+        isQuestionActive = false;
+
         switch (trigger)
         {
             case 0:
@@ -96,6 +99,8 @@ public class DialogueUI2 : MonoBehaviour
                         var question = Dialogue.Questions;
                         name.text = question.CharacterName.name;
                         DialogueManager2.Instance.QuestionManager.ActivateButtons(question.Options.Length, question.Question, question.Options);
+
+                        isQuestionActive = true;
                         return;
                     }
                     DialogueManager2.Instance.ShowUI(false);
