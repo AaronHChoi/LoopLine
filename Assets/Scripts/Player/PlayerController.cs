@@ -58,6 +58,7 @@ public class PlayerController : MonoBehaviour
     }
     public void HandleLook()
     {
+        if (!CanMove) return;
         if (panTilt == null) return;
 
         inputLook = lookAction.ReadValue<Vector2>();
