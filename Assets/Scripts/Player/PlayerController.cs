@@ -62,9 +62,9 @@ public class PlayerController : MonoBehaviour
 
         inputLook = lookAction.ReadValue<Vector2>();
         panTilt.PanAxis.Value += inputLook.x * playerModel.LookSensitivity * Time.deltaTime;
-        panTilt.TiltAxis.Value += inputLook.y * playerModel.LookSensitivity * Time.deltaTime;
+        panTilt.TiltAxis.Value -= inputLook.y * playerModel.LookSensitivity * Time.deltaTime;
 
-        panTilt.TiltAxis.Value = Mathf.Clamp(panTilt.TiltAxis.Value, -30f, 60f);
+        panTilt.TiltAxis.Value = Mathf.Clamp(panTilt.TiltAxis.Value, -90f, 60f);
 
         float panRotation = panTilt.PanAxis.Value;
         transform.rotation = Quaternion.Euler(0, panRotation, 0);
