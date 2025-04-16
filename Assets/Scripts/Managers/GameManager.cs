@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
         }
 
         TimeForward();
+        Debug.Log(dialogueUI.Dialogue.ReUse);
     }
 
     private void LoadNextScene(string sceneName)
