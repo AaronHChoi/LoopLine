@@ -17,4 +17,11 @@ public class DialogueSO : ScriptableObject
 
     public Line[] Dialogues;
     public QuestionSO Questions;
+
+    public void ResetValues()
+    {
+        Unlocked = true;
+        Finished = false;
+        ReUse = false;
+    }
 }

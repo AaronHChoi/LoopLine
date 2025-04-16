@@ -8,7 +8,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract
     [SerializeField] private int dialogueIndex = 0;
     public int DialogueLocalIndex = 0;
 
-    bool isDialogueActive = false;
+    public bool isDialogueActive = false;
     private void Start()
     {
         dialogueIndex = 0;
@@ -62,7 +62,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract
     {
         isDialogueActive = true;
     }
-    void EndDialogue()
+    public void EndDialogue()
     {
         isDialogueActive = false;
     }
