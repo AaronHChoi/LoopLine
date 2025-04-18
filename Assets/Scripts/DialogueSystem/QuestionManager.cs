@@ -47,6 +47,6 @@ public class QuestionManager : MonoBehaviour
     }
     public void GiveFunctionToTheButton(DialogueSO _dialogue)
     {
-        DialogueManager2.Instance.SetDialogue(_dialogue, null);
+        DialogueManager.Instance.SetDialogue(_dialogue, null);
     }
 }

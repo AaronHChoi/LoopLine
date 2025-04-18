@@ -32,29 +32,29 @@ public class DialogueSpeaker : MonoBehaviour, IInteract
                     if (DialogueUpdate())
                     {
                         StartDialogue();
-                        DialogueManager2.Instance.ShowUI(true);
-                        DialogueManager2.Instance.SetDialogue(AvailableDialogs[dialogueIndex], this);
+                        DialogueManager.Instance.ShowUI(true);
+                        DialogueManager.Instance.SetDialogue(AvailableDialogs[dialogueIndex], this);
                     }
                     StartDialogue();
-                    DialogueManager2.Instance.SetDialogue(AvailableDialogs[dialogueIndex], this);
+                    DialogueManager.Instance.SetDialogue(AvailableDialogs[dialogueIndex], this);
                     return;
                 }
                 StartDialogue();
-                DialogueManager2.Instance.ShowUI(true);
-                DialogueManager2.Instance.SetDialogue(AvailableDialogs[dialogueIndex], this);
+                DialogueManager.Instance.ShowUI(true);
+                DialogueManager.Instance.SetDialogue(AvailableDialogs[dialogueIndex], this);
             }
             else
             {
                 Debug.LogWarning("La conversacion esta bloqueada");
                 EndDialogue();
-                DialogueManager2.Instance.ShowUI(false);
+                DialogueManager.Instance.ShowUI(false);
             }
         }
         else
         {
             print("Fin del dialogo");
             EndDialogue();
-            DialogueManager2.Instance.ShowUI(false);
+            DialogueManager.Instance.ShowUI(false);
         }
         DialogueRefresh();
     }

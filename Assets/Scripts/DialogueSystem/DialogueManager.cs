@@ -1,73 +1,101 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 public class DialogueManager : MonoBehaviour
 {
+    public static event Action OnDialogueStarted;
     public static event Action OnDialogueEnded;
-    public bool IsDialogueInProgress { get; private set; }
+    public static DialogueManager Instance { get; private set; }
+    public static DialogueSpeaker actualSpeaker;
+    private DialogueUI dialogueUI;
+    PlayerController player;
 
-    private Queue<DialogueTurn> dialogueTurnsQueue;
-    private PlayerController player;
-    [SerializeField] private AudioSource typingAudioSource;
-    [SerializeField] private float typingSpeed = 0.05f;
-    [SerializeField] private DialogueUI dialogueUI;
+    public QuestionManager QuestionManager;
+
+    public List<DialogueSO> AllDialogues = new List<DialogueSO>();
+
     private void Awake()
     {
+        if(Instance = this)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         dialogueUI = FindFirstObjectByType<DialogueUI>();
+        QuestionManager = FindFirstObjectByType<QuestionManager>();
         player = FindFirstObjectByType<PlayerController>();
     }
     private void Start()
     {
-        dialogueUI.HideDialogueBox();
+        ShowUI(false);
     }
-    public void StartDialogue(DialogueRoundSO dialogue)
+    public void ShowUI(bool show)
     {
-        if (IsDialogueInProgress)
+        dialogueUI.gameObject.SetActive(show);
+        if (!show)
         {
-            Debug.LogWarning("Dialogue already in progress");
-            return;
+            dialogueUI.localIndex = 0;
+            OnDialogueEnded?.Invoke();
+            player.SetControllerEnabled(true);
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
-        if (player == null)
+        else
         {
-            Debug.LogError("PlayerController not set! Cannot start dialogue.");
-            return;
+            OnDialogueStarted?.Invoke();
+            player.SetControllerEnabled(false);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
-        player.SetControllerEnabled(false);
-
-        IsDialogueInProgress = true;
-        dialogueTurnsQueue = new Queue<DialogueTurn>(dialogue.DialogueTurnsList);
-        StartCoroutine(DialogueCoroutine());
     }
-    private IEnumerator DialogueCoroutine()
+    public void SetDialogue(DialogueSO _dialogue, DialogueSpeaker speaker)
     {
-        dialogueUI.ShowDialogueBox();
-        while(dialogueTurnsQueue.Count > 0)
+        if(speaker != null)
         {
-            var CurrentTurn = dialogueTurnsQueue.Dequeue();
-            dialogueUI.SetCharacterInfo(CurrentTurn.Character);
-            dialogueUI.ClearDialogueArea();
-            yield return StartCoroutine(TypeSentence(CurrentTurn));
-
-            yield return new WaitUntil(() => Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return));
-            yield return null;
+            actualSpeaker = speaker;
         }
-        dialogueUI.HideDialogueBox();
-        IsDialogueInProgress = false;
-
-        player.SetControllerEnabled(true);
-        OnDialogueEnded?.Invoke();
-    }
-    private IEnumerator TypeSentence(DialogueTurn dialogTurn)
-    {
-        var typingWaitSeconds = new WaitForSeconds(typingSpeed);
-
-        foreach(char letter in dialogTurn.DialogueLine.ToCharArray())
+        else
         {
-            dialogueUI.AppendToDialogueArea(letter);
-            if (!char.IsWhiteSpace(letter)) typingAudioSource.Play();
-            yield return typingWaitSeconds;
+            dialogueUI.Dialogue = _dialogue;
+            dialogueUI.localIndex = 0;
+            dialogueUI.TextUpdate(0);
+        }
+        if (_dialogue.Finished && !_dialogue.ReUse)
+        {
+            dialogueUI.Dialogue = _dialogue;
+            dialogueUI.localIndex = _dialogue.Dialogues.Length;
+            dialogueUI.TextUpdate(1);
+        }
+        else
+        {
+            dialogueUI.Dialogue = _dialogue;
+            dialogueUI.localIndex = actualSpeaker.DialogueLocalIndex;
+            dialogueUI.TextUpdate(0);
+        }
+    }
+    //metodo para cambiar el estado de reuse
+    public void ChangeTheReUseStatus(DialogueSO _dialogo, bool status)
+    {
+        _dialogo.ReUse = status;
+    }
+    //metodo para desbloquear x dialogo
+    public void LockingAndUnlockinkUpdates(DialogueSO _dialogue, bool unlocking)
+    {
+        _dialogue.Unlocked = unlocking;
+    }
+    public void ResetAllDialogues()
+    {
+        foreach(DialogueSO dialogue in AllDialogues)
+        {
+            if(dialogue != null)
+            {
+                dialogue.ResetValues();
+            }
         }
     }
 }
