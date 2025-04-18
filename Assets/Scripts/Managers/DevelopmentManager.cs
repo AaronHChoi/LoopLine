@@ -11,11 +11,11 @@ public class DevelopmentManager : MonoBehaviour
     [SerializeField] private GameObject UIDeveloperMode;
     [SerializeField] private GameObject bgm;
 
-    [SerializeField] DialogueManager2 dialogueManager;
+    [SerializeField] DialogueManager dialogueManager;
     bool isCursorVisible = false;
     private void Awake()
     {
-        dialogueManager = FindFirstObjectByType<DialogueManager2>();
+        dialogueManager = FindFirstObjectByType<DialogueManager>();
     }
     void Start()
     {

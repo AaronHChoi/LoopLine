@@ -27,13 +27,13 @@ public class InteractUI : MonoBehaviour
     }
     private void OnEnable()
     {
-        DialogueManager2.OnDialogueStarted += LockInteraction;
-        DialogueManager2.OnDialogueEnded += UnlockInteraction;
+        DialogueManager.OnDialogueStarted += LockInteraction;
+        DialogueManager.OnDialogueEnded += UnlockInteraction;
     }
     private void OnDisable()
     {
-        DialogueManager2.OnDialogueStarted -= LockInteraction;
-        DialogueManager2.OnDialogueEnded -= UnlockInteraction;
+        DialogueManager.OnDialogueStarted -= LockInteraction;
+        DialogueManager.OnDialogueEnded -= UnlockInteraction;
     }
     private void Show(IInteract interactable)
     {

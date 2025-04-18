@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public bool AllowFastForward = false;
 
     [SerializeField] private int timeMultiplier = 4;
-    [SerializeField] DialogueUI2 dialogueUI;
+    [SerializeField] DialogueUI dialogueUI;
     
     private const int TIME_DEFAULT = 1;
 
@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        dialogueUI = FindFirstObjectByType<DialogueUI2>();
+        dialogueUI = FindFirstObjectByType<DialogueUI>();
     }
 
     private void Start()
