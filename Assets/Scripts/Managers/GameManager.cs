@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private int timeMultiplier = 4;
     [SerializeField] DialogueUI dialogueUI;
+    [SerializeField] Parallax parallax;
     
     private const int TIME_DEFAULT = 1;
 
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         dialogueUI = FindFirstObjectByType<DialogueUI>();
+        parallax = FindFirstObjectByType<Parallax>();
     }
 
     private void Start()
@@ -62,10 +64,20 @@ public class GameManager : MonoBehaviour
             }
            
             AdjustGameSpeed(speedMultiplier);
+
+            if(parallax != null)
+            {
+                parallax.SetSpeedMultiplier(speedMultiplier);
+            }
         }
         else
         {
             AdjustGameSpeed(TIME_DEFAULT);
+
+            if (parallax != null)
+            {
+                parallax.SetSpeedMultiplier(TIME_DEFAULT);
+            }
         }
     }
 
