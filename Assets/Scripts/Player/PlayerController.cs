@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     }
     private void LateUpdate()
     {
-        HandleLook();
+        //HandleLook();
     }
     public void HandleMovement()
     {
