@@ -13,7 +13,9 @@ public class PlayerController : MonoBehaviour
     private CinemachineCamera virtualCamera;
     private Transform cameraTransform;
     private CinemachinePanTilt panTilt;
+    private PlayerInput playerInput;
 
+    [SerializeField] private float clampAngle = 80f;
     private Vector2 inputMovement;
     private Vector2 inputLook;
     private float lockedPanValue;
@@ -22,15 +24,15 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         playerView = GetComponent<PlayerView>();
-        playerModel = new PlayerModel();
-        var playerInput = GetComponent<PlayerInput>();
-        moveAction = playerInput.actions["Move"];
-        lookAction = playerInput.actions["Look"];
+        playerInput = GetComponent<PlayerInput>();
         virtualCamera = FindAnyObjectByType<CinemachineCamera>();
         panTilt = FindFirstObjectByType<CinemachinePanTilt>();
     }
     private void Start()
     {
+        playerModel = new PlayerModel();
+        moveAction = playerInput.actions["Move"];
+        lookAction = playerInput.actions["Look"];
         cameraTransform = virtualCamera.transform;
     }
     private void Update()
@@ -65,7 +67,7 @@ public class PlayerController : MonoBehaviour
         panTilt.PanAxis.Value += inputLook.x * playerModel.LookSensitivity * Time.deltaTime;
         panTilt.TiltAxis.Value -= inputLook.y * playerModel.LookSensitivity * Time.deltaTime;
 
-        panTilt.TiltAxis.Value = Mathf.Clamp(panTilt.TiltAxis.Value, -90f, 60f);
+        panTilt.TiltAxis.Value = Mathf.Clamp(panTilt.TiltAxis.Value, -clampAngle, clampAngle);
 
         float panRotation = panTilt.PanAxis.Value;
         transform.rotation = Quaternion.Euler(0, panRotation, 0);
