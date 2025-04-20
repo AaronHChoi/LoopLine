@@ -27,13 +27,14 @@ public class PlayerController : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         virtualCamera = FindAnyObjectByType<CinemachineCamera>();
         panTilt = FindFirstObjectByType<CinemachinePanTilt>();
+        playerModel = new PlayerModel();
     }
     private void Start()
     {
-        playerModel = new PlayerModel();
         moveAction = playerInput.actions["Move"];
         lookAction = playerInput.actions["Look"];
-        cameraTransform = virtualCamera.transform;
+        //cameraTransform = virtualCamera.transform;
+        cameraTransform = Camera.main.transform;
     }
     private void Update()
     {

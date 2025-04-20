@@ -10,6 +10,7 @@ namespace Unity.Cinemachine.Samples
     /// </summary>
     public class asd : MonoBehaviour, Unity.Cinemachine.IInputAxisOwner
     {
+        private Transform cameraTransform;
         [Tooltip("Speed when moving")]
         public float Speed = 10;
 
@@ -39,15 +40,23 @@ namespace Unity.Cinemachine.Samples
         { Value = 0, Range = new Vector2(-180, 180), Wrap = true, Center = 0, Restrictions = InputAxis.RestrictionFlags.NoRecentering };
         static InputAxis DefaultTilt => new()
         { Value = 0, Range = new Vector2(-70, 70), Wrap = false, Center = 0, Restrictions = InputAxis.RestrictionFlags.NoRecentering };
+        private void Start()
+        {
 
+            cameraTransform = Camera.main.transform;
+        }
         /// Report the available input axes to the input axis controller.
         /// We use the Input Axis Controller because it works with both the Input package
         /// and the Legacy input system.  This is sample code and we
         /// want it to work everywhere.
         void IInputAxisOwner.GetInputAxes(List<IInputAxisOwner.AxisDescriptor> axes)
         {
+            axes.Add(new() { DrivenAxis = () => ref Sideways, Name = "Move X", Hint = IInputAxisOwner.AxisDescriptor.Hints.X });
+            axes.Add(new() { DrivenAxis = () => ref Forward, Name = "Forward" });
+            axes.Add(new() { DrivenAxis = () => ref UpDown, Name = "Move Y", Hint = IInputAxisOwner.AxisDescriptor.Hints.Y });
             axes.Add(new() { DrivenAxis = () => ref Pan, Name = "Look X (Pan)", Hint = IInputAxisOwner.AxisDescriptor.Hints.X });
             axes.Add(new() { DrivenAxis = () => ref Tilt, Name = "Look Y (Tilt)", Hint = IInputAxisOwner.AxisDescriptor.Hints.Y });
+            axes.Add(new() { DrivenAxis = () => ref Sprint, Name = "Sprint" });
         }
 
         void OnValidate()
@@ -80,13 +89,24 @@ namespace Unity.Cinemachine.Samples
 
         void Update()
         {
-            // Calculate the move direction and speed based on input
-            var rot = Quaternion.Euler(Tilt.Value, Pan.Value, 0);
-            var movement = rot * new Vector3(Sideways.Value, UpDown.Value, Forward.Value);
-            var speed = Sprint.Value < 0.01f ? Speed : Speed * SprintMultiplier;
 
-            // Apply motion
-            transform.SetPositionAndRotation(transform.position + speed * Time.deltaTime * movement, rot);
+            // Manejar rotación de la cámara (HandleLook)
+            Pan.Value += Input.GetAxis("Mouse X") * Speed * Time.deltaTime; // Rotación horizontal (Yaw)
+            Tilt.Value -= Input.GetAxis("Mouse Y") * Speed * Time.deltaTime; // Rotación vertical (Pitch)
+
+            // Limitar la rotación vertical a un rango definido
+            Tilt.Value = Mathf.Clamp(Tilt.Value, -70f, 70f);
+
+            // Aplicar la rotación a la cámara
+            var rot = Quaternion.Euler(Tilt.Value, Pan.Value, 0);
+            transform.rotation = rot;
+
+            // Calcular movimiento
+            //var movement = rot * new Vector3(Sideways.Value, UpDown.Value, Forward.Value);
+            //var speed = Sprint.Value < 0.01f ? Speed : Speed * SprintMultiplier;
+
+            // Aplicar movimiento y rotación
+            //transform.SetPositionAndRotation(transform.position + speed * Time.deltaTime * movement, rot);
         }
     }
 }
