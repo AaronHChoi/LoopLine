@@ -90,9 +90,9 @@ namespace Unity.Cinemachine.Samples
         void Update()
         {
 
-            // Manejar rotación de la cámara (HandleLook)
-            Pan.Value += Input.GetAxis("Mouse X") * Speed * Time.deltaTime; // Rotación horizontal (Yaw)
-            Tilt.Value -= Input.GetAxis("Mouse Y") * Speed * Time.deltaTime; // Rotación vertical (Pitch)
+            // Manejar rotación de la cámara
+            Pan.Value += Input.GetAxis("Mouse X") * Speed * Time.deltaTime;
+            Tilt.Value -= Input.GetAxis("Mouse Y") * Speed * Time.deltaTime; 
 
             // Limitar la rotación vertical a un rango definido
             Tilt.Value = Mathf.Clamp(Tilt.Value, -70f, 70f);
@@ -101,12 +101,6 @@ namespace Unity.Cinemachine.Samples
             var rot = Quaternion.Euler(Tilt.Value, Pan.Value, 0);
             transform.rotation = rot;
 
-            // Calcular movimiento
-            //var movement = rot * new Vector3(Sideways.Value, UpDown.Value, Forward.Value);
-            //var speed = Sprint.Value < 0.01f ? Speed : Speed * SprintMultiplier;
-
-            // Aplicar movimiento y rotación
-            //transform.SetPositionAndRotation(transform.position + speed * Time.deltaTime * movement, rot);
         }
     }
 }
