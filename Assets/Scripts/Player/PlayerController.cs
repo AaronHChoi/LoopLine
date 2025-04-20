@@ -13,7 +13,9 @@ public class PlayerController : MonoBehaviour
     private CinemachineCamera virtualCamera;
     private Transform cameraTransform;
     private CinemachinePanTilt panTilt;
+    private PlayerInput playerInput;
 
+    [SerializeField] private float clampAngle = 80f;
     private Vector2 inputMovement;
     private Vector2 inputLook;
     private float lockedPanValue;
@@ -22,21 +24,22 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         playerView = GetComponent<PlayerView>();
-        playerModel = new PlayerModel();
-        var playerInput = GetComponent<PlayerInput>();
-        moveAction = playerInput.actions["Move"];
-        lookAction = playerInput.actions["Look"];
+        playerInput = GetComponent<PlayerInput>();
         virtualCamera = FindAnyObjectByType<CinemachineCamera>();
         panTilt = FindFirstObjectByType<CinemachinePanTilt>();
+        playerModel = new PlayerModel();
     }
     private void Start()
     {
+        moveAction = playerInput.actions["Move"];
+        lookAction = playerInput.actions["Look"];
         cameraTransform = virtualCamera.transform;
+        //cameraTransform = Camera.main.transform;
     }
     private void Update()
     {
         HandleMovement();
-        HandleLook();
+        RotateCharacterToCamera();
     }
     public void HandleMovement()
     {
@@ -56,19 +59,15 @@ public class PlayerController : MonoBehaviour
 
         playerView.Move(moveDirection * Time.deltaTime);
     }
-    public void HandleLook()
+    private void RotateCharacterToCamera()
     {
         if (!CanMove) return;
-        if (panTilt == null) return;
 
-        inputLook = lookAction.ReadValue<Vector2>();
-        panTilt.PanAxis.Value += inputLook.x * playerModel.LookSensitivity * Time.deltaTime;
-        panTilt.TiltAxis.Value -= inputLook.y * playerModel.LookSensitivity * Time.deltaTime;
+        float targetAngle = cameraTransform.eulerAngles.y;
 
-        panTilt.TiltAxis.Value = Mathf.Clamp(panTilt.TiltAxis.Value, -90f, 60f);
+        Quaternion targetRotation = Quaternion.Euler(0, targetAngle, 0);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * playerModel.SpeedRotation);
 
-        float panRotation = panTilt.PanAxis.Value;
-        transform.rotation = Quaternion.Euler(0, panRotation, 0);
     }
     public void SetControllerEnabled(bool enabled)
     {
