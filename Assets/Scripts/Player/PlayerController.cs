@@ -33,16 +33,13 @@ public class PlayerController : MonoBehaviour
     {
         moveAction = playerInput.actions["Move"];
         lookAction = playerInput.actions["Look"];
-        //cameraTransform = virtualCamera.transform;
-        cameraTransform = Camera.main.transform;
+        cameraTransform = virtualCamera.transform;
+        //cameraTransform = Camera.main.transform;
     }
     private void Update()
     {
         HandleMovement();
-    }
-    private void LateUpdate()
-    {
-        //HandleLook();
+        RotateCharacterToCamera();
     }
     public void HandleMovement()
     {
@@ -62,19 +59,15 @@ public class PlayerController : MonoBehaviour
 
         playerView.Move(moveDirection * Time.deltaTime);
     }
-    public void HandleLook()
+    private void RotateCharacterToCamera()
     {
         if (!CanMove) return;
-        if (panTilt == null) return;
 
-        inputLook = lookAction.ReadValue<Vector2>();
-        panTilt.PanAxis.Value += inputLook.x * playerModel.LookSensitivity * Time.deltaTime;
-        panTilt.TiltAxis.Value -= inputLook.y * playerModel.LookSensitivity * Time.deltaTime;
+        float targetAngle = cameraTransform.eulerAngles.y;
 
-        panTilt.TiltAxis.Value = Mathf.Clamp(panTilt.TiltAxis.Value, -clampAngle, clampAngle);
+        Quaternion targetRotation = Quaternion.Euler(0, targetAngle, 0);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * playerModel.SpeedRotation);
 
-        float panRotation = panTilt.PanAxis.Value;
-        transform.rotation = Quaternion.Euler(0, panRotation, 0);
     }
     public void SetControllerEnabled(bool enabled)
     {
