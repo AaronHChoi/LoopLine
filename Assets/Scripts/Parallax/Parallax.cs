@@ -18,30 +18,32 @@ public class Parallax : MonoBehaviour
 
     private void Update()
     {
-        float frameDist = parallaxSpeed * Time.fixedDeltaTime * speedMultiplier;
+        float frameDist = parallaxSpeed * Time.deltaTime * speedMultiplier;
 
         for (int i = 0; i < layers.Count; i++)
         {
             var layer = layers[i];
+            if (layer.layerTransform == null) continue;
 
             float dist = frameDist * layer.parallaxEffect;
             layer.layerTransform.position -= new Vector3(0, 0, dist);
 
             if (layer.layerTransform.position.z <= teleportZ)
             {
-                layer.layerTransform.position = new Vector3(
-                    layer.layerTransform.position.x,
-                    layer.layerTransform.position.y,
-                    layer.layerTransform.position.z + offsetZ
-                );
-
-                ParallaxLayer movedLayer = layers[i];
-                layers.RemoveAt(i);
-                layers.Add(movedLayer);
-
+                TeleportLayer(layer, i);
                 i--;
             }
         }
+    }
+    private void TeleportLayer(ParallaxLayer layer, int index)
+    {
+        layer.layerTransform.position = new Vector3(
+            layer.layerTransform.position.x,
+            layer.layerTransform.position.y,
+            layer.layerTransform.position.z + offsetZ
+        );
+        layers.RemoveAt(index);
+        layers.Add(layer);
     }
     public void SetSpeedMultiplier(float multipler)
     {
