@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Parallax : MonoBehaviour
@@ -15,9 +16,36 @@ public class Parallax : MonoBehaviour
     public float offsetZ = 235f;
 
     float speedMultiplier = 1f;
+    [SerializeField] private bool isStopped = false;
+    [SerializeField] private bool isStopping = false;
+    [SerializeField] private float stopDuration = 2f;
+    [SerializeField] private float stopTimer = 0f;
 
     private void Update()
     {
+        if (Input.GetKey(KeyCode.T))
+        {
+            StopParallaxGradually(3f);
+        }
+        if (Input.GetKey(KeyCode.Y))
+        {
+            ResumeParallax();
+        }
+        if (isStopping)
+        {
+            stopTimer += Time.deltaTime;
+            speedMultiplier = Mathf.Lerp(1f, 0f, stopTimer / stopDuration);
+            if (stopTimer >= stopDuration)
+            {
+                speedMultiplier = 0f;
+                isStopping = false;
+            }
+        }
+        if (isStopped)
+        {
+            return;
+        }
+
         float frameDist = parallaxSpeed * Time.deltaTime * speedMultiplier;
 
         for (int i = 0; i < layers.Count; i++)
@@ -34,6 +62,19 @@ public class Parallax : MonoBehaviour
                 i--;
             }
         }
+    }
+    public void StopParallaxGradually(float duration)
+    {
+        if (isStopping || isStopped) return;
+        stopDuration = duration;
+        stopTimer = 0f;
+        isStopping = true;
+    }
+    public void ResumeParallax()
+    {
+        if (isStopping) return;
+        speedMultiplier = 1f;
+        isStopping = false;
     }
     private void TeleportLayer(ParallaxLayer layer, int index)
     {
