@@ -21,9 +21,10 @@ public class DialogueUI : MonoBehaviour
 
     public int localIndex = 1;
 
-    bool isTyping = false;
-    bool isQuestionActive = false;
+    [SerializeField] bool isTyping = false;
+    [SerializeField] bool isQuestionActive = false;
     [SerializeField] bool isFirstDialogueSaved = false;
+
     private void Awake()
     {
         timeManager = FindFirstObjectByType<TimeManager>();
