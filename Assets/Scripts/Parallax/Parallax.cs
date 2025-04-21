@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Parallax : MonoBehaviour
@@ -24,6 +23,9 @@ public class Parallax : MonoBehaviour
     [SerializeField] private float stopTimer = 0f;
     [SerializeField] private float resumeTimer = 0f;
 
+    float lerpA = 1f;
+    float lerpB = 0f;
+
     private void Update()
     {
         if (Input.GetKey(KeyCode.T))
@@ -37,7 +39,7 @@ public class Parallax : MonoBehaviour
         if (isStopping)
         {
             stopTimer += Time.deltaTime;
-            speedMultiplier = Mathf.Lerp(1f, 0f, stopTimer / stopDuration);
+            UpdateSpeedMultiplier(lerpA, lerpB, stopTimer, stopDuration);
             if (stopTimer >= stopDuration)
             {
                 speedMultiplier = 0f;
@@ -47,7 +49,7 @@ public class Parallax : MonoBehaviour
         if (isResuming)
         {
             resumeTimer += Time.deltaTime;
-            speedMultiplier = Mathf.Lerp(0f, 1f, resumeTimer / resumeDuration);
+            UpdateSpeedMultiplier(lerpB, lerpA, resumeTimer, resumeDuration);
             if(resumeTimer >= resumeDuration)
             {
                 speedMultiplier = 1f;
@@ -85,7 +87,6 @@ public class Parallax : MonoBehaviour
     }
     public void ResumeParallax(float duration)
     {
-        //if (isResuming || !isStopped) return;
         resumeDuration = duration;
         resumeTimer = 0f;
         isResuming = true;
@@ -100,8 +101,10 @@ public class Parallax : MonoBehaviour
         layers.RemoveAt(index);
         layers.Add(layer);
     }
-    public void SetSpeedMultiplier(float multipler)
+    
+    private float UpdateSpeedMultiplier(float _a, float _b, float _timer, float _duration)
     {
-        speedMultiplier = multipler;
+        speedMultiplier = Mathf.Lerp(_a, _b, _timer / _duration);
+        return speedMultiplier;
     }
 }
