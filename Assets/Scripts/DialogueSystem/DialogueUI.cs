@@ -17,6 +17,7 @@ public class DialogueUI : MonoBehaviour
 
     [SerializeField] private AudioClip typingAudioSource;
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] TimeManager timeManager;
 
     public int localIndex = 1;
 
@@ -25,6 +26,7 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] bool isFirstDialogueSaved = false;
     private void Awake()
     {
+        timeManager = FindFirstObjectByType<TimeManager>();
         audioSource = GetComponent<AudioSource>();
     }
     private void Start()
@@ -120,7 +122,7 @@ public class DialogueUI : MonoBehaviour
     }
     IEnumerator WriteText()
     {
-        GameManager.Instance.AllowFastForwardMethod(true);
+        timeManager.AllowFastForwardMethod(true);
         isTyping = true;
         dialogueText.maxVisibleCharacters = 0;
         dialogueText.text = Dialogue.Dialogues[localIndex].dialogue;
@@ -135,6 +137,6 @@ public class DialogueUI : MonoBehaviour
             yield return new WaitForSeconds(1f / textSpeed);
         }
         isTyping = false;
-        GameManager.Instance.AllowFastForwardMethod(false);
+        timeManager.AllowFastForwardMethod(false);
     }
 }
