@@ -107,4 +107,8 @@ public class Parallax : MonoBehaviour
         speedMultiplier = Mathf.Lerp(_a, _b, _timer / _duration);
         return speedMultiplier;
     }
+    public void SetSpeedMultiplier(float multipler)
+    {
+        speedMultiplier = multipler;
+    }
 }
