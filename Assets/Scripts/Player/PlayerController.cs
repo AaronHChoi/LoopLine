@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour
     private CinemachinePanTilt panTilt;
     private PlayerInput playerInput;
 
-    [SerializeField] private float clampAngle = 80f;
     private Vector2 inputMovement;
     private Vector2 inputLook;
     private float lockedPanValue;

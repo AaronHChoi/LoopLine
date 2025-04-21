@@ -18,18 +18,21 @@ public class Parallax : MonoBehaviour
     float speedMultiplier = 1f;
     [SerializeField] private bool isStopped = false;
     [SerializeField] private bool isStopping = false;
+    [SerializeField] private bool isResuming = false;
     [SerializeField] private float stopDuration = 2f;
+    [SerializeField] private float resumeDuration = 2f;
     [SerializeField] private float stopTimer = 0f;
+    [SerializeField] private float resumeTimer = 0f;
 
     private void Update()
     {
         if (Input.GetKey(KeyCode.T))
         {
-            StopParallaxGradually(3f);
+            StopParallaxGradually(5f);
         }
         if (Input.GetKey(KeyCode.Y))
         {
-            ResumeParallax();
+            ResumeParallax(5f);
         }
         if (isStopping)
         {
@@ -38,28 +41,38 @@ public class Parallax : MonoBehaviour
             if (stopTimer >= stopDuration)
             {
                 speedMultiplier = 0f;
+                isStopping = true;
+            }
+        }
+        if (isResuming)
+        {
+            resumeTimer += Time.deltaTime;
+            speedMultiplier = Mathf.Lerp(0f, 1f, resumeTimer / resumeDuration);
+            if(resumeTimer >= resumeDuration)
+            {
+                speedMultiplier = 1f;
+                isResuming = false;
+                isStopped = false;
                 isStopping = false;
             }
         }
-        if (isStopped)
+        if (!isStopped)
         {
-            return;
-        }
+            float frameDist = parallaxSpeed * Time.deltaTime * speedMultiplier;
 
-        float frameDist = parallaxSpeed * Time.deltaTime * speedMultiplier;
-
-        for (int i = 0; i < layers.Count; i++)
-        {
-            var layer = layers[i];
-            if (layer.layerTransform == null) continue;
-
-            float dist = frameDist * layer.parallaxEffect;
-            layer.layerTransform.position -= new Vector3(0, 0, dist);
-
-            if (layer.layerTransform.position.z <= teleportZ)
+            for (int i = 0; i < layers.Count; i++)
             {
-                TeleportLayer(layer, i);
-                i--;
+                var layer = layers[i];
+                if (layer.layerTransform == null) continue;
+
+                float dist = frameDist * layer.parallaxEffect;
+                layer.layerTransform.position -= new Vector3(0, 0, dist);
+
+                if (layer.layerTransform.position.z <= teleportZ)
+                {
+                    TeleportLayer(layer, i);
+                    i--;
+                }
             }
         }
     }
@@ -70,11 +83,12 @@ public class Parallax : MonoBehaviour
         stopTimer = 0f;
         isStopping = true;
     }
-    public void ResumeParallax()
+    public void ResumeParallax(float duration)
     {
-        if (isStopping) return;
-        speedMultiplier = 1f;
-        isStopping = false;
+        //if (isResuming || !isStopped) return;
+        resumeDuration = duration;
+        resumeTimer = 0f;
+        isResuming = true;
     }
     private void TeleportLayer(ParallaxLayer layer, int index)
     {
