@@ -2,7 +2,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventManager : MonoBehaviour
+public class EventManager : Subject
 {
     [SerializeField] private AudioSource audioSource;
 
@@ -15,22 +15,19 @@ public class EventManager : MonoBehaviour
     [SerializeField] private GameObject crystal;
     [SerializeField] private GameObject crystalBreakEffect;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
     }
-
-    // Update is called once per frame
     void Update()
     {
         TrainEvent1();
     }
-
     private void TrainEvent1()
     {
         if (GameManager.Instance.LoopTime <= 240 && GameManager.Instance.LoopTime >= 235)
         {
+            NotifyObservers(Events.StopTrain);
             audioSource.PlayOneShot(trainStopSound_1);
         }
         else
@@ -39,6 +36,7 @@ public class EventManager : MonoBehaviour
         }
         if (GameManager.Instance.LoopTime <= 180 && GameManager.Instance.LoopTime >= 175)
         {
+            NotifyObservers(Events.ResumeTrain);
             audioSource.PlayOneShot(trainStopSound_2);
         }
         else
