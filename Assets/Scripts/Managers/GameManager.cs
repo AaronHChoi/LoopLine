@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    [SerializeField] private ScreenManager screenManager;
 
     [SerializeField] public float LoopTime { get; private set; } = 360f;
 
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Parallax parallax;
     
     private const int TIME_DEFAULT = 1;
+    public ScreenManager ScreenManager => screenManager;
 
     private void Awake()
     {
