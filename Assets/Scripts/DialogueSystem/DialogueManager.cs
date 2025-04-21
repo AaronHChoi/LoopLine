@@ -10,7 +10,7 @@ public class DialogueManager : MonoBehaviour
     public static DialogueSpeaker actualSpeaker;
     private DialogueUI dialogueUI;
     PlayerController player;
-
+    public bool isDialogueActive = false;
     public QuestionManager QuestionManager;
 
     public List<DialogueSO> AllDialogues = new List<DialogueSO>();
@@ -44,6 +44,7 @@ public class DialogueManager : MonoBehaviour
             player.SetControllerEnabled(true);
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
+            isDialogueActive = false;
         }
         else
         {
@@ -51,6 +52,7 @@ public class DialogueManager : MonoBehaviour
             player.SetControllerEnabled(false);
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
+            isDialogueActive = true;
         }
     }
     public void SetDialogue(DialogueSO _dialogue, DialogueSpeaker speaker)

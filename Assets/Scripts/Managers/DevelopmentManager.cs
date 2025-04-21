@@ -12,11 +12,13 @@ public class DevelopmentManager : MonoBehaviour
 
     [SerializeField] DialogueManager dialogueManager;
     [SerializeField] TimeManager timeManager;
+    [SerializeField] DialogueManager dialManager;
     bool isCursorVisible = false;
     private void Awake()
     {
         dialogueManager = FindFirstObjectByType<DialogueManager>();
         timeManager = FindFirstObjectByType<TimeManager>();
+        dialManager = FindFirstObjectByType<DialogueManager>();
     }
     void Start()
     {
@@ -26,7 +28,7 @@ public class DevelopmentManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && UIPrinciplal != null)
+        if (Input.GetKeyDown(KeyCode.Escape) && UIPrinciplal != null && !dialManager.isDialogueActive)
         {
             UIPrinciplal.SetActive(!UIPrinciplal.activeInHierarchy);
             UIDeveloperMode.SetActive(!UIDeveloperMode.activeInHierarchy);
