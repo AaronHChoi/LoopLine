@@ -15,9 +15,11 @@ public class EventManager : Subject
     [SerializeField] private GameObject crystal;
     [SerializeField] private GameObject crystalBreakEffect;
 
-    void Start()
+    [SerializeField] TimeManager timeManager;
+    private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        timeManager = FindFirstObjectByType<TimeManager>();
     }
     void Update()
     {
@@ -25,7 +27,7 @@ public class EventManager : Subject
     }
     private void TrainEvent1()
     {
-        if (GameManager.Instance.LoopTime <= 240 && GameManager.Instance.LoopTime >= 235)
+        if (timeManager.LoopTime <= 240 && timeManager.LoopTime >= 235)
         {
             NotifyObservers(Events.StopTrain);
             audioSource.PlayOneShot(trainStopSound_1);
@@ -34,7 +36,7 @@ public class EventManager : Subject
         {
             audioSource.Stop();
         }
-        if (GameManager.Instance.LoopTime <= 180 && GameManager.Instance.LoopTime >= 175)
+        if (timeManager.LoopTime <= 180 && timeManager.LoopTime >= 175)
         {
             NotifyObservers(Events.ResumeTrain);
             audioSource.PlayOneShot(trainStopSound_2);
@@ -47,7 +49,7 @@ public class EventManager : Subject
 
     private void TrainEvent2()
     {
-        if (GameManager.Instance.LoopTime <= 60 && GameManager.Instance.LoopTime >= 55)
+        if (timeManager.LoopTime <= 60 && timeManager.LoopTime >= 55)
         {
             audioSource.PlayOneShot(crystalBreakSound);
             crystal.SetActive(false);

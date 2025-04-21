@@ -6,20 +6,21 @@ using UnityEngine.UI;
 
 public class DevelopmentManager : MonoBehaviour
 {
-
     [SerializeField] private GameObject UIPrinciplal;
     [SerializeField] private GameObject UIDeveloperMode;
     [SerializeField] private GameObject bgm;
 
     [SerializeField] DialogueManager dialogueManager;
+    [SerializeField] TimeManager timeManager;
     bool isCursorVisible = false;
     private void Awake()
     {
         dialogueManager = FindFirstObjectByType<DialogueManager>();
+        timeManager = FindFirstObjectByType<TimeManager>();
     }
     void Start()
     {
-        GameManager.Instance.changeLoopTime = false;
+       timeManager.changeLoopTime = false;
         UpdateCursorState();
     }
 
@@ -77,13 +78,13 @@ public class DevelopmentManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "Train")
         {
-            if (GameManager.Instance.LoopTime > 5f)
+            if (timeManager.LoopTime > 5f)
             {
-                GameManager.Instance.changeLoopTime = true;
+                timeManager.changeLoopTime = true;
             }
             else
             {
-                GameManager.Instance.changeLoopTime = false;
+                timeManager.changeLoopTime = false;
             }
         }    
     }

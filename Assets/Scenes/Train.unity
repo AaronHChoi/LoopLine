@@ -3617,6 +3617,51 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 6.7999077, y: 4.2721786, z: 0.075143814}
   m_Center: {x: -1.446629, y: -1.1255932, z: -0.4624281}
+--- !u!1 &546405698
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 546405700}
+  - component: {fileID: 546405699}
+  m_Layer: 0
+  m_Name: ScreenManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &546405699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546405698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc9b27c8c179b424599490c270d38564, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  screens: []
+--- !u!4 &546405700
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 546405698}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.368079, y: 12.922868, z: -20.479807}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &585844025
 GameObject:
   m_ObjectHideFlags: 0
@@ -6015,6 +6060,55 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &931772807
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 931772809}
+  - component: {fileID: 931772808}
+  m_Layer: 0
+  m_Name: TimeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &931772808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931772807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ceeba65dc40fa74f9d618405b36d360, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  changeLoopTime: 0
+  AllowFastForward: 0
+  timeMultiplier: 4
+  dialogueUI: {fileID: 0}
+  parallax: {fileID: 0}
+--- !u!4 &931772809
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931772807}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.368079, y: 12.922868, z: -20.479807}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &931961944
 GameObject:
   m_ObjectHideFlags: 0
@@ -7252,6 +7346,7 @@ MonoBehaviour:
   UIDeveloperMode: {fileID: 933509227}
   bgm: {fileID: 682964441}
   dialogueManager: {fileID: 0}
+  timeManager: {fileID: 0}
 --- !u!4 &1043506124
 Transform:
   m_ObjectHideFlags: 0
@@ -8641,6 +8736,7 @@ MonoBehaviour:
   crystalBreakSound: {fileID: 0}
   crystal: {fileID: 0}
   crystalBreakEffect: {fileID: 0}
+  timeManager: {fileID: 0}
 --- !u!4 &1308481067
 Transform:
   m_ObjectHideFlags: 0
@@ -10962,6 +11058,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa1c4f2a33f24594a8ff1496811474ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeManager: {fileID: 0}
   contador_provicional: {fileID: 1039146564}
 --- !u!114 &1641353375
 MonoBehaviour:
@@ -13983,12 +14080,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92f6da37bfee7e943bcc22e1971c1a53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  screenManager: {fileID: 546405699}
   nextScene: MindPlace
-  changeLoopTime: 0
-  AllowFastForward: 0
-  timeMultiplier: 4
-  dialogueUI: {fileID: 0}
-  parallax: {fileID: 0}
 --- !u!4 &2075132569
 Transform:
   m_ObjectHideFlags: 0
@@ -14644,3 +14737,5 @@ SceneRoots:
   - {fileID: 1414873820}
   - {fileID: 2026567325}
   - {fileID: 1308481067}
+  - {fileID: 546405700}
+  - {fileID: 931772809}
