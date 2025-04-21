@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Parallax : MonoBehaviour
+public class Parallax : MonoBehaviour, IObserver
 {
     [System.Serializable]
     public class ParallaxLayer
@@ -9,6 +9,7 @@ public class Parallax : MonoBehaviour
         public Transform layerTransform;
         public float parallaxEffect;
     }
+    public Subject EventManager;
     public List<ParallaxLayer> layers;
     public float parallaxSpeed = 1f; 
     public float teleportZ = -110f;
@@ -18,24 +19,34 @@ public class Parallax : MonoBehaviour
     [SerializeField] private bool isStopped = false;
     [SerializeField] private bool isStopping = false;
     [SerializeField] private bool isResuming = false;
-    [SerializeField] private float stopDuration = 2f;
-    [SerializeField] private float resumeDuration = 2f;
+    [SerializeField] private float stopDuration = 5f;
+    [SerializeField] private float resumeDuration = 5f;
     [SerializeField] private float stopTimer = 0f;
     [SerializeField] private float resumeTimer = 0f;
 
     float lerpA = 1f;
     float lerpB = 0f;
-
+    private void Awake()
+    {
+        EventManager = FindFirstObjectByType<Subject>();
+    }
+    public void OnNotify(Events _event)
+    {
+        if (_event == Events.StopTrain)
+            StopParallaxGradually(stopDuration);
+        if (_event == Events.ResumeTrain)
+            ResumeParallax(resumeDuration);
+    }
+    private void OnEnable()
+    {
+        EventManager.AddObserver(this);
+    }
+    private void OnDisable()
+    {
+        EventManager.RemoveObserver(this);
+    }
     private void Update()
     {
-        if (Input.GetKey(KeyCode.T))
-        {
-            StopParallaxGradually(5f);
-        }
-        if (Input.GetKey(KeyCode.Y))
-        {
-            ResumeParallax(5f);
-        }
         if (isStopping)
         {
             stopTimer += Time.deltaTime;
@@ -90,6 +101,7 @@ public class Parallax : MonoBehaviour
         resumeDuration = duration;
         resumeTimer = 0f;
         isResuming = true;
+        isStopping = false;
     }
     private void TeleportLayer(ParallaxLayer layer, int index)
     {
