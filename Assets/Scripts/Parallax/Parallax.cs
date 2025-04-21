@@ -8,6 +8,7 @@ public class Parallax : MonoBehaviour, IObserver
     {
         public Transform layerTransform;
         public float parallaxEffect;
+        public string type;
     }
     public Subject EventManager;
     public List<ParallaxLayer> layers;
@@ -23,6 +24,7 @@ public class Parallax : MonoBehaviour, IObserver
     [SerializeField] private float resumeDuration = 5f;
     [SerializeField] private float stopTimer = 0f;
     [SerializeField] private float resumeTimer = 0f;
+    [SerializeField] private int layersTypeCount;
 
     float lerpA = 1f;
     float lerpB = 0f;
@@ -105,11 +107,23 @@ public class Parallax : MonoBehaviour, IObserver
     }
     private void TeleportLayer(ParallaxLayer layer, int index)
     {
+        ParallaxLayer lastLayer = null;
+        for (int i = layers.Count -1; i >= 0; i--)
+        {
+            if (layers[i].type == layer.type)
+            {
+                lastLayer = layers[i];
+                break;
+            }
+        }
+        //ParallaxLayer lastLayer = layers[layers.Count - 1];
+        
         layer.layerTransform.position = new Vector3(
-            layer.layerTransform.position.x,
-            layer.layerTransform.position.y,
-            layer.layerTransform.position.z + offsetZ
+            lastLayer.layerTransform.position.x,
+            lastLayer.layerTransform.position.y,
+            lastLayer.layerTransform.position.z + offsetZ
         );
+
         layers.RemoveAt(index);
         layers.Add(layer);
     }
