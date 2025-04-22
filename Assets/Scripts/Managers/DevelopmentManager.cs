@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using NUnit.Framework;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -14,6 +15,7 @@ public class DevelopmentManager : MonoBehaviour
     [SerializeField] TimeManager timeManager;
     [SerializeField] DialogueManager dialManager;
     bool isCursorVisible = false;
+
     private void Awake()
     {
         dialogueManager = FindFirstObjectByType<DialogueManager>();

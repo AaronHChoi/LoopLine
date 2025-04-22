@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
 {
-    private CinemachineCamera rayCastPoint;
+    [SerializeField] private CinemachineCamera rayCastPoint;
     [SerializeField] private float raycastDistance = 2f;
     [SerializeField] private LayerMask interactableLayer;
 

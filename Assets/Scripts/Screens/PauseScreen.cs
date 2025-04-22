@@ -6,11 +6,12 @@ public class PauseScreen : MonoBehaviour, IScreen
     [SerializeField] private Button resumeButton;
     private void Awake()
     {
+        if (resumeButton == null) return;
         resumeButton.onClick.AddListener(() => GameManager.Instance.ScreenManager.Pop());
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Escape))
             GameManager.Instance.ScreenManager.Pop();
     }
     public void Activate()

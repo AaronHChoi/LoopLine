@@ -17,7 +17,7 @@ public class ScreenManager : MonoBehaviour
     }
     private void Start()
     {
-        Push(EnumScreenName.MainMenu);
+        Push(EnumScreenName.Gameplay);
     }
     public void Pop()
     {
