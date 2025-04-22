@@ -4,12 +4,9 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    [SerializeField] private ScreenManager screenManager;
-
     public string nextScene;
 
-    public ScreenManager ScreenManager => screenManager;
-
+    bool isPaused = false;
     private void Awake()
     {
         if (Instance == null)
@@ -24,5 +21,12 @@ public class GameManager : MonoBehaviour
     public void LoadNextScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+    public void TogglePause()
+    {
+        Debug.Log("Pause");
+        isPaused = !isPaused;
+        Time.timeScale = isPaused ? 0 : 1;
+        Debug.Log(Time.timeScale);
     }
 }

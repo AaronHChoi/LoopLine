@@ -33,6 +33,7 @@ public class DevelopmentManager : MonoBehaviour
             UIDeveloperMode.SetActive(!UIDeveloperMode.activeInHierarchy);
 
             UpdateCursorState();
+            GameManager.Instance.TogglePause();
         }
     }
     void UpdateCursorState()
