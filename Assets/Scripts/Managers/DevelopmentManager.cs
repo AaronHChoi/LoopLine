@@ -22,10 +22,9 @@ public class DevelopmentManager : MonoBehaviour
     }
     void Start()
     {
-       timeManager.changeLoopTime = false;
+        timeManager.changeLoopTime = false;
         UpdateCursorState();
     }
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && UIPrinciplal != null && !dialManager.isDialogueActive)
@@ -36,7 +35,6 @@ public class DevelopmentManager : MonoBehaviour
             UpdateCursorState();
         }
     }
-
     void UpdateCursorState()
     {
         bool shouldShowCursor = UIDeveloperMode.activeInHierarchy;
@@ -52,22 +50,18 @@ public class DevelopmentManager : MonoBehaviour
     {
         dialogueManager.ResetAllDialogues();
     }
-
     public void ResetLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-
     public void MenuLevel()
     {
         SceneManager.LoadScene("MainMenu");
     }
-
     public void Mute()
     {
         bgm.SetActive(!bgm.activeInHierarchy);
     }
-
     public void LoadMainLevel()
     {
         if (SceneManager.GetActiveScene().name == "MindPlace")
@@ -75,7 +69,6 @@ public class DevelopmentManager : MonoBehaviour
             SceneManager.LoadScene("Train");
         }
     }
-
     public void CutTime()
     {
         if (SceneManager.GetActiveScene().name == "Train")
@@ -89,5 +82,9 @@ public class DevelopmentManager : MonoBehaviour
                 timeManager.changeLoopTime = false;
             }
         }    
+    }
+    public void CutTimeStopTrain()
+    {
+        timeManager.SetLoopTimeToStopTrain();
     }
 }
