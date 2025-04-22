@@ -5,6 +5,7 @@ using UnityEngine;
 public class EventManager : Subject
 {
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] TimeManager timeManager;
 
     [Header("Train Event 1")]
     [SerializeField] private AudioClip trainStopSound_1;
@@ -12,10 +13,7 @@ public class EventManager : Subject
 
     [Header("Train Event 2")]
     [SerializeField] private AudioClip crystalBreakSound;
-    [SerializeField] private GameObject crystal;
-    [SerializeField] private GameObject crystalBreakEffect;
 
-    [SerializeField] TimeManager timeManager;
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -24,6 +22,7 @@ public class EventManager : Subject
     void Update()
     {
         TrainEvent1();
+        TrainEvent2();
     }
     private void TrainEvent1()
     {
@@ -52,8 +51,8 @@ public class EventManager : Subject
         if (timeManager.LoopTime <= 60 && timeManager.LoopTime >= 55)
         {
             audioSource.PlayOneShot(crystalBreakSound);
-            crystal.SetActive(false);
-            crystalBreakEffect.SetActive(true);
+            Debug.Log("Crystal Break send");
+            NotifyObservers(Events.BreakCrystal);
         }
         else
         {
