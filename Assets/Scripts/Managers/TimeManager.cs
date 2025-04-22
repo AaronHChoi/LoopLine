@@ -33,6 +33,10 @@ public class TimeManager : MonoBehaviour
         TimeForward();
         AdvanceTime();
     }
+    public void SetLoopTimeToStopTrain()
+    {
+        LoopTime = 250f;
+    }
     private void TimeForward()
     {
         if (SceneManager.GetActiveScene().name == "Train" && AllowFastForward)
