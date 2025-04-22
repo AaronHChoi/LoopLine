@@ -37,6 +37,11 @@ public class TimeManager : MonoBehaviour
     {
         LoopTime = 250f;
     }
+
+    public void SetLoopTimeToBreakCrystal()
+    {
+        LoopTime = 70f;
+    }
     private void TimeForward()
     {
         if (SceneManager.GetActiveScene().name == "Train" && AllowFastForward)
