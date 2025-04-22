@@ -89,4 +89,9 @@ public class DevelopmentManager : MonoBehaviour
     {
         timeManager.SetLoopTimeToStopTrain();
     }
+
+    public void CutTimeBreakCrystal()
+    {
+        timeManager.SetLoopTimeToBreakCrystal();
+    }
 }
