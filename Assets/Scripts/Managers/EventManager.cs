@@ -51,7 +51,6 @@ public class EventManager : Subject
         if (timeManager.LoopTime <= 60 && timeManager.LoopTime >= 55)
         {
             audioSource.PlayOneShot(crystalBreakSound);
-            Debug.Log("Crystal Break send");
             NotifyObservers(Events.BreakCrystal);
         }
         else

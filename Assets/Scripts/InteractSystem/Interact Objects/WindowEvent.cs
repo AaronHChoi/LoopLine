@@ -8,7 +8,7 @@ public class WindowEvent : MonoBehaviour, IObserver
     [SerializeField] private GameObject crystal;
     [SerializeField] private GameObject crystalBreakEffect;
 
-    void Start()
+    void Awake()
     {
         EventManager = FindFirstObjectByType<Subject>();
     }
@@ -29,7 +29,6 @@ public class WindowEvent : MonoBehaviour, IObserver
 
     private void breakCrystal()
     {
-        Debug.Log("Crystal Break event");
         if (crystal != null)
         {
             crystal.SetActive(false);
