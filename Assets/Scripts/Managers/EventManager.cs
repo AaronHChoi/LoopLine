@@ -14,6 +14,8 @@ public class EventManager : Subject
     [Header("Train Event 2")]
     [SerializeField] private AudioClip crystalBreakSound;
 
+    private bool isWindowBroken = false;
+
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -29,33 +31,46 @@ public class EventManager : Subject
         if (timeManager.LoopTime <= 240 && timeManager.LoopTime >= 235)
         {
             NotifyObservers(Events.StopTrain);
-            audioSource.PlayOneShot(trainStopSound_1);
+            if (!audioSource.isPlaying)
+            {
+                audioSource.clip = trainStopSound_1;
+                audioSource.Play();
+            }
         }
         else
         {
-            audioSource.Stop();
+            //audioSource.Stop();
         }
         if (timeManager.LoopTime <= 180 && timeManager.LoopTime >= 175)
         {
             NotifyObservers(Events.ResumeTrain);
-            audioSource.PlayOneShot(trainStopSound_2);
+            if (!audioSource.isPlaying)
+            {
+                audioSource.clip = trainStopSound_2;
+                audioSource.Play();
+            }
         }
         else
         {
-            audioSource.Stop();
+            //audioSource.Stop();
         }
     }
 
     private void TrainEvent2()
     {
-        if (timeManager.LoopTime <= 60 && timeManager.LoopTime >= 55)
+        if (!isWindowBroken && timeManager.LoopTime <= 60 && timeManager.LoopTime >= 55)
         {
-            audioSource.PlayOneShot(crystalBreakSound);
+            if (!audioSource.isPlaying)
+            {
+                audioSource.clip = crystalBreakSound;
+                audioSource.Play();
+            }
             NotifyObservers(Events.BreakCrystal);
+            isWindowBroken = true;
         }
         else
         {
-            audioSource.Stop();
+            //audioSource.Stop();
         }
     }
 }
