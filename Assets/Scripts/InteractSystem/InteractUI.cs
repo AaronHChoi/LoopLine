@@ -43,7 +43,7 @@ public class InteractUI : MonoBehaviour
 
     private void Hide()
     {
-        Debug.Log("Ocultando Interact UI por evento");
+        //Debug.Log("Ocultando Interact UI por evento");
         containerInteractUI.SetActive(false);
     }
     private void LockInteraction()
