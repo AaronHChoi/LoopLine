@@ -13,12 +13,15 @@ public class DevelopmentManager : MonoBehaviour
     [SerializeField] DialogueManager dialogueManager;
     [SerializeField] TimeManager timeManager;
     [SerializeField] DialogueManager dialManager;
+    [SerializeField] PlayerController playerController;
     bool isCursorVisible = false;
+    bool isUIActive = false;
     private void Awake()
     {
         dialogueManager = FindFirstObjectByType<DialogueManager>();
         timeManager = FindFirstObjectByType<TimeManager>();
         dialManager = FindFirstObjectByType<DialogueManager>();
+        playerController = FindFirstObjectByType<PlayerController>();
     }
     void Start()
     {
@@ -27,10 +30,27 @@ public class DevelopmentManager : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && UIPrinciplal != null && !dialManager.isDialogueActive)
+        if(dialManager != null)
         {
+            if (Input.GetKeyDown(KeyCode.Escape) && UIPrinciplal != null && !dialManager.isDialogueActive)
+            {
+                isUIActive = !isUIActive;
+
+                UIPrinciplal.SetActive(!UIPrinciplal.activeInHierarchy);
+                UIDeveloperMode.SetActive(!UIDeveloperMode.activeInHierarchy);
+
+                playerController.SetControllerEnabled(!isUIActive);
+
+                UpdateCursorState();
+            }
+        } else if (Input.GetKeyDown(KeyCode.Escape) && UIPrinciplal != null && SceneManager.GetActiveScene().name != "Train")
+        {
+            isUIActive = !isUIActive;
+
             UIPrinciplal.SetActive(!UIPrinciplal.activeInHierarchy);
             UIDeveloperMode.SetActive(!UIDeveloperMode.activeInHierarchy);
+
+            playerController.SetControllerEnabled(!isUIActive);
 
             UpdateCursorState();
         }
