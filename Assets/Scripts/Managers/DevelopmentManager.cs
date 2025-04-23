@@ -30,7 +30,20 @@ public class DevelopmentManager : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && UIPrinciplal != null && !dialManager.isDialogueActive)
+        if(dialManager != null)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape) && UIPrinciplal != null && !dialManager.isDialogueActive)
+            {
+                isUIActive = !isUIActive;
+
+                UIPrinciplal.SetActive(!UIPrinciplal.activeInHierarchy);
+                UIDeveloperMode.SetActive(!UIDeveloperMode.activeInHierarchy);
+
+                playerController.SetControllerEnabled(!isUIActive);
+
+                UpdateCursorState();
+            }
+        } else if (Input.GetKeyDown(KeyCode.Escape) && UIPrinciplal != null && SceneManager.GetActiveScene().name != "Train")
         {
             isUIActive = !isUIActive;
 
