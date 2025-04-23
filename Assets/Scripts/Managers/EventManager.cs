@@ -15,6 +15,7 @@ public class EventManager : Subject
     [SerializeField] private AudioClip crystalBreakSound;
 
     private bool isWindowBroken = false;
+    bool trainEvent1 = true;
 
     private void Awake()
     {

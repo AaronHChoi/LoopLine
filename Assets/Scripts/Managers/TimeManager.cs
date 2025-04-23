@@ -7,13 +7,14 @@ public class TimeManager : MonoBehaviour
     [SerializeField] public float LoopTime { get; private set; } = 360f;
 
     public bool changeLoopTime = false;
-    public bool AllowFastForward = false;
+    public bool AllowFastForward { get; private set; } = false;
 
-    [SerializeField] private int timeMultiplier = 4;
+    public int TimeMultiplier { get; private set; } = 4;
     [SerializeField] DialogueUI dialogueUI;
     [SerializeField] Parallax parallax;
 
     private const int TIME_DEFAULT = 1;
+
     private void Awake()
     {
         dialogueUI = FindFirstObjectByType<DialogueUI>();
@@ -50,7 +51,7 @@ public class TimeManager : MonoBehaviour
 
             if (dialogueUI != null && dialogueUI.Dialogue != null)
             {
-                speedMultiplier = dialogueUI.Dialogue.ReUse && Input.GetKey(KeyCode.F) ? timeMultiplier : TIME_DEFAULT;
+                speedMultiplier = dialogueUI.Dialogue.ReUse && Input.GetKey(KeyCode.F) ? TimeMultiplier : TIME_DEFAULT;
             }
 
             AdjustGameSpeed(speedMultiplier);
@@ -87,5 +88,13 @@ public class TimeManager : MonoBehaviour
     public void AllowFastForwardMethod(bool enabled)
     {
         AllowFastForward = enabled;
+    }
+    public int GetTimeMultiplier()
+    {
+        return TimeMultiplier;
+    }
+    public bool GetAllowFastForward()
+    {
+        return AllowFastForward;
     }
 }
