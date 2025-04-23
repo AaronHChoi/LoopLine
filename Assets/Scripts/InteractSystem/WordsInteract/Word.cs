@@ -40,7 +40,7 @@ public class Word : MonoBehaviour, IWord, IInteract
         }
         else
         {
-            SceneManager.LoadScene("Main");
+            SceneManager.LoadScene("Train");
         }
     }
 
