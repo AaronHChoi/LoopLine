@@ -93,6 +93,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract
 
     public string GetInteractText()
     {
+        if (interactText == null) return interactText = "";
         return interactText;
     }
     void DialogueRefresh()
