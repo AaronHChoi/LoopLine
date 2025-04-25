@@ -26,6 +26,12 @@ public class EventManager : Subject
     {
         TrainEvent1();
         TrainEvent2();
+
+
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            NotifyObservers(Events.TriggerDialogue);
+        }
     }
     private void TrainEvent1()
     {

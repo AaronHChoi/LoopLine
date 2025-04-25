@@ -1,7 +1,6 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class DialogueUI : MonoBehaviour
 {
@@ -93,7 +92,7 @@ public class DialogueUI : MonoBehaviour
                     print("Dialogo Termiando");
                     localIndex = 0;
                     DialogueManager.actualSpeaker.DialogueLocalIndex = 0;
-                    //Dialogue.Finished = true;
+                    Dialogue.Finished = true;
 
                     if(Dialogue.Questions != null)
                     {
@@ -108,7 +107,7 @@ public class DialogueUI : MonoBehaviour
                     }
                     DialogueManager.Instance.ShowUI(false);
                     DialogueManager.actualSpeaker.EndDialogue();
-                    MainDialogue.ReUse = true;
+                    //MainDialogue.ReUse = true;
                     isFirstDialogueSaved = false;
 
                     return;
