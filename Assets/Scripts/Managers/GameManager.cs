@@ -21,23 +21,8 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.H))
-        {
-            TriggerPlayerDialogue();
-        }
-    }
     public void LoadNextScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
-    }
-    public void TriggerPlayerDialogue()
-    {
-        var playerSpeaker = GameObject.FindGameObjectWithTag("Player").GetComponent<DialogueSpeaker>();
-        if (playerSpeaker != null)
-        {
-            playerSpeaker.DialogueTrigger();
-        }
     }
 }

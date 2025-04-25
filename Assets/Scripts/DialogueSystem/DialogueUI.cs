@@ -107,7 +107,7 @@ public class DialogueUI : MonoBehaviour
                     }
                     DialogueManager.Instance.ShowUI(false);
                     DialogueManager.actualSpeaker.EndDialogue();
-                    MainDialogue.ReUse = true;
+                    //MainDialogue.ReUse = true;
                     isFirstDialogueSaved = false;
 
                     return;

@@ -1,14 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialogueSpeaker : MonoBehaviour, IInteract
+public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
 {
     [SerializeField] private string interactText = "Interact with me!";
     public List<DialogueSO> AvailableDialogs = new List<DialogueSO>();
     [SerializeField] private int dialogueIndex = 0;
     public int DialogueLocalIndex = 0;
+    public Subject EventManager;
 
     public bool isDialogueActive = false;
+    private void Awake()
+    {
+        EventManager = FindFirstObjectByType<Subject>();
+    }
     private void Start()
     {
         dialogueIndex = 0;
@@ -17,6 +22,19 @@ public class DialogueSpeaker : MonoBehaviour, IInteract
         //
         DialogueRefresh();
         //
+    }
+    public void OnNotify(Events _event)
+    {
+        if (_event == Events.TriggerDialogue)
+            TriggerPlayerDialogue();
+    }
+    private void OnEnable()
+    {
+        EventManager.AddObserver(this);
+    }
+    private void OnDisable()
+    {
+        EventManager.RemoveObserver(this);
     }
     public void DialogueTrigger()
     {
@@ -110,5 +128,12 @@ public class DialogueSpeaker : MonoBehaviour, IInteract
                 }
             }
         }
+    }
+    public void TriggerPlayerDialogue()
+    {
+        var playerSpeaker = FindFirstObjectByType<PlayerController>().GetComponent<DialogueSpeaker>();
+
+        if (playerSpeaker != null)
+            playerSpeaker.DialogueTrigger();
     }
 }
