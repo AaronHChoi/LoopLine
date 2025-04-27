@@ -4,6 +4,7 @@ using UnityEngine;
 public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
 {
     [SerializeField] private string interactText = "Interact with me!";
+    public string id = "";
     public List<DialogueSO> AvailableDialogs = new List<DialogueSO>();
     [SerializeField] private int dialogueIndex = 0;
     public int DialogueLocalIndex = 0;
@@ -135,5 +136,22 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
 
         if (playerSpeaker != null)
             playerSpeaker.DialogueTrigger();
+    }
+    public void TriggerNPCDialogue(string _id)
+    {
+        GameObject[] npcs = GameObject.FindGameObjectsWithTag("NPC");
+
+        foreach (GameObject npc in npcs)
+        {
+            DialogueSpeaker npcDialogueSpeaker = npc.GetComponent<DialogueSpeaker>();
+            if(npcDialogueSpeaker == null)
+                continue;
+
+            if(npcDialogueSpeaker.id == _id)
+            {
+                npcDialogueSpeaker.DialogueTrigger();
+                break;
+            }
+        }
     }
 }
