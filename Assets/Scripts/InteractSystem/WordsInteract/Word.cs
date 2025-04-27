@@ -8,6 +8,7 @@ public class Word : MonoBehaviour, IWord, IInteract
     [SerializeField] private string interactText = "Interact";
     private TextMeshPro tmpro;
     public string word;
+    public int numerofWord; 
 
     [Header("LookAt")]
     private PlayerController playerController;
@@ -34,6 +35,11 @@ public class Word : MonoBehaviour, IWord, IInteract
     }
     public void Interact()
     {
+      
+    }
+
+    public void Interacted()
+    {
         if (isCorrectWord)
         {
             tmpro.color = Color.green;
@@ -48,7 +54,7 @@ public class Word : MonoBehaviour, IWord, IInteract
 
     private void Update()
     {
-        tmpro.text = word;
+        tmpro.text = word + " " + numerofWord.ToString();
         if (Vector3.Distance(transform.position, playerController.transform.position) <= range)
         {
 
