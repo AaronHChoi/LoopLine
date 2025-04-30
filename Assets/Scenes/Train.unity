@@ -10267,8 +10267,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.7939203, y: 2.1956244, z: 0.704087}
-  m_Center: {x: -0.03212963, y: 1.896132, z: 0.14795654}
+  m_Size: {x: 0.7939203, y: 2.1956244, z: 0.9632662}
+  m_Center: {x: -0.03212963, y: 1.896132, z: 0.018366957}
 --- !u!114 &1335152906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12801,6 +12801,79 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1657702953}
   m_CullTransparentMesh: 1
+--- !u!1 &1666334508
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1666334511}
+  - component: {fileID: 1666334510}
+  - component: {fileID: 1666334509}
+  m_Layer: 3
+  m_Name: DialoguePeek
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1666334509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1666334508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd995697258d7d24ca5c1e437dbdc2a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactText: Escuchar conversacion
+  id: 
+  AvailableDialogs: []
+  dialogueIndex: 0
+  DialogueLocalIndex: 0
+  EventManager: {fileID: 0}
+  isDialogueActive: 0
+--- !u!65 &1666334510
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1666334508}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 3.488018}
+  m_Center: {x: 0, y: 0, z: -0.39326382}
+--- !u!4 &1666334511
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1666334508}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.559, y: 1.621, z: -10.863}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1742805627
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16704,6 +16777,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 251973357918298085, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1133552872947455245, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -17380,3 +17457,4 @@ SceneRoots:
   - {fileID: 363875303}
   - {fileID: 376318595}
   - {fileID: 770652374}
+  - {fileID: 1666334511}

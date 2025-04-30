@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public bool CanMove { get; set; } = true;
+    public bool CanListenToConversations => playerModel.CanListenToConversations;
 
     private PlayerView playerView;
     private PlayerModel playerModel;
@@ -39,6 +40,12 @@ public class PlayerController : MonoBehaviour
     {
         HandleMovement();
         RotateCharacterToCamera();
+
+        //Test
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            ToggleCanListening();
+        }
     }
     public void HandleMovement()
     {
@@ -67,6 +74,10 @@ public class PlayerController : MonoBehaviour
         Quaternion targetRotation = Quaternion.Euler(0, targetAngle, 0);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * playerModel.SpeedRotation);
 
+    }
+    public void ToggleCanListening()
+    {
+        playerModel.CanListenToConversations = !playerModel.CanListenToConversations;
     }
     public void SetControllerEnabled(bool enabled)
     {
