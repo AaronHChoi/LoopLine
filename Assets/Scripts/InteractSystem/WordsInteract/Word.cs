@@ -1,11 +1,11 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-public class Word : MonoBehaviour, IWord, IInteract
+public class Word : MonoBehaviour, IWord /*IInteract*/
 {
 
     [SerializeField] private bool isCorrectWord;
-    [SerializeField] private string interactText = "Interact";
+    //[SerializeField] private string interactText = "Interact";
     private TextMeshPro tmpro;
     public string word;
     public int numerofWord; 
@@ -15,10 +15,10 @@ public class Word : MonoBehaviour, IWord, IInteract
     [SerializeField] private int range = 2;
     Vector3 _direction;
 
-    public string GetInteractText()
-    {
-        return interactText;
-    }
+    //public string GetInteractText()
+    //{
+    //    return interactText;
+    //}
     private void Start()
     {
         playerController = FindAnyObjectByType<PlayerController>();
@@ -33,10 +33,10 @@ public class Word : MonoBehaviour, IWord, IInteract
         }
 
     }
-    public void Interact()
-    {
+    //public void Interact()
+    //{
       
-    }
+    //}
 
     public void Interacted()
     {
@@ -54,7 +54,7 @@ public class Word : MonoBehaviour, IWord, IInteract
 
     private void Update()
     {
-        tmpro.text = word + " " + numerofWord.ToString();
+        tmpro.text = word + " " + "[" + numerofWord.ToString()+ "]";
         if (Vector3.Distance(transform.position, playerController.transform.position) <= range)
         {
 
