@@ -5,7 +5,6 @@ namespace Unity.Cinemachine.Samples
 {
     public class CinemachinePOVExtension : MonoBehaviour, Unity.Cinemachine.IInputAxisOwner
     {
-        private Transform cameraTransform;
         private PlayerModel playerModel;
 
         [Header("Input Axes")]
@@ -23,7 +22,6 @@ namespace Unity.Cinemachine.Samples
         private void Start()
         {
             playerModel = new PlayerModel();
-            cameraTransform = Camera.main.transform;
         }
         void IInputAxisOwner.GetInputAxes(List<IInputAxisOwner.AxisDescriptor> axes)
         {
@@ -60,6 +58,15 @@ namespace Unity.Cinemachine.Samples
             // Aplicar la rotación a la cámara
             var rot = Quaternion.Euler(Tilt.Value, Pan.Value, 0);
             transform.rotation = rot;
+        }
+        public (float pan, float tilt) GetPanAndTilt()
+        {
+            return (Pan.Value, Tilt.Value);
+        }
+        public void SetPanAndTilt(float pan, float tilt)
+        {
+            Pan.Value = Mathf.Clamp(pan, Pan.Range.x, Pan.Range.y);
+            Tilt.Value = Mathf.Clamp(tilt, Tilt.Range.x, Tilt.Range.y);
         }
     }
 }

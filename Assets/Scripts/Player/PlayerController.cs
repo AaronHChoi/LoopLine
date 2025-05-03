@@ -1,22 +1,22 @@
 using Unity.Cinemachine;
+using Unity.Cinemachine.Samples;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
     public bool CanMove { get; set; } = true;
+    public bool CanListenToConversations => playerModel.CanListenToConversations;
 
     private PlayerView playerView;
     private PlayerModel playerModel;
     private InputAction moveAction;
-    private InputAction lookAction;
     private CinemachineCamera virtualCamera;
     private Transform cameraTransform;
-    private CinemachinePanTilt panTilt;
     private PlayerInput playerInput;
+    [SerializeField] private CinemachinePOVExtension cinemachinePOVExtension;
 
     private Vector2 inputMovement;
-    private Vector2 inputLook;
     private float lockedPanValue;
     private float lockedTiltValue;
 
@@ -25,13 +25,12 @@ public class PlayerController : MonoBehaviour
         playerView = GetComponent<PlayerView>();
         playerInput = GetComponent<PlayerInput>();
         virtualCamera = FindAnyObjectByType<CinemachineCamera>();
-        panTilt = FindFirstObjectByType<CinemachinePanTilt>();
+        cinemachinePOVExtension = FindFirstObjectByType<CinemachinePOVExtension>();
         playerModel = new PlayerModel();
     }
     private void Start()
     {
         moveAction = playerInput.actions["Move"];
-        lookAction = playerInput.actions["Look"];
         cameraTransform = virtualCamera.transform;
         //cameraTransform = Camera.main.transform;
     }
@@ -39,6 +38,12 @@ public class PlayerController : MonoBehaviour
     {
         HandleMovement();
         RotateCharacterToCamera();
+
+        //Test
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            ToggleCanListening();
+        }
     }
     public void HandleMovement()
     {
@@ -68,22 +73,24 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * playerModel.SpeedRotation);
 
     }
+    public void ToggleCanListening()
+    {
+        playerModel.CanListenToConversations = !playerModel.CanListenToConversations;
+    }
     public void SetControllerEnabled(bool enabled)
     {
         CanMove = enabled;
         virtualCamera.enabled = enabled;
 
-        if(panTilt != null)
+        if(cinemachinePOVExtension != null)
         {
             if (enabled)
             {
-                panTilt.PanAxis.Value = lockedPanValue;
-                panTilt.TiltAxis.Value = lockedTiltValue;
+                cinemachinePOVExtension.SetPanAndTilt(lockedPanValue, lockedTiltValue);
             }
             else
             {
-                lockedPanValue = panTilt.PanAxis.Value;
-                lockedTiltValue = panTilt.TiltAxis.Value;
+                (lockedPanValue, lockedTiltValue) = cinemachinePOVExtension.GetPanAndTilt();
             }
         }
     }
