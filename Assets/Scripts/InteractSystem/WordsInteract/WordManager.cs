@@ -1,6 +1,6 @@
-using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class WordManager : MonoBehaviour
 {
@@ -12,7 +12,6 @@ public class WordManager : MonoBehaviour
     [SerializeField] private List<Word> correctWordsObject = new List<Word>();
     [SerializeField] private List<Word> incorrectWordsObject = new List<Word>();
 
-
     private List<Word> words = new List<Word>();
     private float timer = 0f;
 
@@ -23,11 +22,18 @@ public class WordManager : MonoBehaviour
 
     private Dictionary<int, Word> numberToObject = new Dictionary<int, Word>();
 
-
+    [SerializeField] private Animator animator;
+    [SerializeField] private bool isPlayerInRange = false;
+    [SerializeField] private float distance;
+    [SerializeField] private float delay = 1.6f;
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+        playerController = FindAnyObjectByType<PlayerController>();
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        playerController = FindAnyObjectByType<PlayerController>();
         for (int i = 0; i < incorrectWordsObject.Count; i++)
         {
             int randomIndex = Random.Range(0, incorrectWords.Count - 1);
@@ -44,13 +50,20 @@ public class WordManager : MonoBehaviour
             correctWords.RemoveAt(randomIndex);
         }
         AssignNumbers();
+        ActiveAndDeactivateWords(false);
     }
 
     private void Update()
     {
-        if (Vector3.Distance(transform.position, playerController.transform.position) <= range)
+        distance = Vector3.Distance(transform.position, playerController.transform.position);
+
+        if (distance <= range)
         {
-            SpawnWords();
+            if (!isPlayerInRange)
+            {
+                isPlayerInRange = true;
+                SpawnWords();
+            }
             if (Input.GetKeyDown(KeyCode.Alpha1))
                 CheckNumber(1);
             if (Input.GetKeyDown(KeyCode.Alpha2))
@@ -60,10 +73,13 @@ public class WordManager : MonoBehaviour
         }
         else
         {
-            UnSpawnWords();
+            if (isPlayerInRange)
+            {
+                isPlayerInRange = false;
+                UnSpawnWords();
+            }
         }
     }
-
     private void AssignNumbers()
     {
         List<int> numbers = new List<int> { 1, 2, 3 };
@@ -75,18 +91,14 @@ public class WordManager : MonoBehaviour
             words[i].numerofWord = numbers[i];
         }
     }
-
     private void CheckNumber(int numberPressed)
     {
         if (numberToObject.ContainsKey(numberPressed))
         {
             Word word = numberToObject[numberPressed];
             word.Interacted();
-
         }
     }
-
-
     private void Shuffle(List<int> list)
     {
         for (int i = 0; i < list.Count; i++)
@@ -96,23 +108,27 @@ public class WordManager : MonoBehaviour
             list[i] = list[randomIndex];
             list[randomIndex] = temp;
         }
-
     }
-
     private void SpawnWords()
     {
-        foreach (Word word in words)
-        {
-           word.gameObject.SetActive(true);                               
-        }
+        ActiveAndDeactivateWords(true);
+        animator.SetTrigger("EnterAnim");
     }
-
     private void UnSpawnWords()
+    {
+        animator.SetTrigger("ExitAnim");
+        StartCoroutine(DisableWordsWithDelay(delay));
+    }
+    private IEnumerator DisableWordsWithDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        ActiveAndDeactivateWords(false);
+    }
+    private void ActiveAndDeactivateWords(bool state)
     {
         foreach (Word word in words)
         {
-            word.gameObject.SetActive(false);
+            word.gameObject.SetActive(state);
         }
     }
-
 }
