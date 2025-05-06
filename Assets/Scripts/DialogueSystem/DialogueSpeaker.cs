@@ -28,7 +28,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
     }
     public void OnNotify(Events _event)
     {
-        if (_event == Events.TriggerDialogue)
+        if (_event == Events.TriggerMonologue)
             TriggerPlayerDialogue();
     }
     private void OnEnable()
@@ -69,6 +69,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
                 Debug.LogWarning("La conversacion esta bloqueada");
                 EndDialogue();
                 DialogueManager.Instance.ShowUI(false);
+                return;
             }
         }
         else
@@ -77,7 +78,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
             EndDialogue();
             DialogueManager.Instance.ShowUI(false);
         }
-        DialogueRefresh();
+        //DialogueRefresh();
     }
     void StartDialogue()
     {
@@ -139,21 +140,21 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
         if (playerSpeaker != null)
             playerSpeaker.DialogueTrigger();
     }
-    public void TriggerNPCDialogue(string _id)
-    {
-        GameObject[] npcs = GameObject.FindGameObjectsWithTag("NPC");
+    //public void TriggerNPCDialogue(string _id)
+    //{
+    //    GameObject[] npcs = GameObject.FindGameObjectsWithTag("NPC");
 
-        foreach (GameObject npc in npcs)
-        {
-            DialogueSpeaker npcDialogueSpeaker = npc.GetComponent<DialogueSpeaker>();
-            if(npcDialogueSpeaker == null)
-                continue;
+    //    foreach (GameObject npc in npcs)
+    //    {
+    //        DialogueSpeaker npcDialogueSpeaker = npc.GetComponent<DialogueSpeaker>();
+    //        if(npcDialogueSpeaker == null)
+    //            continue;
 
-            if(npcDialogueSpeaker.id == _id)
-            {
-                npcDialogueSpeaker.DialogueTrigger();
-                break;
-            }
-        }
-    }
+    //        if(npcDialogueSpeaker.id == _id)
+    //        {
+    //            npcDialogueSpeaker.DialogueTrigger();
+    //            break;
+    //        }
+    //    }
+    //}
 }

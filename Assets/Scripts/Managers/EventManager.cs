@@ -1,11 +1,12 @@
-using NUnit.Framework;
-using System.Collections.Generic;
+
+using System.Collections;
 using UnityEngine;
 
 public class EventManager : Subject
 {
     [SerializeField] private AudioSource audioSource;
     [SerializeField] TimeManager timeManager;
+    [SerializeField] DialogueSOManager dialogueSOManager;
 
     [Header("Train Event 1")]
     [SerializeField] private AudioClip trainStopSound_1;
@@ -14,6 +15,7 @@ public class EventManager : Subject
     [Header("Train Event 2")]
     [SerializeField] private AudioClip crystalBreakSound;
 
+    [SerializeField] float delay = 1f;
     private bool isWindowBroken = false;
     bool trainEvent1 = true;
 
@@ -21,18 +23,23 @@ public class EventManager : Subject
     {
         audioSource = GetComponent<AudioSource>();
         timeManager = FindFirstObjectByType<TimeManager>();
+        dialogueSOManager = FindFirstObjectByType<DialogueSOManager>();
+    }
+    private void Start()
+    {
+        StartCoroutine(StartSceneMonologue(delay));
     }
     void Update()
     {
         TrainEvent1();
         TrainEvent2();
 
-
         if (Input.GetKeyDown(KeyCode.H))
         {
-            NotifyObservers(Events.TriggerDialogue);
+            NotifyObservers(Events.TriggerMonologue);
         }
     }
+    #region TrainEvents
     private void TrainEvent1()
     {
         if (timeManager.LoopTime <= 240 && timeManager.LoopTime >= 235)
@@ -42,6 +49,7 @@ public class EventManager : Subject
             {
                 audioSource.clip = trainStopSound_1;
                 audioSource.Play();
+                dialogueSOManager.TriggerEventDialogue("TrainStop - WorkingMan");
             }
         }
         else
@@ -62,7 +70,6 @@ public class EventManager : Subject
             //audioSource.Stop();
         }
     }
-
     private void TrainEvent2()
     {
         if (!isWindowBroken && timeManager.LoopTime <= 60 && timeManager.LoopTime >= 55)
@@ -71,6 +78,7 @@ public class EventManager : Subject
             {
                 audioSource.clip = crystalBreakSound;
                 audioSource.Play();
+                dialogueSOManager.TriggerEventDialogue("BreakWindow-WorkingMan");
             }
             NotifyObservers(Events.BreakCrystal);
             isWindowBroken = true;
@@ -79,5 +87,11 @@ public class EventManager : Subject
         {
             //audioSource.Stop();
         }
+    }
+    #endregion
+    private IEnumerator StartSceneMonologue(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        NotifyObservers(Events.TriggerMonologue);
     }
 }

@@ -89,7 +89,7 @@ public class DialogueUI : MonoBehaviour
                 }
                 else
                 {
-                    print("Dialogo Termiando");
+                    print("Dialogo Terminado");
                     localIndex = 0;
                     DialogueManager.actualSpeaker.DialogueLocalIndex = 0;
                     Dialogue.Finished = true;
