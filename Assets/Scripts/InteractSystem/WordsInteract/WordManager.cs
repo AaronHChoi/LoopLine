@@ -17,7 +17,7 @@ public class WordManager : MonoBehaviour
 
     [Header("LookAt")]
     private PlayerController playerController;
-    [SerializeField] private int range = 6;
+    [SerializeField] private float range = 3f;
     Vector3 _direction;
 
     private Dictionary<int, Word> numberToObject = new Dictionary<int, Word>();
