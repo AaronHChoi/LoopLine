@@ -8,14 +8,16 @@ public class DevelopmentManager : MonoBehaviour
 {
     [SerializeField] private GameObject UIPrinciplal;
     [SerializeField] private GameObject UIDeveloperMode;
-    [SerializeField] private GameObject bgm;
 
     [SerializeField] DialogueManager dialogueManager;
     [SerializeField] TimeManager timeManager;
     [SerializeField] DialogueManager dialManager;
     [SerializeField] PlayerController playerController;
+
+    private Dictionary<AudioSource, float> audiosVolumeDic;
     bool isCursorVisible = false;
     bool isUIActive = false;
+    bool isMuted = false;
     private void Awake()
     {
         dialogueManager = FindFirstObjectByType<DialogueManager>();
@@ -27,10 +29,11 @@ public class DevelopmentManager : MonoBehaviour
     {
         timeManager.changeLoopTime = false;
         UpdateCursorState();
+        InitAudios();
     }
     void Update()
     {
-        if(dialManager != null)
+        if (dialManager != null)
         {
             if (Input.GetKeyDown(KeyCode.Escape) && UIPrinciplal != null && !dialManager.isDialogueActive)
             {
@@ -43,7 +46,8 @@ public class DevelopmentManager : MonoBehaviour
 
                 UpdateCursorState();
             }
-        } else if (Input.GetKeyDown(KeyCode.Escape) && UIPrinciplal != null && SceneManager.GetActiveScene().name != "Train")
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) && UIPrinciplal != null && SceneManager.GetActiveScene().name != "Train")
         {
             isUIActive = !isUIActive;
 
@@ -55,11 +59,22 @@ public class DevelopmentManager : MonoBehaviour
             UpdateCursorState();
         }
     }
+    private void InitAudios()
+    {
+        audiosVolumeDic = new Dictionary<AudioSource, float>();
+
+        var auxAudios = FindObjectsByType<AudioSource>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+
+        foreach (var audio in auxAudios)
+        {
+            audiosVolumeDic.Add(audio, audio.volume);
+        }
+    }
     void UpdateCursorState()
     {
         bool shouldShowCursor = UIDeveloperMode.activeInHierarchy;
 
-        if(isCursorVisible != shouldShowCursor)
+        if (isCursorVisible != shouldShowCursor)
         {
             isCursorVisible = shouldShowCursor;
             Cursor.visible = isCursorVisible;
@@ -80,7 +95,18 @@ public class DevelopmentManager : MonoBehaviour
     }
     public void Mute()
     {
-        bgm.SetActive(!bgm.activeInHierarchy);
+        isMuted = !isMuted;
+        foreach (var audio in audiosVolumeDic)
+        {
+            if (isMuted)
+            {
+                audio.Key.volume = 0;
+            }
+            else
+            {
+                audio.Key.volume = audio.Value;
+            }
+        }
     }
     public void LoadMainLevel()
     {
@@ -101,7 +127,7 @@ public class DevelopmentManager : MonoBehaviour
             {
                 timeManager.changeLoopTime = false;
             }
-        }    
+        }
     }
     public void CutTimeStopTrain()
     {
