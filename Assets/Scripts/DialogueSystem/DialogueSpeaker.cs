@@ -44,6 +44,12 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
         if (isDialogueActive) return;
 
         Debug.Log("Trigger");
+
+        while(dialogueIndex < AvailableDialogs.Count && !AvailableDialogs[dialogueIndex].Unlocked)
+        {
+            dialogueIndex++;
+        }
+
         if (dialogueIndex <= AvailableDialogs.Count - 1)
         {
             if (AvailableDialogs[dialogueIndex].Unlocked)
@@ -63,6 +69,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
                 StartDialogue();
                 DialogueManager.Instance.ShowUI(true);
                 DialogueManager.Instance.SetDialogue(AvailableDialogs[dialogueIndex], this);
+                //dialogueIndex++;
             }
             else
             {
@@ -79,6 +86,17 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
             DialogueManager.Instance.ShowUI(false);
         }
         //DialogueRefresh();
+    }
+    private int FindNextUnlockedDialogue(int startIndex)
+    {
+        for (int i = startIndex; i < AvailableDialogs.Count; i++)
+        {
+            if (AvailableDialogs[i].Unlocked)
+            {
+                return i;
+            }
+        }
+        return -1;
     }
     void StartDialogue()
     {

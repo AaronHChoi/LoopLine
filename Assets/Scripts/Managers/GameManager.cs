@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 
     public string nextScene;
 
+    public int Loop;
+
     public ScreenManager ScreenManager => screenManager;
 
     private void Awake()
@@ -15,6 +17,7 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -23,6 +26,9 @@ public class GameManager : MonoBehaviour
     }
     public void LoadNextScene(string sceneName)
     {
+        if (sceneName == "MindPlace")
+            Loop++;
+
         SceneManager.LoadScene(sceneName);
     }
 }

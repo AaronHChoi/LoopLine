@@ -6,8 +6,7 @@ public class EventManager : Subject
 {
     [SerializeField] private AudioSource audioSource;
     [SerializeField] TimeManager timeManager;
-    [SerializeField] DialogueSOManager dialogueSOManager;
-
+    
     [Header("Train Event 1")]
     [SerializeField] private AudioClip trainStopSound_1;
     [SerializeField] private AudioClip trainStopSound_2;
@@ -19,11 +18,14 @@ public class EventManager : Subject
     private bool isWindowBroken = false;
     bool trainEvent1 = true;
 
+    [Header("Dialogues Managers")]
+    [SerializeField] DialogueSOManager workingMan1;
+    [SerializeField] DialogueSOManager workingMan2;
+
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
         timeManager = FindFirstObjectByType<TimeManager>();
-        dialogueSOManager = FindFirstObjectByType<DialogueSOManager>();
     }
     private void Start()
     {
@@ -49,7 +51,7 @@ public class EventManager : Subject
             {
                 audioSource.clip = trainStopSound_1;
                 audioSource.Play();
-                dialogueSOManager.TriggerEventDialogue("TrainStop - WorkingMan");
+                workingMan1.TriggerEventDialogue("TrainStop");
             }
         }
         else
@@ -78,7 +80,7 @@ public class EventManager : Subject
             {
                 audioSource.clip = crystalBreakSound;
                 audioSource.Play();
-                dialogueSOManager.TriggerEventDialogue("BreakWindow-WorkingMan");
+                workingMan2.TriggerEventDialogue("BreakWindow");
             }
             NotifyObservers(Events.BreakCrystal);
             isWindowBroken = true;

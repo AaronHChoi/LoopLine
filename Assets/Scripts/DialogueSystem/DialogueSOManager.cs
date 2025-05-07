@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using NUnit.Framework;
 using UnityEngine;
 
 public class DialogueSOManager : MonoBehaviour
@@ -8,24 +7,24 @@ public class DialogueSOManager : MonoBehaviour
     public class DialogueEvent
     {
         public string EventName;
-        public List<DialogueSO> DialoguesToUnlock;
-        public List<DialogueSO> DialoguesToLock;
+        public List<DialogueSO> DialoguesToAdd;
     }
     public List<DialogueEvent> DialogueEvents;
-
+    public DialogueSpeaker dialogueSpeaker;
+    private void Awake()
+    {
+        dialogueSpeaker = GetComponent<DialogueSpeaker>();
+    }
     public void TriggerEventDialogue(string eventName)
     {
         DialogueEvent dialogueEvent = DialogueEvents.Find(e => e.EventName == eventName);
 
-        foreach (DialogueSO dialogue in dialogueEvent.DialoguesToUnlock)
+        dialogueSpeaker.AvailableDialogs.Clear();
+
+        foreach (DialogueSO dialogue in dialogueEvent.DialoguesToAdd)
         {
-            dialogue.Unlocked = true;
-            dialogue.Finished = false;
-        }
-        foreach (DialogueSO dialogue in dialogueEvent.DialoguesToLock)
-        {
-            dialogue.Unlocked = false;
-            dialogue.Finished = false;
+            if (!dialogueSpeaker.AvailableDialogs.Contains(dialogue))
+                dialogueSpeaker.AvailableDialogs.Add(dialogue);
         }
     }
 }
