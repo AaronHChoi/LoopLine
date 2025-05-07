@@ -18,7 +18,7 @@ public class EventManager : Subject
     private bool isWindowBroken = false;
     bool trainEvent1 = true;
 
-    [Header("Dialogues Managers")]
+    [Header("Dialogues Managers")] //Referencias manuales
     [SerializeField] DialogueSOManager workingMan;
     [SerializeField] DialogueSOManager player;
     [SerializeField] DialogueUI dial;
