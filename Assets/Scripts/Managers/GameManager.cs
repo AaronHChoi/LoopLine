@@ -27,6 +27,10 @@ public class GameManager : MonoBehaviour
         }
         dialogueManager = FindFirstObjectByType<DialogueManager>();
     }
+    private void Start()
+    {
+        dialogueManager.ResetAllDialogues();
+    }
     public void LoadNextScene(string sceneName)
     {
         if (sceneName == "MindPlace")
@@ -34,8 +38,6 @@ public class GameManager : MonoBehaviour
             Loop++;
             dialogueManager.ResetAllDialogues();
         }
-            
-
         SceneManager.LoadScene(sceneName);
     }
 }

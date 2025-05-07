@@ -35,6 +35,10 @@ public class EventManager : Subject
         {
             player.TriggerEventDialogue("Train2");
         }
+        if (GameManager.Instance.CorrectWord101)
+        {
+            workingMan.TriggerEventDialogue("CorrectWord");
+        }
         StartCoroutine(StartSceneMonologue(delay));
     }
     void Update()
