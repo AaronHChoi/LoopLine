@@ -3,10 +3,8 @@ using TMPro;
 using UnityEngine.SceneManagement;
 public class Word : MonoBehaviour, IWord /*IInteract*/
 {
-
     [SerializeField] private bool isCorrectWord;
-    //[SerializeField] private string interactText = "Interact";
-    private TextMeshPro tmpro;
+    [SerializeField] private TextMeshPro tmpro;
     public string word;
     public int numerofWord; 
 
@@ -14,50 +12,39 @@ public class Word : MonoBehaviour, IWord /*IInteract*/
     private PlayerController playerController;
     [SerializeField] private int range = 2;
     Vector3 _direction;
-
-    //public string GetInteractText()
-    //{
-    //    return interactText;
-    //}
-    private void Start()
+    private void Awake()
     {
         playerController = FindAnyObjectByType<PlayerController>();
+        tmpro = GetComponentInChildren<TextMeshPro>();
+    }
+    private void Start()
+    {
         if (playerController == null)
         {
             Debug.LogError("PlayerController not found in the scene.");
         }
-        tmpro = GetComponentInChildren<TextMeshPro>();
         if (tmpro == null)
         {
             Debug.LogError("TextMeshPro component not found in children.");
         }
-
     }
-    //public void Interact()
-    //{
-      
-    //}
-
     public void Interacted()
     {
         if (isCorrectWord)
         {
             tmpro.color = Color.green;
+            GameManager.Instance.CorrectWord101 = true;
         }
         else
         {
             SceneManager.LoadScene("Train");
         }
     }
-
-    
-
     private void Update()
     {
         tmpro.text = word + " " + "[" + numerofWord.ToString()+ "]";
         if (Vector3.Distance(transform.position, playerController.transform.position) <= range)
         {
-
             _direction = playerController.transform.position - transform.position;
             _direction.y = 0;
 

@@ -336,7 +336,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UIPrinciplal: {fileID: 1510329041}
   UIDeveloperMode: {fileID: 1621560652}
-  bgm: {fileID: 1743774646}
   dialogueManager: {fileID: 0}
   timeManager: {fileID: 0}
   dialManager: {fileID: 0}
@@ -10171,7 +10170,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9179799927217460580, guid: 79a5473d5662dce409b195af4d7a1641, type: 3}
       propertyPath: delay
-      value: 30
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 9179799927217460580, guid: 79a5473d5662dce409b195af4d7a1641, type: 3}
       propertyPath: player
@@ -10773,6 +10772,7 @@ MonoBehaviour:
   dialogueManager: {fileID: 0}
   nextScene: MindPlace
   Loop: 0
+  CorrectWord101: 0
 --- !u!4 &1771727360
 Transform:
   m_ObjectHideFlags: 0
@@ -12148,6 +12148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCorrectWord: 1
+  tmpro: {fileID: 0}
   word: 
   numerofWord: 0
   range: 6
@@ -12208,7 +12209,7 @@ GameObject:
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &692744977765331352
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12386,6 +12387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCorrectWord: 0
+  tmpro: {fileID: 0}
   word: 
   numerofWord: 0
   range: 6
@@ -12478,6 +12480,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCorrectWord: 0
+  tmpro: {fileID: 0}
   word: 
   numerofWord: 0
   range: 6
@@ -13007,6 +13010,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCorrectWord: 0
+  tmpro: {fileID: 0}
   word: 
   numerofWord: 0
   range: 6
@@ -13760,6 +13764,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCorrectWord: 0
+  tmpro: {fileID: 0}
   word: 
   numerofWord: 0
   range: 6
@@ -14422,6 +14427,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCorrectWord: 0
+  tmpro: {fileID: 0}
   word: 
   numerofWord: 0
   range: 6
@@ -15077,6 +15083,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCorrectWord: 0
+  tmpro: {fileID: 0}
   word: 
   numerofWord: 0
   range: 6
@@ -15202,14 +15209,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   correctWords:
-  - "T\xEDmido"
-  - Callado
-  - Solitario
+  - Alterado
+  - Malhumorado
+  - Irritado
   incorrectWords:
-  - "Met\xE1lico"
-  - "\xC1rbol"
-  - Pancho
-  - Casa
+  - Asustado
+  - Desorientado
+  - Orgulloso
+  - "Distra\xEDdo"
   correctWordsObject:
   - {fileID: 6934902998468498121}
   incorrectWordsObject:
@@ -15548,7 +15555,7 @@ GameObject:
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &4751041807872428296
 Animator:
   serializedVersion: 7
@@ -15661,6 +15668,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCorrectWord: 1
+  tmpro: {fileID: 0}
   word: 
   numerofWord: 0
   range: 6
@@ -15677,6 +15685,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCorrectWord: 0
+  tmpro: {fileID: 0}
   word: 
   numerofWord: 0
   range: 6
@@ -15738,6 +15747,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCorrectWord: 0
+  tmpro: {fileID: 0}
   word: 
   numerofWord: 0
   range: 6
@@ -16136,6 +16146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCorrectWord: 1
+  tmpro: {fileID: 0}
   word: 
   numerofWord: 0
   range: 6
@@ -16235,7 +16246,7 @@ GameObject:
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &5753070809740598542
 Animator:
   serializedVersion: 7
@@ -16244,7 +16255,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5753070809740598541}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: e16d21741049aa24dbbe04afcbd51e6d, type: 2}
   m_CullingMode: 0
@@ -16271,6 +16282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCorrectWord: 0
+  tmpro: {fileID: 0}
   word: 
   numerofWord: 0
   range: 6
@@ -16713,6 +16725,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCorrectWord: 1
+  tmpro: {fileID: 0}
   word: 
   numerofWord: 0
   range: 6
@@ -16729,6 +16742,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCorrectWord: 1
+  tmpro: {fileID: 0}
   word: 
   numerofWord: 0
   range: 6
@@ -16884,6 +16898,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCorrectWord: 0
+  tmpro: {fileID: 0}
   word: 
   numerofWord: 0
   range: 6
@@ -16983,7 +16998,7 @@ GameObject:
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &7301779246265001866
 Animator:
   serializedVersion: 7
@@ -17141,6 +17156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCorrectWord: 1
+  tmpro: {fileID: 0}
   word: 
   numerofWord: 0
   range: 6
@@ -17461,7 +17477,7 @@ GameObject:
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &7841614450967293103
 Animator:
   serializedVersion: 7
@@ -17497,6 +17513,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCorrectWord: 0
+  tmpro: {fileID: 0}
   word: 
   numerofWord: 0
   range: 6
@@ -17598,6 +17615,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCorrectWord: 0
+  tmpro: {fileID: 0}
   word: 
   numerofWord: 0
   range: 6

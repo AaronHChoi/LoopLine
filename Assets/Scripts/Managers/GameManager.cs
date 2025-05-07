@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public int Loop;
 
     public ScreenManager ScreenManager => screenManager;
+    public bool CorrectWord101 = false;
 
     private void Awake()
     {

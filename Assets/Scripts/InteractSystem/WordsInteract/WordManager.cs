@@ -13,7 +13,6 @@ public class WordManager : MonoBehaviour
     [SerializeField] private List<Word> incorrectWordsObject = new List<Word>();
 
     private List<Word> words = new List<Word>();
-    private float timer = 0f;
 
     [Header("LookAt")]
     private PlayerController playerController;
