@@ -21,6 +21,7 @@ public class EventManager : Subject
     [Header("Dialogues Managers")] //Referencias manuales
     [SerializeField] DialogueSOManager workingMan;
     [SerializeField] DialogueSOManager player;
+    [SerializeField] DialogueSOManager peek;
     [SerializeField] DialogueUI dial;
 
     private void Awake()
@@ -58,6 +59,7 @@ public class EventManager : Subject
                 audioSource.clip = trainStopSound_1;
                 audioSource.Play();
                 workingMan.TriggerEventDialogue("TrainStop");
+                peek.TriggerEventDialogue("TrainStop");
             }
         }
         else
@@ -87,6 +89,7 @@ public class EventManager : Subject
                 audioSource.clip = crystalBreakSound;
                 audioSource.Play();
                 workingMan.TriggerEventDialogue("BreakWindow");
+                peek.TriggerEventDialogue("BreakWindow");
                 player.TriggerEventDialogue("Train2");
             }
             NotifyObservers(Events.BreakCrystal);

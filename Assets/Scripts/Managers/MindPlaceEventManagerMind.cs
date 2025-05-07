@@ -11,7 +11,6 @@ public class MindPlaceEventManagerMind : Subject
         if (GameManager.Instance.Loop == 1)
         {
             player.TriggerEventDialogue("MindPlace1A");
-
         }
         StartCoroutine(StartSceneMonologue(delay));
     }

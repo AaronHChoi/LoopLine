@@ -16,9 +16,6 @@ public class FocusModeManager : MonoBehaviour
         {
             if (obj == null) continue;
 
-            //if (obj.TryGetComponent(out DialogueSpeaker dial))
-            //    dial.enabled = state;
-
             if (obj.TryGetComponent(out BoxCollider box))
                 box.enabled = state;
         }
