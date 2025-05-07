@@ -26,14 +26,20 @@ public class WordManager : MonoBehaviour
     [SerializeField] private bool isPlayerInRange = false;
     [SerializeField] private float distance;
     [SerializeField] private float delay = 1.6f;
+
+    //Test
+    MindPlaceEventManagerMind eventManager;
+    bool onlyOneTime;
     private void Awake()
     {
         animator = GetComponent<Animator>();
         playerController = FindAnyObjectByType<PlayerController>();
+        eventManager = FindFirstObjectByType<MindPlaceEventManagerMind>();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        onlyOneTime = false;
         for (int i = 0; i < incorrectWordsObject.Count; i++)
         {
             int randomIndex = Random.Range(0, incorrectWords.Count - 1);
@@ -56,28 +62,35 @@ public class WordManager : MonoBehaviour
     private void Update()
     {
         distance = Vector3.Distance(transform.position, playerController.transform.position);
+        bool nowInRange = distance <= range;
 
-        if (distance <= range)
+        if(nowInRange != isPlayerInRange)
         {
-            if (!isPlayerInRange)
+            isPlayerInRange = nowInRange;
+
+            if (isPlayerInRange)
             {
-                isPlayerInRange = true;
-                SpawnWords();
+                if (GameManager.Instance.Loop == 1 && !onlyOneTime)
+                {
+                    eventManager.EventTriggerMonologue();
+                    onlyOneTime = true;
+                }
+                StartEnterSequence();
             }
+            else
+            {
+                StartExitSequence();
+            }
+        }
+
+        if(isPlayerInRange && words.Count > 0 && words[0].gameObject.activeSelf)
+        {
             if (Input.GetKeyDown(KeyCode.Alpha1))
                 CheckNumber(1);
             if (Input.GetKeyDown(KeyCode.Alpha2))
                 CheckNumber(2);
             if (Input.GetKeyDown(KeyCode.Alpha3))
                 CheckNumber(3);
-        }
-        else
-        {
-            if (isPlayerInRange)
-            {
-                isPlayerInRange = false;
-                UnSpawnWords();
-            }
         }
     }
     private void AssignNumbers()
@@ -109,20 +122,26 @@ public class WordManager : MonoBehaviour
             list[randomIndex] = temp;
         }
     }
-    private void SpawnWords()
+    private void StartEnterSequence()
     {
+        StopAllCoroutines();
+
         ActiveAndDeactivateWords(true);
         animator.SetTrigger("EnterAnim");
     }
-    private void UnSpawnWords()
+    private void StartExitSequence()
     {
+        StopAllCoroutines();
+
         animator.SetTrigger("ExitAnim");
         StartCoroutine(DisableWordsWithDelay(delay));
     }
     private IEnumerator DisableWordsWithDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        ActiveAndDeactivateWords(false);
+
+        if (!isPlayerInRange)
+            ActiveAndDeactivateWords(false);
     }
     private void ActiveAndDeactivateWords(bool state)
     {

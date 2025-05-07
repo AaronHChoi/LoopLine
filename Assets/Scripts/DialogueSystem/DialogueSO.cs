@@ -22,6 +22,5 @@ public class DialogueSO : ScriptableObject
     {
         Unlocked = true;
         Finished = false;
-        ReUse = false;
     }
 }

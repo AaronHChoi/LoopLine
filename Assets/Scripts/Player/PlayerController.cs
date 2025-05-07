@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public bool CanMove { get; set; } = true;
-    public bool CanListenToConversations => playerModel.CanListenToConversations;
+    public bool FocusMode => playerModel.FocusMode;
 
     private PlayerView playerView;
     private PlayerModel playerModel;
@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     private Transform cameraTransform;
     private PlayerInput playerInput;
     [SerializeField] private CinemachinePOVExtension cinemachinePOVExtension;
+    [SerializeField] FocusModeManager focusModeManager;
 
     private Vector2 inputMovement;
     private float lockedPanValue;
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         virtualCamera = FindAnyObjectByType<CinemachineCamera>();
         cinemachinePOVExtension = FindFirstObjectByType<CinemachinePOVExtension>();
+        focusModeManager = FindFirstObjectByType<FocusModeManager>();
         playerModel = new PlayerModel();
     }
     private void Start()
@@ -42,7 +44,7 @@ public class PlayerController : MonoBehaviour
         //Test
         if (Input.GetKeyDown(KeyCode.V))
         {
-            ToggleCanListening();
+            ToggleFocusMode();
         }
     }
     public void HandleMovement()
@@ -71,11 +73,14 @@ public class PlayerController : MonoBehaviour
 
         Quaternion targetRotation = Quaternion.Euler(0, targetAngle, 0);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * playerModel.SpeedRotation);
-
     }
-    public void ToggleCanListening()
+    public void ToggleFocusMode()
     {
-        playerModel.CanListenToConversations = !playerModel.CanListenToConversations;
+        playerModel.FocusMode = !playerModel.FocusMode;
+
+        focusModeManager.ToggleColliders(playerModel.FocusMode);
+
+        Debug.Log(playerModel.FocusMode);
     }
     public void SetControllerEnabled(bool enabled)
     {

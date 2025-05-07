@@ -90,6 +90,7 @@ public class DialogueManager : MonoBehaviour
     {
         _dialogue.Unlocked = unlocking;
     }
+
     public void ResetAllDialogues()
     {
         foreach(DialogueSO dialogue in AllDialogues)

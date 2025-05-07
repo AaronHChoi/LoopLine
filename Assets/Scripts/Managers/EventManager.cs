@@ -1,5 +1,5 @@
-using NUnit.Framework;
-using System.Collections.Generic;
+
+using System.Collections;
 using UnityEngine;
 
 public class EventManager : Subject
@@ -14,25 +14,41 @@ public class EventManager : Subject
     [Header("Train Event 2")]
     [SerializeField] private AudioClip crystalBreakSound;
 
+    [SerializeField] float delay = 1f;
     private bool isWindowBroken = false;
     bool trainEvent1 = true;
+
+    [Header("Dialogues Managers")] //Referencias manuales
+    [SerializeField] DialogueSOManager workingMan;
+    [SerializeField] DialogueSOManager player;
+    [SerializeField] DialogueSOManager peek;
+    [SerializeField] DialogueUI dial;
 
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
         timeManager = FindFirstObjectByType<TimeManager>();
     }
+    private void Start()
+    {
+        if(GameManager.Instance.Loop == 1)
+        {
+            player.TriggerEventDialogue("Train2");
+        }
+        StartCoroutine(StartSceneMonologue(delay));
+    }
     void Update()
     {
         TrainEvent1();
         TrainEvent2();
 
-
         if (Input.GetKeyDown(KeyCode.H))
         {
-            NotifyObservers(Events.TriggerDialogue);
+            NotifyObservers(Events.TriggerMonologue);
+            dial.StopDialogue();
         }
     }
+    #region TrainEvents
     private void TrainEvent1()
     {
         if (timeManager.LoopTime <= 240 && timeManager.LoopTime >= 235)
@@ -42,6 +58,8 @@ public class EventManager : Subject
             {
                 audioSource.clip = trainStopSound_1;
                 audioSource.Play();
+                workingMan.TriggerEventDialogue("TrainStop");
+                peek.TriggerEventDialogue("TrainStop");
             }
         }
         else
@@ -62,7 +80,6 @@ public class EventManager : Subject
             //audioSource.Stop();
         }
     }
-
     private void TrainEvent2()
     {
         if (!isWindowBroken && timeManager.LoopTime <= 60 && timeManager.LoopTime >= 55)
@@ -71,6 +88,9 @@ public class EventManager : Subject
             {
                 audioSource.clip = crystalBreakSound;
                 audioSource.Play();
+                workingMan.TriggerEventDialogue("BreakWindow");
+                peek.TriggerEventDialogue("BreakWindow");
+                player.TriggerEventDialogue("Train2");
             }
             NotifyObservers(Events.BreakCrystal);
             isWindowBroken = true;
@@ -79,5 +99,11 @@ public class EventManager : Subject
         {
             //audioSource.Stop();
         }
+    }
+    #endregion
+    private IEnumerator StartSceneMonologue(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        NotifyObservers(Events.TriggerMonologue);
     }
 }

@@ -7,7 +7,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
     [Tooltip("Este valor solo para los NPC, para poder identificar los dialogos")]
     public string id = "L";
     public List<DialogueSO> AvailableDialogs = new List<DialogueSO>();
-    [SerializeField] private int dialogueIndex = 0;
+    public int dialogueIndex = 0;
     public int DialogueLocalIndex = 0;
 
     public Subject EventManager;
@@ -28,7 +28,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
     }
     public void OnNotify(Events _event)
     {
-        if (_event == Events.TriggerDialogue)
+        if (_event == Events.TriggerMonologue)
             TriggerPlayerDialogue();
     }
     private void OnEnable()
@@ -44,6 +44,12 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
         if (isDialogueActive) return;
 
         Debug.Log("Trigger");
+
+        while(dialogueIndex < AvailableDialogs.Count && !AvailableDialogs[dialogueIndex].Unlocked)
+        {
+            dialogueIndex++;
+        }
+
         if (dialogueIndex <= AvailableDialogs.Count - 1)
         {
             if (AvailableDialogs[dialogueIndex].Unlocked)
@@ -63,12 +69,14 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
                 StartDialogue();
                 DialogueManager.Instance.ShowUI(true);
                 DialogueManager.Instance.SetDialogue(AvailableDialogs[dialogueIndex], this);
+                //dialogueIndex++;
             }
             else
             {
                 Debug.LogWarning("La conversacion esta bloqueada");
                 EndDialogue();
                 DialogueManager.Instance.ShowUI(false);
+                return;
             }
         }
         else
@@ -77,7 +85,18 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
             EndDialogue();
             DialogueManager.Instance.ShowUI(false);
         }
-        DialogueRefresh();
+        //DialogueRefresh();
+    }
+    private int FindNextUnlockedDialogue(int startIndex)
+    {
+        for (int i = startIndex; i < AvailableDialogs.Count; i++)
+        {
+            if (AvailableDialogs[i].Unlocked)
+            {
+                return i;
+            }
+        }
+        return -1;
     }
     void StartDialogue()
     {
@@ -139,21 +158,21 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
         if (playerSpeaker != null)
             playerSpeaker.DialogueTrigger();
     }
-    public void TriggerNPCDialogue(string _id)
-    {
-        GameObject[] npcs = GameObject.FindGameObjectsWithTag("NPC");
+    //public void TriggerNPCDialogue(string _id)
+    //{
+    //    GameObject[] npcs = GameObject.FindGameObjectsWithTag("NPC");
 
-        foreach (GameObject npc in npcs)
-        {
-            DialogueSpeaker npcDialogueSpeaker = npc.GetComponent<DialogueSpeaker>();
-            if(npcDialogueSpeaker == null)
-                continue;
+    //    foreach (GameObject npc in npcs)
+    //    {
+    //        DialogueSpeaker npcDialogueSpeaker = npc.GetComponent<DialogueSpeaker>();
+    //        if(npcDialogueSpeaker == null)
+    //            continue;
 
-            if(npcDialogueSpeaker.id == _id)
-            {
-                npcDialogueSpeaker.DialogueTrigger();
-                break;
-            }
-        }
-    }
+    //        if(npcDialogueSpeaker.id == _id)
+    //        {
+    //            npcDialogueSpeaker.DialogueTrigger();
+    //            break;
+    //        }
+    //    }
+    //}
 }

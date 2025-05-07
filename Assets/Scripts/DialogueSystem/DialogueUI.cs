@@ -23,6 +23,7 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] bool isTyping = false;
     [SerializeField] bool isQuestionActive = false;
     [SerializeField] bool isFirstDialogueSaved = false;
+    Coroutine activeCoroutine;
 
     private void Awake()
     {
@@ -56,7 +57,7 @@ public class DialogueUI : MonoBehaviour
                 print("Dialogo actualizado");
                 name.text = Dialogue.Dialogues[localIndex].character.name;
                 StopAllCoroutines();
-                StartCoroutine(WriteText());
+                activeCoroutine = StartCoroutine(WriteText());
 
                 if (Dialogue.Dialogues[localIndex].sound != null)
                 {
@@ -79,7 +80,7 @@ public class DialogueUI : MonoBehaviour
                     localIndex++;
                     name.text = Dialogue.Dialogues[localIndex].character.name;
                     StopAllCoroutines();
-                    StartCoroutine(WriteText());
+                    activeCoroutine = StartCoroutine(WriteText());
 
                     if (Dialogue.Dialogues[localIndex].sound != null)
                     {
@@ -89,7 +90,7 @@ public class DialogueUI : MonoBehaviour
                 }
                 else
                 {
-                    print("Dialogo Termiando");
+                    print("Dialogo Terminado");
                     localIndex = 0;
                     DialogueManager.actualSpeaker.DialogueLocalIndex = 0;
                     Dialogue.Finished = true;
@@ -122,6 +123,7 @@ public class DialogueUI : MonoBehaviour
     }
     IEnumerator WriteText()
     {
+
         timeManager.AllowFastForwardMethod(true);
         isTyping = true;
         dialogueText.maxVisibleCharacters = 0;
@@ -138,5 +140,10 @@ public class DialogueUI : MonoBehaviour
         }
         isTyping = false;
         timeManager.AllowFastForwardMethod(false);
+    }
+    public void StopDialogue()
+    {
+        StopCoroutine(WriteText());
+        Debug.Log("Dialogo interrumpido");
     }
 }
