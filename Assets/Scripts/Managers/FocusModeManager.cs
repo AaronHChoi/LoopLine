@@ -9,7 +9,6 @@ public class FocusModeManager : MonoBehaviour
     {
         ToggleGameObjects(NPCs, isActive);
         ToggleGameObjects(Focus, !isActive);
-        
     }
     private void ToggleGameObjects(GameObject[] gameObjects, bool state)
     {
@@ -17,8 +16,8 @@ public class FocusModeManager : MonoBehaviour
         {
             if (obj == null) continue;
 
-            if (obj.TryGetComponent(out DialogueSpeaker dial))
-                dial.enabled = state;
+            //if (obj.TryGetComponent(out DialogueSpeaker dial))
+            //    dial.enabled = state;
 
             if (obj.TryGetComponent(out BoxCollider box))
                 box.enabled = state;
