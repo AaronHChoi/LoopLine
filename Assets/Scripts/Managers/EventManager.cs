@@ -19,8 +19,7 @@ public class EventManager : Subject
     bool trainEvent1 = true;
 
     [Header("Dialogues Managers")]
-    [SerializeField] DialogueSOManager workingMan1;
-    [SerializeField] DialogueSOManager workingMan2;
+    [SerializeField] DialogueSOManager workingMan;
 
     private void Awake()
     {
@@ -51,7 +50,7 @@ public class EventManager : Subject
             {
                 audioSource.clip = trainStopSound_1;
                 audioSource.Play();
-                workingMan1.TriggerEventDialogue("TrainStop");
+                workingMan.TriggerEventDialogue("TrainStop");
             }
         }
         else
@@ -80,7 +79,7 @@ public class EventManager : Subject
             {
                 audioSource.clip = crystalBreakSound;
                 audioSource.Play();
-                workingMan2.TriggerEventDialogue("BreakWindow");
+                workingMan.TriggerEventDialogue("BreakWindow");
             }
             NotifyObservers(Events.BreakCrystal);
             isWindowBroken = true;

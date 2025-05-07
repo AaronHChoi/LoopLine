@@ -7,7 +7,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
     [Tooltip("Este valor solo para los NPC, para poder identificar los dialogos")]
     public string id = "L";
     public List<DialogueSO> AvailableDialogs = new List<DialogueSO>();
-    [SerializeField] private int dialogueIndex = 0;
+    public int dialogueIndex = 0;
     public int DialogueLocalIndex = 0;
 
     public Subject EventManager;

@@ -26,5 +26,6 @@ public class DialogueSOManager : MonoBehaviour
             if (!dialogueSpeaker.AvailableDialogs.Contains(dialogue))
                 dialogueSpeaker.AvailableDialogs.Add(dialogue);
         }
+        dialogueSpeaker.dialogueIndex = 0;
     }
 }
