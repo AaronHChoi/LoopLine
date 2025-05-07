@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     [SerializeField] private ScreenManager screenManager;
+    [SerializeField] DialogueManager dialogueManager;
 
     public string nextScene;
 
@@ -23,11 +24,16 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        dialogueManager = FindFirstObjectByType<DialogueManager>();
     }
     public void LoadNextScene(string sceneName)
     {
         if (sceneName == "MindPlace")
+        {
             Loop++;
+            dialogueManager.ResetAllDialogues();
+        }
+            
 
         SceneManager.LoadScene(sceneName);
     }

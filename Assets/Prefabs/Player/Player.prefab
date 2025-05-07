@@ -101,6 +101,8 @@ GameObject:
   - component: {fileID: 5365319020528062420}
   - component: {fileID: 7046774766287870829}
   - component: {fileID: 725991546843324951}
+  - component: {fileID: 2464039023775065192}
+  - component: {fileID: 2582760741889782329}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -174,6 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0599f00aebe508458fb45f9f6658a1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cinemachinePOVExtension: {fileID: 0}
 --- !u!114 &7046774766287870829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,6 +311,50 @@ MonoBehaviour:
   interactableLayer:
     serializedVersion: 2
     m_Bits: 8
+--- !u!114 &2464039023775065192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965095351449339405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd995697258d7d24ca5c1e437dbdc2a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactText: Interact with me!
+  id: 
+  AvailableDialogs:
+  - {fileID: 11400000, guid: 51d5b18b42fa0234ca9c8b910c166ff5, type: 2}
+  dialogueIndex: 0
+  DialogueLocalIndex: 0
+  EventManager: {fileID: 0}
+  isDialogueActive: 0
+--- !u!114 &2582760741889782329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965095351449339405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 013c83a15b4b79b41b6d2730739b6082, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DialogueEvents:
+  - EventName: MindPlace1A
+    DialoguesToAdd:
+    - {fileID: 11400000, guid: f8327eaae2cd019419c84406970e5a0d, type: 2}
+  - EventName: MindPlace1B
+    DialoguesToAdd:
+    - {fileID: 11400000, guid: d74a2269c4626504d88f747cbb190169, type: 2}
+  - EventName: Train2
+    DialoguesToAdd:
+    - {fileID: 11400000, guid: 0de26ab9ce58abc45a09df8f365ad354, type: 2}
+    - {fileID: 11400000, guid: a295c2cf01d5a1745b3278ef27c9287e, type: 2}
+  dialogueSpeaker: {fileID: 0}
 --- !u!1 &3780014622783971460
 GameObject:
   m_ObjectHideFlags: 0
@@ -732,7 +779,7 @@ PrefabInstance:
     - target: {fileID: 8153101253863224186, guid: 3f0b837573455f7458c3ee13ed20e3b7, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: f68eda050532ec74392bdf85bebf8e2a, type: 2}
+      objectReference: {fileID: 2100000, guid: b024951285ab7eb4888597a31a74d4a1, type: 2}
     - target: {fileID: 8416272007918961125, guid: 3f0b837573455f7458c3ee13ed20e3b7, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -740,7 +787,7 @@ PrefabInstance:
     - target: {fileID: 8417361359673230750, guid: 3f0b837573455f7458c3ee13ed20e3b7, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: f68eda050532ec74392bdf85bebf8e2a, type: 2}
+      objectReference: {fileID: 2100000, guid: b024951285ab7eb4888597a31a74d4a1, type: 2}
     - target: {fileID: 8513859187771203891, guid: 3f0b837573455f7458c3ee13ed20e3b7, type: 3}
       propertyPath: m_Layer
       value: 0

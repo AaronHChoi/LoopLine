@@ -26,14 +26,20 @@ public class WordManager : MonoBehaviour
     [SerializeField] private bool isPlayerInRange = false;
     [SerializeField] private float distance;
     [SerializeField] private float delay = 1.6f;
+
+    //Test
+    MindPlaceEventManagerMind eventManager;
+    bool onlyOneTime;
     private void Awake()
     {
         animator = GetComponent<Animator>();
         playerController = FindAnyObjectByType<PlayerController>();
+        eventManager = FindFirstObjectByType<MindPlaceEventManagerMind>();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        onlyOneTime = false;
         for (int i = 0; i < incorrectWordsObject.Count; i++)
         {
             int randomIndex = Random.Range(0, incorrectWords.Count - 1);
@@ -59,6 +65,11 @@ public class WordManager : MonoBehaviour
 
         if (distance <= range)
         {
+            if(GameManager.Instance.Loop == 1 && !onlyOneTime)
+            {
+                eventManager.EventTriggerMonologue();
+                onlyOneTime = true;
+            }
             if (!isPlayerInRange)
             {
                 isPlayerInRange = true;

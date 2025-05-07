@@ -6,7 +6,7 @@ public class EventManager : Subject
 {
     [SerializeField] private AudioSource audioSource;
     [SerializeField] TimeManager timeManager;
-    
+
     [Header("Train Event 1")]
     [SerializeField] private AudioClip trainStopSound_1;
     [SerializeField] private AudioClip trainStopSound_2;
@@ -20,6 +20,8 @@ public class EventManager : Subject
 
     [Header("Dialogues Managers")]
     [SerializeField] DialogueSOManager workingMan;
+    [SerializeField] DialogueSOManager player;
+    [SerializeField] DialogueUI dial;
 
     private void Awake()
     {
@@ -28,6 +30,10 @@ public class EventManager : Subject
     }
     private void Start()
     {
+        if(GameManager.Instance.Loop == 1)
+        {
+            player.TriggerEventDialogue("Train2");
+        }
         StartCoroutine(StartSceneMonologue(delay));
     }
     void Update()
@@ -38,6 +44,7 @@ public class EventManager : Subject
         if (Input.GetKeyDown(KeyCode.H))
         {
             NotifyObservers(Events.TriggerMonologue);
+            dial.StopDialogue();
         }
     }
     #region TrainEvents
@@ -80,6 +87,7 @@ public class EventManager : Subject
                 audioSource.clip = crystalBreakSound;
                 audioSource.Play();
                 workingMan.TriggerEventDialogue("BreakWindow");
+                player.TriggerEventDialogue("Train2");
             }
             NotifyObservers(Events.BreakCrystal);
             isWindowBroken = true;
