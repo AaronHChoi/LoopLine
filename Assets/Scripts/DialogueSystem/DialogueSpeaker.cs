@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Cinemachine.Samples;
 using UnityEngine;
 
 public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
@@ -9,13 +10,14 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
     public List<DialogueSO> AvailableDialogs = new List<DialogueSO>();
     public int dialogueIndex = 0;
     public int DialogueLocalIndex = 0;
-
     public Subject EventManager;
-
     public bool isDialogueActive = false;
+    public DevelopmentManager developmentManager;
     private void Awake()
     {
         EventManager = FindFirstObjectByType<Subject>();
+        developmentManager = FindFirstObjectByType<DevelopmentManager>();
+        
     }
     private void Start()
     {
@@ -41,11 +43,13 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
     }
     public void DialogueTrigger()
     {
+        developmentManager.DeactivateUIIfActive();
+
         if (isDialogueActive) return;
 
         Debug.Log("Trigger");
-
-        while(dialogueIndex < AvailableDialogs.Count && !AvailableDialogs[dialogueIndex].Unlocked)
+        
+        while (dialogueIndex < AvailableDialogs.Count && !AvailableDialogs[dialogueIndex].Unlocked)
         {
             dialogueIndex++;
         }
@@ -158,21 +162,4 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
         if (playerSpeaker != null)
             playerSpeaker.DialogueTrigger();
     }
-    //public void TriggerNPCDialogue(string _id)
-    //{
-    //    GameObject[] npcs = GameObject.FindGameObjectsWithTag("NPC");
-
-    //    foreach (GameObject npc in npcs)
-    //    {
-    //        DialogueSpeaker npcDialogueSpeaker = npc.GetComponent<DialogueSpeaker>();
-    //        if(npcDialogueSpeaker == null)
-    //            continue;
-
-    //        if(npcDialogueSpeaker.id == _id)
-    //        {
-    //            npcDialogueSpeaker.DialogueTrigger();
-    //            break;
-    //        }
-    //    }
-    //}
 }

@@ -9,8 +9,8 @@ public class GameManager : MonoBehaviour
 
     public string nextScene;
 
-    public int Loop;
-
+    public int TrainLoop = 0;
+    public int MindPlaceLoop = 0;
     public ScreenManager ScreenManager => screenManager;
     public bool CorrectWord101 = false;
 
@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     {
         if (sceneName == "MindPlace")
         {
-            Loop++;
+            TrainLoop++;
             dialogueManager.ResetAllDialogues();
         }
         SceneManager.LoadScene(sceneName);

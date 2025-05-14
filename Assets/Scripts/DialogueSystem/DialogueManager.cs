@@ -12,7 +12,7 @@ public class DialogueManager : MonoBehaviour
     PlayerController player;
     public bool isDialogueActive = false;
     public QuestionManager QuestionManager;
-
+    UIManager uiManager;
     public List<DialogueSO> AllDialogues = new List<DialogueSO>();
 
     private void Awake()
@@ -29,6 +29,7 @@ public class DialogueManager : MonoBehaviour
         dialogueUI = FindFirstObjectByType<DialogueUI>();
         QuestionManager = FindFirstObjectByType<QuestionManager>();
         player = FindFirstObjectByType<PlayerController>();
+        uiManager = FindFirstObjectByType<UIManager>();
     }
     private void Start()
     {
@@ -45,6 +46,7 @@ public class DialogueManager : MonoBehaviour
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
             isDialogueActive = false;
+            uiManager.HideUIText();
         }
         else
         {

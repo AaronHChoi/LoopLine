@@ -11,7 +11,7 @@ public class MindPlaceEventManagerMind : Subject
 
     private void Start()
     {
-        if (GameManager.Instance.Loop == 1)
+        if (GameManager.Instance.TrainLoop == 1)
         {
             player.TriggerEventDialogue("MindPlace1A");
         }

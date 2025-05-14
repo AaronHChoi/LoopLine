@@ -69,7 +69,7 @@ public class WordManager : MonoBehaviour
 
             if (isPlayerInRange)
             {
-                if (GameManager.Instance.Loop == 1 && !onlyOneTime)
+                if (GameManager.Instance.TrainLoop == 1 && !onlyOneTime)
                 {
                     eventManager.EventTriggerMonologue();
                     onlyOneTime = true;
