@@ -6,6 +6,7 @@ public class EventManager : Subject
 {
     [SerializeField] private AudioSource audioSource;
     [SerializeField] TimeManager timeManager;
+    [SerializeField] UIManager uiManager;
 
     [Header("Train Event 1")]
     [SerializeField] private AudioClip trainStopSound_1;
@@ -28,10 +29,11 @@ public class EventManager : Subject
     {
         audioSource = GetComponent<AudioSource>();
         timeManager = FindFirstObjectByType<TimeManager>();
+        uiManager = FindFirstObjectByType<UIManager>();
     }
     private void Start()
     {
-        if(GameManager.Instance.Loop == 1)
+        if(GameManager.Instance.TrainLoop == 1)
         {
             player.TriggerEventDialogue("Train2");
         }
@@ -109,5 +111,6 @@ public class EventManager : Subject
     {
         yield return new WaitForSeconds(delay);
         NotifyObservers(Events.TriggerMonologue);
+        uiManager.ShowUIText("Mantega la F para acelerar el tiempo");
     }
 }

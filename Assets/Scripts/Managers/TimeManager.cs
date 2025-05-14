@@ -51,7 +51,7 @@ public class TimeManager : MonoBehaviour
 
             if (dialogueUI != null && dialogueUI.Dialogue != null)
             {
-                speedMultiplier = dialogueUI.Dialogue.ReUse && Input.GetKey(KeyCode.F) ? TimeMultiplier : TIME_DEFAULT;
+                speedMultiplier = dialogueUI.Dialogue.Skipeable && Input.GetKey(KeyCode.F) ? TimeMultiplier : TIME_DEFAULT;
             }
 
             AdjustGameSpeed(speedMultiplier);

@@ -33,28 +33,36 @@ public class DevelopmentManager : MonoBehaviour
     }
     void Update()
     {
-        if (dialManager != null)
+        OpenDevelopMode();
+    }
+    public void OpenDevelopMode()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && UIPrinciplal != null && !dialManager.isDialogueActive)
         {
-            if (Input.GetKeyDown(KeyCode.Escape) && UIPrinciplal != null && !dialManager.isDialogueActive)
-            {
-                isUIActive = !isUIActive;
-
-                UIPrinciplal.SetActive(!UIPrinciplal.activeInHierarchy);
-                UIDeveloperMode.SetActive(!UIDeveloperMode.activeInHierarchy);
-
-                playerController.SetControllerEnabled(!isUIActive);
-
-                UpdateCursorState();
-            }
+            ToggleUI();
         }
-        else if (Input.GetKeyDown(KeyCode.Escape) && UIPrinciplal != null && SceneManager.GetActiveScene().name != "Train")
+    }
+    private void ToggleUI()
+    {
+        isUIActive = !isUIActive;
+
+        UIPrinciplal.SetActive(!UIPrinciplal.activeInHierarchy);
+        UIDeveloperMode.SetActive(!UIDeveloperMode.activeInHierarchy);
+
+        playerController.SetControllerEnabled(!isUIActive);
+
+        UpdateCursorState();
+    }
+    public void DeactivateUIIfActive()
+    {
+        if (UIDeveloperMode.activeInHierarchy)
         {
-            isUIActive = !isUIActive;
+            UIPrinciplal.SetActive(true);
+            UIDeveloperMode.SetActive(false);
 
-            UIPrinciplal.SetActive(!UIPrinciplal.activeInHierarchy);
-            UIDeveloperMode.SetActive(!UIDeveloperMode.activeInHierarchy);
+            isUIActive = false;
 
-            playerController.SetControllerEnabled(!isUIActive);
+            playerController.SetControllerEnabled(true);
 
             UpdateCursorState();
         }
