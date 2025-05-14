@@ -1,12 +1,23 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-public class Word : MonoBehaviour, IWord /*IInteract*/
+using System.Collections;
+public class Word : Subject, IWord /*IInteract*/
 {
     [SerializeField] private bool isCorrectWord;
     [SerializeField] private TextMeshPro tmpro;
     public string word;
-    public int numerofWord; 
+    public int numerofWord;
+    bool incorrectWordSelected = false;
+
+    [Header("Dialogue Events")]
+    [SerializeField] private string correctWordEvent;
+    [SerializeField] private string incorrectWordEvent;
+    [SerializeField] private GameObject player;
+    [SerializeField] private DialogueSOManager dialogueSOManager;
+    [SerializeField] MindPlaceEventManagerMind eventManager;
+    [SerializeField] private DialogueSpeaker dialogueSpeaker;
+
 
     [Header("LookAt")]
     private PlayerController playerController;
@@ -14,11 +25,16 @@ public class Word : MonoBehaviour, IWord /*IInteract*/
     Vector3 _direction;
     private void Awake()
     {
-        playerController = FindAnyObjectByType<PlayerController>();
+        playerController = FindAnyObjectByType<PlayerController>();     
         tmpro = GetComponentInChildren<TextMeshPro>();
+        
     }
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
+        eventManager = FindFirstObjectByType<MindPlaceEventManagerMind>();
+        dialogueSOManager = player.GetComponent<DialogueSOManager>();
+        dialogueSpeaker = player.GetComponent<DialogueSpeaker>();
         if (playerController == null)
         {
             Debug.LogError("PlayerController not found in the scene.");
@@ -34,10 +50,23 @@ public class Word : MonoBehaviour, IWord /*IInteract*/
         {
             tmpro.color = Color.green;
             GameManager.Instance.CorrectWord101 = true;
+            if(correctWordEvent != null)
+            {
+                dialogueSOManager.TriggerEventDialogue(correctWordEvent);
+                eventManager.EventTriggerMonologue();
+            }                     
         }
         else
         {
-            SceneManager.LoadScene("Train");
+            if (incorrectWordEvent != null)
+            {
+                dialogueSOManager.TriggerEventDialogue(incorrectWordEvent);
+                eventManager.EventTriggerMonologue();
+                tmpro.color = Color.red;
+                incorrectWordSelected = true;
+
+            }
+            
         }
     }
     private void Update()
@@ -50,5 +79,10 @@ public class Word : MonoBehaviour, IWord /*IInteract*/
 
             transform.rotation = Quaternion.LookRotation(_direction);
         }
+        if (incorrectWordSelected)
+        {
+            if (!dialogueSpeaker.isDialogueActive) { SceneManager.LoadScene("Train"); }
+        }
     }
+
 }

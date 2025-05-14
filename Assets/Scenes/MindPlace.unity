@@ -6901,11 +6901,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2582760741889782329, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: DialogueEvents.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2582760741889782329, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: DialogueEvents.Array.data[1].EventName
       value: Train2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2582760741889782329, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: DialogueEvents.Array.data[2].EventName
+      value: CorrectWordEvent
+      objectReference: {fileID: 0}
+    - target: {fileID: 2582760741889782329, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: DialogueEvents.Array.data[3].EventName
+      value: IncorrectWordEvent
       objectReference: {fileID: 0}
     - target: {fileID: 2582760741889782329, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: DialogueEvents.Array.data[0].DialoguesToAdd.Array.size
@@ -6914,6 +6922,14 @@ PrefabInstance:
     - target: {fileID: 2582760741889782329, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: DialogueEvents.Array.data[1].DialoguesToAdd.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2582760741889782329, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: DialogueEvents.Array.data[2].DialoguesToAdd.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2582760741889782329, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: DialogueEvents.Array.data[3].DialoguesToAdd.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2582760741889782329, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: 'DialogueEvents.Array.data[0].DialoguesToAdd.Array.data[1]'
@@ -6927,6 +6943,18 @@ PrefabInstance:
       propertyPath: 'DialogueEvents.Array.data[1].DialoguesToAdd.Array.data[1]'
       value: 
       objectReference: {fileID: 11400000, guid: a295c2cf01d5a1745b3278ef27c9287e, type: 2}
+    - target: {fileID: 2582760741889782329, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: 'DialogueEvents.Array.data[2].DialoguesToAdd.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 93cef33ecd166774eaf6562756b5ec9f, type: 2}
+    - target: {fileID: 2582760741889782329, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: 'DialogueEvents.Array.data[2].DialoguesToAdd.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: a295c2cf01d5a1745b3278ef27c9287e, type: 2}
+    - target: {fileID: 2582760741889782329, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: 'DialogueEvents.Array.data[3].DialoguesToAdd.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: d2b6203238b05604bb700b8fcf8356e5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6942,7 +6970,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2582760741889782329, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
   m_PrefabInstance: {fileID: 413853387}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 674250480}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 013c83a15b4b79b41b6d2730739b6082, type: 3}
@@ -7680,6 +7708,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DialogueBox
       objectReference: {fileID: 0}
+    - target: {fileID: 3049267596739896398, guid: 23e3a961eda479c42a5ecf9984a139f7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7689,6 +7721,11 @@ PrefabInstance:
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3019327376075527370, guid: 23e3a961eda479c42a5ecf9984a139f7, type: 3}
   m_PrefabInstance: {fileID: 646897715}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &674250480 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1965095351449339405, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+  m_PrefabInstance: {fileID: 413853387}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &779938476
 PrefabInstance:
@@ -7704,8 +7741,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1580788976786571295, guid: fb4e8f69a13b64c41818fb77f8365457, type: 3}
       propertyPath: AllDialogues.Array.size
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1580788976786571295, guid: fb4e8f69a13b64c41818fb77f8365457, type: 3}
+      propertyPath: 'AllDialogues.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 93cef33ecd166774eaf6562756b5ec9f, type: 2}
+    - target: {fileID: 1580788976786571295, guid: fb4e8f69a13b64c41818fb77f8365457, type: 3}
+      propertyPath: 'AllDialogues.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: d2b6203238b05604bb700b8fcf8356e5, type: 2}
     - target: {fileID: 2165017122142299651, guid: fb4e8f69a13b64c41818fb77f8365457, type: 3}
       propertyPath: m_LocalPosition.x
       value: 640.8294
@@ -9416,7 +9461,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 725991546843324951, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
   m_PrefabInstance: {fileID: 413853387}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 674250480}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46c3cfb8ef8909a4b9ea145342d1bbdf, type: 3}
@@ -12151,6 +12196,12 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  correctWordEvent: 
+  incorrectWordEvent: 
+  player: {fileID: 0}
+  dialogueSOManager: {fileID: 0}
+  eventManager: {fileID: 0}
+  dialogueSpeaker: {fileID: 0}
   range: 6
 --- !u!65 &293245475398005935
 BoxCollider:
@@ -12390,6 +12441,12 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  correctWordEvent: 
+  incorrectWordEvent: 
+  player: {fileID: 0}
+  dialogueSOManager: {fileID: 0}
+  eventManager: {fileID: 0}
+  dialogueSpeaker: {fileID: 0}
   range: 6
 --- !u!23 &1206413514728438054
 MeshRenderer:
@@ -12483,6 +12540,12 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  correctWordEvent: 
+  incorrectWordEvent: IncorrectWordEvent
+  player: {fileID: 0}
+  dialogueSOManager: {fileID: 0}
+  eventManager: {fileID: 0}
+  dialogueSpeaker: {fileID: 0}
   range: 6
 --- !u!23 &1370828235386760299
 MeshRenderer:
@@ -13013,6 +13076,12 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  correctWordEvent: 
+  incorrectWordEvent: 
+  player: {fileID: 0}
+  dialogueSOManager: {fileID: 0}
+  eventManager: {fileID: 0}
+  dialogueSpeaker: {fileID: 0}
   range: 6
 --- !u!23 &2042912434884485988
 MeshRenderer:
@@ -13767,6 +13836,12 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  correctWordEvent: 
+  incorrectWordEvent: 
+  player: {fileID: 0}
+  dialogueSOManager: {fileID: 0}
+  eventManager: {fileID: 0}
+  dialogueSpeaker: {fileID: 0}
   range: 6
 --- !u!65 &2816386479019705612
 BoxCollider:
@@ -14430,6 +14505,12 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  correctWordEvent: 
+  incorrectWordEvent: 
+  player: {fileID: 0}
+  dialogueSOManager: {fileID: 0}
+  eventManager: {fileID: 0}
+  dialogueSpeaker: {fileID: 0}
   range: 6
 --- !u!23 &3801758299331465878
 MeshRenderer:
@@ -15086,6 +15167,12 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  correctWordEvent: 
+  incorrectWordEvent: 
+  player: {fileID: 0}
+  dialogueSOManager: {fileID: 0}
+  eventManager: {fileID: 0}
+  dialogueSpeaker: {fileID: 0}
   range: 6
 --- !u!23 &4249879856227960476
 MeshRenderer:
@@ -15671,6 +15758,12 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  correctWordEvent: 
+  incorrectWordEvent: 
+  player: {fileID: 0}
+  dialogueSOManager: {fileID: 0}
+  eventManager: {fileID: 0}
+  dialogueSpeaker: {fileID: 0}
   range: 6
 --- !u!114 &5068928721707823631
 MonoBehaviour:
@@ -15688,6 +15781,12 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  correctWordEvent: 
+  incorrectWordEvent: 
+  player: {fileID: 0}
+  dialogueSOManager: {fileID: 0}
+  eventManager: {fileID: 0}
+  dialogueSpeaker: {fileID: 0}
   range: 6
 --- !u!23 &5104652238056142895
 MeshRenderer:
@@ -15750,6 +15849,12 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  correctWordEvent: 
+  incorrectWordEvent: IncorrectWordEvent
+  player: {fileID: 0}
+  dialogueSOManager: {fileID: 0}
+  eventManager: {fileID: 0}
+  dialogueSpeaker: {fileID: 0}
   range: 6
 --- !u!23 &5199961559716653339
 MeshRenderer:
@@ -16149,6 +16254,12 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  correctWordEvent: 
+  incorrectWordEvent: 
+  player: {fileID: 0}
+  dialogueSOManager: {fileID: 0}
+  eventManager: {fileID: 0}
+  dialogueSpeaker: {fileID: 0}
   range: 6
 --- !u!224 &5546705389630675053
 RectTransform:
@@ -16285,6 +16396,12 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  correctWordEvent: 
+  incorrectWordEvent: 
+  player: {fileID: 0}
+  dialogueSOManager: {fileID: 0}
+  eventManager: {fileID: 0}
+  dialogueSpeaker: {fileID: 0}
   range: 6
 --- !u!1 &5826167727234421927
 GameObject:
@@ -16728,6 +16845,12 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  correctWordEvent: CorrectWordEvent
+  incorrectWordEvent: 
+  player: {fileID: 674250480}
+  dialogueSOManager: {fileID: 413853389}
+  eventManager: {fileID: 0}
+  dialogueSpeaker: {fileID: 0}
   range: 6
 --- !u!114 &7033731821651971314
 MonoBehaviour:
@@ -16745,6 +16868,12 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  correctWordEvent: 
+  incorrectWordEvent: 
+  player: {fileID: 0}
+  dialogueSOManager: {fileID: 0}
+  eventManager: {fileID: 0}
+  dialogueSpeaker: {fileID: 0}
   range: 6
 --- !u!114 &7089456966779589776
 MonoBehaviour:
@@ -16901,6 +17030,12 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  correctWordEvent: 
+  incorrectWordEvent: 
+  player: {fileID: 0}
+  dialogueSOManager: {fileID: 0}
+  eventManager: {fileID: 0}
+  dialogueSpeaker: {fileID: 0}
   range: 6
 --- !u!224 &7141075343012328332
 RectTransform:
@@ -16933,6 +17068,7 @@ GameObject:
   - component: {fileID: 3903218822868879405}
   - component: {fileID: 4312982483048618900}
   - component: {fileID: 7274524863062948275}
+  - component: {fileID: 7274524863062948276}
   m_Layer: 0
   m_Name: FloatingWord (5)
   m_TagString: Untagged
@@ -16962,6 +17098,26 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7274524863062948276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7274524863062948274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd995697258d7d24ca5c1e437dbdc2a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactText: Interact with me!
+  id: L
+  AvailableDialogs:
+  - {fileID: 11400000, guid: 93cef33ecd166774eaf6562756b5ec9f, type: 2}
+  dialogueIndex: 0
+  DialogueLocalIndex: 0
+  EventManager: {fileID: 0}
+  isDialogueActive: 0
 --- !u!1 &7274777112170439936
 GameObject:
   m_ObjectHideFlags: 0
@@ -17159,6 +17315,12 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  correctWordEvent: 
+  incorrectWordEvent: 
+  player: {fileID: 0}
+  dialogueSOManager: {fileID: 0}
+  eventManager: {fileID: 0}
+  dialogueSpeaker: {fileID: 0}
   range: 6
 --- !u!1 &7562786516009064676
 GameObject:
@@ -17516,6 +17678,12 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  correctWordEvent: 
+  incorrectWordEvent: 
+  player: {fileID: 0}
+  dialogueSOManager: {fileID: 0}
+  eventManager: {fileID: 0}
+  dialogueSpeaker: {fileID: 0}
   range: 6
 --- !u!23 &7922975870378171536
 MeshRenderer:
@@ -17618,6 +17786,12 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  correctWordEvent: 
+  incorrectWordEvent: 
+  player: {fileID: 0}
+  dialogueSOManager: {fileID: 0}
+  eventManager: {fileID: 0}
+  dialogueSpeaker: {fileID: 0}
   range: 6
 --- !u!1 &8349309829023491332
 GameObject:
