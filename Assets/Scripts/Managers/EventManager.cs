@@ -1,5 +1,7 @@
 
+using NUnit.Framework;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EventManager : Subject
@@ -20,6 +22,7 @@ public class EventManager : Subject
     bool trainEvent1 = true;
 
     [Header("Dialogues Managers")] //Referencias manuales
+    [SerializeField] List<DialogueSOManager> dialogueManagers = new List<DialogueSOManager>();
     [SerializeField] DialogueSOManager workingMan;
     [SerializeField] DialogueSOManager player;
     [SerializeField] DialogueSOManager peek;
@@ -64,7 +67,11 @@ public class EventManager : Subject
             {
                 audioSource.clip = trainStopSound_1;
                 audioSource.Play();
-                workingMan.TriggerEventDialogue("TrainStop");
+                //workingMan.TriggerEventDialogue("TrainStop");
+                foreach (DialogueSOManager dialogueManager in dialogueManagers)
+                {
+                    dialogueManager.TriggerEventDialogue("TrainStop");
+                }
                 peek.TriggerEventDialogue("TrainStop");
             }
         }
@@ -94,7 +101,11 @@ public class EventManager : Subject
             {
                 audioSource.clip = crystalBreakSound;
                 audioSource.Play();
-                workingMan.TriggerEventDialogue("BreakWindow");
+                //workingMan.TriggerEventDialogue("BreakWindow");
+                foreach (DialogueSOManager dialogueManager in dialogueManagers)
+                {
+                    dialogueManager.TriggerEventDialogue("BreakWindow");
+                }
                 peek.TriggerEventDialogue("BreakWindow");
                 player.TriggerEventDialogue("Train2");
             }
