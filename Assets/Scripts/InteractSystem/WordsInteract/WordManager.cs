@@ -109,6 +109,19 @@ public class WordManager : MonoBehaviour
         {
             Word word = numberToObject[numberPressed];
             word.Interacted();
+            numberToObject.Remove(numberPressed);
+            for (int i = 0; i < words.Count; i++)
+            {
+                if (words[i].numerofWord == numberPressed)
+                {
+                    words.RemoveAt(i);
+                }
+                else
+                {
+                    words[i].gameObject.SetActive(false);
+                    words[i].canReactivate = false;
+                }
+            }
         }
     }
     private void Shuffle(List<int> list)
@@ -146,7 +159,14 @@ public class WordManager : MonoBehaviour
     {
         foreach (Word word in words)
         {
-            word.gameObject.SetActive(state);
+            if (word.canReactivate)
+            {
+                word.gameObject.SetActive(state);
+            }
+            else
+            {
+                word.gameObject.SetActive(false);
+            }
         }
     }
 }

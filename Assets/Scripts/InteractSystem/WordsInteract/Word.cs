@@ -9,6 +9,7 @@ public class Word : Subject, IWord /*IInteract*/
     public string word;
     public int numerofWord;
     bool incorrectWordSelected = false;
+    public bool canReactivate = true;
 
     [Header("Dialogue Events")]
     [SerializeField] private string correctWordEvent;
@@ -46,6 +47,7 @@ public class Word : Subject, IWord /*IInteract*/
     }
     public void Interacted()
     {
+
         if (isCorrectWord)
         {
             tmpro.color = Color.green;
@@ -64,7 +66,6 @@ public class Word : Subject, IWord /*IInteract*/
                 eventManager.EventTriggerMonologue();
                 tmpro.color = Color.red;
                 incorrectWordSelected = true;
-
             }
             
         }
