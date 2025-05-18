@@ -6540,7 +6540,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1043506123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8376,7 +8376,7 @@ GameObject:
   - component: {fileID: 1352439602}
   m_Layer: 0
   m_Name: EagleVision
-  m_TagString: Untagged
+  m_TagString: EagleVisionTarget
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8442,10 +8442,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1352439597}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.3, z: -0.1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.3504, z: 0.066}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3208208584266684175}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10894,7 +10894,7 @@ GameObject:
   - component: {fileID: 1655329831}
   m_Layer: 0
   m_Name: Target
-  m_TagString: Untagged
+  m_TagString: EagleVisionTarget
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10922,7 +10922,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 095476d8e1647f0409526f48942b0a3a, type: 2}
+  - {fileID: 2100000, guid: 1fe7b1a153846ce4ebccfc5a56ed3549, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15704,7 +15704,7 @@ GameObject:
   - component: {fileID: 8417361358828078609}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: EagleVisionTarget
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15982,6 +15982,7 @@ GameObject:
   m_Component:
   - component: {fileID: 543450652796085348}
   - component: {fileID: 5866666021135367710}
+  - component: {fileID: 5866666021135367711}
   m_Layer: 0
   m_Name: NPC (6)
   m_TagString: Untagged
@@ -17218,7 +17219,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8b9952cb13dd0cf44b00e24d204556ff, type: 2}
+  - {fileID: 2100000, guid: 1fe7b1a153846ce4ebccfc5a56ed3549, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -18127,7 +18128,7 @@ GameObject:
   - component: {fileID: 1823817582407755107}
   m_Layer: 0
   m_Name: Cylinder.002
-  m_TagString: Untagged
+  m_TagString: EagleVisionTarget
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20074,7 +20075,7 @@ GameObject:
   - component: {fileID: 5074512354563968553}
   m_Layer: 0
   m_Name: Cylinder
-  m_TagString: Untagged
+  m_TagString: EagleVisionTarget
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22442,7 +22443,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4dccc4cf7839f4e468607354b95f9316, type: 2}
+  - {fileID: 2100000, guid: 1fe7b1a153846ce4ebccfc5a56ed3549, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -23440,6 +23441,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5866666021135367711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148859748062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fbb60d6daf900d4fb5646d6fa0cba31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &5866666021381701914
 Animator:
   serializedVersion: 7
@@ -26144,7 +26157,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e0c273c624a7f1f4eb5731725326b74e, type: 2}
+  - {fileID: 2100000, guid: 1fe7b1a153846ce4ebccfc5a56ed3549, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -26431,7 +26444,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8b9952cb13dd0cf44b00e24d204556ff, type: 2}
+  - {fileID: 2100000, guid: 1fe7b1a153846ce4ebccfc5a56ed3549, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -27297,7 +27310,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b024951285ab7eb4888597a31a74d4a1, type: 2}
+  - {fileID: 2100000, guid: 1fe7b1a153846ce4ebccfc5a56ed3549, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -27945,7 +27958,7 @@ GameObject:
   - component: {fileID: 7603786707150405099}
   m_Layer: 0
   m_Name: Cube.002
-  m_TagString: Untagged
+  m_TagString: EagleVisionTarget
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27973,7 +27986,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b024951285ab7eb4888597a31a74d4a1, type: 2}
+  - {fileID: 2100000, guid: 1fe7b1a153846ce4ebccfc5a56ed3549, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -28481,7 +28494,7 @@ GameObject:
   - component: {fileID: 8153101252955156725}
   m_Layer: 0
   m_Name: Cylinder.001
-  m_TagString: Untagged
+  m_TagString: EagleVisionTarget
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28863,7 +28876,7 @@ GameObject:
   - component: {fileID: 1651828835}
   m_Layer: 0
   m_Name: Cube.001
-  m_TagString: EagleVisionTarget
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28880,7 +28893,7 @@ GameObject:
   - component: {fileID: 7696407346882028884}
   m_Layer: 0
   m_Name: Cube.001
-  m_TagString: Untagged
+  m_TagString: EagleVisionTarget
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
