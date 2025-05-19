@@ -1,8 +1,8 @@
-using System.Threading.Tasks;
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TimeManager : MonoBehaviour
+public class TimeManager : MonoBehaviour, IDependencyInjectable
 {
     [SerializeField] public float LoopTime { get; private set; } = 360f;
 
@@ -10,15 +10,19 @@ public class TimeManager : MonoBehaviour
     public bool AllowFastForward { get; private set; } = false;
 
     public int TimeMultiplier { get; private set; } = 4;
-    [SerializeField] DialogueUI dialogueUI;
-    [SerializeField] Parallax parallax;
 
     private const int TIME_DEFAULT = 1;
 
+    DialogueUI dialogueUI;
+    Parallax parallax;
     private void Awake()
     {
-        dialogueUI = FindFirstObjectByType<DialogueUI>();
-        parallax = FindFirstObjectByType<Parallax>();
+        InjectDependencies(DependencyContainer.Instance);
+    }
+    public void InjectDependencies(DependencyContainer provider)
+    {
+        dialogueUI = provider.DialogueUI;
+        parallax = provider.Parallax;
     }
     private void Start()
     {
@@ -58,7 +62,7 @@ public class TimeManager : MonoBehaviour
 
             if (parallax != null)
             {
-                parallax.SetSpeedMultiplier(speedMultiplier);
+                parallax.SetSpeedMultiplier(speedMultiplier-2);
             }
         }
         else

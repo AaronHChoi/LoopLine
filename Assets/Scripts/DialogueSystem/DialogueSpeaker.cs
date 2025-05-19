@@ -20,11 +20,11 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     {
         InjectDependencies(DependencyContainer.Instance);
     }
-    public void InjectDependencies(DependencyContainer container)
+    public void InjectDependencies(DependencyContainer provider)
     {
-        uiManager = container.UIManager;
-        developmentManager = container.DevelopmentManager;
-        eventManager = container.SubjectEventManager;
+        uiManager = provider.UIManager;
+        developmentManager = provider.DevelopmentManager;
+        eventManager = provider.SubjectEventManager;
     }
     private void Start()
     {

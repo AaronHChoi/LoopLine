@@ -7,6 +7,8 @@ public class DependencyContainer : MonoBehaviour
     public UIManager UIManager { get; private set; }
     public DevelopmentManager DevelopmentManager { get; private set; }
     public Subject SubjectEventManager { get; private set; }
+    public DialogueUI DialogueUI { get; private set; }
+    public Parallax Parallax { get; private set; }
     private void Awake()
     {
         if(Instance != null && Instance != this)
@@ -19,5 +21,7 @@ public class DependencyContainer : MonoBehaviour
         SubjectEventManager = FindFirstObjectByType<Subject>();
         DevelopmentManager = FindFirstObjectByType<DevelopmentManager>();
         UIManager = FindFirstObjectByType<UIManager>();
+        DialogueUI = FindFirstObjectByType<DialogueUI>();
+        Parallax = FindFirstObjectByType<Parallax>();
     }
 }
