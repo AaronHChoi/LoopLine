@@ -1,8 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Cinemachine.Samples;
 using UnityEngine;
 
-public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
+public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyInjectable
 {
     [SerializeField] private string interactText = "Interact with me!";
     [Tooltip("Este valor solo para los NPC, para poder identificar los dialogos")]
@@ -10,14 +11,20 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
     public List<DialogueSO> AvailableDialogs = new List<DialogueSO>();
     public int dialogueIndex = 0;
     public int DialogueLocalIndex = 0;
-    public Subject EventManager;
     public bool isDialogueActive = false;
-    public DevelopmentManager developmentManager;
+
+    DevelopmentManager developmentManager;
+    UIManager uiManager;
+    Subject eventManager;
     private void Awake()
     {
-        EventManager = FindFirstObjectByType<Subject>();
-        developmentManager = FindFirstObjectByType<DevelopmentManager>();
-        
+        InjectDependencies(DependencyContainer.Instance);
+    }
+    public void InjectDependencies(DependencyContainer provider)
+    {
+        uiManager = provider.UIManager;
+        developmentManager = provider.DevelopmentManager;
+        eventManager = provider.SubjectEventManager;
     }
     private void Start()
     {
@@ -35,11 +42,11 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
     }
     private void OnEnable()
     {
-        EventManager.AddObserver(this);
+        eventManager.AddObserver(this);
     }
     private void OnDisable()
     {
-        EventManager.RemoveObserver(this);
+        eventManager.RemoveObserver(this);
     }
     public void DialogueTrigger()
     {
@@ -132,7 +139,21 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
 
     public void Interact()
     {
-        DialogueTrigger();
+        if(AvailableDialogs == null || AvailableDialogs.Count == 0)
+        {
+            uiManager.ShowUIText("No hay dialogos disponibles");
+            StartCoroutine(ExecuteAfterDelay());
+        }
+        else
+        {
+            DialogueTrigger();
+        }
+    }
+    private IEnumerator ExecuteAfterDelay()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        uiManager.HideUIText();
     }
 
     public string GetInteractText()
