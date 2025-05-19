@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Cinemachine.Samples;
 using UnityEngine;
@@ -13,11 +14,12 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
     public Subject EventManager;
     public bool isDialogueActive = false;
     public DevelopmentManager developmentManager;
+    public UIManager uiManager;
     private void Awake()
     {
         EventManager = FindFirstObjectByType<Subject>();
         developmentManager = FindFirstObjectByType<DevelopmentManager>();
-        
+        uiManager = FindFirstObjectByType<UIManager>();
     }
     private void Start()
     {
@@ -132,7 +134,21 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
 
     public void Interact()
     {
-        DialogueTrigger();
+        if(AvailableDialogs == null || AvailableDialogs.Count == 0)
+        {
+            uiManager.ShowUIText("No hay dialogos disponibles");
+            StartCoroutine(ExecuteAfterDelay());
+        }
+        else
+        {
+            DialogueTrigger();
+        }
+    }
+    private IEnumerator ExecuteAfterDelay()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        uiManager.HideUIText();
     }
 
     public string GetInteractText()
