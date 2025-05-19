@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Cinemachine.Samples;
 using UnityEngine;
 
-public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
+public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyInjectable
 {
     [SerializeField] private string interactText = "Interact with me!";
     [Tooltip("Este valor solo para los NPC, para poder identificar los dialogos")]
