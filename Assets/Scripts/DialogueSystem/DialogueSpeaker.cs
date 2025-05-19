@@ -11,15 +11,20 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
     public List<DialogueSO> AvailableDialogs = new List<DialogueSO>();
     public int dialogueIndex = 0;
     public int DialogueLocalIndex = 0;
-    public Subject EventManager;
     public bool isDialogueActive = false;
-    public DevelopmentManager developmentManager;
-    public UIManager uiManager;
+
+    DevelopmentManager developmentManager;
+    UIManager uiManager;
+    Subject eventManager;
     private void Awake()
     {
-        EventManager = FindFirstObjectByType<Subject>();
-        developmentManager = FindFirstObjectByType<DevelopmentManager>();
-        uiManager = FindFirstObjectByType<UIManager>();
+        InjectDependencies(DependencyContainer.Instance);
+    }
+    public void InjectDependencies(DependencyContainer container)
+    {
+        uiManager = container.UIManager;
+        developmentManager = container.DevelopmentManager;
+        eventManager = container.SubjectEventManager;
     }
     private void Start()
     {
@@ -37,11 +42,11 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
     }
     private void OnEnable()
     {
-        EventManager.AddObserver(this);
+        eventManager.AddObserver(this);
     }
     private void OnDisable()
     {
-        EventManager.RemoveObserver(this);
+        eventManager.RemoveObserver(this);
     }
     public void DialogueTrigger()
     {
