@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using Unity.Cinemachine.Samples;
 using UnityEngine;
 
@@ -13,18 +14,23 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     public int DialogueLocalIndex = 0;
     public bool isDialogueActive = false;
 
+    GameObject headPosition;
+
     DevelopmentManager developmentManager;
     UIManager uiManager;
     Subject eventManager;
+    CinemachineCamera virtualCamera2;
     private void Awake()
     {
         InjectDependencies(DependencyContainer.Instance);
+        headPosition = GameObject.Find("HeadPosition");
     }
     public void InjectDependencies(DependencyContainer provider)
     {
         uiManager = provider.UIManager;
         developmentManager = provider.DevelopmentManager;
         eventManager = provider.SubjectEventManager;
+        virtualCamera2 = provider.VirtualCamera2;
     }
     private void Start()
     {
@@ -51,6 +57,8 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     public void DialogueTrigger()
     {
         developmentManager.DeactivateUIIfActive();
+
+        virtualCamera2.LookAt = headPosition.transform;
 
         if (isDialogueActive) return;
 
