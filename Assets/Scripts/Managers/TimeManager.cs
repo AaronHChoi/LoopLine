@@ -12,6 +12,7 @@ public class TimeManager : MonoBehaviour, IDependencyInjectable
     public int TimeMultiplier { get; private set; } = 4;
 
     private const int TIME_DEFAULT = 1;
+    public bool Deactivate = true;
 
     DialogueUI dialogueUI;
     Parallax parallax;
@@ -35,7 +36,10 @@ public class TimeManager : MonoBehaviour, IDependencyInjectable
             LoopTime = 5f;
         }
 
-        TimeForward();
+        if (!Deactivate)
+        {
+            TimeForward();
+        }
         AdvanceTime();
     }
     public void SetLoopTimeToStopTrain()

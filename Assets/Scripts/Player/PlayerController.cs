@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.Cinemachine;
 using Unity.Cinemachine.Samples;
 using UnityEngine;
@@ -11,21 +12,26 @@ public class PlayerController : MonoBehaviour
     private PlayerView playerView;
     private PlayerModel playerModel;
     private InputAction moveAction;
-    private CinemachineCamera virtualCamera;
+    public CinemachineCamera virtualCamera;
+    public CinemachineCamera virtualCamera2;
     private Transform cameraTransform;
     private PlayerInput playerInput;
     [SerializeField] private CinemachinePOVExtension cinemachinePOVExtension;
     [SerializeField] FocusModeManager focusModeManager;
 
     private Vector2 inputMovement;
-    private float lockedPanValue;
-    private float lockedTiltValue;
+    [SerializeField] private float lockedPanValue;
+    [SerializeField] private float lockedTiltValue;
+
+    public Transform npcFocusTarget;
+    public Transform head;
+    public float cameraFocusSpeed = 5f;
 
     private void Awake()
     {
         playerView = GetComponent<PlayerView>();
         playerInput = GetComponent<PlayerInput>();
-        virtualCamera = FindAnyObjectByType<CinemachineCamera>();
+        virtualCamera = FindFirstObjectByType<CinemachineCamera>();
         cinemachinePOVExtension = FindFirstObjectByType<CinemachinePOVExtension>();
         focusModeManager = FindFirstObjectByType<FocusModeManager>();
         playerModel = new PlayerModel();
@@ -34,18 +40,18 @@ public class PlayerController : MonoBehaviour
     {
         moveAction = playerInput.actions["Move"];
         cameraTransform = virtualCamera.transform;
-        //cameraTransform = Camera.main.transform;
     }
     private void Update()
     {
         HandleMovement();
         RotateCharacterToCamera();
-
         //Test
         if (Input.GetKeyDown(KeyCode.V))
         {
             ToggleFocusMode();
+            //main.MethodFocusCameraOnNPC();
         }
+
     }
     public void HandleMovement()
     {
@@ -85,18 +91,29 @@ public class PlayerController : MonoBehaviour
     public void SetControllerEnabled(bool enabled)
     {
         CanMove = enabled;
+
         virtualCamera.enabled = enabled;
 
-        if(cinemachinePOVExtension != null)
+        if (cinemachinePOVExtension != null)
         {
             if (enabled)
             {
-                cinemachinePOVExtension.SetPanAndTilt(lockedPanValue, lockedTiltValue);
+                SetPanAndTiltData();
             }
             else
             {
-                (lockedPanValue, lockedTiltValue) = cinemachinePOVExtension.GetPanAndTilt();
+                GetPanAndTiltData();
             }
         }
+    }
+    public void SetPanAndTiltData()
+    {
+        cinemachinePOVExtension.SetPanAndTilt(lockedPanValue, lockedTiltValue);
+    }
+    public void GetPanAndTiltData()
+    {
+        (lockedPanValue, lockedTiltValue) = cinemachinePOVExtension.GetPanAndTilt();
+        Debug.Log(lockedPanValue);
+        Debug.Log(lockedTiltValue);
     }
 }
