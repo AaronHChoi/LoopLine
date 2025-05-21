@@ -1,15 +1,11 @@
-
-using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventManager : Subject
+public class EventManager : Subject, IDependencyInjectable
 {
     [SerializeField] private AudioSource audioSource;
-    [SerializeField] TimeManager timeManager;
-    [SerializeField] UIManager uiManager;
-
+   
     [Header("Train Event 1")]
     [SerializeField] private AudioClip trainStopSound_1;
     [SerializeField] private AudioClip trainStopSound_2;
@@ -26,13 +22,20 @@ public class EventManager : Subject
     [SerializeField] DialogueSOManager workingMan;
     [SerializeField] DialogueSOManager player;
     [SerializeField] DialogueSOManager peek;
-    [SerializeField] DialogueUI dial;
 
+    DialogueUI dial;
+    TimeManager timeManager;
+    UIManager uiManager;
     private void Awake()
     {
+        InjectDependencies(DependencyContainer.Instance);
         audioSource = GetComponent<AudioSource>();
-        timeManager = FindFirstObjectByType<TimeManager>();
-        uiManager = FindFirstObjectByType<UIManager>();
+    }
+    public void InjectDependencies(DependencyContainer provider)
+    {
+        dial = provider.DialogueUI;
+        timeManager = provider.TimeManager;
+        uiManager = provider.UIManager;
     }
     private void Start()
     {
@@ -51,11 +54,11 @@ public class EventManager : Subject
         TrainEvent1();
         TrainEvent2();
 
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            NotifyObservers(Events.TriggerMonologue);
-            dial.StopDialogue();
-        }
+        //if (Input.GetKeyDown(KeyCode.H))
+        //{
+        //    NotifyObservers(Events.TriggerMonologue);
+        //    dial.StopDialogue();
+        //}
     }
     #region TrainEvents
     private void TrainEvent1()
