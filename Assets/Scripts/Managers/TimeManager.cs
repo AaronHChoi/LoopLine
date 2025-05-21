@@ -1,6 +1,4 @@
-
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class TimeManager : MonoBehaviour, IDependencyInjectable
 {
@@ -16,6 +14,7 @@ public class TimeManager : MonoBehaviour, IDependencyInjectable
 
     DialogueUI dialogueUI;
     Parallax parallax;
+    GameSceneManager gameSceneManager;
     private void Awake()
     {
         InjectDependencies(DependencyContainer.Instance);
@@ -24,6 +23,7 @@ public class TimeManager : MonoBehaviour, IDependencyInjectable
     {
         dialogueUI = provider.DialogueUI;
         parallax = provider.Parallax;
+        gameSceneManager = provider.GameSceneManager;
     }
     private void Start()
     {
@@ -35,55 +35,57 @@ public class TimeManager : MonoBehaviour, IDependencyInjectable
         {
             LoopTime = 5f;
         }
-
-        TimeForward();
         AdvanceTime();
     }
     public void SetLoopTimeToStopTrain()
     {
         LoopTime = 250f;
     }
-
     public void SetLoopTimeToBreakCrystal()
     {
         LoopTime = 70f;
     }
     private void TimeForward()
     {
-        if (SceneManager.GetActiveScene().name == "Train" && AllowFastForward)
-        {
-            float speedMultiplier = TIME_DEFAULT;
+        //if (SceneManager.GetActiveScene().name == "Train" && AllowFastForward)
+        //{
+        //    float speedMultiplier = TIME_DEFAULT;
 
-            if (dialogueUI != null && dialogueUI.Dialogue != null)
-            {
-                speedMultiplier = dialogueUI.Dialogue.Skipeable && Input.GetKey(KeyCode.F) ? TimeMultiplier : TIME_DEFAULT;
-            }
+        //    if (dialogueUI != null && dialogueUI.Dialogue != null)
+        //    {
+        //        speedMultiplier = dialogueUI.Dialogue.Skipeable && Input.GetKey(KeyCode.F) ? TimeMultiplier : TIME_DEFAULT;
+        //    }
 
-            AdjustGameSpeed(speedMultiplier);
+        //    AdjustGameSpeed(speedMultiplier);
 
-            if (parallax != null)
-            {
-                parallax.SetSpeedMultiplier(speedMultiplier);
-            }
-        }
-        else
-        {
-            AdjustGameSpeed(TIME_DEFAULT);
+        //    if (parallax != null)
+        //    {
+        //        parallax.SetSpeedMultiplier(speedMultiplier);
+        //    }
+        //}
+        //else
+        //{
+        //    AdjustGameSpeed(TIME_DEFAULT);
 
-            if (parallax != null)
-            {
-                parallax.SetSpeedMultiplier(TIME_DEFAULT);
-            }
-        }
+        //    if (parallax != null)
+        //    {
+        //        parallax.SetSpeedMultiplier(TIME_DEFAULT);
+        //    }
+        //}
     }
     private void AdvanceTime()
     {
+        if (!gameSceneManager.IsCurrentScene("Train"))
+        {
+            return;
+        }
+
         LoopTime -= Time.deltaTime * Time.timeScale;
 
         if (LoopTime <= 0)
         {
             LoopTime = 360f;
-            GameManager.Instance.LoadNextScene(GameManager.Instance.nextScene);
+            gameSceneManager.LoadNextScene(GameManager.Instance.nextScene);
         }
     }
     public void SkipDialogue()

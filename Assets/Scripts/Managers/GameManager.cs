@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -46,16 +45,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         dialogueManager.ResetAllDialogues();
-    }
-    public void LoadNextScene(string sceneName)
-    {
-        //CheckBool();
-        if (sceneName == "MindPlace")
-        {
-            TrainLoop++;
-            dialogueManager.ResetAllDialogues();
-        }
-        SceneManager.LoadScene(sceneName);
     }
     public void SetBool(string key, bool value)
     {
