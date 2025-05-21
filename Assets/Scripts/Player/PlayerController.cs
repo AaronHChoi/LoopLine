@@ -87,22 +87,21 @@ public class PlayerController : MonoBehaviour
     public void SetControllerEnabled(bool enabled)
     {
         CanMove = enabled;
-        //virtualCamera.enabled = enabled;
+        virtualCamera.enabled = enabled;
 
         if(cinemachinePOVExtension != null)
         {
             if (enabled)
             {
-                StartCoroutine(SmoothTransition(0f, 0f, 1f));
 
-                var hardLookAt = virtualCamera.GetComponent<CinemachineHardLookAt>();
-                if (hardLookAt != null) Destroy(hardLookAt);
+                //var hardLookAt = virtualCamera.GetComponent<CinemachineHardLookAt>();
+                //if (hardLookAt != null) Destroy(hardLookAt);
 
-                var composer = virtualCamera.GetComponent<CinemachineRotateWithFollowTarget>();
-                if (composer == null)
-                {
-                    composer = virtualCamera.gameObject.AddComponent<CinemachineRotateWithFollowTarget>();
-                }
+                //var composer = virtualCamera.GetComponent<CinemachineRotateWithFollowTarget>();
+                //if (composer == null)
+                //{
+                //    composer = virtualCamera.gameObject.AddComponent<CinemachineRotateWithFollowTarget>();
+                //}
 
                 cinemachinePOVExtension.SetPanAndTilt(lockedPanValue, lockedTiltValue);
             }
@@ -110,43 +109,17 @@ public class PlayerController : MonoBehaviour
             {
                 (lockedPanValue, lockedTiltValue) = cinemachinePOVExtension.GetPanAndTilt();
 
-                StartCoroutine(SmoothTransition(lockedPanValue, lockedTiltValue, 1f));
 
-                var composer = virtualCamera.GetComponent<CinemachineRotateWithFollowTarget>();
-                if (composer != null) Destroy(composer);
+                //var composer = virtualCamera.GetComponent<CinemachineRotateWithFollowTarget>();
+                //if (composer != null) Destroy(composer);
 
-                var hardLookAt = virtualCamera.GetComponent<CinemachineHardLookAt>();
-                if (hardLookAt == null)
-                {
-                    hardLookAt = virtualCamera.gameObject.AddComponent<CinemachineHardLookAt>();
-                }
-                
+                //var hardLookAt = virtualCamera.GetComponent<CinemachineHardLookAt>();
+                //if (hardLookAt == null)
+                //{
+                //    hardLookAt = virtualCamera.gameObject.AddComponent<CinemachineHardLookAt>();
+                //}
+
             }
         }
     }
-    private IEnumerator SmoothTransition(float targetPan, float targetTilt, float duration)
-    {
-        // Obtener los valores iniciales de Pan y Tilt
-        (float initialPan, float initialTilt) = cinemachinePOVExtension.GetPanAndTilt();
-        float elapsedTime = 0f;
-
-        while (elapsedTime < duration)
-        {
-            elapsedTime += Time.deltaTime;
-            float t = elapsedTime / duration;
-
-            // Interpolación de los valores de Pan y Tilt
-            float currentPan = Mathf.Lerp(initialPan, targetPan, t);
-            float currentTilt = Mathf.Lerp(initialTilt, targetTilt, t);
-
-            // Asignar los valores interpolados
-            cinemachinePOVExtension.SetPanAndTilt(currentPan, currentTilt);
-
-            yield return null;
-        }
-
-        // Asegurar que los valores finales sean asignados exactamente
-        cinemachinePOVExtension.SetPanAndTilt(targetPan, targetTilt);
-    }
-
 }

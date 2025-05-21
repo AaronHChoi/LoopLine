@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Cinemachine.Samples;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyInjectable
@@ -12,6 +12,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     public int dialogueIndex = 0;
     public int DialogueLocalIndex = 0;
     public bool isDialogueActive = false;
+    //[SerializeField] GameObject HeadPosition;
 
     DevelopmentManager developmentManager;
     UIManager uiManager;
@@ -53,6 +54,8 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
         developmentManager.DeactivateUIIfActive();
 
         if (isDialogueActive) return;
+
+        //virtualCamera.LookAt = HeadPosition;
 
         Debug.Log("Trigger");
         

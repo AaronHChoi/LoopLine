@@ -1,3 +1,4 @@
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class DependencyContainer : MonoBehaviour
@@ -9,6 +10,7 @@ public class DependencyContainer : MonoBehaviour
     public Subject SubjectEventManager { get; private set; }
     public DialogueUI DialogueUI { get; private set; }
     public Parallax Parallax { get; private set; }
+    public CinemachineCamera VirtualCamera {get;private set;}
     private void Awake()
     {
         if(Instance != null && Instance != this)
@@ -23,5 +25,6 @@ public class DependencyContainer : MonoBehaviour
         UIManager = FindFirstObjectByType<UIManager>();
         DialogueUI = FindFirstObjectByType<DialogueUI>();
         Parallax = FindFirstObjectByType<Parallax>();
+        VirtualCamera = FindFirstObjectByType<CinemachineCamera>();
     }
 }
