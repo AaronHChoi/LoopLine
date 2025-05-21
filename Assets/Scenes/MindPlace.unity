@@ -355,7 +355,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa1c4f2a33f24594a8ff1496811474ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeManager: {fileID: 221901080}
   contador_provicional: {fileID: 142067229}
   uiText: {fileID: 380357071}
 --- !u!1 &42751514
@@ -6604,17 +6603,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e233217594b9fc94e9af4422af49b871, type: 3}
---- !u!114 &221901080 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7851725038413181869, guid: e233217594b9fc94e9af4422af49b871, type: 3}
-  m_PrefabInstance: {fileID: 221901079}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ceeba65dc40fa74f9d618405b36d360, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &221920796
 GameObject:
   m_ObjectHideFlags: 0
@@ -10771,7 +10759,7 @@ GameObject:
   - component: {fileID: 1554062248}
   - component: {fileID: 1554062247}
   m_Layer: 0
-  m_Name: NPC_VFX 4
+  m_Name: BassistGirl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10790,7 +10778,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isNPCInteracted: 0
-  name: 
+  name: BassistGirl
 --- !u!73398921 &1554062248
 VFXRenderer:
   serializedVersion: 1
@@ -12149,6 +12137,7 @@ MonoBehaviour:
   isMuted: 0
   workingMan: 0
   cameraGirl: 0
+  bassistGirl: 0
 --- !u!4 &1771727360
 Transform:
   m_ObjectHideFlags: 0
