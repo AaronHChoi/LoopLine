@@ -609,6 +609,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isNPCInteracted: 0
+  name: 
 --- !u!1 &72520075
 GameObject:
   m_ObjectHideFlags: 0
@@ -5933,7 +5934,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 407edffe2aae0ca40b1e4b1c012bb3ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isNPCInteracted: 1
+  isNPCInteracted: 0
+  name: 
 --- !u!1 &142067227
 GameObject:
   m_ObjectHideFlags: 0
@@ -7680,7 +7682,6 @@ GameObject:
   - component: {fileID: 573141896}
   - component: {fileID: 573141895}
   - component: {fileID: 573141898}
-  - component: {fileID: 573141899}
   m_Layer: 0
   m_Name: NPC_VFX 2
   m_TagString: Untagged
@@ -7832,21 +7833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isNPCInteracted: 0
---- !u!114 &573141899
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 573141894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdafc37f32b176349b1684c4455b98e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ExecuteInEditor: 1
-  m_Bindings: []
-  m_VisualEffect: {fileID: 573141896}
+  name: 
 --- !u!1 &575962595
 GameObject:
   m_ObjectHideFlags: 0
@@ -8630,7 +8617,7 @@ GameObject:
   - component: {fileID: 1008377323}
   - component: {fileID: 1008377326}
   m_Layer: 0
-  m_Name: NPC_VFX 3
+  m_Name: CameraGirl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8780,6 +8767,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isNPCInteracted: 0
+  name: CameraGirl
 --- !u!1 &1063668851
 GameObject:
   m_ObjectHideFlags: 0
@@ -10102,6 +10090,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isNPCInteracted: 0
+  name: 
 --- !u!1 &1598632982
 GameObject:
   m_ObjectHideFlags: 0
@@ -10251,7 +10240,7 @@ GameObject:
   - component: {fileID: 1599182196}
   - component: {fileID: 1599182199}
   m_Layer: 0
-  m_Name: NPC_VFX_WorkingMan
+  m_Name: WorkingMan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10401,6 +10390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isNPCInteracted: 0
+  name: WorkingMan
 --- !u!1 &1611662986
 GameObject:
   m_ObjectHideFlags: 0
@@ -11319,6 +11309,8 @@ MonoBehaviour:
   TrainLoop: 0
   MindPlaceLoop: 0
   CorrectWord101: 0
+  workingMan: 0
+  cameraGirl: 0
 --- !u!4 &1771727360
 Transform:
   m_ObjectHideFlags: 0
@@ -17633,6 +17625,7 @@ MonoBehaviour:
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
+  NPCInteracted: 0
 --- !u!1 &7274777112170439936
 GameObject:
   m_ObjectHideFlags: 0

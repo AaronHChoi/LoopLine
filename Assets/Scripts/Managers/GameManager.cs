@@ -17,8 +17,8 @@ public class GameManager : MonoBehaviour
     //Test
     public bool workingMan = false;
     public bool cameraGirl = false;
-    [SerializeField] DialogueSpeaker NPCworkingMan;
-    [SerializeField] DialogueSpeaker NPCcameraGirl;
+
+    public Dictionary<string, System.Action<bool>> boolSetters;
     //
     private void Awake()
     {
@@ -31,6 +31,13 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        boolSetters = new Dictionary<string, System.Action<bool>>
+        {
+            {"WorkingMan", value => workingMan = value },
+            {"CameraGirl", value => cameraGirl = value }
+        };
+
         dialogueManager = FindFirstObjectByType<DialogueManager>();
     }
     private void Start()
@@ -47,15 +54,23 @@ public class GameManager : MonoBehaviour
         }
         SceneManager.LoadScene(sceneName);
     }
-    void CheckBool() //Test
+    public void SetBool(string key, bool value)
     {
-        if (NPCworkingMan.NPCInteracted)
+        if(boolSetters.TryGetValue(key, out var setter))
         {
-            workingMan = true;
+            setter(value);
         }
-        if (NPCcameraGirl.NPCInteracted)
+        else
         {
-            cameraGirl = true;
+            Debug.LogWarning($"No se encontro el bool para la clave: {key}");
         }
+    }
+    public Dictionary<string, bool> GetNPCBoolStates()
+    {
+        return new Dictionary<string, bool>
+        {
+            { "WorkingMan", workingMan },
+            { "CameraGirl", cameraGirl }
+        };
     }
 }

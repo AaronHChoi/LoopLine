@@ -57,7 +57,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
 
         Debug.Log("Trigger");
 
-        NPCInteracted = true;
+        GameManager.Instance.SetBool(id, true);
         
         while (dialogueIndex < AvailableDialogs.Count && !AvailableDialogs[dialogueIndex].Unlocked)
         {

@@ -10,6 +10,7 @@ public class NPCInteractionColor : MonoBehaviour
 
     private void Start()
     {
+        UpdateNPCStates();
         CheckNPCInteracted();
     }
     public void CheckNPCInteracted()
@@ -25,6 +26,21 @@ public class NPCInteractionColor : MonoBehaviour
             else
             {
                 vfx.SetGradient("Color", defaultGradient);
+            }
+        }
+    }
+    public void UpdateNPCStates()
+    {
+        Dictionary<string, bool> npcBoolStates = GameManager.Instance.GetNPCBoolStates();
+
+        Debug.Log(npcBoolStates);
+
+        foreach (NPCMindPlace npc in NPCs)
+        {
+            if(npcBoolStates.TryGetValue(npc.name, out bool state))
+            {
+                Debug.Log(npc.name);
+                npc.isNPCInteracted = state;
             }
         }
     }

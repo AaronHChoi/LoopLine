@@ -792,6 +792,7 @@ MonoBehaviour:
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
+  NPCInteracted: 0
 --- !u!65 &114952359
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1763,6 +1764,7 @@ MonoBehaviour:
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
+  NPCInteracted: 0
 --- !u!65 &205322666
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2220,7 +2222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactText: Interactuar
-  id: 
+  id: WorkingMan
   AvailableDialogs:
   - {fileID: 11400000, guid: 1cc0a531dace08f49b04e104a320e513, type: 2}
   - {fileID: 11400000, guid: 264728530efdd4c48a148067a0e6854c, type: 2}
@@ -2228,6 +2230,7 @@ MonoBehaviour:
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
+  NPCInteracted: 0
 --- !u!114 &311809391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2968,6 +2971,7 @@ MonoBehaviour:
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
+  NPCInteracted: 0
 --- !u!1 &438580408
 GameObject:
   m_ObjectHideFlags: 0
@@ -3182,6 +3186,7 @@ MonoBehaviour:
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
+  NPCInteracted: 0
 --- !u!65 &465367161
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3873,7 +3878,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactText: Interactuar
-  id: 
+  id: CameraGirl
   AvailableDialogs:
   - {fileID: 11400000, guid: 07b0706aff8a6684aa05868271266757, type: 2}
   - {fileID: 11400000, guid: ef486b6f178ebed47bd9b5b418ba7e6f, type: 2}
@@ -3881,6 +3886,7 @@ MonoBehaviour:
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
+  NPCInteracted: 0
 --- !u!114 &500735896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5846,6 +5852,7 @@ MonoBehaviour:
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
+  NPCInteracted: 0
 --- !u!65 &783931835
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7692,6 +7699,7 @@ MonoBehaviour:
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
+  NPCInteracted: 0
 --- !u!65 &919430327
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7820,6 +7828,7 @@ MonoBehaviour:
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
+  NPCInteracted: 0
 --- !u!65 &920470983
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11393,6 +11402,7 @@ MonoBehaviour:
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
+  NPCInteracted: 0
 --- !u!65 &1354861404
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13059,6 +13069,7 @@ MonoBehaviour:
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
+  NPCInteracted: 0
 --- !u!114 &1556341794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13400,6 +13411,7 @@ MonoBehaviour:
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
+  NPCInteracted: 0
 --- !u!65 &1619740214
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14087,6 +14099,7 @@ MonoBehaviour:
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
+  NPCInteracted: 0
 --- !u!65 &1666334510
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17301,6 +17314,8 @@ MonoBehaviour:
   TrainLoop: 0
   MindPlaceLoop: 0
   CorrectWord101: 0
+  workingMan: 0
+  cameraGirl: 0
 --- !u!4 &2075132569
 Transform:
   m_ObjectHideFlags: 0
@@ -18007,6 +18022,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2464039023775065192, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: AvailableDialogs.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2582760741889782329, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: DialogueEvents.Array.size
       value: 2
@@ -18570,6 +18589,7 @@ MonoBehaviour:
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
+  NPCInteracted: 0
 --- !u!4 &6116358975240403110
 Transform:
   m_ObjectHideFlags: 0
