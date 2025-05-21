@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.Cinemachine;
 using Unity.Cinemachine.Samples;
 using UnityEngine;
@@ -17,6 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private CinemachinePOVExtension cinemachinePOVExtension;
     [SerializeField] FocusModeManager focusModeManager;
 
+    public Transform HeadPosition;
     private Vector2 inputMovement;
     private float lockedPanValue;
     private float lockedTiltValue;
@@ -91,11 +93,29 @@ public class PlayerController : MonoBehaviour
         {
             if (enabled)
             {
+                //var hardLookAt = virtualCamera.GetComponent<CinemachineHardLookAt>();
+                //if (hardLookAt != null) Destroy(hardLookAt);
+
+                //var composer = virtualCamera.GetComponent<CinemachineRotateWithFollowTarget>();
+                //if (composer == null)
+                //{
+                //    composer = virtualCamera.gameObject.AddComponent<CinemachineRotateWithFollowTarget>();
+                //}
+
                 cinemachinePOVExtension.SetPanAndTilt(lockedPanValue, lockedTiltValue);
             }
             else
             {
                 (lockedPanValue, lockedTiltValue) = cinemachinePOVExtension.GetPanAndTilt();
+
+                //var composer = virtualCamera.GetComponent<CinemachineRotateWithFollowTarget>();
+                //if (composer != null) Destroy(composer);
+
+                //var hardLookAt = virtualCamera.GetComponent<CinemachineHardLookAt>();
+                //if (hardLookAt == null)
+                //{
+                //    hardLookAt = virtualCamera.gameObject.AddComponent<CinemachineHardLookAt>();
+                //}
             }
         }
     }

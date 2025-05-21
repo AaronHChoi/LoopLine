@@ -123,23 +123,43 @@ public class DialogueUI : MonoBehaviour
     }
     IEnumerator WriteText()
     {
-
-        timeManager.AllowFastForwardMethod(true);
+        //timeManager.AllowFastForwardMethod(true);
         isTyping = true;
         dialogueText.maxVisibleCharacters = 0;
         dialogueText.text = Dialogue.Dialogues[localIndex].dialogue;
         dialogueText.richText = true;
 
         var dialogueContent = Dialogue.Dialogues[localIndex].dialogue.ToCharArray();
+        //
+        int totalCharacters = dialogueContent.Length;
+        int currentCharacter = 0;
         
-        foreach (char letter in dialogueContent)
+        while(currentCharacter < totalCharacters)
         {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                dialogueText.maxVisibleCharacters = totalCharacters;
+                break;
+            }
             dialogueText.maxVisibleCharacters++;
-            if (!char.IsWhiteSpace(letter)) audioSource.PlayOneShot(typingAudioSource);
+            if (!char.IsWhiteSpace(dialogueContent[currentCharacter]))
+                audioSource.PlayOneShot(typingAudioSource);
+            currentCharacter++;
             yield return new WaitForSeconds(1f / textSpeed);
         }
+        dialogueText.maxVisibleCharacters = totalCharacters;
+
         isTyping = false;
-        timeManager.AllowFastForwardMethod(false);
+        //
+        
+        //foreach (char letter in dialogueContent)
+        //{
+        //    dialogueText.maxVisibleCharacters++;
+        //    if (!char.IsWhiteSpace(letter)) audioSource.PlayOneShot(typingAudioSource);
+        //    yield return new WaitForSeconds(1f / textSpeed);
+        //}
+        //isTyping = false;
+        //timeManager.AllowFastForwardMethod(false);
     }
     public void StopDialogue()
     {

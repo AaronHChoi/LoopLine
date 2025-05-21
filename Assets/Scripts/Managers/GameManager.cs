@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,7 +7,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     [SerializeField] private ScreenManager screenManager;
     [SerializeField] DialogueManager dialogueManager;
-
     public string nextScene;
 
     public int TrainLoop = 0;
@@ -14,6 +14,12 @@ public class GameManager : MonoBehaviour
     public ScreenManager ScreenManager => screenManager;
     public bool CorrectWord101 = false;
 
+    //Test
+    public bool workingMan = false;
+    public bool cameraGirl = false;
+
+    public Dictionary<string, System.Action<bool>> boolSetters;
+    //
     private void Awake()
     {
         if (Instance == null)
@@ -25,6 +31,13 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        boolSetters = new Dictionary<string, System.Action<bool>>
+        {
+            {"WorkingMan", value => workingMan = value },
+            {"CameraGirl", value => cameraGirl = value }
+        };
+
         dialogueManager = FindFirstObjectByType<DialogueManager>();
     }
     private void Start()
@@ -33,11 +46,31 @@ public class GameManager : MonoBehaviour
     }
     public void LoadNextScene(string sceneName)
     {
+        //CheckBool();
         if (sceneName == "MindPlace")
         {
             TrainLoop++;
             dialogueManager.ResetAllDialogues();
         }
         SceneManager.LoadScene(sceneName);
+    }
+    public void SetBool(string key, bool value)
+    {
+        if(boolSetters.TryGetValue(key, out var setter))
+        {
+            setter(value);
+        }
+        else
+        {
+            Debug.LogWarning($"No se encontro el bool para la clave: {key}");
+        }
+    }
+    public Dictionary<string, bool> GetNPCBoolStates()
+    {
+        return new Dictionary<string, bool>
+        {
+            { "WorkingMan", workingMan },
+            { "CameraGirl", cameraGirl }
+        };
     }
 }

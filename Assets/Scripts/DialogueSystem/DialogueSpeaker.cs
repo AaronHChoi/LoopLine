@@ -12,6 +12,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     public int dialogueIndex = 0;
     public int DialogueLocalIndex = 0;
     public bool isDialogueActive = false;
+    public bool NPCInteracted = false;
 
     DevelopmentManager developmentManager;
     UIManager uiManager;
@@ -55,6 +56,8 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
         if (isDialogueActive) return;
 
         Debug.Log("Trigger");
+
+        GameManager.Instance.SetBool(id, true);
         
         while (dialogueIndex < AvailableDialogs.Count && !AvailableDialogs[dialogueIndex].Unlocked)
         {
