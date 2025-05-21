@@ -19,9 +19,9 @@ public class GameManager : MonoBehaviour
     [Header("Test")]
     public bool workingMan = false;
     public bool cameraGirl = false;
+    public bool bassistGirl = false;
 
     public Dictionary<string, System.Action<bool>> boolSetters;
-    //
     private void Awake()
     {
         if (Instance == null)
@@ -37,7 +37,8 @@ public class GameManager : MonoBehaviour
         boolSetters = new Dictionary<string, System.Action<bool>>
         {
             {"WorkingMan", value => workingMan = value },
-            {"CameraGirl", value => cameraGirl = value }
+            {"CameraGirl", value => cameraGirl = value },
+            {"BassistGirl", value => bassistGirl = value }
         };
 
         dialogueManager = FindFirstObjectByType<DialogueManager>();
@@ -62,7 +63,8 @@ public class GameManager : MonoBehaviour
         return new Dictionary<string, bool>
         {
             { "WorkingMan", workingMan },
-            { "CameraGirl", cameraGirl }
+            { "CameraGirl", cameraGirl },
+            { "BassistGirl", bassistGirl }
         };
     }
 }
