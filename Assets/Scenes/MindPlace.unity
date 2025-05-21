@@ -457,7 +457,6 @@ GameObject:
   - component: {fileID: 50964467}
   - component: {fileID: 50964466}
   - component: {fileID: 50964465}
-  - component: {fileID: 50964468}
   m_Layer: 0
   m_Name: NPC_VFX 4
   m_TagString: Untagged
@@ -596,20 +595,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 532611709}
   m_LocalEulerAnglesHint: {x: 0, y: 64.46, z: 0}
---- !u!114 &50964468
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 50964464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 407edffe2aae0ca40b1e4b1c012bb3ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isNPCInteracted: 0
-  name: 
 --- !u!1 &72520075
 GameObject:
   m_ObjectHideFlags: 0
@@ -5783,7 +5768,6 @@ GameObject:
   - component: {fileID: 133665496}
   - component: {fileID: 133665495}
   - component: {fileID: 133665494}
-  - component: {fileID: 133665497}
   m_Layer: 0
   m_Name: NPC_VFX 1
   m_TagString: Untagged
@@ -5870,7 +5854,7 @@ VisualEffect:
       m_Array:
       - m_Value:
           serializedVersion: 2
-          key0: {r: 0.007843138, g: 0.009433985, b: 0.009433985, a: 1}
+          key0: {r: 0.009433985, g: 0.009433985, b: 0.009433985, a: 1}
           key1: {r: 0.009433985, g: 0.009433985, b: 0.009433985, a: 0}
           key2: {r: 0, g: 0.000022977942, b: 0.000026807598, a: 1}
           key3: {r: 1, g: 0.5318797, b: 0, a: 0}
@@ -5922,20 +5906,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 532611709}
   m_LocalEulerAnglesHint: {x: 0, y: 64.46, z: 0}
---- !u!114 &133665497
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 133665493}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 407edffe2aae0ca40b1e4b1c012bb3ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isNPCInteracted: 0
-  name: 
 --- !u!1 &142067227
 GameObject:
   m_ObjectHideFlags: 0
@@ -7562,7 +7532,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 532611709}
-  - component: {fileID: 532611710}
   m_Layer: 0
   m_Name: NPCs
   m_TagString: Untagged
@@ -7591,85 +7560,6 @@ Transform:
   - {fileID: 1541678406}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &532611710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 532611708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f0c6eade6f159447ae109b62206d610, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NPCs:
-  - {fileID: 133665497}
-  - {fileID: 573141898}
-  - {fileID: 1008377326}
-  - {fileID: 50964468}
-  - {fileID: 1599182199}
-  - {fileID: 1541678407}
-  interactedGradient:
-    serializedVersion: 2
-    key0: {r: 0.009433985, g: 0.009433985, b: 0.009433985, a: 1}
-    key1: {r: 0.2638634, g: 0.050763562, b: 0.050763562, a: 0}
-    key2: {r: 0, g: 0.000022977942, b: 0.000026807598, a: 0}
-    key3: {r: 0, g: 0, b: 0, a: 0}
-    key4: {r: 0, g: 0, b: 0, a: 0}
-    key5: {r: 0, g: 0, b: 0, a: 0}
-    key6: {r: 0, g: 0, b: 0, a: 0}
-    key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 193
-    ctime1: 32761
-    ctime2: 65535
-    ctime3: 0
-    ctime4: 0
-    ctime5: 0
-    ctime6: 0
-    ctime7: 0
-    atime0: 0
-    atime1: 65535
-    atime2: 0
-    atime3: 0
-    atime4: 0
-    atime5: 0
-    atime6: 0
-    atime7: 0
-    m_Mode: 0
-    m_ColorSpace: -1
-    m_NumColorKeys: 3
-    m_NumAlphaKeys: 2
-  defaultGradient:
-    serializedVersion: 2
-    key0: {r: 0.007843138, g: 0.009433985, b: 0.009433985, a: 1}
-    key1: {r: 0.009433985, g: 0.009433985, b: 0.009433985, a: 0}
-    key2: {r: 0, g: 0.000022977942, b: 0.000026807598, a: 0}
-    key3: {r: 0, g: 0, b: 0, a: 0}
-    key4: {r: 0, g: 0, b: 0, a: 0}
-    key5: {r: 0, g: 0, b: 0, a: 0}
-    key6: {r: 0, g: 0, b: 0, a: 0}
-    key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 193
-    ctime1: 32761
-    ctime2: 65535
-    ctime3: 0
-    ctime4: 0
-    ctime5: 0
-    ctime6: 0
-    ctime7: 0
-    atime0: 0
-    atime1: 65535
-    atime2: 0
-    atime3: 0
-    atime4: 0
-    atime5: 0
-    atime6: 0
-    atime7: 0
-    m_Mode: 0
-    m_ColorSpace: -1
-    m_NumColorKeys: 3
-    m_NumAlphaKeys: 2
 --- !u!1 &573141894
 GameObject:
   m_ObjectHideFlags: 0
@@ -7681,7 +7571,6 @@ GameObject:
   - component: {fileID: 573141897}
   - component: {fileID: 573141896}
   - component: {fileID: 573141895}
-  - component: {fileID: 573141898}
   m_Layer: 0
   m_Name: NPC_VFX 2
   m_TagString: Untagged
@@ -7769,7 +7658,7 @@ VisualEffect:
       - m_Value:
           serializedVersion: 2
           key0: {r: 0.009433985, g: 0.009433985, b: 0.009433985, a: 1}
-          key1: {r: 0.05660379, g: 0.0040049846, b: 0.0040049846, a: 0}
+          key1: {r: 0.009433985, g: 0.009433985, b: 0.009433985, a: 0}
           key2: {r: 0, g: 0.000022977942, b: 0.000026807598, a: 1}
           key3: {r: 1, g: 0.5318797, b: 0, a: 0}
           key4: {r: 1, g: 1, b: 1, a: 0}
@@ -7777,7 +7666,7 @@ VisualEffect:
           key6: {r: 0, g: 0, b: 0, a: 0}
           key7: {r: 0, g: 0, b: 0, a: 0}
           ctime0: 193
-          ctime1: 32768
+          ctime1: 32761
           ctime2: 65535
           ctime3: 63993
           ctime4: 65535
@@ -7820,20 +7709,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 532611709}
   m_LocalEulerAnglesHint: {x: 0, y: 64.46, z: 0}
---- !u!114 &573141898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 573141894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 407edffe2aae0ca40b1e4b1c012bb3ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isNPCInteracted: 0
-  name: 
 --- !u!1 &575962595
 GameObject:
   m_ObjectHideFlags: 0
@@ -8471,6 +8346,55 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 867429025}
   m_Mesh: {fileID: -4142219771195877799, guid: fde76517d3499924ab0c75480a135947, type: 3}
+--- !u!1 &909449422
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 909449424}
+  - component: {fileID: 909449423}
+  m_Layer: 0
+  m_Name: VolumeInsideMindPlace
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &909449423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909449422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 1
+  blendDistance: 0
+  weight: 0
+  sharedProfile: {fileID: 11400000, guid: 6e70bd0283a3aa0428fd979e0563a86c, type: 2}
+--- !u!4 &909449424
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909449422}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &957936650
 GameObject:
   m_ObjectHideFlags: 0
@@ -8615,9 +8539,8 @@ GameObject:
   - component: {fileID: 1008377325}
   - component: {fileID: 1008377324}
   - component: {fileID: 1008377323}
-  - component: {fileID: 1008377326}
   m_Layer: 0
-  m_Name: CameraGirl
+  m_Name: NPC_VFX 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8754,20 +8677,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 532611709}
   m_LocalEulerAnglesHint: {x: 0, y: 64.46, z: 0}
---- !u!114 &1008377326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1008377322}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 407edffe2aae0ca40b1e4b1c012bb3ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isNPCInteracted: 0
-  name: CameraGirl
 --- !u!1 &1063668851
 GameObject:
   m_ObjectHideFlags: 0
@@ -9938,7 +9847,6 @@ GameObject:
   - component: {fileID: 1541678406}
   - component: {fileID: 1541678405}
   - component: {fileID: 1541678404}
-  - component: {fileID: 1541678407}
   m_Layer: 0
   m_Name: NPC_VFX 6
   m_TagString: Untagged
@@ -10077,20 +9985,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 532611709}
   m_LocalEulerAnglesHint: {x: 0, y: 64.46, z: 0}
---- !u!114 &1541678407
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1541678403}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 407edffe2aae0ca40b1e4b1c012bb3ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isNPCInteracted: 0
-  name: 
 --- !u!1 &1598632982
 GameObject:
   m_ObjectHideFlags: 0
@@ -10238,9 +10132,8 @@ GameObject:
   - component: {fileID: 1599182198}
   - component: {fileID: 1599182197}
   - component: {fileID: 1599182196}
-  - component: {fileID: 1599182199}
   m_Layer: 0
-  m_Name: WorkingMan
+  m_Name: NPC_VFX 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10377,20 +10270,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 532611709}
   m_LocalEulerAnglesHint: {x: 0, y: 64.46, z: 0}
---- !u!114 &1599182199
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1599182195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 407edffe2aae0ca40b1e4b1c012bb3ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isNPCInteracted: 0
-  name: WorkingMan
 --- !u!1 &1611662986
 GameObject:
   m_ObjectHideFlags: 0
@@ -10714,8 +10593,29 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 955774221637418256, guid: 79a5473d5662dce409b195af4d7a1641, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1630526744}
   m_SourcePrefab: {fileID: 100100000, guid: 79a5473d5662dce409b195af4d7a1641, type: 3}
+--- !u!1 &1630526743 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 955774221637418256, guid: 79a5473d5662dce409b195af4d7a1641, type: 3}
+  m_PrefabInstance: {fileID: 1630526742}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1630526744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630526743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ac6569163cbb634e8f642a3d407ec66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionVolumeSpeed: 0.5
 --- !u!1 &1686568308
 GameObject:
   m_ObjectHideFlags: 0
@@ -11309,8 +11209,6 @@ MonoBehaviour:
   TrainLoop: 0
   MindPlaceLoop: 0
   CorrectWord101: 0
-  workingMan: 0
-  cameraGirl: 0
 --- !u!4 &1771727360
 Transform:
   m_ObjectHideFlags: 0
@@ -17625,7 +17523,6 @@ MonoBehaviour:
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
-  NPCInteracted: 0
 --- !u!1 &7274777112170439936
 GameObject:
   m_ObjectHideFlags: 0
@@ -18697,7 +18594,6 @@ SceneRoots:
   - {fileID: 1890026545}
   - {fileID: 230240323}
   - {fileID: 413853387}
-  - {fileID: 1613797601}
   - {fileID: 514613828}
   - {fileID: 6092075193197190949}
   - {fileID: 4471031882944044337}
@@ -18718,3 +18614,5 @@ SceneRoots:
   - {fileID: 221920797}
   - {fileID: 42751518}
   - {fileID: 532611709}
+  - {fileID: 1613797601}
+  - {fileID: 909449424}
