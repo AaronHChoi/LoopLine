@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,7 +7,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     [SerializeField] private ScreenManager screenManager;
     [SerializeField] DialogueManager dialogueManager;
-
     public string nextScene;
 
     public int TrainLoop = 0;
@@ -14,6 +14,12 @@ public class GameManager : MonoBehaviour
     public ScreenManager ScreenManager => screenManager;
     public bool CorrectWord101 = false;
 
+    //Test
+    public bool workingMan = false;
+    public bool cameraGirl = false;
+    [SerializeField] DialogueSpeaker NPCworkingMan;
+    [SerializeField] DialogueSpeaker NPCcameraGirl;
+    //
     private void Awake()
     {
         if (Instance == null)
@@ -33,11 +39,23 @@ public class GameManager : MonoBehaviour
     }
     public void LoadNextScene(string sceneName)
     {
+        //CheckBool();
         if (sceneName == "MindPlace")
         {
             TrainLoop++;
             dialogueManager.ResetAllDialogues();
         }
         SceneManager.LoadScene(sceneName);
+    }
+    void CheckBool() //Test
+    {
+        if (NPCworkingMan.NPCInteracted)
+        {
+            workingMan = true;
+        }
+        if (NPCcameraGirl.NPCInteracted)
+        {
+            cameraGirl = true;
+        }
     }
 }
