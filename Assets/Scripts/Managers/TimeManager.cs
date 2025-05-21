@@ -62,7 +62,7 @@ public class TimeManager : MonoBehaviour, IDependencyInjectable
 
             if (parallax != null)
             {
-                parallax.SetSpeedMultiplier(speedMultiplier-2);
+                parallax.SetSpeedMultiplier(speedMultiplier);
             }
         }
         else
