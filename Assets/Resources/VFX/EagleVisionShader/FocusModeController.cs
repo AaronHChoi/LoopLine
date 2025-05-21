@@ -29,10 +29,10 @@ public class FocusModeController : MonoBehaviour
             }
         }
 
-        GameObject volumeObject = GameObject.Find("VolumeFocusMode");
-        if (volumeObject != null)
+        GameObject volume = GameObject.Find("VolumeFocusMode");
+        if (volume != null)
         {
-            volumeFocusMode = volumeObject.GetComponent<Volume>();
+            volumeFocusMode = volume.GetComponent<Volume>();
             if (volumeFocusMode != null)
                 volumeWeight = volumeFocusMode.weight;
         }
