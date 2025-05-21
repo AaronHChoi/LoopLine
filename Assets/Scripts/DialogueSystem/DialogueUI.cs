@@ -146,7 +146,7 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
             if (Input.GetKeyDown(KeyCode.F))
             {
                 dialogueText.maxVisibleCharacters = totalCharacters;
-                //FlashBackground();
+                FlashBackground();
                 break;
             }
 
