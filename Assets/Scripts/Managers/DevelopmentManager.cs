@@ -17,7 +17,6 @@ public class DevelopmentManager : MonoBehaviour
     private Dictionary<AudioSource, float> audiosVolumeDic;
     bool isCursorVisible = false;
     bool isUIActive = false;
-    bool isMuted = false;
     private void Awake()
     {
         dialogueManager = FindFirstObjectByType<DialogueManager>();
@@ -30,6 +29,7 @@ public class DevelopmentManager : MonoBehaviour
         timeManager.changeLoopTime = false;
         UpdateCursorState();
         InitAudios();
+        Mute(false);
     }
     void Update()
     {
@@ -77,6 +77,8 @@ public class DevelopmentManager : MonoBehaviour
         {
             audiosVolumeDic.Add(audio, audio.volume);
         }
+
+
     }
     void UpdateCursorState()
     {
@@ -101,12 +103,13 @@ public class DevelopmentManager : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
-    public void Mute()
+    public void Mute(bool changeMute)
     {
-        isMuted = !isMuted;
+        if(changeMute) GameManager.Instance.isMuted = !GameManager.Instance.isMuted;
+
         foreach (var audio in audiosVolumeDic)
         {
-            if (isMuted)
+            if (GameManager.Instance.isMuted)
             {
                 audio.Key.volume = 0;
             }
