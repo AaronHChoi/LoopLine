@@ -122,6 +122,6 @@ public class EventManager : Subject
     {
         yield return new WaitForSeconds(delay);
         NotifyObservers(Events.TriggerMonologue);
-        uiManager.ShowUIText("Mantega la F para acelerar el tiempo");
+        uiManager.ShowUIText("Aprete F para saltear");
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-public class DialogueUI : MonoBehaviour
+public class DialogueUI : MonoBehaviour, IDependencyInjectable
 {
     public DialogueSO Dialogue;
     public DialogueSO MainDialogue;
@@ -16,8 +16,7 @@ public class DialogueUI : MonoBehaviour
 
     [SerializeField] private AudioClip typingAudioSource;
     [SerializeField] private AudioSource audioSource;
-    [SerializeField] TimeManager timeManager;
-
+    
     public int localIndex = 1;
 
     [SerializeField] bool isTyping = false;
@@ -25,10 +24,15 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] bool isFirstDialogueSaved = false;
     Coroutine activeCoroutine;
 
+    TimeManager timeManager;
     private void Awake()
     {
-        timeManager = FindFirstObjectByType<TimeManager>();
+        InjectDependencies(DependencyContainer.Instance);
         audioSource = GetComponent<AudioSource>();
+    }
+    public void InjectDependencies(DependencyContainer provider)
+    {
+        timeManager = provider.TimeManager;
     }
     private void Start()
     {
@@ -123,43 +127,43 @@ public class DialogueUI : MonoBehaviour
     }
     IEnumerator WriteText()
     {
-        //timeManager.AllowFastForwardMethod(true);
         isTyping = true;
         dialogueText.maxVisibleCharacters = 0;
         dialogueText.text = Dialogue.Dialogues[localIndex].dialogue;
         dialogueText.richText = true;
 
         var dialogueContent = Dialogue.Dialogues[localIndex].dialogue.ToCharArray();
-        //
+        
         int totalCharacters = dialogueContent.Length;
         int currentCharacter = 0;
-        
+
+        bool skipToEnd = false;
         while(currentCharacter < totalCharacters)
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
+                skipToEnd = true;
+            }
+            if (skipToEnd)
+            {
                 dialogueText.maxVisibleCharacters = totalCharacters;
                 break;
             }
+
             dialogueText.maxVisibleCharacters++;
             if (!char.IsWhiteSpace(dialogueContent[currentCharacter]))
+            {
                 audioSource.PlayOneShot(typingAudioSource);
+            }
+
             currentCharacter++;
             yield return new WaitForSeconds(1f / textSpeed);
         }
+
         dialogueText.maxVisibleCharacters = totalCharacters;
 
         isTyping = false;
-        //
-        
-        //foreach (char letter in dialogueContent)
-        //{
-        //    dialogueText.maxVisibleCharacters++;
-        //    if (!char.IsWhiteSpace(letter)) audioSource.PlayOneShot(typingAudioSource);
-        //    yield return new WaitForSeconds(1f / textSpeed);
-        //}
-        //isTyping = false;
-        //timeManager.AllowFastForwardMethod(false);
+        timeManager.SkipDialogue();
     }
     public void StopDialogue()
     {

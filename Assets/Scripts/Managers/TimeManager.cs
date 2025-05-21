@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class TimeManager : MonoBehaviour, IDependencyInjectable
 {
     [SerializeField] public float LoopTime { get; private set; } = 360f;
+    [SerializeField] float secondsPunishForSkip = 5f;
 
     public bool changeLoopTime = false;
     public bool AllowFastForward { get; private set; } = false;
@@ -83,6 +84,15 @@ public class TimeManager : MonoBehaviour, IDependencyInjectable
         {
             LoopTime = 360f;
             GameManager.Instance.LoadNextScene(GameManager.Instance.nextScene);
+        }
+    }
+    public void SkipDialogue()
+    {
+        LoopTime -= secondsPunishForSkip;
+
+        if(LoopTime < 0)
+        {
+            LoopTime = 0;
         }
     }
     public void AdjustGameSpeed(float speedMultiplier)

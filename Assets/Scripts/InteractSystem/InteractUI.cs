@@ -40,7 +40,6 @@ public class InteractUI : MonoBehaviour
         containerInteractUI.SetActive(true);
         interactText.text = interactable.GetInteractText();
     }
-
     private void Hide()
     {
         //Debug.Log("Ocultando Interact UI por evento");

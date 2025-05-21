@@ -3793,6 +3793,7 @@ MonoBehaviour:
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
+  NPCInteracted: 0
 --- !u!65 &485959350
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4595,6 +4596,7 @@ MonoBehaviour:
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
+  NPCInteracted: 0
 --- !u!65 &604274802
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10928,6 +10930,7 @@ MonoBehaviour:
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
+  NPCInteracted: 0
 --- !u!65 &1230321353
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19000,8 +19003,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2464039023775065192, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: AvailableDialogs.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2464039023775065192, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: 'AvailableDialogs.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 51d5b18b42fa0234ca9c8b910c166ff5, type: 2}
     - target: {fileID: 2582760741889782329, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: DialogueEvents.Array.size
       value: 2
@@ -19845,6 +19852,14 @@ PrefabInstance:
     - target: {fileID: 3049267596739896398, guid: 23e3a961eda479c42a5ecf9984a139f7, type: 3}
       propertyPath: m_Name
       value: DialogueBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795225627281821828, guid: 23e3a961eda479c42a5ecf9984a139f7, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 695.1106
+      objectReference: {fileID: 0}
+    - target: {fileID: 8795225627281821828, guid: 23e3a961eda479c42a5ecf9984a139f7, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 347.55536
       objectReference: {fileID: 0}
     - target: {fileID: 8795225627281821828, guid: 23e3a961eda479c42a5ecf9984a139f7, type: 3}
       propertyPath: m_AnchoredPosition.y
