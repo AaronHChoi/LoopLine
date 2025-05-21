@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DialogueUI : MonoBehaviour, IDependencyInjectable
 {
@@ -16,6 +17,8 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
 
     [SerializeField] private AudioClip typingAudioSource;
     [SerializeField] private AudioSource audioSource;
+
+    [SerializeField] private RawImage dialogueBackground;
     
     public int localIndex = 1;
 
@@ -142,11 +145,8 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
-                skipToEnd = true;
-            }
-            if (skipToEnd)
-            {
                 dialogueText.maxVisibleCharacters = totalCharacters;
+                FlashBackground();
                 break;
             }
 
@@ -157,7 +157,8 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
             }
 
             currentCharacter++;
-            yield return new WaitForSeconds(1f / textSpeed);
+            yield return null;
+            //yield return new WaitForSeconds(1f / textSpeed);
         }
 
         dialogueText.maxVisibleCharacters = totalCharacters;
@@ -169,5 +170,16 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
     {
         StopCoroutine(WriteText());
         Debug.Log("Dialogo interrumpido");
+    }
+    private void FlashBackground()
+    {
+        StartCoroutine(FlashFeedback());
+    }
+    private IEnumerator FlashFeedback()
+    {
+        Color originalColor = dialogueBackground.color;
+        dialogueBackground.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        dialogueBackground.color = originalColor;
     }
 }
