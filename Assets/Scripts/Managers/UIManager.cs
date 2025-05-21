@@ -1,21 +1,34 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class UIManager : MonoBehaviour, IDependencyInjectable
 {
-    [SerializeField] TimeManager timeManager;
     [SerializeField] private TextMeshProUGUI contador_provicional;
     [SerializeField] private TextMeshProUGUI uiText;
+
+    GameSceneManager gameSceneManager;
+    TimeManager timeManager;
     private void Awake()
     {
-        timeManager = FindFirstObjectByType<TimeManager>();
+        InjectDependencies(DependencyContainer.Instance);
+    }
+    public void InjectDependencies(DependencyContainer provider)
+    {
+        gameSceneManager = provider.GameSceneManager;
+        timeManager = provider.TimeManager;
     }
     private void Start()
     {
         uiText.gameObject.SetActive(false);
     }
     void Update()
+    {
+        if (gameSceneManager.IsCurrentScene("Train"))
+        {
+            ShowLoopTime();
+        }
+    }
+    private void ShowLoopTime()
     {
         contador_provicional.text = GetFormattedLoopTime(timeManager.LoopTime);
     }
