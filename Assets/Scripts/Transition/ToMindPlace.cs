@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class TransitionToMindPlace : MonoBehaviour
+public class ToMindPlace : MonoBehaviour
 {
     private TimeManager timeManager;
 

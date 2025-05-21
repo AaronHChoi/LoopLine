@@ -8346,6 +8346,55 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 867429025}
   m_Mesh: {fileID: -4142219771195877799, guid: fde76517d3499924ab0c75480a135947, type: 3}
+--- !u!1 &909449422
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 909449424}
+  - component: {fileID: 909449423}
+  m_Layer: 0
+  m_Name: VolumeInsideMindPlace
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &909449423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909449422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 1
+  blendDistance: 0
+  weight: 0
+  sharedProfile: {fileID: 11400000, guid: 6e70bd0283a3aa0428fd979e0563a86c, type: 2}
+--- !u!4 &909449424
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909449422}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &957936650
 GameObject:
   m_ObjectHideFlags: 0
@@ -10544,8 +10593,29 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 955774221637418256, guid: 79a5473d5662dce409b195af4d7a1641, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1630526744}
   m_SourcePrefab: {fileID: 100100000, guid: 79a5473d5662dce409b195af4d7a1641, type: 3}
+--- !u!1 &1630526743 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 955774221637418256, guid: 79a5473d5662dce409b195af4d7a1641, type: 3}
+  m_PrefabInstance: {fileID: 1630526742}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1630526744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630526743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ac6569163cbb634e8f642a3d407ec66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transitionVolumeSpeed: 0.5
 --- !u!1 &1686568308
 GameObject:
   m_ObjectHideFlags: 0
@@ -12517,6 +12587,7 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  canReactivate: 1
   correctWordEvent: 
   incorrectWordEvent: 
   player: {fileID: 0}
@@ -12762,6 +12833,7 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  canReactivate: 1
   correctWordEvent: 
   incorrectWordEvent: 
   player: {fileID: 0}
@@ -12861,6 +12933,7 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  canReactivate: 1
   correctWordEvent: 
   incorrectWordEvent: IncorrectWordEvent
   player: {fileID: 0}
@@ -13397,6 +13470,7 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  canReactivate: 1
   correctWordEvent: 
   incorrectWordEvent: 
   player: {fileID: 0}
@@ -14157,6 +14231,7 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  canReactivate: 1
   correctWordEvent: 
   incorrectWordEvent: 
   player: {fileID: 0}
@@ -14826,6 +14901,7 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  canReactivate: 1
   correctWordEvent: 
   incorrectWordEvent: 
   player: {fileID: 0}
@@ -15488,6 +15564,7 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  canReactivate: 1
   correctWordEvent: 
   incorrectWordEvent: 
   player: {fileID: 0}
@@ -16079,6 +16156,7 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  canReactivate: 1
   correctWordEvent: 
   incorrectWordEvent: 
   player: {fileID: 0}
@@ -16102,6 +16180,7 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  canReactivate: 1
   correctWordEvent: 
   incorrectWordEvent: 
   player: {fileID: 0}
@@ -16170,6 +16249,7 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  canReactivate: 1
   correctWordEvent: 
   incorrectWordEvent: IncorrectWordEvent
   player: {fileID: 0}
@@ -16575,6 +16655,7 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  canReactivate: 1
   correctWordEvent: 
   incorrectWordEvent: 
   player: {fileID: 0}
@@ -16717,6 +16798,7 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  canReactivate: 1
   correctWordEvent: 
   incorrectWordEvent: 
   player: {fileID: 0}
@@ -17166,6 +17248,7 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  canReactivate: 1
   correctWordEvent: CorrectWordEvent
   incorrectWordEvent: 
   player: {fileID: 674250480}
@@ -17189,6 +17272,7 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  canReactivate: 1
   correctWordEvent: 
   incorrectWordEvent: 
   player: {fileID: 0}
@@ -17351,6 +17435,7 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  canReactivate: 1
   correctWordEvent: 
   incorrectWordEvent: 
   player: {fileID: 0}
@@ -17437,9 +17522,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 93cef33ecd166774eaf6562756b5ec9f, type: 2}
   dialogueIndex: 0
   DialogueLocalIndex: 0
-  EventManager: {fileID: 0}
   isDialogueActive: 0
-  developmentManager: {fileID: 0}
 --- !u!1 &7274777112170439936
 GameObject:
   m_ObjectHideFlags: 0
@@ -17637,6 +17720,7 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  canReactivate: 1
   correctWordEvent: 
   incorrectWordEvent: 
   player: {fileID: 0}
@@ -18000,6 +18084,7 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  canReactivate: 1
   correctWordEvent: 
   incorrectWordEvent: 
   player: {fileID: 0}
@@ -18108,6 +18193,7 @@ MonoBehaviour:
   tmpro: {fileID: 0}
   word: 
   numerofWord: 0
+  canReactivate: 1
   correctWordEvent: 
   incorrectWordEvent: 
   player: {fileID: 0}
@@ -18508,7 +18594,6 @@ SceneRoots:
   - {fileID: 1890026545}
   - {fileID: 230240323}
   - {fileID: 413853387}
-  - {fileID: 1613797601}
   - {fileID: 514613828}
   - {fileID: 6092075193197190949}
   - {fileID: 4471031882944044337}
@@ -18529,3 +18614,5 @@ SceneRoots:
   - {fileID: 221920797}
   - {fileID: 42751518}
   - {fileID: 532611709}
+  - {fileID: 1613797601}
+  - {fileID: 909449424}
