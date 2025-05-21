@@ -14,7 +14,10 @@ public class GameManager : MonoBehaviour
     public ScreenManager ScreenManager => screenManager;
     public bool CorrectWord101 = false;
 
-    //Test
+    [Header("DeveloperTools")]
+    public bool isMuted = false;
+
+    [Header("Test")]
     public bool workingMan = false;
     public bool cameraGirl = false;
 
