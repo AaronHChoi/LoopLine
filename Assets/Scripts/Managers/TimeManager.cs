@@ -85,6 +85,15 @@ public class TimeManager : MonoBehaviour, IDependencyInjectable
             GameManager.Instance.LoadNextScene(GameManager.Instance.nextScene);
         }
     }
+    public void SkipDialogue()
+    {
+        LoopTime -= 5f;
+
+        if(LoopTime < 0)
+        {
+            LoopTime = 0;
+        }
+    }
     public void AdjustGameSpeed(float speedMultiplier)
     {
         Time.timeScale = speedMultiplier;
