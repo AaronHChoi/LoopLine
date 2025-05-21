@@ -17,14 +17,15 @@ public class DialogueManager : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance = this)
+        if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else
+        else if (Instance != this)
         {
             Destroy(gameObject);
+            return;
         }
         dialogueUI = FindFirstObjectByType<DialogueUI>();
         QuestionManager = FindFirstObjectByType<QuestionManager>();
