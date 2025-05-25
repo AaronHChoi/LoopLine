@@ -35,13 +35,6 @@ public class DialogueManager : MonoBehaviour
     {
         ShowUI(false);
     }
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.K))
-        {
-            StopAndFinishDialogue();
-        }
-    }
     public void ShowUI(bool show)
     {
         dialogueUI.gameObject.SetActive(show);
@@ -110,7 +103,7 @@ public class DialogueManager : MonoBehaviour
             }
         }
     }
-    public void StopAndFinishDialogue()
+    public void StopAndFinishDialogue() //Metodo para para dialogos
     {
         if(actualSpeaker != null)
         {
@@ -120,6 +113,7 @@ public class DialogueManager : MonoBehaviour
             }
             actualSpeaker.dialogueIndex = 0;
             actualSpeaker.DialogueLocalIndex = 0;
+            actualSpeaker.isDialogueActive = false;
         }
         dialogueUI.gameObject.SetActive(false);
         ShowUI(false);
