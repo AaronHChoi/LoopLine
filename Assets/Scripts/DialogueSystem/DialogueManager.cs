@@ -103,4 +103,19 @@ public class DialogueManager : MonoBehaviour
             }
         }
     }
+    public void StopAndFinishDialogue() //Metodo para para dialogos
+    {
+        if(actualSpeaker != null)
+        {
+            foreach (var dialogue in actualSpeaker.AvailableDialogs)
+            {
+                dialogue.Finished = true;
+            }
+            actualSpeaker.dialogueIndex = 0;
+            actualSpeaker.DialogueLocalIndex = 0;
+            actualSpeaker.isDialogueActive = false;
+        }
+        dialogueUI.gameObject.SetActive(false);
+        ShowUI(false);
+    }
 }

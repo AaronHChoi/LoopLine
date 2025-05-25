@@ -24,6 +24,7 @@ public class EventManager : Subject, IDependencyInjectable
     [SerializeField] DialogueSOManager peek;
 
     DialogueUI dial;
+    DialogueManager dialogueManager;
     TimeManager timeManager;
     UIManager uiManager;
     private void Awake()
@@ -36,6 +37,7 @@ public class EventManager : Subject, IDependencyInjectable
         dial = provider.DialogueUI;
         timeManager = provider.TimeManager;
         uiManager = provider.UIManager;
+        dialogueManager = provider.DialogueManager;
     }
     private void Start()
     {
@@ -71,6 +73,9 @@ public class EventManager : Subject, IDependencyInjectable
                 audioSource.clip = trainStopSound_1;
                 audioSource.Play();
                 //workingMan.TriggerEventDialogue("TrainStop");
+
+                dialogueManager.StopAndFinishDialogue();
+
                 foreach (DialogueSOManager dialogueManager in dialogueManagers)
                 {
                     dialogueManager.TriggerEventDialogue("TrainStop");
@@ -105,6 +110,9 @@ public class EventManager : Subject, IDependencyInjectable
                 audioSource.clip = crystalBreakSound;
                 audioSource.Play();
                 //workingMan.TriggerEventDialogue("BreakWindow");
+
+                dialogueManager.StopAndFinishDialogue();
+
                 foreach (DialogueSOManager dialogueManager in dialogueManagers)
                 {
                     dialogueManager.TriggerEventDialogue("BreakWindow");
