@@ -2,19 +2,27 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-public class DialogueManager : MonoBehaviour
+public class DialogueManager : MonoBehaviour, IDependencyInjectable
 {
     public static event Action OnDialogueStarted;
     public static event Action OnDialogueEnded;
     public static DialogueManager Instance { get; private set; }
     public static DialogueSpeaker actualSpeaker;
-    private DialogueUI dialogueUI;
-    PlayerController player;
+    
     public bool isDialogueActive = false;
-    public QuestionManager QuestionManager;
-    UIManager uiManager;
+    
     public List<DialogueSO> AllDialogues = new List<DialogueSO>();
 
+    public QuestionManager QuestionManager
+    {
+        get { return questionManager; }
+        private set { value = questionManager; }
+    }
+
+    DialogueUI dialogueUI;
+    PlayerController player;
+    QuestionManager questionManager;
+    UIManager uiManager;
     private void Awake()
     {
         if(Instance = this)
@@ -26,10 +34,16 @@ public class DialogueManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        dialogueUI = FindFirstObjectByType<DialogueUI>();
-        QuestionManager = FindFirstObjectByType<QuestionManager>();
-        player = FindFirstObjectByType<PlayerController>();
-        uiManager = FindFirstObjectByType<UIManager>();
+        //dialogueUI = FindFirstObjectByType<DialogueUI>();
+        
+        InjectDependencies(DependencyContainer.Instance);
+    }
+    public void InjectDependencies(DependencyContainer provider)
+    {
+        uiManager = provider.UIManager;
+        player = provider.PlayerController;
+        questionManager = provider.QuestionManager;
+        dialogueUI = provider.DialogueUI;
     }
     private void Start()
     {

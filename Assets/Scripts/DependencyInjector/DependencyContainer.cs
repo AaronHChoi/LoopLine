@@ -11,10 +11,12 @@ public class DependencyContainer : MonoBehaviour
     public TimeManager TimeManager { get; private set; }
     public GameSceneManager GameSceneManager { get; private set; }
     public DevelopmentManager DevelopmentManager { get; private set; }
-    #endregion
     public Subject SubjectEventManager { get; private set; }
+    public QuestionManager QuestionManager { get; private set; }
+    #endregion
     public DialogueUI DialogueUI { get; private set; }
     public Parallax Parallax { get; private set; }
+    public PlayerController PlayerController { get; private set; }
     
     private void Awake()
     {
@@ -25,14 +27,26 @@ public class DependencyContainer : MonoBehaviour
         }
         Instance = this;
 
-        SubjectEventManager = FindFirstObjectByType<Subject>();
-        DevelopmentManager = FindFirstObjectByType<DevelopmentManager>();
-        UIManager = FindFirstObjectByType<UIManager>();
-        DialogueUI = FindFirstObjectByType<DialogueUI>();
-        Parallax = FindFirstObjectByType<Parallax>();
-        TimeManager = FindFirstObjectByType<TimeManager>();
-        GameSceneManager = FindFirstObjectByType<GameSceneManager>();
-        GameManager = FindFirstObjectByType<GameManager>();
-        DialogueManager = FindFirstObjectByType<DialogueManager>();
+        InitializeDependencies();
+    }
+    private void InitializeDependencies()
+    {
+        SubjectEventManager = FindAndValidate<Subject>();
+        DevelopmentManager = FindAndValidate<DevelopmentManager>();
+        UIManager = FindAndValidate<UIManager>();
+        DialogueUI = FindAndValidate<DialogueUI>();
+        Parallax = FindAndValidate<Parallax>();
+        TimeManager = FindAndValidate<TimeManager>();
+        GameSceneManager = FindAndValidate<GameSceneManager>();
+        GameManager = FindAndValidate<GameManager>();
+        DialogueManager = FindAndValidate<DialogueManager>();
+        PlayerController = FindAndValidate<PlayerController>();
+        QuestionManager = FindAndValidate<QuestionManager>();
+    }
+    private T FindAndValidate<T>() where T : MonoBehaviour
+    {
+        T instance = FindFirstObjectByType<T>();
+
+        return instance;
     }
 }
