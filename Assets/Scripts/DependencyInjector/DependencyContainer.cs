@@ -11,9 +11,7 @@ public class DependencyContainer : MonoBehaviour
     public TimeManager TimeManager { get; private set; }
     public GameSceneManager GameSceneManager { get; private set; }
     public DevelopmentManager DevelopmentManager { get; private set; }
-    public QuestionManager QuestionManager { get; private set; }
     #endregion
-    public PlayerController PlayerController { get; private set; }
     public Subject SubjectEventManager { get; private set; }
     public DialogueUI DialogueUI { get; private set; }
     public Parallax Parallax { get; private set; }
@@ -36,7 +34,5 @@ public class DependencyContainer : MonoBehaviour
         GameSceneManager = FindFirstObjectByType<GameSceneManager>();
         GameManager = FindFirstObjectByType<GameManager>();
         DialogueManager = FindFirstObjectByType<DialogueManager>();
-        PlayerController = FindFirstObjectByType<PlayerController>();
-        QuestionManager = FindFirstObjectByType<QuestionManager>();
     }
 }
