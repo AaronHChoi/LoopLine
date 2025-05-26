@@ -33,14 +33,17 @@ public class NPCInteractionColor : MonoBehaviour
     {
         Dictionary<string, bool> npcBoolStates = GameManager.Instance.GetNPCBoolStates();
 
-        Debug.Log(npcBoolStates);
-
         foreach (NPCMindPlace npc in NPCs)
         {
             if(npcBoolStates.TryGetValue(npc.name, out bool state))
             {
                 Debug.Log(npc.name);
                 npc.isNPCInteracted = state;
+                if (npc.transform.childCount > 0)
+                {
+                    GameObject child = npc.transform.GetChild(0).gameObject;
+                    child.SetActive(state);
+                }
             }
         }
     }
