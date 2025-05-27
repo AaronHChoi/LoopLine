@@ -75,7 +75,7 @@ public class TimeManager : MonoBehaviour, IDependencyInjectable
     }
     private void AdvanceTime()
     {
-        if (!gameSceneManager.IsCurrentScene("Train"))
+        if (gameSceneManager != null && !gameSceneManager.IsCurrentScene("Train"))
         {
             return;
         }

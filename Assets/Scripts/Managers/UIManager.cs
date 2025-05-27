@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour, IDependencyInjectable
     }
     void Update()
     {
-        if (gameSceneManager.IsCurrentScene("Train"))
+        if (gameSceneManager != null && gameSceneManager.IsCurrentScene("Train"))
         {
             ShowLoopTime();
         }

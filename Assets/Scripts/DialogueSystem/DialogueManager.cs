@@ -25,17 +25,24 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable
     UIManager uiManager;
     private void Awake()
     {
-        if(Instance = this)
+        if(Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
-        //dialogueUI = FindFirstObjectByType<DialogueUI>();
-        
+            //if(Instance = this)
+            //{
+            //    Instance = this;
+            //    DontDestroyOnLoad(gameObject);
+            //}
+            //else
+            //{
+            //    Destroy(gameObject);
+            //}
+            //dialogueUI = FindFirstObjectByType<DialogueUI>();
         InjectDependencies(DependencyContainer.Instance);
     }
     public void InjectDependencies(DependencyContainer provider)

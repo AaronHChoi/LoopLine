@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     [Header("DeveloperTools")]
     public bool isMuted = false;
 
-    [Header("Test")]
+    [Header("NPC Interacted")]
     public bool workingMan = false;
     public bool cameraGirl = false;
     public bool bassistGirl = false;
