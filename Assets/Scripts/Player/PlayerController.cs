@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private PlayerView playerView;
     private PlayerModel playerModel;
     private InputAction moveAction;
+    private InputAction sprintAction;
     private CinemachineCamera virtualCamera;
     private Transform cameraTransform;
     private PlayerInput playerInput;
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
 
     public Transform HeadPosition;
     private Vector2 inputMovement;
+    private float speedInputMovement;
     private float lockedPanValue;
     private float lockedTiltValue;
 
@@ -35,6 +37,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         moveAction = playerInput.actions["Move"];
+        sprintAction = playerInput.actions["Sprint"];
         cameraTransform = virtualCamera.transform;
         //cameraTransform = Camera.main.transform;
     }
@@ -53,6 +56,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!CanMove) return;
         inputMovement = moveAction.ReadValue<Vector2>();
+        speedInputMovement = sprintAction.ReadValue<float>();
 
         Vector3 forward = cameraTransform.forward;
         Vector3 right = cameraTransform.right;
@@ -63,9 +67,20 @@ public class PlayerController : MonoBehaviour
         right.Normalize();
 
         Vector3 moveDirection = forward * inputMovement.y + right * inputMovement.x;
-        moveDirection *= playerModel.Speed;
+
+        if (speedInputMovement > 0.1f)
+        {
+            moveDirection *= playerModel.SprintSpeed;         
+        }
+        else
+        {   
+            moveDirection *= playerModel.Speed;
+        }
 
         playerView.Move(moveDirection * Time.deltaTime);
+
+
+
     }
     private void RotateCharacterToCamera()
     {
