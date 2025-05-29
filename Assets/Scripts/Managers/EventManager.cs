@@ -80,7 +80,6 @@ public class EventManager : Subject, IDependencyInjectable
                 {
                     dialogueManager.TriggerEventDialogue("TrainStop");
                 }
-                peek.TriggerEventDialogue("TrainStop");
             }
         }
         else
@@ -117,8 +116,6 @@ public class EventManager : Subject, IDependencyInjectable
                 {
                     dialogueManager.TriggerEventDialogue("BreakWindow");
                 }
-                peek.TriggerEventDialogue("BreakWindow");
-                player.TriggerEventDialogue("Train2");
             }
             NotifyObservers(Events.BreakCrystal);
             isWindowBroken = true;
