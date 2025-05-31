@@ -108,7 +108,6 @@ public class EventManager : Subject, IDependencyInjectable
             {
                 audioSource.clip = crystalBreakSound;
                 audioSource.Play();
-                //workingMan.TriggerEventDialogue("BreakWindow");
 
                 dialogueManager.StopAndFinishDialogue();
 
