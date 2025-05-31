@@ -54,16 +54,17 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable
     }
     private void Start()
     {
-        ShowUI(false);
+        ShowUI(false, true);
     }
-    public void ShowUI(bool show)
+    public void ShowUI(bool _show, bool _event)
     {
-        dialogueUI.gameObject.SetActive(show);
-        if (!show)
+        dialogueUI.gameObject.SetActive(_show);
+        if (!_show)
         {
             dialogueUI.localIndex = 0;
             OnDialogueEnded?.Invoke();
-            player.SetControllerEnabled(true);
+            if(_event)
+                player.SetControllerEnabled(true);
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
             isDialogueActive = false;
@@ -137,6 +138,6 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable
             actualSpeaker.isDialogueActive = false;
         }
         dialogueUI.gameObject.SetActive(false);
-        ShowUI(false);
+        ShowUI(false, false);
     }
 }

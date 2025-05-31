@@ -80,7 +80,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
                     if (DialogueUpdate())
                     {
                         StartDialogue();
-                        DialogueManager.Instance.ShowUI(true);
+                        DialogueManager.Instance.ShowUI(true, true);
                         DialogueManager.Instance.SetDialogue(AvailableDialogs[dialogueIndex], this);
                     }
                     StartDialogue();
@@ -88,7 +88,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
                     return;
                 }
                 StartDialogue();
-                DialogueManager.Instance.ShowUI(true);
+                DialogueManager.Instance.ShowUI(true, true);
                 DialogueManager.Instance.SetDialogue(AvailableDialogs[dialogueIndex], this);
                 //dialogueIndex++;
             }
@@ -96,7 +96,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
             {
                 Debug.LogWarning("La conversacion esta bloqueada");
                 EndDialogue();
-                DialogueManager.Instance.ShowUI(false);
+                DialogueManager.Instance.ShowUI(false, true);
                 return;
             }
         }
@@ -104,7 +104,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
         {
             print("Fin del dialogo");
             EndDialogue();
-            DialogueManager.Instance.ShowUI(false);
+            DialogueManager.Instance.ShowUI(false, true);
         }
         //DialogueRefresh();
     }

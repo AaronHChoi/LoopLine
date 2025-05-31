@@ -114,7 +114,7 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
                         isQuestionActive = true;
                         return;
                     }
-                    DialogueManager.Instance.ShowUI(false);
+                    DialogueManager.Instance.ShowUI(false, true);
                     DialogueManager.actualSpeaker.EndDialogue();
                     //MainDialogue.ReUse = true;
                     isFirstDialogueSaved = false;
