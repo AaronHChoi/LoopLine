@@ -11,11 +11,9 @@ public class PlayerController : MonoBehaviour
 
     private PlayerView playerView;
     private PlayerModel playerModel;
-    private InputAction moveAction;
-    private InputAction sprintAction;
+  
     private CinemachineCamera virtualCamera;
     private Transform cameraTransform;
-    private PlayerInput playerInput;
     [SerializeField] private CinemachinePOVExtension cinemachinePOVExtension;
     [SerializeField] FocusModeManager focusModeManager;
 
@@ -25,10 +23,13 @@ public class PlayerController : MonoBehaviour
     private float lockedPanValue;
     private float lockedTiltValue;
 
+    PlayerInputHandler playerInputHandler;
+
     private void Awake()
     {
+        playerInputHandler = GetComponent<PlayerInputHandler>();
+
         playerView = GetComponent<PlayerView>();
-        playerInput = GetComponent<PlayerInput>();
         virtualCamera = FindAnyObjectByType<CinemachineCamera>();
         cinemachinePOVExtension = FindFirstObjectByType<CinemachinePOVExtension>();
         focusModeManager = FindFirstObjectByType<FocusModeManager>();
@@ -36,8 +37,6 @@ public class PlayerController : MonoBehaviour
     }
     private void Start()
     {
-        moveAction = playerInput.actions["Move"];
-        sprintAction = playerInput.actions["Sprint"];
         cameraTransform = virtualCamera.transform;
         //cameraTransform = Camera.main.transform;
     }
@@ -55,8 +54,8 @@ public class PlayerController : MonoBehaviour
     public void HandleMovement()
     {
         if (!CanMove) return;
-        inputMovement = moveAction.ReadValue<Vector2>();
-        speedInputMovement = sprintAction.ReadValue<float>();
+        inputMovement = playerInputHandler.GetMoveAction().ReadValue<Vector2>();
+        speedInputMovement = playerInputHandler.GetSprintAction().ReadValue<float>();
 
         Vector3 forward = cameraTransform.forward;
         Vector3 right = cameraTransform.right;
@@ -78,9 +77,6 @@ public class PlayerController : MonoBehaviour
         }
 
         playerView.Move(moveDirection * Time.deltaTime);
-
-
-
     }
     private void RotateCharacterToCamera()
     {
@@ -108,29 +104,11 @@ public class PlayerController : MonoBehaviour
         {
             if (enabled)
             {
-                //var hardLookAt = virtualCamera.GetComponent<CinemachineHardLookAt>();
-                //if (hardLookAt != null) Destroy(hardLookAt);
-
-                //var composer = virtualCamera.GetComponent<CinemachineRotateWithFollowTarget>();
-                //if (composer == null)
-                //{
-                //    composer = virtualCamera.gameObject.AddComponent<CinemachineRotateWithFollowTarget>();
-                //}
-
                 cinemachinePOVExtension.SetPanAndTilt(lockedPanValue, lockedTiltValue);
             }
             else
             {
                 (lockedPanValue, lockedTiltValue) = cinemachinePOVExtension.GetPanAndTilt();
-
-                //var composer = virtualCamera.GetComponent<CinemachineRotateWithFollowTarget>();
-                //if (composer != null) Destroy(composer);
-
-                //var hardLookAt = virtualCamera.GetComponent<CinemachineHardLookAt>();
-                //if (hardLookAt == null)
-                //{
-                //    hardLookAt = virtualCamera.gameObject.AddComponent<CinemachineHardLookAt>();
-                //}
             }
         }
     }
