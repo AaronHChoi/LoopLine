@@ -30,8 +30,7 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
     TimeManager timeManager;
     private void Awake()
     {
-        InjectDependencies(
-            DependencyContainer.Instance);
+        InjectDependencies(DependencyContainer.Instance);
         audioSource = GetComponent<AudioSource>();
     }
     public void InjectDependencies(DependencyContainer provider)
@@ -45,89 +44,63 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
     }
     private void Update()
     {
-        //
         if (Input.GetKeyDown(KeyCode.Mouse0) && !isTyping && !isQuestionActive) 
         {
-            TextUpdate(1);
+            TextUpdate();
         }
-        //
     }
-    public void TextUpdate(int trigger)
+    public void TextUpdate()
     {
         dialogueContainer.SetActive(true);
         questionContainer.SetActive(false);
         isQuestionActive = false;
 
-        switch (trigger)
+        if (!isFirstDialogueSaved)
         {
-            case 0:
-
-                print("Dialogo actualizado");
-                name.text = Dialogue.Dialogues[localIndex].character.name;
-                StopAllCoroutines();
-                activeCoroutine = StartCoroutine(WriteText());
-
-                if (Dialogue.Dialogues[localIndex].sound != null)
-                {
-                    audioSource.Stop();
-                    audioSource.PlayOneShot(Dialogue.Dialogues[localIndex].sound);
-                }
-
-                    break;
-            case 1:
-
-                if (!isFirstDialogueSaved)
-                {
-                    MainDialogue = Dialogue;
-                    isFirstDialogueSaved = true;
-                }
-
-                if(localIndex < Dialogue.Dialogues.Length - 1)
-                {
-                    print("Dialogo Siguiente");
-                    localIndex++;
-                    name.text = Dialogue.Dialogues[localIndex].character.name;
-                    StopAllCoroutines();
-                    activeCoroutine = StartCoroutine(WriteText());
-
-                    if (Dialogue.Dialogues[localIndex].sound != null)
-                    {
-                        audioSource.Stop();
-                        audioSource.PlayOneShot(Dialogue.Dialogues[localIndex].sound);
-                    }
-                }
-                else
-                {
-                    print("Dialogo Terminado");
-                    localIndex = 0;
-                    DialogueManager.actualSpeaker.DialogueLocalIndex = 0;
-                    Dialogue.Finished = true;
-
-                    if(Dialogue.Questions != null)
-                    {
-                        dialogueContainer.SetActive(false);
-                        questionContainer.SetActive(true);
-                        var question = Dialogue.Questions;
-                        name.text = question.CharacterName.name;
-                        DialogueManager.Instance.QuestionManager.ActivateButtons(question.Options.Length, question.Question, question.Options);
-
-                        isQuestionActive = true;
-                        return;
-                    }
-                    DialogueManager.Instance.ShowUI(false);
-                    DialogueManager.actualSpeaker.EndDialogue();
-                    //MainDialogue.ReUse = true;
-                    isFirstDialogueSaved = false;
-
-                    return;
-                }
-                DialogueManager.actualSpeaker.DialogueLocalIndex = localIndex;
-
-                break;
-            default:
-                Debug.LogWarning("Estas pasando un valor no valido");
-                break;
+            MainDialogue = Dialogue;
+            isFirstDialogueSaved = true;
         }
+
+        if (localIndex < Dialogue.Dialogues.Length - 1)
+        {
+            print("Dialogo Siguiente");
+            localIndex++;
+            name.text = Dialogue.Dialogues[localIndex].character.name;
+            StopAllCoroutines();
+            activeCoroutine = StartCoroutine(WriteText());
+
+            if (Dialogue.Dialogues[localIndex].sound != null)
+            {
+                audioSource.Stop();
+                audioSource.PlayOneShot(Dialogue.Dialogues[localIndex].sound);
+            }
+        }
+        else
+        {
+            print("Dialogo Terminado");
+            localIndex = 0;
+            DialogueManager.actualSpeaker.DialogueLocalIndex = 0;
+            Dialogue.Finished = true;
+
+            if (Dialogue.Questions != null)
+            {
+                //dialogueContainer.SetActive(false);
+                questionContainer.SetActive(true);
+                var question = Dialogue.Questions;
+                name.text = question.CharacterName.name;
+                DialogueManager.Instance.QuestionManager.ActivateButtons(question.Options.Length, question.Question, question.Options);
+
+                isQuestionActive = true;
+                return;
+            }
+            DialogueManager.Instance.ShowUI(false);
+            DialogueManager.actualSpeaker.EndDialogue();
+            //MainDialogue.ReUse = true;
+            isFirstDialogueSaved = false;
+
+            return;
+        }
+        DialogueManager.actualSpeaker.DialogueLocalIndex = localIndex;
     }
     IEnumerator WriteText()
     {
@@ -141,13 +114,12 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
         int totalCharacters = dialogueContent.Length;
         int currentCharacter = 0;
 
-        bool skipToEnd = false;
+        //bool skipToEnd = false;
         while(currentCharacter < totalCharacters)
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
                 dialogueText.maxVisibleCharacters = totalCharacters;
-                //FlashBackground();
                 break;
             }
 
@@ -159,28 +131,11 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
 
             currentCharacter++;
             yield return null;
-            //yield return new WaitForSeconds(1f / textSpeed);
         }
 
         dialogueText.maxVisibleCharacters = totalCharacters;
 
         isTyping = false;
         timeManager.SkipDialogue();
-    }
-    public void StopDialogue()
-    {
-        StopCoroutine(WriteText());
-        Debug.Log("Dialogo interrumpido");
-    }
-    private void FlashBackground()
-    {
-        StartCoroutine(FlashFeedback());
-    }
-    private IEnumerator FlashFeedback()
-    {
-        Color originalColor = dialogueBackground.color;
-        dialogueBackground.color = Color.red;
-        yield return new WaitForSeconds(0.1f);
-        dialogueBackground.color = originalColor;
     }
 }
