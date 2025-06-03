@@ -26,7 +26,7 @@ public class DevelopmentManager : MonoBehaviour
     }
     void Start()
     {
-        timeManager.changeLoopTime = false;
+        timeManager.ChangeLoopTime = false;
         UpdateCursorState();
         InitAudios();
         Mute(false);
@@ -49,7 +49,7 @@ public class DevelopmentManager : MonoBehaviour
         UIPrinciplal.SetActive(!UIPrinciplal.activeInHierarchy);
         UIDeveloperMode.SetActive(!UIDeveloperMode.activeInHierarchy);
 
-        playerController.SetControllerEnabled(!isUIActive);
+        playerController.SetCinemachineController(!isUIActive);
 
         UpdateCursorState();
     }
@@ -62,7 +62,7 @@ public class DevelopmentManager : MonoBehaviour
 
             isUIActive = false;
 
-            playerController.SetControllerEnabled(true);
+            playerController.SetCinemachineController(true);
 
             UpdateCursorState();
         }
@@ -132,11 +132,11 @@ public class DevelopmentManager : MonoBehaviour
         {
             if (timeManager.LoopTime > 5f)
             {
-                timeManager.changeLoopTime = true;
+                timeManager.ChangeLoopTime = true;
             }
             else
             {
-                timeManager.changeLoopTime = false;
+                timeManager.ChangeLoopTime = false;
             }
         }
     }

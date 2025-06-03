@@ -2,6 +2,12 @@ using UnityEngine;
 
 public class NPCMindPlace : MonoBehaviour
 {
-    public bool isNPCInteracted;
-    public string name;
+    [SerializeField] bool isNPCInteracted;
+    //[SerializeField] string name;
+
+    public bool IsNPCInteracted
+    {
+        get => isNPCInteracted;
+        set => isNPCInteracted = value;
+    }
 }

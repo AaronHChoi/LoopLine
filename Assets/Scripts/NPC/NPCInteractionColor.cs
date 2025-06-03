@@ -19,7 +19,7 @@ public class NPCInteractionColor : MonoBehaviour
         {
             VisualEffect vfx = npc.GetComponent<VisualEffect>();
 
-            if (!npc.isNPCInteracted)
+            if (!npc.IsNPCInteracted)
             {
                 vfx.SetGradient("Color", interactedGradient);
             }
@@ -38,7 +38,7 @@ public class NPCInteractionColor : MonoBehaviour
             if(npcBoolStates.TryGetValue(npc.name, out bool state))
             {
                 Debug.Log(npc.name);
-                npc.isNPCInteracted = state;
+                npc.IsNPCInteracted = state;
                 if (npc.transform.childCount > 0)
                 {
                     GameObject child = npc.transform.GetChild(0).gameObject;

@@ -12,8 +12,17 @@ public class FocusModeController : MonoBehaviour
     private bool defaultMaterial = true;
     private float volumeWeight;
     private Volume volumeFocusMode;
-
     void Start()
+    {
+        InitializeTargets();
+        InitializeVolume();
+    }
+    void Update()
+    {
+        HandleInput();
+        UpdateVolumeWeight();
+    }
+    private void InitializeTargets()
     {
         GameObject[] targets = GameObject.FindGameObjectsWithTag("FocusModeTarget");
         targetRenderers = new Renderer[targets.Length];
@@ -28,7 +37,9 @@ public class FocusModeController : MonoBehaviour
                 defaultMaterials[i] = rend.material;
             }
         }
-
+    }
+    private void InitializeVolume()
+    {
         GameObject volume = GameObject.Find("VolumeFocusMode");
         if (volume != null)
         {
@@ -37,22 +48,31 @@ public class FocusModeController : MonoBehaviour
                 volumeWeight = volumeFocusMode.weight;
         }
     }
-    void Update()
+    private void HandleInput()
     {
         if (Input.GetKeyDown(KeyCode.V))
         {
-            for (int i = 0; i < targetRenderers.Length; i++)
-            {
-                if (targetRenderers[i] != null)
-                {
-                    targetRenderers[i].material = defaultMaterial ? eagleVisionMaterial : defaultMaterials[i];
-                }
-            }
-
-            volumeWeight = defaultMaterial ? 1 : 0;
-            defaultMaterial = !defaultMaterial;
+            ToggleMaterials();
+            ToggleVolumeWeight();
         }
-
+    }
+    private void ToggleMaterials()
+    {
+        for (int i = 0; i < targetRenderers.Length; i++)
+        {
+            if (targetRenderers[i] != null)
+            {
+                targetRenderers[i].material = defaultMaterial ? eagleVisionMaterial : defaultMaterials[i];
+            }
+        }
+    }
+    private void ToggleVolumeWeight()
+    {
+        volumeWeight = defaultMaterial ? 1 : 0;
+        defaultMaterial = !defaultMaterial;
+    }
+    private void UpdateVolumeWeight()
+    {
         if (volumeFocusMode != null)
         {
             volumeFocusMode.weight = Mathf.Lerp(volumeFocusMode.weight, volumeWeight, Time.deltaTime * transitionSpeed);
@@ -62,5 +82,4 @@ public class FocusModeController : MonoBehaviour
                 volumeFocusMode.weight = volumeWeight;
         }
     }
-
 }

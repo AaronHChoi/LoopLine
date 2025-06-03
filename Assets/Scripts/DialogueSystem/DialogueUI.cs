@@ -172,15 +172,4 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
         StopCoroutine(WriteText());
         Debug.Log("Dialogo interrumpido");
     }
-    private void FlashBackground()
-    {
-        StartCoroutine(FlashFeedback());
-    }
-    private IEnumerator FlashFeedback()
-    {
-        Color originalColor = dialogueBackground.color;
-        dialogueBackground.color = Color.red;
-        yield return new WaitForSeconds(0.1f);
-        dialogueBackground.color = originalColor;
-    }
 }
