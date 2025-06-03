@@ -40,17 +40,23 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
     }
     private void Start()
     {
-        dialogueContainer.SetActive(true);
-        questionContainer.SetActive(false);
+        InitializeUI();
     }
     private void Update()
     {
-        //
-        if (Input.GetKeyDown(KeyCode.Mouse0) && !isTyping && !isQuestionActive) 
+        HandleInput();
+    }
+    private void InitializeUI()
+    {
+        dialogueContainer.SetActive(true);
+        questionContainer.SetActive(false);
+    }
+    private void HandleInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0) && !isTyping && !isQuestionActive)
         {
             TextUpdate(1);
         }
-        //
     }
     public void TextUpdate(int trigger)
     {
@@ -72,7 +78,6 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
                     audioSource.Stop();
                     audioSource.PlayOneShot(Dialogue.Dialogues[localIndex].sound);
                 }
-
                     break;
             case 1:
 
@@ -105,7 +110,7 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
 
                     if(Dialogue.Questions != null)
                     {
-                        dialogueContainer.SetActive(false);
+                        //dialogueContainer.SetActive(false);
                         questionContainer.SetActive(true);
                         var question = Dialogue.Questions;
                         name.text = question.CharacterName.name;
@@ -141,13 +146,11 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
         int totalCharacters = dialogueContent.Length;
         int currentCharacter = 0;
 
-        bool skipToEnd = false;
         while(currentCharacter < totalCharacters)
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
                 dialogueText.maxVisibleCharacters = totalCharacters;
-                //FlashBackground();
                 break;
             }
 
@@ -156,20 +159,12 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
             {
                 audioSource.PlayOneShot(typingAudioSource);
             }
-
             currentCharacter++;
             yield return null;
-            //yield return new WaitForSeconds(1f / textSpeed);
         }
-
         dialogueText.maxVisibleCharacters = totalCharacters;
 
         isTyping = false;
         timeManager.SkipDialogue();
-    }
-    public void StopDialogue()
-    {
-        StopCoroutine(WriteText());
-        Debug.Log("Dialogo interrumpido");
     }
 }
