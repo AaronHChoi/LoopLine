@@ -33,16 +33,6 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable
         {
             Destroy(gameObject);
         }
-            //if(Instance = this)
-            //{
-            //    Instance = this;
-            //    DontDestroyOnLoad(gameObject);
-            //}
-            //else
-            //{
-            //    Destroy(gameObject);
-            //}
-            //dialogueUI = FindFirstObjectByType<DialogueUI>();
         InjectDependencies(DependencyContainer.Instance);
     }
     public void InjectDependencies(DependencyContainer provider)
@@ -125,7 +115,7 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable
             }
         }
     }
-    public void StopAndFinishDialogue() //Metodo para para dialogos
+    public void StopAndFinishDialogue() //Metodo para parar dialogos
     {
         if(actualSpeaker != null)
         {

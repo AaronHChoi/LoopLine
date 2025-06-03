@@ -108,17 +108,6 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
         }
         //DialogueRefresh();
     }
-    private int FindNextUnlockedDialogue(int startIndex)
-    {
-        for (int i = startIndex; i < AvailableDialogs.Count; i++)
-        {
-            if (AvailableDialogs[i].Unlocked)
-            {
-                return i;
-            }
-        }
-        return -1;
-    }
     void StartDialogue()
     {
         isDialogueActive = true;

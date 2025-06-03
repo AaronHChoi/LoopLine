@@ -23,6 +23,7 @@ public class DependencyContainer : MonoBehaviour
     public CinemachinePOVExtension CinemachinePOVExtension { get; private set; }
     public FocusModeManager FocusModeManager { get; private set; }
 
+
     private void Awake()
     {
         if(Instance != null && Instance != this)
@@ -47,9 +48,9 @@ public class DependencyContainer : MonoBehaviour
         DialogueManager = FindAndValidate<DialogueManager>();
         PlayerController = FindAndValidate<PlayerController>();
         QuestionManager = FindAndValidate<QuestionManager>();
-        CinemachineCamera = FindAnyObjectByType<CinemachineCamera>();
-        CinemachinePOVExtension = FindFirstObjectByType<CinemachinePOVExtension>();
-        FocusModeManager = FindFirstObjectByType<FocusModeManager>();
+        CinemachineCamera = FindAndValidate<CinemachineCamera>();
+        CinemachinePOVExtension = FindAndValidate<CinemachinePOVExtension>();
+        FocusModeManager = FindAndValidate<FocusModeManager>();
     }
     private T FindAndValidate<T>() where T : MonoBehaviour
     {
