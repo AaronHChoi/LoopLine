@@ -1,8 +1,7 @@
-using System.Collections;
+
 using Unity.Cinemachine;
 using Unity.Cinemachine.Samples;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,33 +11,21 @@ public class PlayerController : MonoBehaviour
     private PlayerView playerView;
     private PlayerModel playerModel;
   
-    private CinemachineCamera virtualCamera;
-    private Transform cameraTransform;
-    [SerializeField] private CinemachinePOVExtension cinemachinePOVExtension;
-    [SerializeField] FocusModeManager focusModeManager;
-
     public Transform HeadPosition;
     private Vector2 inputMovement;
     private float speedInputMovement;
-    private float lockedPanValue;
-    private float lockedTiltValue;
-
+    
     PlayerInputHandler playerInputHandler;
-
+    PlayerCamera playerCamera;
+    PlayerFocusMode playerFocusMode;
     private void Awake()
     {
         playerInputHandler = GetComponent<PlayerInputHandler>();
-
+        playerCamera = GetComponent<PlayerCamera>();
         playerView = GetComponent<PlayerView>();
-        virtualCamera = FindAnyObjectByType<CinemachineCamera>();
-        cinemachinePOVExtension = FindFirstObjectByType<CinemachinePOVExtension>();
-        focusModeManager = FindFirstObjectByType<FocusModeManager>();
+        playerFocusMode = GetComponent<PlayerFocusMode>();
+
         playerModel = new PlayerModel();
-    }
-    private void Start()
-    {
-        cameraTransform = virtualCamera.transform;
-        //cameraTransform = Camera.main.transform;
     }
     private void Update()
     {
@@ -48,7 +35,7 @@ public class PlayerController : MonoBehaviour
         //Test
         if (Input.GetKeyDown(KeyCode.V))
         {
-            ToggleFocusMode();
+            playerFocusMode.ToggleFocusMode(playerModel);
         }
     }
     public void HandleMovement()
@@ -57,8 +44,8 @@ public class PlayerController : MonoBehaviour
         inputMovement = playerInputHandler.GetMoveAction().ReadValue<Vector2>();
         speedInputMovement = playerInputHandler.GetSprintAction().ReadValue<float>();
 
-        Vector3 forward = cameraTransform.forward;
-        Vector3 right = cameraTransform.right;
+        Vector3 forward = playerCamera.GetCameraTransform().forward;
+        Vector3 right = playerCamera.GetCameraTransform().right;
 
         forward.y = 0;
         right.y = 0;
@@ -82,34 +69,13 @@ public class PlayerController : MonoBehaviour
     {
         if (!CanMove) return;
 
-        float targetAngle = cameraTransform.eulerAngles.y;
+        float targetAngle = playerCamera.GetCameraTransform().eulerAngles.y;
 
         Quaternion targetRotation = Quaternion.Euler(0, targetAngle, 0);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * playerModel.SpeedRotation);
     }
-    public void ToggleFocusMode()
+    public void SetCinemachineController(bool _enabled)
     {
-        playerModel.FocusMode = !playerModel.FocusMode;
-
-        focusModeManager.ToggleColliders(playerModel.FocusMode);
-
-        Debug.Log(playerModel.FocusMode);
-    }
-    public void SetControllerEnabled(bool enabled)
-    {
-        CanMove = enabled;
-        virtualCamera.enabled = enabled;
-
-        if(cinemachinePOVExtension != null)
-        {
-            if (enabled)
-            {
-                cinemachinePOVExtension.SetPanAndTilt(lockedPanValue, lockedTiltValue);
-            }
-            else
-            {
-                (lockedPanValue, lockedTiltValue) = cinemachinePOVExtension.GetPanAndTilt();
-            }
-        }
+        playerCamera.SetControllerEnabled(_enabled, CanMove);
     }
 }

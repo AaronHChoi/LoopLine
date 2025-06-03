@@ -49,7 +49,7 @@ public class DevelopmentManager : MonoBehaviour
         UIPrinciplal.SetActive(!UIPrinciplal.activeInHierarchy);
         UIDeveloperMode.SetActive(!UIDeveloperMode.activeInHierarchy);
 
-        playerController.SetControllerEnabled(!isUIActive);
+        playerController.SetCinemachineController(!isUIActive);
 
         UpdateCursorState();
     }
@@ -62,7 +62,7 @@ public class DevelopmentManager : MonoBehaviour
 
             isUIActive = false;
 
-            playerController.SetControllerEnabled(true);
+            playerController.SetCinemachineController(true);
 
             UpdateCursorState();
         }

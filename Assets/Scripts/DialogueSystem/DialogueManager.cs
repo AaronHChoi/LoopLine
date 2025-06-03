@@ -64,7 +64,7 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable
             dialogueUI.localIndex = 0;
             OnDialogueEnded?.Invoke();
             if(_event)
-                player.SetControllerEnabled(true);
+                player.SetCinemachineController(true);
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
             isDialogueActive = false;
@@ -73,7 +73,7 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable
         else
         {
             OnDialogueStarted?.Invoke();
-            player.SetControllerEnabled(false);
+            player.SetCinemachineController(false);
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
             isDialogueActive = true;
