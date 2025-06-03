@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FocusModeManager : MonoBehaviour
+public class FocusModeManager : MonoBehaviour, IColliderToggle
 {
     [SerializeField] GameObject[] Normal;
     [SerializeField] GameObject[] Focus;
@@ -20,4 +20,9 @@ public class FocusModeManager : MonoBehaviour
                 box.enabled = state;
         }
     }
+}
+
+public interface IColliderToggle
+{
+    void ToggleColliders(bool isActive);
 }
