@@ -27,9 +27,8 @@ public class PlayerCamera : MonoBehaviour, IDependencyInjectable
     {
         return cameraTransform;
     }
-    public void SetControllerEnabled(bool _enabled, bool _canMove)
+    public void SetControllerEnabled(bool _enabled)
     {
-        _canMove = _enabled;
         virtualCamera.enabled = _enabled;
 
         if (cinemachinePOVExtension != null)

@@ -8,9 +8,9 @@ public class PlayerMovement : MonoBehaviour
         get => canMove;
         set => canMove = value;
     }
-    public void HandleMovement(float _speedInputMovement, Vector2 _inputMovement, bool _canMove, PlayerInputHandler _playerInputHandler, PlayerCamera _playerCamera, PlayerModel _playerModel, PlayerView _playerView)
+    public void HandleMovement(float _speedInputMovement, Vector2 _inputMovement, PlayerInputHandler _playerInputHandler, PlayerCamera _playerCamera, PlayerModel _playerModel, PlayerView _playerView)
     {
-        if (!_canMove) return;
+        if (!canMove) return;
         _inputMovement = _playerInputHandler.GetMoveAction().ReadValue<Vector2>();
         _speedInputMovement = _playerInputHandler.GetSprintAction().ReadValue<float>();
 
@@ -35,9 +35,9 @@ public class PlayerMovement : MonoBehaviour
 
         _playerView.Move(moveDirection * Time.deltaTime);
     }
-    public void RotateCharacterToCamera(bool _canMove, PlayerCamera _playerCamera, PlayerModel _playerModel)
+    public void RotateCharacterToCamera(PlayerCamera _playerCamera, PlayerModel _playerModel)
     {
-        if (!_canMove) return;
+        if (!canMove) return;
 
         float targetAngle = _playerCamera.GetCameraTransform().eulerAngles.y;
 

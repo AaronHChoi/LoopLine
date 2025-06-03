@@ -20,8 +20,8 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        playerMovement.HandleMovement(playerInputHandler.SpeedInputMovement, playerInputHandler.InputMovement, playerMovement.CanMove, playerInputHandler, playerCamera, playerModel, playerView);
-        playerMovement.RotateCharacterToCamera(playerMovement.CanMove, playerCamera, playerModel);
+        playerMovement.HandleMovement(playerInputHandler.SpeedInputMovement, playerInputHandler.InputMovement, playerInputHandler, playerCamera, playerModel, playerView);
+        playerMovement.RotateCharacterToCamera(playerCamera, playerModel);
 
         if (Input.GetKeyDown(KeyCode.V))
         {
@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     }
     public void SetCinemachineController(bool _enabled)
     {
-        playerCamera.SetControllerEnabled(_enabled, playerMovement.CanMove);
+        playerCamera.SetControllerEnabled(_enabled);
+        playerMovement.CanMove = _enabled;
     }
 }
