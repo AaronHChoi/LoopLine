@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class FocusModeManager : MonoBehaviour
 {
-    public GameObject[] NPCs;
-    public GameObject[] Focus;
+    [SerializeField] GameObject[] Normal;
+    [SerializeField] GameObject[] Focus;
 
     public void ToggleColliders(bool isActive)
     {
-        ToggleGameObjects(NPCs, isActive);
+        ToggleGameObjects(Normal, isActive);
         ToggleGameObjects(Focus, !isActive);
     }
     private void ToggleGameObjects(GameObject[] gameObjects, bool state)

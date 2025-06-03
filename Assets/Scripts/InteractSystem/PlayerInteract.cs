@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
 
-public class PlayerInteract : MonoBehaviour
+public class PlayerInteract : MonoBehaviour, IDependencyInjectable
 {
     private CinemachineCamera rayCastPoint;
     [SerializeField] private float raycastDistance = 2f;
@@ -11,7 +11,11 @@ public class PlayerInteract : MonoBehaviour
 
     private void Awake()
     {
-        rayCastPoint = FindFirstObjectByType<CinemachineCamera>();
+        InjectDependencies(DependencyContainer.Instance);
+    }
+    public void InjectDependencies(DependencyContainer provider)
+    {
+        rayCastPoint = provider.CinemachineCamera;
     }
     void Update()
     {
