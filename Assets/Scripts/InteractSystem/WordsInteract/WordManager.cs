@@ -56,6 +56,7 @@ public class WordManager : MonoBehaviour
         {
             int randomIndex = Random.Range(0, incorrectWords.Count - 1);
             incorrectWordsObject[i].word = incorrectWords[randomIndex];
+            words.Add(incorrectWordsObject[i]);
             incorrectWords.RemoveAt(randomIndex);
         }
 
@@ -63,6 +64,7 @@ public class WordManager : MonoBehaviour
         {
             int randomIndex = Random.Range(0, incorrectWords.Count - 1);
             correctWordsObject[i].word = correctWords[randomIndex];
+            words.Add(correctWordsObject[i]);
             correctWords.RemoveAt(randomIndex);
         }
         AssignNumbers();
