@@ -1,16 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameSceneManager : MonoBehaviour,IDependencyInjectable
+public class GameSceneManager : MonoBehaviour
 {
-    DialogueManager dialogueManager;
+    IDialogueManager dialogueManager;
     private void Awake()
     {
-        InjectDependencies(DependencyContainer.Instance);
-    }
-    public void InjectDependencies(DependencyContainer provider)
-    {
-        dialogueManager = provider.DialogueManager;
+        dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
     }
     public void LoadNextScene(string _sceneName)
     {

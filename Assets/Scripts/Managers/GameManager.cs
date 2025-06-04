@@ -5,7 +5,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     [SerializeField] private ScreenManager screenManager;
-    [SerializeField] DialogueManager dialogueManager;
     public string nextScene;
 
     public int TrainLoop = 0;
@@ -22,6 +21,8 @@ public class GameManager : MonoBehaviour
     public bool bassistGirl = false;
 
     public Dictionary<string, System.Action<bool>> boolSetters;
+
+    IDialogueManager dialogueManager;
     private void Awake()
     {
         if (Instance == null)
@@ -42,7 +43,7 @@ public class GameManager : MonoBehaviour
             {"BassistGirl", value => bassistGirl = value }
         };
 
-        dialogueManager = FindFirstObjectByType<DialogueManager>();
+        dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
     }
     private void Start()
     {

@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DialogueUI : MonoBehaviour, IDependencyInjectable
+public class DialogueUI : MonoBehaviour
 {
     public DialogueSO Dialogue;
     public DialogueSO MainDialogue;
@@ -27,16 +27,11 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
     [SerializeField] bool isFirstDialogueSaved = false;
     Coroutine activeCoroutine;
 
-    TimeManager timeManager;
+    ISkipeable timeManager;
     private void Awake()
     {
-        InjectDependencies(
-            DependencyContainer.Instance);
+        timeManager = InterfaceDependencyInjector.Instance.Resolve<ISkipeable>();
         audioSource = GetComponent<AudioSource>();
-    }
-    public void InjectDependencies(DependencyContainer provider)
-    {
-        timeManager = provider.TimeManager;
     }
     private void Start()
     {

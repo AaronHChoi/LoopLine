@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TimeManager : MonoBehaviour, IDependencyInjectable
+public class TimeManager : MonoBehaviour, IDependencyInjectable, ISkipeable
 {
     [SerializeField] float secondsPunishForSkip = 5f;
     GameSceneManager gameSceneManager;
@@ -68,4 +68,8 @@ public class TimeManager : MonoBehaviour, IDependencyInjectable
     {
         loopTime -= secondsPunishForSkip;
     }
+}
+public interface ISkipeable
+{
+    void SkipDialogue();
 }

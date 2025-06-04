@@ -23,21 +23,20 @@ public class EventManager : Subject, IDependencyInjectable
     [SerializeField] DialogueSOManager player;
     [SerializeField] DialogueSOManager peek;
 
-    DialogueUI dial;
-    DialogueManager dialogueManager;
     TimeManager timeManager;
-    UIManager uiManager;
+
+    IUIManager uiManager;
+    IDialogueManager dialogueManager;
     private void Awake()
     {
         InjectDependencies(DependencyContainer.Instance);
+        dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
+        uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
         audioSource = GetComponent<AudioSource>();
     }
     public void InjectDependencies(DependencyContainer provider)
     {
-        dial = provider.DialogueUI;
         timeManager = provider.TimeManager;
-        uiManager = provider.UIManager;
-        dialogueManager = provider.DialogueManager;
     }
     private void Start()
     {
@@ -55,12 +54,6 @@ public class EventManager : Subject, IDependencyInjectable
     {
         TrainEvent1();
         TrainEvent2();
-
-        //if (Input.GetKeyDown(KeyCode.H))
-        //{
-        //    NotifyObservers(Events.TriggerMonologue);
-        //    dial.StopDialogue();
-        //}
     }
     #region TrainEvents
     private void TrainEvent1()
@@ -72,7 +65,6 @@ public class EventManager : Subject, IDependencyInjectable
             {
                 audioSource.clip = trainStopSound_1;
                 audioSource.Play();
-                //workingMan.TriggerEventDialogue("TrainStop");
 
                 dialogueManager.StopAndFinishDialogue();
 

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Unity.Cinemachine.Samples
 {
-    public class CinemachinePOVExtension : MonoBehaviour, Unity.Cinemachine.IInputAxisOwner
+    public class CinemachinePOVExtension : MonoBehaviour, Unity.Cinemachine.IInputAxisOwner, ICameraOrientation
     {
         private PlayerModel playerModel;
 
@@ -69,4 +69,9 @@ namespace Unity.Cinemachine.Samples
             Tilt.Value = Mathf.Clamp(tilt, Tilt.Range.x, Tilt.Range.y);
         }
     }
+}
+public interface ICameraOrientation
+{
+    (float pan, float tilt) GetPanAndTilt();
+    void SetPanAndTilt(float pan, float tilt);
 }

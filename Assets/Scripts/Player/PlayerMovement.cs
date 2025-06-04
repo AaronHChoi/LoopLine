@@ -8,14 +8,24 @@ public class PlayerMovement : MonoBehaviour
         get => canMove;
         set => canMove = value;
     }
-    public void HandleMovement(float _speedInputMovement, Vector2 _inputMovement, PlayerInputHandler _playerInputHandler, PlayerCamera _playerCamera, PlayerModel _playerModel, PlayerView _playerView)
+    IPlayerInputHandler playerInputHandler;
+    IPlayerCamera playerCamera;
+    IPlayerView playerView;
+    private void Awake()
+    {
+        playerInputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
+        playerCamera = InterfaceDependencyInjector.Instance.Resolve<IPlayerCamera>();
+        playerView = InterfaceDependencyInjector.Instance.Resolve<IPlayerView>();
+    }
+    public void HandleMovement(PlayerModel _playerModel)
     {
         if (!canMove) return;
-        _inputMovement = _playerInputHandler.GetMoveAction().ReadValue<Vector2>();
-        _speedInputMovement = _playerInputHandler.GetSprintAction().ReadValue<float>();
 
-        Vector3 forward = _playerCamera.GetCameraTransform().forward;
-        Vector3 right = _playerCamera.GetCameraTransform().right;
+        Vector2 _inputMovement = playerInputHandler.GetMoveAction().ReadValue<Vector2>();
+        float _speedInputMovement = playerInputHandler.GetSprintAction().ReadValue<float>();
+
+        Vector3 forward = playerCamera.GetCameraTransform().forward;
+        Vector3 right = playerCamera.GetCameraTransform().right;
 
         forward.y = 0;
         right.y = 0;
@@ -33,13 +43,13 @@ public class PlayerMovement : MonoBehaviour
             moveDirection *= _playerModel.Speed;
         }
 
-        _playerView.Move(moveDirection * Time.deltaTime);
+        playerView.Move(moveDirection * Time.deltaTime);
     }
-    public void RotateCharacterToCamera(PlayerCamera _playerCamera, PlayerModel _playerModel)
+    public void RotateCharacterToCamera(PlayerModel _playerModel)
     {
         if (!canMove) return;
 
-        float targetAngle = _playerCamera.GetCameraTransform().eulerAngles.y;
+        float targetAngle = playerCamera.GetCameraTransform().eulerAngles.y;
 
         Quaternion targetRotation = Quaternion.Euler(0, targetAngle, 0);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * _playerModel.SpeedRotation);

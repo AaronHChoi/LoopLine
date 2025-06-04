@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Cinemachine.Samples;
 using UnityEngine;
 
 public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyInjectable
@@ -15,15 +14,16 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     public bool NPCInteracted = false;
 
     DevelopmentManager developmentManager;
-    UIManager uiManager;
     Subject eventManager;
+
+    IUIManager uiManager;
     private void Awake()
     {
         InjectDependencies(DependencyContainer.Instance);
+        uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
     }
     public void InjectDependencies(DependencyContainer provider)
     {
-        uiManager = provider.UIManager;
         developmentManager = provider.DevelopmentManager;
         eventManager = provider.SubjectEventManager;
     }

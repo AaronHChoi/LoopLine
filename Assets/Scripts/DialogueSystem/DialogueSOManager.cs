@@ -15,9 +15,9 @@ public class DialogueSOManager : MonoBehaviour
     {
         dialogueSpeaker = GetComponent<DialogueSpeaker>();
     }
-    public void TriggerEventDialogue(string eventName)
+    public void TriggerEventDialogue(string _eventName)
     {
-        DialogueEvent dialogueEvent = DialogueEvents.Find(e => e.EventName == eventName);
+        DialogueEvent dialogueEvent = DialogueEvents.Find(e => e.EventName == _eventName);
 
         dialogueSpeaker.AvailableDialogs.Clear();
 
