@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     public Dictionary<string, System.Action<bool>> boolSetters;
 
-    IDialogueResettable dialogueManager;
+    IDialogueManager dialogueManager;
     private void Awake()
     {
         if (Instance == null)
@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
             {"BassistGirl", value => bassistGirl = value }
         };
 
-        dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueResettable>();
+        dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
     }
     private void Start()
     {

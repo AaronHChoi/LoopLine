@@ -15,6 +15,8 @@ public class InterfaceDependencyInjector : MonoBehaviour, IDependencyInjectable
     PlayerView playerView;
     PlayerController playerController;
     DialogueManager dialogueManager;
+    TimeManager timeManager;
+    UIManager uiManager;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -36,6 +38,8 @@ public class InterfaceDependencyInjector : MonoBehaviour, IDependencyInjectable
         playerView = provider.PlayerView;
         playerController = provider.PlayerController;
         dialogueManager = provider.DialogueManager;
+        timeManager = provider.TimeManager;
+        uiManager = provider.UIManager;
     }
     private void InitializeInterfaces()
     {
@@ -45,8 +49,9 @@ public class InterfaceDependencyInjector : MonoBehaviour, IDependencyInjectable
         Register<IPlayerCamera>(playerCamera);
         Register<IPlayerView>(playerView);
         Register<IPlayerController>(playerController);
-        Register<IDialogueResettable>(dialogueManager);
-        Register<IDialoguesControllable>(dialogueManager);
+        Register<IDialogueManager>(dialogueManager);
+        Register<ISkipeable>(timeManager);
+        Register<IUIManager>(uiManager);
     }
     public void Register<T>(T service)
     {

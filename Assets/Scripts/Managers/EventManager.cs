@@ -24,19 +24,19 @@ public class EventManager : Subject, IDependencyInjectable
     [SerializeField] DialogueSOManager peek;
 
     TimeManager timeManager;
-    UIManager uiManager;
 
-    IDialoguesControllable dialogueManager;
+    IUIManager uiManager;
+    IDialogueManager dialogueManager;
     private void Awake()
     {
         InjectDependencies(DependencyContainer.Instance);
-        dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialoguesControllable>();
+        dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
+        uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
         audioSource = GetComponent<AudioSource>();
     }
     public void InjectDependencies(DependencyContainer provider)
     {
         timeManager = provider.TimeManager;
-        uiManager = provider.UIManager;
     }
     private void Start()
     {

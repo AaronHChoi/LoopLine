@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Parallax : MonoBehaviour, IObserver
+public class Parallax : MonoBehaviour, IObserver, IDependencyInjectable
 {
     [System.Serializable]
     public class ParallaxLayer
@@ -10,7 +10,7 @@ public class Parallax : MonoBehaviour, IObserver
         public float parallaxEffect;
         public string type;
     }
-    public Subject EventManager;
+    Subject eventManager;
     public List<ParallaxLayer> layers;
     public float parallaxSpeed = 1f; 
     public float teleportZ = -110f;
@@ -30,7 +30,11 @@ public class Parallax : MonoBehaviour, IObserver
     float lerpB = 0f;
     private void Awake()
     {
-        EventManager = FindFirstObjectByType<Subject>();
+        InjectDependencies(DependencyContainer.Instance);
+    }
+    public void InjectDependencies(DependencyContainer provider)
+    {
+        eventManager = provider.EventManager;
     }
     public void OnNotify(Events _event)
     {
@@ -41,11 +45,11 @@ public class Parallax : MonoBehaviour, IObserver
     }
     private void OnEnable()
     {
-        EventManager.AddObserver(this);
+        eventManager.AddObserver(this);
     }
     private void OnDisable()
     {
-        EventManager.RemoveObserver(this);
+        eventManager.RemoveObserver(this);
     }
     private void Update()
     {

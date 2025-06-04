@@ -15,10 +15,10 @@ public class DevelopmentManager : MonoBehaviour
     bool isUIActive = false;
 
     IPlayerController playerController;
-    IDialogueResettable dialogueManager;
+    IDialogueManager dialogueManager;
     private void Awake()
     {
-        dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueResettable>();
+        dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
         timeManager = FindFirstObjectByType<TimeManager>();
         dialManager = FindFirstObjectByType<DialogueManager>();
         playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();

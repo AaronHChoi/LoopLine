@@ -15,6 +15,7 @@ public class DependencyContainer : MonoBehaviour
     public DevelopmentManager DevelopmentManager { get; private set; }
     public Subject SubjectEventManager { get; private set; }
     public QuestionManager QuestionManager { get; private set; }
+    public EventManager EventManager { get; private set; }
     #endregion
 
     #region PLAYER
@@ -60,6 +61,7 @@ public class DependencyContainer : MonoBehaviour
         PlayerInputHandler = FindAndValidate<PlayerInputHandler>();
         PlayerCamera = FindAndValidate<PlayerCamera>();
         PlayerView = FindAndValidate<PlayerView>();
+        EventManager = FindAndValidate<EventManager>();
     }
     private T FindAndValidate<T>() where T : MonoBehaviour
     {

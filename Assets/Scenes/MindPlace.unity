@@ -339,10 +339,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UIPrinciplal: {fileID: 1510329041}
   UIDeveloperMode: {fileID: 1621560652}
-  dialogueManager: {fileID: 0}
   timeManager: {fileID: 0}
   dialManager: {fileID: 0}
-  playerController: {fileID: 0}
 --- !u!114 &37244485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -852,7 +850,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isNPCInteracted: 0
-  name: 
 --- !u!73398921 &122468357
 VFXRenderer:
   serializedVersion: 1
@@ -7792,7 +7789,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isNPCInteracted: 0
-  name: WorkingMan
 --- !u!73398921 &629899003
 VFXRenderer:
   serializedVersion: 1
@@ -9530,6 +9526,68 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1434074379}
   m_Mesh: {fileID: -1550514412580984892, guid: fde76517d3499924ab0c75480a135947, type: 3}
+--- !u!1001 &1438518797
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1551358275}
+    m_Modifications:
+    - target: {fileID: 2652376024963765564, guid: 5d4cd255a0eca1f48b13851b6eead65d, type: 3}
+      propertyPath: m_Name
+      value: IntefaceDependencyInjection
+      objectReference: {fileID: 0}
+    - target: {fileID: 8019430580523743063, guid: 5d4cd255a0eca1f48b13851b6eead65d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1022.12256
+      objectReference: {fileID: 0}
+    - target: {fileID: 8019430580523743063, guid: 5d4cd255a0eca1f48b13851b6eead65d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 592.1781
+      objectReference: {fileID: 0}
+    - target: {fileID: 8019430580523743063, guid: 5d4cd255a0eca1f48b13851b6eead65d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -154.27856
+      objectReference: {fileID: 0}
+    - target: {fileID: 8019430580523743063, guid: 5d4cd255a0eca1f48b13851b6eead65d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8019430580523743063, guid: 5d4cd255a0eca1f48b13851b6eead65d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8019430580523743063, guid: 5d4cd255a0eca1f48b13851b6eead65d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8019430580523743063, guid: 5d4cd255a0eca1f48b13851b6eead65d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8019430580523743063, guid: 5d4cd255a0eca1f48b13851b6eead65d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8019430580523743063, guid: 5d4cd255a0eca1f48b13851b6eead65d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8019430580523743063, guid: 5d4cd255a0eca1f48b13851b6eead65d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5d4cd255a0eca1f48b13851b6eead65d, type: 3}
+--- !u!4 &1438518798 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8019430580523743063, guid: 5d4cd255a0eca1f48b13851b6eead65d, type: 3}
+  m_PrefabInstance: {fileID: 1438518797}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1454454216
 GameObject:
   m_ObjectHideFlags: 0
@@ -9562,7 +9620,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isNPCInteracted: 0
-  name: 
 --- !u!73398921 &1454454218
 VFXRenderer:
   serializedVersion: 1
@@ -9727,7 +9784,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isNPCInteracted: 0
-  name: CameraGirl
 --- !u!73398921 &1485621681
 VFXRenderer:
   serializedVersion: 1
@@ -10201,6 +10257,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 398935548}
+  - {fileID: 1438518798}
   - {fileID: 1771727360}
   - {fileID: 1630526745}
   - {fileID: 779938477}
@@ -10239,7 +10296,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isNPCInteracted: 0
-  name: BassistGirl
 --- !u!73398921 &1554062248
 VFXRenderer:
   serializedVersion: 1
@@ -11615,7 +11671,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   screenManager: {fileID: 0}
-  dialogueManager: {fileID: 0}
   nextScene: MindPlace
   TrainLoop: 0
   MindPlaceLoop: 0
@@ -12448,7 +12503,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isNPCInteracted: 0
-  name: 
 --- !u!73398921 &2043572903
 VFXRenderer:
   serializedVersion: 1

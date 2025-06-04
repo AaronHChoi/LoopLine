@@ -3,10 +3,10 @@ using UnityEngine.SceneManagement;
 
 public class GameSceneManager : MonoBehaviour
 {
-    IDialogueResettable dialogueManager;
+    IDialogueManager dialogueManager;
     private void Awake()
     {
-        dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueResettable>();
+        dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
     }
     public void LoadNextScene(string _sceneName)
     {

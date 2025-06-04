@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueResettable, IDialoguesControllable
+public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueManager
 {
     public static event Action OnDialogueStarted;
     public static event Action OnDialogueEnded;
@@ -21,8 +21,8 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueRe
 
     DialogueUI dialogueUI;
     QuestionManager questionManager;
-    UIManager uiManager;
 
+    IUIManager uiManager;
     IPlayerController playerController;
     private void Awake()
     {
@@ -36,10 +36,10 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueRe
         }
         InjectDependencies(DependencyContainer.Instance);
         playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
+        uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
     }
     public void InjectDependencies(DependencyContainer provider)
     {
-        uiManager = provider.UIManager;
         questionManager = provider.QuestionManager;
         dialogueUI = provider.DialogueUI;
     }
@@ -132,11 +132,8 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueRe
         ShowUI(false, false);
     }
 }
-public interface IDialogueResettable
+public interface IDialogueManager
 {
     void ResetAllDialogues();
-}
-public interface IDialoguesControllable
-{
     void StopAndFinishDialogue();
 }
