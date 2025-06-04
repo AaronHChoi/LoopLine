@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class EventManager : Subject, IDependencyInjectable
 {
-    [SerializeField] private AudioSource audioSource;
-   
+    [SerializeField] private AudioSource audioSource2D;
+    [SerializeField] private AudioSource audioSource3D;
+
     [Header("Train Event 1")]
     [SerializeField] private AudioClip trainStopSound_1;
     [SerializeField] private AudioClip trainStopSound_2;
@@ -32,7 +33,6 @@ public class EventManager : Subject, IDependencyInjectable
         InjectDependencies(DependencyContainer.Instance);
         dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
-        audioSource = GetComponent<AudioSource>();
     }
     public void InjectDependencies(DependencyContainer provider)
     {
@@ -61,10 +61,10 @@ public class EventManager : Subject, IDependencyInjectable
         if (timeManager.LoopTime <= 240 && timeManager.LoopTime >= 235)
         {
             NotifyObservers(Events.StopTrain);
-            if (!audioSource.isPlaying)
+            if (!audioSource2D.isPlaying)
             {
-                audioSource.clip = trainStopSound_1;
-                audioSource.Play();
+                audioSource2D.clip = trainStopSound_1;
+                audioSource2D.Play();
 
                 dialogueManager.StopAndFinishDialogue();
 
@@ -81,10 +81,10 @@ public class EventManager : Subject, IDependencyInjectable
         if (timeManager.LoopTime <= 180 && timeManager.LoopTime >= 175)
         {
             NotifyObservers(Events.ResumeTrain);
-            if (!audioSource.isPlaying)
+            if (!audioSource2D.isPlaying)
             {
-                audioSource.clip = trainStopSound_2;
-                audioSource.Play();
+                audioSource2D.clip = trainStopSound_2;
+                audioSource2D.Play();
             }
         }
         else
@@ -96,10 +96,10 @@ public class EventManager : Subject, IDependencyInjectable
     {
         if (!isWindowBroken && timeManager.LoopTime <= 60 && timeManager.LoopTime >= 55)
         {
-            if (!audioSource.isPlaying)
+            if (!audioSource3D.isPlaying)
             {
-                audioSource.clip = crystalBreakSound;
-                audioSource.Play();
+                audioSource3D.clip = crystalBreakSound;
+                audioSource3D.Play();
 
                 dialogueManager.StopAndFinishDialogue();
 
