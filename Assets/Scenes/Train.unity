@@ -677,6 +677,7 @@ MonoBehaviour:
   id: Briefcase
   AvailableDialogs:
   - {fileID: 11400000, guid: 494b70721d0120d4aad458a0f8a5b2ee, type: 2}
+  - {fileID: 11400000, guid: 21071020c0efaf641ae4aa0855864326, type: 2}
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
@@ -2183,9 +2184,7 @@ MonoBehaviour:
   interactText: Interactuar
   id: WorkingMan
   AvailableDialogs:
-  - {fileID: 11400000, guid: 1cc0a531dace08f49b04e104a320e513, type: 2}
-  - {fileID: 11400000, guid: 264728530efdd4c48a148067a0e6854c, type: 2}
-  - {fileID: 11400000, guid: 98c3a849f13033d438593bb45653a1a6, type: 2}
+  - {fileID: 11400000, guid: 7ee6c99ebe19a194c961e3aafe8c6168, type: 2}
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
@@ -2203,21 +2202,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DialogueEvents:
-  - EventName: TrainStop
+  - EventName: E1-Start
+    DialoguesToAdd:
+    - {fileID: 11400000, guid: 17c7927b1ce057840a12a5e2fa5bf71a, type: 2}
+    - {fileID: 11400000, guid: 264728530efdd4c48a148067a0e6854c, type: 2}
+    - {fileID: 11400000, guid: 17c7927b1ce057840a12a5e2fa5bf71a, type: 2}
+  - EventName: E1-StopTrain
     DialoguesToAdd:
     - {fileID: 11400000, guid: e1051102725ce984d907129d0ee1200f, type: 2}
     - {fileID: 11400000, guid: 64f931601fca76044bf37c71dfb1eb83, type: 2}
     - {fileID: 11400000, guid: b2eadc2bf87f4ca47afd227d40336f86, type: 2}
-  - EventName: BreakWindow
+  - EventName: E1-BrokenWindow
     DialoguesToAdd:
     - {fileID: 11400000, guid: 77edd951d1558d34bbb1dcac849d989a, type: 2}
     - {fileID: 11400000, guid: 3cd0ed20ae62faf438ea6635ac845a6c, type: 2}
     - {fileID: 11400000, guid: 675cb9fc193c10d47a707f5a66df02fd, type: 2}
-  - EventName: CorrectWord
-    DialoguesToAdd:
-    - {fileID: 11400000, guid: e1811a3391f4b6240b7156ef1cd1810c, type: 2}
-    - {fileID: 11400000, guid: 264728530efdd4c48a148067a0e6854c, type: 2}
-    - {fileID: 11400000, guid: 98c3a849f13033d438593bb45653a1a6, type: 2}
   dialogueSpeaker: {fileID: 0}
 --- !u!95 &311809392
 Animator:
@@ -8080,7 +8079,8 @@ MonoBehaviour:
   interactText: Cigarillos
   id: 
   AvailableDialogs:
-  - {fileID: 11400000, guid: 0e762ff5aed157545a51622e6f5239ea, type: 2}
+  - {fileID: 11400000, guid: 11c3778ead0152945bac4ba0edbaa2f8, type: 2}
+  - {fileID: 11400000, guid: 4ebe2e326f7248843b49135636fe1f9d, type: 2}
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
@@ -8210,7 +8210,7 @@ MonoBehaviour:
   interactText: Celular
   id: 
   AvailableDialogs:
-  - {fileID: 11400000, guid: 11c3778ead0152945bac4ba0edbaa2f8, type: 2}
+  - {fileID: 11400000, guid: 0e762ff5aed157545a51622e6f5239ea, type: 2}
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
