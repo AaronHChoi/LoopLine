@@ -12,6 +12,7 @@ public class DialogueSOManager : MonoBehaviour
     public List<DialogueEvent> DialogueEvents;
     public DialogueSpeaker dialogueSpeaker;
     [SerializeField] public string NPCname;
+    [SerializeField] public bool firstInteractionAfterCheck;
 
     [SerializeField] private List<DialogueSO> dialoguesToCheck;
 
@@ -20,6 +21,10 @@ public class DialogueSOManager : MonoBehaviour
     {
         dialogueSpeaker = GetComponent<DialogueSpeaker>();
         eventManager = InterfaceDependencyInjector.Instance.Resolve<IEventManager>();
+    }
+    private void Start()
+    {
+        firstInteractionAfterCheck = false;
     }
     public void TriggerEventDialogue(string _eventName)
     {
@@ -40,6 +45,7 @@ public class DialogueSOManager : MonoBehaviour
         {
             if (dialogue.Finished)
             {
+                firstInteractionAfterCheck = true;
                 eventManager.AfterFirstInteraction(NPCname);
                 break;
             }
