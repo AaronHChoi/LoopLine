@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 public class Word : Subject, IWord /*IInteract*/
 {
-    [SerializeField] private bool isCorrectWord;
+    [SerializeField] public bool isCorrectWord;
     [SerializeField] private TextMeshPro tmpro;
     public string word;
     public int numerofWord;
