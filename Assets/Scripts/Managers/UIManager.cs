@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class UIManager : MonoBehaviour, IDependencyInjectable
+public class UIManager : MonoBehaviour, IDependencyInjectable, IUIManager
 {
     [SerializeField] private TextMeshProUGUI contador_provicional;
     [SerializeField] private TextMeshProUGUI uiText;
@@ -45,4 +45,9 @@ public class UIManager : MonoBehaviour, IDependencyInjectable
     {
         uiText.gameObject.SetActive(false);
     }
+}
+public interface IUIManager
+{
+    void ShowUIText(string _message);
+    void HideUIText();
 }

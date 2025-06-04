@@ -12,6 +12,14 @@ public class InsideMindPlace : MonoBehaviour
 
     void Start()
     {
+        InitializeVolume();
+    }
+    void Update()
+    {
+        UpdateVolumeWeight();
+    }
+    private void InitializeVolume()
+    {
         GameObject volume = GameObject.Find("VolumeInsideMindPlace");
         if (volume != null)
         {
@@ -20,8 +28,7 @@ public class InsideMindPlace : MonoBehaviour
                 volumeInsideMindPlace.weight = 1f;
         }
     }
-
-    void Update()
+    private void UpdateVolumeWeight()
     {
         if (volumeIsActive && volumeInsideMindPlace != null)
         {

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Cinemachine.Samples;
 using UnityEngine;
 
 public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyInjectable
@@ -15,15 +14,16 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     public bool NPCInteracted = false;
 
     DevelopmentManager developmentManager;
-    UIManager uiManager;
     Subject eventManager;
+
+    IUIManager uiManager;
     private void Awake()
     {
         InjectDependencies(DependencyContainer.Instance);
+        uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
     }
     public void InjectDependencies(DependencyContainer provider)
     {
-        uiManager = provider.UIManager;
         developmentManager = provider.DevelopmentManager;
         eventManager = provider.SubjectEventManager;
     }
@@ -80,7 +80,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
                     if (DialogueUpdate())
                     {
                         StartDialogue();
-                        DialogueManager.Instance.ShowUI(true);
+                        DialogueManager.Instance.ShowUI(true, true);
                         DialogueManager.Instance.SetDialogue(AvailableDialogs[dialogueIndex], this);
                     }
                     StartDialogue();
@@ -88,7 +88,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
                     return;
                 }
                 StartDialogue();
-                DialogueManager.Instance.ShowUI(true);
+                DialogueManager.Instance.ShowUI(true, true);
                 DialogueManager.Instance.SetDialogue(AvailableDialogs[dialogueIndex], this);
                 //dialogueIndex++;
             }
@@ -96,7 +96,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
             {
                 Debug.LogWarning("La conversacion esta bloqueada");
                 EndDialogue();
-                DialogueManager.Instance.ShowUI(false);
+                DialogueManager.Instance.ShowUI(false, true);
                 return;
             }
         }
@@ -104,20 +104,9 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
         {
             print("Fin del dialogo");
             EndDialogue();
-            DialogueManager.Instance.ShowUI(false);
+            DialogueManager.Instance.ShowUI(false, true);
         }
         //DialogueRefresh();
-    }
-    private int FindNextUnlockedDialogue(int startIndex)
-    {
-        for (int i = startIndex; i < AvailableDialogs.Count; i++)
-        {
-            if (AvailableDialogs[i].Unlocked)
-            {
-                return i;
-            }
-        }
-        return -1;
     }
     void StartDialogue()
     {

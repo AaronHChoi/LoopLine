@@ -1,32 +1,31 @@
 using System.Collections.Generic;
-using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class DevelopmentManager : MonoBehaviour
 {
     [SerializeField] private GameObject UIPrinciplal;
     [SerializeField] private GameObject UIDeveloperMode;
 
-    [SerializeField] DialogueManager dialogueManager;
     [SerializeField] TimeManager timeManager;
     [SerializeField] DialogueManager dialManager;
-    [SerializeField] PlayerController playerController;
 
     private Dictionary<AudioSource, float> audiosVolumeDic;
     bool isCursorVisible = false;
     bool isUIActive = false;
+
+    IPlayerController playerController;
+    IDialogueManager dialogueManager;
     private void Awake()
     {
-        dialogueManager = FindFirstObjectByType<DialogueManager>();
+        dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
         timeManager = FindFirstObjectByType<TimeManager>();
         dialManager = FindFirstObjectByType<DialogueManager>();
-        playerController = FindFirstObjectByType<PlayerController>();
+        playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
     }
     void Start()
     {
-        timeManager.changeLoopTime = false;
+        timeManager.ChangeLoopTime = false;
         UpdateCursorState();
         InitAudios();
         Mute(false);
@@ -49,7 +48,7 @@ public class DevelopmentManager : MonoBehaviour
         UIPrinciplal.SetActive(!UIPrinciplal.activeInHierarchy);
         UIDeveloperMode.SetActive(!UIDeveloperMode.activeInHierarchy);
 
-        playerController.SetControllerEnabled(!isUIActive);
+        playerController.SetCinemachineController(!isUIActive);
 
         UpdateCursorState();
     }
@@ -62,7 +61,7 @@ public class DevelopmentManager : MonoBehaviour
 
             isUIActive = false;
 
-            playerController.SetControllerEnabled(true);
+            playerController.SetCinemachineController(true);
 
             UpdateCursorState();
         }
@@ -132,11 +131,11 @@ public class DevelopmentManager : MonoBehaviour
         {
             if (timeManager.LoopTime > 5f)
             {
-                timeManager.changeLoopTime = true;
+                timeManager.ChangeLoopTime = true;
             }
             else
             {
-                timeManager.changeLoopTime = false;
+                timeManager.ChangeLoopTime = false;
             }
         }
     }

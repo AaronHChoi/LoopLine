@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerView : MonoBehaviour
+public class PlayerView : MonoBehaviour, IPlayerView
 {
     private CharacterController characterController;
     private void Awake()
@@ -11,4 +11,8 @@ public class PlayerView : MonoBehaviour
     {
         characterController.Move(movement);
     }
+}
+public interface IPlayerView
+{
+    void Move(Vector3 movement);
 }

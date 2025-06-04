@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-public class DialogueManager : MonoBehaviour, IDependencyInjectable
+public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueManager
 {
     public static event Action OnDialogueStarted;
     public static event Action OnDialogueEnded;
@@ -20,9 +20,10 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable
     }
 
     DialogueUI dialogueUI;
-    PlayerController player;
     QuestionManager questionManager;
-    UIManager uiManager;
+
+    IUIManager uiManager;
+    IPlayerController playerController;
     private void Awake()
     {
         if(Instance == null)
@@ -33,37 +34,28 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable
         {
             Destroy(gameObject);
         }
-            //if(Instance = this)
-            //{
-            //    Instance = this;
-            //    DontDestroyOnLoad(gameObject);
-            //}
-            //else
-            //{
-            //    Destroy(gameObject);
-            //}
-            //dialogueUI = FindFirstObjectByType<DialogueUI>();
         InjectDependencies(DependencyContainer.Instance);
+        playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
+        uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
     }
     public void InjectDependencies(DependencyContainer provider)
     {
-        uiManager = provider.UIManager;
-        player = provider.PlayerController;
         questionManager = provider.QuestionManager;
         dialogueUI = provider.DialogueUI;
     }
     private void Start()
     {
-        ShowUI(false);
+        ShowUI(false, true);
     }
-    public void ShowUI(bool show)
+    public void ShowUI(bool _show, bool _event)
     {
-        dialogueUI.gameObject.SetActive(show);
-        if (!show)
+        dialogueUI.gameObject.SetActive(_show);
+        if (!_show)
         {
             dialogueUI.localIndex = 0;
             OnDialogueEnded?.Invoke();
-            player.SetControllerEnabled(true);
+            if(_event)
+                playerController.SetCinemachineController(true);
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
             isDialogueActive = false;
@@ -72,7 +64,7 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable
         else
         {
             OnDialogueStarted?.Invoke();
-            player.SetControllerEnabled(false);
+            playerController.SetCinemachineController(false);
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
             isDialogueActive = true;
@@ -124,7 +116,7 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable
             }
         }
     }
-    public void StopAndFinishDialogue() //Metodo para para dialogos
+    public void StopAndFinishDialogue() //Metodo para parar dialogos
     {
         if(actualSpeaker != null)
         {
@@ -137,6 +129,11 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable
             actualSpeaker.isDialogueActive = false;
         }
         dialogueUI.gameObject.SetActive(false);
-        ShowUI(false);
+        ShowUI(false, false);
     }
+}
+public interface IDialogueManager
+{
+    void ResetAllDialogues();
+    void StopAndFinishDialogue();
 }

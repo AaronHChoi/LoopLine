@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class EventManager : Subject, IDependencyInjectable
 {
-    [SerializeField] private AudioSource audioSource;
-   
+    [SerializeField] private AudioSource audioSource2D;
+    [SerializeField] private AudioSource audioSource3D;
+
     [Header("Train Event 1")]
     [SerializeField] private AudioClip trainStopSound_1;
     [SerializeField] private AudioClip trainStopSound_2;
@@ -23,21 +24,19 @@ public class EventManager : Subject, IDependencyInjectable
     [SerializeField] DialogueSOManager player;
     [SerializeField] DialogueSOManager peek;
 
-    DialogueUI dial;
-    DialogueManager dialogueManager;
     TimeManager timeManager;
-    UIManager uiManager;
+
+    IUIManager uiManager;
+    IDialogueManager dialogueManager;
     private void Awake()
     {
         InjectDependencies(DependencyContainer.Instance);
-        audioSource = GetComponent<AudioSource>();
+        dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
+        uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
     }
     public void InjectDependencies(DependencyContainer provider)
     {
-        dial = provider.DialogueUI;
         timeManager = provider.TimeManager;
-        uiManager = provider.UIManager;
-        dialogueManager = provider.DialogueManager;
     }
     private void Start()
     {
@@ -55,12 +54,6 @@ public class EventManager : Subject, IDependencyInjectable
     {
         TrainEvent1();
         TrainEvent2();
-
-        //if (Input.GetKeyDown(KeyCode.H))
-        //{
-        //    NotifyObservers(Events.TriggerMonologue);
-        //    dial.StopDialogue();
-        //}
     }
     #region TrainEvents
     private void TrainEvent1()
@@ -68,11 +61,10 @@ public class EventManager : Subject, IDependencyInjectable
         if (timeManager.LoopTime <= 240 && timeManager.LoopTime >= 235)
         {
             NotifyObservers(Events.StopTrain);
-            if (!audioSource.isPlaying)
+            if (!audioSource2D.isPlaying)
             {
-                audioSource.clip = trainStopSound_1;
-                audioSource.Play();
-                //workingMan.TriggerEventDialogue("TrainStop");
+                audioSource2D.clip = trainStopSound_1;
+                audioSource2D.Play();
 
                 dialogueManager.StopAndFinishDialogue();
 
@@ -80,7 +72,6 @@ public class EventManager : Subject, IDependencyInjectable
                 {
                     dialogueManager.TriggerEventDialogue("TrainStop");
                 }
-                peek.TriggerEventDialogue("TrainStop");
             }
         }
         else
@@ -90,10 +81,10 @@ public class EventManager : Subject, IDependencyInjectable
         if (timeManager.LoopTime <= 180 && timeManager.LoopTime >= 175)
         {
             NotifyObservers(Events.ResumeTrain);
-            if (!audioSource.isPlaying)
+            if (!audioSource2D.isPlaying)
             {
-                audioSource.clip = trainStopSound_2;
-                audioSource.Play();
+                audioSource2D.clip = trainStopSound_2;
+                audioSource2D.Play();
             }
         }
         else
@@ -105,11 +96,10 @@ public class EventManager : Subject, IDependencyInjectable
     {
         if (!isWindowBroken && timeManager.LoopTime <= 60 && timeManager.LoopTime >= 55)
         {
-            if (!audioSource.isPlaying)
+            if (!audioSource3D.isPlaying)
             {
-                audioSource.clip = crystalBreakSound;
-                audioSource.Play();
-                //workingMan.TriggerEventDialogue("BreakWindow");
+                audioSource3D.clip = crystalBreakSound;
+                audioSource3D.Play();
 
                 dialogueManager.StopAndFinishDialogue();
 
@@ -117,8 +107,6 @@ public class EventManager : Subject, IDependencyInjectable
                 {
                     dialogueManager.TriggerEventDialogue("BreakWindow");
                 }
-                peek.TriggerEventDialogue("BreakWindow");
-                player.TriggerEventDialogue("Train2");
             }
             NotifyObservers(Events.BreakCrystal);
             isWindowBroken = true;
