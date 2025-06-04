@@ -48,10 +48,6 @@ public class EventManager : Subject, IDependencyInjectable, IEventManager
         {
             player.TriggerEventDialogue("Train2");
         }
-        if (GameManager.Instance.CorrectWord101)
-        {
-            workingMan.TriggerEventDialogue("CorrectWord");
-        }
         StartCoroutine(StartSceneMonologue(delay));
     }
     void Update()
