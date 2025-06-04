@@ -70,7 +70,7 @@ public class EventManager : Subject, IDependencyInjectable
 
                 foreach (DialogueSOManager dialogueManager in dialogueManagers)
                 {
-                    dialogueManager.TriggerEventDialogue("TrainStop");
+                    dialogueManager.TriggerEventDialogue("E1-StopTrain");
                 }
             }
         }
@@ -105,7 +105,7 @@ public class EventManager : Subject, IDependencyInjectable
 
                 foreach (DialogueSOManager dialogueManager in dialogueManagers)
                 {
-                    dialogueManager.TriggerEventDialogue("BreakWindow");
+                    dialogueManager.TriggerEventDialogue("E1-BrokenWindow");
                 }
             }
             NotifyObservers(Events.BreakCrystal);
