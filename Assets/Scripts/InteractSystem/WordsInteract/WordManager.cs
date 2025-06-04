@@ -12,7 +12,7 @@ public class WordManager : MonoBehaviour
     [SerializeField] private List<Word> correctWordsObject = new List<Word>();
     [SerializeField] private List<Word> incorrectWordsObject = new List<Word>();
 
-    private List<Word> words = new List<Word>();
+    [SerializeField] private List<Word> words = new List<Word>();
 
     [Header("LookAt")]
     private PlayerController playerController;
@@ -25,7 +25,7 @@ public class WordManager : MonoBehaviour
     [SerializeField] private bool isPlayerInRange = false;
     [SerializeField] private float distance;
     [SerializeField] private float delay = 1.6f;
-
+    private int randomWordToCorrectIndex;
     //Test
     MindPlaceEventManagerMind eventManager;
     bool onlyOneTime;
@@ -38,6 +38,19 @@ public class WordManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        randomWordToCorrectIndex = Random.Range(0, words.Count - 1);
+        for (int i = 0; i < words.Count; i++)
+        {       
+            if (i == randomWordToCorrectIndex)
+            {
+                correctWordsObject.Add(words[i]);
+                words[i].isCorrectWord = true;
+            }
+            else
+            {
+                incorrectWordsObject.Add(words[i]);
+            }
+        }
         onlyOneTime = false;
         for (int i = 0; i < incorrectWordsObject.Count; i++)
         {
