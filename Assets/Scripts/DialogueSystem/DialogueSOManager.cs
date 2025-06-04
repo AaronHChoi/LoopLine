@@ -11,9 +11,15 @@ public class DialogueSOManager : MonoBehaviour
     }
     public List<DialogueEvent> DialogueEvents;
     public DialogueSpeaker dialogueSpeaker;
+    [SerializeField] public string NPCname;
+
+    [SerializeField] private List<DialogueSO> dialoguesToCheck;
+
+    IEventManager eventManager;
     private void Awake()
     {
         dialogueSpeaker = GetComponent<DialogueSpeaker>();
+        eventManager = InterfaceDependencyInjector.Instance.Resolve<IEventManager>();
     }
     public void TriggerEventDialogue(string _eventName)
     {
@@ -27,5 +33,16 @@ public class DialogueSOManager : MonoBehaviour
                 dialogueSpeaker.AvailableDialogs.Add(dialogue);
         }
         dialogueSpeaker.dialogueIndex = 0;
+    }
+    public void CheckFirstInteraction()
+    {
+        foreach (DialogueSO dialogue in dialoguesToCheck)
+        {
+            if (dialogue.Finished)
+            {
+                eventManager.AfterFirstInteraction(NPCname);
+                break;
+            }
+        }
     }
 }

@@ -17,6 +17,7 @@ public class InterfaceDependencyInjector : MonoBehaviour, IDependencyInjectable
     DialogueManager dialogueManager;
     TimeManager timeManager;
     UIManager uiManager;
+    EventManager eventManager;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -40,6 +41,7 @@ public class InterfaceDependencyInjector : MonoBehaviour, IDependencyInjectable
         dialogueManager = provider.DialogueManager;
         timeManager = provider.TimeManager;
         uiManager = provider.UIManager;
+        eventManager = provider.EventManager;
     }
     private void InitializeInterfaces()
     {
@@ -52,6 +54,7 @@ public class InterfaceDependencyInjector : MonoBehaviour, IDependencyInjectable
         Register<IDialogueManager>(dialogueManager);
         Register<ISkipeable>(timeManager);
         Register<IUIManager>(uiManager);
+        Register<IEventManager>(eventManager);
     }
     public void Register<T>(T service)
     {

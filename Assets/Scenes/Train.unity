@@ -788,6 +788,7 @@ MonoBehaviour:
   id: Briefcase
   AvailableDialogs:
   - {fileID: 11400000, guid: 494b70721d0120d4aad458a0f8a5b2ee, type: 2}
+  - {fileID: 11400000, guid: 21071020c0efaf641ae4aa0855864326, type: 2}
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
@@ -2407,9 +2408,7 @@ MonoBehaviour:
   interactText: Interactuar
   id: WorkingMan
   AvailableDialogs:
-  - {fileID: 11400000, guid: 1cc0a531dace08f49b04e104a320e513, type: 2}
-  - {fileID: 11400000, guid: 264728530efdd4c48a148067a0e6854c, type: 2}
-  - {fileID: 11400000, guid: 98c3a849f13033d438593bb45653a1a6, type: 2}
+  - {fileID: 11400000, guid: 7ee6c99ebe19a194c961e3aafe8c6168, type: 2}
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
@@ -2427,22 +2426,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DialogueEvents:
-  - EventName: TrainStop
+  - EventName: E1-Start
+    DialoguesToAdd:
+    - {fileID: 11400000, guid: 17c7927b1ce057840a12a5e2fa5bf71a, type: 2}
+    - {fileID: 11400000, guid: 264728530efdd4c48a148067a0e6854c, type: 2}
+    - {fileID: 11400000, guid: 98c3a849f13033d438593bb45653a1a6, type: 2}
+  - EventName: E1-StopTrain
     DialoguesToAdd:
     - {fileID: 11400000, guid: e1051102725ce984d907129d0ee1200f, type: 2}
     - {fileID: 11400000, guid: 64f931601fca76044bf37c71dfb1eb83, type: 2}
     - {fileID: 11400000, guid: b2eadc2bf87f4ca47afd227d40336f86, type: 2}
-  - EventName: BreakWindow
+    - {fileID: 11400000, guid: 10dc0507515c0c344ba2bb39d929e663, type: 2}
+  - EventName: E1-BrokenWindow
     DialoguesToAdd:
     - {fileID: 11400000, guid: 77edd951d1558d34bbb1dcac849d989a, type: 2}
     - {fileID: 11400000, guid: 3cd0ed20ae62faf438ea6635ac845a6c, type: 2}
     - {fileID: 11400000, guid: 675cb9fc193c10d47a707f5a66df02fd, type: 2}
-  - EventName: CorrectWord
-    DialoguesToAdd:
-    - {fileID: 11400000, guid: e1811a3391f4b6240b7156ef1cd1810c, type: 2}
-    - {fileID: 11400000, guid: 264728530efdd4c48a148067a0e6854c, type: 2}
-    - {fileID: 11400000, guid: 98c3a849f13033d438593bb45653a1a6, type: 2}
+    - {fileID: 11400000, guid: d4d57d1a48a28dc48bb456ce9dbfb00f, type: 2}
   dialogueSpeaker: {fileID: 0}
+  NPCname: WorkingMan
+  dialoguesToCheck:
+  - {fileID: 11400000, guid: a077bea62981f4b4b90ab16333a1d366, type: 2}
+  - {fileID: 11400000, guid: 418dd0a22d3117340adf4c653dceb5ac, type: 2}
+  - {fileID: 11400000, guid: 24a60a7876b5a5944b7d5f5b563c77f8, type: 2}
 --- !u!95 &311809392
 Animator:
   serializedVersion: 7
@@ -4702,17 +4708,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DialogueEvents:
-  - EventName: TrainStop
+  - EventName: E1-StopTrain
     DialoguesToAdd:
     - {fileID: 11400000, guid: b496e788ce1024c48b60035b2d038003, type: 2}
     - {fileID: 11400000, guid: 73cdf4e805be2ad4bb1f22d672fe2509, type: 2}
     - {fileID: 11400000, guid: 74a25d1d83a14314cbef691c1ef578a0, type: 2}
-  - EventName: BreakWindow
+  - EventName: E1-BrokenWindow
     DialoguesToAdd:
     - {fileID: 11400000, guid: 32ab0ab482763fe45a2e44740fc07fce, type: 2}
     - {fileID: 11400000, guid: 71fb5a7c85a24f347a27a2a589e8de9d, type: 2}
     - {fileID: 11400000, guid: d31f63af97015064886f045c89fcebf7, type: 2}
   dialogueSpeaker: {fileID: 0}
+  NPCname: 
+  dialoguesToCheck: []
 --- !u!65 &500735897
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9524,7 +9532,8 @@ MonoBehaviour:
   interactText: Cigarillos
   id: 
   AvailableDialogs:
-  - {fileID: 11400000, guid: 0e762ff5aed157545a51622e6f5239ea, type: 2}
+  - {fileID: 11400000, guid: 11c3778ead0152945bac4ba0edbaa2f8, type: 2}
+  - {fileID: 11400000, guid: 4ebe2e326f7248843b49135636fe1f9d, type: 2}
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
@@ -9654,7 +9663,7 @@ MonoBehaviour:
   interactText: Celular
   id: 
   AvailableDialogs:
-  - {fileID: 11400000, guid: 11c3778ead0152945bac4ba0edbaa2f8, type: 2}
+  - {fileID: 11400000, guid: 0e762ff5aed157545a51622e6f5239ea, type: 2}
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
@@ -16761,17 +16770,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DialogueEvents:
-  - EventName: TrainStop
+  - EventName: E1-StopTrain
     DialoguesToAdd:
     - {fileID: 11400000, guid: 56f5072964bbbb244ab14f137810a213, type: 2}
     - {fileID: 11400000, guid: 50ca0c6d0c030164d8d4cee298f09ce7, type: 2}
     - {fileID: 11400000, guid: 4ec763e4f9923df4188c24961ed37651, type: 2}
-  - EventName: BreakWindow
+  - EventName: E1-BrokenWindow
     DialoguesToAdd:
     - {fileID: 11400000, guid: d6b7856b01354874a9055a1972321952, type: 2}
     - {fileID: 11400000, guid: e88ef15c4b26c1c4f8ab2710d969e4ac, type: 2}
     - {fileID: 11400000, guid: ff92f6286ff95f644b01b1be03335185, type: 2}
   dialogueSpeaker: {fileID: 0}
+  NPCname: 
+  dialoguesToCheck: []
 --- !u!65 &1556341797
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17628,6 +17639,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: ed5edbe4ef3c5114b85446248a065d5f, type: 2}
     - {fileID: 11400000, guid: b624bd4934506ba40b77f7b42b50be4d, type: 2}
   dialogueSpeaker: {fileID: 0}
+  NPCname: 
+  dialoguesToCheck: []
 --- !u!1001 &1754219125
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22990,6 +23003,10 @@ PrefabInstance:
     - target: {fileID: 3049267596739896398, guid: 23e3a961eda479c42a5ecf9984a139f7, type: 3}
       propertyPath: m_Name
       value: DialogueBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 6347056636025030040, guid: 23e3a961eda479c42a5ecf9984a139f7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6651768040007183206, guid: 23e3a961eda479c42a5ecf9984a139f7, type: 3}
       propertyPath: m_fontAsset
