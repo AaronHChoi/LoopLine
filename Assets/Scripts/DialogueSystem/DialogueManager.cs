@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
-public class DialogueManager : MonoBehaviour, IDependencyInjectable
+public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueResettable, IDialoguesControllable
 {
     public static event Action OnDialogueStarted;
     public static event Action OnDialogueEnded;
@@ -20,9 +20,10 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable
     }
 
     DialogueUI dialogueUI;
-    PlayerController player;
     QuestionManager questionManager;
     UIManager uiManager;
+
+    IPlayerController playerController;
     private void Awake()
     {
         if(Instance == null)
@@ -34,11 +35,11 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable
             Destroy(gameObject);
         }
         InjectDependencies(DependencyContainer.Instance);
+        playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
     }
     public void InjectDependencies(DependencyContainer provider)
     {
         uiManager = provider.UIManager;
-        player = provider.PlayerController;
         questionManager = provider.QuestionManager;
         dialogueUI = provider.DialogueUI;
     }
@@ -54,7 +55,7 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable
             dialogueUI.localIndex = 0;
             OnDialogueEnded?.Invoke();
             if(_event)
-                player.SetCinemachineController(true);
+                playerController.SetCinemachineController(true);
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
             isDialogueActive = false;
@@ -63,7 +64,7 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable
         else
         {
             OnDialogueStarted?.Invoke();
-            player.SetCinemachineController(false);
+            playerController.SetCinemachineController(false);
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
             isDialogueActive = true;
@@ -130,4 +131,12 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable
         dialogueUI.gameObject.SetActive(false);
         ShowUI(false, false);
     }
+}
+public interface IDialogueResettable
+{
+    void ResetAllDialogues();
+}
+public interface IDialoguesControllable
+{
+    void StopAndFinishDialogue();
 }

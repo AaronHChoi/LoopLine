@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Cinemachine.Samples;
 using UnityEngine;
 
 public class InterfaceDependencyInjector : MonoBehaviour, IDependencyInjectable
@@ -8,6 +9,12 @@ public class InterfaceDependencyInjector : MonoBehaviour, IDependencyInjectable
     private readonly Dictionary<System.Type, object> services = new();
 
     FocusModeManager focusModeManager;
+    CinemachinePOVExtension cinemachinePOVExtension;
+    PlayerInputHandler playerInputHandler;
+    PlayerCamera playerCamera;
+    PlayerView playerView;
+    PlayerController playerController;
+    DialogueManager dialogueManager;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -23,10 +30,24 @@ public class InterfaceDependencyInjector : MonoBehaviour, IDependencyInjectable
     public void InjectDependencies(DependencyContainer provider)
     {
         focusModeManager = provider.FocusModeManager;
+        cinemachinePOVExtension = provider.CinemachinePOVExtension;
+        playerInputHandler = provider.PlayerInputHandler;
+        playerCamera = provider.PlayerCamera;
+        playerView = provider.PlayerView;
+        playerController = provider.PlayerController;
+        dialogueManager = provider.DialogueManager;
     }
     private void InitializeInterfaces()
     {
         Register<IColliderToggle>(focusModeManager);
+        Register<ICameraOrientation>(cinemachinePOVExtension);
+        Register<IPlayerInputHandler>(playerInputHandler);
+        Register<IPlayerCamera>(playerCamera);
+        Register<IPlayerView>(playerView);
+        Register<IPlayerController>(playerController);
+        Register<IDialogueResettable>(dialogueManager);
+        Register<IDialoguesControllable>(dialogueManager);
+        Register<IDialogueUI>(dialogueUI);
     }
     public void Register<T>(T service)
     {

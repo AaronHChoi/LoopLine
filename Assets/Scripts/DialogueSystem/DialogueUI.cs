@@ -30,8 +30,7 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
     TimeManager timeManager;
     private void Awake()
     {
-        InjectDependencies(
-            DependencyContainer.Instance);
+        InjectDependencies(DependencyContainer.Instance);
         audioSource = GetComponent<AudioSource>();
     }
     public void InjectDependencies(DependencyContainer provider)

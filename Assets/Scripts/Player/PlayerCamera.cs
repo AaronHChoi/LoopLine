@@ -1,23 +1,24 @@
 using Unity.Cinemachine;
-using Unity.Cinemachine.Samples;
 using UnityEngine;
 
-public class PlayerCamera : MonoBehaviour, IDependencyInjectable
+public class PlayerCamera : MonoBehaviour, IDependencyInjectable, IPlayerCamera
 {
     CinemachineCamera virtualCamera;
     Transform cameraTransform;
-    CinemachinePOVExtension cinemachinePOVExtension;
+
+    ICameraOrientation cinemachinePOVExtension;
 
     float lockedPanValue;
     float lockedTiltValue;
+
     private void Awake()
     {
         InjectDependencies(DependencyContainer.Instance);
+        cinemachinePOVExtension = InterfaceDependencyInjector.Instance.Resolve<ICameraOrientation>();
     }
     public void InjectDependencies(DependencyContainer provider)
     {
         virtualCamera = provider.CinemachineCamera;
-        cinemachinePOVExtension = provider.CinemachinePOVExtension;
     }
     private void Start()
     {
@@ -43,4 +44,8 @@ public class PlayerCamera : MonoBehaviour, IDependencyInjectable
             }
         }
     }
+}
+public interface IPlayerCamera
+{
+    Transform GetCameraTransform();
 }

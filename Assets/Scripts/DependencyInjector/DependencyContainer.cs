@@ -16,9 +16,15 @@ public class DependencyContainer : MonoBehaviour
     public Subject SubjectEventManager { get; private set; }
     public QuestionManager QuestionManager { get; private set; }
     #endregion
+
+    #region PLAYER
+    public PlayerController PlayerController { get; private set; }
+    public PlayerInputHandler PlayerInputHandler { get; private set; }
+    public PlayerCamera PlayerCamera { get; private set; }
+    public PlayerView PlayerView { get; private set; }
+    #endregion
     public DialogueUI DialogueUI { get; private set; }
     public Parallax Parallax { get; private set; }
-    public PlayerController PlayerController { get; private set; }
     public CinemachineCamera CinemachineCamera { get; private set; }
     public CinemachinePOVExtension CinemachinePOVExtension { get; private set; }
     public FocusModeManager FocusModeManager { get; private set; }
@@ -51,6 +57,9 @@ public class DependencyContainer : MonoBehaviour
         CinemachineCamera = FindAndValidate<CinemachineCamera>();
         CinemachinePOVExtension = FindAndValidate<CinemachinePOVExtension>();
         FocusModeManager = FindAndValidate<FocusModeManager>();
+        PlayerInputHandler = FindAndValidate<PlayerInputHandler>();
+        PlayerCamera = FindAndValidate<PlayerCamera>();
+        PlayerView = FindAndValidate<PlayerView>();
     }
     private T FindAndValidate<T>() where T : MonoBehaviour
     {

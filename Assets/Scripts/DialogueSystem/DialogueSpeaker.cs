@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Cinemachine.Samples;
 using UnityEngine;
 
 public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyInjectable

@@ -1,18 +1,14 @@
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IPlayerController
 {
-    PlayerView playerView;
     PlayerModel playerModel;
-    PlayerInputHandler playerInputHandler;
     PlayerCamera playerCamera;
     PlayerFocusMode playerFocusMode;
     PlayerMovement playerMovement;
     private void Awake()
     {
-        playerInputHandler = GetComponent<PlayerInputHandler>();
         playerCamera = GetComponent<PlayerCamera>();
-        playerView = GetComponent<PlayerView>();
         playerFocusMode = GetComponent<PlayerFocusMode>();
         playerMovement = GetComponent<PlayerMovement>();
 
@@ -20,9 +16,12 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        playerMovement.HandleMovement(playerInputHandler.SpeedInputMovement, playerInputHandler.InputMovement, playerInputHandler, playerCamera, playerModel, playerView);
-        playerMovement.RotateCharacterToCamera(playerCamera, playerModel);
-
+        playerMovement.HandleMovement(playerModel);
+        playerMovement.RotateCharacterToCamera(playerModel);
+        HandleInput();
+    }
+    private void HandleInput()
+    {
         if (Input.GetKeyDown(KeyCode.V))
         {
             playerFocusMode.ToggleFocusMode(playerModel);
@@ -33,4 +32,8 @@ public class PlayerController : MonoBehaviour
         playerCamera.SetControllerEnabled(_enabled);
         playerMovement.CanMove = _enabled;
     }
+}
+public interface IPlayerController
+{
+    void SetCinemachineController(bool _enabled);
 }
