@@ -47,7 +47,6 @@ public class InterfaceDependencyInjector : MonoBehaviour, IDependencyInjectable
         Register<IPlayerController>(playerController);
         Register<IDialogueResettable>(dialogueManager);
         Register<IDialoguesControllable>(dialogueManager);
-        Register<IDialogueUI>(dialogueUI);
     }
     public void Register<T>(T service)
     {
