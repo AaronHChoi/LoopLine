@@ -105,7 +105,7 @@ public class DialogueUI : MonoBehaviour
 
                     if(Dialogue.Questions != null)
                     {
-                        //dialogueContainer.SetActive(false);
+                        dialogueContainer.SetActive(false);
                         questionContainer.SetActive(true);
                         var question = Dialogue.Questions;
                         name.text = question.CharacterName.name;

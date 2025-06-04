@@ -2430,18 +2430,25 @@ MonoBehaviour:
     DialoguesToAdd:
     - {fileID: 11400000, guid: 17c7927b1ce057840a12a5e2fa5bf71a, type: 2}
     - {fileID: 11400000, guid: 264728530efdd4c48a148067a0e6854c, type: 2}
-    - {fileID: 11400000, guid: 17c7927b1ce057840a12a5e2fa5bf71a, type: 2}
+    - {fileID: 11400000, guid: 98c3a849f13033d438593bb45653a1a6, type: 2}
   - EventName: E1-StopTrain
     DialoguesToAdd:
     - {fileID: 11400000, guid: e1051102725ce984d907129d0ee1200f, type: 2}
     - {fileID: 11400000, guid: 64f931601fca76044bf37c71dfb1eb83, type: 2}
     - {fileID: 11400000, guid: b2eadc2bf87f4ca47afd227d40336f86, type: 2}
+    - {fileID: 11400000, guid: 10dc0507515c0c344ba2bb39d929e663, type: 2}
   - EventName: E1-BrokenWindow
     DialoguesToAdd:
     - {fileID: 11400000, guid: 77edd951d1558d34bbb1dcac849d989a, type: 2}
     - {fileID: 11400000, guid: 3cd0ed20ae62faf438ea6635ac845a6c, type: 2}
     - {fileID: 11400000, guid: 675cb9fc193c10d47a707f5a66df02fd, type: 2}
+    - {fileID: 11400000, guid: d4d57d1a48a28dc48bb456ce9dbfb00f, type: 2}
   dialogueSpeaker: {fileID: 0}
+  NPCname: WorkingMan
+  dialoguesToCheck:
+  - {fileID: 11400000, guid: a077bea62981f4b4b90ab16333a1d366, type: 2}
+  - {fileID: 11400000, guid: 418dd0a22d3117340adf4c653dceb5ac, type: 2}
+  - {fileID: 11400000, guid: 24a60a7876b5a5944b7d5f5b563c77f8, type: 2}
 --- !u!95 &311809392
 Animator:
   serializedVersion: 7
@@ -4692,6 +4699,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 71fb5a7c85a24f347a27a2a589e8de9d, type: 2}
     - {fileID: 11400000, guid: d31f63af97015064886f045c89fcebf7, type: 2}
   dialogueSpeaker: {fileID: 0}
+  NPCname: 
+  dialoguesToCheck: []
 --- !u!65 &500735897
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16714,6 +16723,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: e88ef15c4b26c1c4f8ab2710d969e4ac, type: 2}
     - {fileID: 11400000, guid: ff92f6286ff95f644b01b1be03335185, type: 2}
   dialogueSpeaker: {fileID: 0}
+  NPCname: 
+  dialoguesToCheck: []
 --- !u!65 &1556341797
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17570,6 +17581,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: ed5edbe4ef3c5114b85446248a065d5f, type: 2}
     - {fileID: 11400000, guid: b624bd4934506ba40b77f7b42b50be4d, type: 2}
   dialogueSpeaker: {fileID: 0}
+  NPCname: 
+  dialoguesToCheck: []
 --- !u!1001 &1754219125
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22932,6 +22945,10 @@ PrefabInstance:
     - target: {fileID: 3049267596739896398, guid: 23e3a961eda479c42a5ecf9984a139f7, type: 3}
       propertyPath: m_Name
       value: DialogueBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 6347056636025030040, guid: 23e3a961eda479c42a5ecf9984a139f7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6651768040007183206, guid: 23e3a961eda479c42a5ecf9984a139f7, type: 3}
       propertyPath: m_fontAsset

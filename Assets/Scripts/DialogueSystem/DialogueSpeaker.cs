@@ -15,10 +15,13 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
 
     DevelopmentManager developmentManager;
     Subject eventManager;
+    DialogueSOManager dialogueSOManager;
 
     IUIManager uiManager;
+    IEventManager eventManager2;
     private void Awake()
     {
+        dialogueSOManager = GetComponent<DialogueSOManager>();
         InjectDependencies(DependencyContainer.Instance);
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
     }
@@ -53,7 +56,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     {
         if (AvailableDialogs == null || AvailableDialogs.Count == 0 || (dialogueIndex == AvailableDialogs.Count - 1 && AvailableDialogs[dialogueIndex].Finished))
         {
-            uiManager.ShowUIText("No hay dialogos disponibles.");
+            //uiManager.ShowUIText("No hay dialogos disponibles.");
             StartCoroutine(ExecuteAfterDelay());
             return;
         }
@@ -115,6 +118,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     public void EndDialogue()
     {
         isDialogueActive = false;
+        dialogueSOManager.CheckFirstInteraction();
     }
     bool DialogueUpdate()
     {
@@ -140,7 +144,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     {
         if(AvailableDialogs == null || AvailableDialogs.Count == 0)
         {
-            uiManager.ShowUIText("No hay dialogos disponibles");
+            //uiManager.ShowUIText("No hay dialogos disponibles");
             StartCoroutine(ExecuteAfterDelay());
         }
         else

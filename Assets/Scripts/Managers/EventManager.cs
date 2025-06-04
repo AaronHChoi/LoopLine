@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventManager : Subject, IDependencyInjectable
+public class EventManager : Subject, IDependencyInjectable, IEventManager
 {
     [SerializeField] private AudioSource audioSource2D;
     [SerializeField] private AudioSource audioSource3D;
@@ -117,10 +117,22 @@ public class EventManager : Subject, IDependencyInjectable
         }
     }
     #endregion
+    public void AfterFirstInteraction(string _name)
+    {
+        foreach (DialogueSOManager dialogueManager in dialogueManagers)
+        {
+            if(dialogueManager.NPCname == _name)
+                dialogueManager.TriggerEventDialogue("E1-Start");
+        }
+    }
     private IEnumerator StartSceneMonologue(float delay)
     {
         yield return new WaitForSeconds(delay);
         NotifyObservers(Events.TriggerMonologue);
         uiManager.ShowUIText("Aprete F para saltear");
     }
+}
+public interface IEventManager
+{
+    void AfterFirstInteraction(string _name);
 }
