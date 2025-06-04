@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -33,6 +34,11 @@ public class PlayerMovement : MonoBehaviour
         right.Normalize();
 
         Vector3 moveDirection = forward * _inputMovement.y + right * _inputMovement.x;
+
+        if (transform.position.y != _playerModel.YaxisLocation)
+        {
+            moveDirection.y = (_playerModel.YaxisLocation - transform.position.y) * 0.9f;
+        }
 
         if (_speedInputMovement > 0.1f)
         {
