@@ -41,6 +41,11 @@ public class DialogueSOManager : MonoBehaviour
     }
     public void CheckFirstInteraction()
     {
+        if (dialoguesToCheck == null || eventManager == null)
+        {
+            return; 
+        }
+
         foreach (DialogueSO dialogue in dialoguesToCheck)
         {
             if (dialogue.Finished)
