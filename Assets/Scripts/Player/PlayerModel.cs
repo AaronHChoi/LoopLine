@@ -5,4 +5,5 @@ public class PlayerModel
     public float SpeedRotation { get; private set; } = 10f;
     public float LookSensitivity { get; private set; } = 4.5f;
     public bool FocusMode { get; set; } = true;
+    public float YaxisLocation { get; set; } = 1;
 }
