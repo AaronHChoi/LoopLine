@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: 2464039023775065192}
   - component: {fileID: 2582760741889782329}
   - component: {fileID: 3185304443358567593}
+  - component: {fileID: -5852321853349041314}
   - component: {fileID: 7403318227544770739}
   - component: {fileID: 1732922333188898066}
   - component: {fileID: 3841724941957440755}
@@ -315,6 +316,9 @@ MonoBehaviour:
   interactableLayer:
     serializedVersion: 2
     m_Bits: 8
+  lineOfSight: {fileID: -5852321853349041314}
+  circleImage: {fileID: 0}
+  maxAlpha: 1
 --- !u!114 &2464039023775065192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,6 +361,9 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 0de26ab9ce58abc45a09df8f365ad354, type: 2}
     - {fileID: 11400000, guid: a295c2cf01d5a1745b3278ef27c9287e, type: 2}
   dialogueSpeaker: {fileID: 0}
+  NPCname: 
+  firstInteractionAfterCheck: 0
+  dialoguesToCheck: []
 --- !u!114 &3185304443358567593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -370,6 +377,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eagleVisionMaterial: {fileID: 2100000, guid: b292066646bdbe64b99de360a3426930, type: 2}
+--- !u!114 &-5852321853349041314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965095351449339405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bb0b568e1e315840a93eeda323ad7bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 2.6
+  angle: 120
+  maskObs:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!114 &7403318227544770739
 MonoBehaviour:
   m_ObjectHideFlags: 0

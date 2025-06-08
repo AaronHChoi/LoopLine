@@ -2,12 +2,18 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class PlayerInteract : MonoBehaviour, IDependencyInjectable
 {
     private CinemachineCamera rayCastPoint;
     [SerializeField] private float raycastDistance = 2f;
     [SerializeField] private LayerMask interactableLayer;
+    [SerializeField] private LineOfSight lineOfSight;
+    [SerializeField] private RawImage circleImage;
+    [SerializeField] private float maxAlpha = 1f;
+    private Transform currentTarget;
 
     private void Awake()
     {
@@ -28,6 +34,32 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
             {
                 interactableObject.Interact();
             }
+        }
+
+        if (lineOfSight == null || circleImage == null) return;
+
+        currentTarget = GetMostCenteredInteractable();
+
+        if (currentTarget == null)
+        {
+            SetAlpha(0f);
+            return;
+        }
+
+        Vector3 dirToTarget = currentTarget.position - lineOfSight.transform.position;
+        float angleToTarget = Vector3.Angle(lineOfSight.transform.forward, dirToTarget);
+
+        float maxAngle = lineOfSight.angle / 2;
+
+        if (angleToTarget <= maxAngle)
+        {
+            
+            float alpha = Mathf.Lerp(maxAlpha, 0f, angleToTarget / maxAngle);
+            SetAlpha(alpha);
+        }
+        else
+        {
+            SetAlpha(0f); 
         }
     }
 
@@ -50,5 +82,35 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
         }
 
         return interactableObject;
+    }
+
+    private Transform GetMostCenteredInteractable()
+    {
+        float closestAngle = float.MaxValue;
+        Transform mostCentered = null;
+
+        foreach (var visible in lineOfSight.GetObjectsInSight())
+        {
+            if (visible.TryGetComponent<IInteract>(out _))
+            {
+                Vector3 dir = visible.transform.position - lineOfSight.transform.position;
+                float angle = Vector3.Angle(lineOfSight.transform.forward, dir);
+
+                if (angle < closestAngle)
+                {
+                    closestAngle = angle;
+                    mostCentered = visible.transform;
+                }
+            }
+        }
+
+        return mostCentered;
+    }
+
+    void SetAlpha(float alpha)
+    {
+        Color c = circleImage.color;
+        c.a = alpha;
+        circleImage.color = c;
     }
 }
