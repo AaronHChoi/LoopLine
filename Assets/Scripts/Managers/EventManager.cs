@@ -157,7 +157,7 @@ public class EventManager : Subject, IDependencyInjectable, IEventManager
     {
         yield return new WaitForSeconds(delay);
         NotifyObservers(Events.TriggerMonologue);
-        uiManager.ShowUIText("Aprete F para saltear");
+        //uiManager.ShowUIText("Aprete F para saltear");
     }
 }
 public interface IEventManager

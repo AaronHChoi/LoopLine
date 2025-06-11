@@ -25,6 +25,7 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] bool isTyping = false;
     [SerializeField] bool isQuestionActive = false;
     [SerializeField] bool isFirstDialogueSaved = false;
+    [SerializeField] bool skipe = false;
     Coroutine activeCoroutine;
 
     ISkipeable timeManager;
@@ -35,6 +36,7 @@ public class DialogueUI : MonoBehaviour
     }
     private void Start()
     {
+        skipe = false;
         InitializeUI();
     }
     private void Update()
@@ -50,7 +52,7 @@ public class DialogueUI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) && !isTyping && !isQuestionActive)
         {
-            TextUpdate(1);
+            TextUpdate(1);         
         }
     }
     public void TextUpdate(int trigger)
@@ -132,6 +134,7 @@ public class DialogueUI : MonoBehaviour
     IEnumerator WriteText()
     {
         isTyping = true;
+        skipe = true;
         dialogueText.maxVisibleCharacters = 0;
         dialogueText.text = Dialogue.Dialogues[localIndex].dialogue;
         dialogueText.richText = true;
@@ -143,10 +146,15 @@ public class DialogueUI : MonoBehaviour
 
         while(currentCharacter < totalCharacters)
         {
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetMouseButtonDown(0) && isTyping == true && skipe == true)
             {
-                dialogueText.maxVisibleCharacters = totalCharacters;
-                break;
+                if(currentCharacter > 3)
+                {
+                    dialogueText.maxVisibleCharacters = totalCharacters;
+                    skipe = false;
+                    break;
+                }
+                
             }
 
             dialogueText.maxVisibleCharacters++;
@@ -160,6 +168,7 @@ public class DialogueUI : MonoBehaviour
         dialogueText.maxVisibleCharacters = totalCharacters;
 
         isTyping = false;
+        skipe = false;
         timeManager.SkipDialogue();
     }
 }
