@@ -23,26 +23,39 @@ public class CrosshairFeedback : MonoBehaviour
         RaycastHit[] hits = Physics.SphereCastAll(ray, detectionRadius, detectionDistance, interactableLayer);
 
         Transform closestTarget = null;
-        float closestAngle = maxAngle;
+        float bestScore = 0f;
 
         foreach (var hit in hits)
         {
             Collider col = hit.collider;
-            Vector3 closestPoint = col.ClosestPoint(cameraTransform.position);
-            Vector3 dirToTarget = (closestPoint - cameraTransform.position).normalized;
-            float angle = Vector3.Angle(cameraTransform.forward, dirToTarget);
+            Vector3 boxCenter = col.bounds.center;
+            Vector3 dirToTarget = (boxCenter - cameraTransform.position).normalized;
+            float distance = Vector3.Distance(cameraTransform.position, boxCenter);
 
-            if (angle < closestAngle)
+            if (Physics.Raycast(cameraTransform.position, dirToTarget, out RaycastHit blockHit, distance, ~0))
             {
-                closestAngle = angle;
+                if (blockHit.collider != col)
+                    continue;
+            }
+
+            float angle = Vector3.Angle(cameraTransform.forward, dirToTarget);
+            if (angle > maxAngle || distance > detectionDistance) continue;
+
+            float angleScore = 1f - (angle / maxAngle);
+            float distanceScore = 1f - (distance / detectionDistance);
+            float combinedScore = angleScore * distanceScore;
+
+            if (combinedScore > bestScore)
+            {
+                bestScore = combinedScore;
                 closestTarget = col.transform;
             }
         }
 
-        if (closestTarget != null)
+
+        if (closestTarget != null && bestScore > 0f)
         {
-            float opacity = 1f - (closestAngle / maxAngle);
-            SetCrosshairOpacity(opacity);
+            SetCrosshairOpacity(bestScore);
             SetCrosshairVisible(true);
         }
         else
