@@ -30,25 +30,44 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
             }
         }
     }
-
+    /*
     public IInteract GetInteractableObject()
     {
-        //List<IInteract> InteractableList = new List<IInteract>();
-
         Ray ray = new Ray(rayCastPoint.transform.position, rayCastPoint.transform.forward);
-        RaycastHit[] hits = Physics.RaycastAll(ray, raycastDistance, interactableLayer);
 
-        IInteract interactableObject = null;
-
-        foreach (RaycastHit hit in hits)
+        if (Physics.Raycast(ray, out RaycastHit hit, raycastDistance))
         {
-            if (hit.collider.TryGetComponent(out IInteract interactable))
+            if (((1 << hit.collider.gameObject.layer) & interactableLayer) != 0)
             {
-                interactableObject = interactable;
-                //interactableLayer = hit.collider.gameObject.layer;
+                if (hit.collider.TryGetComponent(out IInteract interactable))
+                {
+                    return interactable;
+                }
             }
         }
 
-        return interactableObject;
+        return null;
+    */
+        
+        public IInteract GetInteractableObject()
+        {
+            //List<IInteract> InteractableList = new List<IInteract>();
+
+            Ray ray = new Ray(rayCastPoint.transform.position, rayCastPoint.transform.forward);
+            RaycastHit[] hits = Physics.RaycastAll(ray, raycastDistance, interactableLayer);
+
+            IInteract interactableObject = null;
+
+            foreach (RaycastHit hit in hits)
+            {
+                if (hit.collider.TryGetComponent(out IInteract interactable))
+                {
+                    interactableObject = interactable;
+                    //interactableLayer = hit.collider.gameObject.layer;
+                }
+            }
+
+            return interactableObject;
+        
     }
 }
