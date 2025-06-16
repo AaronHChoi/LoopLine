@@ -30,7 +30,7 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
             }
         }
     }
-    /*
+    
     public IInteract GetInteractableObject()
     {
         Ray ray = new Ray(rayCastPoint.transform.position, rayCastPoint.transform.forward);
@@ -47,8 +47,8 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
         }
 
         return null;
-    */
-        
+    
+      /*  
         public IInteract GetInteractableObject()
         {
             //List<IInteract> InteractableList = new List<IInteract>();
@@ -68,6 +68,6 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
             }
 
             return interactableObject;
-        
-    }
+        */
+        }
 }
