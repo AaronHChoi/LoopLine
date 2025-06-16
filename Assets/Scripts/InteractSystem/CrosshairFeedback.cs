@@ -14,29 +14,43 @@ public class CrosshairFeedback : MonoBehaviour
     void Start()
     {
         cameraTransform = Camera.main.transform;
-        SetCrosshairVisible(false);
+        SetCrosshairVisible(false); // hide crosshair at start
     }
 
     void Update()
     {
+        Transform target;
+        float score;
+
+        if (GetClosestTarget(out target, out score))
+        {
+            SetCrosshairOpacity(score); // fade based on angle + distance
+            SetCrosshairVisible(true);
+        }
+        else
+        {
+            SetCrosshairVisible(false);
+        }
+    }
+
+    private bool GetClosestTarget(out Transform bestTarget, out float bestScore)
+    {
+        bestTarget = null;
+        bestScore = 0f;
+
         Ray ray = new Ray(cameraTransform.position, cameraTransform.forward);
         RaycastHit[] hits = Physics.SphereCastAll(ray, detectionRadius, detectionDistance, interactableLayer);
-
-        Transform closestTarget = null;
-        float bestScore = 0f;
 
         foreach (var hit in hits)
         {
             Collider col = hit.collider;
+
             Vector3 boxCenter = col.bounds.center;
             Vector3 dirToTarget = (boxCenter - cameraTransform.position).normalized;
             float distance = Vector3.Distance(cameraTransform.position, boxCenter);
 
-            if (Physics.Raycast(cameraTransform.position, dirToTarget, out RaycastHit blockHit, distance, ~0))
-            {
-                if (blockHit.collider != col)
-                    continue;
-            }
+            if (BlockedVision(col, dirToTarget, distance))
+                continue;
 
             float angle = Vector3.Angle(cameraTransform.forward, dirToTarget);
             if (angle > maxAngle || distance > detectionDistance) continue;
@@ -48,20 +62,20 @@ public class CrosshairFeedback : MonoBehaviour
             if (combinedScore > bestScore)
             {
                 bestScore = combinedScore;
-                closestTarget = col.transform;
+                bestTarget = col.transform;
             }
         }
 
+        return bestTarget != null && bestScore > 0f;
+    }
 
-        if (closestTarget != null && bestScore > 0f)
+    private bool BlockedVision(Collider targetCollider, Vector3 direction, float distance)
+    {
+        if (Physics.Raycast(cameraTransform.position, direction, out RaycastHit hit, distance, ~0))
         {
-            SetCrosshairOpacity(bestScore);
-            SetCrosshairVisible(true);
+            return hit.collider != targetCollider;
         }
-        else
-        {
-            SetCrosshairVisible(false);
-        }
+        return false;
     }
 
     private void SetCrosshairVisible(bool visible)
