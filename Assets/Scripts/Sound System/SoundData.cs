@@ -2,14 +2,13 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
-namespace SoundSystem
+
+[Serializable]
+public class SoundData
 {
-    [Serializable]
-    public class SoundData
-    {
-        public AudioClip clip;
-        public AudioMixerGroup mixerGroup;
-        public bool isALoop;
-        public bool isAPlayOnAwake;
-    }
+    public AudioClip clip;
+    public AudioMixerGroup mixerGroup;
+    public bool isALoop;
+    public bool isAPlayOnAwake;
+    [Range(0f,1f)] public float volume = 1f;
 }

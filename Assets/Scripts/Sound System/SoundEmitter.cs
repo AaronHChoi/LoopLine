@@ -1,6 +1,4 @@
-﻿using Assets.Scripts;
-using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -21,6 +19,7 @@ namespace SoundSystem
             audioSource.outputAudioMixerGroup = data.mixerGroup;
             audioSource.loop = data.isALoop;
             audioSource.playOnAwake = data.isAPlayOnAwake;
+            audioSource.volume = data.volume;
         }
         public void Play()
         {
@@ -48,7 +47,10 @@ namespace SoundSystem
             yield return new WaitWhile(() => audioSource.isPlaying);
             SoundManager.Instance.ReturnToPool(this);
         }
-
+        internal void With3D(bool is3D)
+        {
+            audioSource.spatialBlend = is3D ? 1 : 0;
+        }
         internal void WithRandomPitch(float min = -0.05f, float max = 0.05f)
         {
             audioSource.pitch += Random.Range(min, max);

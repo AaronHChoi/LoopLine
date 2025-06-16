@@ -18,6 +18,7 @@ public class InterfaceDependencyInjector : MonoBehaviour, IDependencyInjectable
     TimeManager timeManager;
     UIManager uiManager;
     EventManager eventManager;
+    SoundManager soundManager;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -42,6 +43,7 @@ public class InterfaceDependencyInjector : MonoBehaviour, IDependencyInjectable
         timeManager = provider.TimeManager;
         uiManager = provider.UIManager;
         eventManager = provider.EventManager;
+        soundManager = provider.SoundManager;
     }
     private void InitializeInterfaces()
     {
