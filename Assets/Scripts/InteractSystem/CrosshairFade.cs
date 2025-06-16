@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CrosshairFeedback : MonoBehaviour
+public class CrosshairFade : MonoBehaviour
 {
     [SerializeField] private RawImage crosshairImage;
     [SerializeField] private LayerMask interactableLayer;
