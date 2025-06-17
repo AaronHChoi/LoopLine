@@ -29,7 +29,17 @@ namespace SoundSystem
             }
 
             audioSource.Play();
-            playingCoroutine = StartCoroutine(nameof(WaitForSoundToEnd));
+            playingCoroutine = StartCoroutine(WaitForSoundToEnd());
+        }
+        public void PlayWithDelay(float secondsDelay)
+        {
+            if (playingCoroutine != null)
+            {
+                StopCoroutine(playingCoroutine);
+            }
+
+            audioSource.Play();
+            playingCoroutine = StartCoroutine(WaitForSoundToEnd(secondsDelay));
         }
         public void Stop()
         {
@@ -42,8 +52,9 @@ namespace SoundSystem
             SoundManager.Instance.ReturnToPool(this);
         }
 
-        IEnumerator WaitForSoundToEnd()
+        IEnumerator WaitForSoundToEnd(float secondsDelay = 0f)
         {
+            if(secondsDelay > 0f) yield return new WaitForSeconds(secondsDelay);
             yield return new WaitWhile(() => audioSource.isPlaying);
             SoundManager.Instance.ReturnToPool(this);
         }

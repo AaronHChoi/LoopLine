@@ -4,23 +4,22 @@ using UnityEngine;
 
 public class EventManager : Subject, IDependencyInjectable, IEventManager
 {
-    [SerializeField] private AudioSource audioSource2D;
-    [SerializeField] private AudioSource audioSource3D;
+    [Header("Sound System Event 1")]
+    [SerializeField] private SoundData trainStopSoundData;
+    [SerializeField] private SoundData trainStopSoundData2;
+    [Header("Sound System Event 2")]
+    [SerializeField] private SoundData crystalBreakSoundData;
+    [SerializeField] private Transform crystalBreakTransform;
+    [SerializeField] float delayBrokenWindow;
 
-    [Header("Train Event 1")]
-    [SerializeField] private AudioClip trainStopSound_1;
-    [SerializeField] private AudioClip trainStopSound_2;
-
-    [Header("Train Event 2")]
-    [SerializeField] private AudioClip crystalBreakSound;
-
-    [SerializeField] float delay = 1f;
+    [SerializeField] float delayMonologue = 1f;
     private bool isWindowBroken = false;
-    bool trainEvent1 = true;
 
     [SerializeField] bool start = true;
-    [SerializeField] bool stopTrain = false;
-    [SerializeField] bool brokenWindow = false;
+    bool brokenWindow = false;
+    private bool stopTrain = false;
+    private bool stopTrain2 = false;
+    private Coroutine coroutineDelay;
 
     [Header("Dialogues Managers")] //Referencias manuales
     [SerializeField] List<DialogueSOManager> dialogueManagers = new List<DialogueSOManager>();
@@ -48,7 +47,7 @@ public class EventManager : Subject, IDependencyInjectable, IEventManager
         {
             player.TriggerEventDialogue("Train2");
         }
-        StartCoroutine(StartSceneMonologue(delay));
+        StartCoroutine(StartSceneMonologue(delayMonologue));
     }
     void Update()
     {
@@ -61,10 +60,12 @@ public class EventManager : Subject, IDependencyInjectable, IEventManager
         if (timeManager.LoopTime <= 240 && timeManager.LoopTime >= 235)
         {
             NotifyObservers(Events.StopTrain);
-            if (!audioSource2D.isPlaying)
+
+            if (!stopTrain)
             {
-                audioSource2D.clip = trainStopSound_1;
-                audioSource2D.Play();
+                SoundManager.Instance.CreateSound()
+                    .WithSoundData(trainStopSoundData)
+                    .Play();
 
                 dialogueManager.StopAndFinishDialogue();
 
@@ -74,47 +75,46 @@ public class EventManager : Subject, IDependencyInjectable, IEventManager
                 EventStopTrain();
             }
         }
-        else
-        {
-            //audioSource.Stop();
-        }
         if (timeManager.LoopTime <= 180 && timeManager.LoopTime >= 175)
         {
             NotifyObservers(Events.ResumeTrain);
-            if (!audioSource2D.isPlaying)
+            if (!stopTrain2)
             {
-                audioSource2D.clip = trainStopSound_2;
-                audioSource2D.Play();
+                SoundManager.Instance.CreateSound()
+                    .WithSoundData(trainStopSoundData2)
+                    .Play();
+
+                stopTrain2 = true;
             }
-        }
-        else
-        {
-            //audioSource.Stop();
         }
     }
     private void TrainEvent2()
     {
-        if (!isWindowBroken && timeManager.LoopTime <= 60 && timeManager.LoopTime >= 55)
+        if (!brokenWindow && timeManager.LoopTime <= 60 && timeManager.LoopTime >= 55)
         {
-            if (!audioSource3D.isPlaying)
+
+            SoundManager.Instance.CreateSound()
+                .WithSoundData(crystalBreakSoundData)
+                .WithSoundPosition(crystalBreakTransform.position)
+                .PlayWithDelay(crystalBreakSoundData);
+
+            dialogueManager.StopAndFinishDialogue();
+
+            stopTrain = false;
+            brokenWindow = true;
+            
+            if (coroutineDelay != null)
             {
-                audioSource3D.clip = crystalBreakSound;
-                audioSource3D.Play();
-
-                dialogueManager.StopAndFinishDialogue();
-
-                stopTrain = false;
-                brokenWindow = true;
-
-                EventBrokenWindow();
+                StopCoroutine(coroutineDelay);
             }
-            NotifyObservers(Events.BreakCrystal);
-            isWindowBroken = true;
+            coroutineDelay = StartCoroutine(DelayTimer(delayBrokenWindow));
         }
-        else
-        {
-            //audioSource.Stop();
-        }
+    }
+    private IEnumerator DelayTimer(float delaySeconds)
+    {
+        yield return new WaitForSeconds(delaySeconds);
+        EventBrokenWindow();
+        NotifyObservers(Events.BreakCrystal);
     }
     #endregion
 

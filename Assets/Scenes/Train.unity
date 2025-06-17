@@ -11923,12 +11923,14 @@ MonoBehaviour:
     isALoop: 1
     isAPlayOnAwake: 1
     volume: 1
+    secondsDelay: 0
   noiseData:
     clip: {fileID: 8300000, guid: 39129ed7db87a49459efb717af1ac3c2, type: 3}
     mixerGroup: {fileID: 8656321750647278905, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
     isALoop: 1
     isAPlayOnAwake: 1
     volume: 1
+    secondsDelay: 0
 --- !u!1 &711211192
 GameObject:
   m_ObjectHideFlags: 0
@@ -17369,9 +17371,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1041626141}
-  - component: {fileID: 1041626142}
   m_Layer: 0
-  m_Name: WindowBrokenAudio
+  m_Name: WindowBrokenAudioTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17392,103 +17393,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 510108117}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &1041626142
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1041626140}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 60
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &1043506122
 GameObject:
   m_ObjectHideFlags: 0
@@ -17522,6 +17426,7 @@ MonoBehaviour:
   UIDeveloperMode: {fileID: 933509227}
   timeManager: {fileID: 0}
   dialManager: {fileID: 0}
+  audioMixer: {fileID: 24100000, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
 --- !u!4 &1043506124
 Transform:
   m_ObjectHideFlags: 0
@@ -38567,7 +38472,7 @@ PrefabInstance:
     - target: {fileID: 8521638945783482097, guid: 691678736f2b21b4fa55c012b2201914, type: 3}
       propertyPath: audioSource3D
       value: 
-      objectReference: {fileID: 1041626142}
+      objectReference: {fileID: 0}
     - target: {fileID: 8521638945783482097, guid: 691678736f2b21b4fa55c012b2201914, type: 3}
       propertyPath: noiseaudioSource
       value: 
@@ -38585,9 +38490,33 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 09ddac16b9ebe364ea47b96166958729, type: 3}
     - target: {fileID: 8521638945783482097, guid: 691678736f2b21b4fa55c012b2201914, type: 3}
+      propertyPath: delayBrokenWindow
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 8521638945783482097, guid: 691678736f2b21b4fa55c012b2201914, type: 3}
+      propertyPath: crystalBreakTransform
+      value: 
+      objectReference: {fileID: 1041626141}
+    - target: {fileID: 8521638945783482097, guid: 691678736f2b21b4fa55c012b2201914, type: 3}
+      propertyPath: trainStopSoundData.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: fe4e393e09cc26942925c784a78b3e96, type: 3}
+    - target: {fileID: 8521638945783482097, guid: 691678736f2b21b4fa55c012b2201914, type: 3}
+      propertyPath: trainStopSoundData2.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 3bd5756fb0f518043beed3dc78f1b811, type: 3}
+    - target: {fileID: 8521638945783482097, guid: 691678736f2b21b4fa55c012b2201914, type: 3}
+      propertyPath: crystalBreakSoundData.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 09ddac16b9ebe364ea47b96166958729, type: 3}
+    - target: {fileID: 8521638945783482097, guid: 691678736f2b21b4fa55c012b2201914, type: 3}
       propertyPath: dialogueManagers.Array.size
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 8521638945783482097, guid: 691678736f2b21b4fa55c012b2201914, type: 3}
+      propertyPath: trainStopSoundData.mixerGroup
+      value: 
+      objectReference: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
     - target: {fileID: 8521638945783482097, guid: 691678736f2b21b4fa55c012b2201914, type: 3}
       propertyPath: 'dialogueManagers.Array.data[0]'
       value: 
@@ -38604,6 +38533,18 @@ PrefabInstance:
       propertyPath: 'dialogueManagers.Array.data[3]'
       value: 
       objectReference: {fileID: 1666334512}
+    - target: {fileID: 8521638945783482097, guid: 691678736f2b21b4fa55c012b2201914, type: 3}
+      propertyPath: trainStopSoundData2.mixerGroup
+      value: 
+      objectReference: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
+    - target: {fileID: 8521638945783482097, guid: 691678736f2b21b4fa55c012b2201914, type: 3}
+      propertyPath: crystalBreakSoundData.mixerGroup
+      value: 
+      objectReference: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
+    - target: {fileID: 8521638945783482097, guid: 691678736f2b21b4fa55c012b2201914, type: 3}
+      propertyPath: crystalBreakSoundData.secondsDelay
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
