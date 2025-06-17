@@ -34,6 +34,14 @@ namespace SoundSystem
         }
         public void Play()
         {
+            PlayBase().Play();
+        }
+        public void PlayWithDelay(SoundData soundData)
+        {
+            PlayBase().PlayWithDelay(soundData.secondsDelay);
+        }
+        private SoundEmitter PlayBase()
+        {
             SoundEmitter soundEmitter = soundManager.Get();
             soundEmitter.Initialize(soundData);
             soundEmitter.transform.position = position;
@@ -42,8 +50,9 @@ namespace SoundSystem
 
             if (randomPitch) soundEmitter.WithRandomPitch();
 
-            soundEmitter.Play();
+            return soundEmitter;
         }
+        
         //If it's 3d, should add WithSoundPosition and automatically makes it 3d
         //Uncomment if need this without a position
         /*public SoundBuilder With3D()

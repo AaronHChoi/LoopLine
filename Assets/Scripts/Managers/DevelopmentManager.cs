@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class DevelopmentManager : MonoBehaviour
@@ -10,6 +11,7 @@ public class DevelopmentManager : MonoBehaviour
     [SerializeField] TimeManager timeManager;
     [SerializeField] DialogueManager dialManager;
 
+    [SerializeField] private AudioMixer audioMixer;
     private Dictionary<AudioSource, float> audiosVolumeDic;
     bool isCursorVisible = false;
     bool isUIActive = false;
@@ -116,6 +118,14 @@ public class DevelopmentManager : MonoBehaviour
             {
                 audio.Key.volume = audio.Value;
             }
+        }
+        if (GameManager.Instance.isMuted)
+        {
+            audioMixer.SetFloat("Master", -80f);
+        }
+        else
+        {
+            audioMixer.SetFloat("Master", 0f);
         }
     }
     public void LoadMainLevel()

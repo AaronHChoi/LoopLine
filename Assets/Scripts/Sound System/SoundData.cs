@@ -11,4 +11,5 @@ public class SoundData
     public bool isALoop;
     public bool isAPlayOnAwake;
     [Range(0f,1f)] public float volume = 1f;
+    public float secondsDelay = 0;
 }
