@@ -118,7 +118,16 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
     }
     public void StopAndFinishDialogue() //Metodo para parar dialogos
     {
-        if(actualSpeaker != null)
+        dialogueUI.gameObject.SetActive(false);
+        if (actualSpeaker.isDialogueActive)
+        {
+            ShowUI(false, true);
+        }
+        else
+        {
+            ShowUI(false, false);
+        }
+        if (actualSpeaker != null)
         {
             foreach (var dialogue in actualSpeaker.AvailableDialogs)
             {
@@ -128,8 +137,6 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
             actualSpeaker.DialogueLocalIndex = 0;
             actualSpeaker.isDialogueActive = false;
         }
-        dialogueUI.gameObject.SetActive(false);
-        ShowUI(false, true);
     }
 }
 public interface IDialogueManager
