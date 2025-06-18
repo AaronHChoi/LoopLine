@@ -8901,6 +8901,7 @@ GameObject:
   - component: {fileID: 453662485}
   - component: {fileID: 453662484}
   - component: {fileID: 453662483}
+  - component: {fileID: 453662486}
   m_Layer: 3
   m_Name: Doors 3
   m_TagString: Untagged
@@ -9062,8 +9063,29 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0944862, y: 4.364887, z: 3.0338805}
-  m_Center: {x: 0.04724312, y: -0.48118794, z: 1.7094811}
+  m_Size: {x: 0.5272403, y: 0.29484785, z: 0.28053117}
+  m_Center: {x: 0.15941659, y: -0.7741863, z: 1.4464802}
+--- !u!65 &453662486
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 453662481}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.5459604, y: 0.2634207, z: 0.28294706}
+  m_Center: {x: 0.1677526, y: -0.7635854, z: 1.9983714}
 --- !u!1 &465367159
 GameObject:
   m_ObjectHideFlags: 0
@@ -33658,12 +33680,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DialogueEvents:
-  - EventName: TrainStop
+  - EventName: E1-StopTrain
     DialoguesToAdd:
     - {fileID: 11400000, guid: 864997e7d71cceb4f8fe2376146a7e8e, type: 2}
     - {fileID: 11400000, guid: a4edf1ac4e1dd3c40ba3e112d20d9977, type: 2}
     - {fileID: 11400000, guid: 8b228abe808fd3e4686c6d03492b0c44, type: 2}
-  - EventName: BreakWindow
+  - EventName: E1-BrokenWindow
     DialoguesToAdd:
     - {fileID: 11400000, guid: da1e69e06ac977841a3ae1f37c437a2c, type: 2}
     - {fileID: 11400000, guid: ed5edbe4ef3c5114b85446248a065d5f, type: 2}

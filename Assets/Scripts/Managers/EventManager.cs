@@ -92,7 +92,6 @@ public class EventManager : Subject, IDependencyInjectable
     {
         if (!brokenWindow && timeManager.LoopTime <= 60 && timeManager.LoopTime >= 55)
         {
-
             SoundManager.Instance.CreateSound()
                 .WithSoundData(crystalBreakSoundData)
                 .WithSoundPosition(crystalBreakTransform.position)
@@ -122,16 +121,14 @@ public class EventManager : Subject, IDependencyInjectable
     {
         foreach (DialogueSOManager dialogueManager in dialogueManagers)
         {
-            if(dialogueManager.firstInteractionAfterCheck)
-                dialogueManager.TriggerEventDialogue("E1-StopTrain");
+            dialogueManager.TriggerEventDialogue("E1-StopTrain");
         }
     }
     private void EventBrokenWindow()
     {
         foreach (DialogueSOManager dialogueManager in dialogueManagers)
         {
-            if (dialogueManager.firstInteractionAfterCheck)
-                dialogueManager.TriggerEventDialogue("E1-BrokenWindow");
+            dialogueManager.TriggerEventDialogue("E1-BrokenWindow");
         }
     }
     //public void AfterFirstInteraction(string _name)
