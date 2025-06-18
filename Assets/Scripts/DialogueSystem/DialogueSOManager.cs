@@ -12,17 +12,11 @@ public class DialogueSOManager : MonoBehaviour
     public List<DialogueEvent> DialogueEvents;
     public DialogueSpeaker dialogueSpeaker;
     [SerializeField] public string NPCname;
-    [SerializeField] public bool firstInteractionAfterCheck;
-
 
     #region MAGIG_METHODS
     private void Awake()
     {
         dialogueSpeaker = GetComponent<DialogueSpeaker>();
-    }
-    private void Start()
-    {
-        firstInteractionAfterCheck = false;
     }
     #endregion
     public void TriggerEventDialogue(string _eventName)
