@@ -7340,6 +7340,7 @@ MonoBehaviour:
   closeDoorsAfterTime: 5
   doorLeftMovement: {x: 1, y: 0, z: 0}
   doorRightMovement: {x: -1, y: 0, z: 0}
+  colliderDoor: []
 --- !u!65 &252115369
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9763,6 +9764,14 @@ PrefabInstance:
     - target: {fileID: 3049267596739896398, guid: 23e3a961eda479c42a5ecf9984a139f7, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061642572826632793, guid: 23e3a961eda479c42a5ecf9984a139f7, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 471.2532
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061642572826632793, guid: 23e3a961eda479c42a5ecf9984a139f7, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 235.62659
       objectReference: {fileID: 0}
     - target: {fileID: 8795225627281821828, guid: 23e3a961eda479c42a5ecf9984a139f7, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -16294,6 +16303,7 @@ MonoBehaviour:
   closeDoorsAfterTime: 5
   doorLeftMovement: {x: 1, y: 0, z: 0}
   doorRightMovement: {x: -1, y: 0, z: 0}
+  colliderDoor: []
 --- !u!65 &1968437733
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17179,6 +17189,7 @@ MonoBehaviour:
   closeDoorsAfterTime: 5
   doorLeftMovement: {x: 1, y: 0, z: 0}
   doorRightMovement: {x: -1, y: 0, z: 0}
+  colliderDoor: []
 --- !u!65 &2103449575
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21259,14 +21270,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   correctWords:
-  - "T\xEDmido"
-  - Callado
-  - Solitario
+  - Observadora
+  - Atenta
   incorrectWords:
-  - "Met\xE1lico"
-  - "\xC1rbol"
-  - Pancho
-  - Casa
+  - Curiosa
+  - Distante
+  - Distraida
   correctWordsObject: []
   incorrectWordsObject: []
   words:
