@@ -1,6 +1,6 @@
-using UnityEngine;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueManager
 {
@@ -129,7 +129,7 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
             actualSpeaker.isDialogueActive = false;
         }
         dialogueUI.gameObject.SetActive(false);
-        ShowUI(false, true);
+        ShowUI(false, false);
     }
 }
 public interface IDialogueManager

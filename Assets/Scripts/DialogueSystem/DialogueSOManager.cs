@@ -14,7 +14,7 @@ public class DialogueSOManager : MonoBehaviour
     [SerializeField] public string NPCname;
     [SerializeField] public bool firstInteractionAfterCheck;
 
-    [SerializeField] private List<DialogueSO> dialoguesToCheck;
+    //[SerializeField] private List<DialogueSO> dialoguesToCheck;
 
     IEventManager eventManager;
 
