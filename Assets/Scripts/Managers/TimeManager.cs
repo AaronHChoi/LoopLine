@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class TimeManager : MonoBehaviour, IDependencyInjectable, ISkipeable
@@ -67,6 +68,16 @@ public class TimeManager : MonoBehaviour, IDependencyInjectable, ISkipeable
     public void SkipDialogue()
     {
         loopTime -= secondsPunishForSkip;
+    }
+
+    public string returnTimeInMinutes()
+    {
+        int minutos = Mathf.FloorToInt(loopTime / 60f);
+        int segundos = Mathf.FloorToInt(LoopTime % 60f);
+
+        string resultado = string.Format("{0:00}:{1:00}", minutos, segundos);
+
+        return resultado;
     }
 }
 public interface ISkipeable
