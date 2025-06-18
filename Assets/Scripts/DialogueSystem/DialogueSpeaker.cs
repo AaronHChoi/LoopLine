@@ -19,25 +19,19 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
 
     IUIManager uiManager;
     IEventManager eventManager2;
+    #region MAGIC_METHODS
     private void Awake()
     {
         dialogueSOManager = GetComponent<DialogueSOManager>();
         InjectDependencies(DependencyContainer.Instance);
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
     }
-    public void InjectDependencies(DependencyContainer provider)
-    {
-        developmentManager = provider.DevelopmentManager;
-        eventManager = provider.SubjectEventManager;
-    }
     private void Start()
     {
         dialogueIndex = 0;
         DialogueLocalIndex = 0;
 
-        //
         DialogueRefresh();
-        //
     }
     public void OnNotify(Events _event)
     {
@@ -51,6 +45,12 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     private void OnDisable()
     {
         eventManager.RemoveObserver(this);
+    }
+    #endregion
+    public void InjectDependencies(DependencyContainer provider)
+    {
+        developmentManager = provider.DevelopmentManager;
+        eventManager = provider.SubjectEventManager;
     }
     public void DialogueTrigger()
     {
@@ -118,7 +118,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     public void EndDialogue()
     {
         isDialogueActive = false;
-        dialogueSOManager.CheckFirstInteraction();
+        //dialogueSOManager.CheckFirstInteraction();
     }
     bool DialogueUpdate()
     {
