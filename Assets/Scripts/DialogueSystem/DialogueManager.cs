@@ -129,7 +129,7 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
             actualSpeaker.isDialogueActive = false;
         }
         dialogueUI.gameObject.SetActive(false);
-        ShowUI(false, false);
+        ShowUI(false, true);
     }
 }
 public interface IDialogueManager
