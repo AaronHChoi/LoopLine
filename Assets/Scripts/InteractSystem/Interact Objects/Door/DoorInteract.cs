@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class DoorInteract : MonoBehaviour, IInteract
@@ -15,9 +16,12 @@ public class DoorInteract : MonoBehaviour, IInteract
     private Vector3 doorLeftPosOpen, doorRightPosOpen;
     private Vector3 doorLeftClosed, doorRightClosed;
     private bool isOpen = false;
+
+    [SerializeField] BoxCollider[] colliderDoor;
     private void Awake()
     {
         openDoor = GetComponent<AudioSource>();
+        colliderDoor = GetComponents<BoxCollider>();
     }
     void Start()
     {
@@ -41,10 +45,30 @@ public class DoorInteract : MonoBehaviour, IInteract
     private void ToggleDoors()
     {
         StopAllCoroutines();
-        StartCoroutine(MoveDoors(isOpen ? doorLeftClosed : doorLeftPosOpen, isOpen ? doorRightClosed : doorRightPosOpen));
+        if (isOpen)
+        {
+            //SetColliderState(true);
+            StartCoroutine(ActiveColliderWithDelay());
+        }
+        else
+        {
+            SetColliderState(false);
+        }
+            StartCoroutine(MoveDoors(isOpen ? doorLeftClosed : doorLeftPosOpen, isOpen ? doorRightClosed : doorRightPosOpen));
         isOpen = !isOpen;
     }
-
+    void SetColliderState(bool state)
+    {
+        foreach (var collider in colliderDoor)
+        {
+            collider.enabled = state;
+        }
+    }
+    IEnumerator ActiveColliderWithDelay()
+    {
+        yield return new WaitForSeconds(3f);
+        SetColliderState(true);
+    }
     private void Update()
     {
         if (isOpen)

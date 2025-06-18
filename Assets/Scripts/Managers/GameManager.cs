@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private ScreenManager screenManager;
     public string nextScene;
 
-    public int TrainLoop = 0;
+    public int TrainLoop = 0;   // CONTADOR DE LOOPS DEL TREN
     public int MindPlaceLoop = 0;
     public ScreenManager ScreenManager => screenManager;
     public bool CorrectWord101 = false;
