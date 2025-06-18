@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventManager : Subject, IDependencyInjectable, IEventManager
+public class EventManager : Subject, IDependencyInjectable
 {
     [Header("Sound System Event 1")]
     [SerializeField] private SoundData trainStopSoundData;
@@ -12,7 +12,7 @@ public class EventManager : Subject, IDependencyInjectable, IEventManager
     [SerializeField] private Transform crystalBreakTransform;
     [SerializeField] float delayBrokenWindow;
 
-    [SerializeField] float delayMonologue = 1f;
+    [SerializeField] float delayMonologue = 0.1f;
     private bool isWindowBroken = false;
 
     [SerializeField] bool start = true;
@@ -134,33 +134,29 @@ public class EventManager : Subject, IDependencyInjectable, IEventManager
                 dialogueManager.TriggerEventDialogue("E1-BrokenWindow");
         }
     }
-    public void AfterFirstInteraction(string _name)
-    {
-        foreach (DialogueSOManager dialogueManager in dialogueManagers)
-        {
-            if(dialogueManager.NPCname == _name)
-            {
-                if (start && !stopTrain && !brokenWindow)
-                {
-                    dialogueManager.TriggerEventDialogue("E1-Start");
-                } else if (!start && stopTrain && !brokenWindow)
-                {
-                    dialogueManager.TriggerEventDialogue("E1-StopTrain");
-                } else
-                {
-                    dialogueManager.TriggerEventDialogue("E1-BrokenWindow");
-                }
-            }
-        }
-    }
+    //public void AfterFirstInteraction(string _name)
+    //{
+    //    foreach (DialogueSOManager dialogueManager in dialogueManagers)
+    //    {
+    //        if(dialogueManager.NPCname == _name)
+    //        {
+    //            if (start && !stopTrain && !brokenWindow)
+    //            {
+    //                dialogueManager.TriggerEventDialogue("E1-Start");
+    //            } else if (!start && stopTrain && !brokenWindow)
+    //            {
+    //                dialogueManager.TriggerEventDialogue("E1-StopTrain");
+    //            } else
+    //            {
+    //                dialogueManager.TriggerEventDialogue("E1-BrokenWindow");
+    //            }
+    //        }
+    //    }
+    //}
     private IEnumerator StartSceneMonologue(float delay)
     {
         yield return new WaitForSeconds(delay);
         NotifyObservers(Events.TriggerMonologue);
         //uiManager.ShowUIText("Aprete F para saltear");
     }
-}
-public interface IEventManager
-{
-    void AfterFirstInteraction(string _name);
 }

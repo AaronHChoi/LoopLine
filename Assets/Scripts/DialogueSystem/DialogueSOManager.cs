@@ -14,15 +14,11 @@ public class DialogueSOManager : MonoBehaviour
     [SerializeField] public string NPCname;
     [SerializeField] public bool firstInteractionAfterCheck;
 
-    //[SerializeField] private List<DialogueSO> dialoguesToCheck;
-
-    IEventManager eventManager;
 
     #region MAGIG_METHODS
     private void Awake()
     {
         dialogueSpeaker = GetComponent<DialogueSpeaker>();
-        eventManager = InterfaceDependencyInjector.Instance.Resolve<IEventManager>();
     }
     private void Start()
     {
@@ -40,23 +36,7 @@ public class DialogueSOManager : MonoBehaviour
             if (!dialogueSpeaker.AvailableDialogs.Contains(dialogue))
                 dialogueSpeaker.AvailableDialogs.Add(dialogue);
         }
+
         dialogueSpeaker.dialogueIndex = 0;
     }
-    //public void CheckFirstInteraction()
-    //{
-    //    if (dialoguesToCheck == null || eventManager == null)
-    //    {
-    //        return; 
-    //    }
-
-    //    foreach (DialogueSO dialogue in dialoguesToCheck)
-    //    {
-    //        if (dialogue.Finished)
-    //        {
-    //            firstInteractionAfterCheck = true;
-    //            eventManager.AfterFirstInteraction(NPCname);
-    //            break;
-    //        }
-    //    }
-    //}
 }
