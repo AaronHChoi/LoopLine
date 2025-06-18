@@ -18,7 +18,6 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     DialogueSOManager dialogueSOManager;
 
     IUIManager uiManager;
-    IEventManager eventManager2;
     #region MAGIC_METHODS
     private void Awake()
     {
@@ -54,12 +53,12 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     }
     public void DialogueTrigger()
     {
-        if (AvailableDialogs == null || AvailableDialogs.Count == 0 || (dialogueIndex == AvailableDialogs.Count - 1 && AvailableDialogs[dialogueIndex].Finished))
-        {
-            //uiManager.ShowUIText("No hay dialogos disponibles.");
-            StartCoroutine(ExecuteAfterDelay());
-            return;
-        }
+        //if (AvailableDialogs == null || AvailableDialogs.Count == 0 || (dialogueIndex == AvailableDialogs.Count - 1 && AvailableDialogs[dialogueIndex].Finished))
+        //{
+        //    //uiManager.ShowUIText("No hay dialogos disponibles.");
+        //    StartCoroutine(ExecuteAfterDelay());
+        //    return;
+        //}
 
         developmentManager.DeactivateUIIfActive();
 
