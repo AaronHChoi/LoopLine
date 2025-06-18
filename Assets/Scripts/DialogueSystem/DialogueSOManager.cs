@@ -39,21 +39,21 @@ public class DialogueSOManager : MonoBehaviour
         }
         dialogueSpeaker.dialogueIndex = 0;
     }
-    public void CheckFirstInteraction()
-    {
-        if (dialoguesToCheck == null || eventManager == null)
-        {
-            return; 
-        }
+    //public void CheckFirstInteraction()
+    //{
+    //    if (dialoguesToCheck == null || eventManager == null)
+    //    {
+    //        return; 
+    //    }
 
-        foreach (DialogueSO dialogue in dialoguesToCheck)
-        {
-            if (dialogue.Finished)
-            {
-                firstInteractionAfterCheck = true;
-                eventManager.AfterFirstInteraction(NPCname);
-                break;
-            }
-        }
-    }
+    //    foreach (DialogueSO dialogue in dialoguesToCheck)
+    //    {
+    //        if (dialogue.Finished)
+    //        {
+    //            firstInteractionAfterCheck = true;
+    //            eventManager.AfterFirstInteraction(NPCname);
+    //            break;
+    //        }
+    //    }
+    //}
 }

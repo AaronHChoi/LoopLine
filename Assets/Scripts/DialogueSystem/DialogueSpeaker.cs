@@ -118,7 +118,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     public void EndDialogue()
     {
         isDialogueActive = false;
-        dialogueSOManager.CheckFirstInteraction();
+        //dialogueSOManager.CheckFirstInteraction();
     }
     bool DialogueUpdate()
     {

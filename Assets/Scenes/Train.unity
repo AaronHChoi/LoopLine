@@ -2066,7 +2066,7 @@ GameObject:
   - component: {fileID: 205478737}
   - component: {fileID: 205478739}
   - component: {fileID: 205478738}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8925,6 +8925,7 @@ MonoBehaviour:
   closeDoorsAfterTime: 5
   doorLeftMovement: {x: 1, y: 0, z: 0}
   doorRightMovement: {x: -1, y: 0, z: 0}
+  colliderDoor: []
 --- !u!65 &453662485
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10280,7 +10281,7 @@ GameObject:
   - component: {fileID: 533169675}
   - component: {fileID: 533169674}
   - component: {fileID: 533169673}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Door_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10661,7 +10662,7 @@ GameObject:
   - component: {fileID: 584044706}
   - component: {fileID: 584044705}
   - component: {fileID: 584044704}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube.124
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17628,7 +17629,7 @@ GameObject:
   - component: {fileID: 1088938930}
   - component: {fileID: 1088938929}
   - component: {fileID: 1088938928}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Door_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25890,7 +25891,7 @@ GameObject:
   - component: {fileID: 1353195885}
   - component: {fileID: 1353195884}
   - component: {fileID: 1353195883}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube.125
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31479,6 +31480,7 @@ MonoBehaviour:
   closeDoorsAfterTime: 5
   doorLeftMovement: {x: 1, y: 0, z: 0}
   doorRightMovement: {x: -1, y: 0, z: 0}
+  colliderDoor: []
 --- !u!65 &1438418205
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -33073,7 +33075,7 @@ GameObject:
   - component: {fileID: 1614996277}
   - component: {fileID: 1614996276}
   - component: {fileID: 1614996278}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Door.010
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34501,6 +34503,7 @@ GameObject:
   - component: {fileID: 1767160696}
   - component: {fileID: 1767160695}
   - component: {fileID: 1767160694}
+  - component: {fileID: 1767160697}
   m_Layer: 3
   m_Name: Doors 2
   m_TagString: Untagged
@@ -34642,6 +34645,7 @@ MonoBehaviour:
   closeDoorsAfterTime: 5
   doorLeftMovement: {x: 1, y: 0, z: 0}
   doorRightMovement: {x: -1, y: 0, z: 0}
+  colliderDoor: []
 --- !u!65 &1767160696
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -34661,8 +34665,29 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 3.8557394, z: 3.3530993}
-  m_Center: {x: -1.4210855e-14, y: -0.73576176, z: 1.7505453}
+  m_Size: {x: 0.5272403, y: 0.29484785, z: 0.28053117}
+  m_Center: {x: 0.15941659, y: -0.7741863, z: 1.4464802}
+--- !u!65 &1767160697
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1767160692}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.5459604, y: 0.2634207, z: 0.28294706}
+  m_Center: {x: 0.1677526, y: -0.7635854, z: 1.9983714}
 --- !u!1 &1772180517
 GameObject:
   m_ObjectHideFlags: 0
@@ -37143,7 +37168,7 @@ GameObject:
   - component: {fileID: 2001269343}
   - component: {fileID: 2001269342}
   - component: {fileID: 2001269344}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Door.011
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37593,7 +37618,7 @@ GameObject:
   - component: {fileID: 2025231431}
   - component: {fileID: 2025231433}
   - component: {fileID: 2025231432}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
