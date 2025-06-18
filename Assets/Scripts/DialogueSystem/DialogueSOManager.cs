@@ -17,6 +17,8 @@ public class DialogueSOManager : MonoBehaviour
     [SerializeField] private List<DialogueSO> dialoguesToCheck;
 
     IEventManager eventManager;
+
+    #region MAGIG_METHODS
     private void Awake()
     {
         dialogueSpeaker = GetComponent<DialogueSpeaker>();
@@ -26,6 +28,7 @@ public class DialogueSOManager : MonoBehaviour
     {
         firstInteractionAfterCheck = false;
     }
+    #endregion
     public void TriggerEventDialogue(string _eventName)
     {
         DialogueEvent dialogueEvent = DialogueEvents.Find(e => e.EventName == _eventName);
