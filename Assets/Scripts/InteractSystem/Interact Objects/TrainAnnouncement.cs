@@ -4,9 +4,11 @@ using TMPro;
 public class TrainAnnouncement : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI announcementText;
-    [Range(0, 23)] public int startHour = 16;
-    [Range(0, 59)] public int startMinute = 0;
+    [Range(0, 23)] public int startHour;
+    [Range(0, 59)] public int startMinute;
     [SerializeField] private string nextStationName;
+
+    [SerializeField] private float realTimeScale;
 
     [SerializeField] private float resetTextTimer;
     [SerializeField] private float textSpeed;
@@ -30,7 +32,7 @@ public class TrainAnnouncement : MonoBehaviour
         timeAccumulator += Time.deltaTime;
         moveTimer += Time.deltaTime;
 
-        if (timeAccumulator >= 1f)
+        if (timeAccumulator >= realTimeScale)
         {
             currentTime++;
             timeAccumulator = 0f;

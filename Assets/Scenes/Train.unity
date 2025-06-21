@@ -225,7 +225,7 @@ GameObject:
   - component: {fileID: 38594694}
   - component: {fileID: 38594693}
   m_Layer: 5
-  m_Name: CrosshairTiny
+  m_Name: CrosshairSmall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -270,7 +270,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: ae75e10615239ec49bffae562420ceb2, type: 3}
+  m_Texture: {fileID: 2800000, guid: c21784cf9b615a34589b14f53f4f83f2, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -2691,9 +2691,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 250232796}
+  - component: {fileID: 250232797}
   - component: {fileID: 250232799}
   - component: {fileID: 250232798}
-  - component: {fileID: 250232797}
   m_Layer: 3
   m_Name: Doors
   m_TagString: Untagged
@@ -8942,8 +8942,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 453662482}
-  - component: {fileID: 453662485}
   - component: {fileID: 453662484}
+  - component: {fileID: 453662485}
   - component: {fileID: 453662483}
   - component: {fileID: 453662486}
   m_Layer: 3
@@ -13397,11 +13397,11 @@ Transform:
   - {fileID: 250232796}
   - {fileID: 1767160693}
   - {fileID: 453662482}
+  - {fileID: 2026567325}
   - {fileID: 1976322697}
   - {fileID: 1414873820}
-  - {fileID: 2026567325}
-  - {fileID: 1851069789}
   - {fileID: 1348284412}
+  - {fileID: 1851069789}
   - {fileID: 1440802257}
   - {fileID: 1945950362}
   - {fileID: 1806260566}
@@ -23958,6 +23958,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f2f8c473a0557814798bcd3bca0cd839, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -31007,13 +31011,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1440802257}
-  - component: {fileID: 1440802256}
-  - component: {fileID: 1440802255}
   - component: {fileID: 1440802254}
   - component: {fileID: 1440802253}
   - component: {fileID: 1440802258}
   m_Layer: 0
-  m_Name: Collider
+  m_Name: Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31061,59 +31063,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.101946495, y: 1, z: 1}
   m_Center: {x: -0.44902557, y: 0, z: 0}
---- !u!23 &1440802255
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1440802252}
-  m_Enabled: 0
-  m_CastShadows: 0
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1440802256
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1440802252}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &1440802257
 Transform:
   m_ObjectHideFlags: 0
@@ -33669,8 +33618,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1767160693}
-  - component: {fileID: 1767160696}
   - component: {fileID: 1767160695}
+  - component: {fileID: 1767160696}
   - component: {fileID: 1767160694}
   - component: {fileID: 1767160697}
   m_Layer: 3
@@ -34317,10 +34266,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1806260566}
+  - component: {fileID: 1806260562}
   - component: {fileID: 1806260565}
   - component: {fileID: 1806260564}
   - component: {fileID: 1806260563}
-  - component: {fileID: 1806260562}
   m_Layer: 3
   m_Name: Announcement (1)
   m_TagString: Untagged
@@ -34344,8 +34293,9 @@ MonoBehaviour:
   startHour: 14
   startMinute: 0
   nextStationName: ...
+  realTimeScale: 5
   resetTextTimer: 20
-  textSpeed: 1
+  textSpeed: 0.8
 --- !u!114 &1806260563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36143,10 +36093,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1945950362}
+  - component: {fileID: 1945950363}
   - component: {fileID: 1945950366}
   - component: {fileID: 1945950365}
   - component: {fileID: 1945950364}
-  - component: {fileID: 1945950363}
   m_Layer: 3
   m_Name: Announcement
   m_TagString: Untagged
@@ -36186,8 +36136,9 @@ MonoBehaviour:
   startHour: 14
   startMinute: 0
   nextStationName: ...
+  realTimeScale: 5
   resetTextTimer: 20
-  textSpeed: 1
+  textSpeed: 0.8
 --- !u!114 &1945950364
 MonoBehaviour:
   m_ObjectHideFlags: 0
