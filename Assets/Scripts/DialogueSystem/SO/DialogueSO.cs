@@ -15,6 +15,7 @@ public class DialogueSO : ScriptableObject
     public bool Finished;
     public bool ReUse;
     public bool Skipeable;
+    public bool AddToWhiteboard;
 
     public Line[] Dialogues;
     public QuestionSO Questions;

@@ -41,6 +41,7 @@ public class DevelopmentManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && UIPrinciplal != null && !dialManager.isDialogueActive)
         {
             ToggleUI();
+            timeManager.PauseTime();
         }
     }
     private void ToggleUI()
@@ -65,6 +66,7 @@ public class DevelopmentManager : MonoBehaviour
 
             playerController.SetCinemachineController(true);
 
+            timeManager.PauseTime();
             UpdateCursorState();
         }
     }
