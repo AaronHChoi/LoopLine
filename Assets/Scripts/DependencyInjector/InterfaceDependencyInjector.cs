@@ -9,6 +9,7 @@ public class InterfaceDependencyInjector : MonoBehaviour, IDependencyInjectable
     private readonly Dictionary<System.Type, object> services = new();
 
     FocusModeManager focusModeManager;
+    NoteBookManager noteBookManager;
     CinemachinePOVExtension cinemachinePOVExtension;
     PlayerInputHandler playerInputHandler;
     PlayerCamera playerCamera;
@@ -33,6 +34,7 @@ public class InterfaceDependencyInjector : MonoBehaviour, IDependencyInjectable
     public void InjectDependencies(DependencyContainer provider)
     {
         focusModeManager = provider.FocusModeManager;
+        noteBookManager = provider.NoteBookManager;
         cinemachinePOVExtension = provider.CinemachinePOVExtension;
         playerInputHandler = provider.PlayerInputHandler;
         playerCamera = provider.PlayerCamera;
@@ -46,6 +48,7 @@ public class InterfaceDependencyInjector : MonoBehaviour, IDependencyInjectable
     private void InitializeInterfaces()
     {
         Register<IColliderToggle>(focusModeManager);
+        Register<INoteBookColliderToggle>(noteBookManager);
         Register<ICameraOrientation>(cinemachinePOVExtension);
         Register<IPlayerInputHandler>(playerInputHandler);
         Register<IPlayerCamera>(playerCamera);
