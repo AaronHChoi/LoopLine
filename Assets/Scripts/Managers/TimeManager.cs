@@ -7,6 +7,7 @@ public class TimeManager : MonoBehaviour, IDependencyInjectable, ISkipeable
     GameSceneManager gameSceneManager;
 
     float loopTime = 360f;
+    private bool IsTimePaused = false;  
     public float LoopTime
     {
         get => loopTime;
@@ -37,7 +38,11 @@ public class TimeManager : MonoBehaviour, IDependencyInjectable, ISkipeable
         {
             LoopTime = 5f;
         }
-        AdvanceTime();
+        if (!IsTimePaused)
+        {
+            AdvanceTime();
+        }
+        
     }
     public void ResetLoopTime()
     {
@@ -64,6 +69,11 @@ public class TimeManager : MonoBehaviour, IDependencyInjectable, ISkipeable
             ResetLoopTime();
             gameSceneManager.LoadNextScene(GameManager.Instance.nextScene);
         }
+    }
+
+    public void PauseTime()
+    {
+        IsTimePaused = !IsTimePaused;
     }
     public void SkipDialogue()
     {

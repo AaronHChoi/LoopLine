@@ -17,6 +17,7 @@ public class DependencyContainer : MonoBehaviour
     public QuestionManager QuestionManager { get; private set; }
     public EventManager EventManager { get; private set; }
     public SoundManager SoundManager { get; private set; }
+    public NoteBookManager NoteBookManager { get; private set; }
     #endregion
 
     #region PLAYER
@@ -29,6 +30,7 @@ public class DependencyContainer : MonoBehaviour
     public Parallax Parallax { get; private set; }
     public CinemachineCamera CinemachineCamera { get; private set; }
     public CinemachinePOVExtension CinemachinePOVExtension { get; private set; }
+
     public FocusModeManager FocusModeManager { get; private set; }
 
 
@@ -64,6 +66,7 @@ public class DependencyContainer : MonoBehaviour
         PlayerView = FindAndValidate<PlayerView>();
         EventManager = FindAndValidate<EventManager>();
         SoundManager = FindAndValidate<SoundManager>();
+        NoteBookManager = FindAndValidate<NoteBookManager>();
     }
     private T FindAndValidate<T>() where T : MonoBehaviour
     {
