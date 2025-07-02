@@ -10,11 +10,12 @@ public class NoteBookManager : MonoBehaviour, INoteBookColliderToggle
     public Transform playerTPPosition;
     public bool isNPCActive = false;
 
-    [SerializeField] GameObject[] NooteBookOpen;
+    [SerializeField] GameObject[] NooteBookOpne;
+    [SerializeField] GameObject[] test;
 
     public void ToggleColliders(bool isActive)
     {
-        ToggleGameObjects(NooteBookOpen, !isActive);
+        ToggleGameObjects(NooteBookOpne, !isActive);
     }
     private void ToggleGameObjects(GameObject[] gameObjects, bool state)
     {
@@ -24,11 +25,8 @@ public class NoteBookManager : MonoBehaviour, INoteBookColliderToggle
 
             if (obj.TryGetComponent(out BoxCollider box))
                 box.enabled = state;
-            if (obj.tag == "NoteBook")
-            {
-                obj.SetActive(state);
-            }
         }
+        GameManager.Instance.test = state;
     }
 }
 
