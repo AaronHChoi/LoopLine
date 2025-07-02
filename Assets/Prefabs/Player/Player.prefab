@@ -108,6 +108,7 @@ GameObject:
   - component: {fileID: 1732922333188898066}
   - component: {fileID: 3841724941957440755}
   - component: {fileID: 489988536104913948}
+  - component: {fileID: 8140536899035517353}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -181,6 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0599f00aebe508458fb45f9f6658a1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterController: {fileID: 0}
 --- !u!114 &7046774766287870829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,6 +359,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 0de26ab9ce58abc45a09df8f365ad354, type: 2}
     - {fileID: 11400000, guid: a295c2cf01d5a1745b3278ef27c9287e, type: 2}
   dialogueSpeaker: {fileID: 0}
+  NPCname: 
 --- !u!114 &3185304443358567593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -418,6 +421,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a7660729301b964f91de30f1399de34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8140536899035517353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965095351449339405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55f7d76c521e89941b61aaf8f5457671, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crosshairImage: {fileID: 0}
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  maxAngle: 25
+  detectionRadius: 15
+  detectionDistance: 3
 --- !u!1 &3780014622783971460
 GameObject:
   m_ObjectHideFlags: 0
