@@ -13,21 +13,45 @@ public class DialogueSOManager : MonoBehaviour
     public DialogueSpeaker dialogueSpeaker;
     [SerializeField] public string NPCname;
 
-    #region MAGIG_METHODS
+    #region MAGIC_METHODS
     private void Awake()
     {
         dialogueSpeaker = GetComponent<DialogueSpeaker>();
     }
     #endregion
+
     public void TriggerEventDialogue(string _eventName)
     {
+        if (DialogueEvents == null)
+        {
+            Debug.LogWarning("DialogueEvents list is null.");
+            return;
+        }
+
         DialogueEvent dialogueEvent = DialogueEvents.Find(e => e.EventName == _eventName);
+        if (dialogueEvent == null)
+        {
+            Debug.LogWarning($"Dialogue event '{_eventName}' not found.");
+            return;
+        }
+
+        if (dialogueSpeaker == null)
+        {
+            Debug.LogWarning("DialogueSpeaker component is missing.");
+            return;
+        }
 
         dialogueSpeaker.AvailableDialogs.Clear();
 
+        if (dialogueEvent.DialoguesToAdd == null)
+        {
+            Debug.LogWarning($"DialoguesToAdd is null for event '{_eventName}'.");
+            return;
+        }
+
         foreach (DialogueSO dialogue in dialogueEvent.DialoguesToAdd)
         {
-            if (!dialogueSpeaker.AvailableDialogs.Contains(dialogue))
+            if (dialogue != null && !dialogueSpeaker.AvailableDialogs.Contains(dialogue))
                 dialogueSpeaker.AvailableDialogs.Add(dialogue);
         }
 

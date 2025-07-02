@@ -21,11 +21,12 @@ public class EventManager : Subject, IDependencyInjectable
     private bool stopTrain2 = false;
     private Coroutine coroutineDelay;
 
+    [SerializeField] private QuestionSO stopTrainQuestion;
+
     [Header("Dialogues Managers")] //Referencias manuales
     [SerializeField] List<DialogueSOManager> dialogueManagers = new List<DialogueSOManager>();
-    [SerializeField] DialogueSOManager workingMan;
+
     [SerializeField] DialogueSOManager player;
-    [SerializeField] DialogueSOManager peek;
 
     TimeManager timeManager;
 
@@ -43,11 +44,16 @@ public class EventManager : Subject, IDependencyInjectable
     }
     private void Start()
     {
-        if(GameManager.Instance.TrainLoop == 1)
+        if (GameManager.Instance.TrainLoop == 1)
         {
             player.TriggerEventDialogue("Train2");
         }
         StartCoroutine(StartSceneMonologue(delayMonologue));
+    }
+    public void InitializeDialogues()
+    {
+        stopTrainQuestion.Options[3].Choosen = true;
+        stopTrainQuestion.Options[4].Choosen = true;
     }
     void Update()
     {
@@ -71,6 +77,8 @@ public class EventManager : Subject, IDependencyInjectable
 
                 start = false;
                 stopTrain = true;
+
+                stopTrainQuestion.Options[3].Choosen = false;
 
                 EventStopTrain();
             }
@@ -112,6 +120,7 @@ public class EventManager : Subject, IDependencyInjectable
     private IEnumerator DelayTimer(float delaySeconds)
     {
         yield return new WaitForSeconds(delaySeconds);
+        stopTrainQuestion.Options[4].Choosen = false;
         EventBrokenWindow();
         NotifyObservers(Events.BreakCrystal);
     }
@@ -121,35 +130,16 @@ public class EventManager : Subject, IDependencyInjectable
     {
         foreach (DialogueSOManager dialogueManager in dialogueManagers)
         {
-            dialogueManager.TriggerEventDialogue("E1-StopTrain");
+            dialogueManager.TriggerEventDialogue("StopTrain");
         }
     }
     private void EventBrokenWindow()
     {
         foreach (DialogueSOManager dialogueManager in dialogueManagers)
         {
-            dialogueManager.TriggerEventDialogue("E1-BrokenWindow");
+            dialogueManager.TriggerEventDialogue("BreakWindow");
         }
     }
-    //public void AfterFirstInteraction(string _name)
-    //{
-    //    foreach (DialogueSOManager dialogueManager in dialogueManagers)
-    //    {
-    //        if(dialogueManager.NPCname == _name)
-    //        {
-    //            if (start && !stopTrain && !brokenWindow)
-    //            {
-    //                dialogueManager.TriggerEventDialogue("E1-Start");
-    //            } else if (!start && stopTrain && !brokenWindow)
-    //            {
-    //                dialogueManager.TriggerEventDialogue("E1-StopTrain");
-    //            } else
-    //            {
-    //                dialogueManager.TriggerEventDialogue("E1-BrokenWindow");
-    //            }
-    //        }
-    //    }
-    //}
     private IEnumerator StartSceneMonologue(float delay)
     {
         yield return new WaitForSeconds(delay);
