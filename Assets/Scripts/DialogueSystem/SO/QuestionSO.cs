@@ -9,6 +9,7 @@ public class Options
     public DialogueSO dialogue;
     public bool Choosen;
     public bool Hide;
+    public bool AddToWhiteboard;
 }
 
 [CreateAssetMenu(fileName = "Question", menuName = "Scriptable Object/New Question")]

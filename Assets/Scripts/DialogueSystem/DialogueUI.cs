@@ -65,7 +65,7 @@ public class DialogueUI : MonoBehaviour
         {
             case 0:
 
-                print("Dialogo actualizado");
+                //print("Dialogo actualizado");
                 name.text = Dialogue.Dialogues[localIndex].character.name;
                 StopAllCoroutines();
                 activeCoroutine = StartCoroutine(WriteText());
@@ -86,7 +86,7 @@ public class DialogueUI : MonoBehaviour
 
                 if(localIndex < Dialogue.Dialogues.Length - 1)
                 {
-                    print("Dialogo Siguiente");
+                    //print("Dialogo Siguiente");
                     localIndex++;
                     name.text = Dialogue.Dialogues[localIndex].character.name;
                     StopAllCoroutines();
@@ -100,7 +100,7 @@ public class DialogueUI : MonoBehaviour
                 }
                 else
                 {
-                    print("Dialogo Terminado");
+                    //print("Dialogo Terminado");
                     localIndex = 0;
                     DialogueManager.actualSpeaker.DialogueLocalIndex = 0;
                     Dialogue.Finished = true;

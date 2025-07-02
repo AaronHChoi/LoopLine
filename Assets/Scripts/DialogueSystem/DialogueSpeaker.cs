@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyInjectable
 {
@@ -141,14 +142,22 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
 
     public void Interact()
     {
-        if(AvailableDialogs == null || AvailableDialogs.Count == 0)
+        if(SceneManager.GetActiveScene().name == "MindPlace" && GameManager.Instance.test)
         {
-            //uiManager.ShowUIText("No hay dialogos disponibles");
-            StartCoroutine(ExecuteAfterDelay());
+            var clue = GetComponent<Clue>();
+            clue.Interact();
         }
         else
         {
-            DialogueTrigger();
+            if (AvailableDialogs == null || AvailableDialogs.Count == 0)
+            {
+                //uiManager.ShowUIText("No hay dialogos disponibles");
+                StartCoroutine(ExecuteAfterDelay());
+            }
+            else
+            {
+                DialogueTrigger();
+            }
         }
     }
     private IEnumerator ExecuteAfterDelay()

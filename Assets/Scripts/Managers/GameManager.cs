@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
 
     IDialogueManager dialogueManager;
     EventManager eventManager;
+    public bool test;
     private void Awake()
     {
         if (Instance == null)
