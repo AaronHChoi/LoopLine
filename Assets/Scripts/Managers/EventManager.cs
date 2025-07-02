@@ -120,6 +120,7 @@ public class EventManager : Subject, IDependencyInjectable
     private IEnumerator DelayTimer(float delaySeconds)
     {
         yield return new WaitForSeconds(delaySeconds);
+        stopTrainQuestion.Options[4].Choosen = false;
         EventBrokenWindow();
         NotifyObservers(Events.BreakCrystal);
     }
@@ -134,7 +135,6 @@ public class EventManager : Subject, IDependencyInjectable
     }
     private void EventBrokenWindow()
     {
-        stopTrainQuestion.Options[4].Choosen = false;
         foreach (DialogueSOManager dialogueManager in dialogueManagers)
         {
             dialogueManager.TriggerEventDialogue("BreakWindow");
