@@ -12,7 +12,6 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
     public bool isDialogueActive = false;
     
     public List<DialogueSO> AllDialogues = new List<DialogueSO>();
-    public List<QuestionSO> AllQuestions = new List<QuestionSO>();
 
     public QuestionManager QuestionManager
     {
@@ -117,16 +116,6 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
             }
         }
     }
-    public void ResetAllQuestions()
-    {
-        foreach (QuestionSO question in AllQuestions)
-        {
-            if(question != null)
-            {
-                question.ResetValues();
-            }
-        }
-    }
     public void StopAndFinishDialogue() //Metodo para parar dialogos
     {
         dialogueUI.gameObject.SetActive(false);
@@ -153,6 +142,5 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
 public interface IDialogueManager
 {
     void ResetAllDialogues();
-    void ResetAllQuestions();
     void StopAndFinishDialogue();
 }

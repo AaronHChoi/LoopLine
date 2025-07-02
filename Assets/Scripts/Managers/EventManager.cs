@@ -23,8 +23,9 @@ public class EventManager : Subject, IDependencyInjectable
 
     [Header("Dialogues Managers")] //Referencias manuales
     [SerializeField] List<DialogueSOManager> dialogueManagers = new List<DialogueSOManager>();
-
+    [SerializeField] DialogueSOManager workingMan;
     [SerializeField] DialogueSOManager player;
+    [SerializeField] DialogueSOManager peek;
 
     TimeManager timeManager;
 
@@ -130,6 +131,25 @@ public class EventManager : Subject, IDependencyInjectable
             dialogueManager.TriggerEventDialogue("E1-BrokenWindow");
         }
     }
+    //public void AfterFirstInteraction(string _name)
+    //{
+    //    foreach (DialogueSOManager dialogueManager in dialogueManagers)
+    //    {
+    //        if(dialogueManager.NPCname == _name)
+    //        {
+    //            if (start && !stopTrain && !brokenWindow)
+    //            {
+    //                dialogueManager.TriggerEventDialogue("E1-Start");
+    //            } else if (!start && stopTrain && !brokenWindow)
+    //            {
+    //                dialogueManager.TriggerEventDialogue("E1-StopTrain");
+    //            } else
+    //            {
+    //                dialogueManager.TriggerEventDialogue("E1-BrokenWindow");
+    //            }
+    //        }
+    //    }
+    //}
     private IEnumerator StartSceneMonologue(float delay)
     {
         yield return new WaitForSeconds(delay);

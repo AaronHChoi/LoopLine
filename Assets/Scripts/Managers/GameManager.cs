@@ -48,7 +48,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         dialogueManager.ResetAllDialogues();
-        dialogueManager.ResetAllQuestions();
     }
     public void SetBool(string key, bool value)
     {
