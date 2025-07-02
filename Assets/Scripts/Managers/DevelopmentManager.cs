@@ -97,6 +97,7 @@ public class DevelopmentManager : MonoBehaviour
     public void ResetDialogues()
     {
         dialogueManager.ResetAllDialogues();
+        dialogueManager.ResetAllQuestions();
     }
     public void ResetLevel()
     {

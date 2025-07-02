@@ -21,10 +21,15 @@ public class QuestionManager : MonoBehaviour
             {
                 if (i < _amount)
                 {
+                    int index = i;
                     poolButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = _options[i].option;
                     poolButtons[i].onClick.RemoveAllListeners();
-                    DialogueSO dial = _options[i].dialogue;
-                    poolButtons[i].onClick.AddListener(() => GiveFunctionToTheButton(dial));
+                    //DialogueSO dial = _options[i].dialogue;
+                    poolButtons[i].onClick.AddListener(() =>
+                    {
+                        _options[index].Choosen = true;
+                        GiveFunctionToTheButton(_options[index].dialogue);
+                    });
                     poolButtons[i].gameObject.SetActive(true);
                 }
                 else

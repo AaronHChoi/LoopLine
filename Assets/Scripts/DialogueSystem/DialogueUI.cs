@@ -111,7 +111,10 @@ public class DialogueUI : MonoBehaviour
                         questionContainer.SetActive(true);
                         var question = Dialogue.Questions;
                         name.text = question.CharacterName.name;
-                        DialogueManager.Instance.QuestionManager.ActivateButtons(question.Options.Length, question.Question, question.Options);
+
+                        Options[] availableOptions = System.Array.FindAll(question.Options, o => !o.Choosen);
+
+                        DialogueManager.Instance.QuestionManager.ActivateButtons(availableOptions.Length, question.Question, availableOptions);
 
                         isQuestionActive = true;
                         return;
