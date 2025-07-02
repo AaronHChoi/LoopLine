@@ -165,5 +165,6 @@ public interface IDialogueManager
 {
     void ResetAllDialogues();
     void ResetAllQuestions();
+    void ResetSelectQuestions();
     void StopAndFinishDialogue();
 }

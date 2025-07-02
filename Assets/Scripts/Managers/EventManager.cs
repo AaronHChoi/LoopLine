@@ -47,6 +47,7 @@ public class EventManager : Subject, IDependencyInjectable
         if (GameManager.Instance.TrainLoop == 1)
         {
             player.TriggerEventDialogue("Train2");
+
         }
         StartCoroutine(StartSceneMonologue(delayMonologue));
     }

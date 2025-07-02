@@ -5,6 +5,7 @@ public class TimeManager : MonoBehaviour, IDependencyInjectable, ISkipeable
 {
     [SerializeField] float secondsPunishForSkip = 5f;
     GameSceneManager gameSceneManager;
+    DialogueManager dialogueManager;
 
     float loopTime = 360f;
     private bool IsTimePaused = false;  
@@ -27,6 +28,7 @@ public class TimeManager : MonoBehaviour, IDependencyInjectable, ISkipeable
     public void InjectDependencies(DependencyContainer provider)
     {
         gameSceneManager = provider.GameSceneManager;
+        dialogueManager = provider.DialogueManager;
     }
     private void Start()
     {
@@ -68,6 +70,7 @@ public class TimeManager : MonoBehaviour, IDependencyInjectable, ISkipeable
         {
             ResetLoopTime();
             gameSceneManager.LoadNextScene(GameManager.Instance.nextScene);
+            dialogueManager.ResetSelectQuestions();
         }
     }
 
