@@ -1,7 +1,5 @@
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.ProBuilder;
 
 public class NoteBookManager : MonoBehaviour, INoteBookColliderToggle
 {
@@ -38,4 +36,3 @@ public interface INoteBookColliderToggle
 {
     void ToggleColliders(bool isActive);
 }
-

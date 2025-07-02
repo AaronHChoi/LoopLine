@@ -9,23 +9,21 @@ public class ClueSelectionSystemTest : MonoBehaviour
 
     public void CheckForCorrectClues()
     {
-        if (clues.Count < 4)
-        {
-            Debug.LogWarning("No hay suficientes elementos en la lista 'clues'");
-            return;
-        }
+        if (clues.Count < 5) { return; }
 
-        bool allCorrect = true;
-        for (int i = 1; i <= 3; i++)
-        {
-            Renderer renderer = clues[i].GetComponent<Renderer>();
-            if (renderer == null || renderer.material.color != targetColor)
-            {
-                allCorrect = false;
-                break;
-            }
-        }
+        bool allCorrect = IsClueCorrect(1) && IsClueCorrect(2) && IsClueCorrect(4);   
 
         conclusion.SetActive(allCorrect);
+    }
+
+    private bool IsClueCorrect(int index)
+    {
+        Renderer renderer = clues[index].GetComponent<Renderer>();
+        if (renderer == null)
+        {
+            return false;
+        }
+
+        return renderer.material.color == targetColor;
     }
 }
