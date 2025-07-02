@@ -7,7 +7,12 @@ public class NPCMindPlaceInteraction : MonoBehaviour, IInteract, IDependencyInje
 
     NoteBookManager noteBookManager;
     PlayerController playerController;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    [Header("TestSelection")]
+    [SerializeField] GameObject canvas;
+    [SerializeField] GameObject interrogationLight;
+    [SerializeField] bool cluesActivate;
+    
     void Start()
     {
         npcMindPlace = GetComponent<NPCMindPlace>();
@@ -28,6 +33,8 @@ public class NPCMindPlaceInteraction : MonoBehaviour, IInteract, IDependencyInje
                     playerController.characterController.enabled = false;
                     playerController.transform.position = noteBookManager.playerTPPosition.position;
                     playerController.characterController.enabled = true;
+                    canvas.SetActive(true);
+                    interrogationLight.SetActive(true);
                 }
                 else
                 {

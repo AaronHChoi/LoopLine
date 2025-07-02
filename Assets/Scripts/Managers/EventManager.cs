@@ -54,6 +54,7 @@ public class EventManager : Subject, IDependencyInjectable
     {
         stopTrainQuestion.Options[3].Choosen = true;
         stopTrainQuestion.Options[4].Choosen = true;
+        stopTrainQuestion.Options[5].Choosen = true;
     }
     void Update()
     {

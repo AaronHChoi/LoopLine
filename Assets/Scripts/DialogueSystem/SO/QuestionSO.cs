@@ -8,7 +8,6 @@ public class Options
     public string option;
     public DialogueSO dialogue;
     public bool Choosen;
-    public bool Hide;
     public bool AddToWhiteboard;
 }
 

@@ -35,7 +35,6 @@ public class WordManager : MonoBehaviour
         playerController = FindAnyObjectByType<PlayerController>();
         eventManager = FindFirstObjectByType<MindPlaceEventManagerMind>();
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         randomWordToCorrectIndex = Random.Range(0, words.Count - 1);

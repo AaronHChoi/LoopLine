@@ -24,6 +24,9 @@ public class Word : Subject, IWord /*IInteract*/
     private PlayerController playerController;
     [SerializeField] private int range = 2;
     Vector3 _direction;
+
+    [Header("TestSelection")]
+    [SerializeField] private QuestionSO stopTrainQuestion;
     private void Awake()
     {
         playerController = FindAnyObjectByType<PlayerController>();     
@@ -50,6 +53,7 @@ public class Word : Subject, IWord /*IInteract*/
 
         if (isCorrectWord)
         {
+            stopTrainQuestion.Options[5].Choosen = true;
             tmpro.color = Color.green;
             GameManager.Instance.CorrectWord101 = true;
             if(correctWordEvent != null)
