@@ -12,7 +12,7 @@ public class ClueSelectionSystemTest : MonoBehaviour
     {
         if (clues.Count < 5) { return; }
 
-        bool allCorrect = IsClueCorrect(2) && IsClueCorrect(4) && IsClueCorrect(5);
+        bool allCorrect = IsClueCorrect(1) && IsClueCorrect(4) && IsClueCorrect(5);
 
         conclusion.SetActive(allCorrect);
 
