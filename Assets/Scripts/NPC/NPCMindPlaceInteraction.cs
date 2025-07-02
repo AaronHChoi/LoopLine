@@ -15,6 +15,18 @@ public class NPCMindPlaceInteraction : MonoBehaviour, IInteract, IDependencyInje
         InjectDependencies(DependencyContainer.Instance);
     }
 
+    private void Update()
+    {
+        if (npcMindPlace.IsNPCInteracted)
+        {
+            gameObject.layer = LayerMask.NameToLayer("interact");
+        }
+        else
+        {
+            gameObject.layer = LayerMask.NameToLayer("Default");
+        }
+    }
+
     public void Interact()
     {   
         if (npcMindPlace.IsNPCInteracted)
@@ -36,6 +48,7 @@ public class NPCMindPlaceInteraction : MonoBehaviour, IInteract, IDependencyInje
                 }
             }
         }
+        
     }
 
     public string GetInteractText()
