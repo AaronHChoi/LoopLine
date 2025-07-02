@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public struct Options
+public class Options
 {
     [TextArea(2, 4)]
     public string option;
