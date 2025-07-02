@@ -14265,6 +14265,7 @@ MonoBehaviour:
   id: CameraGirl
   AvailableDialogs:
   - {fileID: 11400000, guid: d106db481f6c2c64888cf3a8c10ff9f3, type: 2}
+  - {fileID: 11400000, guid: c37d572a082731945ae3cbce1e1bd02a, type: 2}
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
@@ -14284,10 +14285,12 @@ MonoBehaviour:
   DialogueEvents:
   - EventName: StopTrain
     DialoguesToAdd:
-    - {fileID: 0}
+    - {fileID: 11400000, guid: dfd1acf2f0ecdfc40a01ee5a71aa5871, type: 2}
+    - {fileID: 11400000, guid: c37d572a082731945ae3cbce1e1bd02a, type: 2}
   - EventName: BreakWindow
     DialoguesToAdd:
-    - {fileID: 0}
+    - {fileID: 11400000, guid: ef1adb8a8e02f094c9c54427c876e367, type: 2}
+    - {fileID: 11400000, guid: c37d572a082731945ae3cbce1e1bd02a, type: 2}
   dialogueSpeaker: {fileID: 0}
   NPCname: 
 --- !u!1 &911769059
@@ -37080,7 +37083,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 09ddac16b9ebe364ea47b96166958729, type: 3}
     - target: {fileID: 8521638945783482097, guid: 691678736f2b21b4fa55c012b2201914, type: 3}
       propertyPath: dialogueManagers.Array.size
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8521638945783482097, guid: 691678736f2b21b4fa55c012b2201914, type: 3}
       propertyPath: trainStopSoundData.mixerGroup
@@ -37089,11 +37092,11 @@ PrefabInstance:
     - target: {fileID: 8521638945783482097, guid: 691678736f2b21b4fa55c012b2201914, type: 3}
       propertyPath: 'dialogueManagers.Array.data[0]'
       value: 
-      objectReference: {fileID: 311809391}
+      objectReference: {fileID: 907502338}
     - target: {fileID: 8521638945783482097, guid: 691678736f2b21b4fa55c012b2201914, type: 3}
       propertyPath: 'dialogueManagers.Array.data[1]'
       value: 
-      objectReference: {fileID: 1034758151}
+      objectReference: {fileID: 1666334512}
     - target: {fileID: 8521638945783482097, guid: 691678736f2b21b4fa55c012b2201914, type: 3}
       propertyPath: 'dialogueManagers.Array.data[2]'
       value: 
