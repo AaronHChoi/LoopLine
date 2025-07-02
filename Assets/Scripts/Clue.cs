@@ -3,7 +3,6 @@ using UnityEngine;
 public class Clue : MonoBehaviour, IInteract
 {
     [SerializeField] Material material;
-    Color originalColor;
     int currentColorIndex = 0;
 
     Color[] colorSequence;
@@ -13,10 +12,8 @@ public class Clue : MonoBehaviour, IInteract
         test = FindFirstObjectByType<ClueSelectionSystemTest>();
         if (material != null)
         {
-            originalColor = material.color;
             colorSequence = new Color[]
             {
-                originalColor,
                 Color.green,
                 Color.red
             };

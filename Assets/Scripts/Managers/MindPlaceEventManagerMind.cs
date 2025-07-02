@@ -33,7 +33,7 @@ public class MindPlaceEventManagerMind : Subject
         EventTriggerMonologue();
     }
     public void CheckCluesOptions(QuestionSO question, List<GameObject> whiteboardObjects)
-    {
+    { // cheqeo de las opciones para habilitar la pista en el mindplace
         for (int i = 0; i < question.Options.Length && i < whiteboardObjects.Count; i++)
         {
             bool shouldShow = question.Options[i].AddToWhiteboard;

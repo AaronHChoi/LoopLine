@@ -11,6 +11,7 @@ public class NoteBookManager : MonoBehaviour, INoteBookColliderToggle
     public bool isNPCActive = false;
 
     [SerializeField] GameObject[] NooteBookOpen;
+    [SerializeField] GameObject[] test;
 
     public void ToggleColliders(bool isActive)
     {
@@ -29,6 +30,7 @@ public class NoteBookManager : MonoBehaviour, INoteBookColliderToggle
                 obj.SetActive(state);
             }
         }
+        GameManager.Instance.test = state;
     }
 }
 
