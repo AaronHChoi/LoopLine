@@ -10,7 +10,6 @@ public class NoteBookManager : MonoBehaviour, INoteBookColliderToggle
     public bool isNPCActive = false;
 
     [SerializeField] GameObject[] NooteBookOpen;
-    [SerializeField] GameObject[] test;
 
     [Header("Transition Settings")]
     public TransitionSettings transitionSettings;
