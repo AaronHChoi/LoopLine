@@ -13,6 +13,7 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
     
     public List<DialogueSO> AllDialogues = new List<DialogueSO>();
     public List<QuestionSO> AllQuestions = new List<QuestionSO>();
+    public List<QuestionSO> SelectQuestions = new List<QuestionSO>();
 
     public QuestionManager QuestionManager
     {
@@ -122,6 +123,16 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
         foreach (QuestionSO question in AllQuestions)
         {
             if(question != null)
+            {
+                question.ResetValues();
+            }
+        }
+    }
+    public void ResetSelectQuestions()
+    {
+        foreach (QuestionSO question in SelectQuestions)
+        {
+            if (question != null)
             {
                 question.ResetValues();
             }
