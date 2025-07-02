@@ -50,11 +50,8 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         dialogueManager.ResetAllDialogues();
-        if(TrainLoop < 1)
-        {
-            dialogueManager.ResetAllQuestions();
-            eventManager.InitializeDialogues();
-        }
+        dialogueManager.ResetAllQuestions();
+        eventManager.InitializeDialogues();
     }
     public void SetBool(string key, bool value)
     {
