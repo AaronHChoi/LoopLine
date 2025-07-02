@@ -70,7 +70,7 @@ public class TimeManager : MonoBehaviour, IDependencyInjectable, ISkipeable
         {
             ResetLoopTime();
             gameSceneManager.LoadNextScene(GameManager.Instance.nextScene);
-            dialogueManager.ResetSelectQuestions();
+            dialogueManager.ResetAllQuestions();
         }
     }
 
