@@ -78,6 +78,8 @@ public class EventManager : Subject, IDependencyInjectable
                 start = false;
                 stopTrain = true;
 
+                stopTrainQuestion.Options[3].Choosen = false;
+
                 EventStopTrain();
             }
         }
@@ -125,7 +127,6 @@ public class EventManager : Subject, IDependencyInjectable
 
     private void EventStopTrain()
     {
-        stopTrainQuestion.Options[3].Choosen = false;
         foreach (DialogueSOManager dialogueManager in dialogueManagers)
         {
             dialogueManager.TriggerEventDialogue("StopTrain");
