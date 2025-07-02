@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -7,6 +8,7 @@ public class Options
     public string option;
     public DialogueSO dialogue;
     public bool Choosen;
+    public bool Hide;
 }
 
 [CreateAssetMenu(fileName = "Question", menuName = "Scriptable Object/New Question")]
@@ -19,7 +21,7 @@ public class QuestionSO : ScriptableObject
 
     public void ResetValues()
     {
-        for (int i = 0; i < Options.Length; i++) 
+        for (int i = 0; i < Options.Length; i++)
             Options[i].Choosen = false;
     }
 }

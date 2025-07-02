@@ -112,7 +112,7 @@ public class DialogueUI : MonoBehaviour
                         var question = Dialogue.Questions;
                         name.text = question.CharacterName.name;
 
-                        Options[] availableOptions = System.Array.FindAll(question.Options, o => !o.Choosen);
+                        Options[] availableOptions = System.Array.FindAll(question.Options, o => !o.Choosen /*&& !o.Hide*/);
 
                         DialogueManager.Instance.QuestionManager.ActivateButtons(availableOptions.Length, question.Question, availableOptions);
 

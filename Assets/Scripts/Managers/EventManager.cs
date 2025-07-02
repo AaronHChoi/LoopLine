@@ -21,6 +21,8 @@ public class EventManager : Subject, IDependencyInjectable
     private bool stopTrain2 = false;
     private Coroutine coroutineDelay;
 
+    [SerializeField] private QuestionSO stopTrainQuestion;
+
     [Header("Dialogues Managers")] //Referencias manuales
     [SerializeField] List<DialogueSOManager> dialogueManagers = new List<DialogueSOManager>();
 
@@ -118,6 +120,7 @@ public class EventManager : Subject, IDependencyInjectable
 
     private void EventStopTrain()
     {
+        stopTrainQuestion.Options[3].Choosen = false;
         foreach (DialogueSOManager dialogueManager in dialogueManagers)
         {
             dialogueManager.TriggerEventDialogue("StopTrain");
@@ -125,6 +128,7 @@ public class EventManager : Subject, IDependencyInjectable
     }
     private void EventBrokenWindow()
     {
+        stopTrainQuestion.Options[4].Choosen = false;
         foreach (DialogueSOManager dialogueManager in dialogueManagers)
         {
             dialogueManager.TriggerEventDialogue("BreakWindow");

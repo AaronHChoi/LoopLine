@@ -13,7 +13,7 @@ public class DialogueSOManager : MonoBehaviour
     public DialogueSpeaker dialogueSpeaker;
     [SerializeField] public string NPCname;
 
-    #region MAGIG_METHODS
+    #region MAGIC_METHODS
     private void Awake()
     {
         dialogueSpeaker = GetComponent<DialogueSpeaker>();

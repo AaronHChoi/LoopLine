@@ -28,6 +28,7 @@ public class QuestionManager : MonoBehaviour
                     poolButtons[i].onClick.AddListener(() =>
                     {
                         _options[index].Choosen = true;
+                        //_options[index].Hide = true;
                         GiveFunctionToTheButton(_options[index].dialogue);
                     });
                     poolButtons[i].gameObject.SetActive(true);
