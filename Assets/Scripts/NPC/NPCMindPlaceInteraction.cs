@@ -11,6 +11,7 @@ public class NPCMindPlaceInteraction : MonoBehaviour, IInteract, IDependencyInje
     [Header("TestSelection")]
     [SerializeField] GameObject canvas;
     [SerializeField] GameObject interrogationLight;
+    [SerializeField] GameObject clues;
     [SerializeField] bool cluesActivate;
     
     void Start()
@@ -35,6 +36,7 @@ public class NPCMindPlaceInteraction : MonoBehaviour, IInteract, IDependencyInje
                     playerController.characterController.enabled = true;
                     canvas.SetActive(true);
                     interrogationLight.SetActive(true);
+                    clues.SetActive(true);
                 }
                 else
                 {
