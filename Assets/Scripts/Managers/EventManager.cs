@@ -120,14 +120,14 @@ public class EventManager : Subject, IDependencyInjectable
     {
         foreach (DialogueSOManager dialogueManager in dialogueManagers)
         {
-            dialogueManager.TriggerEventDialogue("StopTrain");
+            dialogueManager.TriggerEventDialogue("E1-StopTrain");
         }
     }
     private void EventBrokenWindow()
     {
         foreach (DialogueSOManager dialogueManager in dialogueManagers)
         {
-            dialogueManager.TriggerEventDialogue("BreakWindow");
+            dialogueManager.TriggerEventDialogue("E1-BrokenWindow");
         }
     }
     private IEnumerator StartSceneMonologue(float delay)
