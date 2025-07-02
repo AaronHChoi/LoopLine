@@ -52,9 +52,18 @@ public class EventManager : Subject, IDependencyInjectable
     }
     public void InitializeDialogues()
     {
+        stopTrainQuestion.Options[0].Choosen = false;
+        stopTrainQuestion.Options[1].Choosen = false;
+        stopTrainQuestion.Options[2].Choosen = false;
         stopTrainQuestion.Options[3].Choosen = true;
         stopTrainQuestion.Options[4].Choosen = true;
         stopTrainQuestion.Options[5].Choosen = true;
+        stopTrainQuestion.Options[0].AddToWhiteboard = false;
+        stopTrainQuestion.Options[1].AddToWhiteboard = false;
+        stopTrainQuestion.Options[2].AddToWhiteboard = false;
+        stopTrainQuestion.Options[3].AddToWhiteboard = false;
+        stopTrainQuestion.Options[4].AddToWhiteboard = false;
+        stopTrainQuestion.Options[5].AddToWhiteboard = false;
     }
     void Update()
     {
