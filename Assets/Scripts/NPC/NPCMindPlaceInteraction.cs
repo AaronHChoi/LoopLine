@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class NPCMindPlaceInteraction : MonoBehaviour, IInteract, IDependencyInjectable
@@ -20,16 +21,28 @@ public class NPCMindPlaceInteraction : MonoBehaviour, IInteract, IDependencyInje
         InjectDependencies(DependencyContainer.Instance);
     }
 
+    private void Update()
+    {
+        if (npcMindPlace.IsNPCInteracted)
+        {
+            gameObject.layer = LayerMask.NameToLayer("interact");
+        }
+        else
+        {
+            gameObject.layer = LayerMask.NameToLayer("Default");
+        }
+    }
+
     public void Interact()
     {   
         if (npcMindPlace.IsNPCInteracted)
         {
             foreach (NPCID npcID in noteBookManager.ID_NPC)
             {
-                Debug.Log('1');
                 if (npcID.NPCIDValue == npcMindPlace.npcName)
                 {
-                    Debug.Log('2');
+                    noteBookManager.TransitionInMindPlace();
+                    StartCoroutine(WaitForSeconds(1));
                     npcID.gameObject.SetActive(true);
                     playerController.characterController.enabled = false;
                     playerController.transform.position = noteBookManager.playerTPPosition.position;
@@ -44,6 +57,7 @@ public class NPCMindPlaceInteraction : MonoBehaviour, IInteract, IDependencyInje
                 }
             }
         }
+        
     }
 
     public string GetInteractText()
@@ -55,5 +69,10 @@ public class NPCMindPlaceInteraction : MonoBehaviour, IInteract, IDependencyInje
     {
         noteBookManager = provider.NoteBookManager;
         playerController = provider.PlayerController;
+    }
+
+    IEnumerator WaitForSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
     }
 }
