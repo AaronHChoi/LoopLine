@@ -44,11 +44,16 @@ public class EventManager : Subject, IDependencyInjectable
     }
     private void Start()
     {
-        if(GameManager.Instance.TrainLoop == 1)
+        if (GameManager.Instance.TrainLoop == 1)
         {
             player.TriggerEventDialogue("Train2");
         }
         StartCoroutine(StartSceneMonologue(delayMonologue));
+    }
+    public void InitializeDialogues()
+    {
+        stopTrainQuestion.Options[3].Choosen = true;
+        stopTrainQuestion.Options[4].Choosen = true;
     }
     void Update()
     {
