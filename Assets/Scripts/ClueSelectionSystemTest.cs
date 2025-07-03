@@ -10,9 +10,9 @@ public class ClueSelectionSystemTest : MonoBehaviour
     [SerializeField] Material mainMaterial;
     public void CheckForCorrectClues()
     {
-        if (clues.Count < 5) { return; }
+        //if (clues.Count < 5) { return; }
 
-        bool allCorrect = IsClueCorrect(1) && IsClueCorrect(4) && IsClueCorrect(5);
+        bool allCorrect = IsClueCorrect(1) && IsClueCorrect(3) && IsClueCorrect(4);
 
         conclusion.SetActive(allCorrect);
 
