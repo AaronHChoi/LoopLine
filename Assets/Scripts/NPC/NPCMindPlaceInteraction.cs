@@ -5,6 +5,7 @@ public class NPCMindPlaceInteraction : MonoBehaviour, IInteract, IDependencyInje
 {
     [SerializeField] private NPCMindPlace npcMindPlace;
     [SerializeField] private string interactText = "";
+    [SerializeField] private Transform ClairsRoomTpPosition;
 
     NoteBookManager noteBookManager;
     PlayerController playerController;
@@ -45,7 +46,8 @@ public class NPCMindPlaceInteraction : MonoBehaviour, IInteract, IDependencyInje
                     StartCoroutine(WaitForSeconds(1));
                     npcID.gameObject.SetActive(true);
                     playerController.characterController.enabled = false;
-                    playerController.transform.position = noteBookManager.playerTPPosition.position;
+                    noteBookManager.ToggleTrainFBX();
+                    noteBookManager.ClairsRoom.transform.position = ClairsRoomTpPosition.position;
                     playerController.characterController.enabled = true;
                     canvas.SetActive(true);
                     interrogationLight.SetActive(true);

@@ -10,6 +10,8 @@ public class NoteBookManager : MonoBehaviour, INoteBookColliderToggle
     public bool isNPCActive = false;
 
     [SerializeField] GameObject[] NooteBookOpen;
+    [SerializeField] GameObject[] TrainGameObjects;
+    [SerializeField] public GameObject ClairsRoom;
 
     [Header("Transition Settings")]
     public TransitionSettings transitionSettings;
@@ -42,6 +44,21 @@ public class NoteBookManager : MonoBehaviour, INoteBookColliderToggle
         manager = TransitionManager.Instance();
 
         manager.Transition(transitionSettings, StartDelay);
+    }
+
+    public void ToggleTrainFBX()
+    {
+        foreach (var obj in TrainGameObjects)
+        {
+            if (obj != null)
+            {
+                if (obj.tag == "Train")
+                {
+                    obj.SetActive(!obj.activeSelf);
+                }
+            }
+        }
+        ClairsRoom.SetActive(!ClairsRoom.activeSelf);
     }
 }
 
