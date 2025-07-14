@@ -42,16 +42,28 @@ public class NPCMindPlaceInteraction : MonoBehaviour, IInteract, IDependencyInje
             {
                 if (npcID.NPCIDValue == npcMindPlace.npcName)
                 {
-                    noteBookManager.TransitionInMindPlace();
-                    StartCoroutine(WaitForSeconds(1));
-                    npcID.gameObject.SetActive(true);
-                    playerController.characterController.enabled = false;
-                    noteBookManager.ToggleTrainFBX();
-                    noteBookManager.ClairsRoom.transform.position = ClairsRoomTpPosition.position;
-                    playerController.characterController.enabled = true;
-                    canvas.SetActive(true);
-                    interrogationLight.SetActive(true);
-                    clues.SetActive(true);
+                    if (!npcID.gameObject.activeSelf)
+                    {
+                        noteBookManager.TransitionInMindPlace();
+                        StartCoroutine(WaitForSeconds(1));
+                        npcID.gameObject.SetActive(true);
+                        playerController.characterController.enabled = false;
+                        noteBookManager.ClairsRoom.transform.position = ClairsRoomTpPosition.position;
+                        noteBookManager.ToggleTrainFBX();
+                        playerController.characterController.enabled = true;
+                        canvas.SetActive(true);
+                        interrogationLight.SetActive(true);
+                        clues.SetActive(true);
+                    }
+                    else
+                    {
+                        noteBookManager.TransitionInMindPlace();
+                        npcID.gameObject.SetActive(false);
+                        playerController.characterController.enabled = false;
+                        noteBookManager.ToggleTrainFBX();
+                        playerController.characterController.enabled = true;
+                    }
+                    
                 }
                 else
                 {
