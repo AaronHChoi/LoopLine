@@ -10730,7 +10730,16 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: f2f8c473a0557814798bcd3bca0cd839, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2092003869183388818}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f2f8c473a0557814798bcd3bca0cd839, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1172397077}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f2f8c473a0557814798bcd3bca0cd839, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1172397076}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f2f8c473a0557814798bcd3bca0cd839, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1172397078}
   m_SourcePrefab: {fileID: 100100000, guid: f2f8c473a0557814798bcd3bca0cd839, type: 3}
 --- !u!1 &574917694
 GameObject:
@@ -11234,7 +11243,7 @@ GameObject:
   - component: {fileID: 629899002}
   m_Layer: 0
   m_Name: WorkingMan
-  m_TagString: Untagged
+  m_TagString: Train
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11816,6 +11825,60 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7d355fb5aa230e34b8b12129dff7b689, type: 3}
   m_PrefabInstance: {fileID: 932488771}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &671563258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671563252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a63d061a2da11d448e9cc972b7df33e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcMindPlace: {fileID: 1485621680}
+  interactText: Inspeccionar
+  ClairsRoomTpPosition: {fileID: 393400320}
+  canvas: {fileID: 101539090}
+  interrogationLight: {fileID: 192392414}
+  clues: {fileID: 1062510779}
+  cluesActivate: 0
+--- !u!65 &671563259
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671563252}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1.8757396, z: 1}
+  m_Center: {x: 0, y: 1.2494583, z: -0}
+--- !u!114 &671563260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 671563252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 407edffe2aae0ca40b1e4b1c012bb3ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isNPCInteracted: 0
+  npcName: CameraGirl
 --- !u!1 &674250480 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1965095351449339405, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
@@ -13229,6 +13292,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7d355fb5aa230e34b8b12129dff7b689, type: 3}
       insertIndex: -1
       addedObject: {fileID: 671563253}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7d355fb5aa230e34b8b12129dff7b689, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 671563259}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7d355fb5aa230e34b8b12129dff7b689, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 671563258}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7d355fb5aa230e34b8b12129dff7b689, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 671563260}
   m_SourcePrefab: {fileID: 100100000, guid: 7d355fb5aa230e34b8b12129dff7b689, type: 3}
 --- !u!1 &957936650
 GameObject:
@@ -14234,6 +14306,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1080764642}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1135305506 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f2f8c473a0557814798bcd3bca0cd839, type: 3}
+  m_PrefabInstance: {fileID: 530749672}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1154157016 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a0d13b1a5828a9c40a2d3fd503fe6ac1, type: 3}
@@ -14427,6 +14504,60 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f2f8c473a0557814798bcd3bca0cd839, type: 3}
   m_PrefabInstance: {fileID: 530749672}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1172397076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135305506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a63d061a2da11d448e9cc972b7df33e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcMindPlace: {fileID: 1554062247}
+  interactText: Inspeccionar
+  ClairsRoomTpPosition: {fileID: 26887638}
+  canvas: {fileID: 0}
+  interrogationLight: {fileID: 0}
+  clues: {fileID: 0}
+  cluesActivate: 0
+--- !u!65 &1172397077
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135305506}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1.8757396, z: 1}
+  m_Center: {x: 0, y: 1.2494583, z: -0}
+--- !u!114 &1172397078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135305506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 407edffe2aae0ca40b1e4b1c012bb3ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isNPCInteracted: 0
+  npcName: BassGirl
 --- !u!1 &1187872715
 GameObject:
   m_ObjectHideFlags: 0
@@ -16509,7 +16640,7 @@ GameObject:
   - component: {fileID: 1454454217}
   m_Layer: 0
   m_Name: NPC_VFX 6
-  m_TagString: Untagged
+  m_TagString: Train
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16698,7 +16829,7 @@ GameObject:
   - component: {fileID: 1485621684}
   m_Layer: 3
   m_Name: CameraGirl
-  m_TagString: Untagged
+  m_TagString: Train
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17013,6 +17144,8 @@ MonoBehaviour:
   - {fileID: 1554062246}
   - {fileID: 629899001}
   - {fileID: 1319328069}
+  - {fileID: 671563252}
+  - {fileID: 1135305506}
   TrainGameObjects:
   - {fileID: 1968437729}
   - {fileID: 2103449571}
@@ -17020,6 +17153,11 @@ MonoBehaviour:
   - {fileID: 1051679942}
   - {fileID: 609927834}
   - {fileID: 1154157016}
+  - {fileID: 2043572901}
+  - {fileID: 1454454216}
+  - {fileID: 1485621679}
+  - {fileID: 1554062246}
+  - {fileID: 629899001}
   ClairsRoom: {fileID: 1700921564}
   transitionSettings: {fileID: 11400000, guid: 06fa0ad2bc756f44ab258bc74947381d, type: 2}
   StartDelay: 0
@@ -17304,7 +17442,7 @@ GameObject:
   - component: {fileID: 1554062251}
   m_Layer: 3
   m_Name: BassistGirl
-  m_TagString: Untagged
+  m_TagString: Train
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22612,7 +22750,7 @@ GameObject:
   - component: {fileID: 2043572902}
   m_Layer: 0
   m_Name: NPC_VFX 1
-  m_TagString: Untagged
+  m_TagString: Train
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
