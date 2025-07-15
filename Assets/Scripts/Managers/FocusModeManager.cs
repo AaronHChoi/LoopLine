@@ -1,9 +1,11 @@
+using NUnit.Framework;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class FocusModeManager : MonoBehaviour, IColliderToggle
 {
     [SerializeField] GameObject[] Normal;
-    [SerializeField] GameObject[] Focus;
+    [SerializeField] public GameObject[] Focus;
 
     public void ToggleColliders(bool isActive)
     {
@@ -20,6 +22,7 @@ public class FocusModeManager : MonoBehaviour, IColliderToggle
                 box.enabled = state;
         }
     }
+
 }
 
 public interface IColliderToggle

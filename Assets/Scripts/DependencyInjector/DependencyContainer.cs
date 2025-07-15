@@ -33,6 +33,8 @@ public class DependencyContainer : MonoBehaviour
 
     public FocusModeManager FocusModeManager { get; private set; }
 
+    public PlayerInventorySystem PlayerInventorySystem { get; private set; }
+
 
     private void Awake()
     {
@@ -67,6 +69,7 @@ public class DependencyContainer : MonoBehaviour
         EventManager = FindAndValidate<EventManager>();
         SoundManager = FindAndValidate<SoundManager>();
         NoteBookManager = FindAndValidate<NoteBookManager>();
+        PlayerInventorySystem = FindAndValidate<PlayerInventorySystem>();
     }
     private T FindAndValidate<T>() where T : MonoBehaviour
     {

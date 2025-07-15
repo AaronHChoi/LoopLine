@@ -14,9 +14,13 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     public bool isDialogueActive = false;
     public bool NPCInteracted = false;
 
+    [Header("Item To Activate")]
+    [SerializeField] private GameObject itemToActivate;
+
     DevelopmentManager developmentManager;
     Subject eventManager;
     DialogueSOManager dialogueSOManager;
+    PlayerInventorySystem playerInventorySystem;
 
     IUIManager uiManager;
     #region MAGIC_METHODS
@@ -51,6 +55,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     {
         developmentManager = provider.DevelopmentManager;
         eventManager = provider.SubjectEventManager;
+        playerInventorySystem = provider.PlayerInventorySystem;
     }
     public void DialogueTrigger()
     {
@@ -159,6 +164,12 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
                 DialogueTrigger();
             }
         }
+        if (gameObject.tag == "Item")
+        {
+            playerInventorySystem.AddToInvetory(this);
+            if (itemToActivate != null && !string.IsNullOrEmpty(id))
+                playerInventorySystem.ActivateNextItem(itemToActivate, id);
+        }
     }
     private IEnumerator ExecuteAfterDelay()
     {
@@ -194,4 +205,5 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
         if (playerSpeaker != null)
             playerSpeaker.DialogueTrigger();
     }
+
 }
