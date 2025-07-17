@@ -4,34 +4,34 @@ using System.Collections.Generic;
 public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
 {
     [Header("Inventory Settings")]
-    [SerializeField] private List<DialogueSpeaker> inventory = new List<DialogueSpeaker>();
+    [SerializeField] private List<ItemInteract> inventory = new List<ItemInteract>();
 
     FocusModeManager focusModeManager;
 
-    public void AddToInvetory(DialogueSpeaker dialogueSpeaker)
+    public void AddToInvetory(ItemInteract itemInteract)
     {
-        if (CheckInventory(dialogueSpeaker) == false)
+        if (CheckInventory(itemInteract) == false)
         {
-            inventory.Add(dialogueSpeaker);
+            inventory.Add(itemInteract);
         }
         else
         {
-            Debug.Log("Already in inventory: " + dialogueSpeaker.name);
+            Debug.Log("Already in inventory: " + itemInteract.name);
         }
     }
-    public void RemoveFromInventory(DialogueSpeaker dialogueSpeaker)
+    public void RemoveFromInventory(ItemInteract itemInteract)
     {
-        if (CheckInventory(dialogueSpeaker) == true)
+        if (CheckInventory(itemInteract) == true)
         {
-            inventory.Remove(dialogueSpeaker);
+            inventory.Remove(itemInteract);
         }
     }
-    public bool CheckInventory(DialogueSpeaker dialogueSpeaker)
+    public bool CheckInventory(ItemInteract itemInteract)
     {
         bool isInInventory = false;
         for (int i = 0; i < inventory.Count; i++)
         {
-            if (inventory[i].id == dialogueSpeaker.id)
+            if (inventory[i].id == itemInteract.id)
             {
                 isInInventory = true;
             }

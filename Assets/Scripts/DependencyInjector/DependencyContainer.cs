@@ -18,6 +18,8 @@ public class DependencyContainer : MonoBehaviour
     public EventManager EventManager { get; private set; }
     public SoundManager SoundManager { get; private set; }
     public NoteBookManager NoteBookManager { get; private set; }
+
+    public ItemInteract ItemInteract { get; private set; }
     #endregion
 
     #region PLAYER
@@ -70,6 +72,7 @@ public class DependencyContainer : MonoBehaviour
         SoundManager = FindAndValidate<SoundManager>();
         NoteBookManager = FindAndValidate<NoteBookManager>();
         PlayerInventorySystem = FindAndValidate<PlayerInventorySystem>();
+        ItemInteract = FindAndValidate<ItemInteract>();
     }
     private T FindAndValidate<T>() where T : MonoBehaviour
     {

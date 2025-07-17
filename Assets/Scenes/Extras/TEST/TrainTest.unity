@@ -940,7 +940,6 @@ MonoBehaviour:
   DialogueLocalIndex: 0
   isDialogueActive: 0
   NPCInteracted: 0
-  itemToActivate: {fileID: 0}
 --- !u!65 &114952359
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1929,7 +1928,6 @@ MonoBehaviour:
   DialogueLocalIndex: 0
   isDialogueActive: 0
   NPCInteracted: 0
-  itemToActivate: {fileID: 0}
 --- !u!65 &205322666
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2510,7 +2508,6 @@ MonoBehaviour:
   DialogueLocalIndex: 0
   isDialogueActive: 0
   NPCInteracted: 0
-  itemToActivate: {fileID: 0}
 --- !u!82 &250232798
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2653,7 +2650,6 @@ MonoBehaviour:
   DialogueLocalIndex: 0
   isDialogueActive: 0
   NPCInteracted: 0
-  itemToActivate: {fileID: 0}
 --- !u!114 &311809391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8815,7 +8811,6 @@ MonoBehaviour:
   DialogueLocalIndex: 0
   isDialogueActive: 0
   NPCInteracted: 0
-  itemToActivate: {fileID: 0}
 --- !u!65 &465367161
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9095,7 +9090,6 @@ MonoBehaviour:
   DialogueLocalIndex: 0
   isDialogueActive: 0
   NPCInteracted: 0
-  itemToActivate: {fileID: 0}
 --- !u!65 &472748474
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13101,7 +13095,6 @@ MonoBehaviour:
   DialogueLocalIndex: 0
   isDialogueActive: 0
   NPCInteracted: 0
-  itemToActivate: {fileID: 0}
 --- !u!65 &875800161
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13904,7 +13897,6 @@ MonoBehaviour:
   DialogueLocalIndex: 0
   isDialogueActive: 0
   NPCInteracted: 0
-  itemToActivate: {fileID: 0}
 --- !u!114 &907502338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15254,7 +15246,6 @@ MonoBehaviour:
   DialogueLocalIndex: 0
   isDialogueActive: 0
   NPCInteracted: 0
-  itemToActivate: {fileID: 0}
 --- !u!65 &919430327
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15385,7 +15376,6 @@ MonoBehaviour:
   DialogueLocalIndex: 0
   isDialogueActive: 0
   NPCInteracted: 0
-  itemToActivate: {fileID: 0}
 --- !u!65 &920470983
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15791,7 +15781,6 @@ MonoBehaviour:
   DialogueLocalIndex: 0
   isDialogueActive: 0
   NPCInteracted: 0
-  itemToActivate: {fileID: 0}
 --- !u!65 &937705830
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16852,7 +16841,6 @@ MonoBehaviour:
   DialogueLocalIndex: 0
   isDialogueActive: 0
   NPCInteracted: 0
-  itemToActivate: {fileID: 0}
 --- !u!114 &1034758151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24621,7 +24609,6 @@ MonoBehaviour:
   DialogueLocalIndex: 0
   isDialogueActive: 0
   NPCInteracted: 0
-  itemToActivate: {fileID: 0}
 --- !u!65 &1354861404
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -31155,7 +31142,6 @@ MonoBehaviour:
   DialogueLocalIndex: 0
   isDialogueActive: 0
   NPCInteracted: 0
-  itemToActivate: {fileID: 0}
 --- !u!65 &1618251594
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -31720,7 +31706,6 @@ MonoBehaviour:
   DialogueLocalIndex: 0
   isDialogueActive: 0
   NPCInteracted: 0
-  itemToActivate: {fileID: 0}
 --- !u!65 &1666334510
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -32974,7 +32959,6 @@ MonoBehaviour:
   DialogueLocalIndex: 0
   isDialogueActive: 0
   NPCInteracted: 0
-  itemToActivate: {fileID: 0}
 --- !u!114 &1806260564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34631,7 +34615,6 @@ MonoBehaviour:
   DialogueLocalIndex: 0
   isDialogueActive: 0
   NPCInteracted: 0
-  itemToActivate: {fileID: 0}
 --- !u!114 &1945950365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36534,6 +36517,7 @@ GameObject:
   - component: {fileID: 6277593582867660194}
   - component: {fileID: 6797060540603776284}
   - component: {fileID: 6797060540603776286}
+  - component: {fileID: 6797060540603776287}
   - component: {fileID: 6797060540603776285}
   m_Layer: 3
   m_Name: MP3
@@ -36637,7 +36621,7 @@ GameObject:
   - component: {fileID: 8977400717001841826}
   m_Layer: 3
   m_Name: BassCarryBag
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37356,7 +37340,7 @@ GameObject:
   - component: {fileID: 4232027734277426531}
   m_Layer: 3
   m_Name: Diary
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37374,14 +37358,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactText: Cuaderno
-  id: 
+  id: Cuaderno
   AvailableDialogs:
   - {fileID: 11400000, guid: 1a6d432b2faa1784ba7ff238b0f0c72b, type: 2}
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
   NPCInteracted: 0
-  itemToActivate: {fileID: 0}
 --- !u!65 &4232027734277426532
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -37733,7 +37716,20 @@ MonoBehaviour:
   DialogueLocalIndex: 0
   isDialogueActive: 0
   NPCInteracted: 0
-  itemToActivate: {fileID: 937705828}
+--- !u!114 &6797060540603776287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1403693755446732740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58a81b347b9f73d43bda71d317d1412d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: MP3
+  itemToActivate: {fileID: 0}
 --- !u!23 &7743134123327033823
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -37853,7 +37849,6 @@ MonoBehaviour:
   DialogueLocalIndex: 0
   isDialogueActive: 0
   NPCInteracted: 0
-  itemToActivate: {fileID: 0}
 --- !u!33 &8306659160545986928
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -38104,14 +38099,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactText: Bolso con el bajo
-  id: 
+  id: Bolso con el bajo
   AvailableDialogs:
   - {fileID: 11400000, guid: e88ef15c4b26c1c4f8ab2710d969e4ac, type: 2}
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
   NPCInteracted: 0
-  itemToActivate: {fileID: 0}
 --- !u!4 &9115198044459715233
 Transform:
   m_ObjectHideFlags: 0

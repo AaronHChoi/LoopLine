@@ -14,19 +14,19 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     public bool isDialogueActive = false;
     public bool NPCInteracted = false;
 
-    [Header("Item To Activate")]
-    [SerializeField] private GameObject itemToActivate;
 
     DevelopmentManager developmentManager;
     Subject eventManager;
     DialogueSOManager dialogueSOManager;
-    PlayerInventorySystem playerInventorySystem;
+    ItemInteract itemInteract;
+    
 
     IUIManager uiManager;
     #region MAGIC_METHODS
     private void Awake()
     {
         dialogueSOManager = GetComponent<DialogueSOManager>();
+        itemInteract = GetComponent<ItemInteract>();
         InjectDependencies(DependencyContainer.Instance);
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
     }
@@ -55,7 +55,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     {
         developmentManager = provider.DevelopmentManager;
         eventManager = provider.SubjectEventManager;
-        playerInventorySystem = provider.PlayerInventorySystem;
+        
     }
     public void DialogueTrigger()
     {
@@ -164,12 +164,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
                 DialogueTrigger();
             }
         }
-        if (gameObject.tag == "Item")
-        {
-            playerInventorySystem.AddToInvetory(this);
-            if (itemToActivate != null && !string.IsNullOrEmpty(id))
-                playerInventorySystem.ActivateNextItem(itemToActivate, id);
-        }
+        itemInteract.Interact();
     }
     private IEnumerator ExecuteAfterDelay()
     {
