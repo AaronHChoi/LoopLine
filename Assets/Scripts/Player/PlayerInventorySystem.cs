@@ -3,16 +3,44 @@ using System.Collections.Generic;
 
 public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
 {
+    public static PlayerInventorySystem Instance { get; private set; }
     [Header("Inventory Settings")]
-    [SerializeField] private List<ItemInteract> inventory = new List<ItemInteract>();
+    [SerializeField] public List<ItemInteract> inventory = new List<ItemInteract>();
 
     FocusModeManager focusModeManager;
+    [SerializeField] InventoryUI inventoryUI;
+    public delegate void InventoryChanged();
+    public event InventoryChanged OnInventoryChanged;
+
+    void Start()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        InjectDependencies(DependencyContainer.Instance);
+        inventoryUI.gameObject.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            inventoryUI.gameObject.SetActive(!inventoryUI.gameObject.activeInHierarchy);
+        }
+    }
 
     public void AddToInvetory(ItemInteract itemInteract)
     {
         if (CheckInventory(itemInteract) == false)
         {
             inventory.Add(itemInteract);
+            OnInventoryChanged?.Invoke();
         }
         else
         {
@@ -24,6 +52,7 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
         if (CheckInventory(itemInteract) == true)
         {
             inventory.Remove(itemInteract);
+            OnInventoryChanged?.Invoke();
         }
     }
     public bool CheckInventory(ItemInteract itemInteract)
@@ -55,9 +84,12 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
             }
         }
     }
+
+
     public void InjectDependencies(DependencyContainer provider)
     {
         focusModeManager = provider.FocusModeManager;
+        inventoryUI = provider.InventoryUI;
     }
 
 }

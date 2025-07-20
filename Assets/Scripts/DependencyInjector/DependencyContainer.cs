@@ -20,6 +20,8 @@ public class DependencyContainer : MonoBehaviour
     public NoteBookManager NoteBookManager { get; private set; }
 
     public ItemInteract ItemInteract { get; private set; }
+
+    public InventoryUI InventoryUI { get; private set; }
     #endregion
 
     #region PLAYER
@@ -73,6 +75,7 @@ public class DependencyContainer : MonoBehaviour
         NoteBookManager = FindAndValidate<NoteBookManager>();
         PlayerInventorySystem = FindAndValidate<PlayerInventorySystem>();
         ItemInteract = FindAndValidate<ItemInteract>();
+        InventoryUI = FindAndValidate<InventoryUI>();
     }
     private T FindAndValidate<T>() where T : MonoBehaviour
     {
