@@ -5,6 +5,7 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable
     public string id = "";
     public ItemInfo ItemData;
     [Header("Item To Activate")]
+    [SerializeField] public GameObject objectPrefab;
     [SerializeField] private GameObject itemToActivate;
 
     PlayerInventorySystem playerInventorySystem;
