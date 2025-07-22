@@ -6,11 +6,16 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
     public static PlayerInventorySystem Instance { get; private set; }
     [Header("Inventory Settings")]
     [SerializeField] public List<ItemInteract> inventory = new List<ItemInteract>();
+    [SerializeField] public Transform SpawnPosition;
+    [SerializeField] public ItemInteract ItemInUse;
 
     FocusModeManager focusModeManager;
-    [SerializeField] InventoryUI inventoryUI;
+    PlayerController playerController;
+    InventoryUI inventoryUI;
     public delegate void InventoryChanged();
     public event InventoryChanged OnInventoryChanged;
+    bool isCursorVisible = false;
+    bool isUIActive = false;
 
     void Start()
     {
@@ -29,9 +34,39 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
 
     private void Update()
     {
+        if (inventoryUI.gameObject.activeInHierarchy == true)
+        {
+            playerController.characterController.enabled = false;
+        }
+        else
+        {
+            playerController.characterController.enabled = true;
+        }
+
+        InputHandler();
+    }
+
+    private void InputHandler()
+    {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
+            UpdateCursorState();
             inventoryUI.gameObject.SetActive(!inventoryUI.gameObject.activeInHierarchy);
+        }
+
+
+    }
+
+    void UpdateCursorState()
+    {
+        bool shouldShowCursor = !inventoryUI.gameObject.activeInHierarchy;
+         
+        if (isCursorVisible != shouldShowCursor)
+        {
+            playerController.SetCinemachineController(!shouldShowCursor);
+            isCursorVisible = shouldShowCursor;
+            Cursor.visible = isCursorVisible;
+            Cursor.lockState = isCursorVisible ? CursorLockMode.None : CursorLockMode.Locked;
         }
     }
 
@@ -90,6 +125,7 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
     {
         focusModeManager = provider.FocusModeManager;
         inventoryUI = provider.InventoryUI;
+        playerController = provider.PlayerController;
     }
 
 }
