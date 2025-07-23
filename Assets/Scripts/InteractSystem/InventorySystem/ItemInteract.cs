@@ -4,7 +4,8 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable
 {
     public string id = "";
     public ItemInfo ItemData;
-    [Header("Item To Activate")]
+    [Header("Item Inventory UI")]
+    [SerializeField] private bool deactivateOnPickup = true;
     [SerializeField] public GameObject objectPrefab;
     [SerializeField] private GameObject itemToActivate;
 
@@ -18,6 +19,10 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable
     void Start()
     {
         id = gameObject.name;
+        if(objectPrefab == null)
+        {
+            objectPrefab = gameObject;
+        }
     }
     public void InjectDependencies(DependencyContainer provider)
     {
@@ -29,6 +34,11 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable
     {
         if (gameObject.tag == "Item")
         {
+            if (deactivateOnPickup)
+            {
+                gameObject.SetActive(false);
+                gameObject.tag = "Untagged";
+            }
             if (playerInventorySystem.CheckInventory(this) == false)
             {
                 inventoryUI.AddInventorySlot(this);

@@ -12,6 +12,7 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
     FocusModeManager focusModeManager;
     PlayerController playerController;
     InventoryUI inventoryUI;
+    DialogueManager dialogueManager;
     public delegate void InventoryChanged();
     public event InventoryChanged OnInventoryChanged;
     bool isCursorVisible = false;
@@ -48,7 +49,7 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
 
     private void InputHandler()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab) && !dialogueManager.isDialogueActive)
         {
             UpdateCursorState();
             inventoryUI.gameObject.SetActive(!inventoryUI.gameObject.activeInHierarchy);
@@ -126,6 +127,7 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
         focusModeManager = provider.FocusModeManager;
         inventoryUI = provider.InventoryUI;
         playerController = provider.PlayerController;
+        dialogueManager = provider.DialogueManager;
     }
 
 }
