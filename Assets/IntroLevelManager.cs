@@ -13,9 +13,12 @@ public class IntroLevelManager : MonoBehaviour
     [SerializeField] string nextSceneName;
     void Start()
     {
-        fade.PauseFade(timePausedFadeOut);
-        fade.FadeOut(timeToFadeOut);
-        StartCoroutine(FadeOutOnTime(timeLevelToFadeIn));
+        if (fade != null)
+        {
+            fade.PauseFade(timePausedFadeOut);
+            fade.FadeOut(timeToFadeOut);
+            StartCoroutine(FadeOutOnTime(timeLevelToFadeIn));
+        }
         StartCoroutine(ChangeNextLevel(timeToChangeLevel));
     }
     private IEnumerator FadeOutOnTime(float seconds)
