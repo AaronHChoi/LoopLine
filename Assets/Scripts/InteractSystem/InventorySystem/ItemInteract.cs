@@ -37,7 +37,7 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable
             if (deactivateOnPickup)
             {
                 gameObject.SetActive(false);
-                gameObject.tag = "Untagged";
+                gameObject.layer = LayerMask.NameToLayer("Default");
             }
             if (playerInventorySystem.CheckInventory(this) == false)
             {
