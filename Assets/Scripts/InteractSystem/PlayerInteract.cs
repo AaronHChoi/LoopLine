@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerInteract : MonoBehaviour, IDependencyInjectable
 {
@@ -23,7 +24,18 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
     {
         Debug.DrawRay(rayCastPoint.transform.position, rayCastPoint.transform.forward * raycastDistance, Color.red);
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && inventoryUI.gameObject.activeInHierarchy == false)
+        if (SceneManager.GetActiveScene().name == "04. Train")
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse0) && inventoryUI.gameObject.activeInHierarchy == false)
+            {
+                IInteract interactableObject = GetInteractableObject();
+                if (interactableObject != null)
+                {
+                    interactableObject.Interact();
+                }
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             IInteract interactableObject = GetInteractableObject();
             if (interactableObject != null)
