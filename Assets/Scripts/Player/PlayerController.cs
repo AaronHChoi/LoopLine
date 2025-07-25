@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
         {
             playerFocusMode.ToggleFocusMode(playerModel);
         }
-        if (SceneManager.GetActiveScene().name == "MindPlace")
+        if (SceneManager.GetActiveScene().name == "05. MindPlace")
         {
             if (Input.GetKeyDown(KeyCode.E))
             {

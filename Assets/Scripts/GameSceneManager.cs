@@ -10,7 +10,7 @@ public class GameSceneManager : MonoBehaviour
     }
     public void LoadNextScene(string _sceneName)
     {
-        if(_sceneName == "MindPlace")
+        if(_sceneName == "05. MindPlace")
         {
             GameManager.Instance.TrainLoop++;
             dialogueManager.ResetAllDialogues();
