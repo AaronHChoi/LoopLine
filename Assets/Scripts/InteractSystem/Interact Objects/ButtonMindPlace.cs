@@ -48,6 +48,6 @@ public class ButtonMindPlace : MonoBehaviour, IInteract
             volumeToTrain.weight = volumeWeight;
 
         if (isVolumeActive == true && volumeToTrain.weight >= 1f)
-            SceneManager.LoadScene("Train");
+            SceneManager.LoadScene("04. Train");
     }
 }
