@@ -19,7 +19,7 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
     bool isCursorVisible = false;
     bool isUIActive = false;
 
-    void Start()
+    void Awake()
     {
         if (Instance == null)
         {
