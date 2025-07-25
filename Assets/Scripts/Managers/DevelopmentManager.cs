@@ -133,14 +133,14 @@ public class DevelopmentManager : MonoBehaviour
     }
     public void LoadMainLevel()
     {
-        if (SceneManager.GetActiveScene().name == "MindPlace")
+        if (SceneManager.GetActiveScene().name == "05. MindPlace")
         {
-            SceneManager.LoadScene("Train");
+            SceneManager.LoadScene("04. Train");
         }
     }
     public void CutTime()
     {
-        if (SceneManager.GetActiveScene().name == "Train")
+        if (SceneManager.GetActiveScene().name == "04. Train")
         {
             if (timeManager.LoopTime > 5f)
             {

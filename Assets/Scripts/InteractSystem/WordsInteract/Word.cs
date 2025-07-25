@@ -86,7 +86,7 @@ public class Word : Subject, IWord /*IInteract*/
         }
         if (incorrectWordSelected)
         {
-            if (!dialogueSpeaker.isDialogueActive) { SceneManager.LoadScene("Train"); }
+            if (!dialogueSpeaker.isDialogueActive) { SceneManager.LoadScene("04. Train"); }
         }
     }
 

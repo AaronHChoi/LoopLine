@@ -147,7 +147,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
 
     public void Interact()
     {
-        if(SceneManager.GetActiveScene().name == "MindPlace" && GameManager.Instance.test)
+        if(SceneManager.GetActiveScene().name == "05. MindPlace" && GameManager.Instance.test)
         {
             var clue = GetComponent<Clue>();
             clue.Interact();
