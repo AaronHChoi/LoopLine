@@ -107,7 +107,6 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
             }
         }
         return isInInventory;
-
     }
 
     public void ActivateNextItem(GameObject ItemToActivate, string itemIdRequierd)

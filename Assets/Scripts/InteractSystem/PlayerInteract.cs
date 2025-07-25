@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class PlayerInteract : MonoBehaviour, IDependencyInjectable
 {
     private CinemachineCamera rayCastPoint;
+    private PlayerInventorySystem playerInventorySystem;
     private InventoryUI inventoryUI;
     [SerializeField] private float raycastDistance = 2f;
     [SerializeField] private LayerMask interactableLayer;
@@ -19,6 +20,7 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
     {
         rayCastPoint = provider.CinemachineCamera;
         inventoryUI = provider.InventoryUI;
+        playerInventorySystem = provider.PlayerInventorySystem;
     }
     void Update()
     {
@@ -26,7 +28,7 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
 
         if (SceneManager.GetActiveScene().name == "04. Train")
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0) && inventoryUI.gameObject.activeInHierarchy == false)
+            if (Input.GetKeyDown(KeyCode.Mouse0) && inventoryUI.gameObject.activeInHierarchy == false && playerInventorySystem.ItemInUse == null)
             {
                 IInteract interactableObject = GetInteractableObject();
                 if (interactableObject != null)
@@ -47,41 +49,69 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
     
     public IInteract GetInteractableObject()
     {
-        Ray ray = new Ray(rayCastPoint.transform.position, rayCastPoint.transform.forward);
-
-        if (Physics.Raycast(ray, out RaycastHit hit, raycastDistance))
+        if (SceneManager.GetActiveScene().name == "04. Train")
         {
-            if (((1 << hit.collider.gameObject.layer) & interactableLayer) != 0)
+            if (inventoryUI.gameObject.activeInHierarchy == false && playerInventorySystem.ItemInUse == null) 
             {
-                if (hit.collider.TryGetComponent(out IInteract interactable))
+                Ray ray = new Ray(rayCastPoint.transform.position, rayCastPoint.transform.forward);
+
+                if (Physics.Raycast(ray, out RaycastHit hit, raycastDistance))
                 {
-                    return interactable;
+                    if (((1 << hit.collider.gameObject.layer) & interactableLayer) != 0)
+                    {
+                        if (hit.collider.TryGetComponent(out IInteract interactable))
+                        {
+                            return interactable;
+                        }
+                    }
                 }
+
+                
             }
+
         }
-
-        return null;
-    
-      /*  
-        public IInteract GetInteractableObject()
+        else
         {
-            //List<IInteract> InteractableList = new List<IInteract>();
-
             Ray ray = new Ray(rayCastPoint.transform.position, rayCastPoint.transform.forward);
-            RaycastHit[] hits = Physics.RaycastAll(ray, raycastDistance, interactableLayer);
 
-            IInteract interactableObject = null;
-
-            foreach (RaycastHit hit in hits)
+            if (Physics.Raycast(ray, out RaycastHit hit, raycastDistance))
             {
-                if (hit.collider.TryGetComponent(out IInteract interactable))
+                if (((1 << hit.collider.gameObject.layer) & interactableLayer) != 0)
                 {
-                    interactableObject = interactable;
-                    //interactableLayer = hit.collider.gameObject.layer;
+                    if (hit.collider.TryGetComponent(out IInteract interactable))
+                    {
+                        return interactable;
+                    }
                 }
             }
 
-            return interactableObject;
-        */
+           
         }
+        return null;
+
+
+
+
+        /*  
+          public IInteract GetInteractableObject()
+          {
+              //List<IInteract> InteractableList = new List<IInteract>();
+
+              Ray ray = new Ray(rayCastPoint.transform.position, rayCastPoint.transform.forward);
+              RaycastHit[] hits = Physics.RaycastAll(ray, raycastDistance, interactableLayer);
+
+              IInteract interactableObject = null;
+
+              foreach (RaycastHit hit in hits)
+              {
+                  if (hit.collider.TryGetComponent(out IInteract interactable))
+                  {
+                      interactableObject = interactable;
+                      //interactableLayer = hit.collider.gameObject.layer;
+                  }
+              }
+
+              return interactableObject;
+          */
+    }
 }
