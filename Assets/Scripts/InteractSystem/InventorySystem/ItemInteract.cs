@@ -18,7 +18,7 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable
     }
     void Start()
     {
-        id = gameObject.name;
+        id = ItemData.itemName;
         if(objectPrefab == null)
         {
             objectPrefab = gameObject;
@@ -32,7 +32,7 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable
 
     public void Interact()
     {
-        if (gameObject.tag == "Item")
+        if (gameObject.tag == "Item" && playerInventorySystem.ItemInUse == null)
         {
             if (deactivateOnPickup)
             {

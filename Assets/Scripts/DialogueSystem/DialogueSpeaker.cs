@@ -36,6 +36,11 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
         DialogueLocalIndex = 0;
 
         DialogueRefresh();
+
+        if (itemInteract != null)
+        {
+            interactText = itemInteract.ItemData.itemName;
+        }
     }
     public void OnNotify(Events _event)
     {
@@ -175,7 +180,10 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
 
     public string GetInteractText()
     {
+
         if (interactText == null) return interactText = "";
+
+        
         return interactText;
     }
     void DialogueRefresh()

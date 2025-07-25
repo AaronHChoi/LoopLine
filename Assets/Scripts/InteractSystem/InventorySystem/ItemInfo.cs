@@ -5,4 +5,5 @@ public class ItemInfo : ScriptableObject
     public string itemName;
     public Sprite itemIcon;
     public GameObject objectPrefab;
+    public bool isInHand = false;
 }

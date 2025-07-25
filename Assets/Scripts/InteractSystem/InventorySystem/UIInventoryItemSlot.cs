@@ -31,9 +31,14 @@ public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
         itemToSpawn = item;
     }
 
+    private void Update()
+    {
+        
+    }
     public void SpawnItem()
     {
-        if (itemToSpawn.objectPrefab.gameObject.activeInHierarchy == false && playerInventorySystem.ItemInUse != itemToSpawn)
+
+        if (itemToSpawn.objectPrefab.gameObject.activeInHierarchy == false && playerInventorySystem.ItemInUse == null)
         {
             itemToSpawn.objectPrefab.gameObject.SetActive(true);
             itemToSpawn.objectPrefab.transform.position = playerInventorySystem.SpawnPosition.position;
