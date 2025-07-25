@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
 {
@@ -43,7 +44,7 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
         {
             playerController.characterController.enabled = true;
         }
-
+        UnityEngine.Debug.Log(ItemInUse);
         InputHandler();
     }
 
@@ -80,7 +81,7 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
         }
         else
         {
-            Debug.Log("Already in inventory: " + itemInteract.name);
+            UnityEngine.Debug.Log("Already in inventory: " + itemInteract.name);
         }
     }
     public void RemoveFromInventory(ItemInteract itemInteract)

@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerInteract : MonoBehaviour, IDependencyInjectable
 {
     private CinemachineCamera rayCastPoint;
+    private InventoryUI inventoryUI;
     [SerializeField] private float raycastDistance = 2f;
     [SerializeField] private LayerMask interactableLayer;
 
@@ -16,12 +17,13 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
     public void InjectDependencies(DependencyContainer provider)
     {
         rayCastPoint = provider.CinemachineCamera;
+        inventoryUI = provider.InventoryUI;
     }
     void Update()
     {
         Debug.DrawRay(rayCastPoint.transform.position, rayCastPoint.transform.forward * raycastDistance, Color.red);
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && inventoryUI.gameObject.activeInHierarchy == false)
         {
             IInteract interactableObject = GetInteractableObject();
             if (interactableObject != null)
