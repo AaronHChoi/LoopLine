@@ -52,7 +52,7 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
     {
         if (Input.GetKeyDown(KeyCode.Tab) && !dialogueManager.isDialogueActive && inventory.Count != 0)
         {
-            UpdateCursorState();
+            //UpdateCursorState();
             inventoryUI.gameObject.SetActive(!inventoryUI.gameObject.activeInHierarchy);
         }
 

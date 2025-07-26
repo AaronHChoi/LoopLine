@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InventoryUI : MonoBehaviour
 {
-    [SerializeField] private List<UIInventoryItemSlot> inventorySlots = new List<UIInventoryItemSlot>();
+    [SerializeField] public List<UIInventoryItemSlot> inventorySlots = new List<UIInventoryItemSlot>();
+    [SerializeField] private UIInventoryItemSlot UIInventoryItemSlot;
     private void Start()
     {
         PlayerInventorySystem.Instance.OnInventoryChanged += OnUpdateInventory;
@@ -19,42 +21,59 @@ public class InventoryUI : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.WheelUp))
+        Debug.Log(UIInventoryItemSlot);
+        if (gameObject.activeInHierarchy && PlayerInventorySystem.Instance.ItemInUse == null)
+        {
+            if (Input.GetKeyDown(KeyCode.WheelDown) || Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                inventorySlots[0].isActive = true;
+            }
+            
+        }
+        if (Input.GetKeyDown(KeyCode.WheelUp) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             for (int i = 0; i < inventorySlots.Count; i++)
             {
                 if (inventorySlots[i].gameObject.activeInHierarchy)
                 {
-                    inventorySlots[i].gameObject.SetActive(false);
+                    inventorySlots[i].isActive = false;
                     if (i + 1 < inventorySlots.Count)
                     {
-                        inventorySlots[i + 1].gameObject.SetActive(true);
+                        inventorySlots[i + 1].isActive = true;
                     }
                     else
                     {
-                        inventorySlots[0].gameObject.SetActive(true);
+                        inventorySlots[0].isActive = true;
                     }
                     break;
                 }
             }
         }
-        else if (Input.GetKeyDown(KeyCode.WheelDown))
+        else if (Input.GetKeyDown(KeyCode.WheelDown) || Input.GetKeyDown(KeyCode.DownArrow))
         {
             for (int i = inventorySlots.Count - 1; i >= 0; i--)
             {
                 if (inventorySlots[i].gameObject.activeInHierarchy)
                 {
-                    inventorySlots[i].gameObject.SetActive(false);
+                    inventorySlots[i].isActive = false;
                     if (i + 1 >= 0)
                     {
-                        inventorySlots[i - 1].gameObject.SetActive(true);
+                        inventorySlots[i - 1].isActive = true;
                     }
                     else
                     {
-                        inventorySlots[inventorySlots.Count - 1].gameObject.SetActive(true);
+                        inventorySlots[inventorySlots.Count - 1].isActive = true;
                     }
                     break;
                 }
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            for (int i = inventorySlots.Count - 1; i >= 0; i--)
+            {
+                inventorySlots[i].isActive = false;
+                PlayerInventorySystem.Instance.ItemInUse = null;
             }
         }
     }

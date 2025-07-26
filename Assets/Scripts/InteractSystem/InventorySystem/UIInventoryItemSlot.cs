@@ -9,7 +9,7 @@ public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
     [SerializeField] private Sprite itemImage;
     [SerializeField] private UnityEngine.UI.Button itemButton;
     private ItemInteract itemToSpawn;
-
+    public bool isActive = false;
     PlayerInventorySystem playerInventorySystem;
     InventoryUI inventoryUI;
 
@@ -33,12 +33,22 @@ public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
 
     private void Update()
     {
-        
+        if (isActive)
+        {
+            itemToSpawn.objectPrefab.gameObject.SetActive(true);
+            itemToSpawn.objectPrefab.transform.position = playerInventorySystem.SpawnPosition.position;
+            itemToSpawn.objectPrefab.transform.SetParent(playerInventorySystem.SpawnPosition);
+            playerInventorySystem.ItemInUse = itemToSpawn;
+        }
+        else 
+        {
+            itemToSpawn.objectPrefab.gameObject.SetActive(false);
+        }
     }
     public void SpawnItem()
     {
 
-        if (itemToSpawn.objectPrefab.gameObject.activeInHierarchy == false && playerInventorySystem.ItemInUse == null)
+        if (itemToSpawn.objectPrefab.gameObject.activeInHierarchy == false )
         {
             itemToSpawn.objectPrefab.gameObject.SetActive(true);
             itemToSpawn.objectPrefab.transform.position = playerInventorySystem.SpawnPosition.position;
