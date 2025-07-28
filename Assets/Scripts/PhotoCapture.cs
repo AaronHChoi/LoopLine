@@ -15,6 +15,10 @@ public class PhotoCapture : MonoBehaviour
     [Header("PhotoFade")]
     [SerializeField] Animator fadingAnimation;
 
+    [Header("World Photo")]
+    [SerializeField] Renderer worldPhotoRenderer;
+    [SerializeField] float brightnessFactor = 2f;
+
     Texture2D screenCapture;
     bool viewvingPhoto;
 
@@ -46,6 +50,9 @@ public class PhotoCapture : MonoBehaviour
 
         screenCapture.ReadPixels(regionToRead, 0, 0, false);
         screenCapture.Apply();
+
+        AdjustBrightness(screenCapture, brightnessFactor);
+
         ShowPhoto();
     }
     void ShowPhoto()
@@ -56,6 +63,8 @@ public class PhotoCapture : MonoBehaviour
         photoFrame.SetActive(true);
         StartCoroutine(CameraFlashEffect());
         fadingAnimation.Play("PhotoFade");
+
+        ApplyPhotoToWorldObject();
     }
     IEnumerator CameraFlashEffect()
     {
@@ -67,5 +76,22 @@ public class PhotoCapture : MonoBehaviour
     {
         viewvingPhoto = false;
         photoFrame.SetActive(false);
+    }
+    void ApplyPhotoToWorldObject()
+    {
+        if(worldPhotoRenderer != null)
+        {
+            worldPhotoRenderer.material.mainTexture = screenCapture;
+        }
+    }
+    void AdjustBrightness(Texture2D texture, float brigtnessFactor)
+    {
+        Color[] pixels = texture.GetPixels();
+        for (int i = 0; i < pixels.Length; i++)
+        {
+            pixels[i] *= brigtnessFactor;
+        }
+        texture.SetPixels(pixels);
+        texture.Apply();
     }
 }
