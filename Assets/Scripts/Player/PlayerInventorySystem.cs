@@ -44,7 +44,7 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
         {
             playerController.characterController.enabled = true;
         }
-        UnityEngine.Debug.Log(ItemInUse);
+        //UnityEngine.Debug.Log(ItemInUse);
         InputHandler();
     }
 

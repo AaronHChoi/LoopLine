@@ -1,15 +1,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
     [SerializeField] public List<UIInventoryItemSlot> inventorySlots = new List<UIInventoryItemSlot>();
     [SerializeField] private UIInventoryItemSlot UIInventoryItemSlot;
+    [SerializeField] private RawImage arrowImage; 
+    [SerializeField] private Vector2 offset = new Vector2(50f, 0f);
+    private int currentSlotIndex = 0;
     private void Start()
     {
         PlayerInventorySystem.Instance.OnInventoryChanged += OnUpdateInventory;
+        MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
     }
+
     private void OnUpdateInventory()
     {
         foreach (Transform t in transform)
@@ -21,53 +27,24 @@ public class InventoryUI : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(UIInventoryItemSlot);
+        arrowImage.gameObject.SetActive(gameObject.activeInHierarchy);
+        float scroll = Input.mouseScrollDelta.y;
+
         if (gameObject.activeInHierarchy && PlayerInventorySystem.Instance.ItemInUse == null)
         {
-            if (Input.GetKeyDown(KeyCode.WheelDown) || Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                inventorySlots[0].isActive = true;
-            }
-            
+            ChangeSlot(1);
+            MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
         }
-        if (Input.GetKeyDown(KeyCode.WheelUp) || Input.GetKeyDown(KeyCode.UpArrow))
+
+        if (scroll > 0f) 
         {
-            for (int i = 0; i < inventorySlots.Count; i++)
-            {
-                if (inventorySlots[i].gameObject.activeInHierarchy)
-                {
-                    inventorySlots[i].isActive = false;
-                    if (i + 1 < inventorySlots.Count)
-                    {
-                        inventorySlots[i + 1].isActive = true;
-                    }
-                    else
-                    {
-                        inventorySlots[0].isActive = true;
-                    }
-                    break;
-                }
-            }
+            ChangeSlot(-1);
         }
-        else if (Input.GetKeyDown(KeyCode.WheelDown) || Input.GetKeyDown(KeyCode.DownArrow))
+        else if (scroll < 0f) 
         {
-            for (int i = inventorySlots.Count - 1; i >= 0; i--)
-            {
-                if (inventorySlots[i].gameObject.activeInHierarchy)
-                {
-                    inventorySlots[i].isActive = false;
-                    if (i + 1 >= 0)
-                    {
-                        inventorySlots[i - 1].isActive = true;
-                    }
-                    else
-                    {
-                        inventorySlots[inventorySlots.Count - 1].isActive = true;
-                    }
-                    break;
-                }
-            }
+            ChangeSlot(1);
         }
+
         if (Input.GetKeyDown(KeyCode.X))
         {
             for (int i = inventorySlots.Count - 1; i >= 0; i--)
@@ -76,6 +53,30 @@ public class InventoryUI : MonoBehaviour
                 PlayerInventorySystem.Instance.ItemInUse = null;
             }
         }
+    }
+
+    private void ChangeSlot(int direction)
+    {
+        inventorySlots[currentSlotIndex].isActive = false;
+
+        currentSlotIndex += direction;
+
+        if (currentSlotIndex < 0)
+            currentSlotIndex = inventorySlots.Count - 1;
+        else if (currentSlotIndex >= inventorySlots.Count)
+            currentSlotIndex = 0;
+
+        inventorySlots[currentSlotIndex].isActive = true;
+
+        MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
+    }
+
+    private void MoveArrowToSlot(RectTransform slotTransform)
+    {
+        Vector3 worldPos = slotTransform.TransformPoint(Vector3.zero);
+        Vector3 localPos = arrowImage.rectTransform.parent.InverseTransformPoint(worldPos);
+
+        arrowImage.rectTransform.localPosition = localPos + (Vector3)offset;
     }
     public void DrawInventory()
     {
