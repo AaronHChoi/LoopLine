@@ -1,5 +1,3 @@
-using NUnit.Framework;
-using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -65,8 +63,6 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
                         }
                     }
                 }
-
-                
             }
 
         }
@@ -84,13 +80,8 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
                     }
                 }
             }
-
-           
         }
         return null;
-
-
-
 
         /*  
           public IInteract GetInteractableObject()

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,7 @@ public class PhotoCapture : MonoBehaviour
     [Header("Photo Taker")]
     [SerializeField] Image photoDisplayArea;
     [SerializeField] GameObject photoFrame;
+    [SerializeField] GameObject cameraUI;
 
     [Header("FlashEffect")]
     [SerializeField] GameObject cameraFlash;
@@ -16,32 +18,53 @@ public class PhotoCapture : MonoBehaviour
     [SerializeField] Animator fadingAnimation;
 
     [Header("World Photo")]
-    [SerializeField] Renderer worldPhotoRenderer;
+    [SerializeField] List<Renderer> worldPhotoRenderers = new List<Renderer>();
     [SerializeField] float brightnessFactor = 2f;
 
+    [Header("Sound")]
+    [SerializeField] SoundData soundData;
+    [SerializeField] AudioSource bgmAudio;
+
     Texture2D screenCapture;
-    bool viewvingPhoto;
+    [SerializeField] bool viewvingPhoto;
+    [SerializeField] bool cameraActive = false;
+
+    int photoTaken = 0;
+    [SerializeField] int maxPhotos = 5;
 
     private void Start()
     {
+        photoTaken = 0;
         screenCapture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            if(!viewvingPhoto)
+            cameraActive = !cameraActive;
+            cameraUI.SetActive(cameraActive);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            if (cameraActive && !viewvingPhoto)
             {
-                StartCoroutine(CapturePhoto());
+                if (photoTaken < maxPhotos)
+                {
+                    StartCoroutine(CapturePhoto());
+                }
             }
-            else
+            else if (viewvingPhoto)
             {
                 RemovePhoto();
             }
-        }
+        } 
     } 
     IEnumerator CapturePhoto()
     {
+        cameraUI.SetActive(false);
+        cameraActive = false;
+
         viewvingPhoto = true;
 
         yield return new WaitForEndOfFrame();
@@ -54,6 +77,14 @@ public class PhotoCapture : MonoBehaviour
         AdjustBrightness(screenCapture, brightnessFactor);
 
         ShowPhoto();
+
+        SoundManager.Instance.CreateSound()
+            .WithSoundData(soundData)
+            .Play();
+
+        ApplyPhotoToWorldObject();
+
+        photoTaken++;
     }
     void ShowPhoto()
     {
@@ -63,8 +94,6 @@ public class PhotoCapture : MonoBehaviour
         photoFrame.SetActive(true);
         StartCoroutine(CameraFlashEffect());
         fadingAnimation.Play("PhotoFade");
-
-        ApplyPhotoToWorldObject();
     }
     IEnumerator CameraFlashEffect()
     {
@@ -76,12 +105,37 @@ public class PhotoCapture : MonoBehaviour
     {
         viewvingPhoto = false;
         photoFrame.SetActive(false);
+        cameraUI.SetActive(true);
+        cameraActive = true;
     }
     void ApplyPhotoToWorldObject()
     {
-        if(worldPhotoRenderer != null)
+        if(photoTaken < worldPhotoRenderers.Count)
         {
-            worldPhotoRenderer.material.mainTexture = screenCapture;
+            Texture2D photoCopy = new Texture2D(screenCapture.width, screenCapture.height, screenCapture.format, false);
+            photoCopy.SetPixels(screenCapture.GetPixels());
+            photoCopy.Apply();
+
+            worldPhotoRenderers[photoTaken].material.mainTexture = photoCopy;
+
+            string photoObjectName = "Photo" + photoTaken;
+            GameObject photoObject = GameObject.Find(photoObjectName);
+
+            if(photoObject == null)
+            {
+                Debug.LogWarning($"GameObject '{photoObjectName}' no encontrado.");
+                return;
+            }
+
+            Photo photoScript = photoObject.GetComponent<Photo>();
+            if(photoScript == null)
+            {
+                photoScript = photoObject.AddComponent<Photo>();
+            }
+
+            //bool isClue = CheckIfClue(photoCopy);
+
+            photoScript.SetPhoto(photoCopy);
         }
     }
     void AdjustBrightness(Texture2D texture, float brigtnessFactor)
