@@ -41,6 +41,9 @@ public class PhotoCapture : MonoBehaviour
     }
     private void Update()
     {
+        if (DialogueManager.Instance != null && DialogueManager.Instance.isDialogueActive)
+            return;
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             cameraActive = !cameraActive;
