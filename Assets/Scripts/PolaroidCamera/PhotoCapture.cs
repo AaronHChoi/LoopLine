@@ -41,7 +41,7 @@ public class PhotoCapture : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             cameraActive = !cameraActive;
             cameraUI.SetActive(cameraActive);
