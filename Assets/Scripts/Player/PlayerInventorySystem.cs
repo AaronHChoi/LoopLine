@@ -36,14 +36,14 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
 
     private void Update()
     {
-        if (inventoryUI.gameObject.activeInHierarchy == true)
-        {
-            playerController.characterController.enabled = false;
-        }
-        else
-        {
-            playerController.characterController.enabled = true;
-        }
+        //if (inventoryUI.gameObject.activeInHierarchy == true)
+        //{
+        //    playerController.characterController.enabled = false;
+        //}
+        //else
+        //{
+        //    playerController.characterController.enabled = true;
+        //}
         //UnityEngine.Debug.Log(ItemInUse);
         InputHandler();
     }
@@ -54,6 +54,7 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
         {
             //UpdateCursorState();
             inventoryUI.gameObject.SetActive(!inventoryUI.gameObject.activeInHierarchy);
+            inventoryUI.arrowImage.gameObject.SetActive(inventoryUI.gameObject.activeInHierarchy);
         }
 
 

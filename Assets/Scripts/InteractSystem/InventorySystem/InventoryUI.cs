@@ -7,13 +7,15 @@ public class InventoryUI : MonoBehaviour
 {
     [SerializeField] public List<UIInventoryItemSlot> inventorySlots = new List<UIInventoryItemSlot>();
     [SerializeField] private UIInventoryItemSlot UIInventoryItemSlot;
-    [SerializeField] private RawImage arrowImage; 
+    [SerializeField] public RawImage arrowImage; 
     [SerializeField] private Vector2 offset = new Vector2(50f, 0f);
     private int currentSlotIndex = 0;
+    private Vector3 ArrowOriginalPosition = new Vector3(-2000f, 0f, 0f);
     private void Start()
     {
         PlayerInventorySystem.Instance.OnInventoryChanged += OnUpdateInventory;
-        MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
+        //MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
+        arrowImage.transform.position = ArrowOriginalPosition;
     }
 
     private void OnUpdateInventory()
@@ -27,14 +29,14 @@ public class InventoryUI : MonoBehaviour
 
     private void Update()
     {
-        arrowImage.gameObject.SetActive(gameObject.activeInHierarchy);
         float scroll = Input.mouseScrollDelta.y;
 
-        if (gameObject.activeInHierarchy && PlayerInventorySystem.Instance.ItemInUse == null)
-        {
-            ChangeSlot(1);
-            MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
-        }
+        //if (gameObject.activeInHierarchy && PlayerInventorySystem.Instance.ItemInUse == null)
+        //{
+        //    ChangeSlot(1);
+        //    MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
+        //}
+     
 
         if (scroll > 0f) 
         {
@@ -51,6 +53,7 @@ public class InventoryUI : MonoBehaviour
             {
                 inventorySlots[i].isActive = false;
                 PlayerInventorySystem.Instance.ItemInUse = null;
+                arrowImage.transform.position = ArrowOriginalPosition;
             }
         }
     }
