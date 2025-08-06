@@ -15,10 +15,12 @@ public class NPCMindPlaceInteraction : MonoBehaviour, IInteract, IDependencyInje
     [SerializeField] GameObject interrogationLight;
     [SerializeField] GameObject clues;
     [SerializeField] bool cluesActivate;
+
+    [SerializeField] PhotoManager photoManager;
     
     void Start()
     {
-        npcMindPlace = GetComponent<NPCMindPlace>();
+        //npcMindPlace = GetComponent<NPCMindPlace>();
         InjectDependencies(DependencyContainer.Instance);
     }
 
@@ -51,9 +53,10 @@ public class NPCMindPlaceInteraction : MonoBehaviour, IInteract, IDependencyInje
                         noteBookManager.ClairsRoom.transform.position = ClairsRoomTpPosition.position;
                         noteBookManager.ToggleTrainFBX();
                         playerController.characterController.enabled = true;
-                        canvas.SetActive(true);
+                        //canvas.SetActive(true);
                         interrogationLight.SetActive(true);
-                        clues.SetActive(true);
+                        //clues.SetActive(true);
+                        photoManager.PlacePhotos();
                     }
                     else
                     {
@@ -62,6 +65,7 @@ public class NPCMindPlaceInteraction : MonoBehaviour, IInteract, IDependencyInje
                         playerController.characterController.enabled = false;
                         noteBookManager.ToggleTrainFBX();
                         playerController.characterController.enabled = true;
+                        photoManager.ResetPhotos();
                     }
                     
                 }

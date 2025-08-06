@@ -26,8 +26,9 @@ public class PhotoCapture : MonoBehaviour
     [SerializeField] AudioSource bgmAudio;
 
     Texture2D screenCapture;
-    [SerializeField] bool viewvingPhoto;
-    [SerializeField] bool cameraActive = false;
+    bool viewvingPhoto;
+    bool cameraActive = false;
+    bool isCurrentPhotoClue = false;
 
     int photoTaken = 0;
     [SerializeField] int maxPhotos = 5;
@@ -59,6 +60,8 @@ public class PhotoCapture : MonoBehaviour
                 RemovePhoto();
             }
         } 
+
+
     } 
     IEnumerator CapturePhoto()
     {
@@ -69,8 +72,9 @@ public class PhotoCapture : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
 
-        Rect regionToRead = new Rect (0, 0, Screen.width, Screen.height);
+        isCurrentPhotoClue = CheckIfClue();
 
+        Rect regionToRead = new Rect (0, 0, Screen.width, Screen.height);
         screenCapture.ReadPixels(regionToRead, 0, 0, false);
         screenCapture.Apply();
 
@@ -85,6 +89,18 @@ public class PhotoCapture : MonoBehaviour
         ApplyPhotoToWorldObject();
 
         photoTaken++;
+    }
+    bool CheckIfClue()
+    {
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        if(Physics.Raycast(ray, out RaycastHit hit, 100f))
+        {
+            if(hit.collider.GetComponent<PhotoClue>() != null)
+            {
+                return true;
+            }
+        }
+        return false;
     }
     void ShowPhoto()
     {
@@ -133,9 +149,7 @@ public class PhotoCapture : MonoBehaviour
                 photoScript = photoObject.AddComponent<Photo>();
             }
 
-            //bool isClue = CheckIfClue(photoCopy);
-
-            photoScript.SetPhoto(photoCopy);
+            photoScript.SetPhoto(photoCopy, isCurrentPhotoClue);
         }
     }
     void AdjustBrightness(Texture2D texture, float brigtnessFactor)

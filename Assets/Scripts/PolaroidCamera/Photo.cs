@@ -2,12 +2,14 @@ using UnityEngine;
 
 public class Photo : MonoBehaviour
 {
-    bool isClue;
+    [SerializeField] bool isClue;
     string clueId;
     Texture2D texture;
 
     public bool IsClue => isClue;
     public string ClueId => clueId;
+    public Texture2D Texture => texture;
+
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);

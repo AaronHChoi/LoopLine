@@ -52,7 +52,7 @@ public class NoteBookManager : MonoBehaviour, INoteBookColliderToggle
         {
             if (obj != null)
             {
-                if (obj.tag == "04. Train")
+                if (obj.tag == "Train")
                 {
                     obj.SetActive(!obj.activeSelf);
                 }

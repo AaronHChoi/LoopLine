@@ -11,6 +11,7 @@ public class ButtonMindPlace : MonoBehaviour, IInteract
     private Volume volumeToTrain;
     private bool isVolumeActive = false;
 
+    [SerializeField] PhotoManager photoManager;
     private void Update()
     {
         UpdateVolumeTransition();
@@ -22,6 +23,7 @@ public class ButtonMindPlace : MonoBehaviour, IInteract
 
     public void Interact()
     {
+        photoManager.ResetPhotos();
         InitializeVolume();
         isVolumeActive = true;
     }
