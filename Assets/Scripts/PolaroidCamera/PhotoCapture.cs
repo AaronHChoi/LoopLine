@@ -23,6 +23,7 @@ public class PhotoCapture : MonoBehaviour
 
     [Header("Sound")]
     [SerializeField] SoundData soundData;
+    [SerializeField] SoundData soundData2;
     [SerializeField] AudioSource bgmAudio;
 
     Texture2D screenCapture;
@@ -53,6 +54,12 @@ public class PhotoCapture : MonoBehaviour
                 if (photoTaken < maxPhotos)
                 {
                     StartCoroutine(CapturePhoto());
+                }
+                else
+                {
+                    SoundManager.Instance.CreateSound()
+                        .WithSoundData(soundData2)
+                        .Play();
                 }
             }
             else if (viewvingPhoto)
