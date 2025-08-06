@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class PhotoCapture : MonoBehaviour
 {
+    public static bool isCameraActiveGlobal { get; private set; } = false;
+
     [Header("Photo Taker")]
     [SerializeField] Image photoDisplayArea;
     [SerializeField] GameObject photoFrame;
@@ -48,6 +50,8 @@ public class PhotoCapture : MonoBehaviour
         {
             cameraActive = !cameraActive;
             cameraUI.SetActive(cameraActive);
+
+            isCameraActiveGlobal = cameraActive;
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -70,8 +74,6 @@ public class PhotoCapture : MonoBehaviour
                 RemovePhoto();
             }
         } 
-
-
     } 
     IEnumerator CapturePhoto()
     {
