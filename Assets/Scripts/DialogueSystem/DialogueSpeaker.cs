@@ -14,13 +14,11 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     public bool isDialogueActive = false;
     public bool NPCInteracted = false;
 
-
     DevelopmentManager developmentManager;
     Subject eventManager;
     DialogueSOManager dialogueSOManager;
     ItemInteract itemInteract;
     
-
     IUIManager uiManager;
     #region MAGIC_METHODS
     private void Awake()
@@ -60,7 +58,6 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     {
         developmentManager = provider.DevelopmentManager;
         eventManager = provider.SubjectEventManager;
-        
     }
     public void DialogueTrigger()
     {
@@ -149,7 +146,6 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
             return true;
         }
     }
-
     public void Interact()
     {
         if(SceneManager.GetActiveScene().name == "05. MindPlace" && GameManager.Instance.test)
@@ -169,7 +165,9 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
                 DialogueTrigger();
             }
         }
-        itemInteract.Interact();
+
+        if(itemInteract != null)
+            itemInteract.Interact();
     }
     private IEnumerator ExecuteAfterDelay()
     {
@@ -177,7 +175,6 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
 
         uiManager.HideUIText();
     }
-
     public string GetInteractText()
     {
 
@@ -208,5 +205,4 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
         if (playerSpeaker != null)
             playerSpeaker.DialogueTrigger();
     }
-
 }
