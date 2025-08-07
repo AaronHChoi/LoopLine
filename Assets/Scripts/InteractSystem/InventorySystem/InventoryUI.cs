@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -36,8 +37,24 @@ public class InventoryUI : MonoBehaviour
         //    ChangeSlot(1);
         //    MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
         //}
-     
 
+        if (inventorySlots.Count > 0)
+        {
+            for (int i = 0; i < inventorySlots.Count; i++)
+            {
+                int previousIndex = (currentSlotIndex - 1 + inventorySlots.Count) % inventorySlots.Count;
+                int nextIndex = (currentSlotIndex + 1) % inventorySlots.Count;
+
+                if (i == previousIndex || i == currentSlotIndex || i == nextIndex)
+                {
+                    inventorySlots[i].gameObject.SetActive(true);
+                }
+                else
+                {
+                    inventorySlots[i].gameObject.SetActive(false);
+                }
+            }
+        }
         if (scroll > 0f) 
         {
             ChangeSlot(-1);
@@ -70,6 +87,9 @@ public class InventoryUI : MonoBehaviour
             currentSlotIndex = 0;
 
         inventorySlots[currentSlotIndex].isActive = true;
+
+        
+        
 
         MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
     }
