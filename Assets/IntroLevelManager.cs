@@ -4,31 +4,35 @@ using UnityEngine.SceneManagement;
 
 public class IntroLevelManager : MonoBehaviour
 {
-    [SerializeField] FadeInOut fade;
-    [SerializeField] float timePausedFadeOut;
-    [SerializeField] float timeToFadeOut;
-    [SerializeField] float timeLevelToFadeIn;
-    [SerializeField] float timeToFadeIn;
     [SerializeField] float timeToChangeLevel;
     [SerializeField] string nextSceneName;
+    [SerializeField] GameObject skipText;
     void Start()
     {
-        if (fade != null)
+        StartCoroutine(ChangeNextLevelOnSeconds(timeToChangeLevel));
+    }
+    private void Update()
+    {
+        if (Input.anyKeyDown)
         {
-            fade.PauseFade(timePausedFadeOut);
-            fade.FadeOut(timeToFadeOut);
-            StartCoroutine(FadeOutOnTime(timeLevelToFadeIn));
+            ShowSkip();
         }
-        StartCoroutine(ChangeNextLevel(timeToChangeLevel));
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ChangeNextLevel();
+        }
     }
-    private IEnumerator FadeOutOnTime(float seconds)
+    private void ShowSkip()
+    {
+        if (!skipText.activeInHierarchy) skipText.SetActive(true);
+    }
+    private IEnumerator ChangeNextLevelOnSeconds(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        fade.FadeIn(timeToFadeIn);
+        ChangeNextLevel();
     }
-    private IEnumerator ChangeNextLevel(float seconds)
+    public void ChangeNextLevel()
     {
-        yield return new WaitForSeconds(seconds);
         SceneManager.LoadScene(nextSceneName);
     }
 }

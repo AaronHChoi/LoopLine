@@ -1,66 +1,88 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Assets.Scripts.UI
+public class FadeInOutController : MonoBehaviour
 {
-    public class FadeInOutController : MonoBehaviour
+    [SerializeField] private FadeInOutSO settings;
+
+    private CanvasGroup canvasGroup;
+    private Coroutine forcedCoroutine;
+    private void Awake()
     {
-        [SerializeField] private FadeInOutSO settings;
-
-        private CanvasGroup canvasGroup;
-
-        private void Awake()
+        canvasGroup = GetComponent<CanvasGroup>();
+    }
+    private void OnEnable()
+    {
+        if (settings.StartsWithFadeState != FadeState.Force)
         {
-            canvasGroup = GetComponent<CanvasGroup>();
+            StartCoroutine(InitFadeSecuence());
         }
-        private void OnEnable()
+    }
+
+    private IEnumerator InitFadeSecuence()
+    {
+        int loopNum = 0;
+        while (loopNum < settings.AmmountFadeLoops)
         {
-            int loopNum = 1;
-            while (loopNum < settings.AmmountFadeLoops)
+            switch (settings.StartsWithFadeState)
             {
-                switch (settings.StartsWithFadeState)
-                {
-                    case FadeState.FadeIn:
-                        StartCoroutine(InitFadeSecuence(settings.FadeIn, FadeState.FadeIn));
-                        StartCoroutine(InitFadeSecuence(settings.FadeOut, FadeState.FadeOut));
-                        break;
-                    case FadeState.FadeOut:
-                        StartCoroutine(InitFadeSecuence(settings.FadeOut, FadeState.FadeOut));
-                        StartCoroutine(InitFadeSecuence(settings.FadeIn, FadeState.FadeIn));
-                        break;
-                    default:
-                        break;
-                }
-                loopNum++;
+                case FadeState.FadeIn:
+                    yield return FadeProcess(settings.FadeIn, FadeState.FadeIn);
+                    yield return FadeProcess(settings.FadeOut, FadeState.FadeOut);
+                    break;
+                case FadeState.FadeOut:
+                    yield return FadeProcess(settings.FadeOut, FadeState.FadeOut);
+                    yield return FadeProcess(settings.FadeIn, FadeState.FadeIn);
+                    break;
+                default:
+                    break;
             }
-            if (settings.DisableOnFinish) gameObject.SetActive(false);
+            loopNum++;
         }
 
-        private IEnumerator InitFadeSecuence(FadeTiming fadeTiming, FadeState fadeState)
-        {
-            yield return StartCoroutine(WaitTime(fadeTiming.TimeBeforeFade));
+        if (settings.DisableOnFinish) gameObject.SetActive(false);
+    }
+    private IEnumerator FadeProcess(FadeTiming fadeTiming, FadeState fadeState)
+    {
+        canvasGroup.alpha = fadeState == FadeState.FadeIn ? 0f : 1f;
 
-            yield return StartCoroutine(Fade(fadeTiming.FadeTime, fadeState));
+        if (fadeTiming.TimeBeforeFade > 0)
+        {
+            yield return new WaitForSeconds(fadeTiming.TimeBeforeFade);
         }
-        private IEnumerator WaitTime(float seconds)
+
+        yield return Fade(fadeTiming.FadeTime, fadeState);
+
+        if (settings.StartsWithFadeState == FadeState.Force) forcedCoroutine = null;
+    }
+
+    private IEnumerator Fade(float fadeTime, FadeState fadeState)
+    {
+        float timer = 0;
+        float startAlpha = fadeState == FadeState.FadeIn ? 0f : 1f;
+        float endAlpha = fadeState == FadeState.FadeIn ? 1f : 0f;
+
+        while (timer < fadeTime)
         {
-            yield return new WaitForSeconds(seconds);
+            timer += Time.deltaTime;
+            float t = Mathf.Clamp01(timer / fadeTime);
+            canvasGroup.alpha = Mathf.Lerp(startAlpha, endAlpha, t);
+            yield return null;
         }
 
-        private IEnumerator Fade(float fadeTime, FadeState fadeState)
+        canvasGroup.alpha = endAlpha;
+    }
+    public void ForceFade(bool isFadeIn)
+    {
+        if (forcedCoroutine == null && settings.StartsWithFadeState == FadeState.Force)
         {
-            float timer = 0;
-            float startAlpha = fadeState == FadeState.FadeIn ? 0f : 1f;
-            float endAlpha = fadeState == FadeState.FadeIn ? 1f : 0f;
-
-            canvasGroup.alpha = startAlpha;
-
-            while (timer < fadeTime)
+            if (isFadeIn)
             {
-                timer += Time.deltaTime;
-                float t = Mathf.Clamp01(timer / fadeTime);
-                canvasGroup.alpha = Mathf.Lerp(startAlpha, endAlpha, t);
-                yield return null;
+                forcedCoroutine = StartCoroutine(FadeProcess(settings.FadeIn, FadeState.FadeIn));
+            }
+            else
+            {
+                forcedCoroutine = StartCoroutine(FadeProcess(settings.FadeOut, FadeState.FadeOut));
             }
         }
     }

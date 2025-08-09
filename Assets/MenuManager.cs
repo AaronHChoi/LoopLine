@@ -5,12 +5,10 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
     [Header("Fade")]
-    [SerializeField] FadeInOut fade;
-    [SerializeField] float timePausedFadeOut;
-    [SerializeField] float timeToFadeOut;
-    [SerializeField] float timeToFadeIn;
-    [SerializeField] float timeToChangeSceneAfterFadeIn;
+    [SerializeField] FadeInOutController fade;
+    [SerializeField] float timeToChangeSceneAfterCommand;
     [SerializeField] string nextSceneName;
+    [SerializeField] float timeToEnableButtons;
 
     [Header("Sound")]
     [SerializeField] SoundData clickSoundData;
@@ -35,10 +33,10 @@ public class MenuManager : MonoBehaviour
 
         if (fade != null)
         {
-            StartCoroutine(AllowButtons(timePausedFadeOut + timeToFadeOut));
-            fade.PauseFade(timePausedFadeOut);
-            fade.FadeOut(timeToFadeOut);
+            StartCoroutine(AllowButtons(timeToEnableButtons));
+            fade.ForceFade(false);
         }
+
         bgmVolumeBase = bgmAudio.volume;
     }
     private void Update()
@@ -58,7 +56,7 @@ public class MenuManager : MonoBehaviour
         }
         if (isDecreasingVolume)
         {
-            bgmAudio.volume -= (bgmVolumeBase) * Time.deltaTime * (1/ (timeToFadeIn + timeToChangeSceneAfterFadeIn));
+            bgmAudio.volume -= (bgmVolumeBase) * Time.deltaTime * (1/ (timeToChangeSceneAfterCommand));
         }
     }
 
@@ -68,15 +66,15 @@ public class MenuManager : MonoBehaviour
         if (!buttonsAllowed) return;
         ClikBehaviour();
         isDecreasingVolume = true;
-        fade.FadeIn(timeToFadeIn);
-        StartCoroutine(ChangeNextLevel(timeToFadeIn+timeToChangeSceneAfterFadeIn));
+        fade.ForceFade(true);
+        StartCoroutine(ChangeNextLevel(timeToChangeSceneAfterCommand));
     }
     public void QuitGame()
     {
         if (!buttonsAllowed) return;
         ClikBehaviour();
-        fade.FadeIn(timeToFadeIn);
-        StartCoroutine(ExitGame(timeToFadeIn + timeToChangeSceneAfterFadeIn));
+        fade.ForceFade(true);
+        StartCoroutine(ExitGame(timeToChangeSceneAfterCommand));
     }
 
 
@@ -117,7 +115,7 @@ public class MenuManager : MonoBehaviour
     private IEnumerator ChangeNextLevel(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        SceneManager.LoadScene(nextSceneName);
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        SceneManager.LoadScene(nextSceneName);
     }
 }

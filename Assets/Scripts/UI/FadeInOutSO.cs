@@ -30,5 +30,6 @@ public  struct FadeTiming
 public enum FadeState
 {
     FadeIn,
-    FadeOut
+    FadeOut,
+    Force
 }
