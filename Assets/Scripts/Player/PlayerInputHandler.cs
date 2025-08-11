@@ -4,8 +4,12 @@ using UnityEngine.InputSystem;
 public class PlayerInputHandler : MonoBehaviour, IPlayerInputHandler
 {
     PlayerInput playerInput;
+
     InputAction moveAction;
     InputAction sprintAction;
+    InputAction toggleCameraAction;
+    InputAction takePhotoAction;
+    InputAction exitPhotoAction;
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -14,18 +18,36 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerInputHandler
     {
         moveAction = playerInput.actions["Move"];
         sprintAction = playerInput.actions["Sprint"];
+        toggleCameraAction = playerInput.actions["ToggleCamera"];
+        takePhotoAction = playerInput.actions["TakePhoto"];
+        exitPhotoAction = playerInput.actions["ExitPhoto"];
     }
-    public InputAction GetMoveAction()
+    public Vector2 GetInputMove()
     {
-        return moveAction;
+        return moveAction.ReadValue<Vector2>();
     }
-    public InputAction GetSprintAction()
+    public bool IsSprinting()
     {
-        return sprintAction;
+        return sprintAction.IsPressed();
+    }
+    public bool ToggleCameraPressed()
+    {
+        return toggleCameraAction.WasPerformedThisFrame();
+    }
+    public bool TakePhotoPressed()
+    {
+        return takePhotoAction.WasPerformedThisFrame();
+    }
+    public bool ExitPhotoPressed()
+    {
+        return exitPhotoAction.WasPerformedThisFrame();
     }
 }
 public interface IPlayerInputHandler
 {
-    InputAction GetMoveAction();
-    InputAction GetSprintAction();
+    Vector2 GetInputMove();
+    bool IsSprinting();
+    bool ToggleCameraPressed();
+    bool TakePhotoPressed();
+    bool ExitPhotoPressed();
 }

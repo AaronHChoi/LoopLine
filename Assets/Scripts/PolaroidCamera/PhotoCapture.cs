@@ -36,6 +36,11 @@ public class PhotoCapture : MonoBehaviour
     int photoTaken = 0;
     [SerializeField] int maxPhotos = 5;
 
+    IPlayerInputHandler playerInputHandler;
+    private void Awake()
+    {
+        playerInputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
+    }
     private void Start()
     {
         photoTaken = 0;
@@ -49,7 +54,7 @@ public class PhotoCapture : MonoBehaviour
         if (viewvingPhoto)
             return;
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (playerInputHandler.ToggleCameraPressed())
         {
             cameraActive = !cameraActive;
             cameraUI.SetActive(cameraActive);
