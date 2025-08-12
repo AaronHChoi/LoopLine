@@ -43,6 +43,8 @@ public class InventoryUI : MonoBehaviour
         {
             for (int i = 0; i < inventorySlots.Count; i++)
             {
+                if (inventorySlots[i] == null)
+                    continue;
                 int previousIndex = (currentSlotIndex - 1 + inventorySlots.Count) % inventorySlots.Count;
                 int nextIndex = (currentSlotIndex + 1) % inventorySlots.Count;
 
