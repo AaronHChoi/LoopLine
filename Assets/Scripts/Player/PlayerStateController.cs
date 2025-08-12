@@ -2,23 +2,22 @@ using UnityEngine;
 
 namespace Player
 {
+    public enum PlayerState
+    {
+        Normal,
+        Dialogue,
+        Camera
+    }
     public class PlayerStateController : MonoBehaviour, IDependencyInjectable
     {
-        public enum PlayerState
-        {
-            Normal,
-            Dialogue,
-            Camera
-        }
-
         public PlayerState CurrentState { get; private set; } = PlayerState.Normal;
 
-        IPlayerInputHandler playerInputHandler;
+        IPolaroidCameraInput playerPolaroidCameraInput;
         PlayerMovement playerMovement;
 
         private void Awake()
         {
-            playerInputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
+            playerPolaroidCameraInput = InterfaceDependencyInjector.Instance.Resolve<IPolaroidCameraInput>();
             InjectDependencies(DependencyContainer.Instance);
         }
         public void InjectDependencies(DependencyContainer provider)
@@ -33,20 +32,48 @@ namespace Player
                     HandleNormalState();
                     break;
                 case PlayerState.Dialogue:
-                    HandleDialgueState();
+                    HandleDialogueState();
+                    break;
+                case PlayerState.Camera:
+                    HandleCameraState();
                     break;
             }
+        }
+        public void SetState(PlayerState newState)
+        {
+            CurrentState = newState;
+            Debug.Log($"Player State changed to: {newState}");
+        }
+        public bool IsInState(PlayerState state)
+        {
+            return CurrentState == state;
         }
         private void HandleNormalState()
         {
             playerMovement.CanMove = true;
+
+            if (playerPolaroidCameraInput.ToggleCameraPressed())
+            {
+                EnterCameraState();
+            }
         }
-        private void HandleDialgueState()
+        private void HandleDialogueState()
         {
         }
         private void HandleCameraState()
         {
-
+            if(playerPolaroidCameraInput.ToggleCameraPressed())
+            {
+                ExitCameraState();
+            }
+        }
+        private void EnterCameraState()
+        {
+            CurrentState = PlayerState.Camera;
+        }
+        private void ExitCameraState()
+        {
+            CurrentState = PlayerState.Normal;
         }
     }
 }

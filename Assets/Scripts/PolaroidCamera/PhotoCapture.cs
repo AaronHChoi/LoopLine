@@ -36,10 +36,10 @@ public class PhotoCapture : MonoBehaviour
     int photoTaken = 0;
     [SerializeField] int maxPhotos = 5;
 
-    IPlayerInputHandler playerInputHandler;
+    IPolaroidCameraInput playerPolaroidCameraInput;
     private void Awake()
     {
-        playerInputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
+        playerPolaroidCameraInput = InterfaceDependencyInjector.Instance.Resolve<IPolaroidCameraInput>();
     }
     private void Start()
     {
@@ -54,7 +54,7 @@ public class PhotoCapture : MonoBehaviour
         if (viewvingPhoto)
             return;
 
-        if (playerInputHandler.ToggleCameraPressed())
+        if (playerPolaroidCameraInput.ToggleCameraPressed())
         {
             cameraActive = !cameraActive;
             cameraUI.SetActive(cameraActive);

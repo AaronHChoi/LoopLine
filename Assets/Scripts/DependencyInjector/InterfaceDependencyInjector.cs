@@ -50,7 +50,8 @@ public class InterfaceDependencyInjector : MonoBehaviour, IDependencyInjectable
         Register<IColliderToggle>(focusModeManager);
         Register<INoteBookColliderToggle>(noteBookManager);
         Register<ICameraOrientation>(cinemachinePOVExtension);
-        Register<IPlayerInputHandler>(playerInputHandler);
+        Register<IPolaroidCameraInput>(playerInputHandler);
+        Register<IPlayerMovementInput>(playerInputHandler);
         Register<IPlayerCamera>(playerCamera);
         Register<IPlayerView>(playerView);
         Register<IPlayerController>(playerController);
