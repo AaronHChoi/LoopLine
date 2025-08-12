@@ -4,9 +4,9 @@ using UnityEngine.SceneManagement;
 
 public class PlayerInteract : MonoBehaviour, IDependencyInjectable
 {
-    private CinemachineCamera rayCastPoint;
-    private PlayerInventorySystem playerInventorySystem;
-    private InventoryUI inventoryUI;
+    private CinemachineCamera _rayCastPoint;
+    private PlayerInventorySystem _playerInventorySystem;
+    private InventoryUI _inventoryUI;
     [SerializeField] private float raycastDistance = 2f;
     [SerializeField] private LayerMask interactableLayer;
 
@@ -16,20 +16,20 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
     }
     public void InjectDependencies(DependencyContainer provider)
     {
-        rayCastPoint = provider.CinemachineCamera;
-        inventoryUI = provider.InventoryUI;
-        playerInventorySystem = provider.PlayerInventorySystem;
+        _rayCastPoint = provider.CinemachineCamera;
+        _inventoryUI = provider.InventoryUI;
+        _playerInventorySystem = provider.PlayerInventorySystem;
     }
     void Update()
     {
         if (PhotoCapture.isCameraActiveGlobal)
             return;
 
-        Debug.DrawRay(rayCastPoint.transform.position, rayCastPoint.transform.forward * raycastDistance, Color.red);
+        Debug.DrawRay(_rayCastPoint.transform.position, _rayCastPoint.transform.forward * raycastDistance, Color.red);
 
         if (SceneManager.GetActiveScene().name == "04. Train")
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0) && inventoryUI.gameObject.activeInHierarchy == false && playerInventorySystem.ItemInUse == null)
+            if (Input.GetKeyDown(KeyCode.Mouse0) && _inventoryUI.gameObject.activeInHierarchy == false && _playerInventorySystem.ItemInUse == null)
             {
                 IInteract interactableObject = GetInteractableObject();
                 if (interactableObject != null)
@@ -47,14 +47,14 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
             }
         }
     }
-    
+
     public IInteract GetInteractableObject()
     {
         if (SceneManager.GetActiveScene().name == "04. Train")
         {
-            if (inventoryUI.gameObject.activeInHierarchy == false && playerInventorySystem.ItemInUse == null) 
+            if (_inventoryUI.gameObject.activeInHierarchy == false && _playerInventorySystem.ItemInUse == null)
             {
-                Ray ray = new Ray(rayCastPoint.transform.position, rayCastPoint.transform.forward);
+                Ray ray = new Ray(_rayCastPoint.transform.position, _rayCastPoint.transform.forward);
 
                 if (Physics.Raycast(ray, out RaycastHit hit, raycastDistance))
                 {
@@ -71,7 +71,7 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
         }
         else
         {
-            Ray ray = new Ray(rayCastPoint.transform.position, rayCastPoint.transform.forward);
+            Ray ray = new Ray(_rayCastPoint.transform.position, _rayCastPoint.transform.forward);
 
             if (Physics.Raycast(ray, out RaycastHit hit, raycastDistance))
             {
@@ -84,28 +84,7 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
                 }
             }
         }
+
         return null;
-
-        /*  
-          public IInteract GetInteractableObject()
-          {
-              //List<IInteract> InteractableList = new List<IInteract>();
-
-              Ray ray = new Ray(rayCastPoint.transform.position, rayCastPoint.transform.forward);
-              RaycastHit[] hits = Physics.RaycastAll(ray, raycastDistance, interactableLayer);
-
-              IInteract interactableObject = null;
-
-              foreach (RaycastHit hit in hits)
-              {
-                  if (hit.collider.TryGetComponent(out IInteract interactable))
-                  {
-                      interactableObject = interactable;
-                      //interactableLayer = hit.collider.gameObject.layer;
-                  }
-              }
-
-              return interactableObject;
-          */
     }
 }

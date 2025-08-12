@@ -407,9 +407,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Press E
-  interactDistance: 3
-  interactYOffSet: 0
+  promptMessage: Grab
+  uiOffset: {x: 0, y: 0, z: 0}
 --- !u!65 &39616054
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -425,7 +424,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1116,7 +1115,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1220,9 +1219,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Interactable
-  interactDistance: 3
-  interactYOffSet: 0
+  promptMessage: Grab
+  uiOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &140835135
 GameObject:
   m_ObjectHideFlags: 0
@@ -1901,7 +1899,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -2005,9 +2003,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Interactable
-  interactDistance: 3
-  interactYOffSet: 0
+  promptMessage: Grab
+  uiOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &205478736
 GameObject:
   m_ObjectHideFlags: 0
@@ -3082,6 +3079,8 @@ GameObject:
   - component: {fileID: 349358453}
   - component: {fileID: 349358454}
   - component: {fileID: 349358455}
+  - component: {fileID: 349358456}
+  - component: {fileID: 349358457}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3346,10 +3345,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87ea81c750f281140b20e48fd0eaf10b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactRange: 3
+  interactRange: 2
   interactableLayer:
     serializedVersion: 2
     m_Bits: 8
+  markerFOV: 70
+--- !u!135 &349358456
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349358447}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 3
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &349358457
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349358447}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &354812188
 GameObject:
   m_ObjectHideFlags: 0
@@ -8915,7 +8963,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -9019,9 +9067,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Interactable
-  interactDistance: 3
-  interactYOffSet: 0
+  promptMessage: Grab
+  uiOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &467501560
 GameObject:
   m_ObjectHideFlags: 0
@@ -12893,9 +12940,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Press E
-  interactDistance: 3
-  interactYOffSet: 0
+  promptMessage: Grab
+  uiOffset: {x: 0, y: 0, z: 0}
 --- !u!65 &849012231
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12911,7 +12957,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -15241,7 +15287,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -15345,9 +15391,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Interactable
-  interactDistance: 3
-  interactYOffSet: 0
+  promptMessage: Grab
+  uiOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &920295571
 GameObject:
   m_ObjectHideFlags: 0
@@ -15480,7 +15525,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -15584,9 +15629,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Interactable
-  interactDistance: 3
-  interactYOffSet: 0
+  promptMessage: Grab
+  uiOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &931961944
 GameObject:
   m_ObjectHideFlags: 0
@@ -24405,7 +24449,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -24509,9 +24553,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Interactable
-  interactDistance: 3
-  interactYOffSet: 0
+  promptMessage: Grab
+  uiOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &1361937932
 GameObject:
   m_ObjectHideFlags: 0
@@ -24612,9 +24655,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Press E
-  interactDistance: 3
-  interactYOffSet: 0
+  promptMessage: Grab
+  uiOffset: {x: 0, y: 0, z: 0}
 --- !u!65 &1373321956
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -24630,7 +24672,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -35969,6 +36011,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 725991546843324951, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: raycastDistance
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1133552872947455245, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -36582,6 +36628,7 @@ GameObject:
   - component: {fileID: 8655421388353277494}
   - component: {fileID: 8655421388353277495}
   - component: {fileID: 8655421388353277496}
+  - component: {fileID: 8655421388353277497}
   m_Layer: 3
   m_Name: HeahphonesGuy
   m_TagString: Item
@@ -36654,7 +36701,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -36689,9 +36736,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Interactable
-  interactDistance: 3
-  interactYOffSet: 0
+  promptMessage: Grab
+  uiOffset: {x: 0, y: 0, z: 0}
 --- !u!33 &4815001304669766569
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -36830,6 +36876,7 @@ GameObject:
   - component: {fileID: 6037537485703644096}
   - component: {fileID: 9115198044459715234}
   - component: {fileID: 9115198044459715235}
+  - component: {fileID: 9115198044459715236}
   m_Layer: 3
   m_Name: Coffe
   m_TagString: Item
@@ -37010,7 +37057,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -37065,9 +37112,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Interactable
-  interactDistance: 3
-  interactYOffSet: 0
+  promptMessage: Grab
+  uiOffset: {x: 0, y: 0, z: 0}
 --- !u!23 &7743134123327033823
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -37208,6 +37254,7 @@ GameObject:
   - component: {fileID: 7743134123327033823}
   - component: {fileID: 8331784865067959944}
   - component: {fileID: 8331784865067959945}
+  - component: {fileID: 8331784865067959946}
   m_Layer: 3
   m_Name: Key
   m_TagString: Item
@@ -37244,9 +37291,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Interactable
-  interactDistance: 3
-  interactYOffSet: 0
+  promptMessage: Grab
+  uiOffset: {x: 0, y: 0, z: 0}
+--- !u!65 &8331784865067959946
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8331784865067959943}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.10956636, y: 0.030080272, z: 0.3243766}
+  m_Center: {x: -0.0047183177, y: 0.007840133, z: 0.06017359}
 --- !u!1001 &8463988714082365455
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37390,9 +37457,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Interactable
-  interactDistance: 3
-  interactYOffSet: 0
+  promptMessage: Grab
+  uiOffset: {x: 0, y: 0, z: 0}
+--- !u!65 &8655421388353277497
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3718104522355988649}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.3997096, y: 0.15818098, z: 0.4845136}
+  m_Center: {x: -0.000000014901165, y: 0.009781372, z: -0.025042167}
 --- !u!1001 &8678927527692710603
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37484,7 +37571,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -37539,9 +37626,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Interactable
-  interactDistance: 3
-  interactYOffSet: 0
+  promptMessage: Grab
+  uiOffset: {x: 0, y: 0, z: 0}
 --- !u!4 &9115198044459715233
 Transform:
   m_ObjectHideFlags: 0
@@ -37586,9 +37672,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Interactable
-  interactDistance: 3
-  interactYOffSet: 0
+  promptMessage: Grab
+  uiOffset: {x: 0, y: 0, z: 0}
+--- !u!136 &9115198044459715236
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5237998019394161233}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.118799984
+  m_Height: 0.32544005
+  m_Direction: 1
+  m_Center: {x: 0.00335126, y: -0.040779464, z: -0.010157298}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
