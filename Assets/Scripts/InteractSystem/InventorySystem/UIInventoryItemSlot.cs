@@ -8,7 +8,7 @@ public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
     [SerializeField] private TextMeshProUGUI itemNameLabel;
     [SerializeField] private Sprite itemImage;
     [SerializeField] private UnityEngine.UI.Button itemButton;
-    private ItemInteract itemToSpawn;
+    public ItemInteract itemToSpawn { get; private set; }
     public bool isActive = false;
     PlayerInventorySystem playerInventorySystem;
     InventoryUI inventoryUI;

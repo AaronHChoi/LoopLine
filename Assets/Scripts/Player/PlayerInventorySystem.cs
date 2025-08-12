@@ -32,19 +32,21 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
         }
         InjectDependencies(DependencyContainer.Instance);
         inventoryUI.gameObject.SetActive(false);
+        UnityEngine.Debug.Log("0");
+    }
+    private void Start()
+    {
+        inventoryUI.AddInventorySlot(inventoryUI.HandItemUI);
+        ItemInUse = inventoryUI.HandItemUI;
+        UnityEngine.Debug.Log("1");
+        inventoryUI.inventorySlots[0].isActive = true;
+        
+        UnityEngine.Debug.Log("2");
+        
     }
 
     private void Update()
-    {
-        //if (inventoryUI.gameObject.activeInHierarchy == true)
-        //{
-        //    playerController.characterController.enabled = false;
-        //}
-        //else
-        //{
-        //    playerController.characterController.enabled = true;
-        //}
-        //UnityEngine.Debug.Log(ItemInUse);
+    {       
         InputHandler();
     }
 
@@ -52,7 +54,6 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
     {
         if (Input.GetKeyDown(KeyCode.Tab) && !dialogueManager.isDialogueActive && inventory.Count != 0)
         {
-            //UpdateCursorState();
             inventoryUI.gameObject.SetActive(!inventoryUI.gameObject.activeInHierarchy);
             inventoryUI.arrowImage.gameObject.SetActive(inventoryUI.gameObject.activeInHierarchy);
         }

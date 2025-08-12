@@ -32,21 +32,25 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable
 
     public void Interact()
     {
-        if (gameObject.tag == "Item" && playerInventorySystem.ItemInUse == null)
+        if (gameObject.tag == "Item")
         {
-            if (deactivateOnPickup)
+            if (playerInventorySystem.ItemInUse == inventoryUI.HandItemUI || playerInventorySystem.ItemInUse == null)
             {
-                gameObject.SetActive(false);
-                gameObject.layer = LayerMask.NameToLayer("Default");
+                if (deactivateOnPickup)
+                {
+                    gameObject.SetActive(false);
+                    gameObject.layer = LayerMask.NameToLayer("Default");
+                }
+                if (playerInventorySystem.CheckInventory(this) == false)
+                {
+                    inventoryUI.AddInventorySlot(this);
+                }
+                playerInventorySystem.AddToInvetory(this);
+
+                if (itemToActivate != null && !string.IsNullOrEmpty(id))
+                    playerInventorySystem.ActivateNextItem(itemToActivate, id);
             }
-            if (playerInventorySystem.CheckInventory(this) == false)
-            {
-                inventoryUI.AddInventorySlot(this);
-            }
-            playerInventorySystem.AddToInvetory(this);
-                     
-            if (itemToActivate != null && !string.IsNullOrEmpty(id))
-                playerInventorySystem.ActivateNextItem(itemToActivate, id);
+            
         }
     }
 

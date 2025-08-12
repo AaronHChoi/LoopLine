@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -7,16 +8,16 @@ using UnityEngine.UI;
 public class InventoryUI : MonoBehaviour
 {
     [SerializeField] public List<UIInventoryItemSlot> inventorySlots = new List<UIInventoryItemSlot>();
-    [SerializeField] private UIInventoryItemSlot UIInventoryItemSlot;
+
     [SerializeField] public RawImage arrowImage; 
     [SerializeField] private Vector2 offset = new Vector2(50f, 0f);
+    [SerializeField] public ItemInteract HandItemUI;
     private int currentSlotIndex = 0;
-    private Vector3 ArrowOriginalPosition = new Vector3(-2000f, 0f, 0f);
     private void Start()
     {
         PlayerInventorySystem.Instance.OnInventoryChanged += OnUpdateInventory;
-        //MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
-        arrowImage.transform.position = ArrowOriginalPosition;
+        MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
+        
     }
 
     private void OnUpdateInventory()
@@ -64,18 +65,18 @@ public class InventoryUI : MonoBehaviour
             ChangeSlot(1);
         }
 
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            for (int i = inventorySlots.Count - 1; i >= 0; i--)
-            {
-                inventorySlots[i].isActive = false;
-                PlayerInventorySystem.Instance.ItemInUse = null;
-                arrowImage.transform.position = ArrowOriginalPosition;
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.X))
+        //{
+        //    for (int i = inventorySlots.Count - 1; i >= 0; i--)
+        //    {
+        //        inventorySlots[i].isActive = false;
+        //        PlayerInventorySystem.Instance.ItemInUse = null;
+        //        arrowImage.transform.position = ArrowOriginalPosition;
+        //    }
+        //}
     }
 
-    private void ChangeSlot(int direction)
+    public void ChangeSlot(int direction)
     {
         inventorySlots[currentSlotIndex].isActive = false;
 

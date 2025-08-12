@@ -20,6 +20,7 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
         inventoryUI = provider.InventoryUI;
         playerInventorySystem = provider.PlayerInventorySystem;
     }
+
     void Update()
     {
         if (PhotoCapture.isCameraActiveGlobal)
@@ -29,7 +30,7 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
 
         if (SceneManager.GetActiveScene().name == "04. Train")
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0) && inventoryUI.gameObject.activeInHierarchy == false && playerInventorySystem.ItemInUse == null)
+            if (Input.GetKeyDown(KeyCode.Mouse0) && inventoryUI.gameObject.activeInHierarchy == false && playerInventorySystem.ItemInUse == inventoryUI.HandItemUI)
             {
                 IInteract interactableObject = GetInteractableObject();
                 if (interactableObject != null)
@@ -52,7 +53,7 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
     {
         if (SceneManager.GetActiveScene().name == "04. Train")
         {
-            if (inventoryUI.gameObject.activeInHierarchy == false && playerInventorySystem.ItemInUse == null) 
+            if (inventoryUI.gameObject.activeInHierarchy == false && playerInventorySystem.ItemInUse == inventoryUI.HandItemUI) 
             {
                 Ray ray = new Ray(rayCastPoint.transform.position, rayCastPoint.transform.forward);
 
