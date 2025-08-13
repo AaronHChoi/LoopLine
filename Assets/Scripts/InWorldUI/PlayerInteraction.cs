@@ -193,6 +193,7 @@ namespace InWorldUI
             int stepCount = 30;
             float stepAngle = fovDegrees / stepCount;
             Quaternion leftRayRotation = Quaternion.AngleAxis(-fovDegrees * 0.5f, Vector3.up);
+        }
         private void DrawFOVGizmo(Vector3 origin, Vector3 forward, Vector3 up, float fovDegrees, float length, Color color)
         {
             Gizmos.color = color;

@@ -39,10 +39,7 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
         inventoryUI.AddInventorySlot(inventoryUI.HandItemUI);
         AddToInvetory(inventoryUI.HandItemUI);
         ItemInUse = inventoryUI.HandItemUI;
-        UnityEngine.Debug.Log("1");
         inventoryUI.inventorySlots[0].isActive = true;
-        
-        UnityEngine.Debug.Log("2");
         
     }
 

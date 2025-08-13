@@ -44,8 +44,9 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable
                 if (playerInventorySystem.CheckInventory(this) == false)
                 {
                     inventoryUI.AddInventorySlot(this);
+                    playerInventorySystem.AddToInvetory(this);
                 }
-                playerInventorySystem.AddToInvetory(this);
+                
 
                 if (itemToActivate != null && !string.IsNullOrEmpty(id))
                     playerInventorySystem.ActivateNextItem(itemToActivate, id);
