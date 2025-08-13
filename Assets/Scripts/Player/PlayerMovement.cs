@@ -8,12 +8,12 @@ public class PlayerMovement : MonoBehaviour
         get => canMove;
         set => canMove = value;
     }
-    IPlayerMovementInput playerInputHandler;
+    IPlayerInputHandler playerInputHandler;
     IPlayerCamera playerCamera;
     IPlayerView playerView;
     private void Awake()
     {
-        playerInputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerMovementInput>();
+        playerInputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
         playerCamera = InterfaceDependencyInjector.Instance.Resolve<IPlayerCamera>();
         playerView = InterfaceDependencyInjector.Instance.Resolve<IPlayerView>();
     }

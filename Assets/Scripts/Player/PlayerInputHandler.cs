@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInputHandler : MonoBehaviour, IPolaroidCameraInput, IPlayerMovementInput
+public class PlayerInputHandler : MonoBehaviour, IPlayerInputHandler
 {
     PlayerInput playerInput;
 
@@ -20,6 +20,7 @@ public class PlayerInputHandler : MonoBehaviour, IPolaroidCameraInput, IPlayerMo
         sprintAction = playerInput.actions["Sprint"];
         toggleCameraAction = playerInput.actions["ToggleCamera"];
         takePhotoAction = playerInput.actions["TakePhoto"];
+        exitPhotoAction = playerInput.actions["ExitPhoto"];
     }
     public Vector2 GetInputMove()
     {
@@ -37,14 +38,16 @@ public class PlayerInputHandler : MonoBehaviour, IPolaroidCameraInput, IPlayerMo
     {
         return takePhotoAction.WasPerformedThisFrame();
     }
+    public bool ExitPhotoPressed()
+    {
+        return exitPhotoAction.WasPerformedThisFrame();
+    }
 }
-public interface IPlayerMovementInput
+public interface IPlayerInputHandler
 {
     Vector2 GetInputMove();
     bool IsSprinting();
-}
-public interface IPolaroidCameraInput
-{
     bool ToggleCameraPressed();
     bool TakePhotoPressed();
+    bool ExitPhotoPressed();
 }

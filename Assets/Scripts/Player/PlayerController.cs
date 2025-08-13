@@ -1,4 +1,3 @@
-using Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,8 +8,6 @@ public class PlayerController : MonoBehaviour, IPlayerController
     PlayerFocusMode playerFocusMode;
     PlayerMindPlaceNoteBook playerMindPlaceNoteBook;
     PlayerMovement playerMovement;
-    PlayerStateController playerStateController;
-
     public CharacterController characterController;
     private void Awake()
     {
@@ -19,17 +16,12 @@ public class PlayerController : MonoBehaviour, IPlayerController
         playerMovement = GetComponent<PlayerMovement>();
         playerMindPlaceNoteBook = GetComponent<PlayerMindPlaceNoteBook>();
         characterController = GetComponent<CharacterController>();
-        playerStateController = GetComponent<PlayerStateController>();
         playerModel = new PlayerModel();
     }
     private void Update()
     {
-        if (playerStateController.IsInState(PlayerState.Normal))
-        {
-            playerMovement.HandleMovement(playerModel);
-            playerMovement.RotateCharacterToCamera(playerModel);
-        }
-        
+        playerMovement.HandleMovement(playerModel);
+        playerMovement.RotateCharacterToCamera(playerModel);
         HandleInput();
     }
     private void HandleInput()
@@ -49,8 +41,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
     public void SetCinemachineController(bool _enabled)
     {
         playerCamera.SetControllerEnabled(_enabled);
-
-        playerStateController.SetState(_enabled ? PlayerState.Normal : PlayerState.Dialogue);
+        playerMovement.CanMove = _enabled;
     }
 }
 public interface IPlayerController
