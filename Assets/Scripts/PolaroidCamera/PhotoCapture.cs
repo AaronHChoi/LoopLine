@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Player;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PhotoCapture : MonoBehaviour
+public class PhotoCapture : MonoBehaviour, IDependencyInjectable
 {
-    public static bool isCameraActiveGlobal { get; private set; } = false;
+    //public static bool isCameraActiveGlobal { get; private set; } = false;
 
     [Header("Photo Taker")]
     [SerializeField] Image photoDisplayArea;
@@ -29,13 +30,21 @@ public class PhotoCapture : MonoBehaviour
     [SerializeField] AudioSource bgmAudio;
 
     Texture2D screenCapture;
-    bool viewvingPhoto;
+    [SerializeField] bool viewvingPhoto;
     bool cameraActive = false;
     bool isCurrentPhotoClue = false;
 
     int photoTaken = 0;
     [SerializeField] int maxPhotos = 5;
 
+    IPolaroidCameraInput playerPolaroidCameraInput;
+    PlayerStateController playerStateController;
+    #region MAGIC_METHODS
+    private void Awake()
+    {
+        playerPolaroidCameraInput = InterfaceDependencyInjector.Instance.Resolve<IPolaroidCameraInput>();
+        InjectDependencies(DependencyContainer.Instance);
+    }
     private void Start()
     {
         photoTaken = 0;
@@ -43,23 +52,11 @@ public class PhotoCapture : MonoBehaviour
     }
     private void Update()
     {
-        if (DialogueManager.Instance != null && DialogueManager.Instance.isDialogueActive)
-            return;
+        if (!playerStateController.IsInState(PlayerState.Camera)) return;
 
-        if (viewvingPhoto)
-            return;
-
-        if (Input.GetKeyDown(KeyCode.E))
+        if(playerPolaroidCameraInput.TakePhotoPressed())
         {
-            cameraActive = !cameraActive;
-            cameraUI.SetActive(cameraActive);
-
-            isCameraActiveGlobal = cameraActive;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            if (cameraActive && !viewvingPhoto)
+            if (!viewvingPhoto)
             {
                 if (photoTaken < maxPhotos)
                 {
@@ -72,12 +69,37 @@ public class PhotoCapture : MonoBehaviour
                         .Play();
                 }
             }
-            else if (viewvingPhoto)
+            else
             {
                 RemovePhoto();
             }
-        } 
-    } 
+        }
+    }
+    private void OnEnable()
+    {
+        playerStateController.OnStateChanged += HandlePlayerStateChanged;
+    }
+    private void OnDisable()
+    {
+        playerStateController.OnStateChanged -= HandlePlayerStateChanged;
+    }
+    #endregion
+    public void InjectDependencies(DependencyContainer provider)
+    {
+        playerStateController = provider.PlayerStateController;
+    }
+    private void HandlePlayerStateChanged(PlayerState newState)
+    {
+        if(newState == PlayerState.Normal)
+        {
+            cameraActive = false;
+        }
+        else if(newState == PlayerState.Camera)
+        {
+            cameraActive = true;
+        }
+        cameraUI.SetActive(cameraActive);
+    }
     IEnumerator CapturePhoto()
     {
         cameraUI.SetActive(false);

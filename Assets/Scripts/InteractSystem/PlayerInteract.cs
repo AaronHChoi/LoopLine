@@ -23,8 +23,8 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
 
     void Update()
     {
-        if (PhotoCapture.isCameraActiveGlobal)
-            return;
+        //if (PhotoCapture.isCameraActiveGlobal)
+        //    return;
 
         Debug.DrawRay(rayCastPoint.transform.position, rayCastPoint.transform.forward * raycastDistance, Color.red);
 

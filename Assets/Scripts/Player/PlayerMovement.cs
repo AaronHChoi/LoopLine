@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -9,12 +8,12 @@ public class PlayerMovement : MonoBehaviour
         get => canMove;
         set => canMove = value;
     }
-    IPlayerInputHandler playerInputHandler;
+    IPlayerMovementInput playerInputHandler;
     IPlayerCamera playerCamera;
     IPlayerView playerView;
     private void Awake()
     {
-        playerInputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
+        playerInputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerMovementInput>();
         playerCamera = InterfaceDependencyInjector.Instance.Resolve<IPlayerCamera>();
         playerView = InterfaceDependencyInjector.Instance.Resolve<IPlayerView>();
     }
@@ -22,8 +21,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!canMove) return;
 
-        Vector2 _inputMovement = playerInputHandler.GetMoveAction().ReadValue<Vector2>();
-        float _speedInputMovement = playerInputHandler.GetSprintAction().ReadValue<float>();
+        Vector2 _inputMovement = playerInputHandler.GetInputMove();
 
         Vector3 forward = playerCamera.GetCameraTransform().forward;
         Vector3 right = playerCamera.GetCameraTransform().right;
@@ -40,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
             moveDirection.y = (_playerModel.YaxisLocation - transform.position.y) * 0.9f;
         }
 
-        if (_speedInputMovement > 0.1f)
+        if (playerInputHandler.IsSprinting())
         {
             moveDirection *= _playerModel.SprintSpeed;
         }
