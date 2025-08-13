@@ -1,6 +1,7 @@
 using Unity.Cinemachine.Samples;
 using Unity.Cinemachine;
 using UnityEngine;
+using Player;
 
 public class DependencyContainer : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class DependencyContainer : MonoBehaviour
     public PlayerCamera PlayerCamera { get; private set; }
     public PlayerView PlayerView { get; private set; }
     public PlayerMovement PlayerMovement { get; private set; }
+    public PlayerStateController PlayerStateController { get; private set; }
     #endregion
     public DialogueUI DialogueUI { get; private set; }
     public Parallax Parallax { get; private set; }
@@ -78,6 +80,7 @@ public class DependencyContainer : MonoBehaviour
         ItemInteract = FindAndValidate<ItemInteract>();
         InventoryUI = FindAndValidate<InventoryUI>();
         PlayerMovement = FindAndValidate<PlayerMovement>();
+        PlayerStateController = FindAndValidate<PlayerStateController>();
     }
     private T FindAndValidate<T>() where T : MonoBehaviour
     {

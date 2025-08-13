@@ -12,6 +12,8 @@ namespace Player
     {
         public PlayerState CurrentState { get; private set; } = PlayerState.Normal;
 
+        public event System.Action<PlayerState> OnStateChanged;
+
         IPolaroidCameraInput playerPolaroidCameraInput;
         PlayerMovement playerMovement;
 
@@ -43,6 +45,7 @@ namespace Player
         {
             CurrentState = newState;
             Debug.Log($"Player State changed to: {newState}");
+            OnStateChanged?.Invoke(newState);
         }
         public bool IsInState(PlayerState state)
         {
@@ -59,21 +62,22 @@ namespace Player
         }
         private void HandleDialogueState()
         {
+            playerMovement.CanMove = false;
         }
         private void HandleCameraState()
         {
-            if(playerPolaroidCameraInput.ToggleCameraPressed())
+            if (playerPolaroidCameraInput.ToggleCameraPressed())
             {
                 ExitCameraState();
             }
         }
         private void EnterCameraState()
         {
-            CurrentState = PlayerState.Camera;
+            SetState(PlayerState.Camera);
         }
         private void ExitCameraState()
         {
-            CurrentState = PlayerState.Normal;
+            SetState(PlayerState.Normal);
         }
     }
 }
