@@ -33,31 +33,27 @@ public class InventoryUI : MonoBehaviour
     {
         float scroll = Input.mouseScrollDelta.y;
 
-        //if (gameObject.activeInHierarchy && PlayerInventorySystem.Instance.ItemInUse == null)
+       
+        //if (inventorySlots.Count > 0)
         //{
-        //    ChangeSlot(1);
-        //    MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
+        //    for (int i = 0; i < inventorySlots.Count; i++)
+        //    {
+        //        if (inventorySlots[i] == null)
+        //            continue;
+        //        int previousIndex = (currentSlotIndex - 1 + inventorySlots.Count) % inventorySlots.Count;
+        //        int nextIndex = (currentSlotIndex + 1) % inventorySlots.Count;
+
+        //        if (i == previousIndex || i == currentSlotIndex || i == nextIndex)
+        //        {
+        //            inventorySlots[i].gameObject.SetActive(true);
+        //        }
+        //        else
+        //        {
+        //            inventorySlots[i].gameObject.SetActive(false);
+        //        }
+        //    }
         //}
 
-        if (inventorySlots.Count > 0)
-        {
-            for (int i = 0; i < inventorySlots.Count; i++)
-            {
-                if (inventorySlots[i] == null)
-                    continue;
-                int previousIndex = (currentSlotIndex - 1 + inventorySlots.Count) % inventorySlots.Count;
-                int nextIndex = (currentSlotIndex + 1) % inventorySlots.Count;
-
-                if (i == previousIndex || i == currentSlotIndex || i == nextIndex)
-                {
-                    inventorySlots[i].gameObject.SetActive(true);
-                }
-                else
-                {
-                    inventorySlots[i].gameObject.SetActive(false);
-                }
-            }
-        }
         if (scroll > 0f) 
         {
             ChangeSlot(-1);
@@ -67,19 +63,36 @@ public class InventoryUI : MonoBehaviour
             ChangeSlot(1);
         }
 
-        //if (Input.GetKeyDown(KeyCode.X))
-        //{
-        //    for (int i = inventorySlots.Count - 1; i >= 0; i--)
-        //    {
-        //        inventorySlots[i].isActive = false;
-        //        PlayerInventorySystem.Instance.ItemInUse = null;
-        //        arrowImage.transform.position = ArrowOriginalPosition;
-        //    }
-        //}
+        UpdateVisableSlots();
+
+    }
+
+    private void UpdateVisableSlots()
+    {
+        inventorySlots.RemoveAll(s => s == null);
+
+        int n = inventorySlots.Count;
+        if (n == 0) return;
+
+
+        currentSlotIndex = ((currentSlotIndex % n) + n) % n;
+
+        int previousIndex = (currentSlotIndex - 1 + n) % n;
+        int nextIndex = (currentSlotIndex + 1) % n;
+
+        for (int i = 0; i < n; i++)
+        {
+            var slot = inventorySlots[i];
+            if (slot == null) continue; 
+
+            bool visible = (i == previousIndex || i == currentSlotIndex || i == nextIndex);
+            slot.gameObject.SetActive(visible);
+        }
     }
 
     public void ChangeSlot(int direction)
     {
+        Debug.Log(currentSlotIndex);
         inventorySlots[currentSlotIndex].isActive = false;
 
         currentSlotIndex += direction;
@@ -90,9 +103,6 @@ public class InventoryUI : MonoBehaviour
             currentSlotIndex = 0;
 
         inventorySlots[currentSlotIndex].isActive = true;
-
-        
-        
 
         MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
     }
