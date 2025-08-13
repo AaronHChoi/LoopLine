@@ -19,7 +19,11 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable
     void Start()
     {
         id = ItemData.itemName;
-        if(objectPrefab == null)
+        if (objectPrefab == null && transform.childCount > 0)
+        {
+            objectPrefab = transform.GetChild(0).gameObject;
+        }
+        else
         {
             objectPrefab = gameObject;
         }
