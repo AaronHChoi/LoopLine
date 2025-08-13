@@ -66,6 +66,8 @@ namespace Player
         }
         private void HandleCameraState()
         {
+            playerMovement.CanMove = true;
+
             if (playerPolaroidCameraInput.ToggleCameraPressed())
             {
                 ExitCameraState();

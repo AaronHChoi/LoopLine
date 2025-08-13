@@ -24,11 +24,8 @@ public class PlayerController : MonoBehaviour, IPlayerController
     }
     private void Update()
     {
-        if (playerStateController.IsInState(PlayerState.Normal))
-        {
             playerMovement.HandleMovement(playerModel);
             playerMovement.RotateCharacterToCamera(playerModel);
-        }
         
         HandleInput();
     }
