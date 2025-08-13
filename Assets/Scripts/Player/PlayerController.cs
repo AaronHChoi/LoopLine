@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
     public void SetCinemachineController(bool _enabled)
     {
         playerCamera.SetControllerEnabled(_enabled);
-        
+
         playerStateController.SetState(_enabled ? PlayerState.Normal : PlayerState.Dialogue);
     }
 }

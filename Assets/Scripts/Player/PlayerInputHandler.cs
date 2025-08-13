@@ -9,6 +9,7 @@ public class PlayerInputHandler : MonoBehaviour, IPolaroidCameraInput, IPlayerMo
     InputAction sprintAction;
     InputAction toggleCameraAction;
     InputAction takePhotoAction;
+    InputAction exitPhotoAction;
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
