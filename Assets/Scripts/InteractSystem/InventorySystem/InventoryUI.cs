@@ -10,6 +10,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private Vector2 offset = new Vector2(50f, 0f);
     [SerializeField] public ItemInteract HandItemUI;
     private int currentSlotIndex = 0;
+
     private void Start()
     {
         PlayerInventorySystem.Instance.OnInventoryChanged += OnUpdateInventory;
@@ -30,27 +31,6 @@ public class InventoryUI : MonoBehaviour
     {
         float scroll = Input.mouseScrollDelta.y;
 
-       
-        //if (inventorySlots.Count > 0)
-        //{
-        //    for (int i = 0; i < inventorySlots.Count; i++)
-        //    {
-        //        if (inventorySlots[i] == null)
-        //            continue;
-        //        int previousIndex = (currentSlotIndex - 1 + inventorySlots.Count) % inventorySlots.Count;
-        //        int nextIndex = (currentSlotIndex + 1) % inventorySlots.Count;
-
-        //        if (i == previousIndex || i == currentSlotIndex || i == nextIndex)
-        //        {
-        //            inventorySlots[i].gameObject.SetActive(true);
-        //        }
-        //        else
-        //        {
-        //            inventorySlots[i].gameObject.SetActive(false);
-        //        }
-        //    }
-        //}
-
         if (scroll > 0f) 
         {
             ChangeSlot(-1);
@@ -60,36 +40,35 @@ public class InventoryUI : MonoBehaviour
             ChangeSlot(1);
         }
 
-        UpdateVisableSlots();
+        //UpdateVisableSlots();
 
     }
 
-    private void UpdateVisableSlots()
-    {
-        inventorySlots.RemoveAll(s => s == null);
+    //private void UpdateVisableSlots()
+    //{
+    //    inventorySlots.RemoveAll(s => s == null);
 
-        int n = inventorySlots.Count;
-        if (n == 0) return;
+    //    int n = inventorySlots.Count;
+    //    if (n == 0) return;
 
 
-        currentSlotIndex = ((currentSlotIndex % n) + n) % n;
+    //    currentSlotIndex = ((currentSlotIndex % n) + n) % n;
 
-        int previousIndex = (currentSlotIndex - 1 + n) % n;
-        int nextIndex = (currentSlotIndex + 1) % n;
+    //    int previousIndex = (currentSlotIndex - 1 + n) % n;
+    //    int nextIndex = (currentSlotIndex + 1) % n;
 
-        for (int i = 0; i < n; i++)
-        {
-            var slot = inventorySlots[i];
-            if (slot == null) continue; 
+    //    for (int i = 0; i < n; i++)
+    //    {
+    //        var slot = inventorySlots[i];
+    //        if (slot == null) continue; 
 
-            bool visible = (i == previousIndex || i == currentSlotIndex || i == nextIndex);
-            slot.gameObject.SetActive(visible);
-        }
-    }
+    //        bool visible = (i == previousIndex || i == currentSlotIndex || i == nextIndex);
+    //        slot.gameObject.SetActive(visible);
+    //    }
+    //}
 
     public void ChangeSlot(int direction)
     {
-        Debug.Log(currentSlotIndex);
         inventorySlots[currentSlotIndex].isActive = false;
 
         currentSlotIndex += direction;

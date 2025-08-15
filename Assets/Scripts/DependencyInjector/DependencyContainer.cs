@@ -19,6 +19,7 @@ public class DependencyContainer : MonoBehaviour
     public EventManager EventManager { get; private set; }
     public SoundManager SoundManager { get; private set; }
     public NoteBookManager NoteBookManager { get; private set; }
+    public ItemManager ItemManager { get; private set; }
 
     public ItemInteract ItemInteract { get; private set; }
 
@@ -81,6 +82,7 @@ public class DependencyContainer : MonoBehaviour
         InventoryUI = FindAndValidate<InventoryUI>();
         PlayerMovement = FindAndValidate<PlayerMovement>();
         PlayerStateController = FindAndValidate<PlayerStateController>();
+        ItemManager = FindAndValidate<ItemManager>();
     }
     private T FindAndValidate<T>() where T : MonoBehaviour
     {

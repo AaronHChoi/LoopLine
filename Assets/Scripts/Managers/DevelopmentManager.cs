@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
-public class DevelopmentManager : MonoBehaviour
+public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
 {
     [SerializeField] private GameObject UIPrinciplal;
     [SerializeField] private GameObject UIDeveloperMode;
@@ -16,6 +16,7 @@ public class DevelopmentManager : MonoBehaviour
     bool isCursorVisible = false;
     bool isUIActive = false;
 
+    ItemManager itemManager;
     IPlayerController playerController;
     IDialogueManager dialogueManager;
     private void Awake()
@@ -24,6 +25,7 @@ public class DevelopmentManager : MonoBehaviour
         timeManager = FindFirstObjectByType<TimeManager>();
         dialManager = FindFirstObjectByType<DialogueManager>();
         playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
+        InjectDependencies(DependencyContainer.Instance);
     }
     void Start()
     {
@@ -31,6 +33,7 @@ public class DevelopmentManager : MonoBehaviour
         UpdateCursorState();
         InitAudios();
         Mute(false);
+        
     }
     void Update()
     {
@@ -105,7 +108,7 @@ public class DevelopmentManager : MonoBehaviour
     }
     public void MenuLevel()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("01. MainMenu");
     }
     public void Mute(bool changeMute)
     {
@@ -160,5 +163,18 @@ public class DevelopmentManager : MonoBehaviour
     public void CutTimeBreakCrystal()
     {
         timeManager.SetLoopTimeToBreakCrystal();
+    }
+
+    public void AvilitateItemsCollection()
+    {
+        for (int i = 0; i < itemManager.items.Count; i++)
+        {
+            itemManager.items[i].canBePicked = (!itemManager.items[i].canBePicked);
+        }
+    }
+
+    public void InjectDependencies(DependencyContainer provider)
+    {
+        itemManager = provider.ItemManager;
     }
 }

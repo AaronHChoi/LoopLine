@@ -17,14 +17,13 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     DevelopmentManager developmentManager;
     Subject eventManager;
     DialogueSOManager dialogueSOManager;
-    ItemInteract itemInteract;
+
     
     IUIManager uiManager;
     #region MAGIC_METHODS
     private void Awake()
     {
         dialogueSOManager = GetComponent<DialogueSOManager>();
-        itemInteract = GetComponent<ItemInteract>();
         InjectDependencies(DependencyContainer.Instance);
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
     }
@@ -34,11 +33,6 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
         DialogueLocalIndex = 0;
 
         DialogueRefresh();
-
-        if (itemInteract != null)
-        {
-            interactText = itemInteract.ItemData.itemName;
-        }
     }
     public void OnNotify(Events _event)
     {
@@ -164,8 +158,6 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
             }
         }
 
-        if(itemInteract != null)
-            itemInteract.Interact();
     }
     private IEnumerator ExecuteAfterDelay()
     {

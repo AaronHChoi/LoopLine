@@ -38,6 +38,14 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
                     interactableObject.Interact();
                 }
             }
+            if (Input.GetKeyDown(KeyCode.Mouse1) && inventoryUI.gameObject.activeInHierarchy == false && playerInventorySystem.ItemInUse == inventoryUI.HandItemUI)
+            {
+                IItemGrabInteract intemGrabObject = GetItemGrabIteractableObject();
+                if (intemGrabObject != null)
+                {
+                    intemGrabObject.Interact();
+                }
+            }
         }
         else if (Input.GetKeyDown(KeyCode.Mouse0))
         {
@@ -65,11 +73,14 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
                         {
                             return interactable;
                         }
+
                     }
                 }
             }
 
         }
+
+
         else
         {
             Ray ray = new Ray(rayCastPoint.transform.position, rayCastPoint.transform.forward);
@@ -108,5 +119,30 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
 
               return interactableObject;
           */
+    }
+
+    public IItemGrabInteract GetItemGrabIteractableObject()
+    {
+        if (SceneManager.GetActiveScene().name == "04. Train")
+        {
+            if (inventoryUI.gameObject.activeInHierarchy == false && playerInventorySystem.ItemInUse == inventoryUI.HandItemUI)
+            {
+                Ray ray = new Ray(rayCastPoint.transform.position, rayCastPoint.transform.forward);
+
+                if (Physics.Raycast(ray, out RaycastHit hit, raycastDistance))
+                {
+                    if (((1 << hit.collider.gameObject.layer) & interactableLayer) != 0)
+                    {
+
+                        if (hit.collider.TryGetComponent(out IItemGrabInteract itemGrabInteractable))
+                        {
+                            return itemGrabInteractable;
+                        }
+                    }
+                }
+            }
+
+        }
+        return null;
     }
 }

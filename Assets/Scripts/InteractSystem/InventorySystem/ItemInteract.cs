@@ -1,16 +1,23 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
-public class ItemInteract : MonoBehaviour, IDependencyInjectable
+public class ItemInteract : MonoBehaviour, IDependencyInjectable, IItemGrabInteract
 {
+    [Header("Settings")]
+    [SerializeField] private string interactText = "";
     public string id = "";
     public ItemInfo ItemData;
+    public bool canBePicked = false;
+
     [Header("Item Inventory UI")]
     [SerializeField] private bool deactivateOnPickup = true;
     [SerializeField] public GameObject objectPrefab;
     [SerializeField] private GameObject itemToActivate;
 
+    [Header("References")]
     PlayerInventorySystem playerInventorySystem;
     InventoryUI inventoryUI;
+    ItemManager itemManager;
 
     private void Awake()
     {
@@ -19,6 +26,7 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable
     void Start()
     {
         id = ItemData.itemName;
+        interactText = ItemData.itemName;
         if (objectPrefab == null && transform.childCount > 0)
         {
             objectPrefab = transform.GetChild(0).gameObject;
@@ -32,11 +40,12 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable
     {
         playerInventorySystem = provider.PlayerInventorySystem;
         inventoryUI = provider.InventoryUI;
+        itemManager = provider.ItemManager;
     }
 
     public void Interact()
     {
-        if (gameObject.tag == "Item")
+        if (gameObject.tag == "Item" && canBePicked)
         {
             if (playerInventorySystem.ItemInUse == inventoryUI.HandItemUI || playerInventorySystem.ItemInUse == null)
             {
@@ -59,4 +68,12 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable
         }
     }
 
+    public string GetInteractText()
+    {
+
+        if (interactText == null) return interactText = "";
+
+
+        return interactText;
+    }
 }
