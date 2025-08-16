@@ -9,6 +9,8 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] public RawImage arrowImage; 
     [SerializeField] private Vector2 offset = new Vector2(50f, 0f);
     [SerializeField] public ItemInteract HandItemUI;
+    [SerializeField] private float slotChangeCooldown = 0.5f; 
+    private float lastSlotChangeTime = 0f;
     private int currentSlotIndex = 0;
 
     private void Start()
@@ -30,42 +32,48 @@ public class InventoryUI : MonoBehaviour
     private void Update()
     {
         float scroll = Input.mouseScrollDelta.y;
-
+        if (Time.time - lastSlotChangeTime < slotChangeCooldown)
+        {
+            return;
+        }
+            
         if (scroll > 0f) 
         {
             ChangeSlot(-1);
+            lastSlotChangeTime = Time.time;
         }
         else if (scroll < 0f) 
         {
             ChangeSlot(1);
+            lastSlotChangeTime = Time.time;
         }
 
-        //UpdateVisableSlots();
+        UpdateVisableSlots();
 
     }
 
-    //private void UpdateVisableSlots()
-    //{
-    //    inventorySlots.RemoveAll(s => s == null);
+    private void UpdateVisableSlots()
+    {
+        inventorySlots.RemoveAll(s => s == null);
 
-    //    int n = inventorySlots.Count;
-    //    if (n == 0) return;
+        //int n = inventorySlots.Count;
+        //if (n == 0) return;
 
 
-    //    currentSlotIndex = ((currentSlotIndex % n) + n) % n;
+        //currentSlotIndex = ((currentSlotIndex % n) + n) % n;
 
-    //    int previousIndex = (currentSlotIndex - 1 + n) % n;
-    //    int nextIndex = (currentSlotIndex + 1) % n;
+        //int previousIndex = (currentSlotIndex - 1 + n) % n;
+        //int nextIndex = (currentSlotIndex + 1) % n;
 
-    //    for (int i = 0; i < n; i++)
-    //    {
-    //        var slot = inventorySlots[i];
-    //        if (slot == null) continue; 
+        //for (int i = 0; i < n; i++)
+        //{
+        //    var slot = inventorySlots[i];
+        //    if (slot == null) continue;
 
-    //        bool visible = (i == previousIndex || i == currentSlotIndex || i == nextIndex);
-    //        slot.gameObject.SetActive(visible);
-    //    }
-    //}
+        //    bool visible = (i == previousIndex || i == currentSlotIndex || i == nextIndex);
+        //    slot.gameObject.SetActive(visible);
+        //}
+    }
 
     public void ChangeSlot(int direction)
     {
@@ -82,6 +90,7 @@ public class InventoryUI : MonoBehaviour
 
         MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
     }
+
 
     private void MoveArrowToSlot(RectTransform slotTransform)
     {
