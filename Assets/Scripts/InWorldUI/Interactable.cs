@@ -8,9 +8,14 @@ namespace InWorldUI
         public Vector3 uiOffset = new Vector3(0, 0f, 0);
 
         private InteractableUI _uiInstance;
+        private FadeState markerState;
+        private FadeState promptState;
+
 
         void Start()
         {
+            markerState = FadeState.FadeIn;
+            promptState = FadeState.FadeIn;
             CreateUIInstance();
         }
 
@@ -31,7 +36,6 @@ namespace InWorldUI
                 transform // parent at creation to keep hierarchy clean
             );
             _uiInstance.SetMessage(promptMessage);
-            _uiInstance.Hide(); // Start hidden
         }
 
         public Vector3 GetUIWorldPosition()
@@ -41,34 +45,53 @@ namespace InWorldUI
 
         public void ShowMarker()
         {
-            if (_uiInstance == null || _uiInstance.gameObject == null) 
-                CreateUIInstance();
-            if (_uiInstance == null) return;
-            _uiInstance.ShowMarker();
+            if (markerState == FadeState.FadeIn)
+            {
+                if (_uiInstance == null || _uiInstance.gameObject == null) 
+                    CreateUIInstance();
+                if (_uiInstance == null) return;
+                _uiInstance.ShowMarker();
+                markerState = FadeState.FadeOut;
+            }
         }
 
         public void ShowPrompt()
         {
-            if (_uiInstance == null || _uiInstance.gameObject == null) 
+            if (promptState == FadeState.FadeIn)
+            {
+                if (_uiInstance == null || _uiInstance.gameObject == null) 
                 CreateUIInstance();
-            if (_uiInstance == null) return;
+                if (_uiInstance == null) return;
 
-            _uiInstance.SetMessage(promptMessage);
-            _uiInstance.ShowPrompt();
+                _uiInstance.SetMessage(promptMessage);
+                _uiInstance.ShowPrompt();
+                promptState = FadeState.FadeOut;
+            }
         }
 
-        public void HideUI()
+        public void HideMarker()
         {
-            if (_uiInstance != null)
-                _uiInstance.Hide();
+            if (markerState == FadeState.FadeOut)
+            {
+                if (_uiInstance != null)
+                _uiInstance.HideMarker();
+                markerState = FadeState.FadeIn;
+            }
         }
-        
-        public void HidePromptWithDelay(float delay = 0.5f)
+        public void HidePrompt()
         {
-            if (_uiInstance != null)
-                _uiInstance.HidePromptWithDelay(delay);
+            if (promptState == FadeState.FadeOut)
+            {
+                if (_uiInstance != null)
+                    _uiInstance.HidePrompt();
+                promptState = FadeState.FadeIn;
+            }
             
         }
-
+        public void HideAll()
+        {
+            HideMarker();
+            HidePrompt();
+        }
     }
 }
