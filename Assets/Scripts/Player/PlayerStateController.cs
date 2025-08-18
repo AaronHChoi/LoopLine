@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 namespace Player
 {
@@ -6,25 +7,35 @@ namespace Player
     {
         Normal,
         Dialogue,
-        Camera
+        Camera,
+        FocusMode,
+        Development
     }
     public class PlayerStateController : MonoBehaviour, IDependencyInjectable
     {
         public PlayerState CurrentState { get; private set; } = PlayerState.Normal;
 
-        public event System.Action<PlayerState> OnStateChanged;
+        public event Action<PlayerState> OnStateChanged;
+        public event Action OnTakePhoto;
+        public event Action OnInteract;
+        public event Action OnDialogueNext;
+        //public event Action OnDialogueSkip;
+        public event Action OnOpenInventory;
+        public event Action OnOpenDevelopment;
 
-        IPolaroidCameraInput playerPolaroidCameraInput;
+        PlayerInputHandler playerInputHandler;
         PlayerMovement playerMovement;
+        PhotoCapture photoCapture;
 
         private void Awake()
         {
-            playerPolaroidCameraInput = InterfaceDependencyInjector.Instance.Resolve<IPolaroidCameraInput>();
             InjectDependencies(DependencyContainer.Instance);
         }
         public void InjectDependencies(DependencyContainer provider)
         {
             playerMovement = provider.PlayerMovement;
+            playerInputHandler = provider.PlayerInputHandler;
+            photoCapture = provider.PhotoCapture;
         }
         private void Update()
         {
@@ -38,6 +49,12 @@ namespace Player
                     break;
                 case PlayerState.Camera:
                     HandleCameraState();
+                    break;
+                case PlayerState.Development:
+                    HandleDevelopmentState();
+                    break;
+                case PlayerState.FocusMode:
+                    HandleFocusModeState();
                     break;
             }
         }
@@ -55,31 +72,67 @@ namespace Player
         {
             playerMovement.CanMove = true;
 
-            if (playerPolaroidCameraInput.ToggleCameraPressed())
+            if (playerInputHandler.ToggleCameraPressed())
             {
-                EnterCameraState();
+                SetState(PlayerState.Camera);
+            }
+            if (playerInputHandler.Interact())
+            {
+                OnInteract?.Invoke();
+            }
+            if (playerInputHandler.OpenInventory())
+            {
+                OnOpenInventory?.Invoke();
+            }
+            if (playerInputHandler.DevelopmentMode())
+            {
+                OnOpenDevelopment?.Invoke();
+                SetState(PlayerState.Development);
             }
         }
         private void HandleDialogueState()
         {
             playerMovement.CanMove = false;
+
+            if (playerInputHandler.PassDialog())
+            {
+                OnDialogueNext?.Invoke();
+            }
+            //if (playerInputHandler.SkipDialogueTyping())
+            //{
+            //    OnDialogueSkip?.Invoke();
+            //}
         }
         private void HandleCameraState()
         {
             playerMovement.CanMove = true;
 
-            if (playerPolaroidCameraInput.ToggleCameraPressed())
+            if (playerInputHandler.ToggleCameraPressed())
             {
-                ExitCameraState();
+                if (!photoCapture.IsViewingPhoto)
+                {
+                    SetState(PlayerState.Normal);
+                }
+            }
+
+            if (playerInputHandler.TakePhotoPressed())
+            {
+                OnTakePhoto?.Invoke();
             }
         }
-        private void EnterCameraState()
+        private void HandleFocusModeState()
         {
-            SetState(PlayerState.Camera);
+
         }
-        private void ExitCameraState()
+        private void HandleDevelopmentState()
         {
-            SetState(PlayerState.Normal);
+            playerMovement.CanMove = false;
+
+            if (playerInputHandler.DevelopmentMode())
+            {
+                OnOpenDevelopment?.Invoke();
+                SetState(PlayerState.Normal);
+            }
         }
     }
 }

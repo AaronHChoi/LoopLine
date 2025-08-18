@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Diagnostics;
+using Player;
 
 public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
 {
@@ -10,14 +10,14 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
     [SerializeField] public Transform SpawnPosition;
     [SerializeField] public ItemInteract ItemInUse;
 
-    FocusModeManager focusModeManager;
     PlayerController playerController;
     InventoryUI inventoryUI;
     DialogueManager dialogueManager;
+    PlayerStateController playerStateController;
+
     public delegate void InventoryChanged();
     public event InventoryChanged OnInventoryChanged;
     bool isCursorVisible = false;
-    bool isUIActive = false;
 
     void Awake()
     {
@@ -40,25 +40,23 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
         AddToInvetory(inventoryUI.HandItemUI);
         ItemInUse = inventoryUI.HandItemUI;
         inventoryUI.inventorySlots[0].isActive = true;
-        
     }
-
-    private void Update()
-    {       
-        InputHandler();
-    }
-
-    private void InputHandler()
+    private void OnEnable()
     {
-        if (Input.GetKeyDown(KeyCode.Tab) && !dialogueManager.isDialogueActive && inventory.Count != 0)
+        playerStateController.OnOpenInventory += OpenInventory;
+    }
+    private void OnDisable()
+    {
+        playerStateController.OnOpenInventory -= OpenInventory;
+    }
+    private void OpenInventory()
+    {
+        if (!dialogueManager.isDialogueActive && inventory.Count != 0)
         {
             inventoryUI.gameObject.SetActive(!inventoryUI.gameObject.activeInHierarchy);
             inventoryUI.arrowImage.gameObject.SetActive(inventoryUI.gameObject.activeInHierarchy);
         }
-
-
     }
-
     void UpdateCursorState()
     {
         bool shouldShowCursor = !inventoryUI.gameObject.activeInHierarchy;
@@ -71,7 +69,6 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
             Cursor.lockState = isCursorVisible ? CursorLockMode.None : CursorLockMode.Locked;
         }
     }
-
     public void AddToInvetory(ItemInteract itemInteract)
     {
         if (CheckInventory(itemInteract) == false)
@@ -108,7 +105,6 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
         }
         return isInInventory;
     }
-
     public void ActivateNextItem(GameObject ItemToActivate, string itemIdRequierd)
     {
         for (int i = 0; i < inventory.Count; i++)
@@ -120,14 +116,11 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
             }
         }
     }
-
-
     public void InjectDependencies(DependencyContainer provider)
     {
-        focusModeManager = provider.FocusModeManager;
         inventoryUI = provider.InventoryUI;
         playerController = provider.PlayerController;
         dialogueManager = provider.DialogueManager;
+        playerStateController = provider.PlayerStateController;
     }
-
 }

@@ -1,3 +1,4 @@
+using Player;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,34 +10,33 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
     private InventoryUI inventoryUI;
     [SerializeField] private float raycastDistance = 2f;
     [SerializeField] private LayerMask interactableLayer;
-
+    PlayerStateController playerStateController;
     private void Awake()
     {
         InjectDependencies(DependencyContainer.Instance);
+    }
+    private void OnEnable()
+    {
+        playerStateController.OnInteract += HandleInteraction;
+    }
+    private void OnDisable()
+    {
+        playerStateController.OnInteract -= HandleInteraction;
     }
     public void InjectDependencies(DependencyContainer provider)
     {
         rayCastPoint = provider.CinemachineCamera;
         inventoryUI = provider.InventoryUI;
         playerInventorySystem = provider.PlayerInventorySystem;
+        playerStateController = provider.PlayerStateController;
     }
-
-    void Update()
+    private void HandleInteraction()
     {
-        //if (PhotoCapture.isCameraActiveGlobal)
-        //    return;
-
-        Debug.DrawRay(rayCastPoint.transform.position, rayCastPoint.transform.forward * raycastDistance, Color.red);
-
         if (SceneManager.GetActiveScene().name == "04. Train")
         {
             if (Input.GetKeyDown(KeyCode.Mouse0) && inventoryUI.gameObject.activeInHierarchy == false && playerInventorySystem.ItemInUse == inventoryUI.HandItemUI)
             {
-                IInteract interactableObject = GetInteractableObject();
-                if (interactableObject != null)
-                {
-                    interactableObject.Interact();
-                }
+                TryInteract();
             }
             if (Input.GetKeyDown(KeyCode.Mouse1) && inventoryUI.gameObject.activeInHierarchy == false && playerInventorySystem.ItemInUse == inventoryUI.HandItemUI)
             {
@@ -47,16 +47,23 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
                 }
             }
         }
-        else if (Input.GetKeyDown(KeyCode.Mouse0))
+        else
         {
-            IInteract interactableObject = GetInteractableObject();
-            if (interactableObject != null)
-            {
-                interactableObject.Interact();
-            }
+            TryInteract();
         }
     }
-    
+    void Update()
+    {
+        Debug.DrawRay(rayCastPoint.transform.position, rayCastPoint.transform.forward * raycastDistance, Color.red);
+    }
+    private void TryInteract()
+    {
+        IInteract interactableObject = GetInteractableObject();
+        if (interactableObject != null)
+        {
+            interactableObject.Interact();
+        }
+    }
     public IInteract GetInteractableObject()
     {
         if (SceneManager.GetActiveScene().name == "04. Train")
@@ -73,13 +80,10 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
                         {
                             return interactable;
                         }
-
                     }
                 }
             }
-
         }
-
 
         else
         {
@@ -141,7 +145,6 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
                     }
                 }
             }
-
         }
         return null;
     }

@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class PhotoCapture : MonoBehaviour, IDependencyInjectable
 {
-    //public static bool isCameraActiveGlobal { get; private set; } = false;
-
     [Header("Photo Taker")]
     [SerializeField] Image photoDisplayArea;
     [SerializeField] GameObject photoFrame;
@@ -29,20 +27,24 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
     [SerializeField] SoundData soundData2;
     [SerializeField] AudioSource bgmAudio;
 
+    [Header("Cooldown")]
+    float photoCooldown = 1.5f;
+    float nextPhotoTime = 0f;
+
     Texture2D screenCapture;
-    [SerializeField] bool viewvingPhoto;
+    bool viewvingPhoto;
+    public bool IsViewingPhoto => viewvingPhoto;
+
     bool cameraActive = false;
     bool isCurrentPhotoClue = false;
 
     int photoTaken = 0;
     [SerializeField] int maxPhotos = 5;
 
-    IPolaroidCameraInput playerPolaroidCameraInput;
     PlayerStateController playerStateController;
     #region MAGIC_METHODS
     private void Awake()
     {
-        playerPolaroidCameraInput = InterfaceDependencyInjector.Instance.Resolve<IPolaroidCameraInput>();
         InjectDependencies(DependencyContainer.Instance);
     }
     private void Start()
@@ -50,43 +52,44 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
         photoTaken = 0;
         screenCapture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
     }
-    private void Update()
-    {
-        if (!playerStateController.IsInState(PlayerState.Camera)) return;
-
-        if(playerPolaroidCameraInput.TakePhotoPressed())
-        {
-            if (!viewvingPhoto)
-            {
-                if (photoTaken < maxPhotos)
-                {
-                    StartCoroutine(CapturePhoto());
-                }
-                else
-                {
-                    SoundManager.Instance.CreateSound()
-                        .WithSoundData(soundData2)
-                        .Play();
-                }
-            }
-            else
-            {
-                RemovePhoto();
-            }
-        }
-    }
     private void OnEnable()
     {
         playerStateController.OnStateChanged += HandlePlayerStateChanged;
+        playerStateController.OnTakePhoto += HandleTakePhoto;
     }
     private void OnDisable()
     {
         playerStateController.OnStateChanged -= HandlePlayerStateChanged;
+        playerStateController.OnTakePhoto -= HandleTakePhoto;
     }
     #endregion
     public void InjectDependencies(DependencyContainer provider)
     {
         playerStateController = provider.PlayerStateController;
+    }
+    private void HandleTakePhoto()
+    {
+        if (Time.time < nextPhotoTime) return;
+
+        if (!viewvingPhoto)
+        {
+            if (photoTaken < maxPhotos)
+            {
+                StartCoroutine(CapturePhoto());
+                nextPhotoTime = Time.time + photoCooldown;
+            }
+            else
+            {
+                SoundManager.Instance.CreateSound()
+                    .WithSoundData(soundData2)
+                    .Play();
+                nextPhotoTime = Time.time + photoCooldown;
+            }
+        }
+        else
+        {
+            RemovePhoto();
+        }
     }
     private void HandlePlayerStateChanged(PlayerState newState)
     {

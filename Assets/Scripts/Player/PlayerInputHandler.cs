@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInputHandler : MonoBehaviour, IPolaroidCameraInput, IPlayerMovementInput
+public class PlayerInputHandler : MonoBehaviour, IPlayerMovementInput
 {
     PlayerInput playerInput;
 
@@ -9,6 +9,11 @@ public class PlayerInputHandler : MonoBehaviour, IPolaroidCameraInput, IPlayerMo
     InputAction sprintAction;
     InputAction toggleCameraAction;
     InputAction takePhotoAction;
+    InputAction interact;
+    InputAction passDialog;
+    //InputAction skipDialogue;
+    InputAction openInventory;
+    InputAction developmentMode;
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -19,6 +24,11 @@ public class PlayerInputHandler : MonoBehaviour, IPolaroidCameraInput, IPlayerMo
         sprintAction = playerInput.actions["Sprint"];
         toggleCameraAction = playerInput.actions["ToggleCamera"];
         takePhotoAction = playerInput.actions["TakePhoto"];
+        interact = playerInput.actions["Interact1"];
+        passDialog = playerInput.actions["PassDialog"];
+        //skipDialogue = playerInput.actions["SkipDialogueTyping"];
+        openInventory = playerInput.actions["OpenInventory"];
+        developmentMode = playerInput.actions["DevelopmentMode"];
     }
     public Vector2 GetInputMove()
     {
@@ -28,6 +38,22 @@ public class PlayerInputHandler : MonoBehaviour, IPolaroidCameraInput, IPlayerMo
     {
         return sprintAction.IsPressed();
     }
+    public bool Interact()
+    {
+        return interact.WasPerformedThisFrame();
+    }
+    public bool PassDialog()
+    {
+        return passDialog.WasPerformedThisFrame();
+    }
+    //public bool SkipDialogueTyping()
+    //{
+    //    return skipDialogue.WasPerformedThisFrame();
+    //}
+    public bool OpenInventory()
+    {
+        return openInventory.WasPerformedThisFrame();
+    }
     public bool ToggleCameraPressed()
     {
         return toggleCameraAction.WasPerformedThisFrame();
@@ -36,14 +62,13 @@ public class PlayerInputHandler : MonoBehaviour, IPolaroidCameraInput, IPlayerMo
     {
         return takePhotoAction.WasPerformedThisFrame();
     }
+    public bool DevelopmentMode()
+    {
+        return developmentMode.WasPerformedThisFrame();
+    }
 }
 public interface IPlayerMovementInput
 {
     Vector2 GetInputMove();
     bool IsSprinting();
-}
-public interface IPolaroidCameraInput
-{
-    bool ToggleCameraPressed();
-    bool TakePhotoPressed();
 }

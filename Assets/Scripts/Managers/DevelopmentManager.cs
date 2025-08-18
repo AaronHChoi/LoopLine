@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Player;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -17,6 +18,7 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
     bool isUIActive = false;
 
     ItemManager itemManager;
+    PlayerStateController playerStateController;
     IPlayerController playerController;
     IDialogueManager dialogueManager;
     private void Awake()
@@ -33,15 +35,18 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
         UpdateCursorState();
         InitAudios();
         Mute(false);
-        
     }
-    void Update()
+    private void OnEnable()
     {
-        OpenDevelopMode();
+        playerStateController.OnOpenDevelopment += OpenDevelopMode;
+    }
+    private void OnDisable()
+    {
+        playerStateController.OnOpenDevelopment -= OpenDevelopMode;
     }
     public void OpenDevelopMode()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && UIPrinciplal != null && !dialManager.isDialogueActive)
+        if (UIPrinciplal != null && !dialManager.isDialogueActive)
         {
             ToggleUI();
             timeManager.PauseTime();
@@ -83,8 +88,6 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
         {
             audiosVolumeDic.Add(audio, audio.volume);
         }
-
-
     }
     void UpdateCursorState()
     {
@@ -159,12 +162,10 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
     {
         timeManager.SetLoopTimeToStopTrain();
     }
-
     public void CutTimeBreakCrystal()
     {
         timeManager.SetLoopTimeToBreakCrystal();
     }
-
     public void AvilitateItemsCollection()
     {
         for (int i = 0; i < itemManager.items.Count; i++)
@@ -172,9 +173,9 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
             itemManager.items[i].canBePicked = (!itemManager.items[i].canBePicked);
         }
     }
-
     public void InjectDependencies(DependencyContainer provider)
     {
         itemManager = provider.ItemManager;
+        playerStateController = provider.PlayerStateController;
     }
 }
