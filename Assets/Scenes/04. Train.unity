@@ -878,15 +878,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d9a9d0e11a7c0e44f80b591069a35b43, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d9a9d0e11a7c0e44f80b591069a35b43, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d9a9d0e11a7c0e44f80b591069a35b43, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d9a9d0e11a7c0e44f80b591069a35b43, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -902,7 +902,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d9a9d0e11a7c0e44f80b591069a35b43, type: 3}
       propertyPath: m_ConstrainProportionsScale
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8391222552659086748, guid: d9a9d0e11a7c0e44f80b591069a35b43, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1071,14 +1071,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 114952357}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.55934817, y: 0.2455981, z: 0.1770327, w: 0.7716675}
-  m_LocalPosition: {x: 1.883, y: 0.518, z: -10.375834}
+  m_LocalRotation: {x: -0.82859635, y: -0.057059996, z: -0.085922055, w: 0.5502633}
+  m_LocalPosition: {x: 2.103, y: 1.131, z: -11.843}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 111975674}
   m_Father: {fileID: 1878120401}
-  m_LocalEulerAnglesHint: {x: -71.845, y: 35.513, z: -0.281}
+  m_LocalEulerAnglesHint: {x: -112.824, y: -11.839996, z: 0}
 --- !u!114 &114952363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1110,8 +1110,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Grab
+  promptMessage: Briefcase
   uiOffset: {x: 0, y: 0, z: 0}
+  uiOffsetPrompt: {x: 0, y: 0.2, z: 0}
 --- !u!1 &140835135
 GameObject:
   m_ObjectHideFlags: 0
@@ -1864,7 +1865,7 @@ Transform:
   m_GameObject: {fileID: 205322664}
   serializedVersion: 2
   m_LocalRotation: {x: -0.6830125, y: 0.18301365, z: 0.18301365, w: 0.6830125}
-  m_LocalPosition: {x: 1.6332676, y: 1.3781999, z: -26.9}
+  m_LocalPosition: {x: 1.626, y: 1.3781999, z: -26.855}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -1902,8 +1903,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Grab
+  promptMessage: Watch
   uiOffset: {x: 0, y: 0, z: 0}
+  uiOffsetPrompt: {x: 0, y: 0.15, z: 0}
 --- !u!1 &205478736
 GameObject:
   m_ObjectHideFlags: 0
@@ -9047,8 +9049,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.39236426, y: 0.26531446, z: 0.31653976}
-  m_Center: {x: 0.0018950403, y: 0.011346161, z: 0.07879931}
+  m_Size: {x: 0.39236426, y: 0.26531446, z: 0.2895851}
+  m_Center: {x: 0.0018950403, y: 0.011346161, z: 0.027284652}
 --- !u!23 &465367162
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9111,7 +9113,7 @@ Transform:
   m_GameObject: {fileID: 465367159}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.0000029653306}
-  m_LocalPosition: {x: 2.4044318, y: 1.476, z: -26.822191}
+  m_LocalPosition: {x: 2.248, y: 1.476, z: -26.771}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -9149,8 +9151,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Grab
+  promptMessage: Camera
   uiOffset: {x: 0, y: 0, z: 0}
+  uiOffsetPrompt: {x: 0, y: 0.2, z: 0}
 --- !u!1 &467501560
 GameObject:
   m_ObjectHideFlags: 0
@@ -15322,7 +15325,7 @@ Transform:
   m_GameObject: {fileID: 919430325}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.44036898, z: -0, w: 0.8978169}
-  m_LocalPosition: {x: 1.6365818, y: 1.3971, z: -10.591834}
+  m_LocalPosition: {x: 1.72, y: 1.3971, z: -10.675}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -15360,8 +15363,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Grab
+  promptMessage: Cigarettes
   uiOffset: {x: 0, y: 0, z: 0}
+  uiOffsetPrompt: {x: 0, y: 0.15, z: 0}
 --- !u!1 &920295571
 GameObject:
   m_ObjectHideFlags: 0
@@ -15562,7 +15566,7 @@ Transform:
   m_GameObject: {fileID: 920470981}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.14640573, z: -0, w: 0.9892247}
-  m_LocalPosition: {x: 1.637, y: 1.3788, z: -10.076834}
+  m_LocalPosition: {x: 1.703, y: 1.3788, z: -10.035}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -15600,8 +15604,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Grab
+  promptMessage: Cellphone
   uiOffset: {x: 0, y: 0, z: 0}
+  uiOffsetPrompt: {x: 0, y: 0.15, z: 0}
 --- !u!1 &931961944
 GameObject:
   m_ObjectHideFlags: 0
@@ -17552,7 +17557,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0bac1811986a6844a9e75b12a92fe9d3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0029
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0bac1811986a6844a9e75b12a92fe9d3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -23408,7 +23413,6 @@ MonoBehaviour:
     volume: 1
     secondsDelay: 0
   bgmAudio: {fileID: 241906107}
-  viewvingPhoto: 0
   maxPhotos: 5
 --- !u!4 &1279459467
 Transform:
@@ -23975,7 +23979,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bf6d686c0174c074e94c2eace09ca7f5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bf6d686c0174c074e94c2eace09ca7f5, type: 3}
       propertyPath: m_TagString
@@ -24533,7 +24537,7 @@ Transform:
   m_GameObject: {fileID: 1354861402}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.2207687, z: -0, w: 0.9753262}
-  m_LocalPosition: {x: 2.0016387, y: 1.3614, z: -27.529942}
+  m_LocalPosition: {x: 1.888, y: 1.3614, z: -27.449}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -24571,8 +24575,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Grab
+  promptMessage: Photos
   uiOffset: {x: 0, y: 0, z: 0}
+  uiOffsetPrompt: {x: 0, y: 0.15, z: 0}
 --- !u!1 &1361937932
 GameObject:
   m_ObjectHideFlags: 0
@@ -34854,7 +34859,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ca4a682916e785747b8f24d29bc789dd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.05
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ca4a682916e785747b8f24d29bc789dd, type: 3}
       propertyPath: m_LocalRotation.w
@@ -35999,7 +36004,7 @@ Transform:
   m_GameObject: {fileID: 8331784865067959943}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.9659252, z: -0, w: 0.25882143}
-  m_LocalPosition: {x: -2.6000001, y: 1.372, z: -27.6}
+  m_LocalPosition: {x: -2.297, y: 1.372, z: -27.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -36036,7 +36041,7 @@ Transform:
   m_GameObject: {fileID: 3718104522355988649}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.9914453, z: -0, w: -0.13052304}
-  m_LocalPosition: {x: -2.1000001, y: 1.4059999, z: -27.1}
+  m_LocalPosition: {x: -1.975, y: 1.4059999, z: -26.993}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -36363,7 +36368,7 @@ Transform:
   m_GameObject: {fileID: 4232027734277426530}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.2150748, z: -0, w: 0.9765976}
-  m_LocalPosition: {x: 2.677, y: 1.4156, z: -21.611}
+  m_LocalPosition: {x: 2.595, y: 1.4156, z: -21.559}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -36984,8 +36989,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Grab
-  uiOffset: {x: 0, y: 0, z: 0}
+  promptMessage: Diary
+  uiOffset: {x: -0.2, y: 0, z: 0}
+  uiOffsetPrompt: {x: 0, y: 0.15, z: 0}
 --- !u!33 &4815001304669766569
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -37395,8 +37401,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Grab
+  promptMessage: MP3
   uiOffset: {x: 0, y: 0, z: 0}
+  uiOffsetPrompt: {x: 0, y: 0.15, z: 0}
 --- !u!23 &7743134123327033823
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -37576,8 +37583,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Grab
+  promptMessage: Key
   uiOffset: {x: 0, y: 0, z: 0}
+  uiOffsetPrompt: {x: 0, y: 0.15, z: 0}
 --- !u!65 &8331784865067959946
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -37744,8 +37752,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Grab
+  promptMessage: Headphones
   uiOffset: {x: 0, y: 0, z: 0}
+  uiOffsetPrompt: {x: 0, y: 0.15, z: 0}
 --- !u!65 &8655421388353277497
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -37915,8 +37924,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Grab
-  uiOffset: {x: 0, y: 0, z: 0}
+  promptMessage: Bass
+  uiOffset: {x: 0, y: 0.4, z: 0}
+  uiOffsetPrompt: {x: 0, y: 0.2, z: 0}
 --- !u!4 &9115198044459715233
 Transform:
   m_ObjectHideFlags: 0
@@ -37926,7 +37936,7 @@ Transform:
   m_GameObject: {fileID: 5237998019394161233}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.13052598, z: -0, w: 0.99144495}
-  m_LocalPosition: {x: -1.7, y: 1.5648849, z: -27.6}
+  m_LocalPosition: {x: -1.628, y: 1.5648849, z: -27.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -37963,8 +37973,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Grab
+  promptMessage: Coffe
   uiOffset: {x: 0, y: 0, z: 0}
+  uiOffsetPrompt: {x: 0, y: 0.15, z: 0}
 --- !u!65 &9115198044459715236
 BoxCollider:
   m_ObjectHideFlags: 0

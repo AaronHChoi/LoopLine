@@ -6,6 +6,7 @@ namespace InWorldUI
     {
         public string promptMessage = "Press E";
         public Vector3 uiOffset = new Vector3(0, 0f, 0);
+        public Vector3 uiOffsetPrompt = new Vector3(0, 0f, 0);
 
         private InteractableUI _uiInstance;
         private FadeState markerState;
@@ -35,7 +36,8 @@ namespace InWorldUI
                 Quaternion.identity,
                 transform // parent at creation to keep hierarchy clean
             );
-            _uiInstance.SetMessage(promptMessage);
+            
+            _uiInstance.Init(promptMessage, uiOffsetPrompt);
         }
 
         public Vector3 GetUIWorldPosition()
@@ -63,7 +65,6 @@ namespace InWorldUI
                 CreateUIInstance();
                 if (_uiInstance == null) return;
 
-                _uiInstance.SetMessage(promptMessage);
                 _uiInstance.ShowPrompt();
                 promptState = FadeState.FadeOut;
             }

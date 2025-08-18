@@ -83,16 +83,19 @@ namespace InWorldUI
             if (_currentPrompt != null && _currentPrompt != bestInteractable)
             {
                 _currentPrompt.HidePrompt();
+                _currentPrompt.ShowMarker();
             }
 
             if (bestInteractable != null)
             {
                 _currentPrompt = bestInteractable;
+                bestInteractable.HideMarker();
                 bestInteractable.ShowPrompt();
             }
             else if (_currentPrompt != null)
             {
                 _currentPrompt.HidePrompt();
+                _currentPrompt.ShowMarker();
                 _currentPrompt = null;
             }
         }
