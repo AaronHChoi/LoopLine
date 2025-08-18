@@ -54,13 +54,19 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
     }
     private void OnEnable()
     {
-        playerStateController.OnStateChanged += HandlePlayerStateChanged;
-        playerStateController.OnTakePhoto += HandleTakePhoto;
+        if (playerStateController != null)
+        {
+            playerStateController.OnStateChanged += HandlePlayerStateChanged;
+            playerStateController.OnTakePhoto += HandleTakePhoto;
+        }
     }
     private void OnDisable()
     {
-        playerStateController.OnStateChanged -= HandlePlayerStateChanged;
-        playerStateController.OnTakePhoto -= HandleTakePhoto;
+        if (playerStateController != null)
+        {
+            playerStateController.OnStateChanged -= HandlePlayerStateChanged;
+            playerStateController.OnTakePhoto -= HandleTakePhoto;
+        }
     }
     #endregion
     public void InjectDependencies(DependencyContainer provider)

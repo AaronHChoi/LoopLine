@@ -38,11 +38,17 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
     }
     private void OnEnable()
     {
-        playerStateController.OnOpenDevelopment += OpenDevelopMode;
+        if (playerStateController != null)
+        {
+            playerStateController.OnOpenDevelopment += OpenDevelopMode;
+        }
     }
     private void OnDisable()
     {
-        playerStateController.OnOpenDevelopment -= OpenDevelopMode;
+        if (playerStateController != null)
+        {
+            playerStateController.OnOpenDevelopment -= OpenDevelopMode;
+        }
     }
     public void OpenDevelopMode()
     {
