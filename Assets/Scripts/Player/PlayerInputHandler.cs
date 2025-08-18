@@ -14,6 +14,7 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerMovementInput
     //InputAction skipDialogue;
     InputAction openInventory;
     InputAction developmentMode;
+    InputAction focusMode;
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -29,6 +30,7 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerMovementInput
         //skipDialogue = playerInput.actions["SkipDialogueTyping"];
         openInventory = playerInput.actions["OpenInventory"];
         developmentMode = playerInput.actions["DevelopmentMode"];
+        focusMode = playerInput.actions["FocusMode"];
     }
     public Vector2 GetInputMove()
     {
@@ -38,11 +40,11 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerMovementInput
     {
         return sprintAction.IsPressed();
     }
-    public bool Interact()
+    public bool InteractPressed()
     {
         return interact.WasPerformedThisFrame();
     }
-    public bool PassDialog()
+    public bool PassDialogPressed()
     {
         return passDialog.WasPerformedThisFrame();
     }
@@ -50,7 +52,11 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerMovementInput
     //{
     //    return skipDialogue.WasPerformedThisFrame();
     //}
-    public bool OpenInventory()
+    public bool FocusModePressed()
+    {
+        return focusMode.WasPerformedThisFrame();
+    }
+    public bool OpenInventoryPressed()
     {
         return openInventory.WasPerformedThisFrame();
     }
@@ -62,7 +68,7 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerMovementInput
     {
         return takePhotoAction.WasPerformedThisFrame();
     }
-    public bool DevelopmentMode()
+    public bool DevelopmentModePressed()
     {
         return developmentMode.WasPerformedThisFrame();
     }

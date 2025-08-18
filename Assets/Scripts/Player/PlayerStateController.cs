@@ -9,6 +9,7 @@ namespace Player
         Dialogue,
         Camera,
         FocusMode,
+        MindPlace,
         Development
     }
     public class PlayerStateController : MonoBehaviour, IDependencyInjectable
@@ -22,6 +23,7 @@ namespace Player
         //public event Action OnDialogueSkip;
         public event Action OnOpenInventory;
         public event Action OnOpenDevelopment;
+        public event Action OnFocusMode;
 
         PlayerInputHandler playerInputHandler;
         PlayerMovement playerMovement;
@@ -56,6 +58,9 @@ namespace Player
                 case PlayerState.FocusMode:
                     HandleFocusModeState();
                     break;
+                case PlayerState.MindPlace:
+                    HandleMindPlaceState();
+                    break;
             }
         }
         public void SetState(PlayerState newState)
@@ -76,25 +81,30 @@ namespace Player
             {
                 SetState(PlayerState.Camera);
             }
-            if (playerInputHandler.Interact())
+            if (playerInputHandler.InteractPressed())
             {
                 OnInteract?.Invoke();
             }
-            if (playerInputHandler.OpenInventory())
+            if (playerInputHandler.OpenInventoryPressed())
             {
                 OnOpenInventory?.Invoke();
             }
-            if (playerInputHandler.DevelopmentMode())
+            if (playerInputHandler.DevelopmentModePressed())
             {
                 OnOpenDevelopment?.Invoke();
                 SetState(PlayerState.Development);
+            }
+            if (playerInputHandler.FocusModePressed())
+            {
+                OnFocusMode?.Invoke();
+                SetState(PlayerState.FocusMode);
             }
         }
         private void HandleDialogueState()
         {
             playerMovement.CanMove = false;
 
-            if (playerInputHandler.PassDialog())
+            if (playerInputHandler.PassDialogPressed())
             {
                 OnDialogueNext?.Invoke();
             }
@@ -122,17 +132,27 @@ namespace Player
         }
         private void HandleFocusModeState()
         {
+            playerMovement.CanMove = true;
 
+            if (playerInputHandler.FocusModePressed())
+            {
+                OnFocusMode?.Invoke();
+                SetState(PlayerState.Normal);
+            }
         }
         private void HandleDevelopmentState()
         {
             playerMovement.CanMove = false;
 
-            if (playerInputHandler.DevelopmentMode())
+            if (playerInputHandler.DevelopmentModePressed())
             {
                 OnOpenDevelopment?.Invoke();
                 SetState(PlayerState.Normal);
             }
+        }
+        private void HandleMindPlaceState()
+        {
+            playerMovement.CanMove = true;
         }
     }
 }

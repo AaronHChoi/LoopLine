@@ -24,24 +24,26 @@ public class PlayerController : MonoBehaviour, IPlayerController
     }
     private void Update()
     {
-            playerMovement.HandleMovement(playerModel);
-            playerMovement.RotateCharacterToCamera(playerModel);
-        
-        HandleInput();
+        playerMovement.HandleMovement(playerModel);
+        playerMovement.RotateCharacterToCamera(playerModel);
     }
-    private void HandleInput()
+    private void OnEnable()
     {
-        if (Input.GetKeyDown(KeyCode.V))
+        if (playerStateController != null)
         {
-            playerFocusMode.ToggleFocusMode(playerModel);
+            playerStateController.OnFocusMode += HandleFocusMode;
         }
-        if (SceneManager.GetActiveScene().name == "05. MindPlace")
+    }
+    private void OnDisable()
+    {
+        if (playerStateController != null)
         {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                playerMindPlaceNoteBook.ToggleNooteBook(playerModel); 
-            }
+            playerStateController.OnFocusMode -= HandleFocusMode;
         }
+    }
+    private void HandleFocusMode()
+    {
+        playerFocusMode.ToggleFocusMode(playerModel);
     }
     public void SetCinemachineController(bool _enabled)
     {
