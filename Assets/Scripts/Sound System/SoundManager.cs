@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 using SoundSystem;
+using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
@@ -24,12 +25,20 @@ public class SoundManager : MonoBehaviour
             Instance = this;
             transform.SetParent(null);
             DontDestroyOnLoad(gameObject);
+            SceneManager.activeSceneChanged += OnActiveSceneChanged;
         }
         else
         {
             Destroy(gameObject);
         }
         InitializePool();
+    }
+    private void OnActiveSceneChanged(Scene oldScene, Scene newScene)
+    {
+        for (int i = activeSoundEmitters.Count-1; i >= 0; i--)
+        {
+            ReturnToPool(activeSoundEmitters[i]);
+        }
     }
 
     public SoundBuilder CreateSound() => new SoundBuilder(this);
