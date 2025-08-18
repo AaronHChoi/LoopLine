@@ -16,8 +16,18 @@ namespace InWorldUI
             if (promptText == null)
                 promptText = GetComponentInChildren<TextMeshProUGUI>();
         }
-
-        public void SetMessage(string message)
+        public void Init(string promptMessage, Vector3 promptOffset)
+        {
+            SetMessage(promptMessage);
+            MovePromptOffset(promptOffset);
+            
+        }
+        private void MovePromptOffset(Vector3 promptOffset)
+        {
+            var canvasTransform = fadeInOutLabel.gameObject.GetComponent<Canvas>().transform;
+            canvasTransform.position = canvasTransform.position + canvasTransform.rotation * promptOffset;
+        }
+        private void SetMessage(string message)
         {
             if (promptText != null)
                 promptText.text = message;
