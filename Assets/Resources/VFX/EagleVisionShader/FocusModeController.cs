@@ -1,7 +1,8 @@
+using Player;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class FocusModeController : MonoBehaviour
+public class FocusModeController : MonoBehaviour, IDependencyInjectable
 {
     [SerializeField] private Material eagleVisionMaterial;
 
@@ -12,14 +13,27 @@ public class FocusModeController : MonoBehaviour
     private bool defaultMaterial = true;
     private float volumeWeight;
     private Volume volumeFocusMode;
+
+    PlayerStateController playerStateController;
+    private void Awake()
+    {
+        InjectDependencies(DependencyContainer.Instance);
+    }
     void Start()
     {
         InitializeTargets();
         InitializeVolume();
     }
+    private void OnEnable()
+    {
+        playerStateController.OnFocusMode += HandleInput;
+    }
+    private void OnDisable()
+    {
+        playerStateController.OnFocusMode -= HandleInput;
+    }
     void Update()
     {
-        HandleInput();
         UpdateVolumeWeight();
     }
     private void InitializeTargets()
@@ -50,11 +64,8 @@ public class FocusModeController : MonoBehaviour
     }
     private void HandleInput()
     {
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            ToggleMaterials();
-            ToggleVolumeWeight();
-        }
+        ToggleMaterials();
+        ToggleVolumeWeight();
     }
     private void ToggleMaterials()
     {
@@ -81,5 +92,9 @@ public class FocusModeController : MonoBehaviour
             if (Mathf.Abs(volumeFocusMode.weight - volumeWeight) < 0.01f)
                 volumeFocusMode.weight = volumeWeight;
         }
+    }
+    public void InjectDependencies(DependencyContainer provider)
+    {
+        playerStateController = provider.PlayerStateController;
     }
 }

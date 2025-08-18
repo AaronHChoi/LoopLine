@@ -43,11 +43,17 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
     }
     private void OnEnable()
     {
-        playerStateController.OnOpenInventory += OpenInventory;
+        if (playerStateController != null)
+        {
+            playerStateController.OnOpenInventory += OpenInventory;
+        }
     }
     private void OnDisable()
     {
-        playerStateController.OnOpenInventory -= OpenInventory;
+        if (playerStateController != null)
+        {
+            playerStateController.OnOpenInventory -= OpenInventory;
+        }
     }
     private void OpenInventory()
     {

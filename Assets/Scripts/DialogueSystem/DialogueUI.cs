@@ -8,7 +8,6 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
 {
     public DialogueSO Dialogue;
     public DialogueSO MainDialogue;
-    [SerializeField] private float textSpeed = 10;
 
     [SerializeField] private GameObject dialogueContainer;
     [SerializeField] private GameObject questionContainer;
@@ -43,13 +42,19 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
     }
     private void OnEnable()
     {
-        playerStateController.OnDialogueNext += AdvanceDialogue;
-        //playerStateController.OnDialogueSkip += SkipTyping;
+        if(playerStateController != null)
+        {
+            playerStateController.OnDialogueNext += AdvanceDialogue;
+            //playerStateController.OnDialogueSkip += SkipTyping;
+        }
     }
     private void OnDisable()
     {
-        playerStateController.OnDialogueNext -= AdvanceDialogue;
-        //playerStateController.OnDialogueSkip -= SkipTyping;
+        if(playerStateController != null)
+        {
+            playerStateController.OnDialogueNext -= AdvanceDialogue;
+            //playerStateController.OnDialogueSkip -= SkipTyping;
+        }
     }
     public void InjectDependencies(DependencyContainer provider)
     {

@@ -13,9 +13,7 @@ public class EventManager : Subject, IDependencyInjectable
     [SerializeField] float delayBrokenWindow;
 
     [SerializeField] float delayMonologue = 0.1f;
-    private bool isWindowBroken = false;
 
-    [SerializeField] bool start = true;
     bool brokenWindow = false;
     private bool stopTrain = false;
     private bool stopTrain2 = false;
@@ -89,7 +87,6 @@ public class EventManager : Subject, IDependencyInjectable
 
                 dialogueManager.StopAndFinishDialogue();
 
-                start = false;
                 stopTrain = true;
 
                 stopTrainQuestion.Options[3].Choosen = false;

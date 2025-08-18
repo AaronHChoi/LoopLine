@@ -17,11 +17,17 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
     }
     private void OnEnable()
     {
-        playerStateController.OnInteract += HandleInteraction;
+        if (playerStateController != null)
+        {
+            playerStateController.OnInteract += HandleInteraction;
+        }
     }
     private void OnDisable()
     {
-        playerStateController.OnInteract -= HandleInteraction;
+        if (playerStateController != null)
+        {
+            playerStateController.OnInteract -= HandleInteraction;
+        }
     }
     public void InjectDependencies(DependencyContainer provider)
     {
