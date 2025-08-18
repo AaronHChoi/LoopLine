@@ -74,7 +74,12 @@ public class FadeInOutController : MonoBehaviour
     }
     public void ForceFade(bool isFadeIn)
     {
-        if (forcedCoroutine == null && settings.StartsWithFadeState == FadeState.Force)
+        if (forcedCoroutine != null)
+        {
+            StopCoroutine(forcedCoroutine);
+        }
+
+        if (settings.StartsWithFadeState == FadeState.Force)
         {
             if (isFadeIn)
             {
