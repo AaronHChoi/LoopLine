@@ -18,7 +18,6 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     Subject eventManager;
     DialogueSOManager dialogueSOManager;
 
-    
     IUIManager uiManager;
     #region MAGIC_METHODS
     private void Awake()
@@ -157,7 +156,6 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
                 DialogueTrigger();
             }
         }
-
     }
     private IEnumerator ExecuteAfterDelay()
     {
@@ -167,10 +165,8 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     }
     public string GetInteractText()
     {
-
         if (interactText == null) return interactText = "";
 
-        
         return interactText;
     }
     void DialogueRefresh()

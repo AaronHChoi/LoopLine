@@ -1,9 +1,10 @@
 using System.Collections;
+using Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DialogueUI : MonoBehaviour
+public class DialogueUI : MonoBehaviour, IDependencyInjectable
 {
     public DialogueSO Dialogue;
     public DialogueSO MainDialogue;
@@ -28,31 +29,42 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] bool skipe = false;
     Coroutine activeCoroutine;
 
-    ISkipeable timeManager;
+    PlayerStateController playerStateController;
+
     private void Awake()
     {
-        timeManager = InterfaceDependencyInjector.Instance.Resolve<ISkipeable>();
         audioSource = GetComponent<AudioSource>();
+        InjectDependencies(DependencyContainer.Instance);
     }
     private void Start()
     {
         skipe = false;
         InitializeUI();
     }
-    private void Update()
+    private void OnEnable()
     {
-        HandleInput();
+        playerStateController.OnDialogueNext += AdvanceDialogue;
+        //playerStateController.OnDialogueSkip += SkipTyping;
+    }
+    private void OnDisable()
+    {
+        playerStateController.OnDialogueNext -= AdvanceDialogue;
+        //playerStateController.OnDialogueSkip -= SkipTyping;
+    }
+    public void InjectDependencies(DependencyContainer provider)
+    {
+        playerStateController = provider.PlayerStateController;
     }
     private void InitializeUI()
     {
         dialogueContainer.SetActive(true);
         questionContainer.SetActive(false);
     }
-    private void HandleInput()
+    private void AdvanceDialogue()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && !isTyping && !isQuestionActive)
+        if (!isTyping && !isQuestionActive)
         {
-            TextUpdate(1);         
+            TextUpdate(1);
         }
     }
     public void TextUpdate(int trigger)
@@ -151,13 +163,13 @@ public class DialogueUI : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0) && isTyping == true && skipe == true)
             {
-                if(currentCharacter > 3)
+                if (currentCharacter > 3)
                 {
                     dialogueText.maxVisibleCharacters = totalCharacters;
                     skipe = false;
                     break;
                 }
-                
+
             }
 
             dialogueText.maxVisibleCharacters++;
@@ -172,6 +184,13 @@ public class DialogueUI : MonoBehaviour
 
         isTyping = false;
         skipe = false;
-        timeManager.SkipDialogue();
     }
+    //private void SkipTyping()
+    //{
+    //    if (isTyping && skipe)
+    //    {
+    //        dialogueText.maxVisibleCharacters = dialogueText.text.Length;
+    //        skipe = false;
+    //    }
+    //}
 }

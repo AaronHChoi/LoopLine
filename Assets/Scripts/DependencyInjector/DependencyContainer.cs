@@ -33,14 +33,14 @@ public class DependencyContainer : MonoBehaviour
     public PlayerView PlayerView { get; private set; }
     public PlayerMovement PlayerMovement { get; private set; }
     public PlayerStateController PlayerStateController { get; private set; }
+    public PlayerInteract PlayerInteract { get; private set; }
     #endregion
     public DialogueUI DialogueUI { get; private set; }
     public Parallax Parallax { get; private set; }
     public CinemachineCamera CinemachineCamera { get; private set; }
     public CinemachinePOVExtension CinemachinePOVExtension { get; private set; }
-
+    public PhotoCapture PhotoCapture { get; private set; }
     public FocusModeManager FocusModeManager { get; private set; }
-
     public PlayerInventorySystem PlayerInventorySystem { get; private set; }
 
 
@@ -83,6 +83,8 @@ public class DependencyContainer : MonoBehaviour
         PlayerMovement = FindAndValidate<PlayerMovement>();
         PlayerStateController = FindAndValidate<PlayerStateController>();
         ItemManager = FindAndValidate<ItemManager>();
+        PhotoCapture = FindAndValidate<PhotoCapture>();
+        PlayerInteract = FindAndValidate<PlayerInteract>();
     }
     private T FindAndValidate<T>() where T : MonoBehaviour
     {
