@@ -31,7 +31,6 @@ Material:
   - _ALPHATEST_ON
   - _ENABLE_FOG_ON_TRANSPARENT
   - _SURFACE_TYPE_TRANSPARENT
-  - _TRANSPARENT_WRITES_MOTION_VEC
   m_InvalidKeywords:
   - _DISABLE_SSR_TRANSPARENT
   - _NORMALMAP_TANGENT_SPACE
@@ -318,7 +317,7 @@ Material:
     - _TransparentDepthPostpassEnable: 1
     - _TransparentDepthPrepassEnable: 0
     - _TransparentSortPriority: -1
-    - _TransparentWritingMotionVec: 1
+    - _TransparentWritingMotionVec: 0
     - _TransparentZWrite: 0
     - _UVBase: 0
     - _UVDetail: 0
@@ -346,7 +345,7 @@ Material:
     - _FaceUVSpeed: {r: 0, g: 0, b: 0, a: 0}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
-    - _IsoPerimeter: {r: 0, g: 0, b: 0, a: 0}
+    - _IsoPerimeter: {r: 0, g: -1, b: -1, a: -1}
     - _OutlineColor1: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor2: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor3: {r: 1, g: 1, b: 1, a: 1}
