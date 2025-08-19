@@ -1,7 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
 {
@@ -17,27 +15,28 @@ public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
     {
         InjectDependencies(DependencyContainer.Instance);
     }
-
     public void InjectDependencies(DependencyContainer provider)
     {
         playerInventorySystem = provider.PlayerInventorySystem;
         inventoryUI = provider.InventoryUI;
     }
-
     public void Set(ItemInteract item)
     {
         itemImage = item.ItemData.itemIcon;
         itemNameLabel.text = item.ItemData.itemName;
         itemToSpawn = item;
     }
-
     private void Update()
     {
         if (isActive)
         {
-            itemToSpawn.objectPrefab.gameObject.SetActive(true);
-            itemToSpawn.objectPrefab.transform.position = playerInventorySystem.SpawnPosition.position;
-            itemToSpawn.objectPrefab.transform.SetParent(playerInventorySystem.SpawnPosition);
+            GameObject item = itemToSpawn.objectPrefab;
+
+            item.SetActive(true);
+            item.transform.position = playerInventorySystem.SpawnPosition.position;
+            item.transform.rotation = playerInventorySystem.SpawnPosition.rotation;
+            item.transform.SetParent(playerInventorySystem.SpawnPosition);
+
             playerInventorySystem.ItemInUse = itemToSpawn;
         }
         else 
@@ -47,7 +46,6 @@ public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
     }
     public void SpawnItem()
     {
-
         if (itemToSpawn.objectPrefab.gameObject.activeInHierarchy == false )
         {
             itemToSpawn.objectPrefab.gameObject.SetActive(true);
@@ -60,7 +58,5 @@ public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
             itemToSpawn.objectPrefab.gameObject.SetActive(false);
             playerInventorySystem.ItemInUse = null;
         }
-
     }
-
 }

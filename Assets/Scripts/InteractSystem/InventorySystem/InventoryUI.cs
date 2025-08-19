@@ -17,9 +17,7 @@ public class InventoryUI : MonoBehaviour
     {
         PlayerInventorySystem.Instance.OnInventoryChanged += OnUpdateInventory;
         MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
-        
     }
-
     private void OnUpdateInventory()
     {
         foreach (Transform t in transform)
@@ -28,10 +26,12 @@ public class InventoryUI : MonoBehaviour
         }
         DrawInventory();
     }
-
     private void Update()
     {
-        float scroll = Input.mouseScrollDelta.y;
+        if (!DependencyContainer.Instance.PlayerStateController.IsInState(Player.PlayerState.Inventory)) return;
+
+        float scroll = DependencyContainer.Instance.PlayerInputHandler.GetScrollValue();
+
         if (Time.time - lastSlotChangeTime < slotChangeCooldown)
         {
             return;
@@ -49,9 +49,7 @@ public class InventoryUI : MonoBehaviour
         }
 
         UpdateVisableSlots();
-
     }
-
     private void UpdateVisableSlots()
     {
         inventorySlots.RemoveAll(s => s == null);
@@ -74,7 +72,6 @@ public class InventoryUI : MonoBehaviour
         //    slot.gameObject.SetActive(visible);
         //}
     }
-
     public void ChangeSlot(int direction)
     {
         inventorySlots[currentSlotIndex].isActive = false;
@@ -90,8 +87,6 @@ public class InventoryUI : MonoBehaviour
 
         MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
     }
-
-
     private void MoveArrowToSlot(RectTransform slotTransform)
     {
         Vector3 worldPos = slotTransform.TransformPoint(Vector3.zero);
@@ -106,7 +101,6 @@ public class InventoryUI : MonoBehaviour
             AddInventorySlot(item);
         }
     }
-
     public void AddInventorySlot(ItemInteract item)
     {
         GameObject itemUI = Instantiate(item.ItemData.objectPrefab);
@@ -116,10 +110,8 @@ public class InventoryUI : MonoBehaviour
         slot.Set(item);
         inventorySlots.Add(slot);
     }
-
     public void RemoveInventorySlot(UIInventoryItemSlot item)
     {
         item.gameObject.SetActive(false);
     }
 }
-

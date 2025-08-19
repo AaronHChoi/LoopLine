@@ -9,6 +9,7 @@ namespace Player
         Dialogue,
         Camera,
         FocusMode,
+        Inventory,
         MindPlace,
         Development
     }
@@ -24,6 +25,7 @@ namespace Player
         public event Action OnOpenInventory;
         public event Action OnOpenDevelopment;
         public event Action OnFocusMode;
+        public event Action OnScrollInventory;
 
         PlayerInputHandler playerInputHandler;
         PlayerMovement playerMovement;
@@ -61,6 +63,9 @@ namespace Player
                 case PlayerState.MindPlace:
                     HandleMindPlaceState();
                     break;
+                case PlayerState.Inventory:
+                    HandleInventoryState();
+                    break;
             }
         }
         public void SetState(PlayerState newState)
@@ -77,7 +82,7 @@ namespace Player
         {
             playerMovement.CanMove = true;
 
-            if (playerInputHandler.ToggleCameraPressed())
+            if (playerInputHandler.ToggleCameraPressed() && PlayerInventorySystem.Instance.ItemInUse.id == "Camera")
             {
                 SetState(PlayerState.Camera);
             }
@@ -88,6 +93,7 @@ namespace Player
             if (playerInputHandler.OpenInventoryPressed())
             {
                 OnOpenInventory?.Invoke();
+                SetState(PlayerState.Inventory);
             }
             if (playerInputHandler.DevelopmentModePressed())
             {
@@ -153,6 +159,20 @@ namespace Player
         private void HandleMindPlaceState()
         {
             playerMovement.CanMove = true;
+        }
+        private void HandleInventoryState()
+        {
+            playerMovement.CanMove = true;
+
+            if (playerInputHandler.OpenInventoryPressed())
+            {
+                OnOpenInventory?.Invoke();
+                SetState(PlayerState.Normal);
+            }
+            if (playerInputHandler.InteractPressed())
+            {
+                OnInteract?.Invoke();
+            }
         }
     }
 }

@@ -56,8 +56,7 @@ namespace Unity.Cinemachine.Samples
             Tilt.Value = Mathf.Clamp(Tilt.Value, -70f, 70f);
 
             // Aplicar la rotación a la cámara
-            var rot = Quaternion.Euler(Tilt.Value, Pan.Value, 0);
-            transform.rotation = rot;
+            transform.rotation = Quaternion.Euler(Tilt.Value, Pan.Value, 0);
         }
         public (float pan, float tilt) GetPanAndTilt()
         {

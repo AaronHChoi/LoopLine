@@ -1,5 +1,5 @@
+using Player;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class ItemInteract : MonoBehaviour, IDependencyInjectable, IItemGrabInteract
 {
@@ -18,6 +18,7 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable, IItemGrabInter
     PlayerInventorySystem playerInventorySystem;
     InventoryUI inventoryUI;
     ItemManager itemManager;
+    PlayerStateController playerStateController;
 
     private void Awake()
     {
@@ -36,13 +37,20 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable, IItemGrabInter
             objectPrefab = gameObject;
         }
     }
-    public void InjectDependencies(DependencyContainer provider)
+    private void OnEnable()
     {
-        playerInventorySystem = provider.PlayerInventorySystem;
-        inventoryUI = provider.InventoryUI;
-        itemManager = provider.ItemManager;
+        if(playerStateController != null)
+        {
+            playerStateController.OnInteract += Interact;
+        }
     }
-
+    private void OnDisable()
+    {
+        if (playerStateController != null)
+        {
+            playerStateController.OnInteract -= Interact;
+        }
+    }
     public void Interact()
     {
         if (gameObject.tag == "Item" && canBePicked)
@@ -60,20 +68,22 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable, IItemGrabInter
                     playerInventorySystem.AddToInvetory(this);
                 }
                 
-
                 if (itemToActivate != null && !string.IsNullOrEmpty(id))
                     playerInventorySystem.ActivateNextItem(itemToActivate, id);
             }
-            
         }
     }
-
     public string GetInteractText()
     {
-
         if (interactText == null) return interactText = "";
 
-
         return interactText;
+    }
+    public void InjectDependencies(DependencyContainer provider)
+    {
+        playerInventorySystem = provider.PlayerInventorySystem;
+        inventoryUI = provider.InventoryUI;
+        itemManager = provider.ItemManager;
+        playerStateController = provider.PlayerStateController;
     }
 }
