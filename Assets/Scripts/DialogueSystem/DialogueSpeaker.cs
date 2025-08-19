@@ -13,6 +13,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     public int DialogueLocalIndex = 0;
     public bool isDialogueActive = false;
     public bool NPCInteracted = false;
+    [SerializeField] Transform headTarget;
 
     DevelopmentManager developmentManager;
     Subject eventManager;
@@ -40,11 +41,13 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     }
     private void OnEnable()
     {
-        eventManager.AddObserver(this);
+        if(eventManager != null)
+            eventManager.AddObserver(this);
     }
     private void OnDisable()
     {
-        eventManager.RemoveObserver(this);
+        if (eventManager != null)
+            eventManager.RemoveObserver(this);
     }
     #endregion
     public void InjectDependencies(DependencyContainer provider)
@@ -54,11 +57,9 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     }
     public void DialogueTrigger()
     {
-        //if (AvailableDialogs == null || AvailableDialogs.Count == 0 || (dialogueIndex == AvailableDialogs.Count - 1 && AvailableDialogs[dialogueIndex].Finished))
+        //if (lookAtNPC != null && headTarget != null)
         //{
-        //    //uiManager.ShowUIText("No hay dialogos disponibles.");
-        //    StartCoroutine(ExecuteAfterDelay());
-        //    return;
+        //    lookAtNPC.SetTarget(headTarget);
         //}
 
         developmentManager.DeactivateUIIfActive();
@@ -117,6 +118,11 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     {
         isDialogueActive = false;
         //dialogueSOManager.CheckFirstInteraction();
+
+        //if (lookAtNPC != null)
+        //{
+        //    lookAtNPC.ClearTarget();
+        //}
     }
     bool DialogueUpdate()
     {

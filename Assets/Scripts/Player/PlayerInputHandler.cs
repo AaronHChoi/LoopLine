@@ -15,6 +15,7 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerMovementInput
     InputAction openInventory;
     InputAction developmentMode;
     InputAction focusMode;
+    InputAction scrollInventory;
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -31,6 +32,7 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerMovementInput
         openInventory = playerInput.actions["OpenInventory"];
         developmentMode = playerInput.actions["DevelopmentMode"];
         focusMode = playerInput.actions["FocusMode"];
+        scrollInventory = playerInput.actions["ScrollInventory"];
     }
     public Vector2 GetInputMove()
     {
@@ -59,6 +61,10 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerMovementInput
     public bool OpenInventoryPressed()
     {
         return openInventory.WasPerformedThisFrame();
+    }
+    public float GetScrollValue()
+    {
+        return scrollInventory.ReadValue<Vector2>().y;
     }
     public bool ToggleCameraPressed()
     {

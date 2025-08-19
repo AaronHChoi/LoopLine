@@ -74,6 +74,8 @@ public class FadeInOutController : MonoBehaviour
     }
     public void ForceFade(bool isFadeIn)
     {
+        if (!gameObject.activeInHierarchy) return;
+
         if (forcedCoroutine != null)
         {
             StopCoroutine(forcedCoroutine);

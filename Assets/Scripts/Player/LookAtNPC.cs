@@ -9,7 +9,7 @@ public class LookAtNPC : MonoBehaviour
     ICameraOrientation orientation;
     Transform camTransform;
     float targetPan, targetTilt;
-    bool isLooking;
+    public bool isLooking;
 
     void Start()
     {
@@ -17,10 +17,9 @@ public class LookAtNPC : MonoBehaviour
         orientation = GetComponentInChildren<ICameraOrientation>();
         camTransform = (orientation as MonoBehaviour).transform;
     }
-
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && target != null && orientation != null && !isLooking)
+        if (target != null && orientation != null && !isLooking)
         {
             // Calculate direction and desired pan/tilt from camera to target
             Vector3 direction = (target.position - camTransform.position).normalized;
@@ -54,12 +53,19 @@ public class LookAtNPC : MonoBehaviour
             isLooking = false;
         }
     }
-
     // Keep angles within -180 to 180
     float NormalizeAngle(float angle)
     {
         while (angle > 180f) angle -= 360f;
         while (angle < -180f) angle += 360f;
         return angle;
+    }
+    public void SetTarget(Transform newTarget)
+    {
+        target = newTarget;
+    }
+    public void ClearTarget()
+    {
+        target = null;
     }
 }

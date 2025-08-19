@@ -48,6 +48,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
     public void SetCinemachineController(bool _enabled)
     {
         playerCamera.SetControllerEnabled(_enabled);
+        //playerCamera.LockCamera(_enabled);
         
         playerStateController.SetState(_enabled ? PlayerState.Normal : PlayerState.Dialogue);
     }

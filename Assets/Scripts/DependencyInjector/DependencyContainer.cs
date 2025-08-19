@@ -43,7 +43,6 @@ public class DependencyContainer : MonoBehaviour
     public FocusModeManager FocusModeManager { get; private set; }
     public PlayerInventorySystem PlayerInventorySystem { get; private set; }
 
-
     private void Awake()
     {
         if(Instance != null && Instance != this)
