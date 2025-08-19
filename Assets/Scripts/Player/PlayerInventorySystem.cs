@@ -31,15 +31,20 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
             Destroy(gameObject);
         }
         InjectDependencies(DependencyContainer.Instance);
-        inventoryUI.gameObject.SetActive(false);
+        if (inventoryUI != null) 
+        { inventoryUI.gameObject.SetActive(false); }
+        
         UnityEngine.Debug.Log("0");
     }
     private void Start()
     {
-        inventoryUI.AddInventorySlot(inventoryUI.HandItemUI);
-        AddToInvetory(inventoryUI.HandItemUI);
-        ItemInUse = inventoryUI.HandItemUI;
-        inventoryUI.inventorySlots[0].isActive = true;
+        if (inventoryUI != null) 
+        { 
+            inventoryUI.AddInventorySlot(inventoryUI.HandItemUI);
+            AddToInvetory(inventoryUI.HandItemUI);
+            ItemInUse = inventoryUI.HandItemUI;
+            inventoryUI.inventorySlots[0].isActive = true;
+        }
     }
     private void OnEnable()
     {
