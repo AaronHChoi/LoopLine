@@ -42,25 +42,19 @@ public class PlayerCamera : MonoBehaviour, IDependencyInjectable, IPlayerCamera
     }
     public void SetControllerEnabled(bool _enabled)
     {
-        if (_enabled)
+        virtualCamera.enabled = _enabled;
+
+        if (cinemachinePOVExtension != null)
         {
-            virtualCamera.Follow = cameraPOV;
+            if (_enabled)
+            {
+                cinemachinePOVExtension.SetPanAndTilt(lockedPanValue, lockedTiltValue);
+            }
+            else
+            {
+                (lockedPanValue, lockedTiltValue) = cinemachinePOVExtension.GetPanAndTilt();
+            }
         }
-        else
-        {
-            virtualCamera.Follow = null;
-        }
-        //if (cinemachinePOVExtension != null)
-        //{
-        //    if (_enabled)
-        //    {
-        //        cinemachinePOVExtension.SetPanAndTilt(lockedPanValue, lockedTiltValue);
-        //    }
-        //    else
-        //    {
-        //        (lockedPanValue, lockedTiltValue) = cinemachinePOVExtension.GetPanAndTilt();
-        //    }
-        //}
     }
 }
 public interface IPlayerCamera
