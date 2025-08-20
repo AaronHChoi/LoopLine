@@ -1,10 +1,11 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
 {
     [SerializeField] private TextMeshProUGUI itemNameLabel;
-    [SerializeField] private Sprite itemImage;
+    [SerializeField] private Image itemImage;
     [SerializeField] private UnityEngine.UI.Button itemButton;
     public ItemInteract itemToSpawn { get; private set; }
     public bool isActive = false;
@@ -22,7 +23,7 @@ public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
     }
     public void Set(ItemInteract item)
     {
-        itemImage = item.ItemData.itemIcon;
+        itemImage.sprite = item.ItemData.itemIcon;
         itemNameLabel.text = item.ItemData.itemName;
         itemToSpawn = item;
     }
