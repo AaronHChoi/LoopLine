@@ -145,10 +145,14 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
     }
     public void LoadMainLevel()
     {
-        if (SceneManager.GetActiveScene().name == "05. MindPlace")
+        if ("05. MindPlace, 99. Showcase".Contains(SceneManager.GetActiveScene().name))
         {
             SceneManager.LoadScene("04. Train");
         }
+    }
+    public void LoadShowcase()
+    {
+        SceneManager.LoadScene("99. Showcase");
     }
     public void CutTime()
     {
