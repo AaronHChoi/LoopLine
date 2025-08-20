@@ -21,6 +21,7 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
         if (playerStateController != null)
         {
             playerStateController.OnInteract += HandleInteraction;
+            playerStateController.OnGrab += GrabItem;
         }
     }
     private void OnDisable()
@@ -28,6 +29,7 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
         if (playerStateController != null)
         {
             playerStateController.OnInteract -= HandleInteraction;
+            playerStateController.OnGrab -= GrabItem;
         }
     }
     public void InjectDependencies(DependencyContainer provider)
@@ -45,14 +47,6 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
             {
                 TryInteract();
             }
-            if (inventoryUI.gameObject.activeInHierarchy == false && playerInventorySystem.ItemInUse == inventoryUI.HandItemUI)
-            {
-                IItemGrabInteract intemGrabObject = GetItemGrabIteractableObject();
-                if (intemGrabObject != null)
-                {
-                    intemGrabObject.Interact();
-                }
-            }
         }
         else
         {
@@ -62,6 +56,20 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
     void Update()
     {
         Debug.DrawRay(rayCastPoint.transform.position, rayCastPoint.transform.forward * raycastDistance, Color.red);
+    }
+    private void GrabItem()
+    {
+        if (SceneManager.GetActiveScene().name == "04. Train")
+        {
+            if (inventoryUI.gameObject.activeInHierarchy == false && playerInventorySystem.ItemInUse == inventoryUI.HandItemUI)
+            {
+                IItemGrabInteract intemGrabObject = GetItemGrabIteractableObject();
+                if (intemGrabObject != null)
+                {
+                    intemGrabObject.Interact();
+                }
+            }
+        }
     }
     private void TryInteract()
     {

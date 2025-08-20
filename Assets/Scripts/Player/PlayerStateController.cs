@@ -26,6 +26,7 @@ namespace Player
         public event Action OnOpenDevelopment;
         public event Action OnFocusMode;
         public event Action OnScrollInventory;
+        public event Action OnGrab;
 
         PlayerInputHandler playerInputHandler;
         PlayerMovement playerMovement;
@@ -89,6 +90,10 @@ namespace Player
             if (playerInputHandler.InteractPressed())
             {
                 OnInteract?.Invoke();
+            }
+            if (playerInputHandler.GrabItemPressed())
+            {
+                OnGrab?.Invoke();
             }
             if (playerInputHandler.OpenInventoryPressed())
             {
