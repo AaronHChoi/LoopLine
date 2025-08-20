@@ -28,7 +28,7 @@ public class NPCMindPlaceInteraction : MonoBehaviour, IInteract, IDependencyInje
     {
         if (npcMindPlace.IsNPCInteracted)
         {
-            gameObject.layer = LayerMask.NameToLayer("interact");
+            gameObject.layer = LayerMask.NameToLayer("Interactable");
         }
         else
         {

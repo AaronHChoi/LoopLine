@@ -29,12 +29,12 @@ public class NoteBookManager : MonoBehaviour, INoteBookColliderToggle
         {
             if (obj == null) continue;
 
-            if (obj.TryGetComponent(out BoxCollider box))
-                box.enabled = state;
-            if (obj.tag == "NoteBook")
-            {
-                obj.SetActive(state);
-            }
+            //if (obj.TryGetComponent(out BoxCollider box))
+            //    box.enabled = state;
+            //if (obj.tag == "NoteBook")
+            //{
+            //    obj.SetActive(state);
+            //}
         }
         GameManager.Instance.test = state;
     }
