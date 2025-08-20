@@ -11,6 +11,7 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
     [SerializeField] private float raycastDistance = 2f;
     [SerializeField] private LayerMask interactableLayer;
     PlayerStateController playerStateController;
+    
     private void Awake()
     {
         InjectDependencies(DependencyContainer.Instance);
@@ -40,11 +41,11 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
     {
         if (SceneManager.GetActiveScene().name == "04. Train")
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0) && inventoryUI.gameObject.activeInHierarchy == false && playerInventorySystem.ItemInUse == inventoryUI.HandItemUI)
+            if (inventoryUI.gameObject.activeInHierarchy == false && playerInventorySystem.ItemInUse == inventoryUI.HandItemUI)
             {
                 TryInteract();
             }
-            if (Input.GetKeyDown(KeyCode.Mouse1) && inventoryUI.gameObject.activeInHierarchy == false && playerInventorySystem.ItemInUse == inventoryUI.HandItemUI)
+            if (inventoryUI.gameObject.activeInHierarchy == false && playerInventorySystem.ItemInUse == inventoryUI.HandItemUI)
             {
                 IItemGrabInteract intemGrabObject = GetItemGrabIteractableObject();
                 if (intemGrabObject != null)

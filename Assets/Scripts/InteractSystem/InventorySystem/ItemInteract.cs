@@ -1,4 +1,3 @@
-using Player;
 using UnityEngine;
 
 public class ItemInteract : MonoBehaviour, IDependencyInjectable, IItemGrabInteract
@@ -18,7 +17,6 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable, IItemGrabInter
     PlayerInventorySystem playerInventorySystem;
     InventoryUI inventoryUI;
     ItemManager itemManager;
-    PlayerStateController playerStateController;
 
     private void Awake()
     {
@@ -35,20 +33,6 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable, IItemGrabInter
         else
         {
             objectPrefab = gameObject;
-        }
-    }
-    private void OnEnable()
-    {
-        if(playerStateController != null)
-        {
-            playerStateController.OnInteract += Interact;
-        }
-    }
-    private void OnDisable()
-    {
-        if (playerStateController != null)
-        {
-            playerStateController.OnInteract -= Interact;
         }
     }
     public void Interact()
@@ -84,6 +68,5 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable, IItemGrabInter
         playerInventorySystem = provider.PlayerInventorySystem;
         inventoryUI = provider.InventoryUI;
         itemManager = provider.ItemManager;
-        playerStateController = provider.PlayerStateController;
     }
 }
