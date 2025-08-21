@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 51aad8b2e9924d14fb87c8854d761251, type: 3}
       propertyPath: m_LocalScale.x
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 51aad8b2e9924d14fb87c8854d761251, type: 3}
       propertyPath: m_LocalScale.y
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 51aad8b2e9924d14fb87c8854d761251, type: 3}
       propertyPath: m_LocalScale.z
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 51aad8b2e9924d14fb87c8854d761251, type: 3}
       propertyPath: m_LocalPosition.x
@@ -42,7 +42,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 51aad8b2e9924d14fb87c8854d761251, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 51aad8b2e9924d14fb87c8854d761251, type: 3}
       propertyPath: m_LocalRotation.z
@@ -97,6 +97,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 51aad8b2e9924d14fb87c8854d761251, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4023796982996942851}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 51aad8b2e9924d14fb87c8854d761251, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3446061182648536311}
   m_SourcePrefab: {fileID: 100100000, guid: 51aad8b2e9924d14fb87c8854d761251, type: 3}
 --- !u!4 &467311913305127516 stripped
 Transform:
@@ -127,8 +130,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.005353396, y: 0.00559418, z: 0.0006611608}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.0531857, y: 0.059177414, z: 0.008152963}
+  m_Center: {x: -0.00021636486, y: -0.00021246076, z: -0.0000402336}
 --- !u!114 &4023796982996942851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,13 +144,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a81b347b9f73d43bda71d317d1412d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: Coin
-  id: Coin
+  interactText: 
+  id: 
   ItemData: {fileID: 11400000, guid: 014c4782a20ee1541b29d8856d0a6a8b, type: 2}
   canBePicked: 0
   deactivateOnPickup: 1
   objectPrefab: {fileID: 0}
   itemToActivate: {fileID: 0}
+--- !u!114 &3446061182648536311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 952486140155027686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptMessage: Coin
+  uiOffset: {x: 0, y: 0, z: 0}
+  uiOffsetPrompt: {x: 0, y: 0.15, z: 0}
 --- !u!1001 &6928709891086155260
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -158,15 +176,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 51aad8b2e9924d14fb87c8854d761251, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 51aad8b2e9924d14fb87c8854d761251, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 51aad8b2e9924d14fb87c8854d761251, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 51aad8b2e9924d14fb87c8854d761251, type: 3}
       propertyPath: m_LocalPosition.x
