@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using Player;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryUI : MonoBehaviour
+public class InventoryUI : MonoBehaviour, IDependencyInjectable
 {
     [SerializeField] public List<UIInventoryItemSlot> inventorySlots = new List<UIInventoryItemSlot>();
 
@@ -13,6 +14,11 @@ public class InventoryUI : MonoBehaviour
     private float lastSlotChangeTime = 0f;
     private int currentSlotIndex = 0;
 
+    PlayerStateController playerStateController;
+    private void Awake()
+    {
+        InjectDependencies(DependencyContainer.Instance);
+    }
     private void Start()
     {
         PlayerInventorySystem.Instance.OnInventoryChanged += OnUpdateInventory;
@@ -28,7 +34,7 @@ public class InventoryUI : MonoBehaviour
     }
     private void Update()
     {
-        if (!DependencyContainer.Instance.PlayerStateController.IsInState(Player.PlayerState.Inventory)) return;
+        if (!DependencyContainer.Instance.PlayerStateController.IsInState(playerStateController.InventoryState)) return;
 
         float scroll = DependencyContainer.Instance.PlayerInputHandler.GetScrollValue();
 
@@ -113,5 +119,10 @@ public class InventoryUI : MonoBehaviour
     public void RemoveInventorySlot(UIInventoryItemSlot item)
     {
         item.gameObject.SetActive(false);
+    }
+
+    public void InjectDependencies(DependencyContainer provider)
+    {
+        playerStateController = provider.PlayerStateController;
     }
 }

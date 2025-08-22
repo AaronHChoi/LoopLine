@@ -97,13 +97,13 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
             RemovePhoto();
         }
     }
-    private void HandlePlayerStateChanged(PlayerState newState)
+    private void HandlePlayerStateChanged(IState newState)
     {
-        if(newState == PlayerState.Normal)
+        if (newState == playerStateController.NormalState)
         {
             cameraActive = false;
         }
-        else if(newState == PlayerState.Camera)
+        else if (newState == playerStateController.CameraState)
         {
             cameraActive = true;
         }
