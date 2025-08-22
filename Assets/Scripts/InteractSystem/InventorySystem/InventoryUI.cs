@@ -110,8 +110,9 @@ public class InventoryUI : MonoBehaviour
         slot.Set(item);
         inventorySlots.Add(slot);
     }
-    public void RemoveInventorySlot(UIInventoryItemSlot item)
+    public void RemoveInventorySlot(ItemInteract item)
     {
-        item.gameObject.SetActive(false);
+        UIInventoryItemSlot slot = item.GetComponent<UIInventoryItemSlot>();
+        slot.gameObject.SetActive(false);
     }
 }

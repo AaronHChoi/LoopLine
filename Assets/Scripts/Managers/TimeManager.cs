@@ -56,6 +56,11 @@ public class TimeManager : MonoBehaviour, IDependencyInjectable, ISkipeable
     {
         loopTime = newTime;
     }
+    
+    public void AddTime(float time)
+    {
+        loopTime += time;
+    }
     public void SetLoopTimeToStopTrain()
     {
         SetLoopTime(250f);
