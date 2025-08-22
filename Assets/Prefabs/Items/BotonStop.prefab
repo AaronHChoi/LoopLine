@@ -70,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8416272007918961125, guid: 35611cc0640808f4cb27ae3cdafcff9e, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8416272007918961125, guid: 35611cc0640808f4cb27ae3cdafcff9e, type: 3}
       propertyPath: m_TagString
@@ -86,9 +86,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8416272007918961125, guid: 35611cc0640808f4cb27ae3cdafcff9e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7118780454120992126}
-    - targetCorrespondingSourceObject: {fileID: -7146521406498821007, guid: 35611cc0640808f4cb27ae3cdafcff9e, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 8416272007918961125, guid: 35611cc0640808f4cb27ae3cdafcff9e, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4222444110330740625}
+      addedObject: {fileID: 3170190786905045388}
   m_SourcePrefab: {fileID: 100100000, guid: 35611cc0640808f4cb27ae3cdafcff9e, type: 3}
 --- !u!1 &1127367722841753152 stripped
 GameObject:
@@ -116,32 +116,40 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.02423622, y: 0.024236217, z: 0.008104535}
   m_Center: {x: 0, y: 1.5173981e-16, z: 0.021355474}
+--- !u!114 &3170190786905045388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1127367722841753152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9363edc4c9776254086e0fd40f6de007, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BreakSecurityCrystal:
+    clip: {fileID: 8300000, guid: 09ddac16b9ebe364ea47b96166958729, type: 3}
+    mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 1
+    secondsDelay: 0
+  PushButton:
+    clip: {fileID: 8300000, guid: 897e505bcec5c6e4f8c2e29546e935e1, type: 3}
+    mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 1
+    secondsDelay: 0
+  interactText: Stop train
+  Crystal: {fileID: 7474806125037235156}
+  Rock: {fileID: 0}
 --- !u!1 &7474806125037235156 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7146521406498821007, guid: 35611cc0640808f4cb27ae3cdafcff9e, type: 3}
   m_PrefabInstance: {fileID: 8892828279869507493}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &4222444110330740625
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7474806125037235156}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.020545771, y: 0.020320818, z: 0.011437792}
-  m_Center: {x: 0, y: 0.0034193953, z: 0.011376946}
 --- !u!1 &8135136692365014465 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8391222552659086748, guid: 35611cc0640808f4cb27ae3cdafcff9e, type: 3}

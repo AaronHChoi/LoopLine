@@ -15,8 +15,11 @@ public class EventManager : Subject, IDependencyInjectable
     [SerializeField] float delayMonologue = 0.1f;
 
     bool brokenWindow = false;
-    private bool stopTrain = false;
+    public bool stopTrain { get; private set; } = false;
     private bool stopTrain2 = false;
+    [SerializeField] public float StopedTimeForTrain = 30f;
+    [SerializeField] private float AddTime = 30f;
+    [SerializeField] StopButtonInteract stopButtonInteract;
     private Coroutine coroutineDelay;
 
     [SerializeField] private QuestionSO stopTrainQuestion;
@@ -48,6 +51,7 @@ public class EventManager : Subject, IDependencyInjectable
 
         }
         StartCoroutine(StartSceneMonologue(delayMonologue));
+        stopButtonInteract = FindAnyObjectByType<StopButtonInteract>();
     }
     public void InitializeDialogues()
     {
@@ -69,13 +73,13 @@ public class EventManager : Subject, IDependencyInjectable
     }
     void Update()
     {
-        TrainEvent1();
+        TrainEventResumeTrain();
         TrainEvent2();
     }
     #region TrainEvents
-    private void TrainEvent1()
+    public void TrainEventStopTrain()
     {
-        if (timeManager.LoopTime <= 240 && timeManager.LoopTime >= 235)
+        if (!stopTrain)
         {
             NotifyObservers(Events.StopTrain);
 
@@ -94,11 +98,18 @@ public class EventManager : Subject, IDependencyInjectable
                 EventStopTrain();
             }
         }
-        if (timeManager.LoopTime <= 180 && timeManager.LoopTime >= 175)
+        
+    }
+
+    public void TrainEventResumeTrain()
+    {
+        if (stopTrain && StopedTimeForTrain <= 0f)
         {
             NotifyObservers(Events.ResumeTrain);
+            
             if (!stopTrain2)
             {
+                timeManager.AddTime(AddTime);
                 SoundManager.Instance.CreateSound()
                     .WithSoundData(trainStopSoundData2)
                     .Play();
@@ -120,7 +131,7 @@ public class EventManager : Subject, IDependencyInjectable
 
             stopTrain = false;
             brokenWindow = true;
-            
+            stopButtonInteract.Rock.gameObject.SetActive(true);
             if (coroutineDelay != null)
             {
                 StopCoroutine(coroutineDelay);

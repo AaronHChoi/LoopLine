@@ -12,7 +12,7 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
     [SerializeField] public ItemInteract HandItemUI;
     [SerializeField] private float slotChangeCooldown = 0.5f; 
     private float lastSlotChangeTime = 0f;
-    private int currentSlotIndex = 0;
+    public int currentSlotIndex = 0;
 
     PlayerStateController playerStateController;
     private void Awake()
@@ -116,9 +116,10 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
         slot.Set(item);
         inventorySlots.Add(slot);
     }
-    public void RemoveInventorySlot(UIInventoryItemSlot item)
+    public void RemoveInventorySlot(ItemInteract item)
     {
-        item.gameObject.SetActive(false);
+        UIInventoryItemSlot slot = item.GetComponent<UIInventoryItemSlot>();
+        slot.gameObject.SetActive(false);
     }
 
     public void InjectDependencies(DependencyContainer provider)
