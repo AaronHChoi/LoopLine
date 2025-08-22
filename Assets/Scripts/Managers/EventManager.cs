@@ -18,6 +18,8 @@ public class EventManager : Subject, IDependencyInjectable
     public bool stopTrain { get; private set; } = false;
     private bool stopTrain2 = false;
     [SerializeField] public float StopedTimeForTrain = 30f;
+    [SerializeField] private float AddTime = 30f;
+    [SerializeField] StopButtonInteract stopButtonInteract;
     private Coroutine coroutineDelay;
 
     [SerializeField] private QuestionSO stopTrainQuestion;
@@ -49,6 +51,7 @@ public class EventManager : Subject, IDependencyInjectable
 
         }
         StartCoroutine(StartSceneMonologue(delayMonologue));
+        stopButtonInteract = FindAnyObjectByType<StopButtonInteract>();
     }
     public void InitializeDialogues()
     {
@@ -70,7 +73,7 @@ public class EventManager : Subject, IDependencyInjectable
     }
     void Update()
     {
-        TrainEventStopTrain();
+        TrainEventResumeTrain();
         TrainEvent2();
     }
     #region TrainEvents
@@ -103,9 +106,10 @@ public class EventManager : Subject, IDependencyInjectable
         if (stopTrain && StopedTimeForTrain <= 0f)
         {
             NotifyObservers(Events.ResumeTrain);
-            timeManager.AddTime(StopedTimeForTrain);
+            
             if (!stopTrain2)
             {
+                timeManager.AddTime(AddTime);
                 SoundManager.Instance.CreateSound()
                     .WithSoundData(trainStopSoundData2)
                     .Play();
@@ -127,7 +131,7 @@ public class EventManager : Subject, IDependencyInjectable
 
             stopTrain = false;
             brokenWindow = true;
-            
+            stopButtonInteract.Rock.gameObject.SetActive(true);
             if (coroutineDelay != null)
             {
                 StopCoroutine(coroutineDelay);

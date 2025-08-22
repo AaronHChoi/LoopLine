@@ -2,9 +2,16 @@ using UnityEngine;
 
 public class StopButtonInteract : MonoBehaviour, IInteract, IDependencyInjectable
 {
+
+    [Header("Sound System")]
+    [SerializeField] private SoundData BreakSecurityCrystal;
+    [SerializeField] private SoundData PushButton;
+
+
     [SerializeField] private string interactText = "";
     [SerializeField] private GameObject Crystal;
-    [SerializeField] private ItemInteract Rock;
+
+    [SerializeField] public ItemInteract Rock;
 
     PlayerInventorySystem inventory;
     ItemManager itemManager;
@@ -28,24 +35,34 @@ public class StopButtonInteract : MonoBehaviour, IInteract, IDependencyInjectabl
     }
     public void Interact()
     {
-        if (Crystal.gameObject.activeSelf)
+        if (Crystal.gameObject.activeSelf == true)
         {
-            if (inventory.CheckInventory(Rock))
+            
+            if (inventory.ItemInUse == Rock)
             {
+
+                SoundManager.Instance.CreateSound()
+                    .WithSoundData(BreakSecurityCrystal)
+                    .Play();
                 Crystal.gameObject.SetActive(false);
                 inventory.RemoveFromInventory(Rock);
-                inventoryUI.RemoveInventorySlot(Rock);
+                
             }
         }
         else
         {
+            SoundManager.Instance.CreateSound()
+                    .WithSoundData(PushButton)
+                    .Play();
+
             eventManager.TrainEventStopTrain();
+            
         }
     }
 
     void Update()
     {
-        if (eventManager.stopTrain)
+        if (eventManager.stopTrain == true)
         {
             eventManager.StopedTimeForTrain -= Time.deltaTime;
             if(eventManager.StopedTimeForTrain < 0) eventManager.StopedTimeForTrain = 0;

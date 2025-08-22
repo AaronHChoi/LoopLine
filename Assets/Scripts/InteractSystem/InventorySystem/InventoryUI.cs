@@ -11,7 +11,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] public ItemInteract HandItemUI;
     [SerializeField] private float slotChangeCooldown = 0.5f; 
     private float lastSlotChangeTime = 0f;
-    private int currentSlotIndex = 0;
+    public int currentSlotIndex = 0;
 
     private void Start()
     {

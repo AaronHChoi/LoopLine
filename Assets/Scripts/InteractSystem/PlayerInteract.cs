@@ -43,7 +43,7 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
     {
         if (SceneManager.GetActiveScene().name == "04. Train")
         {
-            if (inventoryUI.gameObject.activeInHierarchy == false && playerInventorySystem.ItemInUse == inventoryUI.HandItemUI)
+            if (inventoryUI.gameObject.activeInHierarchy == false /*&& playerInventorySystem.ItemInUse == inventoryUI.HandItemUI*/)
             {
                 TryInteract();
             }
@@ -83,7 +83,7 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
     {
         if (SceneManager.GetActiveScene().name == "04. Train")
         {
-            if (inventoryUI.gameObject.activeInHierarchy == false && playerInventorySystem.ItemInUse == inventoryUI.HandItemUI) 
+            if (inventoryUI.gameObject.activeInHierarchy == false /*&& playerInventorySystem.ItemInUse == inventoryUI.HandItemUI*/) 
             {
                 Ray ray = new Ray(rayCastPoint.transform.position, rayCastPoint.transform.forward);
 

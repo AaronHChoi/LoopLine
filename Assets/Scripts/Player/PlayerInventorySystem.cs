@@ -43,6 +43,7 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
             inventoryUI.AddInventorySlot(inventoryUI.HandItemUI);
             AddToInvetory(inventoryUI.HandItemUI);
             ItemInUse = inventoryUI.HandItemUI;
+            inventoryUI.currentSlotIndex = 0;
             inventoryUI.inventorySlots[0].isActive = true;
         }
     }
@@ -97,6 +98,10 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
         if (CheckInventory(itemInteract) == true)
         {
             inventory.Remove(itemInteract);
+            itemInteract.objectPrefab.SetActive(false);
+            ItemInUse = inventoryUI.HandItemUI;
+            inventoryUI.inventorySlots[0].isActive = true;
+            inventoryUI.currentSlotIndex = 0;
             OnInventoryChanged?.Invoke();
         }
     }
