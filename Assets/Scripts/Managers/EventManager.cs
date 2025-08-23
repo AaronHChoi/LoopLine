@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventManager : Subject, IDependencyInjectable
+public class EventManager : Subject
 {
     [Header("Sound System Event 1")]
     [SerializeField] private SoundData trainStopSoundData;
@@ -29,19 +29,14 @@ public class EventManager : Subject, IDependencyInjectable
 
     [SerializeField] DialogueSOManager player;
 
-    TimeManager timeManager;
-
+    ITimeProvider timeManager;
     IUIManager uiManager;
     IDialogueManager dialogueManager;
     private void Awake()
     {
-        InjectDependencies(DependencyContainer.Instance);
         dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
-    }
-    public void InjectDependencies(DependencyContainer provider)
-    {
-        timeManager = provider.TimeManager;
+        timeManager = InterfaceDependencyInjector.Instance.Resolve<ITimeProvider>();
     }
     private void Start()
     {
@@ -120,6 +115,8 @@ public class EventManager : Subject, IDependencyInjectable
     }
     private void TrainEvent2()
     {
+        if (timeManager == null) return;
+
         if (!brokenWindow && timeManager.LoopTime <= 60 && timeManager.LoopTime >= 55)
         {
             SoundManager.Instance.CreateSound()

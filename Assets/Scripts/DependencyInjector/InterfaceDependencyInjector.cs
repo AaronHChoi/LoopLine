@@ -55,7 +55,7 @@ public class InterfaceDependencyInjector : MonoBehaviour, IDependencyInjectable
         Register<IPlayerView>(playerView);
         Register<IPlayerController>(playerController);
         Register<IDialogueManager>(dialogueManager);
-        Register<ISkipeable>(timeManager);
+        Register<ITimeProvider>(timeManager);
         Register<IUIManager>(uiManager);
     }
     public void Register<T>(T service)

@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-public class TimeManager : MonoBehaviour, IDependencyInjectable, ISkipeable
+public class TimeManager : MonoBehaviour, IDependencyInjectable, ITimeProvider
 {
     [SerializeField] float secondsPunishForSkip = 5f;
     GameSceneManager gameSceneManager;
@@ -41,6 +40,8 @@ public class TimeManager : MonoBehaviour, IDependencyInjectable, ISkipeable
         if (changeLoopTime && loopTime >= 5f)
         {
             LoopTime = 5f;
+
+            ChangeLoopTime = false;
         }
         if (!IsTimePaused)
         {
@@ -50,16 +51,16 @@ public class TimeManager : MonoBehaviour, IDependencyInjectable, ISkipeable
     }
     public void ResetLoopTime()
     {
-        loopTime = DEFAULT_LOOP_TIME;
+        LoopTime = DEFAULT_LOOP_TIME;
     }
     public void SetLoopTime(float newTime)
     {
-        loopTime = newTime;
+        LoopTime = newTime;
     }
     
     public void AddTime(float time)
     {
-        loopTime += time;
+        LoopTime += time;
     }
     public void SetLoopTimeToStopTrain()
     {
@@ -82,18 +83,11 @@ public class TimeManager : MonoBehaviour, IDependencyInjectable, ISkipeable
         }
     }
 
-    public void PauseTime()
-    {
-        IsTimePaused = !IsTimePaused;
-    }
-    public void SkipDialogue()
-    {
-        loopTime -= secondsPunishForSkip;
-    }
-
+    public void PauseTime(bool pause) => IsTimePaused = pause;
+    
     public string returnTimeInMinutes()
     {
-        int minutos = Mathf.FloorToInt(loopTime / 60f);
+        int minutos = Mathf.FloorToInt(LoopTime / 60f);
         int segundos = Mathf.FloorToInt(LoopTime % 60f);
 
         string resultado = string.Format("{0:00}:{1:00}", minutos, segundos);
@@ -101,7 +95,15 @@ public class TimeManager : MonoBehaviour, IDependencyInjectable, ISkipeable
         return resultado;
     }
 }
-public interface ISkipeable
+public interface ITimeProvider
 {
-    void SkipDialogue();
+    float LoopTime { get; set; }
+    void PauseTime(bool pause);
+    void AddTime(float time);
+    bool ChangeLoopTime { get; set; }
+    void SetLoopTimeToBreakCrystal();
+}
+public interface ITimeCuttable
+{
+    void SetLoopTimeToBreakCrystal();
 }

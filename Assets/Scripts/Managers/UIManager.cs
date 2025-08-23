@@ -7,15 +7,15 @@ public class UIManager : MonoBehaviour, IDependencyInjectable, IUIManager
     [SerializeField] private TextMeshProUGUI uiText;
 
     GameSceneManager gameSceneManager;
-    TimeManager timeManager;
+    ITimeProvider timeManager;
     private void Awake()
     {
         InjectDependencies(DependencyContainer.Instance);
+        timeManager = InterfaceDependencyInjector.Instance.Resolve<ITimeProvider>();
     }
     public void InjectDependencies(DependencyContainer provider)
     {
         gameSceneManager = provider.GameSceneManager;
-        timeManager = provider.TimeManager;
     }
     private void Start()
     {
@@ -30,7 +30,8 @@ public class UIManager : MonoBehaviour, IDependencyInjectable, IUIManager
     }
     private void ShowLoopTime()
     {
-        contador_provicional.text = GetFormattedLoopTime(timeManager.LoopTime);
+        if(timeManager != null)
+            contador_provicional.text = GetFormattedLoopTime(timeManager.LoopTime);
     }
     public string GetFormattedLoopTime(float loopTime)
     {
