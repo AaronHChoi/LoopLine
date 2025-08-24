@@ -61,6 +61,14 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
             playerStateController.OnOpenInventory -= OpenInventory;
         }
     }
+
+    private void Update()
+    {
+        if (ItemInUse == inventoryUI.HandItemUI)
+        {
+            inventoryUI.MoveArrowToSlot(inventoryUI.inventorySlots[0].transform as RectTransform);
+        }
+    }
     private void OpenInventory()
     {
         if (!dialogueManager.isDialogueActive && inventory.Count != 0)
