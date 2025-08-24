@@ -13,9 +13,12 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
     [SerializeField] DialogueManager dialManager;
 
     [SerializeField] private AudioMixer audioMixer;
+
+    [SerializeField] private FadeInOutController cinemaFade;
     private Dictionary<AudioSource, float> audiosVolumeDic;
     bool isCursorVisible = false;
     bool isUIActive = false;
+    private bool isCinemaOn = false;
 
     ItemManager itemManager;
     PlayerStateController playerStateController;
@@ -167,6 +170,11 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
                 timeManager.ChangeLoopTime = false;
             }
         }
+    }
+    public void ForceCinematic()
+    {
+        cinemaFade.ForceFade(!isCinemaOn);
+        isCinemaOn =! isCinemaOn;
     }
     public void CutTimeStopTrain()
     {
