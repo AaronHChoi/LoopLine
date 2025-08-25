@@ -93,7 +93,7 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
 
         MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
     }
-    private void MoveArrowToSlot(RectTransform slotTransform)
+    public void MoveArrowToSlot(RectTransform slotTransform)
     {
         Vector3 worldPos = slotTransform.TransformPoint(Vector3.zero);
         Vector3 localPos = arrowImage.rectTransform.parent.InverseTransformPoint(worldPos);

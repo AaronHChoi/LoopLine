@@ -9,30 +9,32 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
     [SerializeField] private GameObject UIPrinciplal;
     [SerializeField] private GameObject UIDeveloperMode;
 
+    [SerializeField] TimeManager timeManager;
     [SerializeField] DialogueManager dialManager;
 
     [SerializeField] private AudioMixer audioMixer;
+
+    [SerializeField] private FadeInOutController cinemaFade;
     private Dictionary<AudioSource, float> audiosVolumeDic;
     bool isCursorVisible = false;
     bool isUIActive = false;
+    private bool isCinemaOn = false;
 
     ItemManager itemManager;
     PlayerStateController playerStateController;
     IPlayerController playerController;
     IDialogueManager dialogueManager;
-    ITimeProvider timeManager;
-
     private void Awake()
     {
         dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
-        timeManager = InterfaceDependencyInjector.Instance.Resolve<ITimeProvider>();
+        timeManager = FindFirstObjectByType<TimeManager>();
         dialManager = FindFirstObjectByType<DialogueManager>();
         playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
         InjectDependencies(DependencyContainer.Instance);
     }
     void Start()
     {
-        //timeManager.ChangeLoopTime = false;
+        timeManager.ChangeLoopTime = false;
         UpdateCursorState();
         InitAudios();
         Mute(false);
@@ -56,7 +58,7 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
         if (UIPrinciplal != null && !dialManager.isDialogueActive)
         {
             ToggleUI();
-            timeManager.PauseTime(true);
+            timeManager.PauseTime();
         }
     }
     private void ToggleUI()
@@ -81,7 +83,7 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
 
             playerController.SetCinemachineController(true);
 
-            timeManager.PauseTime(false);
+            timeManager.PauseTime();
             UpdateCursorState();
         }
     }
@@ -169,10 +171,15 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
             }
         }
     }
-    //public void CutTimeStopTrain()
-    //{
-    //    timeManager.SetLoopTimeToStopTrain();
-    //}
+    public void ForceCinematic()
+    {
+        cinemaFade.ForceFade(!isCinemaOn);
+        isCinemaOn =! isCinemaOn;
+    }
+    public void CutTimeStopTrain()
+    {
+        timeManager.SetLoopTimeToStopTrain();
+    }
     public void CutTimeBreakCrystal()
     {
         timeManager.SetLoopTimeToBreakCrystal();
