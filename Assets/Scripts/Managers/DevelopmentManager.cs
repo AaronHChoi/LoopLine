@@ -9,7 +9,6 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
     [SerializeField] private GameObject UIPrinciplal;
     [SerializeField] private GameObject UIDeveloperMode;
 
-    [SerializeField] TimeManager timeManager;
     [SerializeField] DialogueManager dialManager;
 
     [SerializeField] private AudioMixer audioMixer;
@@ -24,10 +23,11 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
     PlayerStateController playerStateController;
     IPlayerController playerController;
     IDialogueManager dialogueManager;
+    ITimeProvider timeManager;
     private void Awake()
     {
         dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
-        timeManager = FindFirstObjectByType<TimeManager>();
+        timeManager = InterfaceDependencyInjector.Instance.Resolve<ITimeProvider>();
         dialManager = FindFirstObjectByType<DialogueManager>();
         playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
         InjectDependencies(DependencyContainer.Instance);
@@ -58,7 +58,7 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
         if (UIPrinciplal != null && !dialManager.isDialogueActive)
         {
             ToggleUI();
-            timeManager.PauseTime();
+            timeManager.PauseTime(true);
         }
     }
     private void ToggleUI()
@@ -83,7 +83,7 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
 
             playerController.SetCinemachineController(true);
 
-            timeManager.PauseTime();
+            timeManager.PauseTime(false);
             UpdateCursorState();
         }
     }
@@ -176,10 +176,10 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
         cinemaFade.ForceFade(!isCinemaOn);
         isCinemaOn =! isCinemaOn;
     }
-    public void CutTimeStopTrain()
-    {
-        timeManager.SetLoopTimeToStopTrain();
-    }
+    //public void CutTimeStopTrain()
+    //{
+    //    timeManager.SetLoopTimeToStopTrain();
+    //}
     public void CutTimeBreakCrystal()
     {
         timeManager.SetLoopTimeToBreakCrystal();
