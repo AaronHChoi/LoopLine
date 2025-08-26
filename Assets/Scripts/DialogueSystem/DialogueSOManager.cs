@@ -1,60 +1,43 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class DialogueSOManager : MonoBehaviour
 {
-    [System.Serializable]
+    [Serializable]
+    public class DialogueStateChange
+    {
+        public DialogueSO dialogue;
+        public bool unlock;
+    }
+
+    [Serializable]
     public class DialogueEvent
     {
-        public string EventName;
-        public List<DialogueSO> DialoguesToAdd;
+        public Events EventType;
+        public List<DialogueStateChange> changes;
     }
     public List<DialogueEvent> DialogueEvents;
     public DialogueSpeaker dialogueSpeaker;
-    [SerializeField] public string NPCname;
 
-    #region MAGIC_METHODS
     private void Awake()
     {
         dialogueSpeaker = GetComponent<DialogueSpeaker>();
     }
-    #endregion
-
-    public void TriggerEventDialogue(string _eventName)
+    public void TriggerEventDialogue(Events triggeredEvent)
     {
-        if (DialogueEvents == null)
+        DialogueEvent config = DialogueEvents.Find(e => e.EventType == triggeredEvent);
+        
+        foreach (var change in config.changes)
         {
-            Debug.LogWarning("DialogueEvents list is null.");
-            return;
+            if (change.dialogue != null && dialogueSpeaker.AvailableDialogs.Contains(change.dialogue))
+            {
+                change.dialogue.Unlocked = change.unlock;
+            }
+            else
+            {
+                Debug.LogWarning($"DialogueSO {change.dialogue} not found in AvailableDialogs of {dialogueSpeaker.name}");
+            }
         }
-
-        DialogueEvent dialogueEvent = DialogueEvents.Find(e => e.EventName == _eventName);
-        if (dialogueEvent == null)
-        {
-            Debug.LogWarning($"Dialogue event '{_eventName}' not found.");
-            return;
-        }
-
-        if (dialogueSpeaker == null)
-        {
-            Debug.LogWarning("DialogueSpeaker component is missing.");
-            return;
-        }
-
-        dialogueSpeaker.AvailableDialogs.Clear();
-
-        if (dialogueEvent.DialoguesToAdd == null)
-        {
-            Debug.LogWarning($"DialoguesToAdd is null for event '{_eventName}'.");
-            return;
-        }
-
-        foreach (DialogueSO dialogue in dialogueEvent.DialoguesToAdd)
-        {
-            if (dialogue != null && !dialogueSpeaker.AvailableDialogs.Contains(dialogue))
-                dialogueSpeaker.AvailableDialogs.Add(dialogue);
-        }
-
-        dialogueSpeaker.dialogueIndex = 0;
     }
 }

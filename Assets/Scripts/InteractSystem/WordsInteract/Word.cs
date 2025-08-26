@@ -58,7 +58,7 @@ public class Word : Subject, IWord /*IInteract*/
             GameManager.Instance.CorrectWord101 = true;
             if(correctWordEvent != null)
             {
-                dialogueSOManager.TriggerEventDialogue(correctWordEvent);
+                //dialogueSOManager.TriggerEventDialogue(correctWordEvent);
                 eventManager.EventTriggerMonologue();
             }                     
         }
@@ -66,7 +66,7 @@ public class Word : Subject, IWord /*IInteract*/
         {
             if (incorrectWordEvent != null)
             {
-                dialogueSOManager.TriggerEventDialogue(incorrectWordEvent);
+                //dialogueSOManager.TriggerEventDialogue(incorrectWordEvent);
                 eventManager.EventTriggerMonologue();
                 tmpro.color = Color.red;
                 incorrectWordSelected = true;

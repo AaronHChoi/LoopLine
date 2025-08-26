@@ -2849,7 +2849,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DialogueEvents: []
   dialogueSpeaker: {fileID: 0}
-  NPCname: WorkingMan
 --- !u!95 &311809392
 Animator:
   serializedVersion: 7
@@ -14585,18 +14584,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DialogueEvents:
-  - EventName: StopTrain
-    DialoguesToAdd:
-    - {fileID: 11400000, guid: d106db481f6c2c64888cf3a8c10ff9f3, type: 2}
-    - {fileID: 11400000, guid: dfd1acf2f0ecdfc40a01ee5a71aa5871, type: 2}
-    - {fileID: 11400000, guid: c37d572a082731945ae3cbce1e1bd02a, type: 2}
-  - EventName: BreakWindow
-    DialoguesToAdd:
-    - {fileID: 11400000, guid: d106db481f6c2c64888cf3a8c10ff9f3, type: 2}
-    - {fileID: 11400000, guid: ef1adb8a8e02f094c9c54427c876e367, type: 2}
-    - {fileID: 11400000, guid: c37d572a082731945ae3cbce1e1bd02a, type: 2}
+  - EventType: 0
+    changes: []
+  - EventType: 0
+    changes: []
   dialogueSpeaker: {fileID: 0}
-  NPCname: 
 --- !u!95 &907502339
 Animator:
   serializedVersion: 7
@@ -17434,7 +17426,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DialogueEvents: []
   dialogueSpeaker: {fileID: 0}
-  NPCname: 
 --- !u!95 &1034758152
 Animator:
   serializedVersion: 7
@@ -32379,18 +32370,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DialogueEvents:
-  - EventName: E1-StopTrain
-    DialoguesToAdd:
-    - {fileID: 11400000, guid: 864997e7d71cceb4f8fe2376146a7e8e, type: 2}
-    - {fileID: 11400000, guid: a4edf1ac4e1dd3c40ba3e112d20d9977, type: 2}
-    - {fileID: 11400000, guid: 8b228abe808fd3e4686c6d03492b0c44, type: 2}
-  - EventName: E1-BrokenWindow
-    DialoguesToAdd:
-    - {fileID: 11400000, guid: da1e69e06ac977841a3ae1f37c437a2c, type: 2}
-    - {fileID: 11400000, guid: ed5edbe4ef3c5114b85446248a065d5f, type: 2}
-    - {fileID: 11400000, guid: b624bd4934506ba40b77f7b42b50be4d, type: 2}
+  - EventType: 0
+    changes: []
+  - EventType: 0
+    changes: []
   dialogueSpeaker: {fileID: 0}
-  NPCname: 
 --- !u!1 &1683018835
 GameObject:
   m_ObjectHideFlags: 0
@@ -33337,7 +33321,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DialogueEvents: []
   dialogueSpeaker: {fileID: 1806260563}
-  NPCname: 
 --- !u!65 &1806260565
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -34702,7 +34685,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DialogueEvents: []
   dialogueSpeaker: {fileID: 1945950364}
-  NPCname: 
 --- !u!65 &1945950366
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -37183,6 +37165,50 @@ PrefabInstance:
     - target: {fileID: 1965095351449339405, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2464039023775065192, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: AvailableDialogs.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2464039023775065192, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: 'AvailableDialogs.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: e65d6acc0c2e1df4286469d2ea119ccf, type: 2}
+    - target: {fileID: 2464039023775065192, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: 'AvailableDialogs.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: d47845618eb7a3448b7d83a8cb162851, type: 2}
+    - target: {fileID: 2582760741889782329, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: DialogueEvents.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2582760741889782329, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: DialogueEvents.Array.data[0].EventType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2582760741889782329, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: DialogueEvents.Array.data[0].changes.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2582760741889782329, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: DialogueEvents.Array.data[0].changes.Array.data[0].unlock
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2582760741889782329, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: DialogueEvents.Array.data[0].changes.Array.data[1].unlock
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2582760741889782329, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: DialogueEvents.Array.data[0].changes.Array.data[0].dialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: e65d6acc0c2e1df4286469d2ea119ccf, type: 2}
+    - target: {fileID: 2582760741889782329, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: DialogueEvents.Array.data[0].changes.Array.data[1].dialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: d47845618eb7a3448b7d83a8cb162851, type: 2}
+    - target: {fileID: 2582760741889782329, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: DialogueEvents.Array.data[0].DialogueIndexesToUnlock.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3517978633452319080, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: target

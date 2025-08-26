@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class EventManager : Subject
 {
@@ -42,7 +44,7 @@ public class EventManager : Subject
     {
         if (GameManager.Instance.TrainLoop == 1)
         {
-            player.TriggerEventDialogue("Train2");
+            //player.TriggerEventDialogue("Train2");
 
         }
         StartCoroutine(StartSceneMonologue(delayMonologue));
@@ -70,6 +72,14 @@ public class EventManager : Subject
     {
         TrainEventResumeTrain();
         TrainEvent2();
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            player.TriggerEventDialogue(Events.TriggerMonologue);
+        }
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            StartCoroutine(StartSceneMonologue(delayMonologue));
+        }
     }
     #region TrainEvents
     public void TrainEventStopTrain()
@@ -149,14 +159,14 @@ public class EventManager : Subject
     {
         foreach (DialogueSOManager dialogueManager in dialogueManagers)
         {
-            dialogueManager.TriggerEventDialogue("StopTrain");
+            //dialogueManager.TriggerEventDialogue("StopTrain");
         }
     }
     private void EventBrokenWindow()
     {
         foreach (DialogueSOManager dialogueManager in dialogueManagers)
         {
-            dialogueManager.TriggerEventDialogue("BreakWindow");
+            //dialogueManager.TriggerEventDialogue("BreakWindow");
         }
     }
     private IEnumerator StartSceneMonologue(float delay)
