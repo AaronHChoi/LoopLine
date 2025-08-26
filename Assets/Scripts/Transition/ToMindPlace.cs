@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class ToMindPlace : MonoBehaviour, IDependencyInjectable
+public class ToMindPlace : MonoBehaviour
 {
     [SerializeField] private float transitionVolumeSpeed = 2f;
     [SerializeField] private float timeExplosionRemaining;
@@ -9,15 +9,12 @@ public class ToMindPlace : MonoBehaviour, IDependencyInjectable
     private Volume volumeExplosion;
 
     private bool isVolumeActive = false;
-    TimeManager timeManager;
+
+    ITimeProvider timeProvider;
 
     private void Awake()
     {
-        InjectDependencies(DependencyContainer.Instance);
-    }
-    public void InjectDependencies(DependencyContainer provider)
-    {
-        timeManager = provider.TimeManager;
+        timeProvider = InterfaceDependencyInjector.Instance.Resolve<ITimeProvider>();
     }
     void Start()
     {
@@ -40,7 +37,7 @@ public class ToMindPlace : MonoBehaviour, IDependencyInjectable
     }
     private void CheckActivationCondition()
     {
-        if (timeManager != null && !isVolumeActive && timeManager.LoopTime <= timeExplosionRemaining)
+        if (timeProvider != null && !isVolumeActive && timeProvider.LoopTime <= timeExplosionRemaining)
         {
             isVolumeActive = true;
         }
