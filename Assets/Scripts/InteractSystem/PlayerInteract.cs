@@ -8,7 +8,7 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
     private CinemachineCamera rayCastPoint;
     private PlayerInventorySystem playerInventorySystem;
     private InventoryUI inventoryUI;
-    [SerializeField] private float raycastDistance = 2f;
+    [SerializeField] public float raycastDistance = 2f;
     [SerializeField] private LayerMask interactableLayer;
     PlayerStateController playerStateController;
     
