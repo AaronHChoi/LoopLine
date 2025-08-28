@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour, IDependencyInjectable, ITimeProvider
 {
-    [SerializeField] float secondsPunishForSkip = 5f;
     GameSceneManager gameSceneManager;
     DialogueManager dialogueManager;
     EventManager eventManager;

@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 public class EventManager : Subject
 {
@@ -74,11 +72,12 @@ public class EventManager : Subject
         TrainEvent2();
         if (Input.GetKeyDown(KeyCode.H))
         {
-            player.TriggerEventDialogue(Events.TriggerMonologue);
+            player.TriggerEventDialogue(Events.StopTrain);
         }
         if (Input.GetKeyDown(KeyCode.J))
         {
             StartCoroutine(StartSceneMonologue(delayMonologue));
+            Debug.Log("1");
         }
     }
     #region TrainEvents
@@ -174,5 +173,6 @@ public class EventManager : Subject
         yield return new WaitForSeconds(delay);
         NotifyObservers(Events.TriggerMonologue);
         //uiManager.ShowUIText("Aprete F para saltear");
+        Debug.Log("2");
     }
 }

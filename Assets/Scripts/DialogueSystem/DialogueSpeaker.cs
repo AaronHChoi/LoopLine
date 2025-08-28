@@ -62,7 +62,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
         //    lookAtNPC.SetTarget(headTarget);
         //}
 
-        developmentManager.DeactivateUIIfActive();
+        //developmentManager.DeactivateUIIfActive();
 
         if (isDialogueActive) return;
 
@@ -128,15 +128,28 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     {
         if (!AvailableDialogs[dialogueIndex].ReUse)
         {
-            if(dialogueIndex < AvailableDialogs.Count - 1)
+            int nextIndex = dialogueIndex + 1;
+
+            while(nextIndex < AvailableDialogs.Count)
             {
-                dialogueIndex++;
-                return true;
+                if (AvailableDialogs[nextIndex].Unlocked)
+                {
+                    dialogueIndex = nextIndex;
+                    return true;
+
+                }
+                nextIndex++;
             }
-            else
-            {
-                return false;
-            }
+            return false;
+            //if(dialogueIndex < AvailableDialogs.Count - 1)
+            //{
+            //    dialogueIndex++;
+            //    return true;
+            //}
+            //else
+            //{
+            //    return false;
+            //}
         }
         else
         {
@@ -192,6 +205,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     }
     public void TriggerPlayerDialogue()
     {
+        dialogueIndex = 0;
         var playerSpeaker = FindFirstObjectByType<PlayerController>().GetComponent<DialogueSpeaker>();
 
         if (playerSpeaker != null)

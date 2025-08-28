@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Unity.Cinemachine.Samples
 {
-    public class CinemachinePOVExtension : MonoBehaviour, Unity.Cinemachine.IInputAxisOwner, ICameraOrientation
+    public class CinemachinePOVExtension : MonoBehaviour, Unity.Cinemachine.IInputAxisOwner, ICameraOrientation, IDependencyInjectable
     {
-        private PlayerModel playerModel;
+        [SerializeField] PlayerController controller;
 
         [Header("Input Axes")]
         [Tooltip("Horizontal rotation.  Value is -1..1.")]
@@ -18,10 +18,9 @@ namespace Unity.Cinemachine.Samples
         { Value = 0, Range = new Vector2(-180, 180), Wrap = true, Center = 0, Restrictions = InputAxis.RestrictionFlags.NoRecentering };
         static InputAxis DefaultTilt => new()
         { Value = 0, Range = new Vector2(-70, 70), Wrap = false, Center = 0, Restrictions = InputAxis.RestrictionFlags.NoRecentering };
-
-        private void Start()
+        private void Awake()
         {
-            playerModel = new PlayerModel();
+            InjectDependencies(DependencyContainer.Instance);
         }
         void IInputAxisOwner.GetInputAxes(List<IInputAxisOwner.AxisDescriptor> axes)
         {
@@ -49,8 +48,8 @@ namespace Unity.Cinemachine.Samples
         private void LateUpdate()
         {
             // Manejar rotación de la cámara
-            Pan.Value += Input.GetAxis("Mouse X") * playerModel.LookSensitivity * Time.deltaTime;
-            Tilt.Value -= Input.GetAxis("Mouse Y") * playerModel.LookSensitivity * Time.deltaTime;
+            Pan.Value += Input.GetAxis("Mouse X") * controller.PlayerModel.LookSensitivity * Time.deltaTime;
+            Tilt.Value -= Input.GetAxis("Mouse Y") * controller.PlayerModel.LookSensitivity * Time.deltaTime;
 
             // Limitar la rotación vertical a un rango definido
             Tilt.Value = Mathf.Clamp(Tilt.Value, -70f, 70f);
@@ -66,6 +65,11 @@ namespace Unity.Cinemachine.Samples
         {
             Pan.Value = Mathf.Clamp(pan, Pan.Range.x, Pan.Range.y);
             Tilt.Value = Mathf.Clamp(tilt, Tilt.Range.x, Tilt.Range.y);
+        }
+
+        public void InjectDependencies(DependencyContainer provider)
+        {
+            controller = provider.PlayerController;
         }
     }
 }

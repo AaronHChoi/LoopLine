@@ -1,16 +1,22 @@
 using UnityEngine;
 
-public class PlayerFocusMode : MonoBehaviour
+public class PlayerFocusMode : MonoBehaviour, IDependencyInjectable
 {
+    [SerializeField] PlayerController controller;
     IColliderToggle focusModeManager;
     private void Awake()
     {
+        InjectDependencies(DependencyContainer.Instance);
         focusModeManager = InterfaceDependencyInjector.Instance.Resolve<IColliderToggle>();
     }
-    public void ToggleFocusMode(PlayerModel _playerModel)
+    public void ToggleFocusMode()
     {
-        _playerModel.FocusMode = !_playerModel.FocusMode;
+        controller.PlayerModel.FocusMode = controller.PlayerModel.FocusMode;
 
-        focusModeManager.ToggleColliders(_playerModel.FocusMode);
+        focusModeManager.ToggleColliders(controller.PlayerModel.FocusMode);
+    }
+    public void InjectDependencies(DependencyContainer provider)
+    {
+        controller = provider.PlayerController;
     }
 }

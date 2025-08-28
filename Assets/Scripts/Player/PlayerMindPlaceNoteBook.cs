@@ -9,7 +9,7 @@ public class PlayerMindPlaceNoteBook : MonoBehaviour
     }
     public void ToggleNooteBook(PlayerModel _playerModel)
     {
-        _playerModel.IsNoteBookOpen = !_playerModel.IsNoteBookOpen;
+        //_playerModel.IsNoteBookOpen = !_playerModel.IsNoteBookOpen;
 
         noteBookManager.ToggleColliders(_playerModel.IsNoteBookOpen);
     }
