@@ -42,7 +42,7 @@ public class EventManager : Subject
     {
         if (GameManager.Instance.TrainLoop == 1)
         {
-            player.TriggerEventDialogue("Train2");
+            //player.TriggerEventDialogue("Train2");
 
         }
         StartCoroutine(StartSceneMonologue(delayMonologue));
@@ -70,6 +70,15 @@ public class EventManager : Subject
     {
         TrainEventResumeTrain();
         TrainEvent2();
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            player.TriggerEventDialogue(Events.StopTrain);
+        }
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            StartCoroutine(StartSceneMonologue(delayMonologue));
+            Debug.Log("1");
+        }
     }
     #region TrainEvents
     public void TrainEventStopTrain()
@@ -151,14 +160,14 @@ public class EventManager : Subject
     {
         foreach (DialogueSOManager dialogueManager in dialogueManagers)
         {
-            dialogueManager.TriggerEventDialogue("StopTrain");
+            //dialogueManager.TriggerEventDialogue("StopTrain");
         }
     }
     private void EventBrokenWindow()
     {
         foreach (DialogueSOManager dialogueManager in dialogueManagers)
         {
-            dialogueManager.TriggerEventDialogue("BreakWindow");
+            //dialogueManager.TriggerEventDialogue("BreakWindow");
         }
     }
     private IEnumerator StartSceneMonologue(float delay)
@@ -166,5 +175,6 @@ public class EventManager : Subject
         yield return new WaitForSeconds(delay);
         NotifyObservers(Events.TriggerMonologue);
         //uiManager.ShowUIText("Aprete F para saltear");
+        Debug.Log("2");
     }
 }

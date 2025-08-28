@@ -20,7 +20,7 @@ public class MindPlaceEventManagerMind : Subject
         CheckCluesOptions(questionList, clues, textMeshPros);
         if (GameManager.Instance.TrainLoop == 1)
         {
-            player.TriggerEventDialogue("MindPlace1A");
+            //player.TriggerEventDialogue("MindPlace1A");
         }
         StartCoroutine(StartSceneMonologue(delay));
     }

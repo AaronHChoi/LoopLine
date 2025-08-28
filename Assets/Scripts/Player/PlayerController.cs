@@ -1,10 +1,9 @@
 using Player;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour, IPlayerController
 {
-    PlayerModel playerModel;
+    [SerializeField] PlayerModel playerModel;
     PlayerCamera playerCamera;
     PlayerFocusMode playerFocusMode;
     PlayerMindPlaceNoteBook playerMindPlaceNoteBook;
@@ -12,6 +11,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
     PlayerStateController playerStateController;
 
     public CharacterController characterController;
+    public PlayerModel PlayerModel => playerModel;
     private void Awake()
     {
         playerCamera = GetComponent<PlayerCamera>();
@@ -20,12 +20,11 @@ public class PlayerController : MonoBehaviour, IPlayerController
         playerMindPlaceNoteBook = GetComponent<PlayerMindPlaceNoteBook>();
         characterController = GetComponent<CharacterController>();
         playerStateController = GetComponent<PlayerStateController>();
-        playerModel = new PlayerModel();
     }
     private void Update()
     {
-        playerMovement.HandleMovement(playerModel);
-        playerMovement.RotateCharacterToCamera(playerModel);
+        playerMovement.HandleMovement();
+        playerMovement.RotateCharacterToCamera();
     }
     private void OnEnable()
     {
@@ -43,7 +42,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
     }
     private void HandleFocusMode()
     {
-        playerFocusMode.ToggleFocusMode(playerModel);
+        playerFocusMode.ToggleFocusMode();
     }
     public void SetCinemachineController(bool _enabled)
     {
