@@ -7,7 +7,7 @@ namespace InWorldUI
     public class PlayerInteraction : MonoBehaviour
     {
         [Header("Prompt Settings")]
-        [SerializeField] private float interactRange = 3f;
+        [SerializeField] public float interactRange = 3f;
         [SerializeField] private LayerMask interactableLayer;
 
         [Header("Marker Settings")]

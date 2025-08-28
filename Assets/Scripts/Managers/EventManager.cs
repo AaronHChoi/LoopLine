@@ -80,6 +80,7 @@ public class EventManager : Subject
 
             if (!stopTrain)
             {
+                timeManager.AddTime(AddTime);
                 SoundManager.Instance.CreateSound()
                     .WithSoundData(trainStopSoundData)
                     .Play();
@@ -104,7 +105,7 @@ public class EventManager : Subject
             
             if (!stopTrain2)
             {
-                timeManager.AddTime(AddTime);
+                stopButtonInteract.TriggerRock.gameObject.SetActive(false);
                 SoundManager.Instance.CreateSound()
                     .WithSoundData(trainStopSoundData2)
                     .Play();
@@ -129,6 +130,7 @@ public class EventManager : Subject
             stopTrain = false;
             brokenWindow = true;
             stopButtonInteract.Rock.gameObject.SetActive(true);
+            stopButtonInteract.TriggerRock.gameObject.SetActive(true);
             if (coroutineDelay != null)
             {
                 StopCoroutine(coroutineDelay);
