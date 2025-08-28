@@ -11,6 +11,7 @@ public class StopButtonInteract : MonoBehaviour, IInteract, IDependencyInjectabl
     [SerializeField] private string interactText = "";
     [SerializeField] private GameObject Crystal;
 
+    [SerializeField] public GameObject TriggerRock;
     [SerializeField] public ItemInteract Rock;
 
     PlayerInventorySystem inventory;
