@@ -1,3 +1,4 @@
+using Unity.Cinemachine.Samples;
 using UnityEngine;
 
 namespace Player
@@ -8,17 +9,20 @@ namespace Player
         PlayerInputHandler input;
         PlayerMovement movement;
         PhotoCapture photo;
+        CinemachinePOVExtension playerCamera;
 
-        public CameraState(PlayerStateController controller, PlayerInputHandler input, PlayerMovement movement, PhotoCapture photo)
+        public CameraState(PlayerStateController controller, PlayerInputHandler input, PlayerMovement movement, PhotoCapture photo, CinemachinePOVExtension playerCamera)
         {
             this.controller = controller;
             this.input = input;
             this.movement = movement;
             this.photo = photo;
+            this.playerCamera = playerCamera;
         }
         public void Enter()
         {
             movement.CanMove = true;
+            playerCamera.CanLook = true;
             Debug.Log("Entering CameraState");
         }
         public void Execute()
@@ -38,6 +42,7 @@ namespace Player
         public void Exit()
         {
             movement.CanMove = false;
+            playerCamera.CanLook = false;
             Debug.Log("Exiting CameraState");
         }
     }

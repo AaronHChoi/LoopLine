@@ -1,3 +1,4 @@
+using Unity.Cinemachine.Samples;
 using UnityEngine;
 
 namespace Player
@@ -7,16 +8,19 @@ namespace Player
         PlayerStateController controller;
         PlayerInputHandler input;
         PlayerMovement movement;
+        CinemachinePOVExtension playerCamera;
 
-        public InventoryState(PlayerStateController controller, PlayerInputHandler input, PlayerMovement movement)
+        public InventoryState(PlayerStateController controller, PlayerInputHandler input, PlayerMovement movement, CinemachinePOVExtension playerCamera)
         {
             this.controller = controller;
             this.input = input;
             this.movement = movement;
+            this.playerCamera = playerCamera;
         }
         public void Enter()
         {
             movement.CanMove = true;
+            playerCamera.CanLook = true;
             Debug.Log("Entering InventoryState");
         }
         public void Execute()
@@ -33,7 +37,8 @@ namespace Player
         }
         public void Exit()
         {
-            movement.CanMove = true;
+            movement.CanMove = false;
+            playerCamera.CanLook = false;
             Debug.Log("Exiting InventoryState");
         }
     }

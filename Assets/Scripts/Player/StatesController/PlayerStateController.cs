@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using Unity.Cinemachine.Samples;
 
 namespace Player
 {
@@ -21,6 +22,7 @@ namespace Player
         PlayerInputHandler playerInputHandler;
         PlayerMovement playerMovement;
         PhotoCapture photoCapture;
+        CinemachinePOVExtension cinemachinePOVExtension;
 
         public NormalState NormalState { get; private set; }
         public DialogueState DialogueState { get; private set; }
@@ -35,12 +37,12 @@ namespace Player
 
             stateMachine = new StateMachine();
 
-            NormalState = new NormalState(this, playerInputHandler, playerMovement);
-            DialogueState = new DialogueState(this, playerInputHandler, playerMovement);
-            CameraState = new CameraState(this, playerInputHandler, playerMovement, photoCapture);
-            InventoryState = new InventoryState(this, playerInputHandler, playerMovement);
-            DevelopmentState = new DevelopmentState(this, playerInputHandler, playerMovement);
-            FocusModeState = new FocusModeState(this, playerInputHandler, playerMovement);
+            NormalState = new NormalState(this, playerInputHandler, playerMovement, cinemachinePOVExtension);
+            DialogueState = new DialogueState(this, playerInputHandler, playerMovement, cinemachinePOVExtension);
+            CameraState = new CameraState(this, playerInputHandler, playerMovement, photoCapture, cinemachinePOVExtension);
+            InventoryState = new InventoryState(this, playerInputHandler, playerMovement, cinemachinePOVExtension);
+            DevelopmentState = new DevelopmentState(this, playerInputHandler, playerMovement, cinemachinePOVExtension);
+            FocusModeState = new FocusModeState(this, playerInputHandler, playerMovement, cinemachinePOVExtension);
             MindPlaceState = new MindPlaceState(this, playerInputHandler, playerMovement);
 
             stateMachine.Initialize(NormalState);
@@ -50,6 +52,7 @@ namespace Player
             playerMovement = provider.PlayerMovement;
             playerInputHandler = provider.PlayerInputHandler;
             photoCapture = provider.PhotoCapture;
+            cinemachinePOVExtension = provider.CinemachinePOVExtension;
         }
         private void Update()
         {
