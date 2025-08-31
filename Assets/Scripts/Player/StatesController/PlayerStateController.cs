@@ -31,6 +31,7 @@ namespace Player
         public FocusModeState FocusModeState { get; private set; }
         public InventoryState InventoryState { get; private set; }
         public MindPlaceState MindPlaceState { get; private set; }
+        public ObjectInHandState ObjectInHandState { get; private set; }
         private void Awake()
         {
             InjectDependencies(DependencyContainer.Instance);
@@ -44,6 +45,7 @@ namespace Player
             DevelopmentState = new DevelopmentState(this, playerInputHandler, playerMovement, cinemachinePOVExtension);
             FocusModeState = new FocusModeState(this, playerInputHandler, playerMovement, cinemachinePOVExtension);
             MindPlaceState = new MindPlaceState(this, playerInputHandler, playerMovement);
+            ObjectInHandState = new ObjectInHandState(this, playerInputHandler, playerMovement, cinemachinePOVExtension);
 
             stateMachine.Initialize(NormalState);
         }
