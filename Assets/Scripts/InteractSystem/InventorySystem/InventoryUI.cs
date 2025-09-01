@@ -34,7 +34,7 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
     }
     private void Update()
     {
-        if (!DependencyContainer.Instance.PlayerStateController.IsInState(playerStateController.InventoryState)) return;
+        //if (!DependencyContainer.Instance.PlayerStateController.IsInState(playerStateController.InventoryState)) return;
 
         float scroll = DependencyContainer.Instance.PlayerInputHandler.GetScrollValue();
 

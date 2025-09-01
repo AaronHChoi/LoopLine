@@ -23,13 +23,13 @@ namespace Player
         PlayerMovement playerMovement;
         PhotoCapture photoCapture;
         CinemachinePOVExtension cinemachinePOVExtension;
+        TimeManager timeManager;
 
         public NormalState NormalState { get; private set; }
         public DialogueState DialogueState { get; private set; }
         public CameraState CameraState { get; private set; }
         public DevelopmentState DevelopmentState { get; private set; }
         public FocusModeState FocusModeState { get; private set; }
-        public InventoryState InventoryState { get; private set; }
         public MindPlaceState MindPlaceState { get; private set; }
         public ObjectInHandState ObjectInHandState { get; private set; }
         private void Awake()
@@ -41,8 +41,7 @@ namespace Player
             NormalState = new NormalState(this, playerInputHandler, playerMovement, cinemachinePOVExtension);
             DialogueState = new DialogueState(this, playerInputHandler, playerMovement, cinemachinePOVExtension);
             CameraState = new CameraState(this, playerInputHandler, playerMovement, photoCapture, cinemachinePOVExtension);
-            InventoryState = new InventoryState(this, playerInputHandler, playerMovement, cinemachinePOVExtension);
-            DevelopmentState = new DevelopmentState(this, playerInputHandler, playerMovement, cinemachinePOVExtension);
+            DevelopmentState = new DevelopmentState(this, playerInputHandler, playerMovement, cinemachinePOVExtension, timeManager);
             FocusModeState = new FocusModeState(this, playerInputHandler, playerMovement, cinemachinePOVExtension);
             MindPlaceState = new MindPlaceState(this, playerInputHandler, playerMovement);
             ObjectInHandState = new ObjectInHandState(this, playerInputHandler, playerMovement, cinemachinePOVExtension);
@@ -55,6 +54,7 @@ namespace Player
             playerInputHandler = provider.PlayerInputHandler;
             photoCapture = provider.PhotoCapture;
             cinemachinePOVExtension = provider.CinemachinePOVExtension;
+            timeManager = provider.TimeManager;
         }
         private void Update()
         {

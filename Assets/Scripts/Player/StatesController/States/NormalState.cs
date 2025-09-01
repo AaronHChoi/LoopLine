@@ -25,10 +25,6 @@ namespace Player
         }
         public void Execute()
         {
-            if (input.ToggleCameraPressed() && PlayerInventorySystem.Instance.ItemInUse.id == "Camera")
-            {
-                controller.stateMachine.TransitionTo(controller.CameraState);
-            }
             if (input.InteractPressed())
             {
                 controller.UseEventInteract();
@@ -40,7 +36,6 @@ namespace Player
             if (input.OpenInventoryPressed())
             {
                 controller.UseEventOpenInventory();
-                controller.stateMachine.TransitionTo(controller.InventoryState);
             }
             if (input.DevelopmentModePressed())
             {

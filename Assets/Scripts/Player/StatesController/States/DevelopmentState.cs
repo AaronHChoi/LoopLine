@@ -9,17 +9,20 @@ namespace Player
         PlayerInputHandler input;
         PlayerMovement movement;
         CinemachinePOVExtension playerCamera;
-        public DevelopmentState(PlayerStateController controller, PlayerInputHandler input, PlayerMovement movement, CinemachinePOVExtension playerCamera)
+        TimeManager timeManager;
+        public DevelopmentState(PlayerStateController controller, PlayerInputHandler input, PlayerMovement movement, CinemachinePOVExtension playerCamera, TimeManager timeManager)
         {
             this.controller = controller;
             this.input = input;
             this.movement = movement;
             this.playerCamera = playerCamera;
+            this.timeManager = timeManager;
         }
         public void Enter()
         {
             movement.CanMove = false;
             playerCamera.CanLook = false;
+            timeManager.PauseTime(true);
             Debug.Log("Exiting DevelopmentState");
         }
         public void Execute()
@@ -34,6 +37,7 @@ namespace Player
         {
             movement.CanMove = true;
             playerCamera.CanLook = true;
+            timeManager.PauseTime(false);
             Debug.Log("Exiting DevelopmentState");
         }
     }

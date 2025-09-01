@@ -58,7 +58,6 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
         if (UIPrinciplal != null && !dialManager.isDialogueActive)
         {
             ToggleUI();
-            timeManager.PauseTime(true);
         }
     }
     private void ToggleUI()

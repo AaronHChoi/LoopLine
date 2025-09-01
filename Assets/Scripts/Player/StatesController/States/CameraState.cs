@@ -23,6 +23,7 @@ namespace Player
         {
             movement.CanMove = true;
             playerCamera.CanLook = true;
+
             Debug.Log("Entering CameraState");
         }
         public void Execute()

@@ -13,7 +13,7 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
     PlayerController playerController;
     InventoryUI inventoryUI;
     DialogueManager dialogueManager;
-    PlayerStateController playerStateController;
+    PlayerStateController controller;
 
     public delegate void InventoryChanged();
     public event InventoryChanged OnInventoryChanged;
@@ -30,11 +30,13 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
         {
             Destroy(gameObject);
         }
+
         InjectDependencies(DependencyContainer.Instance);
+
         if (inventoryUI != null) 
-        { inventoryUI.gameObject.SetActive(false); }
-        
-        UnityEngine.Debug.Log("0");
+        { 
+            inventoryUI.gameObject.SetActive(false); 
+        }
     }
     private void Start()
     {
@@ -49,19 +51,18 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
     }
     private void OnEnable()
     {
-        if (playerStateController != null)
+        if (controller != null)
         {
-            playerStateController.OnOpenInventory += OpenInventory;
+            controller.OnOpenInventory += OpenInventory;
         }
     }
     private void OnDisable()
     {
-        if (playerStateController != null)
+        if (controller != null)
         {
-            playerStateController.OnOpenInventory -= OpenInventory;
+            controller.OnOpenInventory -= OpenInventory;
         }
     }
-
     private void Update()
     {
         if (ItemInUse == inventoryUI.HandItemUI)
@@ -145,6 +146,6 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
         inventoryUI = provider.InventoryUI;
         playerController = provider.PlayerController;
         dialogueManager = provider.DialogueManager;
-        playerStateController = provider.PlayerStateController;
+        controller = provider.PlayerStateController;
     }
 }
