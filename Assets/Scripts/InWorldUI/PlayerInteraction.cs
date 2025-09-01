@@ -12,6 +12,8 @@ namespace InWorldUI
 
         [Header("Marker Settings")]
         [SerializeField] private float promptFOV = 30f;
+        
+        [SerializeField] private bool detectInteractables = true;
 
         private Camera _cam;
         private Interactable _currentPrompt;
@@ -27,11 +29,15 @@ namespace InWorldUI
 
         private void Update()
         {
+            if (!detectInteractables) return;
+            
             UpdatePromptFromNearby();
         }
 
         private void OnTriggerEnter(Collider other)
         {
+            if (!detectInteractables) return;
+
             if (((1 << other.gameObject.layer) & interactableLayer) != 0)
             {
                 Interactable interactable = other.GetComponent<Interactable>();
@@ -42,8 +48,11 @@ namespace InWorldUI
                 }
             }
         }
+
         private void OnTriggerExit(Collider other)
         {
+            if (!detectInteractables) return;
+
             if (((1 << other.gameObject.layer) & interactableLayer) != 0)
             {
                 Interactable interactable = other.GetComponent<Interactable>();
@@ -60,6 +69,9 @@ namespace InWorldUI
 
         private void UpdatePromptFromNearby()
         {
+            if (!detectInteractables)
+                return; // skip updating prompts when detection is off
+
             Interactable bestInteractable = null;
             float closestDist = Mathf.Infinity;
 
@@ -79,7 +91,6 @@ namespace InWorldUI
                 }
             }
 
-            // Hide prompt for old one if changed
             if (_currentPrompt != null && _currentPrompt != bestInteractable)
             {
                 _currentPrompt.HidePrompt();
@@ -100,6 +111,7 @@ namespace InWorldUI
             }
         }
 
+
         private float GetInteractableRange(Interactable interactable)
         {
             Vector3 uiPos = interactable.GetUIWorldPosition();
@@ -107,19 +119,21 @@ namespace InWorldUI
             float dist = dirToUI.magnitude;
             return dist;
         }
-        private bool CheckInteractInVision(Interactable _interactable, float FOV)
+        private bool CheckInteractInVision(Interactable interactable, float fov)
         {
+            if (!detectInteractables || interactable == null) return false;
+            
             bool isInFOV = false;
-            if (_interactable == null) return isInFOV;
+            if (interactable == null) return isInFOV;
 
-            Vector3 uiPos = _interactable.GetUIWorldPosition();
+            Vector3 uiPos = interactable.GetUIWorldPosition();
             Vector3 dirToUI = uiPos - _cam.transform.position;
 
             float angle = Vector3.Angle(_cam.transform.forward, dirToUI);
-            bool inFOV = angle < FOV * 0.5f;
-            bool hasLOS = HasLineOfSight(_interactable, uiPos);
+            bool inFOV = angle < fov * 0.5f;
+            bool hasLos = HasLineOfSight(interactable, uiPos);
 
-            if (inFOV && hasLOS)
+            if (inFOV && hasLos)
             {
                 isInFOV = true;
             }
@@ -142,5 +156,29 @@ namespace InWorldUI
             }
             return true;
         }
+        
+        public void SetInteractableDetection(bool enabled)
+        {
+            detectInteractables = enabled;
+
+            if (!enabled)
+            {
+                // Immediately hide all UI
+                foreach (var interactable in _nearbyInteractables)
+                {
+                    if (interactable != null)
+                    {
+                        interactable.HidePrompt();
+                        interactable.HideMarker();
+                    }
+                }
+
+                // Reset current prompt
+                _currentPrompt = null;
+            }
+        }
+
+
+
     }
 }
