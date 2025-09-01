@@ -66,7 +66,11 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
     {
         if (ItemInUse == inventoryUI.HandItemUI)
         {
-            inventoryUI.MoveArrowToSlot(inventoryUI.inventorySlots[0].transform as RectTransform);
+            if (inventoryUI.inventorySlots[0] != null)
+            {
+                inventoryUI.MoveArrowToSlot(inventoryUI.inventorySlots[0].transform as RectTransform);
+            }
+            
         }
     }
     private void OpenInventory()
