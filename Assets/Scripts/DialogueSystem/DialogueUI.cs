@@ -11,6 +11,7 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
 
     [SerializeField] private GameObject dialogueContainer;
     [SerializeField] private GameObject questionContainer;
+    [SerializeField] private FadeInOutController letterBoxFadeInOut;
 
     [SerializeField] private TextMeshProUGUI name;
     [SerializeField] private TextMeshProUGUI dialogueText;
@@ -47,6 +48,8 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
             playerStateController.OnDialogueNext += AdvanceDialogue;
             //playerStateController.OnDialogueSkip += SkipTyping;
         }
+        DialogueManager.OnDialogueStarted += OnDialogueStartedHandler;
+        DialogueManager.OnDialogueEnded += OnDialogueEndedHandler;
     }
     private void OnDisable()
     {
@@ -55,6 +58,24 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
             playerStateController.OnDialogueNext -= AdvanceDialogue;
             //playerStateController.OnDialogueSkip -= SkipTyping;
         }
+        if (letterBoxFadeInOut.isVisible)
+        {
+            ShowletterBox(false);
+        }
+        DialogueManager.OnDialogueStarted -= OnDialogueStartedHandler;
+        DialogueManager.OnDialogueEnded -= OnDialogueEndedHandler;
+    }
+    private void OnDialogueStartedHandler()
+    {
+        ShowletterBox(true);
+    }
+    private void OnDialogueEndedHandler()
+    {
+        ShowletterBox(false);
+    }
+    private void ShowletterBox(bool showLetterBox)
+    {
+        letterBoxFadeInOut.ForceFade(showLetterBox);
     }
     public void InjectDependencies(DependencyContainer provider)
     {
