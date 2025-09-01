@@ -7,6 +7,7 @@ public class FadeInOutController : MonoBehaviour
 
     private CanvasGroup canvasGroup;
     private Coroutine forcedCoroutine;
+    public bool isVisible => canvasGroup.alpha >= 1;
     private void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
