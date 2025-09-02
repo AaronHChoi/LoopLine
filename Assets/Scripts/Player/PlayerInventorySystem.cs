@@ -1,6 +1,7 @@
-using UnityEngine;
-using System.Collections.Generic;
 using Player;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
 {
@@ -65,9 +66,17 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
     }
     private void Update()
     {
-        if (ItemInUse == inventoryUI.HandItemUI)
+        if(SceneManager.GetActiveScene().name == "04. Train")
         {
-            inventoryUI.MoveArrowToSlot(inventoryUI.inventorySlots[0].transform as RectTransform);
+            if (ItemInUse == inventoryUI.HandItemUI)
+            {
+                if (inventoryUI.inventorySlots[0] != null)
+                {
+                    inventoryUI.MoveArrowToSlot(inventoryUI.inventorySlots[0].transform as RectTransform);
+                }
+                
+            }
+
         }
     }
     private void OpenInventory()

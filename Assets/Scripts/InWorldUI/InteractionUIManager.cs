@@ -4,12 +4,12 @@ namespace InWorldUI
 {
     public class InteractionUIManager : MonoBehaviour
     {
-        public static InteractionUIManager Instance;
+        public static InteractionUIManager instance;
         public InteractableUI uiPrefab;
 
         void Awake()
         {
-            Instance = this;
+            instance = this;
         }
     }
 }

@@ -9,9 +9,9 @@ namespace InWorldUI
         [Header("Prompt Settings")]
         [SerializeField] public float interactRange = 3f;
         [SerializeField] private LayerMask interactableLayer;
-
-        [Header("Marker Settings")]
         [SerializeField] private float promptFOV = 30f;
+
+        [SerializeField] private bool detectInteractables = true;
 
         private Camera _cam;
         private Interactable _currentPrompt;
@@ -27,7 +27,10 @@ namespace InWorldUI
 
         private void Update()
         {
-            UpdatePromptFromNearby();
+            if (detectInteractables)
+            {
+                RefreshInteractablesUI();
+            }
         }
 
         private void OnTriggerEnter(Collider other)
@@ -38,10 +41,12 @@ namespace InWorldUI
                 if (interactable != null)
                 {
                     _nearbyInteractables.Add(interactable);
-                    interactable.ShowMarker();
+                    if (detectInteractables)
+                        interactable.ShowMarker();
                 }
             }
         }
+
         private void OnTriggerExit(Collider other)
         {
             if (((1 << other.gameObject.layer) & interactableLayer) != 0)
@@ -50,7 +55,7 @@ namespace InWorldUI
                 if (interactable != null)
                 {
                     _nearbyInteractables.Remove(interactable);
-                    interactable.HideMarker();
+                    interactable.HideAll();
 
                     if (_currentPrompt == interactable)
                         _currentPrompt = null;
@@ -58,89 +63,80 @@ namespace InWorldUI
             }
         }
 
-        private void UpdatePromptFromNearby()
+        private void RefreshInteractablesUI()
         {
-            Interactable bestInteractable = null;
+            Interactable closestInteractable = null;
             float closestDist = Mathf.Infinity;
 
             foreach (var interactable in _nearbyInteractables)
             {
                 if (interactable == null) continue;
 
-                if (CheckInteractInVision(interactable, promptFOV))
-                {
-                    float dist = GetInteractableRange(interactable);
+                float dist = Vector3.Distance(_cam.transform.position, interactable.GetUIWorldPosition());
 
-                    if (dist <= interactRange && dist < closestDist)
+                if (IsInFOV(interactable, promptFOV) && dist <= interactRange)
+                {
+                    if (dist < closestDist)
                     {
-                        bestInteractable = interactable;
+                        closestInteractable = interactable;
                         closestDist = dist;
                     }
                 }
             }
 
-            // Hide prompt for old one if changed
-            if (_currentPrompt != null && _currentPrompt != bestInteractable)
+            // Update all interactables
+            foreach (var interactable in _nearbyInteractables)
             {
-                _currentPrompt.HidePrompt();
-                _currentPrompt.ShowMarker();
+                if (interactable == null) continue;
+
+                if (interactable == closestInteractable)
+                {
+                    if (_currentPrompt != interactable)
+                    {
+                        _currentPrompt?.HidePrompt();
+                        _currentPrompt?.ShowMarker();
+                        _currentPrompt = interactable;
+                    }
+                    interactable.HideMarker();
+                    interactable.ShowPrompt();
+                }
+                else
+                {
+                    interactable.HidePrompt();
+                    interactable.ShowMarker();
+                }
             }
 
-            if (bestInteractable != null)
+            if (closestInteractable == null)
             {
-                _currentPrompt = bestInteractable;
-                bestInteractable.HideMarker();
-                bestInteractable.ShowPrompt();
-            }
-            else if (_currentPrompt != null)
-            {
-                _currentPrompt.HidePrompt();
-                _currentPrompt.ShowMarker();
                 _currentPrompt = null;
             }
         }
 
-        private float GetInteractableRange(Interactable interactable)
+        private bool IsInFOV(Interactable interactable, float fov)
         {
-            Vector3 uiPos = interactable.GetUIWorldPosition();
-            Vector3 dirToUI = uiPos - _cam.transform.position;
-            float dist = dirToUI.magnitude;
-            return dist;
-        }
-        private bool CheckInteractInVision(Interactable _interactable, float FOV)
-        {
-            bool isInFOV = false;
-            if (_interactable == null) return isInFOV;
-
-            Vector3 uiPos = _interactable.GetUIWorldPosition();
-            Vector3 dirToUI = uiPos - _cam.transform.position;
-
+            Vector3 dirToUI = interactable.GetUIWorldPosition() - _cam.transform.position;
             float angle = Vector3.Angle(_cam.transform.forward, dirToUI);
-            bool inFOV = angle < FOV * 0.5f;
-            bool hasLOS = HasLineOfSight(_interactable, uiPos);
+            bool hasLOS = !Physics.Raycast(_cam.transform.position, dirToUI.normalized, out RaycastHit hit, dirToUI.magnitude) || hit.collider.GetComponentInParent<Interactable>() == interactable;
+            return angle < fov * 0.5f && hasLOS;
+        }
 
-            if (inFOV && hasLOS)
+        public void SetInteractableDetection(bool enabled)
+        {
+            detectInteractables = enabled;
+
+            if (!enabled)
             {
-                isInFOV = true;
+                foreach (var interactable in _nearbyInteractables)
+                {
+                    interactable?.HideAll();
+                }
+                _currentPrompt = null;
             }
             else
             {
-                isInFOV = false;
+                RefreshInteractablesUI();
             }
-            return isInFOV;
-        }
-        private bool HasLineOfSight(Interactable interactable, Vector3 targetPos)
-        {
-            Vector3 origin = _cam.transform.position;
-            Vector3 dir = targetPos - origin;
-            float dist = dir.magnitude;
-            dir.Normalize();
-
-            if (Physics.Raycast(origin, dir, out RaycastHit hit, dist))
-            {
-                return hit.collider.GetComponentInParent<Interactable>() == interactable;
-            }
-            return true;
         }
     }
 }

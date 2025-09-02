@@ -119,7 +119,7 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
         yield return new WaitForEndOfFrame();
 
         isCurrentPhotoClue = CheckIfClue();
-
+        
         Rect regionToRead = new Rect (0, 0, Screen.width, Screen.height);
         screenCapture.ReadPixels(regionToRead, 0, 0, false);
         screenCapture.Apply();
