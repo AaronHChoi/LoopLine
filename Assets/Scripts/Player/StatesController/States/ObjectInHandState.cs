@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace Player
 {
-    public class FocusModeState : IState
+    public class ObjectInHandState : IState
     {
         PlayerStateController controller;
         PlayerInputHandler input;
         PlayerMovement movement;
         CinemachinePOVExtension playerCamera;
 
-        public FocusModeState(PlayerStateController controller, PlayerInputHandler input, PlayerMovement movement, CinemachinePOVExtension playerCamera)
+        public ObjectInHandState(PlayerStateController controller, PlayerInputHandler input, PlayerMovement movement, CinemachinePOVExtension playerCamera)
         {
             this.controller = controller;
             this.input = input;
@@ -21,21 +21,24 @@ namespace Player
         {
             movement.CanMove = true;
             playerCamera.CanLook = true;
-            Debug.Log("Entering FocusModeState");
+            Debug.Log("Entering ObjectInHandState");
         }
         public void Execute()
         {
-            if (input.FocusModePressed())
+            if (input.ToggleCameraPressed() && controller.IsInState(controller.ObjectInHandState) && PlayerInventorySystem.Instance.ItemInUse.id == "Camera")
             {
-                controller.UseEventFocusMode();
-                controller.ChangeState(controller.NormalState);
+                controller.ChangeState(controller.CameraState);
+            }
+            if (input.OpenInventoryPressed())
+            {
+                controller.UseEventOpenInventory();
             }
         }
         public void Exit()
         {
             movement.CanMove = false;
             playerCamera.CanLook = false;
-            Debug.Log("Exiting FocusModeState");
+            Debug.Log("Exiting ObjectInHandState");
         }
     }
 }

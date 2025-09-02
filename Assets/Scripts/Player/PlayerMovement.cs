@@ -3,11 +3,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour, IDependencyInjectable
 {
     bool canMove = true;
-    public bool CanMove
-    {
-        get => canMove;
-        set => canMove = value;
-    }
+    public bool CanMove { get => canMove; set => canMove = value; }
+
     PlayerController controller;
     IPlayerMovementInput playerInputHandler;
     IPlayerCamera playerCamera;

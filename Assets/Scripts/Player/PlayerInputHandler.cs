@@ -17,6 +17,7 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerMovementInput
     InputAction focusMode;
     InputAction scrollInventory;
     InputAction grabItem;
+    InputAction look;
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -35,10 +36,15 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerMovementInput
         focusMode = playerInput.actions["FocusMode"];
         scrollInventory = playerInput.actions["ScrollInventory"];
         grabItem = playerInput.actions["GrabItem"];
+        look = playerInput.actions["Look"];
     }
     public Vector2 GetInputMove()
     {
         return moveAction.ReadValue<Vector2>();
+    }
+    public Vector2 GetInputDelta()
+    {
+        return look.ReadValue<Vector2>();
     }
     public bool IsSprinting()
     {

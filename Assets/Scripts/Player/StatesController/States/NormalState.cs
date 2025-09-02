@@ -1,3 +1,4 @@
+using Unity.Cinemachine.Samples;
 using UnityEngine;
 
 namespace Player
@@ -7,24 +8,23 @@ namespace Player
         PlayerStateController controller;
         PlayerInputHandler input;
         PlayerMovement movement;
+        CinemachinePOVExtension playerCamera;
 
-        public NormalState(PlayerStateController controller, PlayerInputHandler input, PlayerMovement movement)
+        public NormalState(PlayerStateController controller, PlayerInputHandler input, PlayerMovement movement, CinemachinePOVExtension playerCamera)
         {
             this.controller = controller;
             this.input = input;
             this.movement = movement;
+            this.playerCamera = playerCamera;
         }
         public void Enter()
         {
             movement.CanMove = true;
+            playerCamera.CanLook = true;
             Debug.Log("Entering NormalState");
         }
         public void Execute()
         {
-            if (input.ToggleCameraPressed() && PlayerInventorySystem.Instance.ItemInUse.id == "Camera")
-            {
-                controller.stateMachine.TransitionTo(controller.CameraState);
-            }
             if (input.InteractPressed())
             {
                 controller.UseEventInteract();
@@ -36,7 +36,6 @@ namespace Player
             if (input.OpenInventoryPressed())
             {
                 controller.UseEventOpenInventory();
-                controller.stateMachine.TransitionTo(controller.InventoryState);
             }
             if (input.DevelopmentModePressed())
             {
@@ -52,6 +51,7 @@ namespace Player
         public void Exit()
         {
             movement.CanMove = false;
+            playerCamera.CanLook = false;
             Debug.Log("Exiting NormalState");
         }
     }

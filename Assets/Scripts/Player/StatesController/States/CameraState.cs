@@ -1,4 +1,5 @@
 using InWorldUI;
+using Unity.Cinemachine.Samples;
 using UnityEngine;
 
 namespace Player
@@ -9,20 +10,25 @@ namespace Player
         PlayerInputHandler input;
         PlayerMovement movement;
         PhotoCapture photo;
+        CinemachinePOVExtension playerCamera;
         PlayerInteraction interaction;
-
-        public CameraState(PlayerStateController controller, PlayerInputHandler input, PlayerMovement movement, PhotoCapture photo, PlayerInteraction interaction)
+        ITogglePhotoDetection togglePhotoDetection;
+        public CameraState(PlayerStateController controller, PlayerInputHandler input, PlayerMovement movement, PhotoCapture photo, CinemachinePOVExtension playerCamera, PlayerInteraction interaction, ITogglePhotoDetection togglePhotoDetection)
         {
             this.controller = controller;
             this.input = input;
             this.movement = movement;
             this.photo = photo;
+            this.playerCamera = playerCamera;
             this.interaction = interaction;
+            this.togglePhotoDetection = togglePhotoDetection;
         }
         public void Enter()
         {
             interaction.SetInteractableDetection(false);
             movement.CanMove = true;
+            playerCamera.CanLook = true;
+            togglePhotoDetection.ToggleCollider(true);
             Debug.Log("Entering CameraState");
         }
         public void Execute()
@@ -43,6 +49,8 @@ namespace Player
         {
             interaction.SetInteractableDetection(true);
             movement.CanMove = false;
+            playerCamera.CanLook = false;
+            togglePhotoDetection.ToggleCollider(false);
             Debug.Log("Exiting CameraState");
         }
     }

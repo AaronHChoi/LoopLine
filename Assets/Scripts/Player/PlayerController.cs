@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
     }
     public void SetCinemachineController(bool _enabled)
     {
-        playerCamera.SetControllerEnabled(_enabled);
+        //Para cambiar los estados entre normal y dialogue
 
         playerStateController.ChangeState(_enabled ? playerStateController.NormalState : playerStateController.DialogueState);
     }

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using Unity.Cinemachine.Samples;
 using InWorldUI;
 
 namespace Player
@@ -22,28 +23,32 @@ namespace Player
         PlayerInputHandler playerInputHandler;
         PlayerMovement playerMovement;
         PhotoCapture photoCapture;
+        CinemachinePOVExtension cinemachinePOVExtension;
+        TimeManager timeManager;
         PlayerInteraction interaction;
+        ITogglePhotoDetection togglePhotoDetection;
 
         public NormalState NormalState { get; private set; }
         public DialogueState DialogueState { get; private set; }
         public CameraState CameraState { get; private set; }
         public DevelopmentState DevelopmentState { get; private set; }
         public FocusModeState FocusModeState { get; private set; }
-        public InventoryState InventoryState { get; private set; }
         public MindPlaceState MindPlaceState { get; private set; }
+        public ObjectInHandState ObjectInHandState { get; private set; }
         private void Awake()
         {
             InjectDependencies(DependencyContainer.Instance);
+            togglePhotoDetection = InterfaceDependencyInjector.Instance.Resolve<ITogglePhotoDetection>();
 
             stateMachine = new StateMachine();
 
-            NormalState = new NormalState(this, playerInputHandler, playerMovement);
-            DialogueState = new DialogueState(this, playerInputHandler, playerMovement);
-            CameraState = new CameraState(this, playerInputHandler, playerMovement, photoCapture, interaction);
-            InventoryState = new InventoryState(this, playerInputHandler, playerMovement);
-            DevelopmentState = new DevelopmentState(this, playerInputHandler, playerMovement);
-            FocusModeState = new FocusModeState(this, playerInputHandler, playerMovement);
+            NormalState = new NormalState(this, playerInputHandler, playerMovement, cinemachinePOVExtension);
+            DialogueState = new DialogueState(this, playerInputHandler, playerMovement, cinemachinePOVExtension);
+            CameraState = new CameraState(this, playerInputHandler, playerMovement, photoCapture, cinemachinePOVExtension, interaction, togglePhotoDetection);
+            DevelopmentState = new DevelopmentState(this, playerInputHandler, playerMovement, cinemachinePOVExtension, timeManager);
+            FocusModeState = new FocusModeState(this, playerInputHandler, playerMovement, cinemachinePOVExtension);
             MindPlaceState = new MindPlaceState(this, playerInputHandler, playerMovement);
+            ObjectInHandState = new ObjectInHandState(this, playerInputHandler, playerMovement, cinemachinePOVExtension);
 
             stateMachine.Initialize(NormalState);
         }
@@ -52,6 +57,8 @@ namespace Player
             playerMovement = provider.PlayerMovement;
             playerInputHandler = provider.PlayerInputHandler;
             photoCapture = provider.PhotoCapture;
+            cinemachinePOVExtension = provider.CinemachinePOVExtension;
+            timeManager = provider.TimeManager;
             interaction = provider.PlayerInteraction;
         }
         private void Update()
