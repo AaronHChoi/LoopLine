@@ -24,14 +24,14 @@ namespace InWorldUI
         {
             if (_uiInstance != null) return;
 
-            if (InteractionUIManager.Instance == null || InteractionUIManager.Instance.uiPrefab == null)
+            if (InteractionUIManager.instance == null || InteractionUIManager.instance.uiPrefab == null)
             {
                 Debug.LogWarning($"[Interactable] No InteractionUIManager or prefab on scene for {name}");
                 return;
             }
 
             _uiInstance = Instantiate(
-                InteractionUIManager.Instance.uiPrefab,
+                InteractionUIManager.instance.uiPrefab,
                 GetUIWorldPosition(),
                 Quaternion.identity,
                 transform // parent at creation to keep hierarchy clean
@@ -62,7 +62,7 @@ namespace InWorldUI
             if (promptState == FadeState.FadeIn)
             {
                 if (_uiInstance == null || _uiInstance.gameObject == null) 
-                CreateUIInstance();
+                    CreateUIInstance();
                 if (_uiInstance == null) return;
 
                 _uiInstance.ShowPrompt();
@@ -75,7 +75,7 @@ namespace InWorldUI
             if (markerState == FadeState.FadeOut)
             {
                 if (_uiInstance != null)
-                _uiInstance.HideMarker();
+                    _uiInstance.HideMarker();
                 markerState = FadeState.FadeIn;
             }
         }
