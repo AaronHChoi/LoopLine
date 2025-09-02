@@ -18,6 +18,7 @@ public class InterfaceDependencyInjector : MonoBehaviour, IDependencyInjectable
     DialogueManager dialogueManager;
     TimeManager timeManager;
     UIManager uiManager;
+    PhotoDetectionZone photoDetectionZone;
     SoundManager soundManager;
     private void Awake()
     {
@@ -44,6 +45,7 @@ public class InterfaceDependencyInjector : MonoBehaviour, IDependencyInjectable
         timeManager = provider.TimeManager;
         uiManager = provider.UIManager;
         soundManager = provider.SoundManager;
+        photoDetectionZone = provider.PhotoDetectionZone;
     }
     private void InitializeInterfaces()
     {
@@ -57,6 +59,7 @@ public class InterfaceDependencyInjector : MonoBehaviour, IDependencyInjectable
         Register<IDialogueManager>(dialogueManager);
         Register<ITimeProvider>(timeManager);
         Register<IUIManager>(uiManager);
+        Register<ITogglePhotoDetection>(photoDetectionZone);
     }
     public void Register<T>(T service)
     {

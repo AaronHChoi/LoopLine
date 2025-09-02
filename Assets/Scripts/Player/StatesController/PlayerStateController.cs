@@ -26,6 +26,7 @@ namespace Player
         CinemachinePOVExtension cinemachinePOVExtension;
         TimeManager timeManager;
         PlayerInteraction interaction;
+        ITogglePhotoDetection togglePhotoDetection;
 
         public NormalState NormalState { get; private set; }
         public DialogueState DialogueState { get; private set; }
@@ -37,12 +38,13 @@ namespace Player
         private void Awake()
         {
             InjectDependencies(DependencyContainer.Instance);
+            togglePhotoDetection = InterfaceDependencyInjector.Instance.Resolve<ITogglePhotoDetection>();
 
             stateMachine = new StateMachine();
 
             NormalState = new NormalState(this, playerInputHandler, playerMovement, cinemachinePOVExtension);
             DialogueState = new DialogueState(this, playerInputHandler, playerMovement, cinemachinePOVExtension);
-            CameraState = new CameraState(this, playerInputHandler, playerMovement, photoCapture, cinemachinePOVExtension, interaction);
+            CameraState = new CameraState(this, playerInputHandler, playerMovement, photoCapture, cinemachinePOVExtension, interaction, togglePhotoDetection);
             DevelopmentState = new DevelopmentState(this, playerInputHandler, playerMovement, cinemachinePOVExtension, timeManager);
             FocusModeState = new FocusModeState(this, playerInputHandler, playerMovement, cinemachinePOVExtension);
             MindPlaceState = new MindPlaceState(this, playerInputHandler, playerMovement);

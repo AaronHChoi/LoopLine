@@ -21,7 +21,7 @@ public class DependencyContainer : MonoBehaviour
     public SoundManager SoundManager { get; private set; }
     public NoteBookManager NoteBookManager { get; private set; }
     public ItemManager ItemManager { get; private set; }
-
+    public FocusModeManager FocusModeManager { get; private set; }
     public ItemInteract ItemInteract { get; private set; }
 
     public InventoryUI InventoryUI { get; private set; }
@@ -36,14 +36,16 @@ public class DependencyContainer : MonoBehaviour
     public PlayerStateController PlayerStateController { get; private set; }
     public PlayerInteract PlayerInteract { get; private set; }
     public PlayerInteraction PlayerInteraction { get; private set; }
+    public PlayerInventorySystem PlayerInventorySystem { get; private set; }
     #endregion
     public DialogueUI DialogueUI { get; private set; }
     public Parallax Parallax { get; private set; }
     public CinemachineCamera CinemachineCamera { get; private set; }
     public CinemachinePOVExtension CinemachinePOVExtension { get; private set; }
+    #region PHOTO
     public PhotoCapture PhotoCapture { get; private set; }
-    public FocusModeManager FocusModeManager { get; private set; }
-    public PlayerInventorySystem PlayerInventorySystem { get; private set; }
+    public PhotoDetectionZone PhotoDetectionZone { get; private set; }
+    #endregion
 
     private void Awake()
     {
@@ -87,6 +89,7 @@ public class DependencyContainer : MonoBehaviour
         PhotoCapture = FindAndValidate<PhotoCapture>();
         PlayerInteract = FindAndValidate<PlayerInteract>();
         PlayerInteraction = FindAndValidate<PlayerInteraction>();
+        PhotoDetectionZone = FindAndValidate<PhotoDetectionZone>();
     }
     private T FindAndValidate<T>() where T : MonoBehaviour
     {

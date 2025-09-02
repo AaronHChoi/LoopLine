@@ -21,7 +21,7 @@ namespace Player
         {
             movement.CanMove = true;
             playerCamera.CanLook = true;
-            Debug.Log("Entering NormalState");
+            Debug.Log("Entering ObjectInHandState");
         }
         public void Execute()
         {
@@ -38,7 +38,7 @@ namespace Player
         {
             movement.CanMove = false;
             playerCamera.CanLook = false;
-            Debug.Log("Exiting NormalState");
+            Debug.Log("Exiting ObjectInHandState");
         }
     }
 }
