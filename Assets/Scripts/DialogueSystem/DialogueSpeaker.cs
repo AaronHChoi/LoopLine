@@ -50,7 +50,13 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     public void OnNotify(Events _event, string _id = null)
     {
         if (_event == Events.TriggerMonologue)
+        {
             TriggerPlayerDialogue();
+        }
+        else
+        {
+            TriggerEventDialogue(_event);
+        }
     }
     private void OnEnable()
     {

@@ -14,7 +14,7 @@ public class DialogueSO : ScriptableObject
     public bool Unlocked;
     public bool Finished;
     public bool ReUse;
-    public string id;
+    public Events events = Events.None;
 
     public Line[] Dialogues;
     public QuestionSO Questions;
