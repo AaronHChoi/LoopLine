@@ -47,7 +47,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
 
         DialogueRefresh();
     }
-    public void OnNotify(Events _event)
+    public void OnNotify(Events _event, string _id = null)
     {
         if (_event == Events.TriggerMonologue)
             TriggerPlayerDialogue();

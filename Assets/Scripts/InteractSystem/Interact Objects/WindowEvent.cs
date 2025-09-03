@@ -2,29 +2,29 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 
-public class WindowEvent : MonoBehaviour, IObserver
+public class WindowEvent : MonoBehaviour, IObserver, IDependencyInjectable
 {
-    public Subject EventManager;
+    Subject eventManager;
     [SerializeField] private GameObject crystal;
     [SerializeField] private GameObject crystalBreakEffect;
 
     void Awake()
     {
-        EventManager = FindFirstObjectByType<Subject>();
+        InjectDependencies(DependencyContainer.Instance);
     }
 
-    public void OnNotify(Events _event)
+    public void OnNotify(Events _event, string _id = null)
     {
         if (_event == Events.BreakCrystal)
             breakCrystal();
     }
     private void OnEnable()
     {
-        EventManager.AddObserver(this);
+        eventManager.AddObserver(this);
     }
     private void OnDisable()
     {
-        EventManager.RemoveObserver(this);
+        eventManager.RemoveObserver(this);
     }
 
     private void breakCrystal()
@@ -34,5 +34,10 @@ public class WindowEvent : MonoBehaviour, IObserver
             crystal.SetActive(false);
         }
         crystalBreakEffect.SetActive(true);
+    }
+
+    public void InjectDependencies(DependencyContainer provider)
+    {
+        eventManager = provider.SubjectEventManager;
     }
 }

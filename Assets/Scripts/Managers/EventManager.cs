@@ -40,31 +40,8 @@ public class EventManager : Subject
     }
     private void Start()
     {
-        if (GameManager.Instance.TrainLoop == 1)
-        {
-            //player.TriggerEventDialogue("Train2");
-
-        }
         StartCoroutine(StartSceneMonologue(delayMonologue));
         stopButtonInteract = FindAnyObjectByType<StopButtonInteract>();
-    }
-    public void InitializeDialogues()
-    {
-        stopTrainQuestion.Options[0].Choosen = false;
-        stopTrainQuestion.Options[1].Choosen = false;
-        stopTrainQuestion.Options[2].Choosen = false;
-        stopTrainQuestion.Options[3].Choosen = true;
-        stopTrainQuestion.Options[4].Choosen = true;
-        stopTrainQuestion.Options[5].Choosen = true;
-    }
-    public void KeepClues()
-    {
-        stopTrainQuestion.Options[0].AddToWhiteboard = false;
-        stopTrainQuestion.Options[1].AddToWhiteboard = false;
-        stopTrainQuestion.Options[2].AddToWhiteboard = false;
-        stopTrainQuestion.Options[3].AddToWhiteboard = false;
-        stopTrainQuestion.Options[4].AddToWhiteboard = false;
-        stopTrainQuestion.Options[5].AddToWhiteboard = false;
     }
     void Update()
     {
@@ -100,7 +77,6 @@ public class EventManager : Subject
 
                 stopTrainQuestion.Options[3].Choosen = false;
 
-                EventStopTrain();
             }
         }
         
@@ -150,26 +126,10 @@ public class EventManager : Subject
     private IEnumerator DelayTimer(float delaySeconds)
     {
         yield return new WaitForSeconds(delaySeconds);
-        stopTrainQuestion.Options[4].Choosen = false;
-        EventBrokenWindow();
         NotifyObservers(Events.BreakCrystal);
     }
     #endregion
 
-    private void EventStopTrain()
-    {
-        foreach (DialogueSOManager dialogueManager in dialogueManagers)
-        {
-            //dialogueManager.TriggerEventDialogue("StopTrain");
-        }
-    }
-    private void EventBrokenWindow()
-    {
-        foreach (DialogueSOManager dialogueManager in dialogueManagers)
-        {
-            //dialogueManager.TriggerEventDialogue("BreakWindow");
-        }
-    }
     private IEnumerator StartSceneMonologue(float delay)
     {
         yield return new WaitForSeconds(delay);
