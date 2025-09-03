@@ -9,13 +9,24 @@ namespace UI
         [Tooltip("Manually assign up to 5 trackable objects here.")]
         public List<GameObject> photoTargets = new List<GameObject>();
 
+        private Camera cachedMainCamera;
+
+        void Start()
+        {
+            cachedMainCamera = Camera.main;
+            if (cachedMainCamera == null)
+            {
+                Debug.LogWarning("PhotoMarkerManager: No camera tagged as MainCamera found in the scene.");
+            }
+        }
+
         void Update()
         {
-            if (photoTargets.Count == 0 || marker == null) return;
+            if (photoTargets.Count == 0 || marker == null || cachedMainCamera == null) return;
 
             Transform closest = null;
             float closestDist = Mathf.Infinity;
-            Vector3 camPos = Camera.main.transform.position;
+            Vector3 camPos = cachedMainCamera.transform.position;
 
             foreach (var obj in photoTargets)
             {
