@@ -175,11 +175,9 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
             photoCopy.SetPixels(screenCapture.GetPixels());
             photoCopy.Apply();
 
-            photoCopy.alphaIsTransparency = false;
-
             AdjustBrightness(photoCopy, brightnessFactorClue);
 
-            worldPhotoRenderers[photoTaken].material.SetTexture("_BaseColorMap", photoCopy);
+            worldPhotoRenderers[photoTaken].material.mainTexture = photoCopy;
 
             string photoObjectName = "Photo" + photoTaken;
             GameObject photoObject = GameObject.Find(photoObjectName);
