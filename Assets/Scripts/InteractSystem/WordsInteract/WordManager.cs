@@ -27,13 +27,11 @@ public class WordManager : MonoBehaviour
     [SerializeField] private float delay = 1.6f;
     private int randomWordToCorrectIndex;
     //Test
-    MindPlaceEventManagerMind eventManager;
     bool onlyOneTime;
     private void Awake()
     {
         animator = GetComponent<Animator>();
         playerController = FindAnyObjectByType<PlayerController>();
-        eventManager = FindFirstObjectByType<MindPlaceEventManagerMind>();
     }
     void Start()
     {
@@ -83,7 +81,6 @@ public class WordManager : MonoBehaviour
             {
                 if (GameManager.Instance.TrainLoop == 1 && !onlyOneTime)
                 {
-                    eventManager.EventTriggerMonologue();
                     onlyOneTime = true;
                 }
                 StartEnterSequence();
