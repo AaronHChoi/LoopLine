@@ -22,6 +22,7 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
     [Header("World Photo")]
     [SerializeField] List<Renderer> worldPhotoRenderers = new List<Renderer>();
     [SerializeField] float brightnessFactor = 2f;
+    [SerializeField] float brightnessFactorClue = 2f;
 
     [Header("Sound")]
     [SerializeField] SoundData soundData;
@@ -124,13 +125,15 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
 
         yield return new WaitForEndOfFrame();
 
-        AdjustBrightness(screenCapture, brightnessFactor);
-
         Rect regionToRead = new Rect (0, 0, Screen.width, Screen.height);
         screenCapture.ReadPixels(regionToRead, 0, 0, false);
         screenCapture.Apply();
-        
+
+        AdjustBrightness(screenCapture, brightnessFactor);
+
         ShowPhoto();
+
+
         SoundManager.Instance.CreateSound()
             .WithSoundData(soundData)
             .Play();
@@ -166,25 +169,29 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
     }
     void ApplyPhotoToWorldObject()
     {
-        if(photoTaken < worldPhotoRenderers.Count)
+        if (photoTaken < worldPhotoRenderers.Count)
         {
-            Texture2D photoCopy = new Texture2D(screenCapture.width, screenCapture.height, screenCapture.format, false);
+            Texture2D photoCopy = new Texture2D(screenCapture.width, screenCapture.height, screenCapture.format, false, false);
             photoCopy.SetPixels(screenCapture.GetPixels());
             photoCopy.Apply();
 
-            worldPhotoRenderers[photoTaken].material.mainTexture = photoCopy;
+            photoCopy.alphaIsTransparency = false;
+
+            AdjustBrightness(photoCopy, brightnessFactorClue);
+
+            worldPhotoRenderers[photoTaken].material.SetTexture("_BaseColorMap", photoCopy);
 
             string photoObjectName = "Photo" + photoTaken;
             GameObject photoObject = GameObject.Find(photoObjectName);
 
-            if(photoObject == null)
+            if (photoObject == null)
             {
                 Debug.LogWarning($"GameObject '{photoObjectName}' no encontrado.");
                 return;
             }
 
             Photo photoScript = photoObject.GetComponent<Photo>();
-            if(photoScript == null)
+            if (photoScript == null)
             {
                 photoScript = photoObject.AddComponent<Photo>();
             }
