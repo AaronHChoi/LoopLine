@@ -14738,14 +14738,46 @@ MonoBehaviour:
   interactText: Interactuar
   id: CameraGirl
   AvailableDialogs:
-  - {fileID: 11400000, guid: d106db481f6c2c64888cf3a8c10ff9f3, type: 2}
-  - {fileID: 11400000, guid: c37d572a082731945ae3cbce1e1bd02a, type: 2}
+  - {fileID: 11400000, guid: eca99817153ccb347b3e3a24f4cfa37f, type: 2}
+  - {fileID: 11400000, guid: 674db46758eed024d8c5f942bbe2bd41, type: 2}
+  - {fileID: 11400000, guid: fbc7865a61ac87548b2e039d907d136c, type: 2}
+  - {fileID: 11400000, guid: a65e9b76a1d4e4547a249d19041c5866, type: 2}
+  - {fileID: 11400000, guid: 891666a7d8d4bc849a465803a8e900a9, type: 2}
+  - {fileID: 11400000, guid: 55534b7fe0e78e14282fadeb8d3c011d, type: 2}
+  - {fileID: 11400000, guid: ea94500aec2a4a54e9dd082aea0a6453, type: 2}
+  - {fileID: 11400000, guid: 8eef705246f5cb64aabbee40cf954cca, type: 2}
   dialogueIndex: 0
   DialogueLocalIndex: 0
   isDialogueActive: 0
   NPCInteracted: 0
   headTarget: {fileID: 1911440652}
-  DialogueEvents: []
+  DialogueEvents:
+  - EventType: 5
+    changes:
+    - dialogue: {fileID: 11400000, guid: eca99817153ccb347b3e3a24f4cfa37f, type: 2}
+      unlock: 0
+    - dialogue: {fileID: 11400000, guid: 674db46758eed024d8c5f942bbe2bd41, type: 2}
+      unlock: 0
+    - dialogue: {fileID: 11400000, guid: fbc7865a61ac87548b2e039d907d136c, type: 2}
+      unlock: 0
+    - dialogue: {fileID: 11400000, guid: a65e9b76a1d4e4547a249d19041c5866, type: 2}
+      unlock: 1
+  - EventType: 6
+    changes:
+    - dialogue: {fileID: 11400000, guid: 891666a7d8d4bc849a465803a8e900a9, type: 2}
+      unlock: 1
+  - EventType: 7
+    changes:
+    - dialogue: {fileID: 11400000, guid: 55534b7fe0e78e14282fadeb8d3c011d, type: 2}
+      unlock: 1
+  - EventType: 8
+    changes:
+    - dialogue: {fileID: 11400000, guid: ea94500aec2a4a54e9dd082aea0a6453, type: 2}
+      unlock: 1
+  - EventType: 9
+    changes:
+    - dialogue: {fileID: 11400000, guid: 8eef705246f5cb64aabbee40cf954cca, type: 2}
+      unlock: 1
 --- !u!95 &907502339
 Animator:
   serializedVersion: 7
@@ -33510,7 +33542,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76727ba6d0f643f4ba93b518354228fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EventManager: {fileID: 0}
   crystal: {fileID: 1959296535367650071}
   crystalBreakEffect: {fileID: 2490796342491148844}
 --- !u!4 &1851069789
@@ -37357,40 +37388,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2464039023775065192, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: AvailableDialogs.Array.size
-      value: 17
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2464039023775065192, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: 'AvailableDialogs.Array.data[1]'
       value: 
-      objectReference: {fileID: 11400000, guid: eca99817153ccb347b3e3a24f4cfa37f, type: 2}
+      objectReference: {fileID: 11400000, guid: 93145a174b9addb41a5085009538131f, type: 2}
     - target: {fileID: 2464039023775065192, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: 'AvailableDialogs.Array.data[2]'
       value: 
-      objectReference: {fileID: 11400000, guid: 93145a174b9addb41a5085009538131f, type: 2}
+      objectReference: {fileID: 11400000, guid: 209901b66910a9d47b6065f2291e4384, type: 2}
     - target: {fileID: 2464039023775065192, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: 'AvailableDialogs.Array.data[3]'
       value: 
-      objectReference: {fileID: 11400000, guid: 674db46758eed024d8c5f942bbe2bd41, type: 2}
+      objectReference: {fileID: 11400000, guid: 891e40f3be799424b8e6db8c57332c9d, type: 2}
     - target: {fileID: 2464039023775065192, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: 'AvailableDialogs.Array.data[4]'
       value: 
-      objectReference: {fileID: 11400000, guid: fbc7865a61ac87548b2e039d907d136c, type: 2}
+      objectReference: {fileID: 11400000, guid: 960c7d56d0ac17a4d828588d61fbe552, type: 2}
     - target: {fileID: 2464039023775065192, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: 'AvailableDialogs.Array.data[5]'
       value: 
-      objectReference: {fileID: 11400000, guid: a65e9b76a1d4e4547a249d19041c5866, type: 2}
+      objectReference: {fileID: 11400000, guid: b6b08f3a367ddac439ea260636802319, type: 2}
     - target: {fileID: 2464039023775065192, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: 'AvailableDialogs.Array.data[6]'
       value: 
-      objectReference: {fileID: 11400000, guid: 209901b66910a9d47b6065f2291e4384, type: 2}
+      objectReference: {fileID: 11400000, guid: bb53a624ed908d84b8b4a462963e8520, type: 2}
     - target: {fileID: 2464039023775065192, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: 'AvailableDialogs.Array.data[7]'
       value: 
-      objectReference: {fileID: 11400000, guid: 891666a7d8d4bc849a465803a8e900a9, type: 2}
+      objectReference: {fileID: 11400000, guid: 3f2229fb95f679e4a88be026c8a72450, type: 2}
     - target: {fileID: 2464039023775065192, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: 'AvailableDialogs.Array.data[8]'
       value: 
-      objectReference: {fileID: 11400000, guid: 55534b7fe0e78e14282fadeb8d3c011d, type: 2}
+      objectReference: {fileID: 11400000, guid: cafdedad16db6534aa12ccfecd0d9ab2, type: 2}
     - target: {fileID: 2464039023775065192, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: 'AvailableDialogs.Array.data[9]'
       value: 
@@ -37423,6 +37454,10 @@ PrefabInstance:
       propertyPath: 'AvailableDialogs.Array.data[16]'
       value: 
       objectReference: {fileID: 11400000, guid: cafdedad16db6534aa12ccfecd0d9ab2, type: 2}
+    - target: {fileID: 2464039023775065192, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: DialogueEvents.Array.data[0].changes.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2582760741889782329, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: DialogueEvents.Array.size
       value: 1
