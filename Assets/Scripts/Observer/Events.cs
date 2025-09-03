@@ -4,14 +4,10 @@ public enum Events
     ResumeTrain,
     BreakCrystal,
     TriggerMonologue,
-    #region CAMERA_GIRL
+    Without_Camera,
     With_Camera,
     With_Any_Good_Photos,
     With_Some_Good_Photos,
     With_All_Good_Photos,
-    With_Event_Photo,
-    #endregion
-    #region INTERACT
-    ItemPicked
-    #endregion
+    With_Event_Photo
 }

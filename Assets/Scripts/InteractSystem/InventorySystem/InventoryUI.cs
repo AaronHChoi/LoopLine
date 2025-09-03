@@ -80,7 +80,7 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
     }
     public void ChangeSlot(int direction)
     {
-        inventorySlots[currentSlotIndex].IsActive = false;
+        inventorySlots[currentSlotIndex].isActive = false;
 
         currentSlotIndex += direction;
 
@@ -89,7 +89,7 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
         else if (currentSlotIndex >= inventorySlots.Count)
             currentSlotIndex = 0;
 
-        inventorySlots[currentSlotIndex].IsActive = true;
+        inventorySlots[currentSlotIndex].isActive = true;
 
         MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
     }

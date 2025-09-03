@@ -13,17 +13,13 @@ public abstract class Subject : MonoBehaviour
     {
         observers.Remove(_observer);
     }
-    protected void NotifyObservers(Events _event, string id = null)
+    protected void NotifyObservers(Events _event)
     {
         //observers.ForEach((observers) => { observers.OnNotify(_event); });
         var observersCopy = new List<IObserver>(observers);
         foreach (var observer in observersCopy)
         {
-            observer.OnNotify(_event, id);
+            observer.OnNotify(_event);
         }
-    }
-    public void Notify(Events _event, string id = null)
-    {
-        NotifyObservers(_event, id);
     }
 }

@@ -12,7 +12,6 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
     public bool isDialogueActive = false;
     
     public List<DialogueSO> AllDialogues = new List<DialogueSO>();
-    public List<DialogueSO> AllFirstDialogues = new List<DialogueSO>();
     public List<QuestionSO> AllQuestions = new List<QuestionSO>();
     public List<QuestionSO> SelectQuestions = new List<QuestionSO>();
 
@@ -40,20 +39,15 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
         InjectDependencies(DependencyContainer.Instance);
         playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
-    }    
-    private void Start()
-    {
-        ShowUI(false, true);
-        InitializeDialogues();
-    }
-    void InitializeDialogues()
-    {
-        UnlockDialogues();
     }
     public void InjectDependencies(DependencyContainer provider)
     {
         questionManager = provider.QuestionManager;
         dialogueUI = provider.DialogueUI;
+    }
+    private void Start()
+    {
+        ShowUI(false, true);
     }
     public void ShowUI(bool _show, bool _event)
     {
@@ -113,16 +107,7 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
     {
         _dialogue.Unlocked = unlocking;
     }
-    public void UnlockDialogues()
-    {
-        foreach (DialogueSO dialogue in AllFirstDialogues)
-        {
-            if (dialogue != null)
-            {
-                dialogue.Unlocked = true;
-            }
-        }
-    }
+
     public void ResetAllDialogues()
     {
         foreach(DialogueSO dialogue in AllDialogues)

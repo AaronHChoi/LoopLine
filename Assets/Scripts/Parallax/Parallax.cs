@@ -36,7 +36,7 @@ public class Parallax : MonoBehaviour, IObserver, IDependencyInjectable
     {
         eventManager = provider.EventManager;
     }
-    public void OnNotify(Events _event, string id = null)
+    public void OnNotify(Events _event)
     {
         if (_event == Events.StopTrain)
             StopParallaxGradually(stopDuration);

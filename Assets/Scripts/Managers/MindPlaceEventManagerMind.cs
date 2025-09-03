@@ -26,8 +26,8 @@ public class MindPlaceEventManagerMind : Subject
     }
 
     public void EventTriggerMonologue()
-    { 
-        NotifyObservers(Events.TriggerMonologue);    
+    {
+        NotifyObservers(Events.TriggerMonologue);
     }
     private IEnumerator StartSceneMonologue(float delay)
     {

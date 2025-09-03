@@ -42,12 +42,10 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
     [SerializeField] int maxPhotos = 5;
 
     PlayerStateController playerStateController;
-    ICheckClue checkClue;
     #region MAGIC_METHODS
     private void Awake()
     {
         InjectDependencies(DependencyContainer.Instance);
-        checkClue = InterfaceDependencyInjector.Instance.Resolve<ICheckClue>();
     }
     private void Start()
     {
@@ -120,7 +118,7 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
 
         yield return new WaitForEndOfFrame();
 
-        isCurrentPhotoClue = checkClue.CheckIfAnyClue();
+        isCurrentPhotoClue = CheckIfClue();
         
         Rect regionToRead = new Rect (0, 0, Screen.width, Screen.height);
         screenCapture.ReadPixels(regionToRead, 0, 0, false);
@@ -137,6 +135,18 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
         ApplyPhotoToWorldObject();
 
         photoTaken++;
+    }
+    bool CheckIfClue()
+    {
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        if(Physics.Raycast(ray, out RaycastHit hit, 100f))
+        {
+            if(hit.collider.GetComponent<PhotoClue>() != null)
+            {
+                return true;
+            }
+        }
+        return false;
     }
     void ShowPhoto()
     {

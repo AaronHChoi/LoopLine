@@ -9,21 +9,7 @@ public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
     [SerializeField] private Image itemImage;
     [SerializeField] private Button itemButton;
     public ItemInteract itemToSpawn { get; private set; }
-    bool isActive = false;
-    public bool IsActive
-    {
-        get => isActive;
-        set
-        {
-            if (isActive == value) return;
-            isActive = value;
-
-            if (isActive)
-                ActivateItem();
-            else
-                DeactivateItem();
-        }
-    }
+    public bool isActive = false;
     PlayerInventorySystem playerInventorySystem;
     PlayerStateController controller;
 
@@ -42,38 +28,41 @@ public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
         itemNameLabel.text = item.ItemData.itemName;
         itemToSpawn = item;
     }
-    void ActivateItem()
+    private void Update()
     {
-        GameObject item = itemToSpawn.objectPrefab;
+        if (isActive)
+        {
+            GameObject item = itemToSpawn.objectPrefab;
 
-        item.SetActive(true);
-        item.transform.position = playerInventorySystem.SpawnPosition.position;
-        item.transform.rotation = playerInventorySystem.SpawnPosition.rotation;
-        item.transform.SetParent(playerInventorySystem.SpawnPosition);
+            item.SetActive(true);
+            item.transform.position = playerInventorySystem.SpawnPosition.position;
+            item.transform.rotation = playerInventorySystem.SpawnPosition.rotation;
+            item.transform.SetParent(playerInventorySystem.SpawnPosition);
 
-        playerInventorySystem.ItemInUse = itemToSpawn;
+            playerInventorySystem.ItemInUse = itemToSpawn;
 
-        controller.ChangeState(controller.ObjectInHandState);
+            controller.ChangeState(controller.ObjectInHandState);
+        }
+        else 
+        {
+            itemToSpawn.objectPrefab.gameObject.SetActive(false);
+
+            controller.ChangeState(controller.NormalState);
+        }
     }
-    void DeactivateItem()
+    public void SpawnItem()
     {
-        itemToSpawn.objectPrefab.gameObject.SetActive(false);
-
-        controller.ChangeState(controller.NormalState);
+        if (itemToSpawn.objectPrefab.gameObject.activeInHierarchy == false )
+        {
+            itemToSpawn.objectPrefab.gameObject.SetActive(true);
+            itemToSpawn.objectPrefab.transform.position = playerInventorySystem.SpawnPosition.position;
+            itemToSpawn.objectPrefab.transform.SetParent(playerInventorySystem.SpawnPosition);
+            playerInventorySystem.ItemInUse = itemToSpawn;
+        }
+        else if (itemToSpawn.objectPrefab.gameObject.activeInHierarchy == true && playerInventorySystem.ItemInUse == itemToSpawn)
+        {
+            itemToSpawn.objectPrefab.gameObject.SetActive(false);
+            playerInventorySystem.ItemInUse = null;
+        }
     }
-    //public void SpawnItem()
-    //{
-    //    if (itemToSpawn.objectPrefab.gameObject.activeInHierarchy == false )
-    //    {
-    //        itemToSpawn.objectPrefab.gameObject.SetActive(true);
-    //        itemToSpawn.objectPrefab.transform.position = playerInventorySystem.SpawnPosition.position;
-    //        itemToSpawn.objectPrefab.transform.SetParent(playerInventorySystem.SpawnPosition);
-    //        playerInventorySystem.ItemInUse = itemToSpawn;
-    //    }
-    //    else if (itemToSpawn.objectPrefab.gameObject.activeInHierarchy == true && playerInventorySystem.ItemInUse == itemToSpawn)
-    //    {
-    //        itemToSpawn.objectPrefab.gameObject.SetActive(false);
-    //        playerInventorySystem.ItemInUse = null;
-    //    }
-    //}
 }

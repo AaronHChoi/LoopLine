@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PhotoDetectionZone : MonoBehaviour, ITogglePhotoDetection, ICheckClue
+public class PhotoDetectionZone : MonoBehaviour, ITogglePhotoDetection
 {
     List<PhotoClue> cluesInZone = new List<PhotoClue>();
     BoxCollider boxCollider;
@@ -38,10 +38,7 @@ public class PhotoDetectionZone : MonoBehaviour, ITogglePhotoDetection, ICheckCl
         return cluesInZone.Count > 0;
     }
 }
-public interface ICheckClue
-{
-    bool CheckIfAnyClue();
-}
+
 public interface ITogglePhotoDetection
 {
     void ToggleCollider(bool enabled);

@@ -60,7 +60,6 @@ public class InterfaceDependencyInjector : MonoBehaviour, IDependencyInjectable
         Register<ITimeProvider>(timeManager);
         Register<IUIManager>(uiManager);
         Register<ITogglePhotoDetection>(photoDetectionZone);
-        Register<ICheckClue>(photoDetectionZone);
     }
     public void Register<T>(T service)
     {
