@@ -4,7 +4,7 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable, IItemGrabInter
 {
     [Header("Settings")]
     [SerializeField] private string interactText = "";
-    public string id = "";
+    public string id;
     public ItemInfo ItemData;
     public bool canBePicked = false;
 
@@ -17,6 +17,7 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable, IItemGrabInter
     PlayerInventorySystem playerInventorySystem;
     InventoryUI inventoryUI;
     ItemManager itemManager;
+    EventDialogueManager evManager;
 
     private void Awake()
     {
@@ -54,8 +55,14 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable, IItemGrabInter
                 
                 if (itemToActivate != null && !string.IsNullOrEmpty(id))
                     playerInventorySystem.ActivateNextItem(itemToActivate, id);
+
+                NotifyItemPicked(id);
             }
         }
+    }
+    void NotifyItemPicked(string pickedId)
+    {
+        EventDialogueManager.OnItemPicked?.Invoke(pickedId);
     }
     public string GetInteractText()
     {

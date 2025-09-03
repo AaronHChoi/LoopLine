@@ -14,7 +14,7 @@ public class GameSceneManager : MonoBehaviour
         {
             GameManager.Instance.TrainLoop++;
             dialogueManager.ResetAllDialogues();
-            //dialogueManager.ResetAllQuestions();
+            dialogueManager.UnlockFirstDialogues();
         }
         SceneManager.LoadScene(_sceneName);
     }

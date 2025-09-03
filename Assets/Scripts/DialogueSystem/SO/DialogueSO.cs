@@ -24,4 +24,9 @@ public class DialogueSO : ScriptableObject
         Unlocked = true;
         Finished = false;
     }
+    public void ResetValuesToFalse()
+    {
+        Unlocked = false;
+        Finished = false;
+    }
 }

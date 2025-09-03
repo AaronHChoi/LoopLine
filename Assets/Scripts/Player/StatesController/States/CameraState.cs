@@ -15,8 +15,10 @@ namespace Player
         PlayerInteraction interaction;
         PhotoMarker photoMarker;
         ITogglePhotoDetection togglePhotoDetection;
+        GameObject polaroidItem;
         public CameraState(PlayerStateController controller, PlayerInputHandler input, PlayerMovement movement, 
-            PhotoCapture photo, CinemachinePOVExtension playerCamera, PlayerInteraction interaction, ITogglePhotoDetection togglePhotoDetection, PhotoMarker photoMarker)
+            PhotoCapture photo, CinemachinePOVExtension playerCamera, PlayerInteraction interaction, 
+            ITogglePhotoDetection togglePhotoDetection, PhotoMarker photoMarker)
         {
             this.controller = controller;
             this.input = input;
@@ -34,6 +36,9 @@ namespace Player
             photoMarker.enabled = true;
             playerCamera.CanLook = true;
             togglePhotoDetection.ToggleCollider(true);
+            if (polaroidItem == null)
+                polaroidItem = GameObject.FindWithTag("PolaroidItem");
+            polaroidItem.SetActive(false);
             Debug.Log("Entering CameraState");
         }
         public void Execute()
@@ -57,6 +62,7 @@ namespace Player
             photoMarker.enabled = false;
             playerCamera.CanLook = false;
             togglePhotoDetection.ToggleCollider(false);
+            polaroidItem.SetActive(true);
             Debug.Log("Exiting CameraState");
         }
     }

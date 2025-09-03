@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         dialogueManager.ResetAllDialogues();
-        dialogueManager.ResetAllQuestions();
+        dialogueManager.UnlockFirstDialogues();
     }
     public void SetBool(string key, bool value)
     {

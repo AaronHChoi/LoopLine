@@ -114,7 +114,7 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
         {
             if (dialogue != null)
             {
-                dialogue.Unlocked = true;
+                dialogue.ResetValues();
             }
         }
     }
@@ -124,7 +124,7 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
         {
             if(dialogue != null)
             {
-                dialogue.ResetValues();
+                dialogue.ResetValuesToFalse();
             }
         }
     }
@@ -177,4 +177,5 @@ public interface IDialogueManager
     void ResetAllQuestions();
     void ResetSelectQuestions();
     void StopAndFinishDialogue();
+    void UnlockFirstDialogues();
 }

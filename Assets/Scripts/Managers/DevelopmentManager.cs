@@ -111,7 +111,7 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
     public void ResetDialogues()
     {
         dialogueManager.ResetAllDialogues();
-        dialogueManager.ResetAllQuestions();
+        dialogueManager.UnlockFirstDialogues();
     }
     public void ResetLevel()
     {
