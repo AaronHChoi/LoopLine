@@ -33,6 +33,20 @@ namespace Player
             {
                 controller.UseEventOpenInventory();
             }
+            if (input.InteractPressed())
+            {
+                controller.UseEventInteract();
+            }
+            if (input.DevelopmentModePressed())
+            {
+                controller.UseEventDevelopment();
+                controller.stateMachine.TransitionTo(controller.DevelopmentState);
+            }
+            if (input.FocusModePressed())
+            {
+                controller.UseEventFocusMode();
+                controller.stateMachine.TransitionTo(controller.FocusModeState);
+            }
         }
         public void Exit()
         {
