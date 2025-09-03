@@ -15,7 +15,6 @@ public class DependencyContainer : MonoBehaviour
     public TimeManager TimeManager { get; private set; }
     public GameSceneManager GameSceneManager { get; private set; }
     public DevelopmentManager DevelopmentManager { get; private set; }
-    public Subject SubjectEventManager { get; private set; }
     public QuestionManager QuestionManager { get; private set; }
     public EventManager EventManager { get; private set; }
     public SoundManager SoundManager { get; private set; }
@@ -23,7 +22,7 @@ public class DependencyContainer : MonoBehaviour
     public ItemManager ItemManager { get; private set; }
     public FocusModeManager FocusModeManager { get; private set; }
     public ItemInteract ItemInteract { get; private set; }
-
+    public EventDialogueManager EventDialogueManager { get; private set; }
     public InventoryUI InventoryUI { get; private set; }
     #endregion
 
@@ -60,7 +59,6 @@ public class DependencyContainer : MonoBehaviour
     }
     private void InitializeDependencies()
     {
-        SubjectEventManager = FindAndValidate<Subject>();
         DevelopmentManager = FindAndValidate<DevelopmentManager>();
         UIManager = FindAndValidate<UIManager>();
         DialogueUI = FindAndValidate<DialogueUI>();
@@ -90,6 +88,7 @@ public class DependencyContainer : MonoBehaviour
         PlayerInteract = FindAndValidate<PlayerInteract>();
         PlayerInteraction = FindAndValidate<PlayerInteraction>();
         PhotoDetectionZone = FindAndValidate<PhotoDetectionZone>();
+        EventDialogueManager = FindAndValidate<EventDialogueManager>();
     }
     private T FindAndValidate<T>() where T : MonoBehaviour
     {

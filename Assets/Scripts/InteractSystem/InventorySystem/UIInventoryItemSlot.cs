@@ -9,7 +9,22 @@ public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
     [SerializeField] private Image itemImage;
     [SerializeField] private Button itemButton;
     public ItemInteract itemToSpawn { get; private set; }
-    public bool isActive = false;
+
+    bool isActive = false;
+    public bool IsActive
+    {
+        get => isActive;
+        set
+        {
+            if (isActive == value) return;
+            isActive = value;
+
+            if (isActive)
+                ActivateItem();
+            else
+                DeactivateItem();
+        }
+    }
     PlayerInventorySystem playerInventorySystem;
     PlayerStateController controller;
 
@@ -28,27 +43,24 @@ public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
         itemNameLabel.text = item.ItemData.itemName;
         itemToSpawn = item;
     }
-    private void Update()
+    void ActivateItem()
     {
-        if (isActive)
-        {
-            GameObject item = itemToSpawn.objectPrefab;
+        GameObject item = itemToSpawn.objectPrefab;
 
-            item.SetActive(true);
-            item.transform.position = playerInventorySystem.SpawnPosition.position;
-            item.transform.rotation = playerInventorySystem.SpawnPosition.rotation;
-            item.transform.SetParent(playerInventorySystem.SpawnPosition);
+        item.SetActive(true);
+        item.transform.position = playerInventorySystem.SpawnPosition.position;
+        item.transform.rotation = playerInventorySystem.SpawnPosition.rotation;
+        item.transform.SetParent(playerInventorySystem.SpawnPosition);
 
-            playerInventorySystem.ItemInUse = itemToSpawn;
+        playerInventorySystem.ItemInUse = itemToSpawn;
 
-            controller.ChangeState(controller.ObjectInHandState);
-        }
-        else 
-        {
-            itemToSpawn.objectPrefab.gameObject.SetActive(false);
+        controller.ChangeState(controller.ObjectInHandState);
+    }
+    void DeactivateItem()
+    {
+        itemToSpawn.objectPrefab.gameObject.SetActive(false);
 
-            controller.ChangeState(controller.NormalState);
-        }
+        controller.ChangeState(controller.NormalState);
     }
     public void SpawnItem()
     {

@@ -12,8 +12,6 @@ public class EventManager : Subject
     [SerializeField] private Transform crystalBreakTransform;
     [SerializeField] float delayBrokenWindow;
 
-    [SerializeField] float delayMonologue = 0.1f;
-
     bool brokenWindow = false;
     public bool stopTrain { get; private set; } = false;
     private bool stopTrain2 = false;
@@ -40,22 +38,12 @@ public class EventManager : Subject
     }
     private void Start()
     {
-        StartCoroutine(StartSceneMonologue(delayMonologue));
         stopButtonInteract = FindAnyObjectByType<StopButtonInteract>();
     }
     void Update()
     {
         TrainEventResumeTrain();
         TrainEvent2();
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            player.TriggerEventDialogue(Events.StopTrain);
-        }
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            StartCoroutine(StartSceneMonologue(delayMonologue));
-            Debug.Log("1");
-        }
     }
     #region TrainEvents
     public void TrainEventStopTrain()
@@ -76,12 +64,9 @@ public class EventManager : Subject
                 stopTrain = true;
 
                 stopTrainQuestion.Options[3].Choosen = false;
-
             }
         }
-        
     }
-
     public void TrainEventResumeTrain()
     {
         if (stopTrain && StopedTimeForTrain <= 0f)
@@ -129,12 +114,4 @@ public class EventManager : Subject
         NotifyObservers(Events.BreakCrystal);
     }
     #endregion
-
-    private IEnumerator StartSceneMonologue(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        NotifyObservers(Events.TriggerMonologue);
-        //uiManager.ShowUIText("Aprete F para saltear");
-        Debug.Log("2");
-    }
 }

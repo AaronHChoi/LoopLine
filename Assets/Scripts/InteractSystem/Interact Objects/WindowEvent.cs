@@ -4,7 +4,7 @@ using System;
 
 public class WindowEvent : MonoBehaviour, IObserver, IDependencyInjectable
 {
-    Subject eventManager;
+    EventManager eventManager;
     [SerializeField] private GameObject crystal;
     [SerializeField] private GameObject crystalBreakEffect;
 
@@ -12,7 +12,6 @@ public class WindowEvent : MonoBehaviour, IObserver, IDependencyInjectable
     {
         InjectDependencies(DependencyContainer.Instance);
     }
-
     public void OnNotify(Events _event, string _id = null)
     {
         if (_event == Events.BreakCrystal)
@@ -26,7 +25,6 @@ public class WindowEvent : MonoBehaviour, IObserver, IDependencyInjectable
     {
         eventManager.RemoveObserver(this);
     }
-
     private void breakCrystal()
     {
         if (crystal != null)
@@ -35,9 +33,8 @@ public class WindowEvent : MonoBehaviour, IObserver, IDependencyInjectable
         }
         crystalBreakEffect.SetActive(true);
     }
-
     public void InjectDependencies(DependencyContainer provider)
     {
-        eventManager = provider.SubjectEventManager;
+        eventManager = provider.EventManager;
     }
 }
