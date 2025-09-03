@@ -51,8 +51,6 @@ public class GameManager : MonoBehaviour
     {
         dialogueManager.ResetAllDialogues();
         dialogueManager.ResetAllQuestions();
-        eventManager.InitializeDialogues();
-        eventManager.KeepClues();
     }
     public void SetBool(string key, bool value)
     {
