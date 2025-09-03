@@ -8,7 +8,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
 {
     [SerializeField] private string interactText = "Interact with me!";
     [Tooltip("Este valor solo para los NPC, para poder identificar los dialogos")]
-    public string id = "L";
+    public string id;
     public List<DialogueSO> AvailableDialogs = new List<DialogueSO>();
     public int dialogueIndex = 0;
     public int DialogueLocalIndex = 0;
@@ -47,10 +47,23 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
 
         DialogueRefresh();
     }
-    public void OnNotify(Events _event)
+    public void OnNotify(Events _event, string _id = null)
     {
-        if (_event == Events.TriggerMonologue)
-            TriggerPlayerDialogue();
+        if(_id == id)
+        {
+            if(_event == Events.TriggerMonologue)
+            {
+                TriggerPlayerDialogue();
+            }
+            else
+            {
+                TriggerEventDialogue(_event);
+            }
+        }
+        else
+        {
+            TriggerEventDialogue(_event);
+        }
     }
     private void OnEnable()
     {
@@ -150,6 +163,11 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
             DialogueManager.Instance.ShowUI(false, true);
         }
         //DialogueRefresh();
+    }
+    IEnumerator StartDialogueAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
     }
     void StartDialogue()
     {

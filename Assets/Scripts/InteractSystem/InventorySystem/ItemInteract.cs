@@ -4,7 +4,7 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable, IItemGrabInter
 {
     [Header("Settings")]
     [SerializeField] private string interactText = "";
-    public string id = "";
+    public string id;
     public ItemInfo ItemData;
     public bool canBePicked = false;
 
@@ -35,6 +35,7 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable, IItemGrabInter
             objectPrefab = gameObject;
         }
     }
+
     public void Interact()
     {
         if (gameObject.tag == "Item" && canBePicked)
@@ -50,6 +51,7 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable, IItemGrabInter
                 {
                     inventoryUI.AddInventorySlot(this);
                     playerInventorySystem.AddToInvetory(this);
+
                 }
                 
                 if (itemToActivate != null && !string.IsNullOrEmpty(id))

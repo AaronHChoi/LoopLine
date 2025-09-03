@@ -80,7 +80,6 @@ public class TimeManager : MonoBehaviour, IDependencyInjectable, ITimeProvider
             ResetLoopTime();
             gameSceneManager.LoadNextScene(GameManager.Instance.nextScene);
             dialogueManager.ResetAllQuestions();
-            eventManager.InitializeDialogues();
         }
     }
     public void PauseTime(bool pause) => IsTimePaused = pause;
