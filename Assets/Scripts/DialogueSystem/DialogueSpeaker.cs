@@ -16,7 +16,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     public bool NPCInteracted = false;
     [SerializeField] Transform headTarget;
 
-    Subject eventManager;
+    EventDialogueManager eventDialogueManager;
 
     IUIManager uiManager;
 
@@ -54,13 +54,13 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     }
     private void OnEnable()
     {
-        if(eventManager != null)
-            eventManager.AddObserver(this);
+        if(eventDialogueManager != null)
+            eventDialogueManager.AddObserver(this);
     }
     private void OnDisable()
     {
-        if (eventManager != null)
-            eventManager.RemoveObserver(this);
+        if (eventDialogueManager != null)
+            eventDialogueManager.RemoveObserver(this);
     }
     #endregion
     public void TriggerEventDialogue(Events triggeredEvent)
@@ -94,7 +94,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     }
     public void InjectDependencies(DependencyContainer provider)
     {
-        eventManager = provider.SubjectEventManager;
+        eventDialogueManager = provider.EventDialogueManager;
     }
     public void DialogueTrigger()
     {
@@ -158,12 +158,6 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     public void EndDialogue()
     {
         isDialogueActive = false;
-        //dialogueSOManager.CheckFirstInteraction();
-
-        //if (lookAtNPC != null)
-        //{
-        //    lookAtNPC.ClearTarget();
-        //}
     }
     bool DialogueUpdate()
     {
