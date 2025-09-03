@@ -9,6 +9,7 @@ public class EventDialogueManager : Subject, IDependencyInjectable
     public DialogueSO quest;
     int personPhotoCount = 0;
     PhotoCapture photoCapture;
+    PlayerStateController controller;
     //HashSet<string> receivedClueId = new HashSet<string>();
     private void Awake()
     {
@@ -84,14 +85,18 @@ public class EventDialogueManager : Subject, IDependencyInjectable
     }
     private IEnumerator StartSceneMonologue(float delay)
     {
+        controller.CanUseNormalStateExecute = false;
         yield return new WaitForSeconds(delay);
         NotifyObservers(Events.TriggerMonologue);
+        controller.CanUseNormalStateExecute = true;
     }
     private IEnumerator StartSceneMonologue(float delay, Events _event)
     {
+        controller.CanUseNormalStateExecute = false;
         yield return new WaitForSeconds(delay);
         NotifyObservers(_event);
         NotifyObservers(Events.TriggerMonologue);
+        controller.CanUseNormalStateExecute = true;
     }
     void SendOnlyEvent(Events _event)
     {
@@ -100,5 +105,6 @@ public class EventDialogueManager : Subject, IDependencyInjectable
     public void InjectDependencies(DependencyContainer provider)
     {
         photoCapture = provider.PhotoCapture;
+        controller = provider.PlayerStateController;
     }
 }

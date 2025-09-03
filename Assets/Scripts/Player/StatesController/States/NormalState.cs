@@ -1,3 +1,4 @@
+using System.Threading;
 using Unity.Cinemachine.Samples;
 using UnityEngine;
 
@@ -25,6 +26,8 @@ namespace Player
         }
         public void Execute()
         {
+            if (!controller.CanUseNormalStateExecute) return;
+
             if (input.InteractPressed())
             {
                 controller.UseEventInteract();

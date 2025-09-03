@@ -8,7 +8,8 @@ namespace Player
 {
     public class PlayerStateController : MonoBehaviour, IDependencyInjectable
     {
-        public StateMachine stateMachine { get; private set; }
+        public StateMachine stateMachine { get; set; }
+        public bool CanUseNormalStateExecute { get; set; } = true;
 
         public event Action<IState> OnStateChanged;
         public event Action OnTakePhoto;
