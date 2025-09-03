@@ -135,14 +135,20 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
 
         ShowPhoto();
 
-
         SoundManager.Instance.CreateSound()
             .WithSoundData(soundData)
             .Play();
 
-        if(photoDetectionZone.CheckIfAnyClue())
-            ApplyPhotoToWorldObject();
+        string clueId = null;
 
+        if (photoDetectionZone.CheckIfAnyClue())
+        {
+            ApplyPhotoToWorldObject();
+        }
+        else
+        {
+            OnPhotoClueCaptured?.Invoke(clueId);
+        }
         photoTaken++;
         
         photoMarkerManager.HideMarker();    

@@ -1,13 +1,19 @@
 using System.Collections;
-using System.Collections.Generic;
+using Player;
 using UnityEngine;
 
-public class EventDialogueManager : Subject
+public class EventDialogueManager : Subject, IDependencyInjectable
 {
     [SerializeField] float delayMonologue;
     public static System.Action<string> OnItemPicked;
-    HashSet<string> receivedClueId = new HashSet<string>();
-
+    public DialogueSO quest;
+    int personPhotoCount = 0;
+    PhotoCapture photoCapture;
+    //HashSet<string> receivedClueId = new HashSet<string>();
+    private void Awake()
+    {
+        InjectDependencies(DependencyContainer.Instance);
+    }
     private void Start()
     {
         StartCoroutine(StartSceneMonologue(delayMonologue));
@@ -26,23 +32,40 @@ public class EventDialogueManager : Subject
     }
     void HandlePhotoClueCaptured(string clueId)
     {
-        bool isFirstTimeForThisClue = false;
+        if (!quest.Finished) return;
 
-        if(!string.IsNullOrEmpty(clueId) && !receivedClueId.Contains(clueId))
-        {
-            receivedClueId.Add(clueId);
-            isFirstTimeForThisClue = true;
-        }
+        StartCoroutine(WaitUntilCameraClosed(clueId));
+    }
+    IEnumerator WaitUntilCameraClosed(string clueId)
+    {
+        yield return new WaitUntil(() => !photoCapture.IsViewingPhoto && !CameraState.PolaroidIsActive);
+
+        bool isFirstTimeForThisClue = false;
 
         if (clueId == null)
         {
-            SendOnlyEvent(Events.With_Any_Good_Photos);
-        } else if (clueId == "Event")
+            if (!isFirstTimeForThisClue)
+            {
+                SendOnlyEvent(Events.With_Any_Good_Photos);
+            }
+            isFirstTimeForThisClue = true;
+        }
+        else if (clueId == "Event")
         {
-            SendOnlyEvent(Events.With_Event_Photo);
-        } else if (clueId == "Person")
+            StartCoroutine(StartSceneMonologue(delayMonologue, Events.With_Event_Photo));
+        }
+        else if (clueId == "Person")
         {
-            SendOnlyEvent(Events.With_Some_Good_Photos);
+            StartCoroutine(StartSceneMonologue(delayMonologue, Events.With_Some_Good_Photos));
+            personPhotoCount++;
+            if(personPhotoCount == 2)
+            {
+                StartCoroutine(StartSceneMonologue(delayMonologue, Events.With_Two_Good_Photos_M));
+            }
+            if(personPhotoCount == 3)
+            {
+                StartCoroutine(StartSceneMonologue(delayMonologue, Events.With_Event_Photo));
+            }
         }
     }
     void HandleItemPicked(string itemId)
@@ -73,5 +96,9 @@ public class EventDialogueManager : Subject
     void SendOnlyEvent(Events _event)
     {
         NotifyObservers(_event);
+    }
+    public void InjectDependencies(DependencyContainer provider)
+    {
+        photoCapture = provider.PhotoCapture;
     }
 }
