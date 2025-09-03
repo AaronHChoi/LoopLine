@@ -43,6 +43,8 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
     [SerializeField] int maxPhotos = 5;
 
     PlayerStateController playerStateController;
+    PhotoMarkerManager photoMarkerManager;
+    PhotoDetectionZone photoDetectionZone;
     #region MAGIC_METHODS
     private void Awake()
     {
@@ -73,6 +75,8 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
     public void InjectDependencies(DependencyContainer provider)
     {
         playerStateController = provider.PlayerStateController;
+        photoMarkerManager = provider.PhotoMarkerManager;
+        photoDetectionZone = provider.PhotoDetectionZone;
     }
     private void HandleTakePhoto()
     {
@@ -116,17 +120,12 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
         cameraActive = false;
         viewvingPhoto = true;
         
-        var manager = FindObjectOfType<PhotoMarkerManager>();
-        if (manager != null)
-        {
-            manager.ShowMarker();
-        }        
-        AdjustBrightness(screenCapture, brightnessFactor);
+        photoMarkerManager.ShowMarker(); 
 
         yield return new WaitForEndOfFrame();
 
-        isCurrentPhotoClue = CheckIfClue();
-    
+        AdjustBrightness(screenCapture, brightnessFactor);
+
         Rect regionToRead = new Rect (0, 0, Screen.width, Screen.height);
         screenCapture.ReadPixels(regionToRead, 0, 0, false);
         screenCapture.Apply();
@@ -136,24 +135,12 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
             .WithSoundData(soundData)
             .Play();
 
-        ApplyPhotoToWorldObject();
+        if(photoDetectionZone.CheckIfAnyClue())
+            ApplyPhotoToWorldObject();
+
         photoTaken++;
         
-        if (manager != null)
-            manager.HideMarker();    
-    }
-
-    bool CheckIfClue()
-    {
-        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        if(Physics.Raycast(ray, out RaycastHit hit, 100f))
-        {
-            if(hit.collider.GetComponent<PhotoClue>() != null)
-            {
-                return true;
-            }
-        }
-        return false;
+        photoMarkerManager.HideMarker();    
     }
     void ShowPhoto()
     {
