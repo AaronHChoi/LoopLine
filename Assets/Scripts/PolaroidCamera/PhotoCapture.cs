@@ -22,6 +22,7 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
     [Header("World Photo")]
     [SerializeField] List<Renderer> worldPhotoRenderers = new List<Renderer>();
     [SerializeField] float brightnessFactor = 2f;
+    [SerializeField] float brightnessFactorClue = 2f;
 
     [Header("Sound")]
     [SerializeField] SoundData soundData;
@@ -43,6 +44,8 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
     [SerializeField] int maxPhotos = 5;
 
     PlayerStateController playerStateController;
+    PhotoMarkerManager photoMarkerManager;
+    PhotoDetectionZone photoDetectionZone;
     #region MAGIC_METHODS
     private void Awake()
     {
@@ -73,6 +76,8 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
     public void InjectDependencies(DependencyContainer provider)
     {
         playerStateController = provider.PlayerStateController;
+        photoMarkerManager = provider.PhotoMarkerManager;
+        photoDetectionZone = provider.PhotoDetectionZone;
     }
     private void HandleTakePhoto()
     {
@@ -116,44 +121,29 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
         cameraActive = false;
         viewvingPhoto = true;
         
-        var manager = FindObjectOfType<PhotoMarkerManager>();
-        if (manager != null)
-        {
-            manager.ShowMarker();
-        }        
-        AdjustBrightness(screenCapture, brightnessFactor);
+        photoMarkerManager.ShowMarker(); 
 
         yield return new WaitForEndOfFrame();
 
-        isCurrentPhotoClue = CheckIfClue();
-    
         Rect regionToRead = new Rect (0, 0, Screen.width, Screen.height);
         screenCapture.ReadPixels(regionToRead, 0, 0, false);
         screenCapture.Apply();
-        
+
+        AdjustBrightness(screenCapture, brightnessFactor);
+
         ShowPhoto();
+
+
         SoundManager.Instance.CreateSound()
             .WithSoundData(soundData)
             .Play();
 
-        ApplyPhotoToWorldObject();
+        if(photoDetectionZone.CheckIfAnyClue())
+            ApplyPhotoToWorldObject();
+
         photoTaken++;
         
-        if (manager != null)
-            manager.HideMarker();    
-    }
-
-    bool CheckIfClue()
-    {
-        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        if(Physics.Raycast(ray, out RaycastHit hit, 100f))
-        {
-            if(hit.collider.GetComponent<PhotoClue>() != null)
-            {
-                return true;
-            }
-        }
-        return false;
+        photoMarkerManager.HideMarker();    
     }
     void ShowPhoto()
     {
@@ -179,25 +169,29 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
     }
     void ApplyPhotoToWorldObject()
     {
-        if(photoTaken < worldPhotoRenderers.Count)
+        if (photoTaken < worldPhotoRenderers.Count)
         {
-            Texture2D photoCopy = new Texture2D(screenCapture.width, screenCapture.height, screenCapture.format, false);
+            Texture2D photoCopy = new Texture2D(screenCapture.width, screenCapture.height, screenCapture.format, false, false);
             photoCopy.SetPixels(screenCapture.GetPixels());
             photoCopy.Apply();
 
-            worldPhotoRenderers[photoTaken].material.mainTexture = photoCopy;
+            photoCopy.alphaIsTransparency = false;
+
+            AdjustBrightness(photoCopy, brightnessFactorClue);
+
+            worldPhotoRenderers[photoTaken].material.SetTexture("_BaseColorMap", photoCopy);
 
             string photoObjectName = "Photo" + photoTaken;
             GameObject photoObject = GameObject.Find(photoObjectName);
 
-            if(photoObject == null)
+            if (photoObject == null)
             {
                 Debug.LogWarning($"GameObject '{photoObjectName}' no encontrado.");
                 return;
             }
 
             Photo photoScript = photoObject.GetComponent<Photo>();
-            if(photoScript == null)
+            if (photoScript == null)
             {
                 photoScript = photoObject.AddComponent<Photo>();
             }

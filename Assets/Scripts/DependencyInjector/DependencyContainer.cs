@@ -46,6 +46,7 @@ public class DependencyContainer : MonoBehaviour
     public PhotoCapture PhotoCapture { get; private set; }
     public PhotoMarker PhotoMarker { get; private set; }
     public PhotoDetectionZone PhotoDetectionZone { get; private set; }
+    public PhotoMarkerManager PhotoMarkerManager { get; private set; }
     #endregion
 
     private void Awake()
@@ -92,6 +93,7 @@ public class DependencyContainer : MonoBehaviour
         PhotoMarker = FindAndValidate<PhotoMarker>();
         PhotoDetectionZone = FindAndValidate<PhotoDetectionZone>();
         EventDialogueManager = FindAndValidate<EventDialogueManager>();
+        PhotoMarkerManager = FindAndValidate<PhotoMarkerManager>();
     }
     private T FindAndValidate<T>() where T : MonoBehaviour
     {
