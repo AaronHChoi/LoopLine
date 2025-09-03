@@ -1,4 +1,5 @@
 using InWorldUI;
+using UI;
 using UnityEngine;
 
 namespace Player
@@ -10,19 +11,22 @@ namespace Player
         PlayerMovement movement;
         PhotoCapture photo;
         PlayerInteraction interaction;
-
-        public CameraState(PlayerStateController controller, PlayerInputHandler input, PlayerMovement movement, PhotoCapture photo, PlayerInteraction interaction)
+        PhotoMarker photoMarker;
+        public CameraState(PlayerStateController controller, PlayerInputHandler input, PlayerMovement movement, 
+            PhotoCapture photo, PlayerInteraction interaction,  PhotoMarker photoMarker)
         {
             this.controller = controller;
             this.input = input;
             this.movement = movement;
             this.photo = photo;
             this.interaction = interaction;
+            this.photoMarker = photoMarker;
         }
         public void Enter()
         {
             interaction.SetInteractableDetection(false);
             movement.CanMove = true;
+            photoMarker.enabled = true;
             Debug.Log("Entering CameraState");
         }
         public void Execute()
@@ -43,6 +47,7 @@ namespace Player
         {
             interaction.SetInteractableDetection(true);
             movement.CanMove = false;
+            photoMarker.enabled = false;
             Debug.Log("Exiting CameraState");
         }
     }

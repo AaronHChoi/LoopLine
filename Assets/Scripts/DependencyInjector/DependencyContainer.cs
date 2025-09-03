@@ -3,6 +3,7 @@ using Unity.Cinemachine;
 using UnityEngine;
 using Player;
 using InWorldUI;
+using UI;
 
 public class DependencyContainer : MonoBehaviour
 {
@@ -44,7 +45,7 @@ public class DependencyContainer : MonoBehaviour
     public PhotoCapture PhotoCapture { get; private set; }
     public FocusModeManager FocusModeManager { get; private set; }
     public PlayerInventorySystem PlayerInventorySystem { get; private set; }
-
+    public PhotoMarker PhotoMarker { get; private set; }
     private void Awake()
     {
         if(Instance != null && Instance != this)
@@ -87,6 +88,7 @@ public class DependencyContainer : MonoBehaviour
         PhotoCapture = FindAndValidate<PhotoCapture>();
         PlayerInteract = FindAndValidate<PlayerInteract>();
         PlayerInteraction = FindAndValidate<PlayerInteraction>();
+        PhotoMarker = FindAndValidate<PhotoMarker>();
     }
     private T FindAndValidate<T>() where T : MonoBehaviour
     {

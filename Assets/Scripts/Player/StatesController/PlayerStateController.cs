@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using InWorldUI;
+using UI;
 
 namespace Player
 {
@@ -23,7 +24,8 @@ namespace Player
         PlayerMovement playerMovement;
         PhotoCapture photoCapture;
         PlayerInteraction interaction;
-
+        PhotoMarker photoMarker;
+        
         public NormalState NormalState { get; private set; }
         public DialogueState DialogueState { get; private set; }
         public CameraState CameraState { get; private set; }
@@ -39,7 +41,7 @@ namespace Player
 
             NormalState = new NormalState(this, playerInputHandler, playerMovement);
             DialogueState = new DialogueState(this, playerInputHandler, playerMovement);
-            CameraState = new CameraState(this, playerInputHandler, playerMovement, photoCapture, interaction);
+            CameraState = new CameraState(this, playerInputHandler, playerMovement, photoCapture, interaction, photoMarker);
             InventoryState = new InventoryState(this, playerInputHandler, playerMovement);
             DevelopmentState = new DevelopmentState(this, playerInputHandler, playerMovement);
             FocusModeState = new FocusModeState(this, playerInputHandler, playerMovement);
@@ -53,6 +55,7 @@ namespace Player
             playerInputHandler = provider.PlayerInputHandler;
             photoCapture = provider.PhotoCapture;
             interaction = provider.PlayerInteraction;
+            photoMarker = provider.PhotoMarker;
         }
         private void Update()
         {

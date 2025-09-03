@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Player;
+using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -113,29 +114,36 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
     {
         cameraUI.SetActive(false);
         cameraActive = false;
-
         viewvingPhoto = true;
-
+        
+        var manager = FindObjectOfType<PhotoMarkerManager>();
+        if (manager != null)
+        {
+            manager.ShowMarker();
+        }        
+        
         yield return new WaitForEndOfFrame();
 
         isCurrentPhotoClue = CheckIfClue();
-        
+    
         Rect regionToRead = new Rect (0, 0, Screen.width, Screen.height);
         screenCapture.ReadPixels(regionToRead, 0, 0, false);
         screenCapture.Apply();
 
         AdjustBrightness(screenCapture, brightnessFactor);
-
+        
         ShowPhoto();
-
         SoundManager.Instance.CreateSound()
             .WithSoundData(soundData)
             .Play();
 
         ApplyPhotoToWorldObject();
-
         photoTaken++;
+        
+        if (manager != null)
+            manager.HideMarker();    
     }
+
     bool CheckIfClue()
     {
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
