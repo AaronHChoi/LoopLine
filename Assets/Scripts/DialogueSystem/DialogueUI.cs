@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Player;
 using TMPro;
@@ -8,6 +9,7 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
 {
     public DialogueSO Dialogue;
     public DialogueSO MainDialogue;
+    public static event Action<DialogueSO> OnDialogueEndedById;
 
     [SerializeField] private GameObject dialogueContainer;
     [SerializeField] private GameObject questionContainer;
@@ -142,8 +144,9 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
                     localIndex = 0;
                     DialogueManager.actualSpeaker.DialogueLocalIndex = 0;
                     Dialogue.Finished = true;
+                    OnDialogueEndedById?.Invoke(Dialogue);
 
-                    if(Dialogue.Questions != null)
+                    if (Dialogue.Questions != null)
                     {
                         dialogueContainer.SetActive(false);
                         questionContainer.SetActive(true);

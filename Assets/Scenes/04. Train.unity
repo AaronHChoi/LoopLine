@@ -14752,7 +14752,7 @@ MonoBehaviour:
   NPCInteracted: 0
   headTarget: {fileID: 1911440652}
   DialogueEvents:
-  - EventType: 5
+  - EventType: 6
     changes:
     - dialogue: {fileID: 11400000, guid: eca99817153ccb347b3e3a24f4cfa37f, type: 2}
       unlock: 0
@@ -14762,19 +14762,19 @@ MonoBehaviour:
       unlock: 0
     - dialogue: {fileID: 11400000, guid: a65e9b76a1d4e4547a249d19041c5866, type: 2}
       unlock: 1
-  - EventType: 6
+  - EventType: 7
     changes:
     - dialogue: {fileID: 11400000, guid: 891666a7d8d4bc849a465803a8e900a9, type: 2}
       unlock: 1
-  - EventType: 7
+  - EventType: 8
     changes:
     - dialogue: {fileID: 11400000, guid: 55534b7fe0e78e14282fadeb8d3c011d, type: 2}
       unlock: 1
-  - EventType: 8
+  - EventType: 9
     changes:
     - dialogue: {fileID: 11400000, guid: ea94500aec2a4a54e9dd082aea0a6453, type: 2}
       unlock: 1
-  - EventType: 9
+  - EventType: 10
     changes:
     - dialogue: {fileID: 11400000, guid: 8eef705246f5cb64aabbee40cf954cca, type: 2}
       unlock: 1
@@ -36047,6 +36047,7 @@ Transform:
   - {fileID: 546405700}
   - {fileID: 377733362}
   - {fileID: 1523024086}
+  - {fileID: 2084114014}
   - {fileID: 232969747}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -36167,7 +36168,7 @@ GameObject:
   - component: {fileID: 2084114014}
   - component: {fileID: 2084114013}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: EventDialogueManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36185,7 +36186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbd141e209dc9d74cbc29ce842db5af9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayMonologue: 0.1
+  delayMonologue: 1
 --- !u!4 &2084114014
 Transform:
   m_ObjectHideFlags: 0
@@ -36194,12 +36195,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2084114012}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 2.4223752, y: 1.848913, z: -40.707905}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2062721427}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2093993738
 GameObject:
@@ -37500,9 +37501,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: cafdedad16db6534aa12ccfecd0d9ab2, type: 2}
     - target: {fileID: 2464039023775065192, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
-      propertyPath: DialogueEvents.Array.data[0].changes.Array.size
-      value: 0
+      propertyPath: DialogueEvents.Array.data[0].EventType
+      value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 2464039023775065192, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: DialogueEvents.Array.data[0].changes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2464039023775065192, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: DialogueEvents.Array.data[0].changes.Array.data[0].unlock
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2464039023775065192, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: DialogueEvents.Array.data[0].changes.Array.data[0].dialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: 93145a174b9addb41a5085009538131f, type: 2}
     - target: {fileID: 2582760741889782329, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: DialogueEvents.Array.size
       value: 1
@@ -38829,6 +38842,10 @@ PrefabInstance:
       propertyPath: letterBoxFadeInOut
       value: 
       objectReference: {fileID: 1048627212}
+    - target: {fileID: 7254916800634900418, guid: d970789b0e28cbe40bbbb2f4f4ef6ca8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -11.04187
+      objectReference: {fileID: 0}
     - target: {fileID: 8562930101100256548, guid: d970789b0e28cbe40bbbb2f4f4ef6ca8, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -39899,4 +39916,3 @@ SceneRoots:
   - {fileID: 1488960613158662670}
   - {fileID: 6447808841244348253}
   - {fileID: 1950971954}
-  - {fileID: 2084114014}

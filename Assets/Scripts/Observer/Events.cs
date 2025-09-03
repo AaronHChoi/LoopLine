@@ -1,5 +1,6 @@
 public enum Events 
 {
+    None,
     StopTrain,
     ResumeTrain,
     BreakCrystal,
