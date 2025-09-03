@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Player;
@@ -46,6 +47,7 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
     PlayerStateController playerStateController;
     PhotoMarkerManager photoMarkerManager;
     PhotoDetectionZone photoDetectionZone;
+    public static event Action<string> OnPhotoClueCaptured;
     #region MAGIC_METHODS
     private void Awake()
     {
@@ -133,14 +135,20 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
 
         ShowPhoto();
 
-
         SoundManager.Instance.CreateSound()
             .WithSoundData(soundData)
             .Play();
 
-        if(photoDetectionZone.CheckIfAnyClue())
-            ApplyPhotoToWorldObject();
+        string clueId = null;
 
+        if (photoDetectionZone.CheckIfAnyClue())
+        {
+            ApplyPhotoToWorldObject();
+        }
+        else
+        {
+            OnPhotoClueCaptured?.Invoke(clueId);
+        }
         photoTaken++;
         
         photoMarkerManager.HideMarker();    
@@ -208,6 +216,11 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
             }
 
             photoScript.SetPhoto(photoCopy, isCurrentPhotoClue, clueId);
+
+            if (isCurrentPhotoClue && !string.IsNullOrEmpty(clueId))
+            {
+                OnPhotoClueCaptured?.Invoke(clueId);
+            }
         }
     }
     void AdjustBrightness(Texture2D texture, float brigtnessFactor)

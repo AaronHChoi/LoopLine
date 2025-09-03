@@ -7,6 +7,7 @@ namespace Player
 {
     public class CameraState : IState
     {
+        public static bool PolaroidIsActive { get; private set; }
         PlayerStateController controller;
         PlayerInputHandler input;
         PlayerMovement movement;
@@ -39,6 +40,7 @@ namespace Player
             if (polaroidItem == null)
                 polaroidItem = GameObject.FindWithTag("PolaroidItem");
             polaroidItem.SetActive(false);
+            PolaroidIsActive = true;
             Debug.Log("Entering CameraState");
         }
         public void Execute()
@@ -63,6 +65,7 @@ namespace Player
             playerCamera.CanLook = false;
             togglePhotoDetection.ToggleCollider(false);
             polaroidItem.SetActive(true);
+            PolaroidIsActive = false;
             Debug.Log("Exiting CameraState");
         }
     }
