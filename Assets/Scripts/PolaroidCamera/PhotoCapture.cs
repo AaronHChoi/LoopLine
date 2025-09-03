@@ -194,7 +194,20 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
                 photoScript = photoObject.AddComponent<Photo>();
             }
 
-            photoScript.SetPhoto(photoCopy, isCurrentPhotoClue);
+            PhotoClue detectedClue = photoDetectionZone.GetClue();
+
+            string clueId = "";
+            if (detectedClue != null)
+            {
+                isCurrentPhotoClue = true;
+                clueId = detectedClue.Type.ToString();
+            }
+            else
+            {
+                isCurrentPhotoClue = false;
+            }
+
+            photoScript.SetPhoto(photoCopy, isCurrentPhotoClue, clueId);
         }
     }
     void AdjustBrightness(Texture2D texture, float brigtnessFactor)

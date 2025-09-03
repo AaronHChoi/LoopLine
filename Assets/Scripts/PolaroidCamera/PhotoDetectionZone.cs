@@ -37,6 +37,10 @@ public class PhotoDetectionZone : MonoBehaviour, ITogglePhotoDetection
     {
         return cluesInZone.Count > 0;
     }
+    public PhotoClue GetClue()
+    {
+        return cluesInZone.Count > 0 ? cluesInZone[0] : null;
+    }
 }
 
 public interface ITogglePhotoDetection
