@@ -17,7 +17,6 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable, IItemGrabInter
     PlayerInventorySystem playerInventorySystem;
     InventoryUI inventoryUI;
     ItemManager itemManager;
-    EventDialogueManager evManager;
 
     private void Awake()
     {

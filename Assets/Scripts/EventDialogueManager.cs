@@ -6,7 +6,12 @@ public class EventDialogueManager : Subject, IDependencyInjectable
 {
     [SerializeField] float delayMonologue;
     public static System.Action<string> OnItemPicked;
+    [Header("Dialogues")]
+    public DialogueSO firstDialogueQuest;
     public DialogueSO quest;
+    public DialogueSO personQuest;
+
+    [SerializeField] ItemInteract trainPhotos;
     int personPhotoCount = 0;
     PhotoCapture photoCapture;
     PlayerStateController controller;
@@ -18,6 +23,7 @@ public class EventDialogueManager : Subject, IDependencyInjectable
     private void Start()
     {
         StartCoroutine(StartSceneMonologue(delayMonologue));
+        StartCoroutine(EnableTakeTrainPhotos());
     }
     private void OnEnable()
     {
@@ -30,6 +36,11 @@ public class EventDialogueManager : Subject, IDependencyInjectable
         DialogueUI.OnDialogueEndedById -= HandleDialgoueFinished;
         OnItemPicked -= HandleItemPicked;
         PhotoCapture.OnPhotoClueCaptured += HandlePhotoClueCaptured;
+    }
+    IEnumerator EnableTakeTrainPhotos()
+    {
+        yield return new WaitUntil(() => personQuest.Finished);
+        trainPhotos.canBePicked = true;
     }
     void HandlePhotoClueCaptured(string clueId)
     {
@@ -71,6 +82,8 @@ public class EventDialogueManager : Subject, IDependencyInjectable
     }
     void HandleItemPicked(string itemId)
     {
+        if (firstDialogueQuest.Finished) return;
+
         if(itemId == "Camera")
         {
             SendOnlyEvent(Events.With_Camera);
