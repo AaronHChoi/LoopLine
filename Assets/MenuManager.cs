@@ -21,6 +21,10 @@ public class MenuManager : MonoBehaviour
     [Header("Cursor")]
     [SerializeField] Texture2D cursorTexture;
 
+    [Header("Buttons")]
+    [SerializeField] Animator animator1;
+    [SerializeField] Animator animator2;
+
     private bool buttonsAllowed = false;
     private bool isFlashing = false;
     private bool isGrowing = true;
@@ -33,7 +37,7 @@ public class MenuManager : MonoBehaviour
 
         if (fade != null)
         {
-            StartCoroutine(AllowButtons(timeToEnableButtons));
+            StartCoroutine(AllowButtons(true, timeToEnableButtons));
             fade.ForceFade(false);
         }
 
@@ -64,6 +68,7 @@ public class MenuManager : MonoBehaviour
     public void ChangeToNextLevel()
     {
         if (!buttonsAllowed) return;
+        AllowButtons(false);
         ClikBehaviour();
         isDecreasingVolume = true;
         fade.ForceFade(true);
@@ -72,6 +77,7 @@ public class MenuManager : MonoBehaviour
     public void QuitGame()
     {
         if (!buttonsAllowed) return;
+        AllowButtons(false);
         ClikBehaviour();
         fade.ForceFade(true);
         StartCoroutine(ExitGame(timeToChangeSceneAfterCommand));
@@ -86,6 +92,7 @@ public class MenuManager : MonoBehaviour
             .WithSoundData(clickSoundData)
             .WithRandomPitch()
             .Play();
+        buttonsAllowed = false;
     }
     private IEnumerator flashCanvasAlpha()
     {
@@ -102,10 +109,12 @@ public class MenuManager : MonoBehaviour
             isGrowing = false;
         }
     }
-    private IEnumerator AllowButtons(float seconds)
+    private IEnumerator AllowButtons(bool isAllowed, float seconds = 0f)
     {
         yield return new WaitForSeconds(seconds);
         buttonsAllowed = true;
+        animator1.SetBool("IsAllowed", isAllowed);
+        animator2.SetBool("IsAllowed", isAllowed);
     }
     private IEnumerator ExitGame(float seconds)
     {
