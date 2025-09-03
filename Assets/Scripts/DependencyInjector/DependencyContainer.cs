@@ -44,8 +44,6 @@ public class DependencyContainer : MonoBehaviour
     public CinemachinePOVExtension CinemachinePOVExtension { get; private set; }
     #region PHOTO
     public PhotoCapture PhotoCapture { get; private set; }
-    public FocusModeManager FocusModeManager { get; private set; }
-    public PlayerInventorySystem PlayerInventorySystem { get; private set; }
     public PhotoMarker PhotoMarker { get; private set; }
     public PhotoDetectionZone PhotoDetectionZone { get; private set; }
     #endregion
