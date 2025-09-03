@@ -47,14 +47,17 @@ public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
     {
         GameObject item = itemToSpawn.objectPrefab;
 
-        item.SetActive(true);
-        item.transform.position = playerInventorySystem.SpawnPosition.position;
-        item.transform.rotation = playerInventorySystem.SpawnPosition.rotation;
-        item.transform.SetParent(playerInventorySystem.SpawnPosition);
+        if (item != null)
+        {
+            item.SetActive(true);
+            item.transform.position = playerInventorySystem.SpawnPosition.position;
+            item.transform.rotation = playerInventorySystem.SpawnPosition.rotation;
+            item.transform.SetParent(playerInventorySystem.SpawnPosition);
 
-        playerInventorySystem.ItemInUse = itemToSpawn;
+            playerInventorySystem.ItemInUse = itemToSpawn;
 
-        controller.ChangeState(controller.ObjectInHandState);
+            controller.ChangeState(controller.ObjectInHandState);
+        }
     }
     void DeactivateItem()
     {
