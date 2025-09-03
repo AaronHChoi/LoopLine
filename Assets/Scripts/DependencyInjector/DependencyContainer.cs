@@ -3,6 +3,7 @@ using Unity.Cinemachine;
 using UnityEngine;
 using Player;
 using InWorldUI;
+using UI;
 
 public class DependencyContainer : MonoBehaviour
 {
@@ -43,6 +44,7 @@ public class DependencyContainer : MonoBehaviour
     public CinemachinePOVExtension CinemachinePOVExtension { get; private set; }
     #region PHOTO
     public PhotoCapture PhotoCapture { get; private set; }
+    public PhotoMarker PhotoMarker { get; private set; }
     public PhotoDetectionZone PhotoDetectionZone { get; private set; }
     #endregion
 
@@ -87,6 +89,7 @@ public class DependencyContainer : MonoBehaviour
         PhotoCapture = FindAndValidate<PhotoCapture>();
         PlayerInteract = FindAndValidate<PlayerInteract>();
         PlayerInteraction = FindAndValidate<PlayerInteraction>();
+        PhotoMarker = FindAndValidate<PhotoMarker>();
         PhotoDetectionZone = FindAndValidate<PhotoDetectionZone>();
         EventDialogueManager = FindAndValidate<EventDialogueManager>();
     }

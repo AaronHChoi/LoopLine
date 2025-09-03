@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using Unity.Cinemachine.Samples;
 using InWorldUI;
+using UI;
 
 namespace Player
 {
@@ -26,6 +27,8 @@ namespace Player
         CinemachinePOVExtension cinemachinePOVExtension;
         TimeManager timeManager;
         PlayerInteraction interaction;
+        PhotoMarker photoMarker;
+        
         ITogglePhotoDetection togglePhotoDetection;
 
         public NormalState NormalState { get; private set; }
@@ -44,7 +47,7 @@ namespace Player
 
             NormalState = new NormalState(this, playerInputHandler, playerMovement, cinemachinePOVExtension);
             DialogueState = new DialogueState(this, playerInputHandler, playerMovement, cinemachinePOVExtension);
-            CameraState = new CameraState(this, playerInputHandler, playerMovement, photoCapture, cinemachinePOVExtension, interaction, togglePhotoDetection);
+            CameraState = new CameraState(this, playerInputHandler, playerMovement, photoCapture, cinemachinePOVExtension, interaction, togglePhotoDetection, photoMarker);
             DevelopmentState = new DevelopmentState(this, playerInputHandler, playerMovement, cinemachinePOVExtension, timeManager);
             FocusModeState = new FocusModeState(this, playerInputHandler, playerMovement, cinemachinePOVExtension);
             MindPlaceState = new MindPlaceState(this, playerInputHandler, playerMovement);
@@ -60,6 +63,7 @@ namespace Player
             cinemachinePOVExtension = provider.CinemachinePOVExtension;
             timeManager = provider.TimeManager;
             interaction = provider.PlayerInteraction;
+            photoMarker = provider.PhotoMarker;
         }
         private void Update()
         {
