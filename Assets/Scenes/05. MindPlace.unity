@@ -6825,6 +6825,14 @@ PrefabInstance:
       value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 4767400413853537203, guid: 8783a20c6c761e6488cf4026c401a789, type: 3}
+      propertyPath: m_Name
+      value: Door
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767400413853537203, guid: 8783a20c6c761e6488cf4026c401a789, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767400413853537203, guid: 8783a20c6c761e6488cf4026c401a789, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
@@ -6915,7 +6923,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4767400413853537203, guid: 8783a20c6c761e6488cf4026c401a789, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 573032411}
+    - targetCorrespondingSourceObject: {fileID: 4767400413853537203, guid: 8783a20c6c761e6488cf4026c401a789, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 573032410}
   m_SourcePrefab: {fileID: 100100000, guid: 8783a20c6c761e6488cf4026c401a789, type: 3}
 --- !u!1001 &197720985
 PrefabInstance:
@@ -10869,6 +10883,47 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1172397078}
   m_SourcePrefab: {fileID: 100100000, guid: f2f8c473a0557814798bcd3bca0cd839, type: 3}
+--- !u!1 &573032406 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4767400413853537203, guid: 8783a20c6c761e6488cf4026c401a789, type: 3}
+  m_PrefabInstance: {fileID: 196744936}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &573032410
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573032406}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 5, z: 3.5}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &573032411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573032406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51b3fed48c07bbc4aac6648908e2ecaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactText: Volver al tren
+  transitionVolumeSpeed: 2
+  photoManager: {fileID: 848524140}
 --- !u!1 &574917694
 GameObject:
   m_ObjectHideFlags: 0
@@ -23263,7 +23318,6 @@ MonoBehaviour:
   incorrectWordEvent: 
   player: {fileID: 0}
   dialogueSOManager: {fileID: 0}
-  eventManager: {fileID: 0}
   dialogueSpeaker: {fileID: 0}
   range: 6
   stopTrainQuestion: {fileID: 11400000, guid: 7545705168eb4dc419c9a25504d2330a, type: 2}
@@ -23489,7 +23543,6 @@ MonoBehaviour:
   incorrectWordEvent: 
   player: {fileID: 0}
   dialogueSOManager: {fileID: 0}
-  eventManager: {fileID: 0}
   dialogueSpeaker: {fileID: 0}
   range: 6
   stopTrainQuestion: {fileID: 0}
@@ -23587,7 +23640,6 @@ MonoBehaviour:
   incorrectWordEvent: IncorrectWordEvent
   player: {fileID: 0}
   dialogueSOManager: {fileID: 0}
-  eventManager: {fileID: 0}
   dialogueSpeaker: {fileID: 0}
   range: 6
   stopTrainQuestion: {fileID: 0}
@@ -24068,7 +24120,6 @@ MonoBehaviour:
   incorrectWordEvent: 
   player: {fileID: 0}
   dialogueSOManager: {fileID: 0}
-  eventManager: {fileID: 0}
   dialogueSpeaker: {fileID: 0}
   range: 6
   stopTrainQuestion: {fileID: 0}
@@ -24615,7 +24666,6 @@ MonoBehaviour:
   incorrectWordEvent: 
   player: {fileID: 0}
   dialogueSOManager: {fileID: 0}
-  eventManager: {fileID: 0}
   dialogueSpeaker: {fileID: 0}
   range: 6
   stopTrainQuestion: {fileID: 11400000, guid: 7545705168eb4dc419c9a25504d2330a, type: 2}
@@ -25714,7 +25764,6 @@ MonoBehaviour:
   incorrectWordEvent: 
   player: {fileID: 0}
   dialogueSOManager: {fileID: 0}
-  eventManager: {fileID: 0}
   dialogueSpeaker: {fileID: 0}
   range: 6
   stopTrainQuestion: {fileID: 0}
@@ -26204,7 +26253,6 @@ MonoBehaviour:
   incorrectWordEvent: 
   player: {fileID: 0}
   dialogueSOManager: {fileID: 0}
-  eventManager: {fileID: 0}
   dialogueSpeaker: {fileID: 0}
   range: 6
   stopTrainQuestion: {fileID: 0}
@@ -26274,7 +26322,6 @@ MonoBehaviour:
   incorrectWordEvent: IncorrectWordEvent
   player: {fileID: 0}
   dialogueSOManager: {fileID: 0}
-  eventManager: {fileID: 0}
   dialogueSpeaker: {fileID: 0}
   range: 6
   stopTrainQuestion: {fileID: 0}
@@ -26636,7 +26683,6 @@ MonoBehaviour:
   incorrectWordEvent: 
   player: {fileID: 0}
   dialogueSOManager: {fileID: 0}
-  eventManager: {fileID: 0}
   dialogueSpeaker: {fileID: 0}
   range: 6
   stopTrainQuestion: {fileID: 0}
@@ -26760,7 +26806,6 @@ MonoBehaviour:
   incorrectWordEvent: 
   player: {fileID: 0}
   dialogueSOManager: {fileID: 0}
-  eventManager: {fileID: 0}
   dialogueSpeaker: {fileID: 0}
   range: 6
   stopTrainQuestion: {fileID: 0}
@@ -27171,7 +27216,6 @@ MonoBehaviour:
   incorrectWordEvent: IncorrectWordEvent
   player: {fileID: 0}
   dialogueSOManager: {fileID: 0}
-  eventManager: {fileID: 0}
   dialogueSpeaker: {fileID: 0}
   range: 6
   stopTrainQuestion: {fileID: 0}
@@ -27196,7 +27240,6 @@ MonoBehaviour:
   incorrectWordEvent: 
   player: {fileID: 0}
   dialogueSOManager: {fileID: 0}
-  eventManager: {fileID: 0}
   dialogueSpeaker: {fileID: 0}
   range: 6
   stopTrainQuestion: {fileID: 0}
@@ -27586,7 +27629,6 @@ MonoBehaviour:
   incorrectWordEvent: 
   player: {fileID: 0}
   dialogueSOManager: {fileID: 0}
-  eventManager: {fileID: 0}
   dialogueSpeaker: {fileID: 0}
   range: 6
   stopTrainQuestion: {fileID: 0}
@@ -27792,7 +27834,6 @@ MonoBehaviour:
   incorrectWordEvent: 
   player: {fileID: 0}
   dialogueSOManager: {fileID: 0}
-  eventManager: {fileID: 0}
   dialogueSpeaker: {fileID: 0}
   range: 6
   stopTrainQuestion: {fileID: 0}
@@ -27902,7 +27943,6 @@ MonoBehaviour:
   incorrectWordEvent: 
   player: {fileID: 0}
   dialogueSOManager: {fileID: 0}
-  eventManager: {fileID: 0}
   dialogueSpeaker: {fileID: 0}
   range: 6
   stopTrainQuestion: {fileID: 11400000, guid: 7545705168eb4dc419c9a25504d2330a, type: 2}
