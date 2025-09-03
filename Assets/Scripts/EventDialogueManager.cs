@@ -52,6 +52,7 @@ public class EventDialogueManager : Subject, IDependencyInjectable
     {
         yield return new WaitUntil(() => !photoCapture.IsViewingPhoto && !CameraState.PolaroidIsActive);
 
+        personPhotoCount++;
         bool isFirstTimeForThisClue = false;
 
         if (clueId == null)
@@ -69,14 +70,14 @@ public class EventDialogueManager : Subject, IDependencyInjectable
         else if (clueId == "Person")
         {
             StartCoroutine(StartSceneMonologue(delayMonologue, Events.With_Some_Good_Photos));
-            personPhotoCount++;
+            
             if(personPhotoCount == 2)
             {
                 StartCoroutine(StartSceneMonologue(delayMonologue, Events.With_Two_Good_Photos_M));
             }
             if(personPhotoCount == 3)
             {
-                StartCoroutine(StartSceneMonologue(delayMonologue, Events.With_Event_Photo));
+                StartCoroutine(StartSceneMonologue(delayMonologue, Events.With_All_Good_Photos));
             }
         }
     }
