@@ -10,6 +10,7 @@ public class StopButtonInteract : MonoBehaviour, IInteract, IDependencyInjectabl
 
     [SerializeField] private string interactText = "";
     [SerializeField] private GameObject Crystal;
+    private bool hasStoped = false;
 
     [SerializeField] public GameObject TriggerRock;
     [SerializeField] public ItemInteract Rock;
@@ -18,6 +19,7 @@ public class StopButtonInteract : MonoBehaviour, IInteract, IDependencyInjectabl
     ItemManager itemManager;
     InventoryUI inventoryUI;
     EventManager eventManager;
+
 
     private void Awake()
     {
@@ -36,28 +38,32 @@ public class StopButtonInteract : MonoBehaviour, IInteract, IDependencyInjectabl
     }
     public void Interact()
     {
-        if (Crystal.gameObject.activeSelf == true)
+        if (!hasStoped)
         {
-            
-            if (inventory.ItemInUse == Rock)
+            if (Crystal.gameObject.activeSelf == true)
             {
 
-                SoundManager.Instance.CreateSound()
-                    .WithSoundData(BreakSecurityCrystal)
-                    .Play();
-                Crystal.gameObject.SetActive(false);
-                inventory.RemoveFromInventory(Rock);
-                
-            }
-        }
-        else
-        {
-            SoundManager.Instance.CreateSound()
-                    .WithSoundData(PushButton)
-                    .Play();
+                if (inventory.ItemInUse == Rock)
+                {
 
-            eventManager.TrainEventStopTrain();
-            
+                    SoundManager.Instance.CreateSound()
+                        .WithSoundData(BreakSecurityCrystal)
+                        .Play();
+                    Crystal.gameObject.SetActive(false);
+                    inventory.RemoveFromInventory(Rock);
+
+                }
+            }
+            else
+            {
+                SoundManager.Instance.CreateSound()
+                        .WithSoundData(PushButton)
+                        .Play();
+
+                eventManager.TrainEventStopTrain();
+                gameObject.layer = LayerMask.NameToLayer("Default");
+                hasStoped = true;
+            }
         }
     }
 
