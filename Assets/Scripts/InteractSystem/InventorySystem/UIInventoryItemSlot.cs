@@ -1,3 +1,4 @@
+using Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,11 +7,26 @@ public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
 {
     [SerializeField] private TextMeshProUGUI itemNameLabel;
     [SerializeField] private Image itemImage;
-    [SerializeField] private UnityEngine.UI.Button itemButton;
+    [SerializeField] private Button itemButton;
     public ItemInteract itemToSpawn { get; private set; }
-    public bool isActive = false;
+
+    bool isActive = false;
+    public bool IsActive
+    {
+        get => isActive;
+        set
+        {
+            if (isActive == value) return;
+            isActive = value;
+
+            if (isActive)
+                ActivateItem();
+            else
+                DeactivateItem();
+        }
+    }
     PlayerInventorySystem playerInventorySystem;
-    InventoryUI inventoryUI;
+    PlayerStateController controller;
 
     private void Start()
     {
@@ -19,7 +35,7 @@ public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
     public void InjectDependencies(DependencyContainer provider)
     {
         playerInventorySystem = provider.PlayerInventorySystem;
-        inventoryUI = provider.InventoryUI;
+        controller = provider.PlayerStateController;
     }
     public void Set(ItemInteract item)
     {
@@ -27,23 +43,27 @@ public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
         itemNameLabel.text = item.ItemData.itemName;
         itemToSpawn = item;
     }
-    private void Update()
+    void ActivateItem()
     {
-        if (isActive)
-        {
-            GameObject item = itemToSpawn.objectPrefab;
+        GameObject item = itemToSpawn.objectPrefab;
 
+        if (item != null)
+        {
             item.SetActive(true);
             item.transform.position = playerInventorySystem.SpawnPosition.position;
             item.transform.rotation = playerInventorySystem.SpawnPosition.rotation;
             item.transform.SetParent(playerInventorySystem.SpawnPosition);
 
             playerInventorySystem.ItemInUse = itemToSpawn;
+
+            controller.ChangeState(controller.ObjectInHandState);
         }
-        else 
-        {
-            itemToSpawn.objectPrefab.gameObject.SetActive(false);
-        }
+    }
+    void DeactivateItem()
+    {
+        itemToSpawn.objectPrefab.gameObject.SetActive(false);
+
+        controller.ChangeState(controller.NormalState);
     }
     public void SpawnItem()
     {

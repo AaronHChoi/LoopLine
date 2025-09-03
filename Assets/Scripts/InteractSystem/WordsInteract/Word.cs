@@ -16,7 +16,6 @@ public class Word : Subject, IWord /*IInteract*/
     [SerializeField] private string incorrectWordEvent;
     [SerializeField] private GameObject player;
     [SerializeField] private DialogueSOManager dialogueSOManager;
-    [SerializeField] MindPlaceEventManagerMind eventManager;
     [SerializeField] private DialogueSpeaker dialogueSpeaker;
 
 
@@ -36,8 +35,6 @@ public class Word : Subject, IWord /*IInteract*/
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        eventManager = FindFirstObjectByType<MindPlaceEventManagerMind>();
-        dialogueSOManager = player.GetComponent<DialogueSOManager>();
         dialogueSpeaker = player.GetComponent<DialogueSpeaker>();
         if (playerController == null)
         {
@@ -59,7 +56,6 @@ public class Word : Subject, IWord /*IInteract*/
             if(correctWordEvent != null)
             {
                 //dialogueSOManager.TriggerEventDialogue(correctWordEvent);
-                eventManager.EventTriggerMonologue();
             }                     
         }
         else
@@ -67,7 +63,6 @@ public class Word : Subject, IWord /*IInteract*/
             if (incorrectWordEvent != null)
             {
                 //dialogueSOManager.TriggerEventDialogue(incorrectWordEvent);
-                eventManager.EventTriggerMonologue();
                 tmpro.color = Color.red;
                 incorrectWordSelected = true;
             }

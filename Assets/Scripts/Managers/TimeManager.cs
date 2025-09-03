@@ -7,7 +7,7 @@ public class TimeManager : MonoBehaviour, IDependencyInjectable, ITimeProvider
     EventManager eventManager;
 
     float loopTime = 360f;
-    private bool IsTimePaused = false;  
+    bool IsTimePaused = false;  
     public float LoopTime
     {
         get => loopTime;
@@ -64,10 +64,12 @@ public class TimeManager : MonoBehaviour, IDependencyInjectable, ITimeProvider
     public void SetLoopTimeToStopTrain()
     {
         SetLoopTime(250f);
+        PauseTime(false);
     }
     public void SetLoopTimeToBreakCrystal()
     {
         SetLoopTime(70f);
+        PauseTime(false);
     }
     private void AdvanceTime()
     {
@@ -78,12 +80,9 @@ public class TimeManager : MonoBehaviour, IDependencyInjectable, ITimeProvider
             ResetLoopTime();
             gameSceneManager.LoadNextScene(GameManager.Instance.nextScene);
             dialogueManager.ResetAllQuestions();
-            eventManager.InitializeDialogues();
         }
     }
-
     public void PauseTime(bool pause) => IsTimePaused = pause;
-    
     public string returnTimeInMinutes()
     {
         int minutos = Mathf.FloorToInt(LoopTime / 60f);

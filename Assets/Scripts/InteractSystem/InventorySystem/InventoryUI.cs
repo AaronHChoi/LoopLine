@@ -14,7 +14,7 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
     private float lastSlotChangeTime = 0f;
     public int currentSlotIndex = 0;
 
-    PlayerStateController playerStateController;
+    PlayerStateController controller;
     private void Awake()
     {
         InjectDependencies(DependencyContainer.Instance);
@@ -34,7 +34,7 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
     }
     private void Update()
     {
-        if (!DependencyContainer.Instance.PlayerStateController.IsInState(playerStateController.InventoryState)) return;
+        //if (!DependencyContainer.Instance.PlayerStateController.IsInState(playerStateController.InventoryState)) return;
 
         float scroll = DependencyContainer.Instance.PlayerInputHandler.GetScrollValue();
 
@@ -80,7 +80,7 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
     }
     public void ChangeSlot(int direction)
     {
-        inventorySlots[currentSlotIndex].isActive = false;
+        inventorySlots[currentSlotIndex].IsActive = false;
 
         currentSlotIndex += direction;
 
@@ -89,7 +89,12 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
         else if (currentSlotIndex >= inventorySlots.Count)
             currentSlotIndex = 0;
 
-        inventorySlots[currentSlotIndex].isActive = true;
+        inventorySlots[currentSlotIndex].IsActive = true;
+
+        if(currentSlotIndex == 0)
+        {
+            controller.ChangeState(controller.NormalState);
+        }
 
         MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
     }
@@ -124,6 +129,6 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
 
     public void InjectDependencies(DependencyContainer provider)
     {
-        playerStateController = provider.PlayerStateController;
+        controller = provider.PlayerStateController;
     }
 }

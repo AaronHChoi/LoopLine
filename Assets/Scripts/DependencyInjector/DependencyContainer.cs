@@ -16,15 +16,14 @@ public class DependencyContainer : MonoBehaviour
     public TimeManager TimeManager { get; private set; }
     public GameSceneManager GameSceneManager { get; private set; }
     public DevelopmentManager DevelopmentManager { get; private set; }
-    public Subject SubjectEventManager { get; private set; }
     public QuestionManager QuestionManager { get; private set; }
     public EventManager EventManager { get; private set; }
     public SoundManager SoundManager { get; private set; }
     public NoteBookManager NoteBookManager { get; private set; }
     public ItemManager ItemManager { get; private set; }
-
+    public FocusModeManager FocusModeManager { get; private set; }
     public ItemInteract ItemInteract { get; private set; }
-
+    public EventDialogueManager EventDialogueManager { get; private set; }
     public InventoryUI InventoryUI { get; private set; }
     #endregion
 
@@ -37,15 +36,20 @@ public class DependencyContainer : MonoBehaviour
     public PlayerStateController PlayerStateController { get; private set; }
     public PlayerInteract PlayerInteract { get; private set; }
     public PlayerInteraction PlayerInteraction { get; private set; }
+    public PlayerInventorySystem PlayerInventorySystem { get; private set; }
     #endregion
     public DialogueUI DialogueUI { get; private set; }
     public Parallax Parallax { get; private set; }
     public CinemachineCamera CinemachineCamera { get; private set; }
     public CinemachinePOVExtension CinemachinePOVExtension { get; private set; }
+    #region PHOTO
     public PhotoCapture PhotoCapture { get; private set; }
     public FocusModeManager FocusModeManager { get; private set; }
     public PlayerInventorySystem PlayerInventorySystem { get; private set; }
     public PhotoMarker PhotoMarker { get; private set; }
+    public PhotoDetectionZone PhotoDetectionZone { get; private set; }
+    #endregion
+
     private void Awake()
     {
         if(Instance != null && Instance != this)
@@ -59,7 +63,6 @@ public class DependencyContainer : MonoBehaviour
     }
     private void InitializeDependencies()
     {
-        SubjectEventManager = FindAndValidate<Subject>();
         DevelopmentManager = FindAndValidate<DevelopmentManager>();
         UIManager = FindAndValidate<UIManager>();
         DialogueUI = FindAndValidate<DialogueUI>();
@@ -89,6 +92,8 @@ public class DependencyContainer : MonoBehaviour
         PlayerInteract = FindAndValidate<PlayerInteract>();
         PlayerInteraction = FindAndValidate<PlayerInteraction>();
         PhotoMarker = FindAndValidate<PhotoMarker>();
+        PhotoDetectionZone = FindAndValidate<PhotoDetectionZone>();
+        EventDialogueManager = FindAndValidate<EventDialogueManager>();
     }
     private T FindAndValidate<T>() where T : MonoBehaviour
     {

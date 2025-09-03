@@ -100,7 +100,7 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
     }
     private void HandlePlayerStateChanged(IState newState)
     {
-        if (newState == playerStateController.NormalState)
+        if (newState == playerStateController.ObjectInHandState)
         {
             cameraActive = false;
         }

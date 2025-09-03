@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,15 +16,27 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     public bool NPCInteracted = false;
     [SerializeField] Transform headTarget;
 
-    DevelopmentManager developmentManager;
-    Subject eventManager;
-    DialogueSOManager dialogueSOManager;
+    EventDialogueManager eventDialogueManager;
 
     IUIManager uiManager;
+
+    [Serializable]
+    public class DialogueStateChange
+    {
+        public DialogueSO dialogue;
+        public bool unlock;
+    }
+    [Serializable]
+    public class DialogueEvent
+    {
+        public Events EventType;
+        public List<DialogueStateChange> changes;
+    }
+    public List<DialogueEvent> DialogueEvents;
+
     #region MAGIC_METHODS
     private void Awake()
     {
-        dialogueSOManager = GetComponent<DialogueSOManager>();
         InjectDependencies(DependencyContainer.Instance);
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
     }
@@ -34,26 +47,54 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
 
         DialogueRefresh();
     }
-    public void OnNotify(Events _event)
+    public void OnNotify(Events _event, string _id = null)
     {
         if (_event == Events.TriggerMonologue)
             TriggerPlayerDialogue();
     }
     private void OnEnable()
     {
-        if(eventManager != null)
-            eventManager.AddObserver(this);
+        if(eventDialogueManager != null)
+            eventDialogueManager.AddObserver(this);
     }
     private void OnDisable()
     {
-        if (eventManager != null)
-            eventManager.RemoveObserver(this);
+        if (eventDialogueManager != null)
+            eventDialogueManager.RemoveObserver(this);
     }
     #endregion
+    public void TriggerEventDialogue(Events triggeredEvent)
+    {
+        DialogueEvent config = DialogueEvents.Find(e => e.EventType == triggeredEvent);
+
+        if (config == null)
+        {
+            Debug.LogWarning($"No DialogueEvent found for {triggeredEvent}");
+            return;
+        }
+
+        foreach (var change in config.changes)
+        {
+            if (change.dialogue == null)
+            {
+                Debug.LogWarning("DialogueSO is null in changes");
+                continue;
+            }
+
+            if (AvailableDialogs.Contains(change.dialogue))
+            {
+                change.dialogue.Unlocked = change.unlock;
+                Debug.Log($"Dialogue {change.dialogue.name} set to {change.unlock}");
+            }
+            else
+            {
+                Debug.LogWarning($"DialogueSO {change.dialogue.name} not found in AvailableDialogs of {name}");
+            }
+        }
+    }
     public void InjectDependencies(DependencyContainer provider)
     {
-        developmentManager = provider.DevelopmentManager;
-        eventManager = provider.SubjectEventManager;
+        eventDialogueManager = provider.EventDialogueManager;
     }
     public void DialogueTrigger()
     {
@@ -66,7 +107,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
 
         if (isDialogueActive) return;
 
-        GameManager.Instance.SetBool(id, true);
+        //GameManager.Instance.SetBool(id, true);
         
         while (dialogueIndex < AvailableDialogs.Count && !AvailableDialogs[dialogueIndex].Unlocked)
         {
@@ -117,12 +158,6 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     public void EndDialogue()
     {
         isDialogueActive = false;
-        //dialogueSOManager.CheckFirstInteraction();
-
-        //if (lookAtNPC != null)
-        //{
-        //    lookAtNPC.ClearTarget();
-        //}
     }
     bool DialogueUpdate()
     {

@@ -6,12 +6,14 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
 {
     public static event Action OnDialogueStarted;
     public static event Action OnDialogueEnded;
+    public static event Action<string> OnDialogueEndedById;
     public static DialogueManager Instance { get; private set; }
     public static DialogueSpeaker actualSpeaker;
     
     public bool isDialogueActive = false;
     
     public List<DialogueSO> AllDialogues = new List<DialogueSO>();
+    public List<DialogueSO> AllFirstDialogues = new List<DialogueSO>();
     public List<QuestionSO> AllQuestions = new List<QuestionSO>();
     public List<QuestionSO> SelectQuestions = new List<QuestionSO>();
 
@@ -107,7 +109,16 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
     {
         _dialogue.Unlocked = unlocking;
     }
-
+    public void UnlockFirstDialogues()
+    {
+        foreach (DialogueSO dialogue in AllFirstDialogues)
+        {
+            if (dialogue != null)
+            {
+                dialogue.Unlocked = true;
+            }
+        }
+    }
     public void ResetAllDialogues()
     {
         foreach(DialogueSO dialogue in AllDialogues)
@@ -154,6 +165,8 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
             foreach (var dialogue in actualSpeaker.AvailableDialogs)
             {
                 dialogue.Finished = true;
+
+                OnDialogueEndedById?.Invoke(dialogue.id);
             }
             actualSpeaker.dialogueIndex = 0;
             actualSpeaker.DialogueLocalIndex = 0;

@@ -1,3 +1,4 @@
+using Unity.Cinemachine.Samples;
 using UnityEngine;
 
 namespace Player
@@ -7,16 +8,19 @@ namespace Player
         PlayerStateController controller;
         PlayerInputHandler input;
         PlayerMovement movement;
+        CinemachinePOVExtension playerCamera;
 
-        public FocusModeState(PlayerStateController controller, PlayerInputHandler input, PlayerMovement movement)
+        public FocusModeState(PlayerStateController controller, PlayerInputHandler input, PlayerMovement movement, CinemachinePOVExtension playerCamera)
         {
             this.controller = controller;
             this.input = input;
             this.movement = movement;
+            this.playerCamera = playerCamera;
         }
         public void Enter()
         {
             movement.CanMove = true;
+            playerCamera.CanLook = true;
             Debug.Log("Entering FocusModeState");
         }
         public void Execute()
@@ -30,6 +34,7 @@ namespace Player
         public void Exit()
         {
             movement.CanMove = false;
+            playerCamera.CanLook = false;
             Debug.Log("Exiting FocusModeState");
         }
     }

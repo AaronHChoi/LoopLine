@@ -5,7 +5,11 @@ namespace Unity.Cinemachine.Samples
 {
     public class CinemachinePOVExtension : MonoBehaviour, Unity.Cinemachine.IInputAxisOwner, ICameraOrientation, IDependencyInjectable
     {
-        [SerializeField] PlayerController controller;
+        PlayerController controller;
+        [SerializeField] PlayerInputHandler inputHandler;
+
+        bool canLook = true;
+        public bool CanLook { get => canLook; set => canLook = value;}
 
         [Header("Input Axes")]
         [Tooltip("Horizontal rotation.  Value is -1..1.")]
@@ -47,9 +51,16 @@ namespace Unity.Cinemachine.Samples
         }
         private void LateUpdate()
         {
+            HandleLook();
+        }
+        public void HandleLook()
+        {
+            if (!canLook) return;
+
+            Vector2 lookDelta = inputHandler.GetInputDelta();
             // Manejar rotación de la cámara
-            Pan.Value += Input.GetAxis("Mouse X") * controller.PlayerModel.LookSensitivity * Time.deltaTime;
-            Tilt.Value -= Input.GetAxis("Mouse Y") * controller.PlayerModel.LookSensitivity * Time.deltaTime;
+            Pan.Value += lookDelta.x * controller.PlayerModel.LookSensitivity * Time.deltaTime;
+            Tilt.Value -= lookDelta.y * controller.PlayerModel.LookSensitivity * Time.deltaTime;
 
             // Limitar la rotación vertical a un rango definido
             Tilt.Value = Mathf.Clamp(Tilt.Value, -70f, 70f);
@@ -70,6 +81,7 @@ namespace Unity.Cinemachine.Samples
         public void InjectDependencies(DependencyContainer provider)
         {
             controller = provider.PlayerController;
+            //inputHandler = provider.PlayerInputHandler;
         }
     }
 }

@@ -1,5 +1,6 @@
 using InWorldUI;
 using UI;
+using Unity.Cinemachine.Samples;
 using UnityEngine;
 
 namespace Player
@@ -10,23 +11,29 @@ namespace Player
         PlayerInputHandler input;
         PlayerMovement movement;
         PhotoCapture photo;
+        CinemachinePOVExtension playerCamera;
         PlayerInteraction interaction;
         PhotoMarker photoMarker;
+        ITogglePhotoDetection togglePhotoDetection;
         public CameraState(PlayerStateController controller, PlayerInputHandler input, PlayerMovement movement, 
-            PhotoCapture photo, PlayerInteraction interaction,  PhotoMarker photoMarker)
+            PhotoCapture photo, CinemachinePOVExtension playerCamera, PlayerInteraction interaction, ITogglePhotoDetection togglePhotoDetection, PhotoMarker photoMarker)
         {
             this.controller = controller;
             this.input = input;
             this.movement = movement;
             this.photo = photo;
+            this.playerCamera = playerCamera;
             this.interaction = interaction;
             this.photoMarker = photoMarker;
+            this.togglePhotoDetection = togglePhotoDetection;
         }
         public void Enter()
         {
             interaction.SetInteractableDetection(false);
             movement.CanMove = true;
             photoMarker.enabled = true;
+            playerCamera.CanLook = true;
+            togglePhotoDetection.ToggleCollider(true);
             Debug.Log("Entering CameraState");
         }
         public void Execute()
@@ -35,7 +42,7 @@ namespace Player
             {
                 if (!photo.IsViewingPhoto)
                 {
-                    controller.ChangeState(controller.NormalState);
+                    controller.ChangeState(controller.ObjectInHandState);
                 }
             }
             if (input.TakePhotoPressed())
@@ -48,6 +55,8 @@ namespace Player
             interaction.SetInteractableDetection(true);
             movement.CanMove = false;
             photoMarker.enabled = false;
+            playerCamera.CanLook = false;
+            togglePhotoDetection.ToggleCollider(false);
             Debug.Log("Exiting CameraState");
         }
     }
