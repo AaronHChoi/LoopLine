@@ -6,6 +6,7 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
 {
     public static event Action OnDialogueStarted;
     public static event Action OnDialogueEnded;
+    public static event Action<string> OnDialogueEndedById;
     public static DialogueManager Instance { get; private set; }
     public static DialogueSpeaker actualSpeaker;
     
@@ -164,6 +165,8 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
             foreach (var dialogue in actualSpeaker.AvailableDialogs)
             {
                 dialogue.Finished = true;
+
+                OnDialogueEndedById?.Invoke(dialogue.id);
             }
             actualSpeaker.dialogueIndex = 0;
             actualSpeaker.DialogueLocalIndex = 0;

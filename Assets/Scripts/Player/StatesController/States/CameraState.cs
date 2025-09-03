@@ -37,7 +37,7 @@ namespace Player
             {
                 if (!photo.IsViewingPhoto)
                 {
-                    controller.ChangeState(controller.NormalState);
+                    controller.ChangeState(controller.ObjectInHandState);
                 }
             }
             if (input.TakePhotoPressed())
