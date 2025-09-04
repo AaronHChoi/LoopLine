@@ -51,7 +51,7 @@ public class InterfaceDependencyInjector : MonoBehaviour, IDependencyInjectable
             return (T)service;
         }
 
-        throw new System.Exception($"Service of type {typeof(T)} not registered");
+        throw new Exception($"Service of type {typeof(T)} not registered");
     }
     void ValidateRegistrations()
     {
