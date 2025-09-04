@@ -1,6 +1,8 @@
+
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 namespace InWorldUI
 {
@@ -9,12 +11,16 @@ namespace InWorldUI
         [SerializeField] private TextMeshProUGUI promptText;
         [SerializeField] private FadeInOutController fadeInOutLabel;
         [SerializeField] private FadeInOutController fadeInOutMarker;
-
+        [Header("Interaction Icons")]
+        [SerializeField] private Sprite interactionIcon;
+        [SerializeField] private Sprite grabIcon;
 
         void Awake()
         {
             if (promptText == null)
                 promptText = GetComponentInChildren<TextMeshProUGUI>();
+            
+            
         }
         public void Init(string promptMessage, Vector3 promptOffset)
         {
