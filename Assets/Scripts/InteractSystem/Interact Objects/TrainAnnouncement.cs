@@ -52,8 +52,11 @@ public class TrainAnnouncement : MonoBehaviour
     {
         int hours = currentTime / 60 % 24;
         int minutes = currentTime % 60;
+        string pmam = currentTime > 12 ? "PM" : "AM";
         string formattedTime = $"{hours:D2}:{minutes:D2}";
-        string message = $"Tiempo actual: {formattedTime}, la próxima estación es {nextStationName}    ";
+
+        string message = $"Current time: {formattedTime} {pmam}. The next station is: {nextStationName}...    ";
+
         announcementText.text = message;
     }
 }
