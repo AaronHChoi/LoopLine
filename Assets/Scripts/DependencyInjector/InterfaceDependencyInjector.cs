@@ -1,25 +1,13 @@
 using System.Collections.Generic;
-using Unity.Cinemachine.Samples;
 using UnityEngine;
+using System;
 
 public class InterfaceDependencyInjector : MonoBehaviour, IDependencyInjectable
 {
     public static InterfaceDependencyInjector Instance { get; private set; }
     
-    private readonly Dictionary<System.Type, object> services = new();
+    private readonly Dictionary<Type, object> services = new();
 
-    FocusModeManager focusModeManager;
-    NoteBookManager noteBookManager;
-    CinemachinePOVExtension cinemachinePOVExtension;
-    PlayerInputHandler playerInputHandler;
-    PlayerCamera playerCamera;
-    PlayerView playerView;
-    PlayerController playerController;
-    DialogueManager dialogueManager;
-    TimeManager timeManager;
-    UIManager uiManager;
-    PhotoDetectionZone photoDetectionZone;
-    SoundManager soundManager;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -30,39 +18,30 @@ public class InterfaceDependencyInjector : MonoBehaviour, IDependencyInjectable
         Instance = this;
 
         InjectDependencies(DependencyContainer.Instance);
-        InitializeInterfaces();
+
+        ValidateRegistrations();
     }
     public void InjectDependencies(DependencyContainer provider)
     {
-        focusModeManager = provider.FocusModeManager;
-        noteBookManager = provider.NoteBookManager;
-        cinemachinePOVExtension = provider.CinemachinePOVExtension;
-        playerInputHandler = provider.PlayerInputHandler;
-        playerCamera = provider.PlayerCamera;
-        playerView = provider.PlayerView;
-        playerController = provider.PlayerController;
-        dialogueManager = provider.DialogueManager;
-        timeManager = provider.TimeManager;
-        uiManager = provider.UIManager;
-        soundManager = provider.SoundManager;
-        photoDetectionZone = provider.PhotoDetectionZone;
-    }
-    private void InitializeInterfaces()
-    {
-        Register<IColliderToggle>(focusModeManager);
-        Register<INoteBookColliderToggle>(noteBookManager);
-        Register<ICameraOrientation>(cinemachinePOVExtension);
-        Register<IPlayerMovementInput>(playerInputHandler);
-        Register<IPlayerCamera>(playerCamera);
-        Register<IPlayerView>(playerView);
-        Register<IPlayerController>(playerController);
-        Register<IDialogueManager>(dialogueManager);
-        Register<ITimeProvider>(timeManager);
-        Register<IUIManager>(uiManager);
-        Register<ITogglePhotoDetection>(photoDetectionZone);
+        Register<IColliderToggle>(provider.FocusModeManager);
+        Register<INoteBookColliderToggle>(provider.NoteBookManager);
+        Register<ICameraOrientation>(provider.CinemachinePOVExtension);
+        Register<IPlayerMovementInput>(provider.PlayerInputHandler);
+        Register<IPlayerCamera>(provider.PlayerCamera);
+        Register<IPlayerView>(provider.PlayerView);
+        Register<IPlayerController>(provider.PlayerController);
+        Register<IDialogueManager>(provider.DialogueManager);
+        Register<ITimeProvider>(provider.TimeManager);
+        Register<IUIManager>(provider.UIManager);
+        Register<ITogglePhotoDetection>(provider.PhotoDetectionZone);
     }
     public void Register<T>(T service)
     {
+        if (service == null)
+        {
+            Debug.LogWarning($"[Injector] Tried to register null for {typeof(T)}");
+            return;
+        }
         services[typeof(T)] = service;
     }
     public T Resolve<T>()
@@ -73,5 +52,18 @@ public class InterfaceDependencyInjector : MonoBehaviour, IDependencyInjectable
         }
 
         throw new System.Exception($"Service of type {typeof(T)} not registered");
+    }
+    void ValidateRegistrations()
+    {
+        Type[] required =
+        {
+            typeof(IColliderToggle),
+        };
+
+        foreach (var type in required)
+        {
+            if (!services.ContainsKey(type))
+                Debug.LogError($"[Injector] Missing required service: {type}");
+        }
     }
 }
