@@ -8,6 +8,7 @@ public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
     [SerializeField] private TextMeshProUGUI itemNameLabel;
     [SerializeField] private Image itemImage;
     [SerializeField] private Button itemButton;
+    [SerializeField] private bool hideName;
     public ItemInteract itemToSpawn { get; private set; }
 
     bool isActive = false;
@@ -40,7 +41,7 @@ public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
     public void Set(ItemInteract item)
     {
         itemImage.sprite = item.ItemData.itemIcon;
-        itemNameLabel.text = item.ItemData.itemName;
+        itemNameLabel.text = hideName ? "" : item.ItemData.itemName;
         itemToSpawn = item;
     }
     void ActivateItem()
