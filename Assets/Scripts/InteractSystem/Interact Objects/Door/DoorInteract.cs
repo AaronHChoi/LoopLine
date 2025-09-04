@@ -16,12 +16,9 @@ public class DoorInteract : MonoBehaviour, IInteract
     private Vector3 doorLeftPosOpen, doorRightPosOpen;
     private Vector3 doorLeftClosed, doorRightClosed;
     private bool isOpen = false;
-
-    [SerializeField] BoxCollider[] colliderDoor;
     private void Awake()
     {
         openDoor = GetComponent<AudioSource>();
-        colliderDoor = GetComponents<BoxCollider>();
     }
     void Start()
     {
@@ -45,29 +42,9 @@ public class DoorInteract : MonoBehaviour, IInteract
     private void ToggleDoors()
     {
         StopAllCoroutines();
-        if (isOpen)
-        {
-            //SetColliderState(true);
-            StartCoroutine(ActiveColliderWithDelay());
-        }
-        else
-        {
-            SetColliderState(false);
-        }
+
             StartCoroutine(MoveDoors(isOpen ? doorLeftClosed : doorLeftPosOpen, isOpen ? doorRightClosed : doorRightPosOpen));
         isOpen = !isOpen;
-    }
-    void SetColliderState(bool state)
-    {
-        foreach (var collider in colliderDoor)
-        {
-            collider.enabled = state;
-        }
-    }
-    IEnumerator ActiveColliderWithDelay()
-    {
-        yield return new WaitForSeconds(3f);
-        SetColliderState(true);
     }
     private void Update()
     {
@@ -82,7 +59,7 @@ public class DoorInteract : MonoBehaviour, IInteract
         }
     }
 
-    private System.Collections.IEnumerator MoveDoors(Vector3 leftTarget, Vector3 rightTarget)
+    private IEnumerator MoveDoors(Vector3 leftTarget, Vector3 rightTarget)
     {
         openDoor.Play();
         while (Vector3.Distance(doorLeft.position, leftTarget) > 0.01f || Vector3.Distance(doorRight.position, rightTarget) > 0.01f)

@@ -10,6 +10,7 @@ public class ButtonMindPlace : MonoBehaviour, IInteract
     private float volumeWeight = 1f;
     private Volume volumeToTrain;
     private bool isVolumeActive = false;
+    private bool isDoorActive = true;
 
     [SerializeField] PhotoManager photoManager;
     private void Update()
@@ -23,6 +24,9 @@ public class ButtonMindPlace : MonoBehaviour, IInteract
 
     public void Interact()
     {
+        if (!isDoorActive) return;
+
+        isDoorActive = false;
         photoManager.ResetPhotos();
         InitializeVolume();
         isVolumeActive = true;
