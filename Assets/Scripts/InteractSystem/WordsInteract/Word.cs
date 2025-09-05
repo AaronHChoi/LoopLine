@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-using System.Collections;
+
 public class Word : Subject, IWord /*IInteract*/
 {
     [SerializeField] public bool isCorrectWord;

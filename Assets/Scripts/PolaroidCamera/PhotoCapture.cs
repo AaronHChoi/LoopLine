@@ -179,11 +179,14 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
     {
         if (photoTaken < worldPhotoRenderers.Count)
         {
-            Texture2D photoCopy = new Texture2D(screenCapture.width, screenCapture.height, screenCapture.format, false, false);
+            Texture2D photoCopy = new Texture2D(screenCapture.width, screenCapture.height, TextureFormat.RGBA32, true, true);
             photoCopy.SetPixels(screenCapture.GetPixels());
             photoCopy.Apply();
 
             AdjustBrightness(photoCopy, brightnessFactorClue);
+
+            photoCopy.wrapMode = TextureWrapMode.Clamp;
+            photoCopy.filterMode = FilterMode.Bilinear;
 
             worldPhotoRenderers[photoTaken].material.mainTexture = photoCopy;
 
@@ -228,7 +231,9 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
         Color[] pixels = texture.GetPixels();
         for (int i = 0; i < pixels.Length; i++)
         {
+            pixels[i] = pixels[i].gamma;
             pixels[i] *= brigtnessFactor;
+            pixels[i] = pixels[i].linear;
         }
         texture.SetPixels(pixels);
         texture.Apply();

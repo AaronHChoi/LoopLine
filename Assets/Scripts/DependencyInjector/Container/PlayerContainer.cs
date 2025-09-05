@@ -28,17 +28,10 @@ namespace DependencyInjection
         }
         public void RegisterServices(InterfaceDependencyInjector injector)
         {
-            injector.Register<IPlayerMovementInput>(PlayerInputHandler);
             injector.Register<IPlayerCamera>(PlayerCamera);
             injector.Register<IPlayerController>(PlayerController);
             injector.Register<IPlayerView>(PlayerView);
-            //injector.Register<IPlayerControllerTransform>(PlayerController);
-            //injector.Register<ILookSensitivityProvider>(PlayerController.PlayerModel);
-            //injector.Register<IMoveable>(PlayerController.PlayerModel);
-            //injector.Register<IPlayerInventory>(PlayerInventorySystem);
-            //injector.Register<IFocusable>(PlayerController.PlayerModel);
-            //injector.Register<IPlayerInteract>(PlayerInteract);
-            //injector.Register<IPlayerInteraction>(PlayerInteraction);
+            injector.Register<IPlayerInputHandler>(PlayerInputHandler);
         }
     }
 }
