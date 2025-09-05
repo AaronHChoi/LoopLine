@@ -11,9 +11,6 @@ namespace InWorldUI
         [SerializeField] private TextMeshProUGUI promptText;
         [SerializeField] private FadeInOutController fadeInOutLabel;
         [SerializeField] private FadeInOutController fadeInOutMarker;
-        [Header("Interaction Icons")]
-        [SerializeField] private Sprite interactionIcon;
-        [SerializeField] private Sprite grabIcon;
 
         void Awake()
         {

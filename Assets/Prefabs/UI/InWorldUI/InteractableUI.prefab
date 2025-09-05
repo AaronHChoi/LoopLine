@@ -163,8 +163,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 76.2, y: 0}
-  m_SizeDelta: {x: 30, y: 30}
+  m_AnchoredPosition: {x: 75.44, y: -0.45}
+  m_SizeDelta: {x: 48.59, y: 48.59}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9196252619509122168
 CanvasRenderer:
@@ -291,6 +291,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6218576153863284230}
   - component: {fileID: 6628235832699149694}
+  - component: {fileID: 8497102642362912623}
   m_Layer: 0
   m_Name: InteractableUI
   m_TagString: Untagged
@@ -329,6 +330,21 @@ MonoBehaviour:
   promptText: {fileID: 2687969956220259175}
   fadeInOutLabel: {fileID: 4545040265927340003}
   fadeInOutMarker: {fileID: 7463885958974916273}
+--- !u!114 &8497102642362912623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8126998424926040465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 141a026d72c7c9148b8fdcbaea22b8b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 9099673545848429222}
+  grabIcon: {fileID: 21300000, guid: dc605170ec916ce478464cae97e1ce2e, type: 3}
+  interactIcon: {fileID: 21300000, guid: 0317eb296da91804cad818dc1548662c, type: 3}
 --- !u!1 &8364939726979452089
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,8 +425,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -19.895, y: 0}
-  m_SizeDelta: {x: 149.79, y: 40}
+  m_AnchoredPosition: {x: -21.43, y: 0}
+  m_SizeDelta: {x: 150.41, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4296960770639750537
 CanvasRenderer:
@@ -560,7 +576,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8699955073942713553}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
