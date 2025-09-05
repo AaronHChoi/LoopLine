@@ -3,6 +3,7 @@ using Player;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using DependencyInjection;
 
 public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
 {
@@ -192,7 +193,7 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
     }
     public void InjectDependencies(DependencyContainer provider)
     {
-        itemManager = provider.ItemManager;
-        playerStateController = provider.PlayerStateController;
+        itemManager = provider.ManagerContainer.ItemManager;
+        playerStateController = provider.PlayerContainer.PlayerStateController;
     }
 }

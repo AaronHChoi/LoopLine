@@ -5,7 +5,7 @@ using Player;
 using UI;
 using UnityEngine;
 using UnityEngine.UI;
-
+using DependencyInjection;
 public class PhotoCapture : MonoBehaviour, IDependencyInjectable
 {
     [Header("Photo Taker")]
@@ -77,9 +77,9 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
     #endregion
     public void InjectDependencies(DependencyContainer provider)
     {
-        playerStateController = provider.PlayerStateController;
-        photoMarkerManager = provider.PhotoMarkerManager;
-        photoDetectionZone = provider.PhotoDetectionZone;
+        playerStateController = provider.PlayerContainer.PlayerStateController;
+        photoMarkerManager = provider.PhotoContainer.PhotoMarkerManager;
+        photoDetectionZone = provider.PhotoContainer.PhotoDetectionZone;
     }
     private void HandleTakePhoto()
     {

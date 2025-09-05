@@ -1,7 +1,5 @@
 using UnityEngine;
-using System.Collections.Generic;
-using System;
-
+using DependencyInjection;
 public class WindowEvent : MonoBehaviour, IObserver, IDependencyInjectable
 {
     EventManager eventManager;
@@ -35,6 +33,6 @@ public class WindowEvent : MonoBehaviour, IObserver, IDependencyInjectable
     }
     public void InjectDependencies(DependencyContainer provider)
     {
-        eventManager = provider.EventManager;
+        eventManager = provider.ManagerContainer.EventManager;
     }
 }

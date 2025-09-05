@@ -1,6 +1,6 @@
 using TMPro;
 using UnityEngine;
-
+using DependencyInjection;
 public class UIManager : MonoBehaviour, IDependencyInjectable, IUIManager
 {
     [SerializeField] private TextMeshProUGUI contador_provicional;
@@ -15,7 +15,7 @@ public class UIManager : MonoBehaviour, IDependencyInjectable, IUIManager
     }
     public void InjectDependencies(DependencyContainer provider)
     {
-        gameSceneManager = provider.GameSceneManager;
+        gameSceneManager = provider.ManagerContainer.GameSceneManager;
     }
     private void Start()
     {

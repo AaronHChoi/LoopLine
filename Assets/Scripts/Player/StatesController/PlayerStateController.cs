@@ -3,6 +3,7 @@ using System;
 using Unity.Cinemachine.Samples;
 using InWorldUI;
 using UI;
+using DependencyInjection;
 
 namespace Player
 {
@@ -58,13 +59,13 @@ namespace Player
         }
         public void InjectDependencies(DependencyContainer provider)
         {
-            playerMovement = provider.PlayerMovement;
-            playerInputHandler = provider.PlayerInputHandler;
-            photoCapture = provider.PhotoCapture;
-            cinemachinePOVExtension = provider.CinemachinePOVExtension;
-            timeManager = provider.TimeManager;
-            interaction = provider.PlayerInteraction;
-            photoMarker = provider.PhotoMarker;
+            playerMovement = provider.PlayerContainer.PlayerMovement;
+            playerInputHandler = provider.PlayerContainer.PlayerInputHandler;
+            photoCapture = provider.PhotoContainer.PhotoCapture;
+            cinemachinePOVExtension = provider.CinemachineContainer.CinemachinePOVExtension;
+            timeManager = provider.ManagerContainer.TimeManager;
+            interaction = provider.PlayerContainer.PlayerInteraction;
+            photoMarker = provider.PhotoContainer.PhotoMarker;
         }
         private void Update()
         {

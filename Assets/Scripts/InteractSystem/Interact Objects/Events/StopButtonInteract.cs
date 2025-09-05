@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using DependencyInjection;
 public class StopButtonInteract : MonoBehaviour, IInteract, IDependencyInjectable
 {
 
@@ -83,9 +83,9 @@ public class StopButtonInteract : MonoBehaviour, IInteract, IDependencyInjectabl
 
     public void InjectDependencies(DependencyContainer provider)
     {
-        inventory = provider.PlayerInventorySystem;
-        inventoryUI = provider.InventoryUI;
-        eventManager = provider.EventManager;
-        itemManager = provider.ItemManager;
+        inventory = provider.PlayerContainer.PlayerInventorySystem;
+        inventoryUI = provider.UIContainer.InventoryUI;
+        eventManager = provider.ManagerContainer.EventManager;
+        itemManager = provider.ManagerContainer.ItemManager;
     }
 }

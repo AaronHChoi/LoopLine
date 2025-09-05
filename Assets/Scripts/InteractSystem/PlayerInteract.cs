@@ -2,7 +2,7 @@ using Player;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using DependencyInjection;
 public class PlayerInteract : MonoBehaviour, IDependencyInjectable
 {
     private CinemachineCamera rayCastPoint;
@@ -34,10 +34,10 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
     }
     public void InjectDependencies(DependencyContainer provider)
     {
-        rayCastPoint = provider.CinemachineCamera;
-        inventoryUI = provider.InventoryUI;
-        playerInventorySystem = provider.PlayerInventorySystem;
-        playerStateController = provider.PlayerStateController;
+        rayCastPoint = provider.CinemachineContainer.CinemachineCamera;
+        inventoryUI = provider.UIContainer.InventoryUI;
+        playerInventorySystem = provider.PlayerContainer.PlayerInventorySystem;
+        playerStateController = provider.PlayerContainer.PlayerStateController;
     }
     private void HandleInteraction()
     {

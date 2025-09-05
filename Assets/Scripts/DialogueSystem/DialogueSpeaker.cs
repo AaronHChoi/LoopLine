@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using DependencyInjection;
 public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyInjectable
 {
     [SerializeField] private string interactText = "Interact with me!";
@@ -100,7 +100,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     }
     public void InjectDependencies(DependencyContainer provider)
     {
-        eventDialogueManager = provider.EventDialogueManager;
+        eventDialogueManager = provider.ManagerContainer.EventDialogueManager;
     }
     public void DialogueTrigger()
     {

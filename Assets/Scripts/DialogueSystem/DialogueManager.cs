@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DependencyInjection;
 public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueManager
 {
     public static event Action OnDialogueStarted;
@@ -43,8 +43,8 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
     }
     public void InjectDependencies(DependencyContainer provider)
     {
-        questionManager = provider.QuestionManager;
-        dialogueUI = provider.DialogueUI;
+        questionManager = provider.ManagerContainer.QuestionManager;
+        dialogueUI = provider.UIContainer.DialogueUI;
     }
     private void Start()
     {

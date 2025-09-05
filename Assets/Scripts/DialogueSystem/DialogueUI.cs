@@ -4,7 +4,7 @@ using Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+using DependencyInjection;
 public class DialogueUI : MonoBehaviour, IDependencyInjectable
 {
     public DialogueSO Dialogue;
@@ -81,7 +81,7 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
     }
     public void InjectDependencies(DependencyContainer provider)
     {
-        playerStateController = provider.PlayerStateController;
+        playerStateController = provider.PlayerContainer.PlayerStateController;
     }
     private void InitializeUI()
     {

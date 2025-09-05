@@ -1,7 +1,7 @@
 using Player;
 using UnityEngine;
 using UnityEngine.Rendering;
-
+using DependencyInjection;
 public class FocusModeController : MonoBehaviour, IDependencyInjectable
 {
     [SerializeField] private Material eagleVisionMaterial;
@@ -95,6 +95,6 @@ public class FocusModeController : MonoBehaviour, IDependencyInjectable
     }
     public void InjectDependencies(DependencyContainer provider)
     {
-        playerStateController = provider.PlayerStateController;
+        playerStateController = provider.PlayerContainer.PlayerStateController;
     }
 }

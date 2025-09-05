@@ -1,6 +1,6 @@
 using InWorldUI;
 using UnityEngine;
-
+using DependencyInjection;
 public class RockTrigger : MonoBehaviour, IDependencyInjectable
 {
     PlayerInteract playerInteract;
@@ -39,7 +39,7 @@ public class RockTrigger : MonoBehaviour, IDependencyInjectable
 
     public void InjectDependencies(DependencyContainer provider)
     {
-        playerInteract = provider.PlayerInteract;
-        playerInteraction = provider.PlayerInteraction;
+        playerInteract = provider.PlayerContainer.PlayerInteract;
+        playerInteraction = provider.PlayerContainer.PlayerInteraction;
     }
 }

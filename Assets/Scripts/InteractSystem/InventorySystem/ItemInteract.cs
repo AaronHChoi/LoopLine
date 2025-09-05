@@ -1,4 +1,5 @@
 using UnityEngine;
+using DependencyInjection;
 
 public class ItemInteract : MonoBehaviour, IDependencyInjectable, IItemGrabInteract
 {
@@ -71,8 +72,8 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable, IItemGrabInter
     }
     public void InjectDependencies(DependencyContainer provider)
     {
-        playerInventorySystem = provider.PlayerInventorySystem;
-        inventoryUI = provider.InventoryUI;
-        itemManager = provider.ItemManager;
+        playerInventorySystem = provider.PlayerContainer.PlayerInventorySystem;
+        inventoryUI = provider.UIContainer.InventoryUI;
+        itemManager = provider.ManagerContainer.ItemManager;
     }
 }

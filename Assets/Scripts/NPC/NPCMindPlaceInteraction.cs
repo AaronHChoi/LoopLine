@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using DependencyInjection;
 
 public class NPCMindPlaceInteraction : MonoBehaviour, IInteract, IDependencyInjectable
 {
@@ -85,8 +86,8 @@ public class NPCMindPlaceInteraction : MonoBehaviour, IInteract, IDependencyInje
 
     public void InjectDependencies(DependencyContainer provider)
     {
-        noteBookManager = provider.NoteBookManager;
-        playerController = provider.PlayerController;
+        noteBookManager = provider.ManagerContainer.NoteBookManager;
+        playerController = provider.PlayerContainer.PlayerController;
     }
 
     IEnumerator WaitForSeconds(float seconds)

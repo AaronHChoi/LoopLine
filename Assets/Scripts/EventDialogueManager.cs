@@ -1,7 +1,7 @@
 using System.Collections;
 using Player;
 using UnityEngine;
-
+using DependencyInjection;
 public class EventDialogueManager : Subject, IDependencyInjectable
 {
     [SerializeField] float delayMonologue;
@@ -118,7 +118,7 @@ public class EventDialogueManager : Subject, IDependencyInjectable
     }
     public void InjectDependencies(DependencyContainer provider)
     {
-        photoCapture = provider.PhotoCapture;
-        controller = provider.PlayerStateController;
+        photoCapture = provider.PhotoContainer.PhotoCapture;
+        controller = provider.PlayerContainer.PlayerStateController;
     }
 }
