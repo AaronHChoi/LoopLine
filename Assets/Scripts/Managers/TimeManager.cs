@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using DependencyInjection;
 public class TimeManager : MonoBehaviour, IDependencyInjectable, ITimeProvider
 {
     GameSceneManager gameSceneManager;
@@ -26,9 +26,9 @@ public class TimeManager : MonoBehaviour, IDependencyInjectable, ITimeProvider
     }
     public void InjectDependencies(DependencyContainer provider)
     {
-        gameSceneManager = provider.GameSceneManager;
-        dialogueManager = provider.DialogueManager;
-        eventManager = provider.EventManager;
+        gameSceneManager = provider.ManagerContainer.GameSceneManager;
+        dialogueManager = provider.ManagerContainer.DialogueManager;
+        eventManager = provider.ManagerContainer.EventManager;
     }
     private void Start()
     {

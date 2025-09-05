@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using DependencyInjection;
 public class PlayerMovement : MonoBehaviour, IDependencyInjectable
 {
     bool canMove = true;
@@ -60,6 +60,6 @@ public class PlayerMovement : MonoBehaviour, IDependencyInjectable
 
     public void InjectDependencies(DependencyContainer provider)
     {
-        controller = provider.PlayerController;
+        controller = provider.PlayerContainer.PlayerController;
     }
 }

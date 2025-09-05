@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using DependencyInjection;
 public class PlayerMindPlaceNoteBook : MonoBehaviour
 {
     INoteBookColliderToggle noteBookManager;

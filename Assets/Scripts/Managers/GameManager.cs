@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using DependencyInjection;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }

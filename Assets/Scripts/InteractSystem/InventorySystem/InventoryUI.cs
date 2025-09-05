@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Player;
 using UnityEngine;
 using UnityEngine.UI;
+using DependencyInjection;
 
 public class InventoryUI : MonoBehaviour, IDependencyInjectable
 {
@@ -36,7 +37,7 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
     {
         //if (!DependencyContainer.Instance.PlayerStateController.IsInState(playerStateController.InventoryState)) return;
 
-        float scroll = DependencyContainer.Instance.PlayerInputHandler.GetScrollValue();
+        float scroll = DependencyContainer.Instance.PlayerContainer.PlayerInputHandler.GetScrollValue();
 
         if (Time.time - lastSlotChangeTime < slotChangeCooldown)
         {
@@ -129,6 +130,6 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
 
     public void InjectDependencies(DependencyContainer provider)
     {
-        controller = provider.PlayerStateController;
+        controller = provider.PlayerContainer.PlayerStateController;
     }
 }

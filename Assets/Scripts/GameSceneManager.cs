@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using DependencyInjection;
 public class GameSceneManager : MonoBehaviour
 {
     IDialogueManager dialogueManager;

@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using DependencyInjection;
 public class PlayerFocusMode : MonoBehaviour, IDependencyInjectable
 {
     [SerializeField] PlayerController controller;
@@ -17,6 +17,6 @@ public class PlayerFocusMode : MonoBehaviour, IDependencyInjectable
     }
     public void InjectDependencies(DependencyContainer provider)
     {
-        controller = provider.PlayerController;
+        controller = provider.PlayerContainer.PlayerController;
     }
 }

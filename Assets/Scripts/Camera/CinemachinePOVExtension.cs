@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using DependencyInjection;
 
 namespace Unity.Cinemachine.Samples
 {
@@ -80,7 +81,7 @@ namespace Unity.Cinemachine.Samples
 
         public void InjectDependencies(DependencyContainer provider)
         {
-            controller = provider.PlayerController;
+            controller = provider.PlayerContainer.PlayerController;
             //inputHandler = provider.PlayerInputHandler;
         }
     }

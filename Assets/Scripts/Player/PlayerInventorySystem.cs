@@ -2,7 +2,7 @@ using Player;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using DependencyInjection;
 public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
 {
     public static PlayerInventorySystem Instance { get; private set; }
@@ -152,9 +152,9 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
     }
     public void InjectDependencies(DependencyContainer provider)
     {
-        inventoryUI = provider.InventoryUI;
-        playerController = provider.PlayerController;
-        dialogueManager = provider.DialogueManager;
-        controller = provider.PlayerStateController;
+        inventoryUI = provider.UIContainer.InventoryUI;
+        playerController = provider.PlayerContainer.PlayerController;
+        dialogueManager = provider.ManagerContainer.DialogueManager;
+        controller = provider.PlayerContainer.PlayerStateController;
     }
 }

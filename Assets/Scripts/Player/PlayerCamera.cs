@@ -1,6 +1,6 @@
 using Unity.Cinemachine;
 using UnityEngine;
-
+using DependencyInjection;
 public class PlayerCamera : MonoBehaviour, IDependencyInjectable, IPlayerCamera
 {
     CinemachineCamera virtualCamera;
@@ -11,7 +11,7 @@ public class PlayerCamera : MonoBehaviour, IDependencyInjectable, IPlayerCamera
     }
     public void InjectDependencies(DependencyContainer provider)
     {
-        virtualCamera = provider.CinemachineCamera;
+        virtualCamera = provider.CinemachineContainer.CinemachineCamera;
     }
     private void Start()
     {

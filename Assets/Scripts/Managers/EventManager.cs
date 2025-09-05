@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DependencyInjection;
 public class EventManager : Subject
 {
     [Header("Sound System Event 1")]

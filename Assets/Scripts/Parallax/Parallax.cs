@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using DependencyInjection;
 public class Parallax : MonoBehaviour, IObserver, IDependencyInjectable
 {
     [System.Serializable]
@@ -34,7 +34,7 @@ public class Parallax : MonoBehaviour, IObserver, IDependencyInjectable
     }
     public void InjectDependencies(DependencyContainer provider)
     {
-        eventManager = provider.EventManager;
+        eventManager = provider.ManagerContainer.EventManager;
     }
     public void OnNotify(Events _event, string _id = null)
     {

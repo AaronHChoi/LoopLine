@@ -2,7 +2,7 @@ using Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+using DependencyInjection;
 public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
 {
     [SerializeField] private TextMeshProUGUI itemNameLabel;
@@ -34,8 +34,8 @@ public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
     }
     public void InjectDependencies(DependencyContainer provider)
     {
-        playerInventorySystem = provider.PlayerInventorySystem;
-        controller = provider.PlayerStateController;
+        playerInventorySystem = provider.PlayerContainer.PlayerInventorySystem;
+        controller = provider.PlayerContainer.PlayerStateController;
     }
     public void Set(ItemInteract item)
     {
