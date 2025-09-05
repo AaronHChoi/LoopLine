@@ -6,7 +6,6 @@ using DependencyInjection;
 public class PlayerInteract : MonoBehaviour, IDependencyInjectable
 {
     private CinemachineCamera rayCastPoint;
-    private PlayerInventorySystem playerInventorySystem;
     private InventoryUI inventoryUI;
     [SerializeField] public float raycastDistance = 2f;
     [SerializeField] private LayerMask interactableLayer;
@@ -36,7 +35,6 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
     {
         rayCastPoint = provider.CinemachineContainer.CinemachineCamera;
         inventoryUI = provider.UIContainer.InventoryUI;
-        playerInventorySystem = provider.PlayerContainer.PlayerInventorySystem;
         playerStateController = provider.PlayerContainer.PlayerStateController;
     }
     private void HandleInteraction()
@@ -61,7 +59,7 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
     {
         if (SceneManager.GetActiveScene().name == "04. Train")
         {
-            if (inventoryUI.gameObject.activeInHierarchy == false && playerInventorySystem.ItemInUse == inventoryUI.HandItemUI)
+            if (inventoryUI.gameObject.activeInHierarchy == false && inventoryUI.ItemInUse == inventoryUI.HandItemUI)
             {
                 IItemGrabInteract intemGrabObject = GetItemGrabIteractableObject();
                 if (intemGrabObject != null)
@@ -144,7 +142,7 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
     {
         if (SceneManager.GetActiveScene().name == "04. Train")
         {
-            if (inventoryUI.gameObject.activeInHierarchy == false && playerInventorySystem.ItemInUse == inventoryUI.HandItemUI)
+            if (inventoryUI.gameObject.activeInHierarchy == false && inventoryUI.ItemInUse == inventoryUI.HandItemUI)
             {
                 Ray ray = new Ray(rayCastPoint.transform.position, rayCastPoint.transform.forward);
 
