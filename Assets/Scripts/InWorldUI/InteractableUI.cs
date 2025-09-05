@@ -16,8 +16,6 @@ namespace InWorldUI
         {
             if (promptText == null)
                 promptText = GetComponentInChildren<TextMeshProUGUI>();
-            
-            
         }
         public void Init(string promptMessage, Vector3 promptOffset)
         {
