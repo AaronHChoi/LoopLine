@@ -1,37 +1,65 @@
-using System.Collections.Generic;
-using Player;
-using UnityEngine;
-using UnityEngine.UI;
 using DependencyInjection;
+using Player;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour, IDependencyInjectable
 {
     [SerializeField] public List<UIInventoryItemSlot> inventorySlots = new List<UIInventoryItemSlot>();
-
-    [SerializeField] public RawImage arrowImage; 
-    [SerializeField] private Vector2 offset = new Vector2(50f, 0f);
     [SerializeField] public ItemInteract HandItemUI;
-    [SerializeField] private float slotChangeCooldown = 0.5f; 
-    private float lastSlotChangeTime = 0f;
-    public int currentSlotIndex = 0;
+    [SerializeField] public RawImage arrowImage;
+    [SerializeField] public ItemInteract ItemInUse;
 
+    [SerializeField] private Vector2 offset = new Vector2(50f, 0f);
+    [SerializeField] private float slotChangeCooldown = 0.5f;
+    [SerializeField] public Transform SpawnPosition;
+
+
+    private float lastSlotChangeTime = 0f;
+    private bool isInventoryOpen = false;
+
+    public bool IsInventoryOpen
+    {
+        get => isInventoryOpen;
+    }
+
+    public int currentSlotIndex = 0;
+    public static InventoryUI Instance { get; private set; }
+
+    FadeInOutController FadeController;
+    FadeInOutController ArrowFadeController;
     PlayerStateController controller;
+    PlayerController playerController;
+    PlayerInventorySystem inventorySystem;
+    DialogueManager dialogueManager;
+
+    #region MagicMethods
     private void Awake()
     {
         InjectDependencies(DependencyContainer.Instance);
     }
     private void Start()
     {
-        PlayerInventorySystem.Instance.OnInventoryChanged += OnUpdateInventory;
-        MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
-    }
-    private void OnUpdateInventory()
-    {
-        foreach (Transform t in transform)
+
+        if (Instance == null)
         {
-            Destroy(t.gameObject);
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-        DrawInventory();
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        FadeController = GetComponent<FadeInOutController>();
+        ArrowFadeController = arrowImage.GetComponent<FadeInOutController>();
+        HideInventory();
+        AddInventorySlot(HandItemUI);
+        ItemInUse = HandItemUI;
+        currentSlotIndex = 0;
+        inventorySlots[0].IsActive = true;
     }
     private void Update()
     {
@@ -43,42 +71,55 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
         {
             return;
         }
-            
-        if (scroll > 0f) 
+        
+        if (isInventoryOpen)
         {
-            ChangeSlot(-1);
-            lastSlotChangeTime = Time.time;
+            if (scroll > 0f)
+            {
+                ChangeSlot(-1);
+                lastSlotChangeTime = Time.time;
+            }
+            else if (scroll < 0f)
+            {
+                ChangeSlot(1);
+                lastSlotChangeTime = Time.time;
+            }
         }
-        else if (scroll < 0f) 
-        {
-            ChangeSlot(1);
-            lastSlotChangeTime = Time.time;
-        }
+        
 
-        UpdateVisableSlots();
     }
-    private void UpdateVisableSlots()
+
+    private void OnEnable()
     {
-        inventorySlots.RemoveAll(s => s == null);
-
-        //int n = inventorySlots.Count;
-        //if (n == 0) return;
-
-
-        //currentSlotIndex = ((currentSlotIndex % n) + n) % n;
-
-        //int previousIndex = (currentSlotIndex - 1 + n) % n;
-        //int nextIndex = (currentSlotIndex + 1) % n;
-
-        //for (int i = 0; i < n; i++)
-        //{
-        //    var slot = inventorySlots[i];
-        //    if (slot == null) continue;
-
-        //    bool visible = (i == previousIndex || i == currentSlotIndex || i == nextIndex);
-        //    slot.gameObject.SetActive(visible);
-        //}
+        if (controller != null)
+        {
+            controller.OnOpenInventory += OpenInventory;
+        }
     }
+    private void OnDisable()
+    {
+        if (controller != null)
+        {
+            controller.OnOpenInventory -= OpenInventory;
+        }
+    }
+    #endregion
+
+    private void OpenInventory()
+    {
+        if (!dialogueManager.isDialogueActive && inventorySlots.Count != 0 && !isInventoryOpen)
+        {
+            ShowInventory();
+            MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
+            arrowImage.gameObject.SetActive(true);
+        }
+        else if (isInventoryOpen)
+        {
+            HideInventory();
+            arrowImage.gameObject.SetActive(false);
+        }
+    }
+
     public void ChangeSlot(int direction)
     {
         inventorySlots[currentSlotIndex].IsActive = false;
@@ -96,7 +137,7 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
         {
             controller.ChangeState(controller.NormalState);
         }
-
+        ArrowFadeController.ForceFade(true);
         MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
     }
     public void MoveArrowToSlot(RectTransform slotTransform)
@@ -106,13 +147,15 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
 
         arrowImage.rectTransform.localPosition = localPos + (Vector3)offset;
     }
-    public void DrawInventory()
+
+    private void ResetArrowPosition()
     {
-        foreach(ItemInteract item in PlayerInventorySystem.Instance.inventory)
-        {
-            AddInventorySlot(item);
-        }
+        inventorySlots[0].IsActive = true;
+        ItemInUse = HandItemUI;
+        currentSlotIndex = 0;
+        MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
     }
+
     public void AddInventorySlot(ItemInteract item)
     {
         GameObject itemUI = Instantiate(item.ItemData.objectPrefab);
@@ -121,15 +164,68 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
         UIInventoryItemSlot slot = itemUI.GetComponent<UIInventoryItemSlot>();
         slot.Set(item);
         inventorySlots.Add(slot);
+        MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
     }
     public void RemoveInventorySlot(ItemInteract item)
     {
-        UIInventoryItemSlot slot = item.GetComponent<UIInventoryItemSlot>();
-        slot.gameObject.SetActive(false);
+        if (CheckInventory(item) == true)
+        {
+            UIInventoryItemSlot slot = item.GetComponent<UIInventoryItemSlot>();
+            inventorySlots.Remove(slot);
+            ResetArrowPosition();
+        }       
+    }
+
+    public bool CheckInventory(ItemInteract itemInteract)
+    {
+        bool isInInventory = false;
+        for (int i = 0; i < inventorySlots.Count; i++)
+        {
+            if (inventorySlots[i].itemId == itemInteract.id)
+            {
+                isInInventory = true;
+            }
+            else
+            {
+                isInInventory = false;
+            }
+        }
+        return isInInventory;
+    }
+
+    private void CheckArrowPosition()
+    {
+        if (SceneManager.GetActiveScene().name == "04. Train")
+        {
+            if (ItemInUse == HandItemUI)
+            {
+                if (inventorySlots[0] != null)
+                {
+                   MoveArrowToSlot(inventorySlots[0].transform as RectTransform);
+                }
+
+            }
+        }
     }
 
     public void InjectDependencies(DependencyContainer provider)
     {
         controller = provider.PlayerContainer.PlayerStateController;
+        inventorySystem = provider.PlayerContainer.PlayerInventorySystem;
+        playerController = provider.PlayerContainer.PlayerController;
+        dialogueManager = provider.ManagerContainer.DialogueManager;
+    }
+
+    
+
+    private void ShowInventory()
+    {
+        FadeController.ForceFade(true);
+        isInventoryOpen = true;
+    }
+    private void HideInventory()
+    {
+        FadeController.ForceFade(false);
+        isInventoryOpen = false;
     }
 }
