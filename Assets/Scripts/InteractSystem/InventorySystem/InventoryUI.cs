@@ -20,10 +20,16 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
     private float lastSlotChangeTime = 0f;
     private bool isInventoryOpen = false;
 
+    public bool IsInventoryOpen
+    {
+        get => isInventoryOpen;
+    }
+
     public int currentSlotIndex = 0;
     public static InventoryUI Instance { get; private set; }
 
     FadeInOutController FadeController;
+    FadeInOutController ArrowFadeController;
     PlayerStateController controller;
     PlayerController playerController;
     PlayerInventorySystem inventorySystem;
@@ -48,6 +54,7 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
         }
 
         FadeController = GetComponent<FadeInOutController>();
+        ArrowFadeController = arrowImage.GetComponent<FadeInOutController>();
         HideInventory();
         AddInventorySlot(HandItemUI);
         ItemInUse = HandItemUI;
@@ -64,17 +71,21 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
         {
             return;
         }
-            
-        if (scroll > 0f) 
+        
+        if (isInventoryOpen)
         {
-            ChangeSlot(-1);
-            lastSlotChangeTime = Time.time;
+            if (scroll > 0f)
+            {
+                ChangeSlot(-1);
+                lastSlotChangeTime = Time.time;
+            }
+            else if (scroll < 0f)
+            {
+                ChangeSlot(1);
+                lastSlotChangeTime = Time.time;
+            }
         }
-        else if (scroll < 0f) 
-        {
-            ChangeSlot(1);
-            lastSlotChangeTime = Time.time;
-        }
+        
 
     }
 
@@ -125,7 +136,7 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
         {
             controller.ChangeState(controller.NormalState);
         }
-
+        ArrowFadeController.ForceFade(true);
         MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
     }
     public void MoveArrowToSlot(RectTransform slotTransform)

@@ -41,7 +41,7 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
     {
         if (SceneManager.GetActiveScene().name == "04. Train")
         {
-            if (inventoryUI.gameObject.activeInHierarchy == false /*&& playerInventorySystem.ItemInUse == inventoryUI.HandItemUI*/)
+            if (inventoryUI.IsInventoryOpen == false /*&& playerInventorySystem.ItemInUse == inventoryUI.HandItemUI*/)
             {
                 TryInteract();
             }
@@ -59,7 +59,7 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
     {
         if (SceneManager.GetActiveScene().name == "04. Train")
         {
-            if (inventoryUI.gameObject.activeInHierarchy == false && inventoryUI.ItemInUse == inventoryUI.HandItemUI)
+            if (inventoryUI.IsInventoryOpen == false && inventoryUI.ItemInUse == inventoryUI.HandItemUI)
             {
                 IItemGrabInteract intemGrabObject = GetItemGrabIteractableObject();
                 if (intemGrabObject != null)
@@ -81,7 +81,7 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
     {
         if (SceneManager.GetActiveScene().name == "04. Train")
         {
-            if (inventoryUI.gameObject.activeInHierarchy == false /*&& playerInventorySystem.ItemInUse == inventoryUI.HandItemUI*/) 
+            if (inventoryUI.IsInventoryOpen == false) 
             {
                 Ray ray = new Ray(rayCastPoint.transform.position, rayCastPoint.transform.forward);
 
@@ -142,7 +142,7 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
     {
         if (SceneManager.GetActiveScene().name == "04. Train")
         {
-            if (inventoryUI.gameObject.activeInHierarchy == false && inventoryUI.ItemInUse == inventoryUI.HandItemUI)
+            if (inventoryUI.IsInventoryOpen == false && inventoryUI.ItemInUse == inventoryUI.HandItemUI)
             {
                 Ray ray = new Ray(rayCastPoint.transform.position, rayCastPoint.transform.forward);
 
