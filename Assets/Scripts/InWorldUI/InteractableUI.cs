@@ -1,6 +1,8 @@
+
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 namespace InWorldUI
 {
@@ -9,7 +11,6 @@ namespace InWorldUI
         [SerializeField] private TextMeshProUGUI promptText;
         [SerializeField] private FadeInOutController fadeInOutLabel;
         [SerializeField] private FadeInOutController fadeInOutMarker;
-
 
         void Awake()
         {
