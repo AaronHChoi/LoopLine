@@ -110,6 +110,7 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
         if (!dialogueManager.isDialogueActive && inventorySlots.Count != 0 && !isInventoryOpen)
         {
             ShowInventory();
+            MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
             arrowImage.gameObject.SetActive(true);
         }
         else if (isInventoryOpen)
