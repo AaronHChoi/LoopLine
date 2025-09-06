@@ -8,14 +8,13 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
 {
     [SerializeField] private string interactText = "Interact with me!";
     [Tooltip("Este valor solo para los NPC, para poder identificar los dialogos")]
-    public string id = "L";
     public List<DialogueSO> AvailableDialogs = new List<DialogueSO>();
     public int dialogueIndex = 0;
     public int DialogueLocalIndex = 0;
     public bool isDialogueActive = false;
     public bool NPCInteracted = false;
     [SerializeField] Transform headTarget;
-
+    [SerializeField] string id;
     EventDialogueManager eventDialogueManager;
 
     IUIManager uiManager;
@@ -33,6 +32,8 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
         public List<DialogueStateChange> changes;
     }
     public List<DialogueEvent> DialogueEvents;
+
+    public string Id { get => id; }
 
     #region MAGIC_METHODS
     private void Awake()
@@ -251,5 +252,10 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
 
         if (playerSpeaker != null)
             playerSpeaker.DialogueTrigger();
+    }
+
+    public string GetObserverID()
+    {
+        return Id;
     }
 }
