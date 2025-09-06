@@ -18,14 +18,18 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
 
 
     private float lastSlotChangeTime = 0f;
+    private bool isInventoryOpen = false;
 
     public int currentSlotIndex = 0;
     public static InventoryUI Instance { get; private set; }
 
+    FadeInOutController FadeController;
     PlayerStateController controller;
     PlayerController playerController;
     PlayerInventorySystem inventorySystem;
     DialogueManager dialogueManager;
+
+    #region MagicMethods
     private void Awake()
     {
         InjectDependencies(DependencyContainer.Instance);
@@ -43,6 +47,8 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
             Destroy(gameObject);
         }
 
+        FadeController = GetComponent<FadeInOutController>();
+        HideInventory();
         AddInventorySlot(HandItemUI);
         ItemInUse = HandItemUI;
         currentSlotIndex = 0;
@@ -72,12 +78,33 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
 
     }
 
+    private void OnEnable()
+    {
+        if (controller != null)
+        {
+            controller.OnOpenInventory += OpenInventory;
+        }
+    }
+    private void OnDisable()
+    {
+        if (controller != null)
+        {
+            controller.OnOpenInventory -= OpenInventory;
+        }
+    }
+    #endregion
+
     private void OpenInventory()
     {
-        if (!dialogueManager.isDialogueActive && inventorySlots.Count != 0)
+        if (!dialogueManager.isDialogueActive && inventorySlots.Count != 0 && !isInventoryOpen)
         {
-            //logica del fade in fade out
-            arrowImage.gameObject.SetActive(gameObject.activeInHierarchy);
+            ShowInventory();
+            arrowImage.gameObject.SetActive(true);
+        }
+        else if (isInventoryOpen)
+        {
+            HideInventory();
+            arrowImage.gameObject.SetActive(false);
         }
     }
 
@@ -177,18 +204,16 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
         dialogueManager = provider.ManagerContainer.DialogueManager;
     }
 
-    private void OnEnable()
+    
+
+    private void ShowInventory()
     {
-        if (controller != null)
-        {
-            controller.OnOpenInventory += OpenInventory;
-        }
+        FadeController.ForceFade(true);
+        isInventoryOpen = true;
     }
-    private void OnDisable()
+    private void HideInventory()
     {
-        if (controller != null)
-        {
-            controller.OnOpenInventory -= OpenInventory;
-        }
+        FadeController.ForceFade(false);
+        isInventoryOpen = false;
     }
 }
