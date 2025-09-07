@@ -5,11 +5,13 @@ namespace DependencyInjection
         public UIManager UIManager { get; private set; }
         public DialogueUI DialogueUI { get; private set; }
         public InventoryUI InventoryUI { get; private set; }
+        public CrosshairFade CrosshairFade { get; private set; }
         public void Initialize()
         {
             UIManager = FindAndValidate<UIManager>();
             DialogueUI = FindAndValidate<DialogueUI>();
             InventoryUI = FindAndValidate<InventoryUI>();
+            CrosshairFade = FindAndValidate<CrosshairFade>();
         }
         public void RegisterServices(InterfaceDependencyInjector injector)
         {
