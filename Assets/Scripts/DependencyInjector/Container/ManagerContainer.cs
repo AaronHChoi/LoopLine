@@ -14,6 +14,7 @@ namespace DependencyInjection
         public ItemManager ItemManager { get; private set; }
         public FocusModeManager FocusModeManager { get; private set; }
         public EventDialogueManager EventDialogueManager { get; private set; }
+        public CrosshairFade CrosshairFade { get; private set; }
         public void Initialize()
         {
             GameManager = FindAndValidate<GameManager>();
@@ -28,6 +29,7 @@ namespace DependencyInjection
             ItemManager = FindAndValidate<ItemManager>();
             FocusModeManager = FindAndValidate<FocusModeManager>();
             EventDialogueManager = FindAndValidate<EventDialogueManager>();
+            CrosshairFade = FindAndValidate<CrosshairFade>();
         }
         public void RegisterServices(InterfaceDependencyInjector injector)
         {
@@ -35,6 +37,7 @@ namespace DependencyInjection
             injector.Register<INoteBookColliderToggle>(NoteBookManager);
             injector.Register<IDialogueManager>(DialogueManager);
             injector.Register<ITimeProvider>(TimeManager);
+            injector.Register<ICrosshairFade>(CrosshairFade);
             //injector.Register<IEventDialogueManager>(EventDialogueManager); //DIALOGUE EVENTS
             //injector.Register<IEventManager>(EventManager); //EVENTS
             //injector.Register<IGameSceneManager>(GameSceneManager);

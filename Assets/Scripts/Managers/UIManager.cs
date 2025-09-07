@@ -8,10 +8,12 @@ public class UIManager : MonoBehaviour, IDependencyInjectable, IUIManager
 
     GameSceneManager gameSceneManager;
     ITimeProvider timeManager;
+    ICrosshairFade crosshairFade;
     private void Awake()
     {
         InjectDependencies(DependencyContainer.Instance);
         timeManager = InterfaceDependencyInjector.Instance.Resolve<ITimeProvider>();
+        crosshairFade = InterfaceDependencyInjector.Instance.Resolve<ICrosshairFade>();
     }
     public void InjectDependencies(DependencyContainer provider)
     {
@@ -46,9 +48,14 @@ public class UIManager : MonoBehaviour, IDependencyInjectable, IUIManager
     {
         uiText.gameObject.SetActive(false);
     }
+    public void ShowCrossHairFade(bool show)
+    {
+        crosshairFade.ShowCrosshair(show);
+    }
 }
 public interface IUIManager
 {
     void ShowUIText(string _message);
     void HideUIText();
+    void ShowCrossHairFade(bool show);
 }
