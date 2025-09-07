@@ -50,7 +50,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     }
     public void OnNotify(Events _event, string _id = null)
     {
-        if (_event == Events.TriggerMonologue)
+        if (_event == Events.TriggerMonologue && _id == "Player")
         {
             TriggerPlayerDialogue();
         }
