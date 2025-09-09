@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInputHandler : MonoBehaviour, IPlayerMovementInput
+public class PlayerInputHandler : MonoBehaviour, IPlayerInputHandler
 {
     PlayerInput playerInput;
 
@@ -91,8 +91,9 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerMovementInput
         return grabItem.WasPerformedThisFrame();
     }
 }
-public interface IPlayerMovementInput
+public interface IPlayerInputHandler
 {
+    float GetScrollValue();
     Vector2 GetInputMove();
     bool IsSprinting();
 }

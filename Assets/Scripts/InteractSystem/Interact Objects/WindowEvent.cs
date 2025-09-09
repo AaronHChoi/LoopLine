@@ -5,6 +5,7 @@ public class WindowEvent : MonoBehaviour, IObserver, IDependencyInjectable
     EventManager eventManager;
     [SerializeField] private GameObject crystal;
     [SerializeField] private GameObject crystalBreakEffect;
+    public string Id { get; }
 
     void Awake()
     {
@@ -34,5 +35,9 @@ public class WindowEvent : MonoBehaviour, IObserver, IDependencyInjectable
     public void InjectDependencies(DependencyContainer provider)
     {
         eventManager = provider.ManagerContainer.EventManager;
+    }
+    public string GetObserverID()
+    {
+        return Id;
     }
 }

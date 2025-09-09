@@ -4,23 +4,21 @@ namespace DependencyInjection
 {
     public class PhotoContainer : BaseContainer
     {
-        public PhotoCapture PhotoCapture { get; private set; }
-        public PhotoMarker PhotoMarker { get; private set; }
-        public PhotoDetectionZone PhotoDetectionZone { get; private set; }
-        public PhotoMarkerManager PhotoMarkerManager { get; private set; }
+        PhotoCapture photoCapture;
+        public PhotoCapture PhotoCapture => photoCapture ??= FindAndValidate<PhotoCapture>();
 
-        public void Initialize()
-        {
-            PhotoCapture = FindAndValidate<PhotoCapture>();
-            PhotoMarker = FindAndValidate<PhotoMarker>();
-            PhotoDetectionZone = FindAndValidate<PhotoDetectionZone>();
-            PhotoMarkerManager = FindAndValidate<PhotoMarkerManager>();
-        }
+        PhotoMarker photoMarker;
+        public PhotoMarker PhotoMarker => photoMarker ??= FindAndValidate<PhotoMarker>();
+
+        PhotoDetectionZone photoDetectionZone;
+        public PhotoDetectionZone PhotoDetectionZone => photoDetectionZone ??= FindAndValidate<PhotoDetectionZone>();
+
+        PhotoMarkerManager photoMarkerManager;
+        public PhotoMarkerManager PhotoMarkerManager => photoMarkerManager ??= FindAndValidate<PhotoMarkerManager>();
+
         public void RegisterServices(InterfaceDependencyInjector injector)
         {
-            injector.Register<ITogglePhotoDetection>(PhotoDetectionZone);
-            //injector.Register<IPhotoMarkerManager>(PhotoMarkerManager);
-            //injector.Register<IPhotoDetectionZone>(PhotoDetectionZone);
+            injector.Register<ITogglePhotoDetection>(() => PhotoDetectionZone);
         }
     }
 }

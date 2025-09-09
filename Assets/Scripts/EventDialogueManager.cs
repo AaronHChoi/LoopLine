@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using DependencyInjection;
 using Player;
 using UnityEngine;
-using DependencyInjection;
 public class EventDialogueManager : Subject, IDependencyInjectable
 {
     [SerializeField] float delayMonologue;
@@ -15,7 +17,7 @@ public class EventDialogueManager : Subject, IDependencyInjectable
     int personPhotoCount = 0;
     PhotoCapture photoCapture;
     PlayerStateController controller;
-    //HashSet<string> receivedClueId = new HashSet<string>();
+
     private void Awake()
     {
         InjectDependencies(DependencyContainer.Instance);
@@ -101,7 +103,7 @@ public class EventDialogueManager : Subject, IDependencyInjectable
     {
         controller.CanUseNormalStateExecute = false;
         yield return new WaitForSeconds(delay);
-        NotifyObservers(Events.TriggerMonologue);
+        NotifyObservers(Events.TriggerMonologue, "Player");
         controller.CanUseNormalStateExecute = true;
     }
     private IEnumerator StartSceneMonologue(float delay, Events _event)
@@ -109,7 +111,7 @@ public class EventDialogueManager : Subject, IDependencyInjectable
         controller.CanUseNormalStateExecute = false;
         yield return new WaitForSeconds(delay);
         NotifyObservers(_event);
-        NotifyObservers(Events.TriggerMonologue);
+        NotifyObservers(Events.TriggerMonologue, "Player");
         controller.CanUseNormalStateExecute = true;
     }
     void SendOnlyEvent(Events _event)

@@ -16,7 +16,6 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
     [SerializeField] private float slotChangeCooldown = 0.5f;
     [SerializeField] public Transform SpawnPosition;
 
-
     private float lastSlotChangeTime = 0f;
     private bool isInventoryOpen = false;
 
@@ -42,7 +41,6 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
     }
     private void Start()
     {
-
         if (Instance == null)
         {
             Instance = this;
@@ -71,7 +69,7 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
         {
             return;
         }
-        
+
         if (isInventoryOpen)
         {
             if (scroll > 0f)
@@ -85,10 +83,7 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
                 lastSlotChangeTime = Time.time;
             }
         }
-        
-
     }
-
     private void OnEnable()
     {
         if (controller != null)
@@ -104,7 +99,6 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
         }
     }
     #endregion
-
     private void OpenInventory()
     {
         if (!dialogueManager.isDialogueActive && inventorySlots.Count != 0 && !isInventoryOpen)
@@ -119,7 +113,6 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
             arrowImage.gameObject.SetActive(false);
         }
     }
-
     public void ChangeSlot(int direction)
     {
         inventorySlots[currentSlotIndex].IsActive = false;
@@ -133,7 +126,7 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
 
         inventorySlots[currentSlotIndex].IsActive = true;
 
-        if(currentSlotIndex == 0)
+        if (currentSlotIndex == 0)
         {
             controller.ChangeState(controller.NormalState);
         }
@@ -147,7 +140,6 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
 
         arrowImage.rectTransform.localPosition = localPos + (Vector3)offset;
     }
-
     private void ResetArrowPosition()
     {
         inventorySlots[0].IsActive = true;
@@ -155,7 +147,6 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
         currentSlotIndex = 0;
         MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
     }
-
     public void AddInventorySlot(ItemInteract item)
     {
         GameObject itemUI = Instantiate(item.ItemData.objectPrefab);
@@ -173,9 +164,8 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
             UIInventoryItemSlot slot = item.GetComponent<UIInventoryItemSlot>();
             inventorySlots.Remove(slot);
             ResetArrowPosition();
-        }       
+        }
     }
-
     public bool CheckInventory(ItemInteract itemInteract)
     {
         bool isInInventory = false;
@@ -192,7 +182,6 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
         }
         return isInInventory;
     }
-
     private void CheckArrowPosition()
     {
         if (SceneManager.GetActiveScene().name == "04. Train")
@@ -201,13 +190,12 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
             {
                 if (inventorySlots[0] != null)
                 {
-                   MoveArrowToSlot(inventorySlots[0].transform as RectTransform);
+                    MoveArrowToSlot(inventorySlots[0].transform as RectTransform);
                 }
 
             }
         }
     }
-
     public void InjectDependencies(DependencyContainer provider)
     {
         controller = provider.PlayerContainer.PlayerStateController;
@@ -215,9 +203,6 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
         playerController = provider.PlayerContainer.PlayerController;
         dialogueManager = provider.ManagerContainer.DialogueManager;
     }
-
-    
-
     private void ShowInventory()
     {
         FadeController.ForceFade(true);

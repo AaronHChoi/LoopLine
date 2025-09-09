@@ -28,6 +28,9 @@ public class Parallax : MonoBehaviour, IObserver, IDependencyInjectable
 
     float lerpA = 1f;
     float lerpB = 0f;
+
+    public string Id { get; set; }
+
     private void Awake()
     {
         InjectDependencies(DependencyContainer.Instance);
@@ -140,5 +143,10 @@ public class Parallax : MonoBehaviour, IObserver, IDependencyInjectable
     public void SetSpeedMultiplier(float multipler)
     {
         speedMultiplier = multipler;
+    }
+
+    public string GetObserverID()
+    {
+        return Id;
     }
 }

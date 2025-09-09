@@ -8,7 +8,8 @@ namespace DependencyInjection
     {
         public static InterfaceDependencyInjector Instance { get; private set; }
 
-        private readonly Dictionary<Type, object> services = new();
+        Dictionary<Type, Func<object>> factories = new();
+        Dictionary<Type, object> instances = new();
 
         private void Awake()
         {
@@ -31,23 +32,27 @@ namespace DependencyInjection
             provider.UIContainer.RegisterServices(this);
             provider.PhotoContainer.RegisterServices(this);
         }
-        public void Register<T>(T service)
+        public void Register<T>(Func<T> factory)
         {
-            if (service == null)
+            if (factory == null)
             {
                 Debug.LogWarning($"[Injector] Tried to register null for {typeof(T)}");
                 return;
             }
-            services[typeof(T)] = service;
+            factories[typeof(T)] = () => factory();
         }
         public T Resolve<T>()
         {
-            if (services.TryGetValue(typeof(T), out var service))
-            {
+            if (instances.TryGetValue(typeof(T), out var service))
                 return (T)service;
-            }
 
-            throw new Exception($"Service of type {typeof(T)} not registered");
+            if (factories.TryGetValue(typeof(T), out var factory))
+            {
+                var instance = (T)factory();
+                instances[typeof(T)] = instance;
+                return instance;
+            }
+            throw new Exception($"Service of type {typeof(T)} not registered.");
         }
         void ValidateRegistrations()
         {
@@ -58,7 +63,7 @@ namespace DependencyInjection
 
             foreach (var type in required)
             {
-                if (!services.ContainsKey(type))
+                if (!factories.ContainsKey(type))
                     Debug.LogError($"[Injector] Missing required service: {type}");
             }
         }

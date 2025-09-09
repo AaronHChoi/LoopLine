@@ -8,9 +8,6 @@ namespace DependencyInjection
         {
             T instance = Object.FindFirstObjectByType<T>();
 
-            if (instance == null)
-                Debug.LogError($"[PlayerContainer] Missing required component of type {typeof(T)}");
-
             return instance;
         }
     }

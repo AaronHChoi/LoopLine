@@ -2,21 +2,23 @@ namespace DependencyInjection
 {
     public class UIContainer : BaseContainer
     {
-        public UIManager UIManager { get; private set; }
-        public DialogueUI DialogueUI { get; private set; }
-        public InventoryUI InventoryUI { get; private set; }
-        public CrosshairFade CrosshairFade { get; private set; }
-        public void Initialize()
-        {
-            UIManager = FindAndValidate<UIManager>();
-            DialogueUI = FindAndValidate<DialogueUI>();
-            InventoryUI = FindAndValidate<InventoryUI>();
-            CrosshairFade = FindAndValidate<CrosshairFade>();
-        }
+        UIManager uiManager;
+        public UIManager UIManager => uiManager ??= FindAndValidate<UIManager>();
+
+        DialogueUI dialogueUI;
+        public DialogueUI DialogueUI => dialogueUI ??= FindAndValidate<DialogueUI>();
+
+        InventoryUI inventoryUI;
+        public InventoryUI InventoryUI => inventoryUI ??= FindAndValidate<InventoryUI>();
+
+        CrosshairFade crosshairFade;
+        public CrosshairFade CrosshairFade => crosshairFade ??= FindAndValidate<CrosshairFade>();
+
         public void RegisterServices(InterfaceDependencyInjector injector)
         {
-            injector.Register<IUIManager>(UIManager);
-            //injector.Register<IInventoryUI>(InventoryUI);
+            injector.Register<IUIManager>(() => UIManager);
+            injector.Register<ICrosshairFade>(() => CrosshairFade);
+            //injector.Register<IInventoryUI>(() => InventoryUI);
         }
     }
 }
