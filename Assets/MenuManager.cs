@@ -124,7 +124,13 @@ public class MenuManager : MonoBehaviour
     private IEnumerator ChangeNextLevel(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+        SetDefaultCursor();
         SceneManager.LoadScene(nextSceneName);
+    }
+    private void SetDefaultCursor()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
 }
