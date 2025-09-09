@@ -18,7 +18,7 @@ namespace DependencyInjection
 
         public void RegisterServices(InterfaceDependencyInjector injector)
         {
-            injector.Register<ITogglePhotoDetection>(PhotoDetectionZone);
+            injector.Register<ITogglePhotoDetection>(() => PhotoDetectionZone);
         }
     }
 }

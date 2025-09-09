@@ -13,7 +13,7 @@ namespace DependencyInjection
 
         public void RegisterServices(InterfaceDependencyInjector injector)
         {
-            injector.Register<ICameraOrientation>(CinemachinePOVExtension);
+            injector.Register<ICameraOrientation>(() => CinemachinePOVExtension);
         }
     }
 }

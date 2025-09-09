@@ -34,10 +34,10 @@ namespace DependencyInjection
         
         public void RegisterServices(InterfaceDependencyInjector injector)
         {
-            injector.Register<IPlayerCamera>(PlayerCamera);
-            injector.Register<IPlayerController>(PlayerController);
-            injector.Register<IPlayerView>(PlayerView);
-            injector.Register<IPlayerInputHandler>(PlayerInputHandler);
+            injector.Register<IPlayerCamera>(() => PlayerCamera);
+            injector.Register<IPlayerController>(() => PlayerController);
+            injector.Register<IPlayerView>(() => PlayerView);
+            injector.Register<IPlayerInputHandler>(() => PlayerInputHandler);
         }
     }
 }

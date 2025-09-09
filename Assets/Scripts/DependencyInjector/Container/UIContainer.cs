@@ -13,8 +13,8 @@ namespace DependencyInjection
 
         public void RegisterServices(InterfaceDependencyInjector injector)
         {
-            injector.Register<IUIManager>(UIManager);
-            //injector.Register<IInventoryUI>(InventoryUI);
+            injector.Register<IUIManager>(() => UIManager);
+            //injector.Register<IInventoryUI>(() => InventoryUI);
         }
     }
 }

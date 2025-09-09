@@ -40,15 +40,15 @@ namespace DependencyInjection
 
         public void RegisterServices(InterfaceDependencyInjector injector)
         {
-            injector.Register<IColliderToggle>(FocusModeManager);
-            injector.Register<INoteBookColliderToggle>(NoteBookManager);
-            injector.Register<IDialogueManager>(DialogueManager);
-            injector.Register<ITimeProvider>(TimeManager);
-            //injector.Register<IEventDialogueManager>(EventDialogueManager); //DIALOGUE EVENTS
-            //injector.Register<IEventManager>(EventManager); //EVENTS
-            //injector.Register<IGameSceneManager>(GameSceneManager);
-            //injector.Register<IItemManager>(ItemManager);
-            //injector.Register<IEventStopTrain>(EventManager);
+            injector.Register<IColliderToggle>(() => FocusModeManager);
+            injector.Register<INoteBookColliderToggle>(() => NoteBookManager);
+            injector.Register<IDialogueManager>(() => DialogueManager);
+            injector.Register<ITimeProvider>(() => TimeManager);
+            //injector.Register<IEventDialogueManager>(() => EventDialogueManager); //DIALOGUE EVENTS
+            //injector.Register<IEventManager>(() => EventManager); //EVENTS
+            //injector.Register<IGameSceneManager>(() => GameSceneManager);
+            //injector.Register<IItemManager>(() => ItemManager);
+            //injector.Register<IEventStopTrain>(() => EventManager);
         }
     }
 }
