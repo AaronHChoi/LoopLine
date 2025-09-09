@@ -5,13 +5,12 @@ namespace DependencyInjection
 {
     public class CinemachineContainer : BaseContainer
     {
-        public CinemachineCamera CinemachineCamera { get; private set; }
-        public CinemachinePOVExtension CinemachinePOVExtension { get; private set; }
-        public void Initialize()
-        {
-            CinemachineCamera = FindAndValidate<CinemachineCamera>();
-            CinemachinePOVExtension = FindAndValidate<CinemachinePOVExtension>();
-        }
+        CinemachineCamera cinemachineCamera;
+        public CinemachineCamera CinemachineCamera => cinemachineCamera ??= FindAndValidate<CinemachineCamera>();
+
+        CinemachinePOVExtension cinemachinePOVExtension;
+        public CinemachinePOVExtension CinemachinePOVExtension => cinemachinePOVExtension ??= FindAndValidate<CinemachinePOVExtension>();
+
         public void RegisterServices(InterfaceDependencyInjector injector)
         {
             injector.Register<ICameraOrientation>(CinemachinePOVExtension);

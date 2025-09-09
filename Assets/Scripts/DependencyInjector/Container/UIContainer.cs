@@ -2,15 +2,15 @@ namespace DependencyInjection
 {
     public class UIContainer : BaseContainer
     {
-        public UIManager UIManager { get; private set; }
-        public DialogueUI DialogueUI { get; private set; }
-        public InventoryUI InventoryUI { get; private set; }
-        public void Initialize()
-        {
-            UIManager = FindAndValidate<UIManager>();
-            DialogueUI = FindAndValidate<DialogueUI>();
-            InventoryUI = FindAndValidate<InventoryUI>();
-        }
+        UIManager uiManager;
+        public UIManager UIManager => uiManager ??= FindAndValidate<UIManager>();
+
+        DialogueUI dialogueUI;
+        public DialogueUI DialogueUI => dialogueUI ??= FindAndValidate<DialogueUI>();
+
+        InventoryUI inventoryUI;
+        public InventoryUI InventoryUI => inventoryUI ??= FindAndValidate<InventoryUI>();
+
         public void RegisterServices(InterfaceDependencyInjector injector)
         {
             injector.Register<IUIManager>(UIManager);

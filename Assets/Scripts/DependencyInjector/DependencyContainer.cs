@@ -6,12 +6,12 @@ namespace DependencyInjection
     {
         public static DependencyContainer Instance { get; private set; }
 
-        public PlayerContainer PlayerContainer { get; private set; }
-        public UIContainer UIContainer { get; private set; }
-        public GeneralContainer GeneralContainer { get; private set; }
-        public CinemachineContainer CinemachineContainer { get; private set; }
-        public PhotoContainer PhotoContainer { get; private set; }
-        public ManagerContainer ManagerContainer { get; private set; }
+        public PlayerContainer PlayerContainer { get; private set; } = new PlayerContainer();
+        public UIContainer UIContainer { get; private set; } = new UIContainer();
+        public GeneralContainer GeneralContainer { get; private set; } = new GeneralContainer();
+        public CinemachineContainer CinemachineContainer { get; private set; } = new CinemachineContainer();
+        public PhotoContainer PhotoContainer { get; private set; } = new PhotoContainer();
+        public ManagerContainer ManagerContainer { get; private set; } = new ManagerContainer();
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -20,24 +20,6 @@ namespace DependencyInjection
                 return;
             }
             Instance = this;
-
-            InitializeDependencies();
-        }
-        private void InitializeDependencies()
-        {
-            PlayerContainer = new PlayerContainer();
-            UIContainer = new UIContainer();
-            GeneralContainer = new GeneralContainer();
-            CinemachineContainer = new CinemachineContainer();
-            PhotoContainer = new PhotoContainer();
-            ManagerContainer = new ManagerContainer();
-
-            PlayerContainer.Initialize();
-            UIContainer.Initialize();
-            GeneralContainer.Initialize();
-            CinemachineContainer.Initialize();
-            PhotoContainer.Initialize();
-            ManagerContainer.Initialize();
         }
     }
 }
