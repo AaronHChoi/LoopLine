@@ -25,7 +25,7 @@ namespace Player
         }
         public void Execute()
         {
-            if (input.ToggleCameraPressed() && controller.IsInState(controller.ObjectInHandState) && PlayerInventorySystem.Instance.ItemInUse.id == "Camera")
+            if (input.ToggleCameraPressed() && controller.IsInState(controller.ObjectInHandState) && InventoryUI.Instance.ItemInUse.id == "Camera")
             {
                 controller.ChangeState(controller.CameraState);
             }
