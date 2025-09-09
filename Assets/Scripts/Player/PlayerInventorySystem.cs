@@ -8,8 +8,8 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
     public static PlayerInventorySystem Instance { get; private set; }
     [Header("Inventory Settings")]
     [SerializeField] public List<ItemInteract> inventory = new List<ItemInteract>();
-    
-    
+    [SerializeField] public Transform SpawnPosition;
+    [SerializeField] public ItemInteract ItemInUse;
 
     PlayerController playerController;
     InventoryUI inventoryUI;
@@ -36,19 +36,18 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
 
         if (inventoryUI != null) 
         { 
-            
+            inventoryUI.gameObject.SetActive(false); 
         }
     }
     private void Start()
     {
         if (inventoryUI != null) 
         { 
-            //inventoryUI.AddInventorySlot(inventoryUI.HandItemUI);
-            //AddToInvetory(inventoryUI.HandItemUI);
-            //ItemInUse = inventoryUI.HandItemUI;
-            //inventoryUI.currentSlotIndex = 0;
-            //inventoryUI.inventorySlots[0].IsActive = true;
-            //inventoryUI.gameObject.SetActive(false); 
+            inventoryUI.AddInventorySlot(inventoryUI.HandItemUI);
+            AddToInvetory(inventoryUI.HandItemUI);
+            ItemInUse = inventoryUI.HandItemUI;
+            inventoryUI.currentSlotIndex = 0;
+            inventoryUI.inventorySlots[0].IsActive = true;
         }
     }
     private void OnEnable()
@@ -69,14 +68,15 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
     {
         if(SceneManager.GetActiveScene().name == "04. Train")
         {
-            //if (ItemInUse == inventoryUI.HandItemUI)
-            //{
-            //    if (inventoryUI.inventorySlots[0] != null)
-            //    {
-            //        inventoryUI.MoveArrowToSlot(inventoryUI.inventorySlots[0].transform as RectTransform);
-            //    }
+            if (ItemInUse == inventoryUI.HandItemUI)
+            {
+                if (inventoryUI.inventorySlots[0] != null)
+                {
+                    inventoryUI.MoveArrowToSlot(inventoryUI.inventorySlots[0].transform as RectTransform);
+                }
                 
-            //}
+            }
+
         }
     }
     private void OpenInventory()
@@ -87,7 +87,18 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
             inventoryUI.arrowImage.gameObject.SetActive(inventoryUI.gameObject.activeInHierarchy);
         }
     }
-    
+    void UpdateCursorState()
+    {
+        bool shouldShowCursor = !inventoryUI.gameObject.activeInHierarchy;
+         
+        if (isCursorVisible != shouldShowCursor)
+        {
+            playerController.SetCinemachineController(!shouldShowCursor);
+            isCursorVisible = shouldShowCursor;
+            Cursor.visible = isCursorVisible;
+            Cursor.lockState = isCursorVisible ? CursorLockMode.None : CursorLockMode.Locked;
+        }
+    }
     public void AddToInvetory(ItemInteract itemInteract)
     {
         if (CheckInventory(itemInteract) == false)
@@ -104,12 +115,12 @@ public class PlayerInventorySystem : MonoBehaviour, IDependencyInjectable
     {
         if (CheckInventory(itemInteract) == true)
         {
-            //inventory.Remove(itemInteract);
-            //itemInteract.objectPrefab.SetActive(false);
-            //ItemInUse = inventoryUI.HandItemUI;
-            //inventoryUI.inventorySlots[0].IsActive = true;
-            //inventoryUI.currentSlotIndex = 0;
-            //OnInventoryChanged?.Invoke();
+            inventory.Remove(itemInteract);
+            itemInteract.objectPrefab.SetActive(false);
+            ItemInUse = inventoryUI.HandItemUI;
+            inventoryUI.inventorySlots[0].IsActive = true;
+            inventoryUI.currentSlotIndex = 0;
+            OnInventoryChanged?.Invoke();
         }
     }
     public bool CheckInventory(ItemInteract itemInteract)

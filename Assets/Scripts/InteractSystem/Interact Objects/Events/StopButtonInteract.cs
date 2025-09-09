@@ -15,9 +15,11 @@ public class StopButtonInteract : MonoBehaviour, IInteract, IDependencyInjectabl
     [SerializeField] public GameObject TriggerRock;
     [SerializeField] public ItemInteract Rock;
 
+    PlayerInventorySystem inventory;
     ItemManager itemManager;
     InventoryUI inventoryUI;
     EventManager eventManager;
+
 
     private void Awake()
     {
@@ -41,14 +43,14 @@ public class StopButtonInteract : MonoBehaviour, IInteract, IDependencyInjectabl
             if (Crystal.gameObject.activeSelf == true)
             {
 
-                if (inventoryUI.ItemInUse == Rock)
+                if (inventory.ItemInUse == Rock)
                 {
 
                     SoundManager.Instance.CreateSound()
                         .WithSoundData(BreakSecurityCrystal)
                         .Play();
                     Crystal.gameObject.SetActive(false);
-                    inventoryUI.RemoveInventorySlot(Rock);
+                    inventory.RemoveFromInventory(Rock);
 
                 }
             }
@@ -81,6 +83,7 @@ public class StopButtonInteract : MonoBehaviour, IInteract, IDependencyInjectabl
 
     public void InjectDependencies(DependencyContainer provider)
     {
+        inventory = provider.PlayerContainer.PlayerInventorySystem;
         inventoryUI = provider.UIContainer.InventoryUI;
         eventManager = provider.ManagerContainer.EventManager;
         itemManager = provider.ManagerContainer.ItemManager;

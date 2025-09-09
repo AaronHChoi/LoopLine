@@ -59,16 +59,18 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
             OnDialogueEnded?.Invoke();
             if(_event)
                 playerController.SetCinemachineController(true);
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
             isDialogueActive = false;
             uiManager.HideUIText();
-            uiManager.ShowCrossHairFade(false);
         }
         else
         {
             OnDialogueStarted?.Invoke();
             playerController.SetCinemachineController(false);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
             isDialogueActive = true;
-            uiManager.ShowCrossHairFade(true);
         }
     }
     public void SetDialogue(DialogueSO _dialogue, DialogueSpeaker speaker)

@@ -12,6 +12,7 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable, IItemGrabInter
     [Header("Item Inventory UI")]
     [SerializeField] private bool deactivateOnPickup = true;
     [SerializeField] public GameObject objectPrefab;
+    [SerializeField] private GameObject itemToActivate;
 
     [Header("References")]
     PlayerInventorySystem playerInventorySystem;
@@ -39,18 +40,21 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable, IItemGrabInter
     {
         if (gameObject.tag == "Item" && canBePicked)
         {
-            if (inventoryUI.ItemInUse == inventoryUI.HandItemUI || inventoryUI.ItemInUse == null)
+            if (playerInventorySystem.ItemInUse == inventoryUI.HandItemUI || playerInventorySystem.ItemInUse == null)
             {
                 if (deactivateOnPickup)
                 {
                     gameObject.SetActive(false);
                     gameObject.layer = LayerMask.NameToLayer("Default");
                 }
-                if (inventoryUI.CheckInventory(this) == false)
+                if (playerInventorySystem.CheckInventory(this) == false)
                 {
                     inventoryUI.AddInventorySlot(this);
-                    //playerInventorySystem.AddToInvetory(this);
-                }                                
+                    playerInventorySystem.AddToInvetory(this);
+                }
+                
+                if (itemToActivate != null && !string.IsNullOrEmpty(id))
+                    playerInventorySystem.ActivateNextItem(itemToActivate, id);
 
                 NotifyItemPicked(id);
             }

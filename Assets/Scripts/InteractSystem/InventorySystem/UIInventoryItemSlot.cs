@@ -8,7 +8,6 @@ public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
     [SerializeField] private TextMeshProUGUI itemNameLabel;
     [SerializeField] private Image itemImage;
     [SerializeField] private Button itemButton;
-    [SerializeField] public string itemId;
     public ItemInteract itemToSpawn { get; private set; }
 
     bool isActive = false;
@@ -26,7 +25,7 @@ public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
                 DeactivateItem();
         }
     }
-    InventoryUI inventorySystem;
+    PlayerInventorySystem playerInventorySystem;
     PlayerStateController controller;
 
     private void Start()
@@ -35,7 +34,7 @@ public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
     }
     public void InjectDependencies(DependencyContainer provider)
     {
-        inventorySystem = provider.UIContainer.InventoryUI;
+        playerInventorySystem = provider.PlayerContainer.PlayerInventorySystem;
         controller = provider.PlayerContainer.PlayerStateController;
     }
     public void Set(ItemInteract item)
@@ -43,7 +42,6 @@ public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
         itemImage.sprite = item.ItemData.itemIcon;
         itemNameLabel.text = item.ItemData.itemName;
         itemToSpawn = item;
-        itemId = item.id;
     }
     void ActivateItem()
     {
@@ -52,11 +50,11 @@ public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
         if (item != null)
         {
             item.SetActive(true);
-            item.transform.position = inventorySystem.SpawnPosition.position;
-            item.transform.rotation = inventorySystem.SpawnPosition.rotation;
-            item.transform.SetParent(inventorySystem.SpawnPosition);
+            item.transform.position = playerInventorySystem.SpawnPosition.position;
+            item.transform.rotation = playerInventorySystem.SpawnPosition.rotation;
+            item.transform.SetParent(playerInventorySystem.SpawnPosition);
 
-            inventorySystem.ItemInUse = itemToSpawn;
+            playerInventorySystem.ItemInUse = itemToSpawn;
 
             controller.ChangeState(controller.ObjectInHandState);
         }
@@ -67,5 +65,19 @@ public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
 
         controller.ChangeState(controller.NormalState);
     }
-   
+    public void SpawnItem()
+    {
+        if (itemToSpawn.objectPrefab.gameObject.activeInHierarchy == false )
+        {
+            itemToSpawn.objectPrefab.gameObject.SetActive(true);
+            itemToSpawn.objectPrefab.transform.position = playerInventorySystem.SpawnPosition.position;
+            itemToSpawn.objectPrefab.transform.SetParent(playerInventorySystem.SpawnPosition);
+            playerInventorySystem.ItemInUse = itemToSpawn;
+        }
+        else if (itemToSpawn.objectPrefab.gameObject.activeInHierarchy == true && playerInventorySystem.ItemInUse == itemToSpawn)
+        {
+            itemToSpawn.objectPrefab.gameObject.SetActive(false);
+            playerInventorySystem.ItemInUse = null;
+        }
+    }
 }

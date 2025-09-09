@@ -130,8 +130,6 @@ GameObject:
   - component: {fileID: 2766403}
   - component: {fileID: 2766405}
   - component: {fileID: 2766404}
-  - component: {fileID: 2766407}
-  - component: {fileID: 2766406}
   m_Layer: 0
   m_Name: Arrow Image
   m_TagString: Untagged
@@ -193,31 +191,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2766402}
   m_CullTransparentMesh: 1
---- !u!114 &2766406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2766402}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 820d7666d2409f247bec0122dbc9d941, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  settings: {fileID: 11400000, guid: 4026499c98aafe54989d1a72b3fa5898, type: 2}
---- !u!225 &2766407
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2766402}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 0
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!1 &3268496
 GameObject:
   m_ObjectHideFlags: 0
@@ -666,6 +639,7 @@ MonoBehaviour:
   canBePicked: 1
   deactivateOnPickup: 1
   objectPrefab: {fileID: 0}
+  itemToActivate: {fileID: 0}
 --- !u!65 &65918284
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1380,6 +1354,7 @@ MonoBehaviour:
   canBePicked: 0
   deactivateOnPickup: 1
   objectPrefab: {fileID: 0}
+  itemToActivate: {fileID: 0}
 --- !u!114 &114952364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2178,6 +2153,7 @@ MonoBehaviour:
   canBePicked: 0
   deactivateOnPickup: 1
   objectPrefab: {fileID: 0}
+  itemToActivate: {fileID: 0}
 --- !u!114 &205322671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2506,7 +2482,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5297337762750516422, guid: 56422696f875fd340be386f7c79f94e5, type: 3}
   m_PrefabInstance: {fileID: 5048660245206476094}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2122841820}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
@@ -9441,6 +9417,7 @@ MonoBehaviour:
   canBePicked: 0
   deactivateOnPickup: 1
   objectPrefab: {fileID: 0}
+  itemToActivate: {fileID: 0}
 --- !u!114 &465367166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12720,11 +12697,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 802335455}
   m_CullTransparentMesh: 1
---- !u!4 &804414379 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4781559295280408138, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
-  m_PrefabInstance: {fileID: 2539723291350467074}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &820759485
 GameObject:
   m_ObjectHideFlags: 0
@@ -15403,6 +15375,7 @@ MonoBehaviour:
   canBePicked: 0
   deactivateOnPickup: 1
   objectPrefab: {fileID: 0}
+  itemToActivate: {fileID: 0}
 --- !u!114 &919430332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15645,6 +15618,7 @@ MonoBehaviour:
   canBePicked: 0
   deactivateOnPickup: 1
   objectPrefab: {fileID: 0}
+  itemToActivate: {fileID: 0}
 --- !u!114 &920470988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15966,10 +15940,6 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2666793908012548134, guid: 02b82f6c457e3c448be87eb43fc898ef, type: 3}
-      propertyPath: SpawnPosition
-      value: 
-      objectReference: {fileID: 804414379}
-    - target: {fileID: 2666793908012548134, guid: 02b82f6c457e3c448be87eb43fc898ef, type: 3}
       propertyPath: slotChangeCooldown
       value: 0.2
       objectReference: {fileID: 0}
@@ -16046,13 +16016,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7738416766628505168, guid: 02b82f6c457e3c448be87eb43fc898ef, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1228689249}
-    - targetCorrespondingSourceObject: {fileID: 7738416766628505168, guid: 02b82f6c457e3c448be87eb43fc898ef, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1228689242}
-    - targetCorrespondingSourceObject: {fileID: 7738416766628505168, guid: 02b82f6c457e3c448be87eb43fc898ef, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1228689248}
   m_SourcePrefab: {fileID: 100100000, guid: 02b82f6c457e3c448be87eb43fc898ef, type: 3}
 --- !u!1 &943488161
 GameObject:
@@ -23037,31 +23001,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
---- !u!114 &1228689248
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1228689236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 820d7666d2409f247bec0122dbc9d941, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  settings: {fileID: 11400000, guid: 7267e066d88d9394ea1df19a16be2ce4, type: 2}
---- !u!225 &1228689249
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1228689236}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 0
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!64 &1239814067
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -24178,6 +24117,7 @@ MonoBehaviour:
   canBePicked: 0
   deactivateOnPickup: 1
   objectPrefab: {fileID: 0}
+  itemToActivate: {fileID: 0}
 --- !u!114 &1354861409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24512,10 +24452,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 140835136}
     m_Modifications:
-    - target: {fileID: 3930132707576380138, guid: c9d920ef9daa5ca46b9d7382af95c112, type: 3}
-      propertyPath: canBePicked
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6835375470695912198, guid: c9d920ef9daa5ca46b9d7382af95c112, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -35162,6 +35098,7 @@ MonoBehaviour:
   canBePicked: 0
   deactivateOnPickup: 1
   objectPrefab: {fileID: 0}
+  itemToActivate: {fileID: 0}
 --- !u!65 &2096549932
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -35345,36 +35282,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5580382859956264437, guid: 3a2c426b19dcd9845976378e2abbc302, type: 3}
---- !u!1 &2122841820 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5135569987181176610, guid: 56422696f875fd340be386f7c79f94e5, type: 3}
-  m_PrefabInstance: {fileID: 5048660245206476094}
-  m_PrefabAsset: {fileID: 0}
---- !u!225 &2122841823
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2122841820}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
---- !u!114 &2122841824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2122841820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 820d7666d2409f247bec0122dbc9d941, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  settings: {fileID: 11400000, guid: c18f626c535d0c24e82365dfe6f9373d, type: 2}
 --- !u!1 &2130546035
 GameObject:
   m_ObjectHideFlags: 0
@@ -36866,10 +36773,6 @@ PrefabInstance:
       value: 'Player/ToggleCamera[/Keyboard/e]'
       objectReference: {fileID: 0}
     - target: {fileID: 8140536899035517353, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
-      propertyPath: crossFade
-      value: 
-      objectReference: {fileID: 2122841824}
-    - target: {fileID: 8140536899035517353, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: crosshairImage
       value: 
       objectReference: {fileID: 240250476}
@@ -37806,6 +37709,7 @@ MonoBehaviour:
   canBePicked: 0
   deactivateOnPickup: 1
   objectPrefab: {fileID: 0}
+  itemToActivate: {fileID: 0}
 --- !u!114 &4232027734277426534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37981,13 +37885,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1583081206295621292, guid: 56422696f875fd340be386f7c79f94e5, type: 3}
       insertIndex: 2
       addedObject: {fileID: 892142238340822309}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5135569987181176610, guid: 56422696f875fd340be386f7c79f94e5, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2122841823}
-    - targetCorrespondingSourceObject: {fileID: 5135569987181176610, guid: 56422696f875fd340be386f7c79f94e5, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2122841824}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56422696f875fd340be386f7c79f94e5, type: 3}
 --- !u!1 &5173149649415243145
 GameObject:
@@ -38436,6 +38334,7 @@ MonoBehaviour:
   canBePicked: 0
   deactivateOnPickup: 1
   objectPrefab: {fileID: 0}
+  itemToActivate: {fileID: 0}
 --- !u!114 &6797060540603776288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38688,6 +38587,7 @@ MonoBehaviour:
   canBePicked: 0
   deactivateOnPickup: 1
   objectPrefab: {fileID: 0}
+  itemToActivate: {fileID: 0}
 --- !u!114 &8331784865067959945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38856,6 +38756,7 @@ MonoBehaviour:
   canBePicked: 0
   deactivateOnPickup: 1
   objectPrefab: {fileID: 0}
+  itemToActivate: {fileID: 0}
 --- !u!114 &8655421388353277496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39038,6 +38939,7 @@ MonoBehaviour:
   canBePicked: 0
   deactivateOnPickup: 1
   objectPrefab: {fileID: 0}
+  itemToActivate: {fileID: 0}
 --- !u!114 &8977400717001841829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39087,6 +38989,7 @@ MonoBehaviour:
   canBePicked: 0
   deactivateOnPickup: 1
   objectPrefab: {fileID: 0}
+  itemToActivate: {fileID: 0}
 --- !u!114 &9115198044459715235
 MonoBehaviour:
   m_ObjectHideFlags: 0

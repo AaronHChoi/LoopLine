@@ -1,29 +1,20 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CrosshairFade : MonoBehaviour, ICrosshairFade
+public class CrosshairFade : MonoBehaviour
 {
     [SerializeField] private RawImage crosshairImage;
-    
     [SerializeField] private LayerMask interactableLayer;
     [SerializeField] private float maxAngle = 15f;
     [SerializeField] private float detectionRadius = 1.5f;
     [SerializeField] private float detectionDistance = 2f;
 
-    public bool IsVisible => isVisible;
-
-    private bool isVisible = true;
     private Transform cameraTransform;
-    private FadeInOutController crossFade;
-
 
     void Start()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
         cameraTransform = Camera.main.transform;
         SetCrosshairVisible(false); // hide crosshair at start
-        if (crosshairImage != null) crossFade = crosshairImage.GetComponent<FadeInOutController>();
     }
 
     void Update()
@@ -98,21 +89,4 @@ public class CrosshairFade : MonoBehaviour, ICrosshairFade
         color.a = opacity;
         crosshairImage.color = color;
     }
-    public void ShowCrosshair(bool show)
-    {
-        //Fades if it can and save it's state
-        if (isVisible == show) return;
-        else isVisible = show;
-
-        if (crossFade == null) return;
-
-        crossFade.ForceFade(!show);
-    }
-}
-
-public interface ICrosshairFade
-{
-    public bool IsVisible { get; }
-    void ShowCrosshair(bool show);
-
 }
