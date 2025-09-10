@@ -24,7 +24,6 @@ namespace Player
         public event Action OnGrab;
 
         StateMachine stateMachine;
-        PlayerInputHandler playerInputHandler;
         PlayerMovement playerMovement;
         PhotoCapture photoCapture;
         CinemachinePOVExtension cinemachinePOVExtension;
@@ -33,7 +32,7 @@ namespace Player
         PhotoMarker photoMarker;
         
         ITogglePhotoDetection togglePhotoDetection;
-
+        IPlayerInputHandler inputHandler;
         public NormalState NormalState { get; private set; }
         public DialogueState DialogueState { get; private set; }
         public CameraState CameraState { get; private set; }
@@ -45,23 +44,24 @@ namespace Player
         {
             InjectDependencies(DependencyContainer.Instance);
             togglePhotoDetection = InterfaceDependencyInjector.Instance.Resolve<ITogglePhotoDetection>();
+            
+            inputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
 
             stateMachine = new StateMachine();
 
-            NormalState = new NormalState(this, playerInputHandler, playerMovement, cinemachinePOVExtension);
-            DialogueState = new DialogueState(this, playerInputHandler, playerMovement, cinemachinePOVExtension);
-            CameraState = new CameraState(this, playerInputHandler, playerMovement, photoCapture, cinemachinePOVExtension, interaction, togglePhotoDetection, photoMarker);
-            DevelopmentState = new DevelopmentState(this, playerInputHandler, playerMovement, cinemachinePOVExtension, timeManager);
-            FocusModeState = new FocusModeState(this, playerInputHandler, playerMovement, cinemachinePOVExtension);
-            MindPlaceState = new MindPlaceState(this, playerInputHandler, playerMovement);
-            ObjectInHandState = new ObjectInHandState(this, playerInputHandler, playerMovement, cinemachinePOVExtension);
+            NormalState = new NormalState(this, inputHandler, playerMovement, cinemachinePOVExtension);
+            DialogueState = new DialogueState(this, inputHandler, playerMovement, cinemachinePOVExtension);
+            CameraState = new CameraState(this, inputHandler, playerMovement, photoCapture, cinemachinePOVExtension, interaction, togglePhotoDetection, photoMarker);
+            DevelopmentState = new DevelopmentState(this, inputHandler, playerMovement, cinemachinePOVExtension, timeManager);
+            FocusModeState = new FocusModeState(this, inputHandler, playerMovement, cinemachinePOVExtension);
+            MindPlaceState = new MindPlaceState(this, inputHandler, playerMovement);
+            ObjectInHandState = new ObjectInHandState(this, inputHandler, playerMovement, cinemachinePOVExtension);
 
             stateMachine.Initialize(NormalState);
         }
         public void InjectDependencies(DependencyContainer provider)
         {
             playerMovement = provider.PlayerContainer.PlayerMovement;
-            playerInputHandler = provider.PlayerContainer.PlayerInputHandler;
             photoCapture = provider.PhotoContainer.PhotoCapture;
             cinemachinePOVExtension = provider.CinemachineContainer.CinemachinePOVExtension;
             timeManager = provider.ManagerContainer.TimeManager;

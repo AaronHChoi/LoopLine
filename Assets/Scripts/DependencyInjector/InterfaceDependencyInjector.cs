@@ -22,7 +22,7 @@ namespace DependencyInjection
 
             InjectDependencies(DependencyContainer.Instance);
         }
-        public void InjectDependencies(DependencyContainer provider)
+        public void InjectDependencies(DependencyContainer provider)//para eliminar
         {
             provider.PlayerContainer.RegisterServices(this);
             provider.CinemachineContainer.RegisterServices(this);
@@ -41,16 +41,17 @@ namespace DependencyInjection
         }
         public T Resolve<T>()
         {
-            if (instances.TryGetValue(typeof(T), out var service))
-                return (T)service;
+            var type = typeof(T);
 
-            if (factories.TryGetValue(typeof(T), out var factory))
+            if(!instances.TryGetValue(type, out var instance))
             {
-                var instance = (T)factory();
-                instances[typeof(T)] = instance;
-                return instance;
+                if (!factories.TryGetValue(type, out var factory))
+                    throw new Exception($"No service registered for {type}");
+
+                instance = factory();
+                instances[type] = instance;
             }
-            throw new Exception($"Service of type {typeof(T)} not registered.");
+            return (T)instance;
         }
     }
 }

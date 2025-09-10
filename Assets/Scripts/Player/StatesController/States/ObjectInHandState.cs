@@ -6,11 +6,11 @@ namespace Player
     public class ObjectInHandState : IState
     {
         PlayerStateController controller;
-        PlayerInputHandler input;
+        IPlayerInputHandler input;
         PlayerMovement movement;
         CinemachinePOVExtension playerCamera;
 
-        public ObjectInHandState(PlayerStateController controller, PlayerInputHandler input, PlayerMovement movement, CinemachinePOVExtension playerCamera)
+        public ObjectInHandState(PlayerStateController controller, IPlayerInputHandler input, PlayerMovement movement, CinemachinePOVExtension playerCamera)
         {
             this.controller = controller;
             this.input = input;
