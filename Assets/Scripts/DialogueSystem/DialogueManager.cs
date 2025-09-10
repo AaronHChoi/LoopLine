@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using DependencyInjection;
+using Player;
+
 public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueManager
 {
     public static event Action OnDialogueStarted;
@@ -24,6 +26,7 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
 
     DialogueUI dialogueUI;
     QuestionManager questionManager;
+    PlayerStateController playerState;
 
     IUIManager uiManager;
     IPlayerController playerController;
@@ -45,6 +48,7 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
     {
         questionManager = provider.ManagerContainer.QuestionManager;
         dialogueUI = provider.UIContainer.DialogueUI;
+        playerState = provider.PlayerContainer.PlayerStateController;
     }
     private void Start()
     {
@@ -57,8 +61,8 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
         {
             dialogueUI.localIndex = 0;
             OnDialogueEnded?.Invoke();
-            if(_event)
-                playerController.SetCinemachineController(true);
+            if (_event)
+                playerState.ChangeState(playerState.NormalState);
             isDialogueActive = false;
             uiManager.HideUIText();
             uiManager.ShowCrossHairFade(false);
@@ -66,7 +70,7 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
         else
         {
             OnDialogueStarted?.Invoke();
-            playerController.SetCinemachineController(false);
+            playerState.ChangeState(playerState.DialogueState);
             isDialogueActive = true;
             uiManager.ShowCrossHairFade(true);
         }

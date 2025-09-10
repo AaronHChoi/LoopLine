@@ -15,7 +15,6 @@ public class Word : Subject, IWord /*IInteract*/
     [SerializeField] private string correctWordEvent;
     [SerializeField] private string incorrectWordEvent;
     [SerializeField] private GameObject player;
-    [SerializeField] private DialogueSOManager dialogueSOManager;
     [SerializeField] private DialogueSpeaker dialogueSpeaker;
 
 

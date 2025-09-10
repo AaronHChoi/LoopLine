@@ -21,8 +21,6 @@ namespace DependencyInjection
             Instance = this;
 
             InjectDependencies(DependencyContainer.Instance);
-
-            ValidateRegistrations();
         }
         public void InjectDependencies(DependencyContainer provider)
         {
@@ -53,19 +51,6 @@ namespace DependencyInjection
                 return instance;
             }
             throw new Exception($"Service of type {typeof(T)} not registered.");
-        }
-        void ValidateRegistrations()
-        {
-            Type[] required =
-            {
-            typeof(IColliderToggle),
-        };
-
-            foreach (var type in required)
-            {
-                if (!factories.ContainsKey(type))
-                    Debug.LogError($"[Injector] Missing required service: {type}");
-            }
         }
     }
 }

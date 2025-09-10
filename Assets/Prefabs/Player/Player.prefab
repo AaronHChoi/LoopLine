@@ -255,7 +255,6 @@ GameObject:
   - component: {fileID: 7046774766287870829}
   - component: {fileID: 725991546843324951}
   - component: {fileID: 2464039023775065192}
-  - component: {fileID: 2582760741889782329}
   - component: {fileID: 3185304443358567593}
   - component: {fileID: 7403318227544770739}
   - component: {fileID: 1732922333188898066}
@@ -338,8 +337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0599f00aebe508458fb45f9f6658a1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerModel: {fileID: 0}
-  characterController: {fileID: 0}
+  playerModel: {fileID: 11400000, guid: 0029913eba0665e419df9d46e4cb2a20, type: 2}
 --- !u!114 &7046774766287870829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -527,7 +525,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactText: Interact with me!
-  id: 
   AvailableDialogs:
   - {fileID: 11400000, guid: 51d5b18b42fa0234ca9c8b910c166ff5, type: 2}
   dialogueIndex: 0
@@ -535,25 +532,8 @@ MonoBehaviour:
   isDialogueActive: 0
   NPCInteracted: 0
   headTarget: {fileID: 0}
+  id: 
   DialogueEvents: []
---- !u!114 &2582760741889782329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1965095351449339405}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 013c83a15b4b79b41b6d2730739b6082, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DialogueEvents:
-  - EventType: 0
-    changes: []
-  - EventType: 0
-    changes: []
-  dialogueSpeaker: {fileID: 0}
 --- !u!114 &3185304443358567593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -567,6 +547,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eagleVisionMaterial: {fileID: 2100000, guid: b292066646bdbe64b99de360a3426930, type: 2}
+  transitionSpeed: 3
 --- !u!114 &7403318227544770739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -603,7 +584,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14834ab87225d2040803b724fd8bf6ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 0}
 --- !u!114 &489988536104913948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -648,8 +628,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: []
-  SpawnPosition: {fileID: 4781559295280408138}
-  ItemInUse: {fileID: 0}
 --- !u!114 &1048711227675933098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -672,7 +650,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6738153658621300136}
   - component: {fileID: 5192863049621133675}
-  - component: {fileID: 6234530256051256785}
   - component: {fileID: 3517978633452319080}
   m_Layer: 0
   m_Name: CameraPOV
@@ -708,7 +685,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48131f33712f4c346a398c614618fd0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputHandler: {fileID: 0}
+  inputHandler: {fileID: 7403318227544770739}
   Pan:
     Value: 0
     Center: 0
@@ -729,51 +706,6 @@ MonoBehaviour:
       Wait: 0
       Time: 0
     Restrictions: 2
---- !u!114 &6234530256051256785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3780014622783971460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89875cdc57c54474a8a74efd9b2a3b5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ScanRecursively: 1
-  SuppressInputWhileBlending: 1
-  IgnoreTimeScale: 0
-  m_ControllerManager:
-    Controllers:
-    - Name: Look X (Pan)
-      Owner: {fileID: 5192863049621133675}
-      Enabled: 1
-      Input:
-        InputAction: {fileID: -5630151704836100654, guid: 1d6e640e716dc4ff6989b73d02023f2b, type: 3}
-        Gain: 1
-        LegacyInput: 
-        LegacyGain: 1
-        CancelDeltaTime: 0
-      InputValue: 0
-      Driver:
-        AccelTime: 0
-        DecelTime: 0
-    - Name: Look Y (Tilt)
-      Owner: {fileID: 5192863049621133675}
-      Enabled: 1
-      Input:
-        InputAction: {fileID: -5630151704836100654, guid: 1d6e640e716dc4ff6989b73d02023f2b, type: 3}
-        Gain: -1
-        LegacyInput: 
-        LegacyGain: 1
-        CancelDeltaTime: 0
-      InputValue: 0
-      Driver:
-        AccelTime: 0
-        DecelTime: 0
-  PlayerIndex: -1
-  AutoEnableInputs: 1
 --- !u!114 &3517978633452319080
 MonoBehaviour:
   m_ObjectHideFlags: 0

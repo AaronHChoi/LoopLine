@@ -9,7 +9,7 @@ namespace Player
 {
     public class PlayerStateController : MonoBehaviour, IDependencyInjectable
     {
-        public StateMachine stateMachine { get; set; }
+        public StateMachine StateMachine => stateMachine;
         public bool CanUseNormalStateExecute { get; set; } = true;
 
         public event Action<IState> OnStateChanged;
@@ -23,6 +23,7 @@ namespace Player
         public event Action OnScrollInventory;
         public event Action OnGrab;
 
+        StateMachine stateMachine;
         PlayerInputHandler playerInputHandler;
         PlayerMovement playerMovement;
         PhotoCapture photoCapture;

@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour, IDependencyInjectable
         set => canMove = value; 
     }
 
-    PlayerController controller;
+    IPlayerController controller;
     IPlayerInputHandler input;
     IPlayerCamera playerCamera;
     IPlayerView playerView;
@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour, IDependencyInjectable
     {
         if (!canMove) return;
 
-        Vector2 _inputMovement = input.GetInputMove();
+        Vector2 inputMovement = input.GetInputMove();
 
         Vector3 forward = playerCamera.GetCameraTransform().forward;
         Vector3 right = playerCamera.GetCameraTransform().right;
@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour, IDependencyInjectable
         forward.Normalize();
         right.Normalize();
 
-        Vector3 moveDirection = forward * _inputMovement.y + right * _inputMovement.x;
+        Vector3 moveDirection = forward * inputMovement.y + right * inputMovement.x;
 
         if (transform.position.y != controller.PlayerModel.YAxisLocation)
         {
