@@ -8,11 +8,11 @@ namespace DependencyInjection
         PlayerController playerController;
         public PlayerController PlayerController => playerController ??= FindAndValidate<PlayerController>();
 
-        PlayerInputHandler playerInputHandler;
-        public PlayerInputHandler PlayerInputHandler => playerInputHandler ??= FindAndValidate<PlayerInputHandler>();
+        //PlayerInputHandler playerInputHandler;
+        //public PlayerInputHandler PlayerInputHandler => playerInputHandler ??= FindAndValidate<PlayerInputHandler>();
 
-        PlayerCamera playerCamera;
-        public PlayerCamera PlayerCamera => playerCamera ??= FindAndValidate<PlayerCamera>();
+        //PlayerCamera playerCamera;
+        //public PlayerCamera PlayerCamera => playerCamera ??= FindAndValidate<PlayerCamera>();
 
         PlayerView playerView;
         public PlayerView PlayerView => playerView ??= FindAndValidate<PlayerView>();
@@ -34,10 +34,10 @@ namespace DependencyInjection
         
         public void RegisterServices(InterfaceDependencyInjector injector)
         {
-            injector.Register<IPlayerCamera>(() => PlayerCamera);
+            injector.Register<IPlayerCamera>(() => FindAndValidate<PlayerCamera>());
             injector.Register<IPlayerController>(() => PlayerController);
             injector.Register<IPlayerView>(() => PlayerView);
-            injector.Register<IPlayerInputHandler>(() => PlayerInputHandler);
+            injector.Register<IPlayerInputHandler>(() => FindAndValidate<PlayerInputHandler>());
         }
     }
 }

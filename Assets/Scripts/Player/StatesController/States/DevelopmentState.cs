@@ -6,11 +6,11 @@ namespace Player
     public class DevelopmentState : IState
     {
         PlayerStateController controller;
-        PlayerInputHandler input;
+        IPlayerInputHandler input;
         PlayerMovement movement;
         CinemachinePOVExtension playerCamera;
         TimeManager timeManager;
-        public DevelopmentState(PlayerStateController controller, PlayerInputHandler input, PlayerMovement movement, CinemachinePOVExtension playerCamera, TimeManager timeManager)
+        public DevelopmentState(PlayerStateController controller, IPlayerInputHandler input, PlayerMovement movement, CinemachinePOVExtension playerCamera, TimeManager timeManager)
         {
             this.controller = controller;
             this.input = input;

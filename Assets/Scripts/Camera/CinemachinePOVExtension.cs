@@ -4,10 +4,10 @@ using DependencyInjection;
 
 namespace Unity.Cinemachine.Samples
 {
-    public class CinemachinePOVExtension : MonoBehaviour, Unity.Cinemachine.IInputAxisOwner, ICameraOrientation, IDependencyInjectable
+    public class CinemachinePOVExtension : MonoBehaviour, Unity.Cinemachine.IInputAxisOwner, ICameraOrientation
     {
         IPlayerController controller;
-        [SerializeField] PlayerInputHandler inputHandler;
+        IPlayerInputHandler inputHandler;
 
         bool canLook = true;
         public bool CanLook { get => canLook; set => canLook = value;}
@@ -26,6 +26,7 @@ namespace Unity.Cinemachine.Samples
         private void Awake()
         {
             InjectDependencies(DependencyContainer.Instance);
+            inputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
         }
         void IInputAxisOwner.GetInputAxes(List<IInputAxisOwner.AxisDescriptor> axes)
         {
@@ -82,7 +83,6 @@ namespace Unity.Cinemachine.Samples
         public void InjectDependencies(DependencyContainer provider)
         {
             controller = provider.PlayerContainer.PlayerController;
-            //inputHandler = provider.PlayerInputHandler;
         }
     }
 }
