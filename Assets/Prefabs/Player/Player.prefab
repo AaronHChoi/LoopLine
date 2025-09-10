@@ -527,7 +527,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactText: Interact with me!
-  id: 
   AvailableDialogs:
   - {fileID: 11400000, guid: 51d5b18b42fa0234ca9c8b910c166ff5, type: 2}
   dialogueIndex: 0
@@ -535,6 +534,7 @@ MonoBehaviour:
   isDialogueActive: 0
   NPCInteracted: 0
   headTarget: {fileID: 0}
+  id: 
   DialogueEvents: []
 --- !u!114 &2582760741889782329
 MonoBehaviour:
@@ -648,8 +648,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: []
-  SpawnPosition: {fileID: 4781559295280408138}
-  ItemInUse: {fileID: 0}
 --- !u!114 &1048711227675933098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -672,7 +670,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6738153658621300136}
   - component: {fileID: 5192863049621133675}
-  - component: {fileID: 6234530256051256785}
   - component: {fileID: 3517978633452319080}
   m_Layer: 0
   m_Name: CameraPOV
@@ -729,51 +726,6 @@ MonoBehaviour:
       Wait: 0
       Time: 0
     Restrictions: 2
---- !u!114 &6234530256051256785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3780014622783971460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89875cdc57c54474a8a74efd9b2a3b5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ScanRecursively: 1
-  SuppressInputWhileBlending: 1
-  IgnoreTimeScale: 0
-  m_ControllerManager:
-    Controllers:
-    - Name: Look X (Pan)
-      Owner: {fileID: 5192863049621133675}
-      Enabled: 1
-      Input:
-        InputAction: {fileID: -5630151704836100654, guid: 1d6e640e716dc4ff6989b73d02023f2b, type: 3}
-        Gain: 1
-        LegacyInput: 
-        LegacyGain: 1
-        CancelDeltaTime: 0
-      InputValue: 0
-      Driver:
-        AccelTime: 0
-        DecelTime: 0
-    - Name: Look Y (Tilt)
-      Owner: {fileID: 5192863049621133675}
-      Enabled: 1
-      Input:
-        InputAction: {fileID: -5630151704836100654, guid: 1d6e640e716dc4ff6989b73d02023f2b, type: 3}
-        Gain: -1
-        LegacyInput: 
-        LegacyGain: 1
-        CancelDeltaTime: 0
-      InputValue: 0
-      Driver:
-        AccelTime: 0
-        DecelTime: 0
-  PlayerIndex: -1
-  AutoEnableInputs: 1
 --- !u!114 &3517978633452319080
 MonoBehaviour:
   m_ObjectHideFlags: 0
