@@ -26,9 +26,6 @@ namespace DependencyInjection
         SoundManager soundManager;
         public SoundManager SoundManager => soundManager ??= FindAndValidate<SoundManager>();
 
-        NoteBookManager noteBookManager;
-        public NoteBookManager NoteBookManager => noteBookManager ??= FindAndValidate<NoteBookManager>();
-
         ItemManager itemManager;
         public ItemManager ItemManager => itemManager ??= FindAndValidate<ItemManager>();
 
@@ -41,7 +38,6 @@ namespace DependencyInjection
         public void RegisterServices(InterfaceDependencyInjector injector)
         {
             injector.Register<IColliderToggle>(() => FocusModeManager);
-            injector.Register<INoteBookColliderToggle>(() => NoteBookManager);
             injector.Register<IDialogueManager>(() => DialogueManager);
             injector.Register<ITimeProvider>(() => TimeManager);
             //injector.Register<IEventDialogueManager>(() => EventDialogueManager); //DIALOGUE EVENTS

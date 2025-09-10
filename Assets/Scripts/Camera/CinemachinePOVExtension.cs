@@ -6,7 +6,7 @@ namespace Unity.Cinemachine.Samples
 {
     public class CinemachinePOVExtension : MonoBehaviour, Unity.Cinemachine.IInputAxisOwner, ICameraOrientation, IDependencyInjectable
     {
-        PlayerController controller;
+        IPlayerController controller;
         [SerializeField] PlayerInputHandler inputHandler;
 
         bool canLook = true;

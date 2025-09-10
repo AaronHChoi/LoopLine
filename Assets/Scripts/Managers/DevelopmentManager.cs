@@ -68,7 +68,14 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
         UIPrinciplal.SetActive(!UIPrinciplal.activeInHierarchy);
         UIDeveloperMode.SetActive(!UIDeveloperMode.activeInHierarchy);
 
-        playerController.SetCinemachineController(!isUIActive);
+        if (isUIActive)
+        {
+            playerStateController.ChangeState(playerStateController.DialogueState);
+        }
+        else
+        {
+            playerStateController.ChangeState(playerStateController.NormalState);
+        }
 
         UpdateCursorState();
     }
@@ -81,7 +88,7 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
 
             isUIActive = false;
 
-            playerController.SetCinemachineController(true);
+            playerStateController.ChangeState(playerStateController.NormalState);
 
             timeManager.PauseTime(false);
             UpdateCursorState();
