@@ -22,11 +22,6 @@ public class EventManager : Subject
 
     [SerializeField] private QuestionSO stopTrainQuestion;
 
-    [Header("Dialogues Managers")] //Referencias manuales
-    [SerializeField] List<DialogueSOManager> dialogueManagers = new List<DialogueSOManager>();
-
-    [SerializeField] DialogueSOManager player;
-
     ITimeProvider timeManager;
     IUIManager uiManager;
     IDialogueManager dialogueManager;

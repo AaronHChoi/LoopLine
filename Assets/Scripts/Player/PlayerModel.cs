@@ -15,8 +15,6 @@ public class PlayerModel : ScriptableObject
     [SerializeField] float lookSensitivity;
     public float LookSensitivity { get => lookSensitivity; private set => lookSensitivity = value; }
 
-    [SerializeField] bool focusMode;
-    public bool FocusMode { get => focusMode; set => focusMode = value; }
 
     [SerializeField] float yAxisLocation;
     public float YAxisLocation { get => yAxisLocation; private set => yAxisLocation = value; }

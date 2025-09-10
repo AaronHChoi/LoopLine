@@ -4,17 +4,16 @@ using UnityEngine.UI;
 public class CrosshairFade : MonoBehaviour, ICrosshairFade
 {
     [SerializeField] private RawImage crosshairImage;
-    
     [SerializeField] private LayerMask interactableLayer;
     [SerializeField] private float maxAngle = 15f;
     [SerializeField] private float detectionRadius = 1.5f;
     [SerializeField] private float detectionDistance = 2f;
 
-    public bool IsVisible => isVisible;
-
-    private bool isVisible = true;
-    private Transform cameraTransform;
     private FadeInOutController crossFade;
+    private Transform cameraTransform;
+    private Transform target;
+    private bool isVisible = true;
+    private float score = 0f;
 
 
     void Start()
@@ -28,9 +27,6 @@ public class CrosshairFade : MonoBehaviour, ICrosshairFade
 
     void Update()
     {
-        Transform target;
-        float score;
-
         if (GetClosestTarget(out target, out score))
         {
             SetCrosshairOpacity(score); // fade based on angle + distance
@@ -100,7 +96,7 @@ public class CrosshairFade : MonoBehaviour, ICrosshairFade
     }
     public void ShowCrosshair(bool show)
     {
-        //Fades if it can and save it's state
+        //Fades if it can be fade and save it's state
         if (isVisible == show) return;
         else isVisible = show;
 
@@ -112,7 +108,5 @@ public class CrosshairFade : MonoBehaviour, ICrosshairFade
 
 public interface ICrosshairFade
 {
-    public bool IsVisible { get; }
     void ShowCrosshair(bool show);
-
 }

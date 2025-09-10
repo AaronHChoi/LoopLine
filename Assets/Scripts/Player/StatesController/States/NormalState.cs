@@ -43,12 +43,12 @@ namespace Player
             if (input.DevelopmentModePressed())
             {
                 controller.UseEventDevelopment();
-                controller.stateMachine.TransitionTo(controller.DevelopmentState);
+                controller.StateMachine.TransitionTo(controller.DevelopmentState);
             }
             if (input.FocusModePressed())
             {
                 controller.UseEventFocusMode();
-                controller.stateMachine.TransitionTo(controller.FocusModeState);
+                controller.StateMachine.TransitionTo(controller.FocusModeState);
             }
         }
         public void Exit()
