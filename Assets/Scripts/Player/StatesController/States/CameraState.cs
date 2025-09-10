@@ -9,7 +9,7 @@ namespace Player
     {
         public static bool PolaroidIsActive { get; private set; }
         PlayerStateController controller;
-        IPlayerInputHandler input;
+        PlayerInputHandler input;
         PlayerMovement movement;
         PhotoCapture photo;
         CinemachinePOVExtension playerCamera;
@@ -17,7 +17,7 @@ namespace Player
         PhotoMarker photoMarker;
         ITogglePhotoDetection togglePhotoDetection;
         GameObject polaroidItem;
-        public CameraState(PlayerStateController controller, IPlayerInputHandler input, PlayerMovement movement, 
+        public CameraState(PlayerStateController controller, PlayerInputHandler input, PlayerMovement movement, 
             PhotoCapture photo, CinemachinePOVExtension playerCamera, PlayerInteraction interaction, 
             ITogglePhotoDetection togglePhotoDetection, PhotoMarker photoMarker)
         {

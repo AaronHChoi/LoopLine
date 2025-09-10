@@ -95,14 +95,5 @@ public interface IPlayerInputHandler
 {
     float GetScrollValue();
     Vector2 GetInputMove();
-    Vector2 GetInputDelta();
     bool IsSprinting();
-    bool InteractPressed();
-    bool PassDialogPressed();
-    bool OpenInventoryPressed();
-    bool FocusModePressed();
-    bool ToggleCameraPressed();
-    bool TakePhotoPressed();
-    bool DevelopmentModePressed();
-    bool GrabItemPressed();
 }

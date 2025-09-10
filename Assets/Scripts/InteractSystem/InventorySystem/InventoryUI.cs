@@ -33,13 +33,11 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
     PlayerController playerController;
     PlayerInventorySystem inventorySystem;
     DialogueManager dialogueManager;
-    IPlayerInputHandler inputHandler;
 
     #region MagicMethods
     private void Awake()
     {
         InjectDependencies(DependencyContainer.Instance);
-        inputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
     }
     private void Start()
     {
@@ -65,7 +63,7 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
     {
         //if (!DependencyContainer.Instance.PlayerStateController.IsInState(playerStateController.InventoryState)) return;
 
-        float scroll = inputHandler.GetScrollValue();
+        float scroll = DependencyContainer.Instance.PlayerContainer.PlayerInputHandler.GetScrollValue();
 
         if (Time.time - lastSlotChangeTime < slotChangeCooldown)
         {

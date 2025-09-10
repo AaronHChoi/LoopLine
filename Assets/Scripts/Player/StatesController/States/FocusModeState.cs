@@ -6,11 +6,11 @@ namespace Player
     public class FocusModeState : IState
     {
         PlayerStateController controller;
-        IPlayerInputHandler input;
+        PlayerInputHandler input;
         PlayerMovement movement;
         CinemachinePOVExtension playerCamera;
 
-        public FocusModeState(PlayerStateController controller, IPlayerInputHandler input, PlayerMovement movement, CinemachinePOVExtension playerCamera)
+        public FocusModeState(PlayerStateController controller, PlayerInputHandler input, PlayerMovement movement, CinemachinePOVExtension playerCamera)
         {
             this.controller = controller;
             this.input = input;
