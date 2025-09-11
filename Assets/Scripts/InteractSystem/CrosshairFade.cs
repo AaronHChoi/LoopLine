@@ -4,83 +4,31 @@ using UnityEngine.UI;
 public class CrosshairFade : MonoBehaviour, ICrosshairFade
 {
     [SerializeField] private RawImage crosshairImage;
-    [SerializeField] private LayerMask interactableLayer;
-    [SerializeField] private float maxAngle = 15f;
-    [SerializeField] private float detectionRadius = 1.5f;
-    [SerializeField] private float detectionDistance = 2f;
+    [SerializeField] private RaycastController rayController;
 
     private FadeInOutController crossFade;
-    private Transform cameraTransform;
-    private Transform target;
     private bool isVisible = true;
-    private float score = 0f;
 
 
     void Start()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        cameraTransform = Camera.main.transform;
         SetCrosshairVisible(false); // hide crosshair at start
         if (crosshairImage != null) crossFade = crosshairImage.GetComponent<FadeInOutController>();
     }
 
     void Update()
     {
-        if (GetClosestTarget(out target, out score))
+        if (rayController.FoundInteract)
         {
-            SetCrosshairOpacity(score); // fade based on angle + distance
+            SetCrosshairOpacity(rayController.BestScore); // fade based on angle + distance
             SetCrosshairVisible(true);
         }
         else
         {
             SetCrosshairVisible(false);
         }
-    }
-
-    private bool GetClosestTarget(out Transform bestTarget, out float bestScore)
-    {
-        bestTarget = null;
-        bestScore = 0f;
-
-        Ray ray = new Ray(cameraTransform.position, cameraTransform.forward);
-        RaycastHit[] hits = Physics.SphereCastAll(ray, detectionRadius, detectionDistance, interactableLayer);
-
-        foreach (var hit in hits)
-        {
-            Collider col = hit.collider;
-
-            Vector3 boxCenter = col.bounds.center;
-            Vector3 dirToTarget = (boxCenter - cameraTransform.position).normalized;
-            float distance = Vector3.Distance(cameraTransform.position, boxCenter);
-
-            if (BlockedVision(col, dirToTarget, distance))
-                continue;
-
-            float angle = Vector3.Angle(cameraTransform.forward, dirToTarget);
-            if (angle > maxAngle || distance > detectionDistance) continue;
-
-            float angleScore = 1f - (angle / maxAngle);
-            float distanceScore = 1f - (distance / detectionDistance);
-            float combinedScore = angleScore * distanceScore;
-
-            if (combinedScore > bestScore)
-            {
-                bestScore = combinedScore;
-                bestTarget = col.transform;
-            }
-        }
-
-        return bestTarget != null && bestScore > 0f;
-    }
-
-    private bool BlockedVision(Collider targetCollider, Vector3 direction, float distance)
-    {
-        if (Physics.Raycast(cameraTransform.position, direction, out RaycastHit hit, distance, ~0))
-        {
-            return hit.collider != targetCollider;
-        }
-        return false;
     }
 
     private void SetCrosshairVisible(bool visible)
@@ -91,6 +39,7 @@ public class CrosshairFade : MonoBehaviour, ICrosshairFade
     private void SetCrosshairOpacity(float opacity)
     {
         Color color = crosshairImage.color;
+        opacity = Mathf.Clamp01(opacity);
         color.a = opacity;
         crosshairImage.color = color;
     }

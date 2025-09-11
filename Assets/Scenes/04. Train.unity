@@ -16690,17 +16690,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1039366163 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 725991546843324951, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
-  m_PrefabInstance: {fileID: 2539723291350467074}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46c3cfb8ef8909a4b9ea145342d1bbdf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1039407365
 GameObject:
   m_ObjectHideFlags: 0
@@ -23694,8 +23683,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1335091549}
   - component: {fileID: 1335091551}
+  - component: {fileID: 1335091554}
+  - component: {fileID: 1335091553}
   - component: {fileID: 1335091552}
   - component: {fileID: 1335091550}
+  - component: {fileID: 1335091555}
   m_Layer: 0
   m_Name: Interaction
   m_TagString: Untagged
@@ -23784,6 +23776,47 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 3
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1335091553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335091548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55f7d76c521e89941b61aaf8f5457671, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crosshairImage: {fileID: 240250476}
+  rayController: {fileID: 1335091555}
+--- !u!114 &1335091554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335091548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46c3cfb8ef8909a4b9ea145342d1bbdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rayController: {fileID: 1335091555}
+  minScoreAllowed: 0.03
+--- !u!114 &1335091555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1335091548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e49c128f00d3fc54295a1686e47f5531, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  raycastData: {fileID: 11400000, guid: d32471ec0c4796e4b90f46367ac8a9dc, type: 2}
 --- !u!1 &1339026817
 GameObject:
   m_ObjectHideFlags: 0
@@ -31262,12 +31295,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 013c83a15b4b79b41b6d2730739b6082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DialogueEvents:
-  - EventType: 0
-    changes: []
-  - EventType: 0
-    changes: []
-  dialogueSpeaker: {fileID: 0}
 --- !u!1 &1683018835
 GameObject:
   m_ObjectHideFlags: 0
@@ -32229,8 +32256,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 013c83a15b4b79b41b6d2730739b6082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DialogueEvents: []
-  dialogueSpeaker: {fileID: 1806260563}
 --- !u!65 &1806260565
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -33595,8 +33620,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 013c83a15b4b79b41b6d2730739b6082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DialogueEvents: []
-  dialogueSpeaker: {fileID: 1945950364}
 --- !u!65 &1945950366
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -36756,6 +36779,8 @@ PrefabInstance:
       objectReference: {fileID: 240250476}
     m_RemovedComponents:
     - {fileID: 3841724941957440755, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+    - {fileID: 725991546843324951, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+    - {fileID: 8140536899035517353, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
     m_RemovedGameObjects:
     - {fileID: 8543875334269607176, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
     m_AddedGameObjects:
@@ -37840,7 +37865,7 @@ PrefabInstance:
     - target: {fileID: 8611275450112763691, guid: 56422696f875fd340be386f7c79f94e5, type: 3}
       propertyPath: playerInteract
       value: 
-      objectReference: {fileID: 1039366163}
+      objectReference: {fileID: 0}
     - target: {fileID: 8611275450112763691, guid: 56422696f875fd340be386f7c79f94e5, type: 3}
       propertyPath: containerInteractUI
       value: 
