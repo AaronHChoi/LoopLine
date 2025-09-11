@@ -15,7 +15,7 @@ public class RockTrigger : MonoBehaviour, IDependencyInjectable
 
     private void Start()
     {
-        OriginalPlayerInteractRange = playerInteract.raycastDistance;
+        OriginalPlayerInteractRange = 2f;
         OriginalPlayerInteractionRange = playerInteraction.interactRange;
     }
 
@@ -23,7 +23,7 @@ public class RockTrigger : MonoBehaviour, IDependencyInjectable
     {
         if (other.gameObject.tag == "Player")
         {
-            playerInteract.raycastDistance = 2.4f;
+            //playerInteract.raycastDistance = 2.4f;
             playerInteraction.interactRange = 2.6f;
         }
     }
@@ -32,7 +32,7 @@ public class RockTrigger : MonoBehaviour, IDependencyInjectable
     {
         if (other.gameObject.tag == "Player")
         {
-            playerInteract.raycastDistance = OriginalPlayerInteractRange;
+            //playerInteract.raycastDistance = OriginalPlayerInteractRange;
             playerInteraction.interactRange = OriginalPlayerInteractionRange;
         }
     }
