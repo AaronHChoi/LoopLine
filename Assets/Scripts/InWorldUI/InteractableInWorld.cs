@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace InWorldUI
 {
-    public class Interactable : MonoBehaviour
+    public class InteractableInWorld : MonoBehaviour
     {
         public string promptMessage = "Press E";
         public Vector3 uiOffset = new Vector3(0, 0f, 0);

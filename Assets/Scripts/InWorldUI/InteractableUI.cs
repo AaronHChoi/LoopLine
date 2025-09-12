@@ -1,8 +1,5 @@
-
-using System.Collections;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 
 namespace InWorldUI
 {

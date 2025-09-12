@@ -28,7 +28,7 @@ namespace Player
         PhotoCapture photoCapture;
         CinemachinePOVExtension cinemachinePOVExtension;
         TimeManager timeManager;
-        PlayerInteraction interaction;
+        PlayerInteractMarkerPrompt interaction;
         PhotoMarker photoMarker;
         
         ITogglePhotoDetection togglePhotoDetection;

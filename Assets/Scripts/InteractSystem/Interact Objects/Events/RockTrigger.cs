@@ -4,10 +4,10 @@ using DependencyInjection;
 public class RockTrigger : MonoBehaviour, IDependencyInjectable
 {
     PlayerInteract playerInteract;
-    PlayerInteraction playerInteraction;
+    PlayerInteractMarkerPrompt playerInteraction;
 
     private float OriginalPlayerInteractRange;
-    private float OriginalPlayerInteractionRange;
+    //private float OriginalPlayerInteractionRange;
     void Awake()
     {
         InjectDependencies(DependencyContainer.Instance);
@@ -16,7 +16,7 @@ public class RockTrigger : MonoBehaviour, IDependencyInjectable
     private void Start()
     {
         OriginalPlayerInteractRange = 2f;
-        OriginalPlayerInteractionRange = playerInteraction.interactRange;
+        //OriginalPlayerInteractionRange = playerInteraction.interactRange;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -24,7 +24,7 @@ public class RockTrigger : MonoBehaviour, IDependencyInjectable
         if (other.gameObject.tag == "Player")
         {
             //playerInteract.raycastDistance = 2.4f;
-            playerInteraction.interactRange = 2.6f;
+            //playerInteraction.interactRange = 2.6f;
         }
     }
 
@@ -33,7 +33,7 @@ public class RockTrigger : MonoBehaviour, IDependencyInjectable
         if (other.gameObject.tag == "Player")
         {
             //playerInteract.raycastDistance = OriginalPlayerInteractRange;
-            playerInteraction.interactRange = OriginalPlayerInteractionRange;
+            //playerInteraction.interactRange = OriginalPlayerInteractionRange;
         }
     }
 
