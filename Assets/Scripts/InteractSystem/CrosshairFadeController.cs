@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CrosshairFade : MonoBehaviour, ICrosshairFade
+public class CrosshairFadeController : MonoBehaviour, ICrosshairFade
 {
     [SerializeField] private RawImage crosshairImage;
     [SerializeField] private RaycastController rayController;

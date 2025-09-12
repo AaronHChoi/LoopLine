@@ -15,8 +15,8 @@ namespace InWorldUI
         [SerializeField] private float promptFOV = 30f;
 
         private Camera _cam;
-        private Interactable _currentPrompt;
-        private HashSet<Interactable> _nearbyInteractables = new();
+        private InteractableInWorld _currentPrompt;
+        private HashSet<InteractableInWorld> _nearbyInteractables = new();
 
         private void Awake()
         {
@@ -35,7 +35,7 @@ namespace InWorldUI
 
         private void OnTriggerEnter(Collider other)
         {
-            Interactable interactable = other.GetComponent<Interactable>();
+            InteractableInWorld interactable = other.GetComponent<InteractableInWorld>();
             if (interactable != null)
                 _nearbyInteractables.Add(interactable);
         }
@@ -45,7 +45,7 @@ namespace InWorldUI
         {
             if (((1 << other.gameObject.layer) & interactableLayer) != 0)
             {
-                Interactable interactable = other.GetComponent<Interactable>();
+                InteractableInWorld interactable = other.GetComponent<InteractableInWorld>();
                 if (interactable != null)
                 {
                     _nearbyInteractables.Remove(interactable);
@@ -86,7 +86,7 @@ namespace InWorldUI
 
         private void UpdatePromptFromNearby()
         {
-            Interactable bestInteractable = null;
+            InteractableInWorld bestInteractable = null;
             float closestDist = Mathf.Infinity;
 
             foreach (var interactable in _nearbyInteractables)
@@ -142,7 +142,7 @@ namespace InWorldUI
             }
         }
 
-        private bool HasLineOfSight(Interactable interactable, Vector3 targetPos)
+        private bool HasLineOfSight(InteractableInWorld interactable, Vector3 targetPos)
         {
             Vector3 origin = _cam.transform.position;
             Vector3 dir = targetPos - origin;
@@ -151,7 +151,7 @@ namespace InWorldUI
 
             if (Physics.Raycast(origin, dir, out RaycastHit hit, dist))
             {
-                return hit.collider.GetComponentInParent<Interactable>() == interactable;
+                return hit.collider.GetComponentInParent<InteractableInWorld>() == interactable;
             }
             return true;
         }

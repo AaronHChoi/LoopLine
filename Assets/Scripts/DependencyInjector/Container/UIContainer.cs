@@ -11,8 +11,8 @@ namespace DependencyInjection
         InventoryUI inventoryUI;
         public InventoryUI InventoryUI => inventoryUI ??= FindAndValidate<InventoryUI>();
 
-        CrosshairFade crosshairFade;
-        public CrosshairFade CrosshairFade => crosshairFade ??= FindAndValidate<CrosshairFade>();
+        CrosshairFadeController crosshairFade;
+        public CrosshairFadeController CrosshairFade => crosshairFade ??= FindAndValidate<CrosshairFadeController>();
 
         public void RegisterServices(InterfaceDependencyInjector injector)
         {

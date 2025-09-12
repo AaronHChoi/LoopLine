@@ -26,8 +26,8 @@ namespace DependencyInjection
         PlayerInteract playerInteract;
         public PlayerInteract PlayerInteract => playerInteract ??= FindAndValidate<PlayerInteract>();
 
-        PlayerInteraction playerInteraction;
-        public PlayerInteraction PlayerInteraction => playerInteraction ??= FindAndValidate<PlayerInteraction>();
+        PlayerInteractMarkerPrompt playerInteraction;
+        public PlayerInteractMarkerPrompt PlayerInteraction => playerInteraction ??= FindAndValidate<PlayerInteractMarkerPrompt>();
 
         PlayerInventorySystem playerInventorySystem;
         public PlayerInventorySystem PlayerInventorySystem => playerInventorySystem ??= FindAndValidate<PlayerInventorySystem>();

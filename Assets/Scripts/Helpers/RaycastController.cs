@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class RaycastController : MonoBehaviour, IRaycastController
+public class RaycastController : MonoBehaviour, IRaycast
 {
     #region PROPERTIES
     [SerializeField] private RaycastSO raycastData;
@@ -73,7 +73,7 @@ public class RaycastController : MonoBehaviour, IRaycastController
     #endregion
 }
 
-interface IRaycastController
+interface IRaycast
 {
     public bool FoundInteract { get; }
     public GameObject Target { get; }

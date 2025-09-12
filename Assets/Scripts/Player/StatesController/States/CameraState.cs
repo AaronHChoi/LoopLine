@@ -13,12 +13,12 @@ namespace Player
         PlayerMovement movement;
         PhotoCapture photo;
         CinemachinePOVExtension playerCamera;
-        PlayerInteraction interaction;
+        PlayerInteractMarkerPrompt interaction;
         PhotoMarker photoMarker;
         ITogglePhotoDetection togglePhotoDetection;
         GameObject polaroidItem;
         public CameraState(PlayerStateController controller, IPlayerInputHandler input, PlayerMovement movement, 
-            PhotoCapture photo, CinemachinePOVExtension playerCamera, PlayerInteraction interaction, 
+            PhotoCapture photo, CinemachinePOVExtension playerCamera, PlayerInteractMarkerPrompt interaction, 
             ITogglePhotoDetection togglePhotoDetection, PhotoMarker photoMarker)
         {
             this.controller = controller;
@@ -32,7 +32,7 @@ namespace Player
         }
         public void Enter()
         {
-            interaction.SetInteractableDetection(false);
+            interaction.IsDetecting = false;
             movement.CanMove = true;
             photoMarker.enabled = true;
             playerCamera.CanLook = true;
@@ -59,7 +59,7 @@ namespace Player
         }
         public void Exit()
         {
-            interaction.SetInteractableDetection(true);
+            interaction.IsDetecting = true;
             movement.CanMove = false;
             photoMarker.enabled = false;
             playerCamera.CanLook = false;
