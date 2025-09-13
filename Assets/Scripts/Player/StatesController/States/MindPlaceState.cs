@@ -3,11 +3,11 @@ namespace Player
 {
     public class MindPlaceState : IState
     {
-        PlayerStateController controller;
+        IPlayerStateController controller;
         IPlayerInputHandler input;
-        PlayerMovement movement;
+        IPlayerMovement movement;
 
-        public MindPlaceState(PlayerStateController controller, IPlayerInputHandler input, PlayerMovement movement)
+        public MindPlaceState(IPlayerStateController controller, IPlayerInputHandler input, IPlayerMovement movement)
         {
             this.controller = controller;
             this.input = input;

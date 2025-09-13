@@ -3,7 +3,7 @@ using DependencyInjection;
 public class TimeManager : MonoBehaviour, IDependencyInjectable, ITimeProvider
 {
     GameSceneManager gameSceneManager;
-    DialogueManager dialogueManager;
+    IDialogueManager dialogueManager;
     EventManager eventManager;
 
     float loopTime = 360f;
@@ -23,11 +23,12 @@ public class TimeManager : MonoBehaviour, IDependencyInjectable, ITimeProvider
     private void Awake()
     {
         InjectDependencies(DependencyContainer.Instance);
+        dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
     }
     public void InjectDependencies(DependencyContainer provider)
     {
         gameSceneManager = provider.ManagerContainer.GameSceneManager;
-        dialogueManager = provider.ManagerContainer.DialogueManager;
+        //dialogueManager = provider.ManagerContainer.DialogueManager;
         eventManager = provider.ManagerContainer.EventManager;
     }
     private void Start()

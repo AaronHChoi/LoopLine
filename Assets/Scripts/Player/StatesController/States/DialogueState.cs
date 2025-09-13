@@ -5,12 +5,12 @@ namespace Player
 {
     public class DialogueState : IState
     {
-        PlayerStateController controller;
+        IPlayerStateController controller;
         IPlayerInputHandler input;
-        PlayerMovement movement;
+        IPlayerMovement movement;
         CinemachinePOVExtension playerCamera;
 
-        public DialogueState(PlayerStateController controller, IPlayerInputHandler input, PlayerMovement movement, CinemachinePOVExtension playerCamera)
+        public DialogueState(IPlayerStateController controller, IPlayerInputHandler input, IPlayerMovement movement, CinemachinePOVExtension playerCamera)
         {
             this.controller = controller;
             this.input = input;

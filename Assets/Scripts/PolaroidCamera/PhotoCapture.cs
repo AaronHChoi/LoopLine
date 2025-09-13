@@ -42,14 +42,14 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
 
     int photoTaken = 0;
 
-    PlayerStateController playerStateController;
+    IPlayerStateController playerStateController;
     PhotoMarkerManager photoMarkerManager;
     PhotoDetectionZone photoDetectionZone;
     public static event Action<string> OnPhotoClueCaptured;
     #region MAGIC_METHODS
     private void Awake()
     {
-        InjectDependencies(DependencyContainer.Instance);
+        playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
     }
     private void Start()
     {
@@ -76,7 +76,7 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
     #endregion
     public void InjectDependencies(DependencyContainer provider)
     {
-        playerStateController = provider.PlayerContainer.PlayerStateController;
+        //playerStateController = provider.PlayerContainer.PlayerStateController;
         photoMarkerManager = provider.PhotoContainer.PhotoMarkerManager;
         photoDetectionZone = provider.PhotoContainer.PhotoDetectionZone;
     }

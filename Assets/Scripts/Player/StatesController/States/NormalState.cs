@@ -6,12 +6,12 @@ namespace Player
 {
     public class NormalState : IState
     {
-        PlayerStateController controller;
+        IPlayerStateController controller;
         IPlayerInputHandler input;
-        PlayerMovement movement;
+        IPlayerMovement movement;
         CinemachinePOVExtension playerCamera;
 
-        public NormalState(PlayerStateController controller, IPlayerInputHandler input, PlayerMovement movement, CinemachinePOVExtension playerCamera)
+        public NormalState(IPlayerStateController controller, IPlayerInputHandler input, IPlayerMovement movement, CinemachinePOVExtension playerCamera)
         {
             this.controller = controller;
             this.input = input;

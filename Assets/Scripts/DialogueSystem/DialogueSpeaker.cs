@@ -18,6 +18,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     EventDialogueManager eventDialogueManager;
 
     IUIManager uiManager;
+    IDialogueManager dialogueManager;
 
     [Serializable]
     public class DialogueStateChange
@@ -40,6 +41,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     {
         InjectDependencies(DependencyContainer.Instance);
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
+        dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
     }
     private void Start()
     {
@@ -130,23 +132,23 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
                     if (DialogueUpdate())
                     {
                         StartDialogue();
-                        DialogueManager.Instance.ShowUI(true, true);
-                        DialogueManager.Instance.SetDialogue(AvailableDialogs[dialogueIndex], this);
+                        dialogueManager.ShowUI(true, true);
+                        dialogueManager.SetDialogue(AvailableDialogs[dialogueIndex], this);
                     }
                     StartDialogue();
-                    DialogueManager.Instance.SetDialogue(AvailableDialogs[dialogueIndex], this);
+                    dialogueManager.SetDialogue(AvailableDialogs[dialogueIndex], this);
                     return;
                 }
                 StartDialogue();
-                DialogueManager.Instance.ShowUI(true, true);
-                DialogueManager.Instance.SetDialogue(AvailableDialogs[dialogueIndex], this);
+                dialogueManager.ShowUI(true, true);
+                dialogueManager.SetDialogue(AvailableDialogs[dialogueIndex], this);
                 //dialogueIndex++;
             }
             else
             {
                 Debug.LogWarning("La conversacion esta bloqueada");
                 EndDialogue();
-                DialogueManager.Instance.ShowUI(false, true);
+                dialogueManager.ShowUI(false, true);
                 return;
             }
         }
@@ -154,7 +156,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
         {
             print("Fin del dialogo");
             EndDialogue();
-            DialogueManager.Instance.ShowUI(false, true);
+            dialogueManager.ShowUI(false, true);
         }
         //DialogueRefresh();
     }

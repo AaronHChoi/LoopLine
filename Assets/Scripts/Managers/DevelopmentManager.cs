@@ -10,8 +10,6 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
     [SerializeField] private GameObject UIPrinciplal;
     [SerializeField] private GameObject UIDeveloperMode;
 
-    [SerializeField] DialogueManager dialManager;
-
     [SerializeField] private AudioMixer audioMixer;
 
     [SerializeField] private FadeInOutController cinemaFade;
@@ -21,15 +19,16 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
     private bool isCinemaOn = false;
 
     ItemManager itemManager;
-    PlayerStateController playerStateController;
     IPlayerController playerController;
+    IPlayerStateController playerStateController;
     IDialogueManager dialogueManager;
     ITimeProvider timeManager;
     private void Awake()
     {
         dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
         timeManager = InterfaceDependencyInjector.Instance.Resolve<ITimeProvider>();
-        dialManager = FindFirstObjectByType<DialogueManager>();
+        playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
+        //dialManager = FindFirstObjectByType<DialogueManager>();
         playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
         InjectDependencies(DependencyContainer.Instance);
     }
@@ -56,7 +55,7 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
     }
     public void OpenDevelopMode()
     {
-        if (UIPrinciplal != null && !dialManager.isDialogueActive)
+        if (UIPrinciplal != null && !dialogueManager.IsDialogueActive)
         {
             ToggleUI();
         }
@@ -201,6 +200,6 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
     public void InjectDependencies(DependencyContainer provider)
     {
         itemManager = provider.ManagerContainer.ItemManager;
-        playerStateController = provider.PlayerContainer.PlayerStateController;
+        //playerStateController = provider.PlayerContainer.PlayerStateController;
     }
 }

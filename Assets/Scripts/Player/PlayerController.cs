@@ -1,3 +1,4 @@
+using DependencyInjection;
 using Player;
 using UnityEngine;
 
@@ -7,13 +8,13 @@ public class PlayerController : MonoBehaviour, IPlayerController
 {
     [SerializeField] PlayerModel playerModel;
 
-    PlayerMovement playerMovement;
+    IPlayerMovement playerMovement;
 
     public PlayerModel PlayerModel => playerModel;
 
     private void Awake()
     {
-        playerMovement = GetComponent<PlayerMovement>();
+        playerMovement = InterfaceDependencyInjector.Instance.Resolve<IPlayerMovement>();
     }
     private void Update()
     {

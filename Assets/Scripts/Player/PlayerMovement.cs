@@ -1,6 +1,6 @@
 using UnityEngine;
 using DependencyInjection;
-public class PlayerMovement : MonoBehaviour, IDependencyInjectable
+public class PlayerMovement : MonoBehaviour, IPlayerMovement
 {
     bool canMove = true;
     public bool CanMove 
@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour, IDependencyInjectable
     IPlayerView playerView;
     private void Awake()
     {
-        InjectDependencies(DependencyContainer.Instance);
+        controller = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
         input = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
         playerCamera = InterfaceDependencyInjector.Instance.Resolve<IPlayerCamera>();
         playerView = InterfaceDependencyInjector.Instance.Resolve<IPlayerView>();
@@ -61,8 +61,11 @@ public class PlayerMovement : MonoBehaviour, IDependencyInjectable
         Quaternion targetRotation = Quaternion.Euler(0, targetAngle, 0);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * controller.PlayerModel.SpeedRotation);
     }
-    public void InjectDependencies(DependencyContainer provider)
-    {
-        controller = provider.PlayerContainer.PlayerController;
-    }
+}
+
+public interface IPlayerMovement
+{
+    public bool CanMove { get; set; }
+    void HandleMovement();
+    void RotateCharacterToCamera();
 }

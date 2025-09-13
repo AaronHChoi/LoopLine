@@ -29,17 +29,17 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
 
     FadeInOutController FadeController;
     FadeInOutController ArrowFadeController;
-    PlayerStateController controller;
-    PlayerController playerController;
-    PlayerInventorySystem inventorySystem;
-    DialogueManager dialogueManager;
+    IPlayerStateController controller;
+    IDialogueManager dialogueManager;
     IPlayerInputHandler inputHandler;
 
     #region MagicMethods
     private void Awake()
     {
-        InjectDependencies(DependencyContainer.Instance);
+        //InjectDependencies(DependencyContainer.Instance);
         inputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
+        dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
+        controller = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
     }
     private void Start()
     {
@@ -103,7 +103,7 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
     #endregion
     private void OpenInventory()
     {
-        if (!dialogueManager.isDialogueActive && inventorySlots.Count != 0 && !isInventoryOpen)
+        if (!dialogueManager.IsDialogueActive && inventorySlots.Count != 0 && !isInventoryOpen)
         {
             ShowInventory();
             MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
@@ -200,10 +200,8 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
     }
     public void InjectDependencies(DependencyContainer provider)
     {
-        controller = provider.PlayerContainer.PlayerStateController;
-        inventorySystem = provider.PlayerContainer.PlayerInventorySystem;
-        playerController = provider.PlayerContainer.PlayerController;
-        dialogueManager = provider.ManagerContainer.DialogueManager;
+        //controller = provider.PlayerContainer.PlayerStateController;
+        //dialogueManager = provider.ManagerContainer.DialogueManager;
     }
     private void ShowInventory()
     {

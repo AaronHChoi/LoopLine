@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DependencyInjection;
-public class DialogueUI : MonoBehaviour, IDependencyInjectable
+public class DialogueUI : MonoBehaviour
 {
     public DialogueSO Dialogue;
     public DialogueSO MainDialogue;
@@ -31,12 +31,14 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
     [SerializeField] bool skipe = false;
     Coroutine activeCoroutine;
 
-    PlayerStateController playerStateController;
+    IPlayerStateController playerStateController;
+    IDialogueManager dialogueManager;
 
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-        InjectDependencies(DependencyContainer.Instance);
+        dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
+        playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
     }
     private void Start()
     {
@@ -78,10 +80,6 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
     private void ShowletterBox(bool showLetterBox)
     {
         letterBoxFadeInOut.ForceFade(showLetterBox);
-    }
-    public void InjectDependencies(DependencyContainer provider)
-    {
-        playerStateController = provider.PlayerContainer.PlayerStateController;
     }
     private void InitializeUI()
     {

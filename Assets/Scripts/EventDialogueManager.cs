@@ -16,11 +16,12 @@ public class EventDialogueManager : Subject, IDependencyInjectable
     [SerializeField] ItemInteract trainPhotos;
     int personPhotoCount = 0;
     PhotoCapture photoCapture;
-    PlayerStateController controller;
+    IPlayerStateController controller;
 
     private void Awake()
     {
         InjectDependencies(DependencyContainer.Instance);
+        controller = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
     }
     private void Start()
     {
@@ -121,6 +122,6 @@ public class EventDialogueManager : Subject, IDependencyInjectable
     public void InjectDependencies(DependencyContainer provider)
     {
         photoCapture = provider.PhotoContainer.PhotoCapture;
-        controller = provider.PlayerContainer.PlayerStateController;
+        //controller = provider.PlayerContainer.PlayerStateController;
     }
 }

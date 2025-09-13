@@ -7,7 +7,7 @@ using DependencyInjection;
 
 namespace Player
 {
-    public class PlayerStateController : MonoBehaviour, IDependencyInjectable
+    public class PlayerStateController : MonoBehaviour, IDependencyInjectable, IPlayerStateController
     {
         public StateMachine StateMachine => stateMachine;
         public bool CanUseNormalStateExecute { get; set; } = true;
@@ -23,29 +23,31 @@ namespace Player
         public event Action OnScrollInventory;
         public event Action OnGrab;
 
-        StateMachine stateMachine;
-        PlayerMovement playerMovement;
+        StateMachine stateMachine { get; set; }
+
         PhotoCapture photoCapture;
         CinemachinePOVExtension cinemachinePOVExtension;
         TimeManager timeManager;
-        PlayerInteractMarkerPrompt interaction;
+       
         PhotoMarker photoMarker;
-        
+        IPlayerInteractMarkerPrompt interaction;
+        IPlayerMovement playerMovement;
         ITogglePhotoDetection togglePhotoDetection;
         IPlayerInputHandler inputHandler;
-        public NormalState NormalState { get; private set; }
-        public DialogueState DialogueState { get; private set; }
-        public CameraState CameraState { get; private set; }
-        public DevelopmentState DevelopmentState { get; private set; }
-        public FocusModeState FocusModeState { get; private set; }
-        public MindPlaceState MindPlaceState { get; private set; }
-        public ObjectInHandState ObjectInHandState { get; private set; }
+        public NormalState NormalState { get; set; }
+        public DialogueState DialogueState { get;  set; }
+        public CameraState CameraState { get;  set; }
+        public DevelopmentState DevelopmentState { get;  set; }
+        public FocusModeState FocusModeState { get;  set; }
+        public MindPlaceState MindPlaceState { get;  set; }
+        public ObjectInHandState ObjectInHandState { get;  set; }
         private void Awake()
         {
             InjectDependencies(DependencyContainer.Instance);
-            togglePhotoDetection = InterfaceDependencyInjector.Instance.Resolve<ITogglePhotoDetection>();
-            
+            togglePhotoDetection = InterfaceDependencyInjector.Instance.Resolve<ITogglePhotoDetection>();           
             inputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
+            playerMovement = InterfaceDependencyInjector.Instance.Resolve<IPlayerMovement>();
+            interaction = InterfaceDependencyInjector.Instance.Resolve<IPlayerInteractMarkerPrompt>();
 
             stateMachine = new StateMachine();
 
@@ -61,11 +63,11 @@ namespace Player
         }
         public void InjectDependencies(DependencyContainer provider)
         {
-            playerMovement = provider.PlayerContainer.PlayerMovement;
+            //playerMovement = provider.PlayerContainer.PlayerMovement;
             photoCapture = provider.PhotoContainer.PhotoCapture;
             cinemachinePOVExtension = provider.CinemachineContainer.CinemachinePOVExtension;
             timeManager = provider.ManagerContainer.TimeManager;
-            interaction = provider.PlayerContainer.PlayerInteraction;
+            //interaction = provider.PlayerContainer.PlayerInteraction;
             photoMarker = provider.PhotoContainer.PhotoMarker;
         }
         private void Update()
@@ -115,5 +117,36 @@ namespace Player
             OnScrollInventory?.Invoke();
         }
         #endregion
+    }
+
+    public interface IPlayerStateController
+    {
+        public event Action<IState> OnStateChanged;
+        public event Action OnTakePhoto;
+        public event Action OnInteract;
+        public event Action OnDialogueNext;
+        public event Action OnOpenInventory;
+        public event Action OnOpenDevelopment;
+        public event Action OnFocusMode;
+        public event Action OnScrollInventory;
+        public event Action OnGrab;
+        public StateMachine StateMachine { get; }
+        bool IsInState(IState state);
+        void ChangeState(IState newState);
+        void UseEventInteract();
+        void UseEventTakePhoto();
+        void UseEventOpenInventory();
+        void UseEventDevelopment();
+        void UseEventDialogueNext();
+        void UseEventFocusMode();
+        void UseEventGrab();
+        bool CanUseNormalStateExecute { get; set; }
+        NormalState NormalState { get;  set; }
+        DialogueState DialogueState { get; set; }
+        CameraState CameraState { get; set; }
+        DevelopmentState DevelopmentState { get; set; }
+        FocusModeState FocusModeState { get; set; }
+        MindPlaceState MindPlaceState { get; set; }
+        ObjectInHandState ObjectInHandState { get; set; }
     }
 }
