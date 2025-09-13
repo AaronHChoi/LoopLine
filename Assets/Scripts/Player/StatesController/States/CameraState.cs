@@ -8,17 +8,17 @@ namespace Player
     public class CameraState : IState
     {
         public static bool PolaroidIsActive { get; private set; }
-        PlayerStateController controller;
+        IPlayerStateController controller;
         IPlayerInputHandler input;
-        PlayerMovement movement;
+        IPlayerMovement movement;
         PhotoCapture photo;
         CinemachinePOVExtension playerCamera;
-        PlayerInteractMarkerPrompt interaction;
+        IPlayerInteractMarkerPrompt interaction;
         PhotoMarker photoMarker;
         ITogglePhotoDetection togglePhotoDetection;
         GameObject polaroidItem;
-        public CameraState(PlayerStateController controller, IPlayerInputHandler input, PlayerMovement movement, 
-            PhotoCapture photo, CinemachinePOVExtension playerCamera, PlayerInteractMarkerPrompt interaction, 
+        public CameraState(IPlayerStateController controller, IPlayerInputHandler input, IPlayerMovement movement, 
+            PhotoCapture photo, CinemachinePOVExtension playerCamera, IPlayerInteractMarkerPrompt interaction, 
             ITogglePhotoDetection togglePhotoDetection, PhotoMarker photoMarker)
         {
             this.controller = controller;

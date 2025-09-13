@@ -27,16 +27,17 @@ public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
         }
     }
     InventoryUI inventorySystem;
-    PlayerStateController controller;
+    IPlayerStateController controller;
 
     private void Start()
     {
         InjectDependencies(DependencyContainer.Instance);
+        controller = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
     }
     public void InjectDependencies(DependencyContainer provider)
     {
         inventorySystem = provider.UIContainer.InventoryUI;
-        controller = provider.PlayerContainer.PlayerStateController;
+        //controller = provider.PlayerContainer.PlayerStateController;
     }
     public void Set(ItemInteract item)
     {

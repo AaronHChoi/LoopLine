@@ -1,5 +1,6 @@
-using UnityEngine;
+using DependencyInjection;
 using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Word : Subject, IWord /*IInteract*/
@@ -19,7 +20,7 @@ public class Word : Subject, IWord /*IInteract*/
 
 
     [Header("LookAt")]
-    private PlayerController playerController;
+    private IPlayerController playerController;
     [SerializeField] private int range = 2;
     Vector3 _direction;
 
@@ -27,7 +28,7 @@ public class Word : Subject, IWord /*IInteract*/
     [SerializeField] private QuestionSO stopTrainQuestion;
     private void Awake()
     {
-        playerController = FindAnyObjectByType<PlayerController>();     
+        playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
         tmpro = GetComponentInChildren<TextMeshPro>();
         
     }
@@ -71,9 +72,9 @@ public class Word : Subject, IWord /*IInteract*/
     private void Update()
     {
         tmpro.text = word + " " + "[" + numerofWord.ToString()+ "]";
-        if (Vector3.Distance(transform.position, playerController.transform.position) <= range)
+        if (Vector3.Distance(transform.position, playerController.GetTransform().position) <= range)
         {
-            _direction = playerController.transform.position - transform.position;
+            _direction = playerController.GetTransform().position - transform.position;
             _direction.y = 0;
 
             transform.rotation = Quaternion.LookRotation(_direction);

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using DependencyInjection;
 
 public class WordManager : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class WordManager : MonoBehaviour
     [SerializeField] private List<Word> words = new List<Word>();
 
     [Header("LookAt")]
-    private PlayerController playerController;
+    private IPlayerController playerController;
     [SerializeField] private float range = 3f;
     Vector3 _direction;
 
@@ -31,7 +32,7 @@ public class WordManager : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        playerController = FindAnyObjectByType<PlayerController>();
+        playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
     }
     void Start()
     {
@@ -70,7 +71,7 @@ public class WordManager : MonoBehaviour
 
     private void Update()
     {
-        distance = Vector3.Distance(transform.position, playerController.transform.position);
+        distance = Vector3.Distance(transform.position, playerController.GetTransform().position);
         bool nowInRange = distance <= range;
 
         if(nowInRange != isPlayerInRange)

@@ -11,13 +11,13 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
     public static DialogueManager Instance { get; private set; }
     public static DialogueSpeaker actualSpeaker;
     
-    public bool isDialogueActive = false;
+    private bool isDialogueActive = false;
     
     public List<DialogueSO> AllDialogues = new List<DialogueSO>();
     public List<DialogueSO> AllFirstDialogues = new List<DialogueSO>();
     public List<QuestionSO> AllQuestions = new List<QuestionSO>();
     public List<QuestionSO> SelectQuestions = new List<QuestionSO>();
-
+    public bool IsDialogueActive { get { return isDialogueActive; } }
     public QuestionManager QuestionManager
     {
         get { return questionManager; }
@@ -26,7 +26,7 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
 
     DialogueUI dialogueUI;
     QuestionManager questionManager;
-    PlayerStateController playerState;
+    IPlayerStateController playerState;
 
     IUIManager uiManager;
     IPlayerController playerController;
@@ -42,13 +42,14 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
         }
         InjectDependencies(DependencyContainer.Instance);
         playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
+        playerState = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
     }
     public void InjectDependencies(DependencyContainer provider)
     {
         questionManager = provider.ManagerContainer.QuestionManager;
         dialogueUI = provider.UIContainer.DialogueUI;
-        playerState = provider.PlayerContainer.PlayerStateController;
+        //playerState = provider.PlayerContainer.PlayerStateController;
     }
     private void Start()
     {
@@ -175,6 +176,9 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
 }
 public interface IDialogueManager
 {
+    bool IsDialogueActive { get; }
+    void ShowUI(bool _show, bool _event);
+    void SetDialogue(DialogueSO _dialogue, DialogueSpeaker speaker);
     void ResetAllDialogues();
     void ResetAllQuestions();
     void ResetSelectQuestions();

@@ -3,17 +3,18 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using DependencyInjection;
 
-public class PlayerInteract : MonoBehaviour, IDependencyInjectable
+public class PlayerInteract : MonoBehaviour, IDependencyInjectable, IPlayerInteract
 {
     [SerializeField] private RaycastController rayController;
     [SerializeField, Range(0f,1f)] private float minScoreAllowed;
 
-    PlayerStateController playerStateController;
+    IPlayerStateController playerStateController;
     private InventoryUI inventoryUI;
     
     private void Awake()
     {
         InjectDependencies(DependencyContainer.Instance);
+        playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
     }
     private void OnEnable()
     {
@@ -34,7 +35,7 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
     public void InjectDependencies(DependencyContainer provider)
     {
         inventoryUI = provider.UIContainer.InventoryUI;
-        playerStateController = provider.PlayerContainer.PlayerStateController;
+        //playerStateController = provider.PlayerContainer.PlayerStateController;
     }
     private void HandleInteraction()
     {
@@ -100,4 +101,9 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
 
         return null;
     }
+}
+
+public interface IPlayerInteract
+{
+    IInteract GetInteractableObject();
 }

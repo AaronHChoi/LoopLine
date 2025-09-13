@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DependencyInjection;
+using Player;
 
 namespace Unity.Cinemachine.Samples
 {
@@ -25,8 +26,8 @@ namespace Unity.Cinemachine.Samples
         { Value = 0, Range = new Vector2(-70, 70), Wrap = false, Center = 0, Restrictions = InputAxis.RestrictionFlags.NoRecentering };
         private void Awake()
         {
-            InjectDependencies(DependencyContainer.Instance);
             inputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
+            controller = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
         }
         void IInputAxisOwner.GetInputAxes(List<IInputAxisOwner.AxisDescriptor> axes)
         {
@@ -78,11 +79,6 @@ namespace Unity.Cinemachine.Samples
         {
             Pan.Value = Mathf.Clamp(pan, Pan.Range.x, Pan.Range.y);
             Tilt.Value = Mathf.Clamp(tilt, Tilt.Range.x, Tilt.Range.y);
-        }
-
-        public void InjectDependencies(DependencyContainer provider)
-        {
-            controller = provider.PlayerContainer.PlayerController;
         }
     }
 }

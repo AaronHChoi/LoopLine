@@ -1,16 +1,18 @@
+using DependencyInjection;
 using InWorldUI;
 using UnityEngine;
-using DependencyInjection;
-public class RockTrigger : MonoBehaviour, IDependencyInjectable
+//using static Unity.Cinemachine.InputAxisControllerBase<T>;
+public class RockTrigger : MonoBehaviour
 {
-    PlayerInteract playerInteract;
-    PlayerInteractMarkerPrompt playerInteraction;
+    IPlayerInteract playerInteract;
+    IPlayerInteractMarkerPrompt playerInteraction;
 
     private float OriginalPlayerInteractRange;
     //private float OriginalPlayerInteractionRange;
     void Awake()
     {
-        InjectDependencies(DependencyContainer.Instance);
+        playerInteraction = InterfaceDependencyInjector.Instance.Resolve<IPlayerInteractMarkerPrompt>();
+        playerInteract = InterfaceDependencyInjector.Instance.Resolve<IPlayerInteract>();
     }
 
     private void Start()
@@ -37,9 +39,4 @@ public class RockTrigger : MonoBehaviour, IDependencyInjectable
         }
     }
 
-    public void InjectDependencies(DependencyContainer provider)
-    {
-        playerInteract = provider.PlayerContainer.PlayerInteract;
-        playerInteraction = provider.PlayerContainer.PlayerInteraction;
-    }
 }

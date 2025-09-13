@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using DependencyInjection;
 
-public class FocusModeController : MonoBehaviour, IDependencyInjectable
+public class FocusModeController : MonoBehaviour
 {
     [SerializeField] private Material eagleVisionMaterial;
     [SerializeField] private float transitionSpeed = 3;
@@ -14,10 +14,10 @@ public class FocusModeController : MonoBehaviour, IDependencyInjectable
     private bool defaultMaterial = true;
     private float volumeWeight;
 
-    PlayerStateController playerStateController;
+    IPlayerStateController playerStateController;
     private void Awake()
     {
-        InjectDependencies(DependencyContainer.Instance);
+        playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
     }
     private void Start()
     {
@@ -93,8 +93,5 @@ public class FocusModeController : MonoBehaviour, IDependencyInjectable
                 volumeFocusMode.weight = volumeWeight;
         }
     }
-    public void InjectDependencies(DependencyContainer provider)
-    {
-        playerStateController = provider.PlayerContainer.PlayerStateController;
-    }
+
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 namespace InWorldUI
 {
     [RequireComponent(typeof(Collider))]
-    public class PlayerInteractMarkerPrompt : MonoBehaviour
+    public class PlayerInteractMarkerPrompt : MonoBehaviour, IPlayerInteractMarkerPrompt
     {
         [SerializeField] private RaycastController rayController;
         [Space]
@@ -88,4 +88,9 @@ namespace InWorldUI
         }*/
         #endregion
     }
+}
+
+public interface IPlayerInteractMarkerPrompt
+{
+    bool IsDetecting { get; set; }
 }

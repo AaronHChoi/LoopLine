@@ -5,8 +5,8 @@ namespace DependencyInjection
         GameManager gameManager;
         public GameManager GameManager => gameManager ??= FindAndValidate<GameManager>();
 
-        DialogueManager dialogueManager;
-        public DialogueManager DialogueManager => dialogueManager ??= FindAndValidate<DialogueManager>();
+        //DialogueManager dialogueManager;
+        //public DialogueManager DialogueManager => dialogueManager ??= FindAndValidate<DialogueManager>();
 
         TimeManager timeManager;
         public TimeManager TimeManager => timeManager ??= FindAndValidate<TimeManager>();
@@ -34,7 +34,8 @@ namespace DependencyInjection
 
         public void RegisterServices(InterfaceDependencyInjector injector)
         {
-            injector.Register<IDialogueManager>(() => DialogueManager);
+            injector.Register<IDialogueManager>(() => FindAndValidate<DialogueManager>());
+
             injector.Register<ITimeProvider>(() => TimeManager);
             //injector.Register<IEventDialogueManager>(() => EventDialogueManager); //DIALOGUE EVENTS
             //injector.Register<IEventManager>(() => EventManager); //EVENTS

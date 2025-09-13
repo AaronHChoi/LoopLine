@@ -14,9 +14,7 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable, IItemGrabInter
     [SerializeField] public GameObject objectPrefab;
 
     [Header("References")]
-    PlayerInventorySystem playerInventorySystem;
     InventoryUI inventoryUI;
-    ItemManager itemManager;
 
     private void Awake()
     {
@@ -49,7 +47,6 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable, IItemGrabInter
                 if (inventoryUI.CheckInventory(this) == false)
                 {
                     inventoryUI.AddInventorySlot(this);
-                    //playerInventorySystem.AddToInvetory(this);
                 }                                
 
                 NotifyItemPicked(id);
@@ -68,8 +65,6 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable, IItemGrabInter
     }
     public void InjectDependencies(DependencyContainer provider)
     {
-        playerInventorySystem = provider.PlayerContainer.PlayerInventorySystem;
         inventoryUI = provider.UIContainer.InventoryUI;
-        itemManager = provider.ManagerContainer.ItemManager;
     }
 }

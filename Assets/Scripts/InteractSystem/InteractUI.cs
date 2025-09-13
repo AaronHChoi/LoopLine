@@ -1,12 +1,19 @@
+using DependencyInjection;
 using TMPro;
 using UnityEngine;
+//using static Unity.Cinemachine.InputAxisControllerBase<T>;
 
 public class InteractUI : MonoBehaviour
 {
     [SerializeField] private GameObject containerInteractUI;
-    [SerializeField] private PlayerInteract playerInteract;
+    [SerializeField] private IPlayerInteract playerInteract;
     [SerializeField] private TextMeshProUGUI interactText;
     private bool interactionLocked = false;
+
+    private void Awake()
+    {
+        playerInteract = InterfaceDependencyInjector.Instance.Resolve<IPlayerInteract>();
+    }
     void Update()
     {
         if (interactionLocked)
