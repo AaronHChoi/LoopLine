@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
         set => canMove = value; 
     }
 
+
     IPlayerController controller;
     IPlayerInputHandler input;
     IPlayerCamera playerCamera;
@@ -65,6 +66,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
 
 public interface IPlayerMovement
 {
+    Transform transform { get; }
     public bool CanMove { get; set; }
     void HandleMovement();
     void RotateCharacterToCamera();

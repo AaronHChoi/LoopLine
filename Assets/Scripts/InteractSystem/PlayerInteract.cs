@@ -14,6 +14,7 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable, IPlayerInter
     private void Awake()
     {
         InjectDependencies(DependencyContainer.Instance);
+        playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
     }
     private void OnEnable()
     {

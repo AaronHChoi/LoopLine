@@ -19,6 +19,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
 
     IUIManager uiManager;
     IDialogueManager dialogueManager;
+    IPlayerController playerController;
 
     [Serializable]
     public class DialogueStateChange
@@ -42,6 +43,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
         InjectDependencies(DependencyContainer.Instance);
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
         dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
+        playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
     }
     private void Start()
     {
@@ -250,7 +252,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     public void TriggerPlayerDialogue()
     {
         dialogueIndex = 0;
-        var playerSpeaker = FindFirstObjectByType<PlayerController>().GetComponent<DialogueSpeaker>();
+        var playerSpeaker = playerController.DialogueSpeaker;
 
         if (playerSpeaker != null)
             playerSpeaker.DialogueTrigger();
