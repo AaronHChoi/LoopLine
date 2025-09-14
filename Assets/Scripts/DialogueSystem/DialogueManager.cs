@@ -6,10 +6,10 @@ using Player;
 
 public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueManager
 {
-    public static event Action OnDialogueStarted;
-    public static event Action OnDialogueEnded;
+    public event Action OnDialogueStarted;
+    public event Action OnDialogueEnded;
     public static DialogueManager Instance { get; private set; }
-    public static DialogueSpeaker actualSpeaker;
+    public DialogueSpeaker actualSpeaker {  get;  set;}
     
     private bool isDialogueActive = false;
     
@@ -24,7 +24,7 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
         private set { value = questionManager; }
     }
 
-    DialogueUI dialogueUI;
+    IDialogueUI dialogueUI;
     QuestionManager questionManager;
     IPlayerStateController playerState;
 
@@ -41,6 +41,7 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
             Destroy(gameObject);
         }
         InjectDependencies(DependencyContainer.Instance);
+        dialogueUI = InterfaceDependencyInjector.Instance.Resolve<IDialogueUI>();
         playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
         playerState = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
@@ -48,7 +49,7 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
     public void InjectDependencies(DependencyContainer provider)
     {
         questionManager = provider.ManagerContainer.QuestionManager;
-        dialogueUI = provider.UIContainer.DialogueUI;
+        //dialogueUI = provider.UIContainer.DialogueUI;
         //playerState = provider.PlayerContainer.PlayerStateController;
     }
     private void Start()
@@ -57,7 +58,7 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
     }
     public void ShowUI(bool _show, bool _event)
     {
-        dialogueUI.gameObject.SetActive(_show);
+        dialogueUI.GetGameObject().SetActive(_show);
         if (!_show)
         {
             dialogueUI.localIndex = 0;
@@ -153,7 +154,7 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
     }
     public void StopAndFinishDialogue() //Metodo para parar dialogos
     {
-        dialogueUI.gameObject.SetActive(false);
+        dialogueUI.GetGameObject().SetActive(false);
         if (actualSpeaker.isDialogueActive)
         {
             ShowUI(false, true);
@@ -176,6 +177,9 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
 }
 public interface IDialogueManager
 {
+    event Action OnDialogueStarted;
+    event Action OnDialogueEnded;
+    DialogueSpeaker actualSpeaker {  get; set; }
     bool IsDialogueActive { get; }
     void ShowUI(bool _show, bool _event);
     void SetDialogue(DialogueSO _dialogue, DialogueSpeaker speaker);

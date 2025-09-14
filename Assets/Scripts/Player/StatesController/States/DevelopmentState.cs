@@ -8,9 +8,9 @@ namespace Player
         IPlayerStateController controller;
         IPlayerInputHandler input;
         IPlayerMovement movement;
-        CinemachinePOVExtension playerCamera;
+        ICameraOrientation playerCamera;
         TimeManager timeManager;
-        public DevelopmentState(IPlayerStateController controller, IPlayerInputHandler input, IPlayerMovement movement, CinemachinePOVExtension playerCamera, TimeManager timeManager)
+        public DevelopmentState(IPlayerStateController controller, IPlayerInputHandler input, IPlayerMovement movement, ICameraOrientation playerCamera, TimeManager timeManager)
         {
             this.controller = controller;
             this.input = input;

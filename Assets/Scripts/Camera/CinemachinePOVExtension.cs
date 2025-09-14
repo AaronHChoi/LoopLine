@@ -85,5 +85,7 @@ namespace Unity.Cinemachine.Samples
 public interface ICameraOrientation
 {
     (float pan, float tilt) GetPanAndTilt();
+
+    public bool CanLook { get; set; }
     void SetPanAndTilt(float pan, float tilt);
 }

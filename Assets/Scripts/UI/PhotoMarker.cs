@@ -1,9 +1,10 @@
 using UnityEngine;
+using UnityEngine.Timeline;
 using UnityEngine.UI;
 
 namespace UI
 {
-    public class PhotoMarker : MonoBehaviour
+    public class PhotoMarker : MonoBehaviour, IPhotoMarker
     {
         [SerializeField] private Image markerImage;
         [SerializeField] private float minScale = 0.5f;
@@ -63,5 +64,15 @@ namespace UI
             float scale = Mathf.Lerp(minScale, maxScale, t);
             markerImage.rectTransform.localScale = Vector3.one * scale;
         }
+
+        public void SetGameObjectEnable(bool State)
+        {
+            enabled = State;
+        }
     }
+}
+
+public interface IPhotoMarker
+{
+    void SetGameObjectEnable(bool State);
 }

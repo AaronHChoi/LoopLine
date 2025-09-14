@@ -6,13 +6,15 @@ using UnityEngine;
 public class InteractUI : MonoBehaviour
 {
     [SerializeField] private GameObject containerInteractUI;
-    [SerializeField] private IPlayerInteract playerInteract;
     [SerializeField] private TextMeshProUGUI interactText;
     private bool interactionLocked = false;
 
+    private IPlayerInteract playerInteract;
+    private IDialogueManager dialogueManager;
     private void Awake()
     {
         playerInteract = InterfaceDependencyInjector.Instance.Resolve<IPlayerInteract>();
+        dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
     }
     void Update()
     {
@@ -34,13 +36,13 @@ public class InteractUI : MonoBehaviour
     }
     private void OnEnable()
     {
-        DialogueManager.OnDialogueStarted += LockInteraction;
-        DialogueManager.OnDialogueEnded += UnlockInteraction;
+        dialogueManager.OnDialogueStarted += LockInteraction;
+        dialogueManager.OnDialogueEnded += UnlockInteraction;
     }
     private void OnDisable()
     {
-        DialogueManager.OnDialogueStarted -= LockInteraction;
-        DialogueManager.OnDialogueEnded -= UnlockInteraction;
+        dialogueManager.OnDialogueStarted -= LockInteraction;
+        dialogueManager.OnDialogueEnded -= UnlockInteraction;
     }
     private void Show(IInteract interactable)
     {

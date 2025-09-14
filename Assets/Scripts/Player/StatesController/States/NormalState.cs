@@ -9,9 +9,9 @@ namespace Player
         IPlayerStateController controller;
         IPlayerInputHandler input;
         IPlayerMovement movement;
-        CinemachinePOVExtension playerCamera;
+        ICameraOrientation playerCamera;
 
-        public NormalState(IPlayerStateController controller, IPlayerInputHandler input, IPlayerMovement movement, CinemachinePOVExtension playerCamera)
+        public NormalState(IPlayerStateController controller, IPlayerInputHandler input, IPlayerMovement movement, ICameraOrientation playerCamera)
         {
             this.controller = controller;
             this.input = input;

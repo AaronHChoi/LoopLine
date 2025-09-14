@@ -25,11 +25,11 @@ namespace Player
 
         StateMachine stateMachine { get; set; }
 
-        PhotoCapture photoCapture;
-        CinemachinePOVExtension cinemachinePOVExtension;
         TimeManager timeManager;
        
-        PhotoMarker photoMarker;
+        IPhotoMarker photoMarker;
+        ICameraOrientation cinemachinePOVExtension;
+        IPhotoCapture photoCapture;
         IPlayerInteractMarkerPrompt interaction;
         IPlayerMovement playerMovement;
         ITogglePhotoDetection togglePhotoDetection;
@@ -48,6 +48,9 @@ namespace Player
             inputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
             playerMovement = InterfaceDependencyInjector.Instance.Resolve<IPlayerMovement>();
             interaction = InterfaceDependencyInjector.Instance.Resolve<IPlayerInteractMarkerPrompt>();
+            photoCapture = InterfaceDependencyInjector.Instance.Resolve<IPhotoCapture>();
+            photoMarker = InterfaceDependencyInjector.Instance.Resolve<IPhotoMarker>();
+            cinemachinePOVExtension = InterfaceDependencyInjector.Instance.Resolve<ICameraOrientation>();
 
             stateMachine = new StateMachine();
 
@@ -64,11 +67,11 @@ namespace Player
         public void InjectDependencies(DependencyContainer provider)
         {
             //playerMovement = provider.PlayerContainer.PlayerMovement;
-            photoCapture = provider.PhotoContainer.PhotoCapture;
-            cinemachinePOVExtension = provider.CinemachineContainer.CinemachinePOVExtension;
+            //photoCapture = provider.PhotoContainer.PhotoCapture;
+            //cinemachinePOVExtension = provider.CinemachineContainer.CinemachinePOVExtension;
             timeManager = provider.ManagerContainer.TimeManager;
             //interaction = provider.PlayerContainer.PlayerInteraction;
-            photoMarker = provider.PhotoContainer.PhotoMarker;
+            //photoMarker = provider.PhotoContainer.PhotoMarker;
         }
         private void Update()
         {

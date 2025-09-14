@@ -6,7 +6,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.UI;
 using DependencyInjection;
-public class PhotoCapture : MonoBehaviour, IDependencyInjectable
+public class PhotoCapture : MonoBehaviour, IPhotoCapture
 {
     [Header("Photo Taker")]
     [SerializeField] Image photoDisplayArea;
@@ -35,7 +35,7 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
 
     Texture2D screenCapture;
     bool viewvingPhoto;
-    public bool IsViewingPhoto => viewvingPhoto;
+    public bool IsViewingPhoto {  get { return viewvingPhoto; } }
 
     bool cameraActive = false;
     bool isCurrentPhotoClue = false;
@@ -43,13 +43,15 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
     int photoTaken = 0;
 
     IPlayerStateController playerStateController;
-    PhotoMarkerManager photoMarkerManager;
-    PhotoDetectionZone photoDetectionZone;
-    public static event Action<string> OnPhotoClueCaptured;
+    IPhotoMarkerManager photoMarkerManager;
+    ITogglePhotoDetection photoDetectionZone;
+    public event Action<string> OnPhotoClueCaptured;
     #region MAGIC_METHODS
     private void Awake()
     {
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
+        photoDetectionZone = InterfaceDependencyInjector.Instance.Resolve<ITogglePhotoDetection>();
+        photoMarkerManager = InterfaceDependencyInjector.Instance.Resolve<IPhotoMarkerManager>();
     }
     private void Start()
     {
@@ -74,12 +76,6 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
         CleanupTextures();
     }
     #endregion
-    public void InjectDependencies(DependencyContainer provider)
-    {
-        //playerStateController = provider.PlayerContainer.PlayerStateController;
-        photoMarkerManager = provider.PhotoContainer.PhotoMarkerManager;
-        photoDetectionZone = provider.PhotoContainer.PhotoDetectionZone;
-    }
     void CleanupTextures()
     {
         if(screenCapture != null)
@@ -241,4 +237,10 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
         texture.SetPixels(pixels);
         texture.Apply();
     }
+}
+
+public interface IPhotoCapture
+{
+    event Action<string> OnPhotoClueCaptured;
+    bool IsViewingPhoto {  get; }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using DependencyInjection;
 using Player;
 using UnityEngine;
-public class EventDialogueManager : Subject, IDependencyInjectable
+public class EventDialogueManager : Subject
 {
     [SerializeField] float delayMonologue;
     public static System.Action<string> OnItemPicked;
@@ -15,13 +15,15 @@ public class EventDialogueManager : Subject, IDependencyInjectable
 
     [SerializeField] ItemInteract trainPhotos;
     int personPhotoCount = 0;
-    PhotoCapture photoCapture;
+    IPhotoCapture photoCapture;
     IPlayerStateController controller;
+    IDialogueUI dialogueUI;
 
     private void Awake()
     {
-        InjectDependencies(DependencyContainer.Instance);
         controller = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
+        dialogueUI = InterfaceDependencyInjector.Instance.Resolve<IDialogueUI>();
+        photoCapture = InterfaceDependencyInjector.Instance.Resolve<IPhotoCapture>();
     }
     private void Start()
     {
@@ -30,15 +32,15 @@ public class EventDialogueManager : Subject, IDependencyInjectable
     }
     private void OnEnable()
     {
-        DialogueUI.OnDialogueEndedById += HandleDialgoueFinished;
+        dialogueUI.OnDialogueEndedById += HandleDialgoueFinished;
         OnItemPicked += HandleItemPicked;
-        PhotoCapture.OnPhotoClueCaptured += HandlePhotoClueCaptured;
+        photoCapture.OnPhotoClueCaptured += HandlePhotoClueCaptured;
     }
     private void OnDisable()
     {
-        DialogueUI.OnDialogueEndedById -= HandleDialgoueFinished;
+        dialogueUI.OnDialogueEndedById -= HandleDialgoueFinished;
         OnItemPicked -= HandleItemPicked;
-        PhotoCapture.OnPhotoClueCaptured += HandlePhotoClueCaptured;
+        photoCapture.OnPhotoClueCaptured += HandlePhotoClueCaptured;
     }
     IEnumerator EnableTakeTrainPhotos()
     {
@@ -118,10 +120,5 @@ public class EventDialogueManager : Subject, IDependencyInjectable
     void SendOnlyEvent(Events _event)
     {
         NotifyObservers(_event);
-    }
-    public void InjectDependencies(DependencyContainer provider)
-    {
-        photoCapture = provider.PhotoContainer.PhotoCapture;
-        //controller = provider.PlayerContainer.PlayerStateController;
     }
 }

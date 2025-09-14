@@ -8,9 +8,9 @@ namespace Player
         IPlayerStateController controller;
         IPlayerInputHandler input;
         IPlayerMovement movement;
-        CinemachinePOVExtension playerCamera;
+        ICameraOrientation playerCamera;
 
-        public FocusModeState(IPlayerStateController controller, IPlayerInputHandler input, IPlayerMovement movement, CinemachinePOVExtension playerCamera)
+        public FocusModeState(IPlayerStateController controller, IPlayerInputHandler input, IPlayerMovement movement, ICameraOrientation playerCamera)
         {
             this.controller = controller;
             this.input = input;

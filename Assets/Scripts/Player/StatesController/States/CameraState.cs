@@ -11,15 +11,15 @@ namespace Player
         IPlayerStateController controller;
         IPlayerInputHandler input;
         IPlayerMovement movement;
-        PhotoCapture photo;
-        CinemachinePOVExtension playerCamera;
+        IPhotoCapture photo;
+        ICameraOrientation playerCamera;
         IPlayerInteractMarkerPrompt interaction;
-        PhotoMarker photoMarker;
+        IPhotoMarker photoMarker;
         ITogglePhotoDetection togglePhotoDetection;
         GameObject polaroidItem;
         public CameraState(IPlayerStateController controller, IPlayerInputHandler input, IPlayerMovement movement, 
-            PhotoCapture photo, CinemachinePOVExtension playerCamera, IPlayerInteractMarkerPrompt interaction, 
-            ITogglePhotoDetection togglePhotoDetection, PhotoMarker photoMarker)
+            IPhotoCapture photo, ICameraOrientation playerCamera, IPlayerInteractMarkerPrompt interaction, 
+            ITogglePhotoDetection togglePhotoDetection, IPhotoMarker photoMarker)
         {
             this.controller = controller;
             this.input = input;
@@ -34,7 +34,7 @@ namespace Player
         {
             interaction.IsDetecting = false;
             movement.CanMove = true;
-            photoMarker.enabled = true;
+            photoMarker.SetGameObjectEnable(true);
             playerCamera.CanLook = true;
             togglePhotoDetection.ToggleCollider(true);
             if (polaroidItem == null)
@@ -61,7 +61,7 @@ namespace Player
         {
             interaction.IsDetecting = true;
             movement.CanMove = false;
-            photoMarker.enabled = false;
+            photoMarker.SetGameObjectEnable(false);
             playerCamera.CanLook = false;
             togglePhotoDetection.ToggleCollider(false);
             polaroidItem.SetActive(true);
