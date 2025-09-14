@@ -5,24 +5,25 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class InventoryUI : MonoBehaviour, IDependencyInjectable
+public class InventoryUI : MonoBehaviour, IInventoryUI
 {
     [SerializeField] public List<UIInventoryItemSlot> inventorySlots = new List<UIInventoryItemSlot>();
-    [SerializeField] public ItemInteract HandItemUI;
+    
     [SerializeField] public RawImage arrowImage;
-    [SerializeField] public ItemInteract ItemInUse;
+    [SerializeField] public ItemInteract ItemInUse { get; set; }
 
+    [SerializeField] private ItemInteract handItemUI;
     [SerializeField] private Vector2 offset = new Vector2(50f, 0f);
     [SerializeField] private float slotChangeCooldown = 0.5f;
-    [SerializeField] public Transform SpawnPosition;
+    [SerializeField] private Transform spawnPosition;
 
     private float lastSlotChangeTime = 0f;
     private bool isInventoryOpen = false;
-
     public bool IsInventoryOpen
     {
         get => isInventoryOpen;
     }
+    public ItemInteract HandItemUI { get { return handItemUI; } } 
 
     public int currentSlotIndex = 0;
     public static InventoryUI Instance { get; private set; }
@@ -36,7 +37,6 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
     #region MagicMethods
     private void Awake()
     {
-        //InjectDependencies(DependencyContainer.Instance);
         inputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
         dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
         controller = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
@@ -198,11 +198,6 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
             }
         }
     }
-    public void InjectDependencies(DependencyContainer provider)
-    {
-        //controller = provider.PlayerContainer.PlayerStateController;
-        //dialogueManager = provider.ManagerContainer.DialogueManager;
-    }
     private void ShowInventory()
     {
         FadeController.ForceFade(true);
@@ -213,4 +208,20 @@ public class InventoryUI : MonoBehaviour, IDependencyInjectable
         FadeController.ForceFade(false);
         isInventoryOpen = false;
     }
+
+    public Transform GetSpawnPosition()
+    {
+        return spawnPosition;
+    }
+}
+
+public interface IInventoryUI
+{
+    bool IsInventoryOpen { get; }
+    public ItemInteract HandItemUI { get; }
+    public ItemInteract ItemInUse { get; set; }
+    Transform GetSpawnPosition();
+    void AddInventorySlot(ItemInteract item);
+    void RemoveInventorySlot(ItemInteract item);
+    bool CheckInventory(ItemInteract itemInteract);
 }
