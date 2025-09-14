@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DependencyInjection;
-public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyInjectable
+public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
 {
     [SerializeField] private string interactText = "Interact with me!";
     [Tooltip("Este valor solo para los NPC, para poder identificar los dialogos")]
@@ -15,8 +15,8 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     public bool NPCInteracted = false;
     [SerializeField] Transform headTarget;
     [SerializeField] string id;
-    EventDialogueManager eventDialogueManager;
 
+    IEventDialogueManager eventDialogueManager;
     IUIManager uiManager;
     IDialogueManager dialogueManager;
     IPlayerController playerController;
@@ -40,7 +40,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     #region MAGIC_METHODS
     private void Awake()
     {
-        InjectDependencies(DependencyContainer.Instance);
+        eventDialogueManager = InterfaceDependencyInjector.Instance.Resolve<IEventDialogueManager>();
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
         dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
         playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
@@ -66,12 +66,12 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
     private void OnEnable()
     {
         if(eventDialogueManager != null)
-            eventDialogueManager.AddObserver(this);
+            eventDialogueManager.AddNewObserver(this);
     }
     private void OnDisable()
     {
         if (eventDialogueManager != null)
-            eventDialogueManager.RemoveObserver(this);
+            eventDialogueManager.RemoveOldObserver(this);
     }
     #endregion
     public void TriggerEventDialogue(Events triggeredEvent)
@@ -102,10 +102,6 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver, IDependencyI
                 Debug.LogWarning($"DialogueSO {change.dialogue.name} not found in AvailableDialogs of {name}");
             }
         }
-    }
-    public void InjectDependencies(DependencyContainer provider)
-    {
-        eventDialogueManager = provider.ManagerContainer.EventDialogueManager;
     }
     public void DialogueTrigger()
     {

@@ -1,15 +1,15 @@
 using UnityEngine;
 using DependencyInjection;
-public class WindowEvent : MonoBehaviour, IObserver, IDependencyInjectable
+public class WindowEvent : MonoBehaviour, IObserver
 {
-    EventManager eventManager;
+    IEventManager eventManager;
     [SerializeField] private GameObject crystal;
     [SerializeField] private GameObject crystalBreakEffect;
     public string Id { get; }
 
     void Awake()
     {
-        InjectDependencies(DependencyContainer.Instance);
+        eventManager = InterfaceDependencyInjector.Instance.Resolve<IEventManager>();
     }
     public void OnNotify(Events _event, string _id = null)
     {
@@ -18,11 +18,11 @@ public class WindowEvent : MonoBehaviour, IObserver, IDependencyInjectable
     }
     private void OnEnable()
     {
-        eventManager.AddObserver(this);
+        eventManager.AddNewObserver(this);
     }
     private void OnDisable()
     {
-        eventManager.RemoveObserver(this);
+        eventManager.RemoveOldObserver(this);
     }
     private void breakCrystal()
     {
@@ -31,10 +31,6 @@ public class WindowEvent : MonoBehaviour, IObserver, IDependencyInjectable
             crystal.SetActive(false);
         }
         crystalBreakEffect.SetActive(true);
-    }
-    public void InjectDependencies(DependencyContainer provider)
-    {
-        eventManager = provider.ManagerContainer.EventManager;
     }
     public string GetObserverID()
     {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class ItemManager : MonoBehaviour
+public class ItemManager : MonoBehaviour, IItemManager
 {
-    [SerializeField] public List<ItemInteract> items = new List<ItemInteract>();
+    [SerializeField] public List<ItemInteract> items { get; } = new List<ItemInteract>();
 
     private void Start()
     {
@@ -24,4 +24,9 @@ public class ItemManager : MonoBehaviour
         }
 
     }
+}
+
+public interface IItemManager
+{
+    public List<ItemInteract> items { get; }
 }

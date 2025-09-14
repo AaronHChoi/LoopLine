@@ -1,10 +1,9 @@
 using UnityEngine;
 using DependencyInjection;
-public class TimeManager : MonoBehaviour, IDependencyInjectable, ITimeProvider
+public class TimeManager : MonoBehaviour, ITimeProvider
 {
-    GameSceneManager gameSceneManager;
+    IGameSceneManager gameSceneManager;
     IDialogueManager dialogueManager;
-    EventManager eventManager;
 
     float loopTime = 360f;
     bool IsTimePaused = false;  
@@ -22,14 +21,8 @@ public class TimeManager : MonoBehaviour, IDependencyInjectable, ITimeProvider
     const float DEFAULT_LOOP_TIME = 360f;
     private void Awake()
     {
-        InjectDependencies(DependencyContainer.Instance);
         dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
-    }
-    public void InjectDependencies(DependencyContainer provider)
-    {
-        gameSceneManager = provider.ManagerContainer.GameSceneManager;
-        //dialogueManager = provider.ManagerContainer.DialogueManager;
-        eventManager = provider.ManagerContainer.EventManager;
+        gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
     }
     private void Start()
     {

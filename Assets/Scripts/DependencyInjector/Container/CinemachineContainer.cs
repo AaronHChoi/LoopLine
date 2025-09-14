@@ -8,12 +8,12 @@ namespace DependencyInjection
         CinemachineCamera cinemachineCamera;
         public CinemachineCamera CinemachineCamera => cinemachineCamera ??= FindAndValidate<CinemachineCamera>();
 
-        CinemachinePOVExtension cinemachinePOVExtension;
-        public CinemachinePOVExtension CinemachinePOVExtension => cinemachinePOVExtension ??= FindAndValidate<CinemachinePOVExtension>();
+        //CinemachinePOVExtension cinemachinePOVExtension;
+        //public CinemachinePOVExtension CinemachinePOVExtension => cinemachinePOVExtension ??= FindAndValidate<CinemachinePOVExtension>();
 
         public void RegisterServices(InterfaceDependencyInjector injector)
         {
-            injector.Register<ICameraOrientation>(() => CinemachinePOVExtension);
+            injector.Register<ICameraOrientation>(() => FindAndValidate<CinemachinePOVExtension>());
         }
     }
 }

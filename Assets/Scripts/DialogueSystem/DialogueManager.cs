@@ -4,12 +4,12 @@ using UnityEngine;
 using DependencyInjection;
 using Player;
 
-public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueManager
+public class DialogueManager : MonoBehaviour, IDialogueManager
 {
-    public static event Action OnDialogueStarted;
-    public static event Action OnDialogueEnded;
+    public event Action OnDialogueStarted;
+    public event Action OnDialogueEnded;
     public static DialogueManager Instance { get; private set; }
-    public static DialogueSpeaker actualSpeaker;
+    public DialogueSpeaker actualSpeaker {  get;  set;}
     
     private bool isDialogueActive = false;
     
@@ -18,14 +18,14 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
     public List<QuestionSO> AllQuestions = new List<QuestionSO>();
     public List<QuestionSO> SelectQuestions = new List<QuestionSO>();
     public bool IsDialogueActive { get { return isDialogueActive; } }
-    public QuestionManager QuestionManager
+    public IQuestionManager QuestionManager
     {
         get { return questionManager; }
         private set { value = questionManager; }
     }
 
-    DialogueUI dialogueUI;
-    QuestionManager questionManager;
+    IDialogueUI dialogueUI;
+    IQuestionManager questionManager;
     IPlayerStateController playerState;
 
     IUIManager uiManager;
@@ -40,24 +40,20 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
         {
             Destroy(gameObject);
         }
-        InjectDependencies(DependencyContainer.Instance);
+        dialogueUI = InterfaceDependencyInjector.Instance.Resolve<IDialogueUI>();
         playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
         playerState = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
+        questionManager = InterfaceDependencyInjector.Instance.Resolve<IQuestionManager>();
     }
-    public void InjectDependencies(DependencyContainer provider)
-    {
-        questionManager = provider.ManagerContainer.QuestionManager;
-        dialogueUI = provider.UIContainer.DialogueUI;
-        //playerState = provider.PlayerContainer.PlayerStateController;
-    }
+
     private void Start()
     {
         ShowUI(false, true);
     }
     public void ShowUI(bool _show, bool _event)
     {
-        dialogueUI.gameObject.SetActive(_show);
+        dialogueUI.GetGameObject().SetActive(_show);
         if (!_show)
         {
             dialogueUI.localIndex = 0;
@@ -153,7 +149,7 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
     }
     public void StopAndFinishDialogue() //Metodo para parar dialogos
     {
-        dialogueUI.gameObject.SetActive(false);
+        dialogueUI.GetGameObject().SetActive(false);
         if (actualSpeaker.isDialogueActive)
         {
             ShowUI(false, true);
@@ -176,6 +172,9 @@ public class DialogueManager : MonoBehaviour, IDependencyInjectable, IDialogueMa
 }
 public interface IDialogueManager
 {
+    event Action OnDialogueStarted;
+    event Action OnDialogueEnded;
+    DialogueSpeaker actualSpeaker {  get; set; }
     bool IsDialogueActive { get; }
     void ShowUI(bool _show, bool _event);
     void SetDialogue(DialogueSO _dialogue, DialogueSpeaker speaker);

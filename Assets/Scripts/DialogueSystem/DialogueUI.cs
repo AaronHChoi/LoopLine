@@ -5,11 +5,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DependencyInjection;
-public class DialogueUI : MonoBehaviour
+public class DialogueUI : MonoBehaviour, IDialogueUI
 {
-    public DialogueSO Dialogue;
+    public DialogueSO Dialogue {  get; set; }
     public DialogueSO MainDialogue;
-    public static event Action<DialogueSO> OnDialogueEndedById;
+    public event Action<DialogueSO> OnDialogueEndedById;
 
     [SerializeField] private GameObject dialogueContainer;
     [SerializeField] private GameObject questionContainer;
@@ -22,8 +22,8 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
 
     [SerializeField] private RawImage dialogueBackground;
-    
-    public int localIndex = 1;
+
+    public int localIndex { get; set; } = 1;
 
     [SerializeField] bool isTyping = false;
     [SerializeField] bool isQuestionActive = false;
@@ -52,8 +52,8 @@ public class DialogueUI : MonoBehaviour
             playerStateController.OnDialogueNext += AdvanceDialogue;
             //playerStateController.OnDialogueSkip += SkipTyping;
         }
-        DialogueManager.OnDialogueStarted += OnDialogueStartedHandler;
-        DialogueManager.OnDialogueEnded += OnDialogueEndedHandler;
+        dialogueManager.OnDialogueStarted += OnDialogueStartedHandler;
+        dialogueManager.OnDialogueEnded += OnDialogueEndedHandler;
     }
     private void OnDisable()
     {
@@ -66,8 +66,8 @@ public class DialogueUI : MonoBehaviour
         {
             ShowletterBox(false);
         }
-        DialogueManager.OnDialogueStarted -= OnDialogueStartedHandler;
-        DialogueManager.OnDialogueEnded -= OnDialogueEndedHandler;
+        dialogueManager.OnDialogueStarted -= OnDialogueStartedHandler;
+        dialogueManager.OnDialogueEnded -= OnDialogueEndedHandler;
     }
     private void OnDialogueStartedHandler()
     {
@@ -140,7 +140,7 @@ public class DialogueUI : MonoBehaviour
                 {
                     //print("Dialogo Terminado");
                     localIndex = 0;
-                    DialogueManager.actualSpeaker.DialogueLocalIndex = 0;
+                    dialogueManager.actualSpeaker.DialogueLocalIndex = 0;
                     Dialogue.Finished = true;
                     OnDialogueEndedById?.Invoke(Dialogue);
 
@@ -159,13 +159,13 @@ public class DialogueUI : MonoBehaviour
                         return;
                     }
                     DialogueManager.Instance.ShowUI(false, true);
-                    DialogueManager.actualSpeaker.EndDialogue();
+                    dialogueManager.actualSpeaker.EndDialogue();
                     //MainDialogue.ReUse = true;
                     isFirstDialogueSaved = false;
 
                     return;
                 }
-                DialogueManager.actualSpeaker.DialogueLocalIndex = localIndex;
+                dialogueManager.actualSpeaker.DialogueLocalIndex = localIndex;
 
                 break;
             default:
@@ -220,4 +220,22 @@ public class DialogueUI : MonoBehaviour
     //        skipe = false;
     //    }
     //}
+
+    public GameObject GetGameObject()
+    {
+        return gameObject;
+    }
+}
+
+public interface IDialogueUI
+{
+    DialogueSO Dialogue { get; set; }
+
+    event Action<DialogueSO> OnDialogueEndedById;
+
+    int localIndex { get; set; }
+
+    void TextUpdate(int trigger);
+
+    GameObject GetGameObject();
 }

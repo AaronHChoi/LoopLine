@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     public Dictionary<string, System.Action<bool>> boolSetters;
 
     IDialogueManager dialogueManager;
-    EventManager eventManager;
+    IEventManager eventManager;
     public bool test;
     private void Awake()
     {
@@ -44,8 +44,8 @@ public class GameManager : MonoBehaviour
             {"CameraGirl", value => cameraGirl = value },
             {"BassistGirl", value => bassistGirl = value }
         };
-        eventManager = FindFirstObjectByType<EventManager>();
         dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
+        eventManager = InterfaceDependencyInjector.Instance.Resolve<IEventManager>();
     }
     private void Start()
     {

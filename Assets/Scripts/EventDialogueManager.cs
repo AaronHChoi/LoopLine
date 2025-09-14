@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using DependencyInjection;
 using Player;
 using UnityEngine;
-public class EventDialogueManager : Subject, IDependencyInjectable
+public class EventDialogueManager : Subject, IEventDialogueManager
 {
     [SerializeField] float delayMonologue;
-    public static System.Action<string> OnItemPicked;
+    public Action<string> OnItemPicked {  get;  set; }
     [Header("Dialogues")]
     public DialogueSO firstDialogueQuest;
     public DialogueSO quest;
@@ -15,13 +15,15 @@ public class EventDialogueManager : Subject, IDependencyInjectable
 
     [SerializeField] ItemInteract trainPhotos;
     int personPhotoCount = 0;
-    PhotoCapture photoCapture;
+    IPhotoCapture photoCapture;
     IPlayerStateController controller;
+    IDialogueUI dialogueUI;
 
     private void Awake()
     {
-        InjectDependencies(DependencyContainer.Instance);
         controller = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
+        dialogueUI = InterfaceDependencyInjector.Instance.Resolve<IDialogueUI>();
+        photoCapture = InterfaceDependencyInjector.Instance.Resolve<IPhotoCapture>();
     }
     private void Start()
     {
@@ -30,15 +32,15 @@ public class EventDialogueManager : Subject, IDependencyInjectable
     }
     private void OnEnable()
     {
-        DialogueUI.OnDialogueEndedById += HandleDialgoueFinished;
+        dialogueUI.OnDialogueEndedById += HandleDialgoueFinished;
         OnItemPicked += HandleItemPicked;
-        PhotoCapture.OnPhotoClueCaptured += HandlePhotoClueCaptured;
+        photoCapture.OnPhotoClueCaptured += HandlePhotoClueCaptured;
     }
     private void OnDisable()
     {
-        DialogueUI.OnDialogueEndedById -= HandleDialgoueFinished;
+        dialogueUI.OnDialogueEndedById -= HandleDialgoueFinished;
         OnItemPicked -= HandleItemPicked;
-        PhotoCapture.OnPhotoClueCaptured += HandlePhotoClueCaptured;
+        photoCapture.OnPhotoClueCaptured += HandlePhotoClueCaptured;
     }
     IEnumerator EnableTakeTrainPhotos()
     {
@@ -119,9 +121,22 @@ public class EventDialogueManager : Subject, IDependencyInjectable
     {
         NotifyObservers(_event);
     }
-    public void InjectDependencies(DependencyContainer provider)
+
+    public void AddNewObserver(IObserver observer)
     {
-        photoCapture = provider.PhotoContainer.PhotoCapture;
-        //controller = provider.PlayerContainer.PlayerStateController;
+        observers.Add(observer);
     }
+
+    public void RemoveOldObserver(IObserver observer)
+    {
+        observers.Remove(observer);
+    }
+}
+
+public interface IEventDialogueManager
+{
+    Action<string> OnItemPicked {  get; set; }
+    void AddNewObserver(IObserver observer);
+    void RemoveOldObserver(IObserver observer);
+    
 }

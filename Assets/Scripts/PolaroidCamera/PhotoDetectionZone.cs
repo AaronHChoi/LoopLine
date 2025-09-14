@@ -45,5 +45,7 @@ public class PhotoDetectionZone : MonoBehaviour, ITogglePhotoDetection
 
 public interface ITogglePhotoDetection
 {
+    PhotoClue GetClue();
+    bool CheckIfAnyClue();
     void ToggleCollider(bool enabled);
 }
