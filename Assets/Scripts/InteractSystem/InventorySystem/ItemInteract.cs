@@ -1,7 +1,7 @@
 using UnityEngine;
 using DependencyInjection;
 
-public class ItemInteract : MonoBehaviour, IDependencyInjectable, IItemGrabInteract
+public class ItemInteract : MonoBehaviour, IItemGrabInteract
 {
     [Header("Settings")]
     [SerializeField] private string interactText = "";
@@ -14,11 +14,11 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable, IItemGrabInter
     [SerializeField] public GameObject objectPrefab;
 
     [Header("References")]
-    InventoryUI inventoryUI;
+    IInventoryUI inventoryUI;
 
     private void Awake()
     {
-        InjectDependencies(DependencyContainer.Instance);
+        inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
     }
     void Start()
     {
@@ -63,8 +63,5 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable, IItemGrabInter
 
         return interactText;
     }
-    public void InjectDependencies(DependencyContainer provider)
-    {
-        inventoryUI = provider.UIContainer.InventoryUI;
-    }
+ 
 }

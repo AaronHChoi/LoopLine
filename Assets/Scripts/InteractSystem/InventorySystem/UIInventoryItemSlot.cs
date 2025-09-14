@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DependencyInjection;
-public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
+public class UIInventoryItemSlot : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI itemNameLabel;
     [SerializeField] private Image itemImage;
@@ -26,19 +26,15 @@ public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
                 DeactivateItem();
         }
     }
-    InventoryUI inventorySystem;
+    IInventoryUI inventorySystem;
     IPlayerStateController controller;
 
     private void Start()
     {
-        InjectDependencies(DependencyContainer.Instance);
+        inventorySystem = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
         controller = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
     }
-    public void InjectDependencies(DependencyContainer provider)
-    {
-        inventorySystem = provider.UIContainer.InventoryUI;
-        //controller = provider.PlayerContainer.PlayerStateController;
-    }
+  
     public void Set(ItemInteract item)
     {
         itemImage.sprite = item.ItemData.itemIcon;
@@ -53,9 +49,9 @@ public class UIInventoryItemSlot : MonoBehaviour, IDependencyInjectable
         if (item != null)
         {
             item.SetActive(true);
-            item.transform.position = inventorySystem.SpawnPosition.position;
-            item.transform.rotation = inventorySystem.SpawnPosition.rotation;
-            item.transform.SetParent(inventorySystem.SpawnPosition);
+            item.transform.position = inventorySystem.GetSpawnPosition().position;
+            item.transform.rotation = inventorySystem.GetSpawnPosition().rotation;
+            item.transform.SetParent(inventorySystem.GetSpawnPosition());
 
             inventorySystem.ItemInUse = itemToSpawn;
 

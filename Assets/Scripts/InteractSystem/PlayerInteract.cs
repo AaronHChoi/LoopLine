@@ -3,17 +3,17 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using DependencyInjection;
 
-public class PlayerInteract : MonoBehaviour, IDependencyInjectable, IPlayerInteract
+public class PlayerInteract : MonoBehaviour, IPlayerInteract
 {
     [SerializeField] private RaycastController rayController;
     [SerializeField, Range(0f,1f)] private float minScoreAllowed;
 
     IPlayerStateController playerStateController;
-    private InventoryUI inventoryUI;
+    IInventoryUI inventoryUI;
     
     private void Awake()
     {
-        InjectDependencies(DependencyContainer.Instance);
+        inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
     }
     private void OnEnable()
@@ -32,11 +32,7 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable, IPlayerInter
             playerStateController.OnGrab -= GrabItem;
         }
     }
-    public void InjectDependencies(DependencyContainer provider)
-    {
-        inventoryUI = provider.UIContainer.InventoryUI;
-        //playerStateController = provider.PlayerContainer.PlayerStateController;
-    }
+
     private void HandleInteraction()
     {
         if (SceneManager.GetActiveScene().name == "04. Train")

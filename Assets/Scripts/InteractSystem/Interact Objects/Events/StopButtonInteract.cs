@@ -16,12 +16,13 @@ public class StopButtonInteract : MonoBehaviour, IInteract, IDependencyInjectabl
     [SerializeField] public ItemInteract Rock;
 
     ItemManager itemManager;
-    InventoryUI inventoryUI;
+    IInventoryUI inventoryUI;
     EventManager eventManager;
 
     private void Awake()
     {
         InjectDependencies(DependencyContainer.Instance);
+        inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
     }
 
     private void Start()
@@ -81,7 +82,6 @@ public class StopButtonInteract : MonoBehaviour, IInteract, IDependencyInjectabl
 
     public void InjectDependencies(DependencyContainer provider)
     {
-        inventoryUI = provider.UIContainer.InventoryUI;
         eventManager = provider.ManagerContainer.EventManager;
         itemManager = provider.ManagerContainer.ItemManager;
     }
