@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using DependencyInjection;
 using Player;
 using UnityEngine;
-public class EventDialogueManager : Subject
+public class EventDialogueManager : Subject, IEventDialogueManager
 {
     [SerializeField] float delayMonologue;
-    public static System.Action<string> OnItemPicked;
+    public Action<string> OnItemPicked {  get;  set; }
     [Header("Dialogues")]
     public DialogueSO firstDialogueQuest;
     public DialogueSO quest;
@@ -121,4 +121,22 @@ public class EventDialogueManager : Subject
     {
         NotifyObservers(_event);
     }
+
+    public void AddNewObserver(IObserver observer)
+    {
+        observers.Add(observer);
+    }
+
+    public void RemoveOldObserver(IObserver observer)
+    {
+        observers.Remove(observer);
+    }
+}
+
+public interface IEventDialogueManager
+{
+    Action<string> OnItemPicked {  get; set; }
+    void AddNewObserver(IObserver observer);
+    void RemoveOldObserver(IObserver observer);
+    
 }

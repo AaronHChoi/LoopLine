@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DependencyInjection;
-public class GameSceneManager : MonoBehaviour
+public class GameSceneManager : MonoBehaviour, IGameSceneManager
 {
     IDialogueManager dialogueManager;
     private void Awake()
@@ -22,4 +22,10 @@ public class GameSceneManager : MonoBehaviour
     {
         return SceneManager.GetActiveScene().name == _sceneName;
     }
+}
+
+public interface IGameSceneManager
+{
+    bool IsCurrentScene(string _sceneName);
+    void LoadNextScene(string _sceneName);
 }

@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class QuestionManager : MonoBehaviour
+public class QuestionManager : MonoBehaviour, IQuestionManager
 {
     [SerializeField] private GameObject buttonPrefab;
     [SerializeField] private TextMeshProUGUI questionText;
@@ -55,4 +55,9 @@ public class QuestionManager : MonoBehaviour
     {
         DialogueManager.Instance.SetDialogue(_dialogue, null);
     }
+}
+
+public interface IQuestionManager
+{
+    void ActivateButtons(int _amount, string _title, Options[] _options);
 }

@@ -5,7 +5,7 @@ using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using DependencyInjection;
 
-public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
+public class DevelopmentManager : MonoBehaviour
 {
     [SerializeField] private GameObject UIPrinciplal;
     [SerializeField] private GameObject UIDeveloperMode;
@@ -18,7 +18,7 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
     bool isUIActive = false;
     private bool isCinemaOn = false;
 
-    ItemManager itemManager;
+    IItemManager itemManager;
     IPlayerController playerController;
     IPlayerStateController playerStateController;
     IDialogueManager dialogueManager;
@@ -28,9 +28,8 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
         dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
         timeManager = InterfaceDependencyInjector.Instance.Resolve<ITimeProvider>();
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
-        //dialManager = FindFirstObjectByType<DialogueManager>();
         playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
-        InjectDependencies(DependencyContainer.Instance);
+        itemManager = InterfaceDependencyInjector.Instance.Resolve<IItemManager>();
     }
     void Start()
     {
@@ -196,10 +195,5 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
         {
             itemManager.items[i].canBePicked = (!itemManager.items[i].canBePicked);
         }
-    }
-    public void InjectDependencies(DependencyContainer provider)
-    {
-        itemManager = provider.ManagerContainer.ItemManager;
-        //playerStateController = provider.PlayerContainer.PlayerStateController;
     }
 }

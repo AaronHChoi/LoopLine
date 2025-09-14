@@ -7,7 +7,7 @@ using DependencyInjection;
 
 namespace Player
 {
-    public class PlayerStateController : MonoBehaviour, IDependencyInjectable, IPlayerStateController
+    public class PlayerStateController : MonoBehaviour, IPlayerStateController
     {
         public StateMachine StateMachine => stateMachine;
         public bool CanUseNormalStateExecute { get; set; } = true;
@@ -25,8 +25,7 @@ namespace Player
 
         StateMachine stateMachine { get; set; }
 
-        TimeManager timeManager;
-       
+        ITimeProvider timeManager;
         IPhotoMarker photoMarker;
         ICameraOrientation cinemachinePOVExtension;
         IPhotoCapture photoCapture;
@@ -43,7 +42,6 @@ namespace Player
         public ObjectInHandState ObjectInHandState { get;  set; }
         private void Awake()
         {
-            InjectDependencies(DependencyContainer.Instance);
             togglePhotoDetection = InterfaceDependencyInjector.Instance.Resolve<ITogglePhotoDetection>();           
             inputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
             playerMovement = InterfaceDependencyInjector.Instance.Resolve<IPlayerMovement>();
@@ -51,6 +49,7 @@ namespace Player
             photoCapture = InterfaceDependencyInjector.Instance.Resolve<IPhotoCapture>();
             photoMarker = InterfaceDependencyInjector.Instance.Resolve<IPhotoMarker>();
             cinemachinePOVExtension = InterfaceDependencyInjector.Instance.Resolve<ICameraOrientation>();
+            timeManager = InterfaceDependencyInjector.Instance.Resolve<ITimeProvider>();
 
             stateMachine = new StateMachine();
 
@@ -64,15 +63,7 @@ namespace Player
 
             stateMachine.Initialize(NormalState);
         }
-        public void InjectDependencies(DependencyContainer provider)
-        {
-            //playerMovement = provider.PlayerContainer.PlayerMovement;
-            //photoCapture = provider.PhotoContainer.PhotoCapture;
-            //cinemachinePOVExtension = provider.CinemachineContainer.CinemachinePOVExtension;
-            timeManager = provider.ManagerContainer.TimeManager;
-            //interaction = provider.PlayerContainer.PlayerInteraction;
-            //photoMarker = provider.PhotoContainer.PhotoMarker;
-        }
+
         private void Update()
         {
             stateMachine.Execute();

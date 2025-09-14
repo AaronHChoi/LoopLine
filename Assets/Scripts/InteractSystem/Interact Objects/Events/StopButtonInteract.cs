@@ -1,6 +1,6 @@
 using UnityEngine;
 using DependencyInjection;
-public class StopButtonInteract : MonoBehaviour, IInteract, IDependencyInjectable
+public class StopButtonInteract : MonoBehaviour, IInteract
 {
 
     [Header("Sound System")]
@@ -15,14 +15,15 @@ public class StopButtonInteract : MonoBehaviour, IInteract, IDependencyInjectabl
     [SerializeField] public GameObject TriggerRock;
     [SerializeField] public ItemInteract Rock;
 
-    ItemManager itemManager;
+    IItemManager itemManager;
     IInventoryUI inventoryUI;
-    EventManager eventManager;
+    IEventManager eventManager;
 
     private void Awake()
     {
-        InjectDependencies(DependencyContainer.Instance);
+        itemManager = InterfaceDependencyInjector.Instance.Resolve<IItemManager>();
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
+        eventManager = InterfaceDependencyInjector.Instance.Resolve<IEventManager>();
     }
 
     private void Start()
@@ -80,9 +81,4 @@ public class StopButtonInteract : MonoBehaviour, IInteract, IDependencyInjectabl
         return interactText;
     }
 
-    public void InjectDependencies(DependencyContainer provider)
-    {
-        eventManager = provider.ManagerContainer.EventManager;
-        itemManager = provider.ManagerContainer.ItemManager;
-    }
 }

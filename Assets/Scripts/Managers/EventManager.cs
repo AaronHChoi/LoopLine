@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DependencyInjection;
-public class EventManager : Subject
+public class EventManager : Subject, IEventManager
 {
     [Header("Sound System Event 1")]
     [SerializeField] private SoundData trainStopSoundData;
@@ -15,7 +15,7 @@ public class EventManager : Subject
     bool brokenWindow = false;
     public bool stopTrain { get; private set; } = false;
     private bool stopTrain2 = false;
-    [SerializeField] public float StopedTimeForTrain = 30f;
+    [SerializeField] public float StopedTimeForTrain { get; set; } = 30f;
     [SerializeField] private float AddTime = 30f;
     [SerializeField] StopButtonInteract stopButtonInteract;
     private Coroutine coroutineDelay;
@@ -109,4 +109,23 @@ public class EventManager : Subject
         NotifyObservers(Events.BreakCrystal);
     }
     #endregion
+
+    public void AddNewObserver(IObserver observer)
+    {
+        observers.Add(observer);
+    }
+
+    public void RemoveOldObserver(IObserver observer)
+    {
+        observers.Remove(observer);
+    }
+}
+
+public interface IEventManager
+{
+    bool stopTrain {  get; }
+    float StopedTimeForTrain { get; set; }
+    void TrainEventStopTrain();
+    void AddNewObserver(IObserver observer);
+    void RemoveOldObserver(IObserver observer);
 }

@@ -15,10 +15,12 @@ public class ItemInteract : MonoBehaviour, IItemGrabInteract
 
     [Header("References")]
     IInventoryUI inventoryUI;
+    IEventDialogueManager eventDialogueManager;
 
     private void Awake()
     {
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
+        eventDialogueManager = InterfaceDependencyInjector.Instance.Resolve<IEventDialogueManager>();
     }
     void Start()
     {
@@ -55,7 +57,7 @@ public class ItemInteract : MonoBehaviour, IItemGrabInteract
     }
     void NotifyItemPicked(string pickedId)
     {
-        EventDialogueManager.OnItemPicked?.Invoke(pickedId);
+        eventDialogueManager.OnItemPicked?.Invoke(pickedId);
     }
     public string GetInteractText()
     {
