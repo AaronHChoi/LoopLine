@@ -1,26 +1,26 @@
 using UnityEngine;
+using DependencyInjection;
 
-public class ItemInteract : MonoBehaviour, IDependencyInjectable, IItemGrabInteract
+public class ItemInteract : MonoBehaviour, IItemGrabInteract
 {
     [Header("Settings")]
     [SerializeField] private string interactText = "";
-    public string id = "";
+    public string id;
     public ItemInfo ItemData;
     public bool canBePicked = false;
 
     [Header("Item Inventory UI")]
     [SerializeField] private bool deactivateOnPickup = true;
     [SerializeField] public GameObject objectPrefab;
-    [SerializeField] private GameObject itemToActivate;
 
     [Header("References")]
-    PlayerInventorySystem playerInventorySystem;
-    InventoryUI inventoryUI;
-    ItemManager itemManager;
+    IInventoryUI inventoryUI;
+    IEventDialogueManager eventDialogueManager;
 
     private void Awake()
     {
-        InjectDependencies(DependencyContainer.Instance);
+        inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
+        eventDialogueManager = InterfaceDependencyInjector.Instance.Resolve<IEventDialogueManager>();
     }
     void Start()
     {
@@ -39,23 +39,25 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable, IItemGrabInter
     {
         if (gameObject.tag == "Item" && canBePicked)
         {
-            if (playerInventorySystem.ItemInUse == inventoryUI.HandItemUI || playerInventorySystem.ItemInUse == null)
+            if (inventoryUI.ItemInUse == inventoryUI.HandItemUI || inventoryUI.ItemInUse == null)
             {
                 if (deactivateOnPickup)
                 {
                     gameObject.SetActive(false);
                     gameObject.layer = LayerMask.NameToLayer("Default");
                 }
-                if (playerInventorySystem.CheckInventory(this) == false)
+                if (inventoryUI.CheckInventory(this) == false)
                 {
                     inventoryUI.AddInventorySlot(this);
-                    playerInventorySystem.AddToInvetory(this);
-                }
-                
-                if (itemToActivate != null && !string.IsNullOrEmpty(id))
-                    playerInventorySystem.ActivateNextItem(itemToActivate, id);
+                }                                
+
+                NotifyItemPicked(id);
             }
         }
+    }
+    void NotifyItemPicked(string pickedId)
+    {
+        eventDialogueManager.OnItemPicked?.Invoke(pickedId);
     }
     public string GetInteractText()
     {
@@ -63,10 +65,5 @@ public class ItemInteract : MonoBehaviour, IDependencyInjectable, IItemGrabInter
 
         return interactText;
     }
-    public void InjectDependencies(DependencyContainer provider)
-    {
-        playerInventorySystem = provider.PlayerInventorySystem;
-        inventoryUI = provider.InventoryUI;
-        itemManager = provider.ItemManager;
-    }
+ 
 }

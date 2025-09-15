@@ -1,97 +1,34 @@
-using Unity.Cinemachine.Samples;
-using Unity.Cinemachine;
 using UnityEngine;
-using Player;
-using InWorldUI;
 
-public class DependencyContainer : MonoBehaviour
+namespace DependencyInjection
 {
-    public static DependencyContainer Instance { get; private set; }
-
-    #region MANAGERS
-    public GameManager GameManager { get; private set; }
-    public UIManager UIManager { get; private set; }
-    public DialogueManager DialogueManager { get; private set; }
-    public TimeManager TimeManager { get; private set; }
-    public GameSceneManager GameSceneManager { get; private set; }
-    public DevelopmentManager DevelopmentManager { get; private set; }
-    public Subject SubjectEventManager { get; private set; }
-    public QuestionManager QuestionManager { get; private set; }
-    public EventManager EventManager { get; private set; }
-    public SoundManager SoundManager { get; private set; }
-    public NoteBookManager NoteBookManager { get; private set; }
-    public ItemManager ItemManager { get; private set; }
-
-    public ItemInteract ItemInteract { get; private set; }
-
-    public InventoryUI InventoryUI { get; private set; }
-    #endregion
-
-    #region PLAYER
-    public PlayerController PlayerController { get; private set; }
-    public PlayerInputHandler PlayerInputHandler { get; private set; }
-    public PlayerCamera PlayerCamera { get; private set; }
-    public PlayerView PlayerView { get; private set; }
-    public PlayerMovement PlayerMovement { get; private set; }
-    public PlayerStateController PlayerStateController { get; private set; }
-    public PlayerInteract PlayerInteract { get; private set; }
-    public PlayerInteraction PlayerInteraction { get; private set; }
-    #endregion
-    public DialogueUI DialogueUI { get; private set; }
-    public Parallax Parallax { get; private set; }
-    public CinemachineCamera CinemachineCamera { get; private set; }
-    public CinemachinePOVExtension CinemachinePOVExtension { get; private set; }
-    public PhotoCapture PhotoCapture { get; private set; }
-    public FocusModeManager FocusModeManager { get; private set; }
-    public PlayerInventorySystem PlayerInventorySystem { get; private set; }
-
-    private void Awake()
+    public class DependencyContainer : MonoBehaviour
     {
-        if(Instance != null && Instance != this)
+        public static DependencyContainer Instance { get; private set; }
+
+        public PlayerContainer PlayerContainer { get; private set; } = new PlayerContainer();
+        public UIContainer UIContainer { get; private set; } = new UIContainer();
+        public GeneralContainer GeneralContainer { get; private set; } = new GeneralContainer();
+        public CinemachineContainer CinemachineContainer { get; private set; } = new CinemachineContainer();
+        public PhotoContainer PhotoContainer { get; private set; } = new PhotoContainer();
+        public ManagerContainer ManagerContainer { get; private set; } = new ManagerContainer();
+        private void Awake()
         {
-            Destroy(gameObject);
-            return;
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            Instance = this;
+
+            RegisterAll();
         }
-        Instance = this;
+        private void RegisterAll()
+        {
+            var injector = InterfaceDependencyInjector.Instance;
 
-        InitializeDependencies();
-    }
-    private void InitializeDependencies()
-    {
-        SubjectEventManager = FindAndValidate<Subject>();
-        DevelopmentManager = FindAndValidate<DevelopmentManager>();
-        UIManager = FindAndValidate<UIManager>();
-        DialogueUI = FindAndValidate<DialogueUI>();
-        Parallax = FindAndValidate<Parallax>();
-        TimeManager = FindAndValidate<TimeManager>();
-        GameSceneManager = FindAndValidate<GameSceneManager>();
-        GameManager = FindAndValidate<GameManager>();
-        DialogueManager = FindAndValidate<DialogueManager>();
-        PlayerController = FindAndValidate<PlayerController>();
-        QuestionManager = FindAndValidate<QuestionManager>();
-        CinemachineCamera = FindAndValidate<CinemachineCamera>();
-        CinemachinePOVExtension = FindAndValidate<CinemachinePOVExtension>();
-        FocusModeManager = FindAndValidate<FocusModeManager>();
-        PlayerInputHandler = FindAndValidate<PlayerInputHandler>();
-        PlayerCamera = FindAndValidate<PlayerCamera>();
-        PlayerView = FindAndValidate<PlayerView>();
-        EventManager = FindAndValidate<EventManager>();
-        SoundManager = FindAndValidate<SoundManager>();
-        NoteBookManager = FindAndValidate<NoteBookManager>();
-        PlayerInventorySystem = FindAndValidate<PlayerInventorySystem>();
-        ItemInteract = FindAndValidate<ItemInteract>();
-        InventoryUI = FindAndValidate<InventoryUI>();
-        PlayerMovement = FindAndValidate<PlayerMovement>();
-        PlayerStateController = FindAndValidate<PlayerStateController>();
-        ItemManager = FindAndValidate<ItemManager>();
-        PhotoCapture = FindAndValidate<PhotoCapture>();
-        PlayerInteract = FindAndValidate<PlayerInteract>();
-        PlayerInteraction = FindAndValidate<PlayerInteraction>();
-    }
-    private T FindAndValidate<T>() where T : MonoBehaviour
-    {
-        T instance = FindFirstObjectByType<T>();
+            new PlayerContainer().RegisterServices(injector);
 
-        return instance;
+        }
     }
 }

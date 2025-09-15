@@ -3,13 +3,12 @@ using Player;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using DependencyInjection;
 
-public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
+public class DevelopmentManager : MonoBehaviour
 {
     [SerializeField] private GameObject UIPrinciplal;
     [SerializeField] private GameObject UIDeveloperMode;
-
-    [SerializeField] DialogueManager dialManager;
 
     [SerializeField] private AudioMixer audioMixer;
 
@@ -19,18 +18,18 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
     bool isUIActive = false;
     private bool isCinemaOn = false;
 
-    ItemManager itemManager;
-    PlayerStateController playerStateController;
+    IItemManager itemManager;
     IPlayerController playerController;
+    IPlayerStateController playerStateController;
     IDialogueManager dialogueManager;
     ITimeProvider timeManager;
     private void Awake()
     {
         dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
         timeManager = InterfaceDependencyInjector.Instance.Resolve<ITimeProvider>();
-        dialManager = FindFirstObjectByType<DialogueManager>();
+        playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
         playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
-        InjectDependencies(DependencyContainer.Instance);
+        itemManager = InterfaceDependencyInjector.Instance.Resolve<IItemManager>();
     }
     void Start()
     {
@@ -55,10 +54,9 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
     }
     public void OpenDevelopMode()
     {
-        if (UIPrinciplal != null && !dialManager.isDialogueActive)
+        if (UIPrinciplal != null && !dialogueManager.IsDialogueActive)
         {
             ToggleUI();
-            timeManager.PauseTime(true);
         }
     }
     private void ToggleUI()
@@ -68,7 +66,14 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
         UIPrinciplal.SetActive(!UIPrinciplal.activeInHierarchy);
         UIDeveloperMode.SetActive(!UIDeveloperMode.activeInHierarchy);
 
-        playerController.SetCinemachineController(!isUIActive);
+        if (isUIActive)
+        {
+            playerStateController.ChangeState(playerStateController.DialogueState);
+        }
+        else
+        {
+            playerStateController.ChangeState(playerStateController.NormalState);
+        }
 
         UpdateCursorState();
     }
@@ -81,7 +86,7 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
 
             isUIActive = false;
 
-            playerController.SetCinemachineController(true);
+            playerStateController.ChangeState(playerStateController.NormalState);
 
             timeManager.PauseTime(false);
             UpdateCursorState();
@@ -112,7 +117,7 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
     public void ResetDialogues()
     {
         dialogueManager.ResetAllDialogues();
-        dialogueManager.ResetAllQuestions();
+        dialogueManager.UnlockFirstDialogues();
     }
     public void ResetLevel()
     {
@@ -190,10 +195,5 @@ public class DevelopmentManager : MonoBehaviour, IDependencyInjectable
         {
             itemManager.items[i].canBePicked = (!itemManager.items[i].canBePicked);
         }
-    }
-    public void InjectDependencies(DependencyContainer provider)
-    {
-        itemManager = provider.ItemManager;
-        playerStateController = provider.PlayerStateController;
     }
 }

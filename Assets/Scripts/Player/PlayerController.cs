@@ -1,57 +1,43 @@
+using DependencyInjection;
 using Player;
 using UnityEngine;
 
+[RequireComponent(typeof(PlayerMovement))]
+[RequireComponent(typeof(PlayerStateController))]
 public class PlayerController : MonoBehaviour, IPlayerController
 {
     [SerializeField] PlayerModel playerModel;
-    PlayerCamera playerCamera;
-    PlayerFocusMode playerFocusMode;
-    PlayerMindPlaceNoteBook playerMindPlaceNoteBook;
-    PlayerMovement playerMovement;
-    PlayerStateController playerStateController;
 
-    public CharacterController characterController;
+    private DialogueSpeaker dialogueSpeaker;
+
+    IPlayerMovement playerMovement;
+
     public PlayerModel PlayerModel => playerModel;
+    public DialogueSpeaker DialogueSpeaker => dialogueSpeaker;
+
     private void Awake()
     {
-        playerCamera = GetComponent<PlayerCamera>();
-        playerFocusMode = GetComponent<PlayerFocusMode>();
-        playerMovement = GetComponent<PlayerMovement>();
-        playerMindPlaceNoteBook = GetComponent<PlayerMindPlaceNoteBook>();
-        characterController = GetComponent<CharacterController>();
-        playerStateController = GetComponent<PlayerStateController>();
+        playerMovement = InterfaceDependencyInjector.Instance.Resolve<IPlayerMovement>();
+    }
+
+    private void Start()
+    {
+        dialogueSpeaker = GetComponent<DialogueSpeaker>();
     }
     private void Update()
     {
         playerMovement.HandleMovement();
         playerMovement.RotateCharacterToCamera();
     }
-    private void OnEnable()
-    {
-        if (playerStateController != null)
-        {
-            playerStateController.OnFocusMode += HandleFocusMode;
-        }
-    }
-    private void OnDisable()
-    {
-        if (playerStateController != null)
-        {
-            playerStateController.OnFocusMode -= HandleFocusMode;
-        }
-    }
-    private void HandleFocusMode()
-    {
-        playerFocusMode.ToggleFocusMode();
-    }
-    public void SetCinemachineController(bool _enabled)
-    {
-        playerCamera.SetControllerEnabled(_enabled);
 
-        playerStateController.ChangeState(_enabled ? playerStateController.NormalState : playerStateController.DialogueState);
+    public Transform GetTransform()
+    {
+        return playerMovement.transform;
     }
 }
 public interface IPlayerController
 {
-    void SetCinemachineController(bool _enabled);
+    Transform GetTransform();
+    public DialogueSpeaker DialogueSpeaker { get; }
+    public PlayerModel PlayerModel { get; }
 }

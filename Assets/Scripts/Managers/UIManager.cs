@@ -1,21 +1,19 @@
 using TMPro;
 using UnityEngine;
-
-public class UIManager : MonoBehaviour, IDependencyInjectable, IUIManager
+using DependencyInjection;
+public class UIManager : MonoBehaviour, IUIManager
 {
     [SerializeField] private TextMeshProUGUI contador_provicional;
     [SerializeField] private TextMeshProUGUI uiText;
 
-    GameSceneManager gameSceneManager;
+    IGameSceneManager gameSceneManager;
     ITimeProvider timeManager;
+    ICrosshairFade crosshairFade;
     private void Awake()
     {
-        InjectDependencies(DependencyContainer.Instance);
         timeManager = InterfaceDependencyInjector.Instance.Resolve<ITimeProvider>();
-    }
-    public void InjectDependencies(DependencyContainer provider)
-    {
-        gameSceneManager = provider.GameSceneManager;
+        crosshairFade = InterfaceDependencyInjector.Instance.Resolve<ICrosshairFade>();
+        gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
     }
     private void Start()
     {
@@ -46,9 +44,14 @@ public class UIManager : MonoBehaviour, IDependencyInjectable, IUIManager
     {
         uiText.gameObject.SetActive(false);
     }
+    public void ShowCrossHairFade(bool show)
+    {
+        crosshairFade.ShowCrosshair(show);
+    }
 }
 public interface IUIManager
 {
     void ShowUIText(string _message);
     void HideUIText();
+    void ShowCrossHairFade(bool show);
 }

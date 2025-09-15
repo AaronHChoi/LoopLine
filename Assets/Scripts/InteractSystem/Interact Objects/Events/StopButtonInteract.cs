@@ -1,6 +1,6 @@
 using UnityEngine;
-
-public class StopButtonInteract : MonoBehaviour, IInteract, IDependencyInjectable
+using DependencyInjection;
+public class StopButtonInteract : MonoBehaviour, IInteract
 {
 
     [Header("Sound System")]
@@ -10,18 +10,20 @@ public class StopButtonInteract : MonoBehaviour, IInteract, IDependencyInjectabl
 
     [SerializeField] private string interactText = "";
     [SerializeField] private GameObject Crystal;
+    private bool hasStoped = false;
 
     [SerializeField] public GameObject TriggerRock;
     [SerializeField] public ItemInteract Rock;
 
-    PlayerInventorySystem inventory;
-    ItemManager itemManager;
-    InventoryUI inventoryUI;
-    EventManager eventManager;
+    IItemManager itemManager;
+    IInventoryUI inventoryUI;
+    IEventManager eventManager;
 
     private void Awake()
     {
-        InjectDependencies(DependencyContainer.Instance);
+        itemManager = InterfaceDependencyInjector.Instance.Resolve<IItemManager>();
+        inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
+        eventManager = InterfaceDependencyInjector.Instance.Resolve<IEventManager>();
     }
 
     private void Start()
@@ -36,28 +38,32 @@ public class StopButtonInteract : MonoBehaviour, IInteract, IDependencyInjectabl
     }
     public void Interact()
     {
-        if (Crystal.gameObject.activeSelf == true)
+        if (!hasStoped)
         {
-            
-            if (inventory.ItemInUse == Rock)
+            if (Crystal.gameObject.activeSelf == true)
             {
 
-                SoundManager.Instance.CreateSound()
-                    .WithSoundData(BreakSecurityCrystal)
-                    .Play();
-                Crystal.gameObject.SetActive(false);
-                inventory.RemoveFromInventory(Rock);
-                
-            }
-        }
-        else
-        {
-            SoundManager.Instance.CreateSound()
-                    .WithSoundData(PushButton)
-                    .Play();
+                if (inventoryUI.ItemInUse == Rock)
+                {
 
-            eventManager.TrainEventStopTrain();
-            
+                    SoundManager.Instance.CreateSound()
+                        .WithSoundData(BreakSecurityCrystal)
+                        .Play();
+                    Crystal.gameObject.SetActive(false);
+                    inventoryUI.RemoveInventorySlot(Rock);
+
+                }
+            }
+            else
+            {
+                SoundManager.Instance.CreateSound()
+                        .WithSoundData(PushButton)
+                        .Play();
+
+                eventManager.TrainEventStopTrain();
+                gameObject.layer = LayerMask.NameToLayer("Default");
+                hasStoped = true;
+            }
         }
     }
 
@@ -75,11 +81,4 @@ public class StopButtonInteract : MonoBehaviour, IInteract, IDependencyInjectabl
         return interactText;
     }
 
-    public void InjectDependencies(DependencyContainer provider)
-    {
-        inventory = provider.PlayerInventorySystem;
-        inventoryUI = provider.InventoryUI;
-        eventManager = provider.EventManager;
-        itemManager = provider.ItemManager;
-    }
 }

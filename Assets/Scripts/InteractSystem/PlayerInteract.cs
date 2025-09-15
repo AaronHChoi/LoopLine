@@ -1,20 +1,20 @@
 using Player;
-using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DependencyInjection;
 
-public class PlayerInteract : MonoBehaviour, IDependencyInjectable
+public class PlayerInteract : MonoBehaviour, IPlayerInteract
 {
-    private CinemachineCamera rayCastPoint;
-    private PlayerInventorySystem playerInventorySystem;
-    private InventoryUI inventoryUI;
-    [SerializeField] public float raycastDistance = 2f;
-    [SerializeField] private LayerMask interactableLayer;
-    PlayerStateController playerStateController;
+    [SerializeField] private RaycastController rayController;
+    [SerializeField, Range(0f,1f)] private float minScoreAllowed;
+
+    IPlayerStateController playerStateController;
+    IInventoryUI inventoryUI;
     
     private void Awake()
     {
-        InjectDependencies(DependencyContainer.Instance);
+        inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
+        playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
     }
     private void OnEnable()
     {
@@ -32,18 +32,12 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
             playerStateController.OnGrab -= GrabItem;
         }
     }
-    public void InjectDependencies(DependencyContainer provider)
-    {
-        rayCastPoint = provider.CinemachineCamera;
-        inventoryUI = provider.InventoryUI;
-        playerInventorySystem = provider.PlayerInventorySystem;
-        playerStateController = provider.PlayerStateController;
-    }
+
     private void HandleInteraction()
     {
         if (SceneManager.GetActiveScene().name == "04. Train")
         {
-            if (inventoryUI.gameObject.activeInHierarchy == false /*&& playerInventorySystem.ItemInUse == inventoryUI.HandItemUI*/)
+            if (inventoryUI.IsInventoryOpen == false /*&& playerInventorySystem.ItemInUse == inventoryUI.HandItemUI*/)
             {
                 TryInteract();
             }
@@ -53,15 +47,11 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
             TryInteract();
         }
     }
-    void Update()
-    {
-        Debug.DrawRay(rayCastPoint.transform.position, rayCastPoint.transform.forward * raycastDistance, Color.red);
-    }
     private void GrabItem()
     {
         if (SceneManager.GetActiveScene().name == "04. Train")
         {
-            if (inventoryUI.gameObject.activeInHierarchy == false && playerInventorySystem.ItemInUse == inventoryUI.HandItemUI)
+            if (inventoryUI.IsInventoryOpen == false && inventoryUI.ItemInUse == inventoryUI.HandItemUI)
             {
                 IItemGrabInteract intemGrabObject = GetItemGrabIteractableObject();
                 if (intemGrabObject != null)
@@ -81,86 +71,35 @@ public class PlayerInteract : MonoBehaviour, IDependencyInjectable
     }
     public IInteract GetInteractableObject()
     {
-        if (SceneManager.GetActiveScene().name == "04. Train")
+        if (inventoryUI.IsInventoryOpen == false && rayController.FoundInteract && rayController.BestScore > minScoreAllowed) 
         {
-            if (inventoryUI.gameObject.activeInHierarchy == false /*&& playerInventorySystem.ItemInUse == inventoryUI.HandItemUI*/) 
+            if (rayController.Target.TryGetComponent(out IInteract interactable))
             {
-                Ray ray = new Ray(rayCastPoint.transform.position, rayCastPoint.transform.forward);
-
-                if (Physics.Raycast(ray, out RaycastHit hit, raycastDistance))
-                {
-                    if (((1 << hit.collider.gameObject.layer) & interactableLayer) != 0)
-                    {
-                        if (hit.collider.TryGetComponent(out IInteract interactable))
-                        {
-                            return interactable;
-                        }
-                    }
-                }
+                return interactable;
             }
         }
 
-        else
-        {
-            Ray ray = new Ray(rayCastPoint.transform.position, rayCastPoint.transform.forward);
-
-            if (Physics.Raycast(ray, out RaycastHit hit, raycastDistance))
-            {
-                if (((1 << hit.collider.gameObject.layer) & interactableLayer) != 0)
-                {
-                    if (hit.collider.TryGetComponent(out IInteract interactable))
-                    {
-                        return interactable;
-                    }
-                }
-            }
-        }
         return null;
-
-        /*  
-          public IInteract GetInteractableObject()
-          {
-              //List<IInteract> InteractableList = new List<IInteract>();
-
-              Ray ray = new Ray(rayCastPoint.transform.position, rayCastPoint.transform.forward);
-              RaycastHit[] hits = Physics.RaycastAll(ray, raycastDistance, interactableLayer);
-
-              IInteract interactableObject = null;
-
-              foreach (RaycastHit hit in hits)
-              {
-                  if (hit.collider.TryGetComponent(out IInteract interactable))
-                  {
-                      interactableObject = interactable;
-                      //interactableLayer = hit.collider.gameObject.layer;
-                  }
-              }
-
-              return interactableObject;
-          */
     }
 
     public IItemGrabInteract GetItemGrabIteractableObject()
     {
         if (SceneManager.GetActiveScene().name == "04. Train")
         {
-            if (inventoryUI.gameObject.activeInHierarchy == false && playerInventorySystem.ItemInUse == inventoryUI.HandItemUI)
+            if (inventoryUI.IsInventoryOpen == false && inventoryUI.ItemInUse == inventoryUI.HandItemUI && rayController.FoundInteract && rayController.BestScore > minScoreAllowed)
             {
-                Ray ray = new Ray(rayCastPoint.transform.position, rayCastPoint.transform.forward);
-
-                if (Physics.Raycast(ray, out RaycastHit hit, raycastDistance))
+                if (rayController.Target.TryGetComponent(out IItemGrabInteract itemGrabInteractable))
                 {
-                    if (((1 << hit.collider.gameObject.layer) & interactableLayer) != 0)
-                    {
-
-                        if (hit.collider.TryGetComponent(out IItemGrabInteract itemGrabInteractable))
-                        {
-                            return itemGrabInteractable;
-                        }
-                    }
+                    return itemGrabInteractable;
                 }
             }
         }
+
         return null;
     }
+}
+
+public interface IPlayerInteract
+{
+    IInteract GetInteractableObject();
 }

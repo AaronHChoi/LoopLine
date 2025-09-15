@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Parallax : MonoBehaviour, IObserver, IDependencyInjectable
+using DependencyInjection;
+public class Parallax : MonoBehaviour, IObserver
 {
     [System.Serializable]
     public class ParallaxLayer
@@ -10,7 +10,9 @@ public class Parallax : MonoBehaviour, IObserver, IDependencyInjectable
         public float parallaxEffect;
         public string type;
     }
-    Subject eventManager;
+    //Subject eventManager;
+    IEventManager eventManager;
+
     public List<ParallaxLayer> layers;
     public float parallaxSpeed = 1f; 
     public float teleportZ = -110f;
@@ -28,15 +30,15 @@ public class Parallax : MonoBehaviour, IObserver, IDependencyInjectable
 
     float lerpA = 1f;
     float lerpB = 0f;
+
+    public string Id { get; set; }
+
     private void Awake()
     {
-        InjectDependencies(DependencyContainer.Instance);
+        eventManager = InterfaceDependencyInjector.Instance.Resolve<IEventManager>();
     }
-    public void InjectDependencies(DependencyContainer provider)
-    {
-        eventManager = provider.EventManager;
-    }
-    public void OnNotify(Events _event)
+
+    public void OnNotify(Events _event, string _id = null)
     {
         if (_event == Events.StopTrain)
             StopParallaxGradually(stopDuration);
@@ -45,11 +47,11 @@ public class Parallax : MonoBehaviour, IObserver, IDependencyInjectable
     }
     private void OnEnable()
     {
-        eventManager.AddObserver(this);
+        eventManager.AddNewObserver(this);
     }
     private void OnDisable()
     {
-        eventManager.RemoveObserver(this);
+        eventManager.RemoveOldObserver(this);
     }
     private void Update()
     {
@@ -140,5 +142,10 @@ public class Parallax : MonoBehaviour, IObserver, IDependencyInjectable
     public void SetSpeedMultiplier(float multipler)
     {
         speedMultiplier = multipler;
+    }
+
+    public string GetObserverID()
+    {
+        return Id;
     }
 }

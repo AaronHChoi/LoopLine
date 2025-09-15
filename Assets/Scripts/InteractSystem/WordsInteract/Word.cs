@@ -1,7 +1,8 @@
-using UnityEngine;
+using DependencyInjection;
 using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
+
 public class Word : Subject, IWord /*IInteract*/
 {
     [SerializeField] public bool isCorrectWord;
@@ -15,13 +16,11 @@ public class Word : Subject, IWord /*IInteract*/
     [SerializeField] private string correctWordEvent;
     [SerializeField] private string incorrectWordEvent;
     [SerializeField] private GameObject player;
-    [SerializeField] private DialogueSOManager dialogueSOManager;
-    [SerializeField] MindPlaceEventManagerMind eventManager;
     [SerializeField] private DialogueSpeaker dialogueSpeaker;
 
 
     [Header("LookAt")]
-    private PlayerController playerController;
+    private IPlayerController playerController;
     [SerializeField] private int range = 2;
     Vector3 _direction;
 
@@ -29,15 +28,13 @@ public class Word : Subject, IWord /*IInteract*/
     [SerializeField] private QuestionSO stopTrainQuestion;
     private void Awake()
     {
-        playerController = FindAnyObjectByType<PlayerController>();     
+        playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
         tmpro = GetComponentInChildren<TextMeshPro>();
         
     }
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        eventManager = FindFirstObjectByType<MindPlaceEventManagerMind>();
-        dialogueSOManager = player.GetComponent<DialogueSOManager>();
         dialogueSpeaker = player.GetComponent<DialogueSpeaker>();
         if (playerController == null)
         {
@@ -59,7 +56,6 @@ public class Word : Subject, IWord /*IInteract*/
             if(correctWordEvent != null)
             {
                 //dialogueSOManager.TriggerEventDialogue(correctWordEvent);
-                eventManager.EventTriggerMonologue();
             }                     
         }
         else
@@ -67,7 +63,6 @@ public class Word : Subject, IWord /*IInteract*/
             if (incorrectWordEvent != null)
             {
                 //dialogueSOManager.TriggerEventDialogue(incorrectWordEvent);
-                eventManager.EventTriggerMonologue();
                 tmpro.color = Color.red;
                 incorrectWordSelected = true;
             }
@@ -77,9 +72,9 @@ public class Word : Subject, IWord /*IInteract*/
     private void Update()
     {
         tmpro.text = word + " " + "[" + numerofWord.ToString()+ "]";
-        if (Vector3.Distance(transform.position, playerController.transform.position) <= range)
+        if (Vector3.Distance(transform.position, playerController.GetTransform().position) <= range)
         {
-            _direction = playerController.transform.position - transform.position;
+            _direction = playerController.GetTransform().position - transform.position;
             _direction.y = 0;
 
             transform.rotation = Quaternion.LookRotation(_direction);

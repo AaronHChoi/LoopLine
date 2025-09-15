@@ -1,4 +1,8 @@
-public interface IDependencyInjectable
+
+namespace DependencyInjection
 {
-    void InjectDependencies(DependencyContainer provider);
+    public interface IDependencyInjectable
+    {
+        void InjectDependencies(DependencyContainer provider);
+    }
 }

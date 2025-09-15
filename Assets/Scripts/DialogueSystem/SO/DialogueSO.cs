@@ -14,6 +14,7 @@ public class DialogueSO : ScriptableObject
     public bool Unlocked;
     public bool Finished;
     public bool ReUse;
+    public Events events = Events.None;
 
     public Line[] Dialogues;
     public QuestionSO Questions;
@@ -21,6 +22,11 @@ public class DialogueSO : ScriptableObject
     public void ResetValues()
     {
         Unlocked = true;
+        Finished = false;
+    }
+    public void ResetValuesToFalse()
+    {
+        Unlocked = false;
         Finished = false;
     }
 }

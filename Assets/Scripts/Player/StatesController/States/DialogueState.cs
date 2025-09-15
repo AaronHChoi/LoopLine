@@ -1,22 +1,26 @@
+using Unity.Cinemachine.Samples;
 using UnityEngine;
 
 namespace Player
 {
     public class DialogueState : IState
     {
-        PlayerStateController controller;
-        PlayerInputHandler input;
-        PlayerMovement movement;
+        IPlayerStateController controller;
+        IPlayerInputHandler input;
+        IPlayerMovement movement;
+        ICameraOrientation playerCamera;
 
-        public DialogueState(PlayerStateController controller, PlayerInputHandler input, PlayerMovement movement)
+        public DialogueState(IPlayerStateController controller, IPlayerInputHandler input, IPlayerMovement movement, ICameraOrientation playerCamera)
         {
             this.controller = controller;
             this.input = input;
             this.movement = movement;
+            this.playerCamera = playerCamera;
         }
         public void Enter()
         {
             movement.CanMove = false;
+            playerCamera.CanLook = false;
             Debug.Log("Entering DialogueState");
         }
         public void Execute()
@@ -33,6 +37,7 @@ namespace Player
         public void Exit()
         {
             movement.CanMove = true;
+            playerCamera.CanLook = true;
             Debug.Log("Exiting DialogueState");
         }
     }

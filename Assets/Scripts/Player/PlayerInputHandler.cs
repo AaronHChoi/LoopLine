@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInputHandler : MonoBehaviour, IPlayerMovementInput
+public class PlayerInputHandler : MonoBehaviour, IPlayerInputHandler
 {
     PlayerInput playerInput;
 
@@ -17,6 +17,7 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerMovementInput
     InputAction focusMode;
     InputAction scrollInventory;
     InputAction grabItem;
+    InputAction look;
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -35,10 +36,15 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerMovementInput
         focusMode = playerInput.actions["FocusMode"];
         scrollInventory = playerInput.actions["ScrollInventory"];
         grabItem = playerInput.actions["GrabItem"];
+        look = playerInput.actions["Look"];
     }
     public Vector2 GetInputMove()
     {
         return moveAction.ReadValue<Vector2>();
+    }
+    public Vector2 GetInputDelta()
+    {
+        return look.ReadValue<Vector2>();
     }
     public bool IsSprinting()
     {
@@ -85,8 +91,18 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerMovementInput
         return grabItem.WasPerformedThisFrame();
     }
 }
-public interface IPlayerMovementInput
+public interface IPlayerInputHandler
 {
+    float GetScrollValue();
     Vector2 GetInputMove();
+    Vector2 GetInputDelta();
     bool IsSprinting();
+    bool InteractPressed();
+    bool PassDialogPressed();
+    bool OpenInventoryPressed();
+    bool FocusModePressed();
+    bool ToggleCameraPressed();
+    bool TakePhotoPressed();
+    bool DevelopmentModePressed();
+    bool GrabItemPressed();
 }

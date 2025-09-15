@@ -1,11 +1,16 @@
 using UnityEngine;
 using System;
+using Unity.Cinemachine.Samples;
+using InWorldUI;
+using UI;
+using DependencyInjection;
 
 namespace Player
 {
-    public class PlayerStateController : MonoBehaviour, IDependencyInjectable
+    public class PlayerStateController : MonoBehaviour, IPlayerStateController
     {
-        public StateMachine stateMachine { get; private set; }
+        public StateMachine StateMachine => stateMachine;
+        public bool CanUseNormalStateExecute { get; set; } = true;
 
         public event Action<IState> OnStateChanged;
         public event Action OnTakePhoto;
@@ -18,39 +23,47 @@ namespace Player
         public event Action OnScrollInventory;
         public event Action OnGrab;
 
-        PlayerInputHandler playerInputHandler;
-        PlayerMovement playerMovement;
-        PhotoCapture photoCapture;
+        StateMachine stateMachine { get; set; }
 
-        public NormalState NormalState { get; private set; }
-        public DialogueState DialogueState { get; private set; }
-        public CameraState CameraState { get; private set; }
-        public DevelopmentState DevelopmentState { get; private set; }
-        public FocusModeState FocusModeState { get; private set; }
-        public InventoryState InventoryState { get; private set; }
-        public MindPlaceState MindPlaceState { get; private set; }
+        ITimeProvider timeManager;
+        IPhotoMarker photoMarker;
+        ICameraOrientation cinemachinePOVExtension;
+        IPhotoCapture photoCapture;
+        IPlayerInteractMarkerPrompt interaction;
+        IPlayerMovement playerMovement;
+        ITogglePhotoDetection togglePhotoDetection;
+        IPlayerInputHandler inputHandler;
+        public NormalState NormalState { get; set; }
+        public DialogueState DialogueState { get;  set; }
+        public CameraState CameraState { get;  set; }
+        public DevelopmentState DevelopmentState { get;  set; }
+        public FocusModeState FocusModeState { get;  set; }
+        public MindPlaceState MindPlaceState { get;  set; }
+        public ObjectInHandState ObjectInHandState { get;  set; }
         private void Awake()
         {
-            InjectDependencies(DependencyContainer.Instance);
+            togglePhotoDetection = InterfaceDependencyInjector.Instance.Resolve<ITogglePhotoDetection>();           
+            inputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
+            playerMovement = InterfaceDependencyInjector.Instance.Resolve<IPlayerMovement>();
+            interaction = InterfaceDependencyInjector.Instance.Resolve<IPlayerInteractMarkerPrompt>();
+            photoCapture = InterfaceDependencyInjector.Instance.Resolve<IPhotoCapture>();
+            photoMarker = InterfaceDependencyInjector.Instance.Resolve<IPhotoMarker>();
+            cinemachinePOVExtension = InterfaceDependencyInjector.Instance.Resolve<ICameraOrientation>();
+            timeManager = InterfaceDependencyInjector.Instance.Resolve<ITimeProvider>();
 
             stateMachine = new StateMachine();
 
-            NormalState = new NormalState(this, playerInputHandler, playerMovement);
-            DialogueState = new DialogueState(this, playerInputHandler, playerMovement);
-            CameraState = new CameraState(this, playerInputHandler, playerMovement, photoCapture);
-            InventoryState = new InventoryState(this, playerInputHandler, playerMovement);
-            DevelopmentState = new DevelopmentState(this, playerInputHandler, playerMovement);
-            FocusModeState = new FocusModeState(this, playerInputHandler, playerMovement);
-            MindPlaceState = new MindPlaceState(this, playerInputHandler, playerMovement);
+            NormalState = new NormalState(this, inputHandler, playerMovement, cinemachinePOVExtension);
+            DialogueState = new DialogueState(this, inputHandler, playerMovement, cinemachinePOVExtension);
+            CameraState = new CameraState(this, inputHandler, playerMovement, photoCapture, cinemachinePOVExtension, interaction, togglePhotoDetection, photoMarker);
+            DevelopmentState = new DevelopmentState(this, inputHandler, playerMovement, cinemachinePOVExtension, timeManager);
+            FocusModeState = new FocusModeState(this, inputHandler, playerMovement, cinemachinePOVExtension);
+            MindPlaceState = new MindPlaceState(this, inputHandler, playerMovement);
+            ObjectInHandState = new ObjectInHandState(this, inputHandler, playerMovement, cinemachinePOVExtension);
 
             stateMachine.Initialize(NormalState);
         }
-        public void InjectDependencies(DependencyContainer provider)
-        {
-            playerMovement = provider.PlayerMovement;
-            playerInputHandler = provider.PlayerInputHandler;
-            photoCapture = provider.PhotoCapture;
-        }
+
         private void Update()
         {
             stateMachine.Execute();
@@ -98,5 +111,36 @@ namespace Player
             OnScrollInventory?.Invoke();
         }
         #endregion
+    }
+
+    public interface IPlayerStateController
+    {
+        public event Action<IState> OnStateChanged;
+        public event Action OnTakePhoto;
+        public event Action OnInteract;
+        public event Action OnDialogueNext;
+        public event Action OnOpenInventory;
+        public event Action OnOpenDevelopment;
+        public event Action OnFocusMode;
+        public event Action OnScrollInventory;
+        public event Action OnGrab;
+        public StateMachine StateMachine { get; }
+        bool IsInState(IState state);
+        void ChangeState(IState newState);
+        void UseEventInteract();
+        void UseEventTakePhoto();
+        void UseEventOpenInventory();
+        void UseEventDevelopment();
+        void UseEventDialogueNext();
+        void UseEventFocusMode();
+        void UseEventGrab();
+        bool CanUseNormalStateExecute { get; set; }
+        NormalState NormalState { get;  set; }
+        DialogueState DialogueState { get; set; }
+        CameraState CameraState { get; set; }
+        DevelopmentState DevelopmentState { get; set; }
+        FocusModeState FocusModeState { get; set; }
+        MindPlaceState MindPlaceState { get; set; }
+        ObjectInHandState ObjectInHandState { get; set; }
     }
 }

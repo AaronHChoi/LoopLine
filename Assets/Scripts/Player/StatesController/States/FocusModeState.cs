@@ -1,22 +1,26 @@
+using Unity.Cinemachine.Samples;
 using UnityEngine;
 
 namespace Player
 {
     public class FocusModeState : IState
     {
-        PlayerStateController controller;
-        PlayerInputHandler input;
-        PlayerMovement movement;
+        IPlayerStateController controller;
+        IPlayerInputHandler input;
+        IPlayerMovement movement;
+        ICameraOrientation playerCamera;
 
-        public FocusModeState(PlayerStateController controller, PlayerInputHandler input, PlayerMovement movement)
+        public FocusModeState(IPlayerStateController controller, IPlayerInputHandler input, IPlayerMovement movement, ICameraOrientation playerCamera)
         {
             this.controller = controller;
             this.input = input;
             this.movement = movement;
+            this.playerCamera = playerCamera;
         }
         public void Enter()
         {
             movement.CanMove = true;
+            playerCamera.CanLook = true;
             Debug.Log("Entering FocusModeState");
         }
         public void Execute()
@@ -30,6 +34,7 @@ namespace Player
         public void Exit()
         {
             movement.CanMove = false;
+            playerCamera.CanLook = false;
             Debug.Log("Exiting FocusModeState");
         }
     }

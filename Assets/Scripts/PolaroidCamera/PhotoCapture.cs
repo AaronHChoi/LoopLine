@@ -1,28 +1,30 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Player;
+using UI;
 using UnityEngine;
 using UnityEngine.UI;
-
-public class PhotoCapture : MonoBehaviour, IDependencyInjectable
+using DependencyInjection;
+public class PhotoCapture : MonoBehaviour, IPhotoCapture
 {
     [Header("Photo Taker")]
     [SerializeField] Image photoDisplayArea;
     [SerializeField] GameObject photoFrame;
     [SerializeField] GameObject cameraUI;
+    [SerializeField] int maxPhotos = 5;
 
     [Header("FlashEffect")]
     [SerializeField] GameObject cameraFlash;
     [SerializeField] float flashTime;
-
-    [Header("PhotoFade")]
     [SerializeField] Animator fadingAnimation;
 
     [Header("World Photo")]
     [SerializeField] List<Renderer> worldPhotoRenderers = new List<Renderer>();
     [SerializeField] float brightnessFactor = 2f;
+    [SerializeField] float brightnessFactorClue = 2f;
 
-    [Header("Sound")]
+    [Header("Audio")]
     [SerializeField] SoundData soundData;
     [SerializeField] SoundData soundData2;
     [SerializeField] AudioSource bgmAudio;
@@ -33,19 +35,23 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
 
     Texture2D screenCapture;
     bool viewvingPhoto;
-    public bool IsViewingPhoto => viewvingPhoto;
+    public bool IsViewingPhoto {  get { return viewvingPhoto; } }
 
     bool cameraActive = false;
     bool isCurrentPhotoClue = false;
 
     int photoTaken = 0;
-    [SerializeField] int maxPhotos = 5;
 
-    PlayerStateController playerStateController;
+    IPlayerStateController playerStateController;
+    IPhotoMarkerManager photoMarkerManager;
+    ITogglePhotoDetection photoDetectionZone;
+    public event Action<string> OnPhotoClueCaptured;
     #region MAGIC_METHODS
     private void Awake()
     {
-        InjectDependencies(DependencyContainer.Instance);
+        playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
+        photoDetectionZone = InterfaceDependencyInjector.Instance.Resolve<ITogglePhotoDetection>();
+        photoMarkerManager = InterfaceDependencyInjector.Instance.Resolve<IPhotoMarkerManager>();
     }
     private void Start()
     {
@@ -67,11 +73,16 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
             playerStateController.OnStateChanged -= HandlePlayerStateChanged;
             playerStateController.OnTakePhoto -= HandleTakePhoto;
         }
+        CleanupTextures();
     }
     #endregion
-    public void InjectDependencies(DependencyContainer provider)
+    void CleanupTextures()
     {
-        playerStateController = provider.PlayerStateController;
+        if(screenCapture != null)
+        {
+            Destroy(screenCapture);
+            screenCapture = null;
+        }
     }
     private void HandleTakePhoto()
     {
@@ -86,9 +97,7 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
             }
             else
             {
-                SoundManager.Instance.CreateSound()
-                    .WithSoundData(soundData2)
-                    .Play();
+                SoundManager.Instance.PlayQuickSound(soundData2);
                 nextPhotoTime = Time.time + photoCooldown;
             }
         }
@@ -99,7 +108,7 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
     }
     private void HandlePlayerStateChanged(IState newState)
     {
-        if (newState == playerStateController.NormalState)
+        if (newState == playerStateController.ObjectInHandState)
         {
             cameraActive = false;
         }
@@ -113,12 +122,11 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
     {
         cameraUI.SetActive(false);
         cameraActive = false;
-
         viewvingPhoto = true;
+        
+        photoMarkerManager.ShowMarker(); 
 
         yield return new WaitForEndOfFrame();
-
-        isCurrentPhotoClue = CheckIfClue();
 
         Rect regionToRead = new Rect (0, 0, Screen.width, Screen.height);
         screenCapture.ReadPixels(regionToRead, 0, 0, false);
@@ -128,25 +136,21 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
 
         ShowPhoto();
 
-        SoundManager.Instance.CreateSound()
-            .WithSoundData(soundData)
-            .Play();
+        SoundManager.Instance.PlayQuickSound(soundData);
 
-        ApplyPhotoToWorldObject();
+        string clueId = null;
 
-        photoTaken++;
-    }
-    bool CheckIfClue()
-    {
-        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        if(Physics.Raycast(ray, out RaycastHit hit, 100f))
+        if (photoDetectionZone.CheckIfAnyClue())
         {
-            if(hit.collider.GetComponent<PhotoClue>() != null)
-            {
-                return true;
-            }
+            ApplyPhotoToWorldObject();
         }
-        return false;
+        else
+        {
+            OnPhotoClueCaptured?.Invoke(clueId);
+        }
+        photoTaken++;
+        
+        photoMarkerManager.HideMarker();    
     }
     void ShowPhoto()
     {
@@ -172,30 +176,53 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
     }
     void ApplyPhotoToWorldObject()
     {
-        if(photoTaken < worldPhotoRenderers.Count)
+        if (photoTaken < worldPhotoRenderers.Count)
         {
-            Texture2D photoCopy = new Texture2D(screenCapture.width, screenCapture.height, screenCapture.format, false);
+            Texture2D photoCopy = new Texture2D(screenCapture.width, screenCapture.height, TextureFormat.RGBA32, true, true);
             photoCopy.SetPixels(screenCapture.GetPixels());
             photoCopy.Apply();
+
+            AdjustBrightness(photoCopy, brightnessFactorClue);
+
+            photoCopy.wrapMode = TextureWrapMode.Clamp;
+            photoCopy.filterMode = FilterMode.Bilinear;
 
             worldPhotoRenderers[photoTaken].material.mainTexture = photoCopy;
 
             string photoObjectName = "Photo" + photoTaken;
             GameObject photoObject = GameObject.Find(photoObjectName);
 
-            if(photoObject == null)
+            if (photoObject == null)
             {
                 Debug.LogWarning($"GameObject '{photoObjectName}' no encontrado.");
                 return;
             }
 
             Photo photoScript = photoObject.GetComponent<Photo>();
-            if(photoScript == null)
+            if (photoScript == null)
             {
                 photoScript = photoObject.AddComponent<Photo>();
             }
 
-            photoScript.SetPhoto(photoCopy, isCurrentPhotoClue);
+            PhotoClue detectedClue = photoDetectionZone.GetClue();
+
+            string clueId = "";
+            if (detectedClue != null)
+            {
+                isCurrentPhotoClue = true;
+                clueId = detectedClue.Type.ToString();
+            }
+            else
+            {
+                isCurrentPhotoClue = false;
+            }
+
+            photoScript.SetPhoto(photoCopy, isCurrentPhotoClue, clueId);
+
+            if (isCurrentPhotoClue && !string.IsNullOrEmpty(clueId))
+            {
+                OnPhotoClueCaptured?.Invoke(clueId);
+            }
         }
     }
     void AdjustBrightness(Texture2D texture, float brigtnessFactor)
@@ -203,9 +230,17 @@ public class PhotoCapture : MonoBehaviour, IDependencyInjectable
         Color[] pixels = texture.GetPixels();
         for (int i = 0; i < pixels.Length; i++)
         {
+            pixels[i] = pixels[i].gamma;
             pixels[i] *= brigtnessFactor;
+            pixels[i] = pixels[i].linear;
         }
         texture.SetPixels(pixels);
         texture.Apply();
     }
+}
+
+public interface IPhotoCapture
+{
+    event Action<string> OnPhotoClueCaptured;
+    bool IsViewingPhoto {  get; }
 }

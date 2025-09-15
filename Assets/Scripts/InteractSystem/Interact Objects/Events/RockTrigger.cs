@@ -1,30 +1,32 @@
+using DependencyInjection;
 using InWorldUI;
 using UnityEngine;
-
-public class RockTrigger : MonoBehaviour, IDependencyInjectable
+//using static Unity.Cinemachine.InputAxisControllerBase<T>;
+public class RockTrigger : MonoBehaviour
 {
-    PlayerInteract playerInteract;
-    PlayerInteraction playerInteraction;
+    IPlayerInteract playerInteract;
+    IPlayerInteractMarkerPrompt playerInteraction;
 
     private float OriginalPlayerInteractRange;
-    private float OriginalPlayerInteractionRange;
+    //private float OriginalPlayerInteractionRange;
     void Awake()
     {
-        InjectDependencies(DependencyContainer.Instance);
+        playerInteraction = InterfaceDependencyInjector.Instance.Resolve<IPlayerInteractMarkerPrompt>();
+        playerInteract = InterfaceDependencyInjector.Instance.Resolve<IPlayerInteract>();
     }
 
     private void Start()
     {
-        OriginalPlayerInteractRange = playerInteract.raycastDistance;
-        OriginalPlayerInteractionRange = playerInteraction.interactRange;
+        OriginalPlayerInteractRange = 2f;
+        //OriginalPlayerInteractionRange = playerInteraction.interactRange;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            playerInteract.raycastDistance = 2.4f;
-            playerInteraction.interactRange = 2.6f;
+            //playerInteract.raycastDistance = 2.4f;
+            //playerInteraction.interactRange = 2.6f;
         }
     }
 
@@ -32,14 +34,9 @@ public class RockTrigger : MonoBehaviour, IDependencyInjectable
     {
         if (other.gameObject.tag == "Player")
         {
-            playerInteract.raycastDistance = OriginalPlayerInteractRange;
-            playerInteraction.interactRange = OriginalPlayerInteractionRange;
+            //playerInteract.raycastDistance = OriginalPlayerInteractRange;
+            //playerInteraction.interactRange = OriginalPlayerInteractionRange;
         }
     }
 
-    public void InjectDependencies(DependencyContainer provider)
-    {
-        playerInteract = provider.PlayerInteract;
-        playerInteraction = provider.PlayerInteraction;
-    }
 }

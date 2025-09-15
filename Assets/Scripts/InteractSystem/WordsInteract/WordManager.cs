@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using DependencyInjection;
 
 public class WordManager : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class WordManager : MonoBehaviour
     [SerializeField] private List<Word> words = new List<Word>();
 
     [Header("LookAt")]
-    private PlayerController playerController;
+    private IPlayerController playerController;
     [SerializeField] private float range = 3f;
     Vector3 _direction;
 
@@ -27,13 +28,11 @@ public class WordManager : MonoBehaviour
     [SerializeField] private float delay = 1.6f;
     private int randomWordToCorrectIndex;
     //Test
-    MindPlaceEventManagerMind eventManager;
     bool onlyOneTime;
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        playerController = FindAnyObjectByType<PlayerController>();
-        eventManager = FindFirstObjectByType<MindPlaceEventManagerMind>();
+        playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
     }
     void Start()
     {
@@ -72,7 +71,7 @@ public class WordManager : MonoBehaviour
 
     private void Update()
     {
-        distance = Vector3.Distance(transform.position, playerController.transform.position);
+        distance = Vector3.Distance(transform.position, playerController.GetTransform().position);
         bool nowInRange = distance <= range;
 
         if(nowInRange != isPlayerInRange)
@@ -83,7 +82,6 @@ public class WordManager : MonoBehaviour
             {
                 if (GameManager.Instance.TrainLoop == 1 && !onlyOneTime)
                 {
-                    eventManager.EventTriggerMonologue();
                     onlyOneTime = true;
                 }
                 StartEnterSequence();

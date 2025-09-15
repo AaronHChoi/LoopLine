@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
-public class GameSceneManager : MonoBehaviour
+using DependencyInjection;
+public class GameSceneManager : MonoBehaviour, IGameSceneManager
 {
     IDialogueManager dialogueManager;
     private void Awake()
@@ -14,7 +14,7 @@ public class GameSceneManager : MonoBehaviour
         {
             GameManager.Instance.TrainLoop++;
             dialogueManager.ResetAllDialogues();
-            //dialogueManager.ResetAllQuestions();
+            dialogueManager.UnlockFirstDialogues();
         }
         SceneManager.LoadScene(_sceneName);
     }
@@ -22,4 +22,10 @@ public class GameSceneManager : MonoBehaviour
     {
         return SceneManager.GetActiveScene().name == _sceneName;
     }
+}
+
+public interface IGameSceneManager
+{
+    bool IsCurrentScene(string _sceneName);
+    void LoadNextScene(string _sceneName);
 }

@@ -1,11 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
+using DependencyInjection;
+using Player;
 
 namespace Unity.Cinemachine.Samples
 {
-    public class CinemachinePOVExtension : MonoBehaviour, Unity.Cinemachine.IInputAxisOwner, ICameraOrientation, IDependencyInjectable
+    public class CinemachinePOVExtension : MonoBehaviour, Unity.Cinemachine.IInputAxisOwner, ICameraOrientation
     {
-        [SerializeField] PlayerController controller;
+        IPlayerController controller;
+        IPlayerInputHandler inputHandler;
+
+        bool canLook = true;
+        public bool CanLook { get => canLook; set => canLook = value;}
 
         [Header("Input Axes")]
         [Tooltip("Horizontal rotation.  Value is -1..1.")]
@@ -20,7 +26,8 @@ namespace Unity.Cinemachine.Samples
         { Value = 0, Range = new Vector2(-70, 70), Wrap = false, Center = 0, Restrictions = InputAxis.RestrictionFlags.NoRecentering };
         private void Awake()
         {
-            InjectDependencies(DependencyContainer.Instance);
+            inputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
+            controller = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
         }
         void IInputAxisOwner.GetInputAxes(List<IInputAxisOwner.AxisDescriptor> axes)
         {
@@ -47,9 +54,16 @@ namespace Unity.Cinemachine.Samples
         }
         private void LateUpdate()
         {
+            HandleLook();
+        }
+        public void HandleLook()
+        {
+            if (!canLook) return;
+
+            Vector2 lookDelta = inputHandler.GetInputDelta();
             // Manejar rotación de la cámara
-            Pan.Value += Input.GetAxis("Mouse X") * controller.PlayerModel.LookSensitivity * Time.deltaTime;
-            Tilt.Value -= Input.GetAxis("Mouse Y") * controller.PlayerModel.LookSensitivity * Time.deltaTime;
+            Pan.Value += lookDelta.x * controller.PlayerModel.LookSensitivity * Time.deltaTime;
+            Tilt.Value -= lookDelta.y * controller.PlayerModel.LookSensitivity * Time.deltaTime;
 
             // Limitar la rotación vertical a un rango definido
             Tilt.Value = Mathf.Clamp(Tilt.Value, -70f, 70f);
@@ -66,15 +80,12 @@ namespace Unity.Cinemachine.Samples
             Pan.Value = Mathf.Clamp(pan, Pan.Range.x, Pan.Range.y);
             Tilt.Value = Mathf.Clamp(tilt, Tilt.Range.x, Tilt.Range.y);
         }
-
-        public void InjectDependencies(DependencyContainer provider)
-        {
-            controller = provider.PlayerController;
-        }
     }
 }
 public interface ICameraOrientation
 {
     (float pan, float tilt) GetPanAndTilt();
+
+    public bool CanLook { get; set; }
     void SetPanAndTilt(float pan, float tilt);
 }

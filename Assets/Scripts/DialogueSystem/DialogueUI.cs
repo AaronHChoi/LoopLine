@@ -1,16 +1,19 @@
+using System;
 using System.Collections;
 using Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
-public class DialogueUI : MonoBehaviour, IDependencyInjectable
+using DependencyInjection;
+public class DialogueUI : MonoBehaviour, IDialogueUI
 {
-    public DialogueSO Dialogue;
+    public DialogueSO Dialogue {  get; set; }
     public DialogueSO MainDialogue;
+    public event Action<DialogueSO> OnDialogueEndedById;
 
     [SerializeField] private GameObject dialogueContainer;
     [SerializeField] private GameObject questionContainer;
+    [SerializeField] private FadeInOutController letterBoxFadeInOut;
 
     [SerializeField] private TextMeshProUGUI name;
     [SerializeField] private TextMeshProUGUI dialogueText;
@@ -19,8 +22,8 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
     [SerializeField] private AudioSource audioSource;
 
     [SerializeField] private RawImage dialogueBackground;
-    
-    public int localIndex = 1;
+
+    public int localIndex { get; set; } = 1;
 
     [SerializeField] bool isTyping = false;
     [SerializeField] bool isQuestionActive = false;
@@ -28,12 +31,14 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
     [SerializeField] bool skipe = false;
     Coroutine activeCoroutine;
 
-    PlayerStateController playerStateController;
+    IPlayerStateController playerStateController;
+    IDialogueManager dialogueManager;
 
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-        InjectDependencies(DependencyContainer.Instance);
+        dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
+        playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
     }
     private void Start()
     {
@@ -47,6 +52,8 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
             playerStateController.OnDialogueNext += AdvanceDialogue;
             //playerStateController.OnDialogueSkip += SkipTyping;
         }
+        dialogueManager.OnDialogueStarted += OnDialogueStartedHandler;
+        dialogueManager.OnDialogueEnded += OnDialogueEndedHandler;
     }
     private void OnDisable()
     {
@@ -55,10 +62,24 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
             playerStateController.OnDialogueNext -= AdvanceDialogue;
             //playerStateController.OnDialogueSkip -= SkipTyping;
         }
+        if (letterBoxFadeInOut.isVisible)
+        {
+            ShowletterBox(false);
+        }
+        dialogueManager.OnDialogueStarted -= OnDialogueStartedHandler;
+        dialogueManager.OnDialogueEnded -= OnDialogueEndedHandler;
     }
-    public void InjectDependencies(DependencyContainer provider)
+    private void OnDialogueStartedHandler()
     {
-        playerStateController = provider.PlayerStateController;
+        ShowletterBox(true);
+    }
+    private void OnDialogueEndedHandler()
+    {
+        ShowletterBox(false);
+    }
+    private void ShowletterBox(bool showLetterBox)
+    {
+        letterBoxFadeInOut.ForceFade(showLetterBox);
     }
     private void InitializeUI()
     {
@@ -119,10 +140,11 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
                 {
                     //print("Dialogo Terminado");
                     localIndex = 0;
-                    DialogueManager.actualSpeaker.DialogueLocalIndex = 0;
+                    dialogueManager.actualSpeaker.DialogueLocalIndex = 0;
                     Dialogue.Finished = true;
+                    OnDialogueEndedById?.Invoke(Dialogue);
 
-                    if(Dialogue.Questions != null)
+                    if (Dialogue.Questions != null)
                     {
                         dialogueContainer.SetActive(false);
                         questionContainer.SetActive(true);
@@ -137,13 +159,13 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
                         return;
                     }
                     DialogueManager.Instance.ShowUI(false, true);
-                    DialogueManager.actualSpeaker.EndDialogue();
+                    dialogueManager.actualSpeaker.EndDialogue();
                     //MainDialogue.ReUse = true;
                     isFirstDialogueSaved = false;
 
                     return;
                 }
-                DialogueManager.actualSpeaker.DialogueLocalIndex = localIndex;
+                dialogueManager.actualSpeaker.DialogueLocalIndex = localIndex;
 
                 break;
             default:
@@ -198,4 +220,22 @@ public class DialogueUI : MonoBehaviour, IDependencyInjectable
     //        skipe = false;
     //    }
     //}
+
+    public GameObject GetGameObject()
+    {
+        return gameObject;
+    }
+}
+
+public interface IDialogueUI
+{
+    DialogueSO Dialogue { get; set; }
+
+    event Action<DialogueSO> OnDialogueEndedById;
+
+    int localIndex { get; set; }
+
+    void TextUpdate(int trigger);
+
+    GameObject GetGameObject();
 }

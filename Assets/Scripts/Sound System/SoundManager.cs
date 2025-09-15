@@ -89,4 +89,10 @@ public class SoundManager : MonoBehaviour
     {
         throw new System.NotImplementedException();
     }
+    public void PlayQuickSound(SoundData soundData)
+    {
+        CreateSound()
+            .WithSoundData(soundData)
+            .Play();
+    }
 }

@@ -1,74 +1,57 @@
 using System.Collections.Generic;
-using Unity.Cinemachine.Samples;
 using UnityEngine;
+using System;
 
-public class InterfaceDependencyInjector : MonoBehaviour, IDependencyInjectable
+namespace DependencyInjection
 {
-    public static InterfaceDependencyInjector Instance { get; private set; }
-    
-    private readonly Dictionary<System.Type, object> services = new();
-
-    FocusModeManager focusModeManager;
-    NoteBookManager noteBookManager;
-    CinemachinePOVExtension cinemachinePOVExtension;
-    PlayerInputHandler playerInputHandler;
-    PlayerCamera playerCamera;
-    PlayerView playerView;
-    PlayerController playerController;
-    DialogueManager dialogueManager;
-    TimeManager timeManager;
-    UIManager uiManager;
-    SoundManager soundManager;
-    private void Awake()
+    public class InterfaceDependencyInjector : MonoBehaviour, IDependencyInjectable
     {
-        if (Instance != null && Instance != this)
+        public static InterfaceDependencyInjector Instance { get; private set; }
+
+        Dictionary<Type, Func<object>> factories = new();
+        Dictionary<Type, object> instances = new();
+
+        private void Awake()
         {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            Instance = this;
 
-        InjectDependencies(DependencyContainer.Instance);
-        InitializeInterfaces();
-    }
-    public void InjectDependencies(DependencyContainer provider)
-    {
-        focusModeManager = provider.FocusModeManager;
-        noteBookManager = provider.NoteBookManager;
-        cinemachinePOVExtension = provider.CinemachinePOVExtension;
-        playerInputHandler = provider.PlayerInputHandler;
-        playerCamera = provider.PlayerCamera;
-        playerView = provider.PlayerView;
-        playerController = provider.PlayerController;
-        dialogueManager = provider.DialogueManager;
-        timeManager = provider.TimeManager;
-        uiManager = provider.UIManager;
-        soundManager = provider.SoundManager;
-    }
-    private void InitializeInterfaces()
-    {
-        Register<IColliderToggle>(focusModeManager);
-        Register<INoteBookColliderToggle>(noteBookManager);
-        Register<ICameraOrientation>(cinemachinePOVExtension);
-        Register<IPlayerMovementInput>(playerInputHandler);
-        Register<IPlayerCamera>(playerCamera);
-        Register<IPlayerView>(playerView);
-        Register<IPlayerController>(playerController);
-        Register<IDialogueManager>(dialogueManager);
-        Register<ITimeProvider>(timeManager);
-        Register<IUIManager>(uiManager);
-    }
-    public void Register<T>(T service)
-    {
-        services[typeof(T)] = service;
-    }
-    public T Resolve<T>()
-    {
-        if(services.TryGetValue(typeof(T), out var service))
+            InjectDependencies(DependencyContainer.Instance);
+        }
+        public void InjectDependencies(DependencyContainer provider)//para eliminar
         {
-            return (T)service;
+            provider.PlayerContainer.RegisterServices(this);
+            provider.CinemachineContainer.RegisterServices(this);
+            provider.ManagerContainer.RegisterServices(this);
+            provider.UIContainer.RegisterServices(this);
+            provider.PhotoContainer.RegisterServices(this);
         }
+        public void Register<T>(Func<T> factory)
+        {
+            if (factory == null)
+            {
+                Debug.LogWarning($"[Injector] Tried to register null for {typeof(T)}");
+                return;
+            }
+            factories[typeof(T)] = () => factory();
+        }
+        public T Resolve<T>()
+        {
+            var type = typeof(T);
 
-        throw new System.Exception($"Service of type {typeof(T)} not registered");
+            if(!instances.TryGetValue(type, out var instance))
+            {
+                if (!factories.TryGetValue(type, out var factory))
+                    throw new Exception($"No service registered for {type}");
+
+                instance = factory();
+                instances[type] = instance;
+            }
+            return (T)instance;
+        }
     }
 }

@@ -1,7 +1,22 @@
 public enum Events 
 {
+    None,
     StopTrain,
     ResumeTrain,
     BreakCrystal,
     TriggerMonologue,
+    #region CAMERA_GIRL
+    Without_Camera,
+    With_Camera,
+    With_Camera_M,
+    With_Any_Good_Photos,
+    With_Some_Good_Photos,
+    With_All_Good_Photos,
+    With_Event_Photo,
+    With_Event_Photo_M,
+    With_Some_Good_Photos_M,
+    With_All_Good_Photos_M,
+    With_Two_Good_Photos_M,
+    With_Some_Good_Photos_M2
+    #endregion
 }

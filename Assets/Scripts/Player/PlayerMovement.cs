@@ -1,21 +1,23 @@
 using UnityEngine;
-
-public class PlayerMovement : MonoBehaviour, IDependencyInjectable
+using DependencyInjection;
+public class PlayerMovement : MonoBehaviour, IPlayerMovement
 {
     bool canMove = true;
-    public bool CanMove
-    {
-        get => canMove;
-        set => canMove = value;
+    public bool CanMove 
+    { 
+        get => canMove; 
+        set => canMove = value; 
     }
-    PlayerController controller;
-    IPlayerMovementInput playerInputHandler;
+
+
+    IPlayerController controller;
+    IPlayerInputHandler input;
     IPlayerCamera playerCamera;
     IPlayerView playerView;
     private void Awake()
     {
-        InjectDependencies(DependencyContainer.Instance);
-        playerInputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerMovementInput>();
+        controller = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
+        input = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
         playerCamera = InterfaceDependencyInjector.Instance.Resolve<IPlayerCamera>();
         playerView = InterfaceDependencyInjector.Instance.Resolve<IPlayerView>();
     }
@@ -23,7 +25,7 @@ public class PlayerMovement : MonoBehaviour, IDependencyInjectable
     {
         if (!canMove) return;
 
-        Vector2 _inputMovement = playerInputHandler.GetInputMove();
+        Vector2 inputMovement = input.GetInputMove();
 
         Vector3 forward = playerCamera.GetCameraTransform().forward;
         Vector3 right = playerCamera.GetCameraTransform().right;
@@ -33,14 +35,14 @@ public class PlayerMovement : MonoBehaviour, IDependencyInjectable
         forward.Normalize();
         right.Normalize();
 
-        Vector3 moveDirection = forward * _inputMovement.y + right * _inputMovement.x;
+        Vector3 moveDirection = forward * inputMovement.y + right * inputMovement.x;
 
         if (transform.position.y != controller.PlayerModel.YAxisLocation)
         {
             moveDirection.y = (controller.PlayerModel.YAxisLocation - transform.position.y) * 0.9f;
         }
 
-        if (playerInputHandler.IsSprinting())
+        if (input.IsSprinting())
         {
             moveDirection *= controller.PlayerModel.SprintSpeed;
         }
@@ -60,9 +62,12 @@ public class PlayerMovement : MonoBehaviour, IDependencyInjectable
         Quaternion targetRotation = Quaternion.Euler(0, targetAngle, 0);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * controller.PlayerModel.SpeedRotation);
     }
+}
 
-    public void InjectDependencies(DependencyContainer provider)
-    {
-        controller = provider.PlayerController;
-    }
+public interface IPlayerMovement
+{
+    Transform transform { get; }
+    public bool CanMove { get; set; }
+    void HandleMovement();
+    void RotateCharacterToCamera();
 }
