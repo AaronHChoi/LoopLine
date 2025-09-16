@@ -1,21 +1,30 @@
+using System.Collections.Generic;
 using UnityEngine;
 using DependencyInjection;
-
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    [SerializeField] private ScreenManager screenManager;
     public string nextScene;
 
     public int TrainLoop = 0;   // CONTADOR DE LOOPS DEL TREN
     public int MindPlaceLoop = 0;
-
-    public bool CameraGirlPhoto = false;
+    public ScreenManager ScreenManager => screenManager;
+    public bool CorrectWord101 = false;
 
     [Header("DeveloperTools")]
     public bool isMuted = false;
 
-    IDialogueManager dialogueManager;
+    [Header("NPC Interacted")]
+    public bool workingMan = false;
+    public bool cameraGirl = false;
+    public bool bassistGirl = false;
 
+    public Dictionary<string, System.Action<bool>> boolSetters;
+
+    IDialogueManager dialogueManager;
+    IEventManager eventManager;
+    public bool test;
     private void Awake()
     {
         if (Instance == null)
@@ -29,18 +38,38 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        boolSetters = new Dictionary<string, System.Action<bool>>
+        {
+            {"WorkingMan", value => workingMan = value },
+            {"CameraGirl", value => cameraGirl = value },
+            {"BassistGirl", value => bassistGirl = value }
+        };
         dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
+        eventManager = InterfaceDependencyInjector.Instance.Resolve<IEventManager>();
     }
     private void Start()
     {
         dialogueManager.ResetAllDialogues();
         dialogueManager.UnlockFirstDialogues();
     }
-    private void Update()
+    public void SetBool(string key, bool value)
     {
-        if(Input.GetKeyDown(KeyCode.P)) //TEST
+        if(boolSetters.TryGetValue(key, out var setter))
         {
-            CameraGirlPhoto = true;
+            setter(value);
         }
+        else
+        {
+            Debug.LogWarning($"No se encontro el bool para la clave: {key}");
+        }
+    }
+    public Dictionary<string, bool> GetNPCBoolStates()
+    {
+        return new Dictionary<string, bool>
+        {
+            { "WorkingMan", workingMan },
+            { "CameraGirl", cameraGirl },
+            { "BassistGirl", bassistGirl }
+        };
     }
 }

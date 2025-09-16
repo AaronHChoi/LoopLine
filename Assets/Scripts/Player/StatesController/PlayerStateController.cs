@@ -1,5 +1,8 @@
 using UnityEngine;
 using System;
+using Unity.Cinemachine.Samples;
+using InWorldUI;
+using UI;
 using DependencyInjection;
 
 namespace Player
@@ -37,7 +40,6 @@ namespace Player
         public FocusModeState FocusModeState { get;  set; }
         public MindPlaceState MindPlaceState { get;  set; }
         public ObjectInHandState ObjectInHandState { get;  set; }
-        public MonologueState MonologueState { get; set; }
         private void Awake()
         {
             togglePhotoDetection = InterfaceDependencyInjector.Instance.Resolve<ITogglePhotoDetection>();           
@@ -58,7 +60,6 @@ namespace Player
             FocusModeState = new FocusModeState(this, inputHandler, playerMovement, cinemachinePOVExtension);
             MindPlaceState = new MindPlaceState(this, inputHandler, playerMovement);
             ObjectInHandState = new ObjectInHandState(this, inputHandler, playerMovement, cinemachinePOVExtension);
-            MonologueState = new MonologueState(this, playerMovement, inputHandler);
 
             stateMachine.Initialize(NormalState);
         }
@@ -141,6 +142,5 @@ namespace Player
         FocusModeState FocusModeState { get; set; }
         MindPlaceState MindPlaceState { get; set; }
         ObjectInHandState ObjectInHandState { get; set; }
-        MonologueState MonologueState { get; set; }
     }
 }

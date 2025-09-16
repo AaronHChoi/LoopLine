@@ -20,6 +20,15 @@ namespace DependencyInjection
                 return;
             }
             Instance = this;
+
+            RegisterAll();
+        }
+        private void RegisterAll()
+        {
+            var injector = InterfaceDependencyInjector.Instance;
+
+            new PlayerContainer().RegisterServices(injector);
+
         }
     }
 }

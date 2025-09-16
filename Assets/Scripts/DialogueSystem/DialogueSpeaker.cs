@@ -2,8 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using DependencyInjection;
-
 public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
 {
     [SerializeField] private string interactText = "Interact with me!";
@@ -200,14 +200,22 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
     }
     public void Interact()
     {
-        if (AvailableDialogs == null || AvailableDialogs.Count == 0)
+        if(SceneManager.GetActiveScene().name == "05. MindPlace" && GameManager.Instance.test)
         {
-            //uiManager.ShowUIText("No hay dialogos disponibles");
-            StartCoroutine(ExecuteAfterDelay());
+            var clue = GetComponent<Clue>();
+            clue.Interact();
         }
         else
         {
-            DialogueTrigger();
+            if (AvailableDialogs == null || AvailableDialogs.Count == 0)
+            {
+                //uiManager.ShowUIText("No hay dialogos disponibles");
+                StartCoroutine(ExecuteAfterDelay());
+            }
+            else
+            {
+                DialogueTrigger();
+            }
         }
     }
     private IEnumerator ExecuteAfterDelay()
