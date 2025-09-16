@@ -40,10 +40,10 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
     #region MAGIC_METHODS
     private void Awake()
     {
-        eventDialogueManager = InterfaceDependencyInjector.Instance.Resolve<IEventDialogueManager>();
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
         dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
         playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
+        eventDialogueManager = InterfaceDependencyInjector.Instance.Resolve<IEventDialogueManager>();
     }
     private void Start()
     {
@@ -65,13 +65,13 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
     }
     private void OnEnable()
     {
-        if(eventDialogueManager != null)
-            eventDialogueManager.AddNewObserver(this);
+        if (eventDialogueManager != null)
+            eventDialogueManager.AddObserver(this);
     }
     private void OnDisable()
     {
         if (eventDialogueManager != null)
-            eventDialogueManager.RemoveOldObserver(this);
+            eventDialogueManager.RemoveObserver(this);
     }
     #endregion
     public void TriggerEventDialogue(Events triggeredEvent)
