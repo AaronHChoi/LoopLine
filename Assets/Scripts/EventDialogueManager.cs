@@ -15,6 +15,7 @@ public class EventDialogueManager : Subject, IEventDialogueManager
 
     [SerializeField] ItemInteract trainPhotos;
     int personPhotoCount = 0;
+
     IPhotoCapture photoCapture;
     IPlayerStateController controller;
     IDialogueUI dialogueUI;
@@ -46,6 +47,7 @@ public class EventDialogueManager : Subject, IEventDialogueManager
     {
         yield return new WaitUntil(() => personQuest.Finished);
         trainPhotos.canBePicked = true;
+        GameManager.Instance.CameraGirlPhoto = true;
     }
     void HandlePhotoClueCaptured(string clueId)
     {
