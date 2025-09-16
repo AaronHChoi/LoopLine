@@ -34,10 +34,16 @@ public class PlayerController : MonoBehaviour, IPlayerController
     {
         return playerMovement.transform;
     }
+
+    public GameObject GetGameObject()
+    {
+        return gameObject;
+    }
 }
 public interface IPlayerController
 {
     Transform GetTransform();
+    GameObject GetGameObject();
     public DialogueSpeaker DialogueSpeaker { get; }
     public PlayerModel PlayerModel { get; }
 }

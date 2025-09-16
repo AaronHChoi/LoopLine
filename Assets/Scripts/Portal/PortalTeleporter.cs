@@ -25,6 +25,8 @@ public class PortalTeleporter : MonoBehaviour {
 			// If this is true: The player has moved across the portal
 			if (dotProduct < 0f)
 			{
+				CharacterController PlayerController = player.GetGameObject().GetComponent<CharacterController>();
+				PlayerController.enabled = false;
 				// Teleport him!
 				float rotationDiff = -Quaternion.Angle(transform.rotation, reciever.rotation);
 				rotationDiff += 180;
@@ -32,7 +34,7 @@ public class PortalTeleporter : MonoBehaviour {
 
 				Vector3 positionOffset = Quaternion.Euler(0f, rotationDiff, 0f) * portalToPlayer;
 				player.GetTransform().position = reciever.position + positionOffset;
-
+				PlayerController.enabled = true;
 				playerIsOverlapping = false;
 			}
 		}
