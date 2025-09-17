@@ -71,7 +71,7 @@ public class PlayerInteract : MonoBehaviour, IPlayerInteract
     }
     public IInteract GetInteractableObject()
     {
-        if (inventoryUI.IsInventoryOpen == false && rayController.FoundInteract && rayController.BestScore > minScoreAllowed) 
+        if (/*inventoryUI.IsInventoryOpen == false && */rayController.FoundInteract && rayController.BestScore > minScoreAllowed) 
         {
             if (rayController.Target.TryGetComponent(out IInteract interactable))
             {

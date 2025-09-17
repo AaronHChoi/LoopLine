@@ -1,4 +1,3 @@
-using Unity.Cinemachine.Samples;
 using UnityEngine;
 
 namespace Player

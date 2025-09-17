@@ -9,11 +9,11 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
         set => canMove = value; 
     }
 
-
     IPlayerController controller;
     IPlayerInputHandler input;
     IPlayerCamera playerCamera;
     IPlayerView playerView;
+
     private void Awake()
     {
         controller = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();

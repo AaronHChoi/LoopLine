@@ -231,7 +231,7 @@ public interface IDialogueUI
 {
     DialogueSO Dialogue { get; set; }
 
-    event Action<DialogueSO> OnDialogueEndedById;
+    public event Action<DialogueSO> OnDialogueEndedById;
 
     int localIndex { get; set; }
 

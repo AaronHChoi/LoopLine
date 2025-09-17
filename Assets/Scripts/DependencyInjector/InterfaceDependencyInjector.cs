@@ -22,7 +22,7 @@ namespace DependencyInjection
 
             InjectDependencies(DependencyContainer.Instance);
         }
-        public void InjectDependencies(DependencyContainer provider)//para eliminar
+        public void InjectDependencies(DependencyContainer provider)
         {
             provider.PlayerContainer.RegisterServices(this);
             provider.CinemachineContainer.RegisterServices(this);
