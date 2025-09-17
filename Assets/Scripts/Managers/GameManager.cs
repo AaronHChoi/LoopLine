@@ -4,7 +4,6 @@ using DependencyInjection;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    [SerializeField] GameObject MarkerBoard;
     public string nextScene;
 
     public int TrainLoop = 0;   // CONTADOR DE LOOPS DEL TREN
@@ -14,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     [Header("DeveloperTools")]
     public bool isMuted = false;
+    bool firstTime = false;
 
     IDialogueManager dialogueManager;
     IGameSceneManager sceneManager;
@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
 
         dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
         sceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
+
     }
     private void Start()
     {
@@ -45,13 +46,13 @@ public class GameManager : MonoBehaviour
         {
             CameraGirlPhoto = true;
         }
-        if(sceneManager.IsCurrentScene("04. Train"))
+        if(sceneManager.IsCurrentScene("04. Train") && TrainLoop > 0)
         {
-            MarkerBoard.SetActive(false);
+            MarkerBoard.Instance.DeactivateMakerBoard();
         }
-        else
+        else if (TrainLoop > 0) 
         {
-            MarkerBoard.SetActive(true);    
+            MarkerBoard.Instance.ActivateMakerBoard();
         }
     }
 }

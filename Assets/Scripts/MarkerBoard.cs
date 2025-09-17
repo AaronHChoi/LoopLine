@@ -104,4 +104,12 @@ public class MarkerBoard : MonoBehaviour, IInteract
                 objects[i].SetActive(true);
         }
     }
+    public void DeactivateMakerBoard()
+    {
+        gameObject.SetActive(false);
+    }
+    public void ActivateMakerBoard()
+    {
+        gameObject.SetActive(true);
+    }
 }
