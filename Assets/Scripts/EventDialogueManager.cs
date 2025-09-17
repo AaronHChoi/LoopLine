@@ -116,6 +116,7 @@ public class EventDialogueManager : Subject, IEventDialogueManager
         controller.CanUseNormalStateExecute = false;
         yield return new WaitForSeconds(delay);
         NotifyObservers(_event);
+        NotifyObservers(_event, "Player");
         NotifyObservers(Events.TriggerMonologue, "Player");
         controller.CanUseNormalStateExecute = true;
     }

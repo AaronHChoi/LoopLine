@@ -45,6 +45,8 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
     IPlayerStateController playerStateController;
     IPhotoMarkerManager photoMarkerManager;
     ITogglePhotoDetection photoDetectionZone;
+    IPlayerMovement playerMovement;
+
     public event Action<string> OnPhotoClueCaptured;
     #region MAGIC_METHODS
     private void Awake()
@@ -52,6 +54,7 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
         photoDetectionZone = InterfaceDependencyInjector.Instance.Resolve<ITogglePhotoDetection>();
         photoMarkerManager = InterfaceDependencyInjector.Instance.Resolve<IPhotoMarkerManager>();
+        playerMovement = InterfaceDependencyInjector.Instance.Resolve<IPlayerMovement>();
     }
     private void Start()
     {
@@ -90,6 +93,7 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
 
         if (!viewvingPhoto)
         {
+            playerMovement.CanMove = false;
             if (photoTaken < maxPhotos)
             {
                 StartCoroutine(CapturePhoto());
@@ -103,6 +107,7 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
         }
         else
         {
+            playerMovement.CanMove = true;
             RemovePhoto();
         }
     }
