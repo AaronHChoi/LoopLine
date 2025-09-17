@@ -13,7 +13,10 @@ public class MarkerBoard : MonoBehaviour, IInteract
     [SerializeField] Material material2;
     [SerializeField] Material material3;
     [SerializeField] List<GameObject> objectsToActivate;
-
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.O))
