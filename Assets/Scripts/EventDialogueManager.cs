@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using DependencyInjection;
 using Player;
 using UnityEngine;
+
 public class EventDialogueManager : Subject, IEventDialogueManager
 {
     [SerializeField] float delayMonologue;
@@ -15,6 +15,7 @@ public class EventDialogueManager : Subject, IEventDialogueManager
 
     [SerializeField] ItemInteract trainPhotos;
     int personPhotoCount = 0;
+
     IPhotoCapture photoCapture;
     IPlayerStateController controller;
     IDialogueUI dialogueUI;
@@ -40,12 +41,13 @@ public class EventDialogueManager : Subject, IEventDialogueManager
     {
         dialogueUI.OnDialogueEndedById -= HandleDialgoueFinished;
         OnItemPicked -= HandleItemPicked;
-        photoCapture.OnPhotoClueCaptured += HandlePhotoClueCaptured;
+        photoCapture.OnPhotoClueCaptured -= HandlePhotoClueCaptured;
     }
     IEnumerator EnableTakeTrainPhotos()
     {
         yield return new WaitUntil(() => personQuest.Finished);
         trainPhotos.canBePicked = true;
+        GameManager.Instance.CameraGirlPhoto = true;
     }
     void HandlePhotoClueCaptured(string clueId)
     {
@@ -114,6 +116,7 @@ public class EventDialogueManager : Subject, IEventDialogueManager
         controller.CanUseNormalStateExecute = false;
         yield return new WaitForSeconds(delay);
         NotifyObservers(_event);
+        NotifyObservers(_event, "Player");
         NotifyObservers(Events.TriggerMonologue, "Player");
         controller.CanUseNormalStateExecute = true;
     }
@@ -121,22 +124,11 @@ public class EventDialogueManager : Subject, IEventDialogueManager
     {
         NotifyObservers(_event);
     }
-
-    public void AddNewObserver(IObserver observer)
-    {
-        observers.Add(observer);
-    }
-
-    public void RemoveOldObserver(IObserver observer)
-    {
-        observers.Remove(observer);
-    }
 }
 
 public interface IEventDialogueManager
 {
     Action<string> OnItemPicked {  get; set; }
-    void AddNewObserver(IObserver observer);
-    void RemoveOldObserver(IObserver observer);
-    
+    void AddObserver(IObserver observer);
+    void RemoveObserver(IObserver observer);
 }

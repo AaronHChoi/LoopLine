@@ -52,7 +52,6 @@ public class Word : Subject, IWord /*IInteract*/
         {
             stopTrainQuestion.Options[5].Choosen = true;
             tmpro.color = Color.green;
-            GameManager.Instance.CorrectWord101 = true;
             if(correctWordEvent != null)
             {
                 //dialogueSOManager.TriggerEventDialogue(correctWordEvent);
