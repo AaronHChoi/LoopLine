@@ -6,6 +6,7 @@ using UI;
 using UnityEngine;
 using UnityEngine.UI;
 using DependencyInjection;
+using TMPro;
 public class PhotoCapture : MonoBehaviour, IPhotoCapture
 {
     [Header("Photo Taker")]
@@ -40,6 +41,8 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
     bool cameraActive = false;
     bool isCurrentPhotoClue = false;
 
+    [Header("UI Counter")]
+    [SerializeField] TextMeshProUGUI photoCounterText;
     int photoTaken = 0;
 
     IPlayerStateController playerStateController;
@@ -60,6 +63,7 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
     {
         photoTaken = 0;
         screenCapture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
+        UpdatePhotoCounter();
     }
     private void OnEnable()
     {
@@ -154,7 +158,7 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
             OnPhotoClueCaptured?.Invoke(clueId);
         }
         photoTaken++;
-        
+        UpdatePhotoCounter();
         photoMarkerManager.HideMarker();    
     }
     void ShowPhoto()
@@ -242,6 +246,20 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
         texture.SetPixels(pixels);
         texture.Apply();
     }
+    
+    void UpdatePhotoCounter()
+    {
+        int remainingPhotos = maxPhotos - photoTaken;
+        if (photoCounterText != null)
+        {
+            photoCounterText.text = $"{remainingPhotos} / {maxPhotos}";
+        }
+        else
+        {
+            Debug.LogWarning("photoCounterText is not assigned in the inspector.");
+        }
+    }
+
 }
 
 public interface IPhotoCapture
