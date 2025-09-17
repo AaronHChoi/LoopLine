@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MarkerBoard : MonoBehaviour, IInteract
 {
+    public static MarkerBoard Instance;
+
     [SerializeField] GameObject Photo;
 
     [SerializeField] List<GameObject> clues;
@@ -15,7 +17,15 @@ public class MarkerBoard : MonoBehaviour, IInteract
     [SerializeField] List<GameObject> objectsToActivate;
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        if(Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
     private void Update()
     {
