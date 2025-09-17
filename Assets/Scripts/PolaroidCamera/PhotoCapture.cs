@@ -250,7 +250,14 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
     void UpdatePhotoCounter()
     {
         int remainingPhotos = maxPhotos - photoTaken;
-        photoCounterText.text = $"{remainingPhotos} / {maxPhotos}";
+        if (photoCounterText != null)
+        {
+            photoCounterText.text = $"{remainingPhotos} / {maxPhotos}";
+        }
+        else
+        {
+            Debug.LogWarning("photoCounterText is not assigned in the inspector.");
+        }
     }
 
 }
