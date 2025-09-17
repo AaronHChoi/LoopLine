@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DependencyInjection;
+using UnityEngine;
 
 public class RaycastController : MonoBehaviour, IRaycast
 {
@@ -16,9 +17,9 @@ public class RaycastController : MonoBehaviour, IRaycast
     #endregion
 
     #region UNITY_METHODS
-    private void Awake()
+    private void Start()
     {
-        cameraTransform = Camera.main.transform;
+        cameraTransform = InterfaceDependencyInjector.Instance.Resolve<IPlayerCamera>().GetCameraTransform();
     }
     private void Update()
     {
@@ -27,40 +28,43 @@ public class RaycastController : MonoBehaviour, IRaycast
     #endregion
 
     #region PRIVATE_METHODS
-    private bool TryGetClosestTarget(Transform originTransform, RaycastSO raycastData, out GameObject bestTarget, out float bestScore)
+    private bool TryGetClosestTarget(
+    Transform originTransform,
+    RaycastSO raycastData,
+    out GameObject bestTarget,
+    out float bestScore)
     {
         bestTarget = null;
         bestScore = 0f;
 
         Ray ray = new Ray(originTransform.position, originTransform.forward);
-        RaycastHit[] hits = Physics.SphereCastAll(ray, raycastData.DetectionRadius, raycastData.DetectionDistance, raycastData.InteractableLayer);
-
-        foreach (var hit in hits)
+        if (Physics.Raycast(ray, out RaycastHit hit, raycastData.DetectionDistance, raycastData.InteractableLayer))
         {
             Collider col = hit.collider;
 
-            Vector3 boxCenter = col.bounds.center;
-            Vector3 dirToTarget = (boxCenter - originTransform.position).normalized;
-            float distance = Vector3.Distance(originTransform.position, boxCenter);
+            Vector3 center = col.bounds.center;
 
-            if (BlockedVision(originTransform, col, dirToTarget, distance))
-                continue;
+            // Project collider center onto the ray
+            Vector3 toCenter = center - ray.origin;
+            float t = Vector3.Dot(toCenter, ray.direction);
+            Vector3 projectedCenter = ray.origin + ray.direction * t;
 
-            float angle = Vector3.Angle(originTransform.forward, dirToTarget);
-            if (angle > raycastData.MaxAngle || distance > raycastData.DetectionDistance) continue;
+            // Distance from projected center to actual collider center (perpendicular distance)
+            float perpendicularDist = Vector3.Distance(center, projectedCenter);
 
-            float angleScore = 1f - (angle / raycastData.MaxAngle);
-            float distanceScore = 1f - (distance / raycastData.DetectionDistance);
-            float combinedScore = angleScore * distanceScore;
+            // Approximate max radius (distance from center to closest surface along perpendicular plane)
+            float maxRadius = (col.bounds.extents).magnitude;
 
-            if (combinedScore > bestScore)
-            {
-                bestScore = combinedScore;
-                bestTarget = col.gameObject;
-            }
+            // Score: 1 = ray passing through center, 0 = at edge
+            float score = 0.4f - Mathf.Clamp(perpendicularDist / maxRadius, 0f, 0.395f);
+
+            bestTarget = col.gameObject;
+            bestScore = score;
+
+            return true;
         }
 
-        return bestTarget != null && bestScore > 0f;
+        return false;
     }
     private bool BlockedVision(Transform originTransform, Collider targetCollider, Vector3 direction, float distance)
     {

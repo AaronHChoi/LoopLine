@@ -8,14 +8,11 @@ public class PlayerCamera : MonoBehaviour, IDependencyInjectable, IPlayerCamera
     private void Awake()
     {
         InjectDependencies(DependencyContainer.Instance);
+        cameraTransform = virtualCamera.transform;
     }
     public void InjectDependencies(DependencyContainer provider)
     {
         virtualCamera = provider.CinemachineContainer.CinemachineCamera;
-    }
-    private void Start()
-    {
-        cameraTransform = virtualCamera.transform;
     }
     public Transform GetCameraTransform()
     {
