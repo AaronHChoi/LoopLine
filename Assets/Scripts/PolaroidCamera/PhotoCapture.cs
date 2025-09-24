@@ -49,6 +49,7 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
     IPhotoMarkerManager photoMarkerManager;
     ITogglePhotoDetection photoDetectionZone;
     IPlayerMovement playerMovement;
+    IGameSceneManager gameSceneManager;
 
     public event Action<string> OnPhotoClueCaptured;
     #region MAGIC_METHODS
@@ -58,6 +59,7 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
         photoDetectionZone = InterfaceDependencyInjector.Instance.Resolve<ITogglePhotoDetection>();
         photoMarkerManager = InterfaceDependencyInjector.Instance.Resolve<IPhotoMarkerManager>();
         playerMovement = InterfaceDependencyInjector.Instance.Resolve<IPlayerMovement>();
+        gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
     }
     private void Start()
     {
@@ -133,7 +135,8 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
         cameraActive = false;
         viewvingPhoto = true;
         
-        photoMarkerManager.ShowMarker(); 
+        if (gameSceneManager.IsCurrentScene("04. Trian"))
+            photoMarkerManager.ShowMarker(); 
 
         yield return new WaitForEndOfFrame();
 

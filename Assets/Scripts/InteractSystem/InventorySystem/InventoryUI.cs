@@ -13,8 +13,10 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
     [SerializeField] public ItemInteract ItemInUse { get; set; }
 
     [SerializeField] private ItemInteract handItemUI;
+    [SerializeField] private ItemInteract cameraItem;
     [SerializeField] private Vector2 offset = new Vector2(50f, 0f);
     [SerializeField] private float slotChangeCooldown = 0.5f;
+    [SerializeField] private bool isInCorrectScene = false;
     [SerializeField] private Transform spawnPosition;
 
     private float lastSlotChangeTime = 0f;
@@ -60,6 +62,14 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
         ItemInUse = HandItemUI;
         currentSlotIndex = 0;
         inventorySlots[0].IsActive = true;
+        //if (SceneManager.GetActiveScene().name == "05. MindPlace" || SceneManager.GetActiveScene().name == "TestMindPlace")
+        //{
+        //    isInCorrectScene = true;
+        //}
+        //if (isInCorrectScene)
+        //{
+        //    AddInventorySlot(cameraItem);
+        //}
     }
     private void Update()
     {
