@@ -1,16 +1,26 @@
 using UnityEngine;
 
-public class BlackRoomComponent : MonoBehaviour
+public class BlackRoomComponent : MonoBehaviour, IBlackRoomComponent
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public bool IsActive { get; set; } = false;
 
-    // Update is called once per frame
-    void Update()
+    [SerializeField] public GameObject ObjectToActivate { get; set; }
+
+    private void Start()
     {
-        
+        if (ObjectToActivate == null && transform.childCount > 0)
+        {
+            ObjectToActivate = transform.GetChild(0).gameObject;
+        }
+        else
+        {
+            ObjectToActivate = gameObject;
+        }
     }
+}
+
+public interface IBlackRoomComponent
+{
+    bool IsActive { get; set; }
+    public GameObject ObjectToActivate { get; set; }
 }

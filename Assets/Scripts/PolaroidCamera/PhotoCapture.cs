@@ -50,6 +50,7 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
     ITogglePhotoDetection photoDetectionZone;
     IPlayerMovement playerMovement;
     IGameSceneManager gameSceneManager;
+    IBlackRoomComponent blackRoomComponent;
 
     public event Action<string> OnPhotoClueCaptured;
     #region MAGIC_METHODS
@@ -60,6 +61,7 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
         photoMarkerManager = InterfaceDependencyInjector.Instance.Resolve<IPhotoMarkerManager>();
         playerMovement = InterfaceDependencyInjector.Instance.Resolve<IPlayerMovement>();
         gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
+        blackRoomComponent = InterfaceDependencyInjector.Instance.Resolve<IBlackRoomComponent>();
     }
     private void Start()
     {
@@ -156,6 +158,10 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
         {
             ApplyPhotoToWorldObject();
         }
+        else if (photoDetectionZone.CheckIfAnyBlackRMComp())
+        {
+            ActivateBlackRoomComponent();
+        }
         else
         {
             OnPhotoClueCaptured?.Invoke(clueId);
@@ -236,6 +242,11 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
                 OnPhotoClueCaptured?.Invoke(clueId);
             }
         }
+    }
+    void ActivateBlackRoomComponent()
+    {
+        BlackRoomComponent blackRoomComponent = photoDetectionZone.GetBlackRMComp();
+        blackRoomComponent.ObjectToActivate.SetActive(!gameObject.activeSelf);
     }
     void AdjustBrightness(Texture2D texture, float brigtnessFactor)
     {
