@@ -62,14 +62,14 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
         ItemInUse = HandItemUI;
         currentSlotIndex = 0;
         inventorySlots[0].IsActive = true;
-        //if (SceneManager.GetActiveScene().name == "05. MindPlace" || SceneManager.GetActiveScene().name == "TestMindPlace")
-        //{
-        //    isInCorrectScene = true;
-        //}
-        //if (isInCorrectScene)
-        //{
-        //    AddInventorySlot(cameraItem);
-        //}
+        if (SceneManager.GetActiveScene().name == "05. MindPlace" || SceneManager.GetActiveScene().name == "TestMindPlace")
+        {
+            isInCorrectScene = true;
+        }
+        if (isInCorrectScene)
+        {
+            AddInventorySlot(cameraItem);
+        }
     }
     private void Update()
     {

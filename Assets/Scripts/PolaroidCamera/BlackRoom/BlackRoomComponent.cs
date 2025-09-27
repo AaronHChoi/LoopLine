@@ -1,3 +1,4 @@
+using DependencyInjection;
 using UnityEngine;
 
 public class BlackRoomComponent : MonoBehaviour, IBlackRoomComponent
@@ -6,6 +7,12 @@ public class BlackRoomComponent : MonoBehaviour, IBlackRoomComponent
 
     [SerializeField] public GameObject ObjectToActivate { get; set; }
 
+    IBlackRoomManager BKRoomManager;
+
+    private void Awake()
+    {
+        BKRoomManager = InterfaceDependencyInjector.Instance.Resolve<IBlackRoomManager>();
+    }
     private void Start()
     {
         if (ObjectToActivate == null && transform.childCount > 0)

@@ -17,20 +17,21 @@ public class PhotoDetectionZone : MonoBehaviour, ITogglePhotoDetection
     void OnTriggerEnter(Collider other)
     {
         PhotoClue clue = other.GetComponent<PhotoClue>();
-        BlackRoomComponent blackRMComponent = GetComponent<BlackRoomComponent>();
+        BlackRoomComponent blackRMComponent = other.GetComponent<BlackRoomComponent>();
         if (clue != null && !cluesInZone.Contains(clue))
         {
             cluesInZone.Add(clue);
         }
-        if (blackRMComponent != null && !blackRMComponentsInZone.Contains(blackRMComponent))
+        else if (blackRMComponent != null && !blackRMComponentsInZone.Contains(blackRMComponent))
         {
             blackRMComponentsInZone.Add(blackRMComponent);
+            Debug.Log("encontramos un blckroom");
         }
     }
     void OnTriggerExit(Collider other)
     {
         PhotoClue clue = other.GetComponent<PhotoClue>();
-        BlackRoomComponent blackRMComponent = GetComponent<BlackRoomComponent>();
+        BlackRoomComponent blackRMComponent = other.GetComponent<BlackRoomComponent>();
         if (clue != null && cluesInZone.Contains(clue))
         {
             cluesInZone.Remove(clue);
