@@ -30,6 +30,7 @@ namespace Player
         IPlayerMovement playerMovement;
         ITogglePhotoDetection togglePhotoDetection;
         IPlayerInputHandler inputHandler;
+        IGameSceneManager gameSceneManager;
         public NormalState NormalState { get; set; }
         public DialogueState DialogueState { get;  set; }
         public CameraState CameraState { get;  set; }
@@ -48,12 +49,13 @@ namespace Player
             photoMarker = InterfaceDependencyInjector.Instance.Resolve<IPhotoMarker>();
             cinemachinePOVExtension = InterfaceDependencyInjector.Instance.Resolve<ICameraOrientation>();
             timeManager = InterfaceDependencyInjector.Instance.Resolve<ITimeProvider>();
+            gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
 
             stateMachine = new StateMachine();
 
             NormalState = new NormalState(this, inputHandler, playerMovement, cinemachinePOVExtension);
             DialogueState = new DialogueState(this, inputHandler, playerMovement, cinemachinePOVExtension);
-            CameraState = new CameraState(this, inputHandler, playerMovement, photoCapture, cinemachinePOVExtension, interaction, togglePhotoDetection, photoMarker);
+            CameraState = new CameraState(this, inputHandler, playerMovement, photoCapture, cinemachinePOVExtension, interaction, togglePhotoDetection, photoMarker, gameSceneManager);
             DevelopmentState = new DevelopmentState(this, inputHandler, playerMovement, cinemachinePOVExtension, timeManager);
             FocusModeState = new FocusModeState(this, inputHandler, playerMovement, cinemachinePOVExtension);
             MindPlaceState = new MindPlaceState(this, inputHandler, playerMovement);

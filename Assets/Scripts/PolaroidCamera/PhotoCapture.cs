@@ -49,6 +49,8 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
     IPhotoMarkerManager photoMarkerManager;
     ITogglePhotoDetection photoDetectionZone;
     IPlayerMovement playerMovement;
+    IGameSceneManager gameSceneManager;
+    IBlackRoomManager blackRoomManager;
 
     public event Action<string> OnPhotoClueCaptured;
     #region MAGIC_METHODS
@@ -58,6 +60,8 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
         photoDetectionZone = InterfaceDependencyInjector.Instance.Resolve<ITogglePhotoDetection>();
         photoMarkerManager = InterfaceDependencyInjector.Instance.Resolve<IPhotoMarkerManager>();
         playerMovement = InterfaceDependencyInjector.Instance.Resolve<IPlayerMovement>();
+        gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
+        blackRoomManager = InterfaceDependencyInjector.Instance.Resolve<IBlackRoomManager>();
     }
     private void Start()
     {
@@ -133,7 +137,8 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
         cameraActive = false;
         viewvingPhoto = true;
         
-        photoMarkerManager.ShowMarker(); 
+        if (gameSceneManager.IsCurrentScene("04. Trian"))
+            photoMarkerManager.ShowMarker(); 
 
         yield return new WaitForEndOfFrame();
 
@@ -149,14 +154,30 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
 
         string clueId = null;
 
-        if (photoDetectionZone.CheckIfAnyClue())
+        if (gameSceneManager.IsCurrentScene("04. Trian"))
         {
-            ApplyPhotoToWorldObject();
+            if (photoDetectionZone.CheckIfAnyClue())
+            {
+                ApplyPhotoToWorldObject();
+            }
+            else
+            {
+                OnPhotoClueCaptured?.Invoke(clueId);
+            }
         }
         else
         {
-            OnPhotoClueCaptured?.Invoke(clueId);
-        }
+            if (photoDetectionZone.CheckIfAnyBlackRMComp())
+            {
+
+                ActivateBlackRoomComponent(photoDetectionZone.GetBlackRMComp());
+                Debug.Log("encontramos un blckroom");
+            }
+            else
+            {
+                OnPhotoClueCaptured?.Invoke(clueId);
+            }
+        }            
         photoTaken++;
         UpdatePhotoCounter();
         photoMarkerManager.HideMarker();    
@@ -232,6 +253,15 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
             {
                 OnPhotoClueCaptured?.Invoke(clueId);
             }
+        }
+    }
+    void ActivateBlackRoomComponent(BlackRoomComponent blackRoomComponent)
+    {
+        blackRoomComponent.ObjectToActivate.SetActive(true);
+        blackRoomManager.ActiveBlackRoomComponent++;
+        if (blackRoomManager.ActiveBlackRoomComponent >= blackRoomManager.blackRoomComponents.Count)
+        {
+            blackRoomManager.SetBKDoorGameObject(true);
         }
     }
     void AdjustBrightness(Texture2D texture, float brigtnessFactor)

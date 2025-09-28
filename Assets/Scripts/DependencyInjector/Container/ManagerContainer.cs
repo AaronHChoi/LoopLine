@@ -41,6 +41,7 @@ namespace DependencyInjection
             injector.Register<IEventManager>(() => FindAndValidate<EventManager>());
             injector.Register<IItemManager>(() => FindAndValidate<ItemManager>());
             injector.Register<IEventDialogueManager>(() => FindAndValidate<EventDialogueManager>());
+            injector.Register<IBlackRoomManager>(() => FindAndValidate<BlackRoomManager>());
             //injector.Register<IEventManager>(() => EventManager); //EVENTS
             //injector.Register<IGameSceneManager>(() => GameSceneManager);
             //injector.Register<IItemManager>(() => ItemManager);

@@ -30,6 +30,10 @@ public class EventDialogueManager : Subject, IEventDialogueManager
     {
         StartCoroutine(StartSceneMonologue(delayMonologue));
         StartCoroutine(EnableTakeTrainPhotos());
+        for (int i = 0; i < GameManager.Instance.CameraGirlPhotoMision.Count; i++)
+        {
+            GameManager.Instance.CameraGirlPhotoMision[i].CanSpawn = false;
+        }
     }
     private void OnEnable()
     {
@@ -48,6 +52,10 @@ public class EventDialogueManager : Subject, IEventDialogueManager
         yield return new WaitUntil(() => personQuest.Finished);
         trainPhotos.canBePicked = true;
         GameManager.Instance.CameraGirlPhoto = true;
+        for (int i = 0; i < GameManager.Instance.CameraGirlPhotoMision.Count; i++)
+        {
+            GameManager.Instance.CameraGirlPhotoMision[i].CanSpawn = true;
+        }
     }
     void HandlePhotoClueCaptured(string clueId)
     {

@@ -22,6 +22,7 @@ namespace DependencyInjection
             injector.Register<IPhotoCapture>(() => FindAndValidate<PhotoCapture>());
             injector.Register<IPhotoMarker>(() => FindAndValidate<PhotoMarker>());
             injector.Register<IPhotoMarkerManager>(() => FindAndValidate<PhotoMarkerManager>());
+            injector.Register<IBlackRoomComponent>(() => FindAndValidate<BlackRoomComponent>());
         }
     }
 }

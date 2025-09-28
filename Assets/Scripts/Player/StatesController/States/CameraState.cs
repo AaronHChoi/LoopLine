@@ -16,10 +16,11 @@ namespace Player
         IPlayerInteractMarkerPrompt interaction;
         IPhotoMarker photoMarker;
         ITogglePhotoDetection togglePhotoDetection;
+        IGameSceneManager gameSceneManager;
         GameObject polaroidItem;
         public CameraState(IPlayerStateController controller, IPlayerInputHandler input, IPlayerMovement movement, 
             IPhotoCapture photo, ICameraOrientation playerCamera, IPlayerInteractMarkerPrompt interaction, 
-            ITogglePhotoDetection togglePhotoDetection, IPhotoMarker photoMarker)
+            ITogglePhotoDetection togglePhotoDetection, IPhotoMarker photoMarker, IGameSceneManager gameSceneManager)
         {
             this.controller = controller;
             this.input = input;
@@ -29,12 +30,14 @@ namespace Player
             this.interaction = interaction;
             this.photoMarker = photoMarker;
             this.togglePhotoDetection = togglePhotoDetection;
+            this.gameSceneManager = gameSceneManager;
         }
         public void Enter()
         {
             interaction.IsDetecting = false;
             movement.CanMove = true;
-            photoMarker.SetGameObjectEnable(true);
+            if (gameSceneManager.IsCurrentScene("04. Train")) 
+                photoMarker.SetGameObjectEnable(true);
             playerCamera.CanLook = true;
             togglePhotoDetection.ToggleCollider(true);
             if (polaroidItem == null)
