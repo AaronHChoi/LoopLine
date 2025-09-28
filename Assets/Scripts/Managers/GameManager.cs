@@ -1,5 +1,6 @@
 using UnityEngine;
 using DependencyInjection;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class GameManager : MonoBehaviour
     public int MindPlaceLoop = 0;
 
     public bool CameraGirlPhoto = false;
+    public List<BlackRoomComponentSETTING> CameraGirlPhotoMision = new List<BlackRoomComponentSETTING>();
 
     [Header("DeveloperTools")]
     public bool isMuted = false;
@@ -45,6 +47,10 @@ public class GameManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.P)) //TEST
         {
             CameraGirlPhoto = true;
+            for (int i = 0; i < CameraGirlPhotoMision.Count; i++)
+            {
+                CameraGirlPhotoMision[i].CanSpawn = true;
+            }
         }
         if(sceneManager.IsCurrentScene("04. Train") && TrainLoop > 0)
         {

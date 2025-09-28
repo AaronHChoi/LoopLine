@@ -7,7 +7,7 @@ public class BlackRoomManager : MonoBehaviour, IBlackRoomManager
 {
     [SerializeField] private List<Transform> RandomSpawnPoints = new List<Transform>();
     [SerializeField] public List<BlackRoomComponent> blackRoomComponents { get; set; } = new List<BlackRoomComponent>();
-    [SerializeField] public List<BlackRoomComponentSETTING> blackRoomComponentsSETTING { get; set; } = new List<BlackRoomComponentSETTING> ();
+    [SerializeField] public List<BlackRoomComponentSETTING> blackRoomComponentsSETTING = new List<BlackRoomComponentSETTING> ();
     [SerializeField] private GameObject BKDoor;
     public int ActiveBlackRoomComponent { get; set; } = 0;
 
