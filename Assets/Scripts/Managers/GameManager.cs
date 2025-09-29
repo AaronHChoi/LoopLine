@@ -54,11 +54,11 @@ public class GameManager : MonoBehaviour
         }
         if(sceneManager.IsCurrentScene("04. Train") && TrainLoop > 0)
         {
-            MarkerBoard.Instance.DeactivateMakerBoard();
+            CameraGirlMarkerBoard.Instance.DeactivateMakerBoard();
         }
         else if (TrainLoop > 0) 
         {
-            MarkerBoard.Instance.ActivateMakerBoard();
+            CameraGirlMarkerBoard.Instance.ActivateMakerBoard();
         }
     }
 }

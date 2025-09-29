@@ -1214,7 +1214,7 @@ GameObject:
   m_Component:
   - component: {fileID: 88781044}
   - component: {fileID: 88781043}
-  - component: {fileID: 88781042}
+  - component: {fileID: 88781045}
   m_Layer: 3
   m_Name: MarkerManager
   m_TagString: Untagged
@@ -1222,38 +1222,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &88781042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 88781041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26fb4acb96ab2184a8b771445af52e74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Photo: {fileID: 802579615}
-  clues:
-  - {fileID: 249163331}
-  - {fileID: 165504263}
-  - {fileID: 632241086}
-  strings:
-  - {fileID: 563597565}
-  - {fileID: 248638491}
-  - {fileID: 1957694716}
-  delayBetween: 1
-  material1:
-  - {fileID: 2100000, guid: 222249d8468702541ae7e2b04c456399, type: 2}
-  - {fileID: 2100000, guid: 14f754e33bbea4747b271dd63a8a567e, type: 2}
-  - {fileID: 2100000, guid: 14f754e33bbea4747b271dd63a8a567e, type: 2}
-  material2: {fileID: 2100000, guid: 6c7c71351dc03754dbe1825a23dcb4f6, type: 2}
-  material3: {fileID: 2100000, guid: 4c3d42f27e1847845889cf2ae40948f2, type: 2}
-  objectsToActivate:
-  - {fileID: 26897802}
-  - {fileID: 1446905125}
-  - {fileID: 1904418563}
 --- !u!65 &88781043
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1296,6 +1264,26 @@ Transform:
   - {fileID: 802579619}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+--- !u!114 &88781045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88781041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b38815d258a7a04d88bacf84e642cf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  photo: {fileID: 0}
+  delayBetween: 1
+  clues: []
+  strings: []
+  material1: []
+  material2: {fileID: 0}
+  material3: {fileID: 0}
+  objectsToActivate: []
 --- !u!64 &109299871
 MeshCollider:
   m_ObjectHideFlags: 0
