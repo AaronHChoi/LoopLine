@@ -6,12 +6,14 @@ public class BlackRoomComponent : MonoBehaviour, IBlackRoomComponent
     public bool IsActive { get; set; } = false;
 
     [SerializeField] public GameObject ObjectToActivate { get; set; }
+    [SerializeField] public AudioSource AudioSource;
 
     IBlackRoomManager BKRoomManager;
 
     private void Awake()
     {
         BKRoomManager = InterfaceDependencyInjector.Instance.Resolve<IBlackRoomManager>();
+        AudioSource = GetComponent<AudioSource>();
     }
     private void Start()
     {
