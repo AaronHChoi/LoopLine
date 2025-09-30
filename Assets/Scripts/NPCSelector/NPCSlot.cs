@@ -26,8 +26,9 @@ namespace NPCSelector
                 button.onClick.AddListener(() => OnSlotClicked.Invoke(npcId));
         }
         
+        /// <summary>
         /// Apply a visual state to this slot.
-        
+        /// </summary>
         public void SetState(NPCState state, Sprite portrait = null, string npcName = "")
         {
             currentState = state;
