@@ -46,7 +46,7 @@ namespace NPCSelector
 
                 case NPCState.Unknown:
                     button.interactable = true;
-                    // Black portrait, no text
+                    // Portrait will be set to black sprite by controller; no name text shown
                     break;
 
                 case NPCState.NoName:
