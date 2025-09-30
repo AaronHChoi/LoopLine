@@ -36,7 +36,7 @@ public class TimeManager : MonoBehaviour, ITimeProvider
 
             ChangeLoopTime = false;
         }
-        if (!IsTimePaused)
+        if (!IsTimePaused && gameSceneManager.IsCurrentScene("04. Train"))
         {
             AdvanceTime();
         }
