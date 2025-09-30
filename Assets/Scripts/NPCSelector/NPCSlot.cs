@@ -41,7 +41,7 @@ namespace NPCSelector
             {
                 case NPCState.Locked:
                     button.interactable = false;
-                    // Blank portrait
+                    // Portrait will be set to blank sprite by controller
                     break;
 
                 case NPCState.Unknown:
