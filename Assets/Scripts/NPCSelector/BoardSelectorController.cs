@@ -97,6 +97,11 @@ namespace NPCSelector
                     case NPCState.Named:
                         if (npcId < npcPortraits.Length)
                             portraitToUse = npcPortraits[npcId];
+                        else
+                        {
+                            portraitToUse = blankPortrait;
+                            Debug.LogWarning($"NPCSelector: npcId {npcId} is out of bounds for npcPortraits (length {npcPortraits.Length}). Using blankPortrait as fallback.");
+                        }
                         break;
                 }
             }
