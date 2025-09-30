@@ -118,6 +118,7 @@ namespace NPCSelector
 
         private void EnterBoardView()
         {
+            boardCam.gameObject.SetActive(true);
             if (boardCam != null) boardCam.Priority = 20;
             if (firstPersonCam != null) firstPersonCam.Priority = 10;
             Cursor.lockState = CursorLockMode.None;
@@ -127,6 +128,7 @@ namespace NPCSelector
 
         private void EnterFirstPerson()
         {
+            boardCam.gameObject.SetActive(false);
             if (boardCam != null) boardCam.Priority = 10;
             if (firstPersonCam != null) firstPersonCam.Priority = 20;
             Cursor.lockState = CursorLockMode.Locked;
