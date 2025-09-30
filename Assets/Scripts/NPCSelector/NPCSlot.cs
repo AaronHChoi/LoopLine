@@ -9,7 +9,6 @@ namespace NPCSelector
     {
         [Header("UI References")]
         [SerializeField] private Image portraitImage;
-        [SerializeField] private Image overlayImage; // for ??? or greyscale overlay
         [SerializeField] private TMP_Text nameText;
         [SerializeField] private Button button;
         [SerializeField] private Image outline;
@@ -26,36 +25,33 @@ namespace NPCSelector
                 button.onClick.AddListener(() => OnSlotClicked.Invoke(npcId));
         }
         
-        /// <summary>
-        /// Apply a visual state to this slot.
-        /// </summary>
         public void SetState(NPCState state, Sprite portrait = null, string npcName = "")
         {
             currentState = state;
 
-            // Default resets
+            // Always set portrait (blank, black, or NPC art provided by controller)
             portraitImage.sprite = portrait;
             portraitImage.color = Color.white;
+
+            // Reset visuals
             nameText.text = "";
-            overlayImage.enabled = false;
             outline.enabled = false;
 
             switch (state)
             {
                 case NPCState.Locked:
                     button.interactable = false;
-                    outline.enabled = false;
-                    portraitImage.color = Color.grey;
+                    // Blank portrait
                     break;
 
                 case NPCState.Unknown:
                     button.interactable = true;
-                    portraitImage.color = Color.black;
+                    // Black portrait, no text
                     break;
 
                 case NPCState.NoName:
                     button.interactable = true;
-                    overlayImage.enabled = true; // Show ??? sprite or texture
+                    nameText.text = "???";
                     break;
 
                 case NPCState.Named:
@@ -70,5 +66,4 @@ namespace NPCSelector
             outline.enabled = selected;
         }
     }
-
 }

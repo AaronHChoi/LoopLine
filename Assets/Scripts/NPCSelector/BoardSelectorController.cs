@@ -15,6 +15,11 @@ namespace NPCSelector
         [SerializeField] private GameObject selectorPanel;
         [SerializeField] private Transform slotContainer;
         [SerializeField] private NPCSlot slotPrefab;
+        
+        [Header("Sprites")]
+        [SerializeField] private Sprite blankPortrait;      // Locked
+        [SerializeField] private Sprite blackPortrait;      // Unknown
+        [SerializeField] private Sprite[] npcPortraits;     // 1 per NPC
 
         [Header("Board Lighting")]
         [SerializeField] private Light boardLight;
@@ -41,38 +46,27 @@ namespace NPCSelector
             if (startInFirstPerson)
                 EnterFirstPerson();
             
-            //test
-            // Set some test states
+            //test states
             UpdateNPCSlot(0, NPCState.Locked);
             UpdateNPCSlot(1, NPCState.Unknown);
             UpdateNPCSlot(2, NPCState.NoName);
             UpdateNPCSlot(3, NPCState.Named, null, "Alice");
-            //endtest
         }
         
-        //debug key to test function
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.B))
                 ToggleBoardView();
         }
 
-
         /// Create slots dynamically for a given NPC count.
         public void CreateSlots(int npcCount)
         {
-            if (npcCount < 0)
-            {
-                Debug.LogWarning("CreateSlots called with negative npcCount: " + npcCount);
-                return;
-            }
-            // Clear old
             foreach (Transform child in slotContainer)
                 Destroy(child.gameObject);
             slots.Clear();
             selectedSlotId = -1;
 
-            // Create new
             for (int i = 0; i < npcCount; i++)
             {
                 var slot = Instantiate(slotPrefab, slotContainer);
@@ -83,13 +77,33 @@ namespace NPCSelector
         }
 
         /// Update the state of one NPC slot (called by external manager).
-        public void UpdateNPCSlot(int npcId, NPCState state, Sprite portrait = null, string npcName = "")
+        public void UpdateNPCSlot(int npcId, NPCState state, Sprite overridePortrait = null, string npcName = "")
         {
             if (npcId < 0 || npcId >= slots.Count) return;
-            slots[npcId].SetState(state, portrait, npcName);
+
+            Sprite portraitToUse = overridePortrait;
+
+            if (portraitToUse == null)
+            {
+                switch (state)
+                {
+                    case NPCState.Locked:
+                        portraitToUse = blankPortrait;
+                        break;
+                    case NPCState.Unknown:
+                        portraitToUse = blackPortrait;
+                        break;
+                    case NPCState.NoName:
+                    case NPCState.Named:
+                        if (npcId < npcPortraits.Length)
+                            portraitToUse = npcPortraits[npcId];
+                        break;
+                }
+            }
+
+            slots[npcId].SetState(state, portraitToUse, npcName);
         }
 
-        /// Called when the board is interacted with (toggle between views).
         public void ToggleBoardView()
         {
             SetBoardView(!inBoardView);
@@ -99,52 +113,45 @@ namespace NPCSelector
         {
             inBoardView = active;
 
-            // Show/hide panel depending on your design:
-            // If you want slots to remain visible after selection, leave selectorPanel always active
-            // selectorPanel.SetActive(active); // <-- remove this if you want slots always visible
-
             if (active)
             {
                 EnterBoardView();
                 ResetSelection();
-                boardLight.enabled = true;
+                if (boardLight != null) boardLight.enabled = true;
             }
             else
             {
                 EnterFirstPerson();
-                boardLight.enabled = false;
+                if (boardLight != null) boardLight.enabled = false;
             }
         }
 
         private void EnterBoardView()
         {
-            boardCam.gameObject.SetActive(true);
+            if (boardCam != null) boardCam.gameObject.SetActive(true);
             if (boardCam != null) boardCam.Priority = 20;
             if (firstPersonCam != null) firstPersonCam.Priority = 10;
+
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            // Optionally disable FPS controller input here
         }
 
         private void EnterFirstPerson()
         {
-            boardCam.gameObject.SetActive(false);
+            if (boardCam != null) boardCam.gameObject.SetActive(false);
             if (boardCam != null) boardCam.Priority = 10;
             if (firstPersonCam != null) firstPersonCam.Priority = 20;
+
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            // Optionally enable FPS controller input here
         }
 
         private void HandleSlotClick(int npcId)
         {
-            // Select slot visually (keep outline active)
             slots[npcId].SetSelected(true);
-
-            // Fire event for external systems
             OnNPCSelected.Invoke(npcId);
 
-            // Exit board view
+            // Exit board view (but keep portraits visible in next entry)
             SetBoardView(false);
         }
         
