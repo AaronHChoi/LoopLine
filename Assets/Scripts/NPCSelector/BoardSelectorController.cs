@@ -61,11 +61,6 @@ namespace NPCSelector
         /// Create slots dynamically for a given NPC count.
         public void CreateSlots(int npcCount)
         {
-            if (npcCount < 0)
-            {
-                Debug.LogWarning("CreateSlots called with negative npcCount: " + npcCount);
-                return;
-            }
             // Clear old
             foreach (Transform child in slotContainer)
                 Destroy(child.gameObject);
