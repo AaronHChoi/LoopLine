@@ -26,6 +26,15 @@ public class BlackRoomManager : MonoBehaviour, IBlackRoomManager
     private void Update()
     {
         GetClosestBKRC();
+        if (Input.GetKeyDown(KeyCode.L)) //TEST
+        {
+            
+            for (int i = 0; i < blackRoomComponents.Count; i++)
+            {
+                blackRoomComponents[i].ObjectToActivate.SetActive(true);
+            }
+            SetBKDoorGameObject(true);
+        }
     }
 
     private void FindAllBlackRoomComponentInScene()
