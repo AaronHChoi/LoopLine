@@ -51,6 +51,7 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
     IPlayerMovement playerMovement;
     IGameSceneManager gameSceneManager;
     IBlackRoomManager blackRoomManager;
+    ICameraOrientation cameraOrientation;
 
     public event Action<string> OnPhotoClueCaptured;
     #region MAGIC_METHODS
@@ -62,6 +63,7 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
         playerMovement = InterfaceDependencyInjector.Instance.Resolve<IPlayerMovement>();
         gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
         blackRoomManager = InterfaceDependencyInjector.Instance.Resolve<IBlackRoomManager>();
+        cameraOrientation = InterfaceDependencyInjector.Instance.Resolve<ICameraOrientation>();
     }
     private void Start()
     {
@@ -102,6 +104,7 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
         if (!viewvingPhoto)
         {
             playerMovement.CanMove = false;
+            cameraOrientation.CanLook = false;
             if (photoTaken < maxPhotos)
             {
                 StartCoroutine(CapturePhoto());
@@ -116,6 +119,7 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
         else
         {
             playerMovement.CanMove = true;
+            cameraOrientation.CanLook = true;
             RemovePhoto();
         }
     }
