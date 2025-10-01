@@ -48,9 +48,9 @@ namespace NPCSelector
             
             //test states
             UpdateNPCSlot(0, NPCState.Locked);
-            UpdateNPCSlot(1, NPCState.Unknown);
-            UpdateNPCSlot(2, NPCState.NoName);
-            UpdateNPCSlot(3, NPCState.Named, null, "Alice");
+            UpdateNPCSlot(1, NPCState.Locked);
+            UpdateNPCSlot(2, NPCState.Named, null, "");
+            UpdateNPCSlot(3, NPCState.Named, null, "");
         }
         
         private void Update()
