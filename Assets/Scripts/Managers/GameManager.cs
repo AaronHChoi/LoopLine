@@ -19,7 +19,6 @@ public class GameManager : MonoBehaviour
 
     IDialogueManager dialogueManager;
     IGameSceneManager sceneManager;
-
     private void Awake()
     {
         if (Instance == null)
@@ -35,7 +34,6 @@ public class GameManager : MonoBehaviour
 
         dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
         sceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
-
     }
     private void Start()
     {
