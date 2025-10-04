@@ -17,7 +17,6 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
     [SerializeField] string id;
 
     IEventDialogueManager eventDialogueManager;
-    IUIManager uiManager;
     IDialogueManager dialogueManager;
     IPlayerController playerController;
 
@@ -40,7 +39,6 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
     #region MAGIC_METHODS
     private void Awake()
     {
-        uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
         dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
         playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
         eventDialogueManager = InterfaceDependencyInjector.Instance.Resolve<IEventDialogueManager>();
@@ -105,16 +103,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
     }
     public void DialogueTrigger()
     {
-        //if (lookAtNPC != null && headTarget != null)
-        //{
-        //    lookAtNPC.SetTarget(headTarget);
-        //}
-
-        //developmentManager.DeactivateUIIfActive();
-
         if (isDialogueActive) return;
-
-        //GameManager.Instance.SetBool(id, true);
         
         while (dialogueIndex < AvailableDialogs.Count && !AvailableDialogs[dialogueIndex].Unlocked)
         {
@@ -156,7 +145,6 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
             EndDialogue();
             dialogueManager.ShowUI(false, true);
         }
-        //DialogueRefresh();
     }
     void StartDialogue()
     {
@@ -183,15 +171,6 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
                 nextIndex++;
             }
             return false;
-            //if(dialogueIndex < AvailableDialogs.Count - 1)
-            //{
-            //    dialogueIndex++;
-            //    return true;
-            //}
-            //else
-            //{
-            //    return false;
-            //}
         }
         else
         {
@@ -200,21 +179,7 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
     }
     public void Interact()
     {
-        if (AvailableDialogs == null || AvailableDialogs.Count == 0)
-        {
-            //uiManager.ShowUIText("No hay dialogos disponibles");
-            StartCoroutine(ExecuteAfterDelay());
-        }
-        else
-        {
-            DialogueTrigger();
-        }
-    }
-    private IEnumerator ExecuteAfterDelay()
-    {
-        yield return new WaitForSeconds(1.5f);
-
-        uiManager.HideUIText();
+        DialogueTrigger();
     }
     public string GetInteractText()
     {
