@@ -455,7 +455,7 @@ GameObject:
   - component: {fileID: 61159255}
   - component: {fileID: 61159254}
   m_Layer: 3
-  m_Name: GameObject
+  m_Name: InteractCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -470,7 +470,7 @@ Transform:
   m_GameObject: {fileID: 61159252}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.46549934}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -857,6 +857,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrainLoop
       objectReference: {fileID: 0}
+    - target: {fileID: 6349640663158728346, guid: 002ecf8dc93abc4478e944281e92837b, type: 3}
+      propertyPath: 'm_Materials.Array.data[3]'
+      value: 
+      objectReference: {fileID: 2100000, guid: c392a6d758b1e0b4e9c34d0557633c15, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4790,59 +4794,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &468843696
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 468843697}
-  - component: {fileID: 468843698}
-  m_Layer: 0
-  m_Name: FOCUSMODE
-  m_TagString: Untagged
-  m_Icon: {fileID: 2800000, guid: 4445790c252970d45ae069bd9011b484, type: 3}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
---- !u!4 &468843697
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 468843696}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 868525704}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &468843698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 468843696}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1816795d2838f643acc6f6f815cfff9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flattenFolder: 1
-  flattenEvent: 1
-  OnFlattenEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnFolderDestroy:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &475890242
 GameObject:
   m_ObjectHideFlags: 0
@@ -6970,7 +6921,7 @@ Transform:
   m_GameObject: {fileID: 634515128}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 2.118, y: -0.082, z: -20.316}
+  m_LocalPosition: {x: 2.2570941, y: -0.039829884, z: -19.601574}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8423,7 +8374,7 @@ GameObject:
   - component: {fileID: 820272585}
   - component: {fileID: 820272584}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: InteractCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8438,7 +8389,7 @@ Transform:
   m_GameObject: {fileID: 820272582}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.4341483}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13431,97 +13382,6 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!1 &868525700
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 868525704}
-  - component: {fileID: 868525703}
-  - component: {fileID: 868525701}
-  - component: {fileID: 868525702}
-  m_Layer: 3
-  m_Name: DialoguePeek
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
---- !u!114 &868525701
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 868525700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 013c83a15b4b79b41b6d2730739b6082, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &868525702
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 868525700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd995697258d7d24ca5c1e437dbdc2a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactText: "Escuchar conversaci\xF3n"
-  AvailableDialogs:
-  - {fileID: 11400000, guid: beec82c575189f14c96c1fa083cb348c, type: 2}
-  - {fileID: 11400000, guid: 98ccef9af3856ab4aaa060e5ef514ced, type: 2}
-  - {fileID: 11400000, guid: 77084739d4d58d94080244e638617e6a, type: 2}
-  dialogueIndex: 0
-  DialogueLocalIndex: 0
-  isDialogueActive: 0
-  NPCInteracted: 0
-  headTarget: {fileID: 0}
-  id: 
-  DialogueEvents: []
---- !u!65 &868525703
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 868525700}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 3.488018}
-  m_Center: {x: 0, y: 0, z: -0.39326382}
---- !u!4 &868525704
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 868525700}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.2, y: 1.621, z: -15.712698}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 468843697}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &883141704
 GameObject:
   m_ObjectHideFlags: 0
@@ -14392,6 +14252,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: e9c5dc3440c515140b4a32bec2fe1052, type: 3}
       propertyPath: m_Name
       value: camera girl sit
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: e9c5dc3440c515140b4a32bec2fe1052, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: e9c5dc3440c515140b4a32bec2fe1052, type: 3}
       propertyPath: m_Controller
@@ -19410,7 +19274,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: 8a7f5aa3ca2c4444db3506597f88324a, type: 2}
+  sharedProfile: {fileID: 11400000, guid: eb8ddc100f686df4e808cfaea8c838be, type: 2}
 --- !u!1001 &1087560476
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20548,6 +20412,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: fadc873b61ce9c3498d90a32b0ecc5b9, type: 3}
       propertyPath: m_Name
       value: work man sit
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: fadc873b61ce9c3498d90a32b0ecc5b9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: fadc873b61ce9c3498d90a32b0ecc5b9, type: 3}
       propertyPath: m_Controller
@@ -25657,7 +25525,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1245273031}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 9000000, guid: 46f721ba0823df74781edf8dd69360ca, type: 3}
   m_Controller: {fileID: 9100000, guid: ba79fb73d2c4f8741a31b8fe287d2ef9, type: 2}
   m_CullingMode: 0
@@ -26915,6 +26783,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c6d6af3fad25e8942b488d9221fad89e, type: 3}
       propertyPath: m_Name
       value: bass girl sit
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: c6d6af3fad25e8942b488d9221fad89e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: c6d6af3fad25e8942b488d9221fad89e, type: 3}
       propertyPath: m_Controller
@@ -28913,10 +28785,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1595290236}
-  - component: {fileID: 1595290238}
   - component: {fileID: 1595290237}
+  - component: {fileID: 1595290238}
   m_Layer: 3
-  m_Name: GameObject
+  m_Name: InteractCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28931,7 +28803,7 @@ Transform:
   m_GameObject: {fileID: 1595290235}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.10508095, z: 0.3288269}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -29034,7 +28906,7 @@ PrefabInstance:
     - target: {fileID: 8521638945783482097, guid: 691678736f2b21b4fa55c012b2201914, type: 3}
       propertyPath: peek
       value: 
-      objectReference: {fileID: 868525701}
+      objectReference: {fileID: 0}
     - target: {fileID: 8521638945783482097, guid: 691678736f2b21b4fa55c012b2201914, type: 3}
       propertyPath: delay
       value: 0.5
@@ -29118,7 +28990,7 @@ PrefabInstance:
     - target: {fileID: 8521638945783482097, guid: 691678736f2b21b4fa55c012b2201914, type: 3}
       propertyPath: 'dialogueManagers.Array.data[1]'
       value: 
-      objectReference: {fileID: 868525701}
+      objectReference: {fileID: 0}
     - target: {fileID: 8521638945783482097, guid: 691678736f2b21b4fa55c012b2201914, type: 3}
       propertyPath: 'dialogueManagers.Array.data[2]'
       value: 
@@ -29126,7 +28998,7 @@ PrefabInstance:
     - target: {fileID: 8521638945783482097, guid: 691678736f2b21b4fa55c012b2201914, type: 3}
       propertyPath: 'dialogueManagers.Array.data[3]'
       value: 
-      objectReference: {fileID: 868525701}
+      objectReference: {fileID: 0}
     - target: {fileID: 8521638945783482097, guid: 691678736f2b21b4fa55c012b2201914, type: 3}
       propertyPath: trainStopSoundData2.mixerGroup
       value: 
@@ -39580,7 +39452,6 @@ SceneRoots:
   - {fileID: 455612414}
   - {fileID: 1499356798}
   - {fileID: 366558279}
-  - {fileID: 468843697}
   - {fileID: 29840425}
   - {fileID: 216418770}
   - {fileID: 1649593005}
