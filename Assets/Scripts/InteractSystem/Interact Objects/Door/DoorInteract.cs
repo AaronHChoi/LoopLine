@@ -4,7 +4,8 @@ using UnityEngine;
 public class DoorInteract : MonoBehaviour, IInteract
 {
     [SerializeField] private string doorText;
-    [SerializeField] private Transform doorLeft, doorRight;
+    [SerializeField] private Transform doorLeft;
+    [SerializeField] private Transform doorRight;
     [SerializeField] private float doorSpeed;
     [SerializeField] private float doorDistance;
     [SerializeField] private float closeDoorsAfterTime;
@@ -15,9 +16,8 @@ public class DoorInteract : MonoBehaviour, IInteract
 
     private Vector3 doorLeftPosOpen, doorRightPosOpen;
     private Vector3 doorLeftClosed, doorRightClosed;
-
-    private bool isOpen = false;
-    private bool isMoving = false;
+    private bool isOpen;
+    private bool isMoving;
 
     private float closeDelayInitial;
     private float closeTimer;
@@ -29,39 +29,41 @@ public class DoorInteract : MonoBehaviour, IInteract
 
     void Start()
     {
-        doorLeftClosed = doorLeft.position;
-        doorRightClosed = doorRight.position;
+        if (doorLeft != null)
+        {
+            doorLeftClosed = doorLeft.localPosition;
+            doorLeftPosOpen = doorLeftClosed + (doorLeftMovement.normalized * doorDistance);
+        }
 
-        doorLeftPosOpen = doorLeftClosed + doorLeftMovement * doorDistance;
-        doorRightPosOpen = doorRightClosed + doorRightMovement * doorDistance;
+        if (doorRight != null)
+        {
+            doorRightClosed = doorRight.localPosition;
+            doorRightPosOpen = doorRightClosed + (doorRightMovement.normalized * doorDistance);
+        }
 
         closeDelayInitial = closeDoorsAfterTime;
         closeTimer = closeDelayInitial;
     }
 
-    public string GetInteractText()
-    {
-        return doorText;
-    }
+    public string GetInteractText() => doorText;
 
     public void Interact()
     {
         if (isMoving || isOpen) return;
-
         OpenDoors();
     }
 
     private void OpenDoors()
     {
         StopAllCoroutines();
-        StartCoroutine(MoveDoors(doorLeftPosOpen, doorRightPosOpen, true));
+        StartCoroutine(MoveDoors(true));
     }
 
     private void CloseDoors()
     {
         if (isMoving || !isOpen) return;
         StopAllCoroutines();
-        StartCoroutine(MoveDoors(doorLeftClosed, doorRightClosed, false));
+        StartCoroutine(MoveDoors(false));
     }
 
     private void Update()
@@ -70,33 +72,43 @@ public class DoorInteract : MonoBehaviour, IInteract
         {
             closeTimer -= Time.deltaTime;
             if (closeTimer <= 0f)
-            {
                 CloseDoors();
-            }
         }
     }
 
-    private IEnumerator MoveDoors(Vector3 leftTarget, Vector3 rightTarget, bool resultIsOpen)
+    private IEnumerator MoveDoors(bool opening)
     {
         isMoving = true;
         if (openDoor) openDoor.Play();
 
-        while (Vector3.Distance(doorLeft.position, leftTarget) > 0.01f || Vector3.Distance(doorRight.position, rightTarget) > 0.01f)
+        Vector3 leftTarget = opening ? doorLeftPosOpen : doorLeftClosed;
+        Vector3 rightTarget = opening ? doorRightPosOpen : doorRightClosed;
+
+        while (true)
         {
-            doorLeft.position = Vector3.Lerp(doorLeft.position, leftTarget, Time.deltaTime * doorSpeed);
-            doorRight.position = Vector3.Lerp(doorRight.position, rightTarget, Time.deltaTime * doorSpeed);
+            bool doneLeft = true, doneRight = true;
+
+            if (doorLeft != null)
+            {
+                doorLeft.localPosition = Vector3.Lerp(doorLeft.localPosition, leftTarget, Time.deltaTime * doorSpeed);
+                doneLeft = Vector3.Distance(doorLeft.localPosition, leftTarget) < 0.01f;
+            }
+
+            if (doorRight != null)
+            {
+                doorRight.localPosition = Vector3.Lerp(doorRight.localPosition, rightTarget, Time.deltaTime * doorSpeed);
+                doneRight = Vector3.Distance(doorRight.localPosition, rightTarget) < 0.01f;
+            }
+
+            if (doneLeft && doneRight) break;
             yield return null;
         }
 
-        doorLeft.position = leftTarget;
-        doorRight.position = rightTarget;
+        if (doorLeft != null) doorLeft.localPosition = opening ? doorLeftPosOpen : doorLeftClosed;
+        if (doorRight != null) doorRight.localPosition = opening ? doorRightPosOpen : doorRightClosed;
 
-        isOpen = resultIsOpen;
+        isOpen = opening;
         isMoving = false;
-
-        if (isOpen)
-        {
-            closeTimer = closeDelayInitial;
-        }
+        if (isOpen) closeTimer = closeDelayInitial;
     }
 }
