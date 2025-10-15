@@ -13,6 +13,8 @@ public class DialogueUI2 : MonoBehaviour
     [SerializeField] private float typingSpeed = 0.05f;
     [SerializeField] private bool skipTypingOnClick = true;
 
+    [SerializeField] SoundData typeSound;
+
     private bool isTyping = false;
     private string fullText;
     DialogueSpeakerBase currentSpeaker;
@@ -92,9 +94,13 @@ public class DialogueUI2 : MonoBehaviour
         isTyping = true;
         dialogueText.text = "";
 
+        var soundInstance = SoundManager.Instance.CreateSound()
+            .WithSoundData(typeSound);
+
         foreach (char c in fullText)
         {
             dialogueText.text += c;
+            soundInstance.Play();
             yield return new WaitForSeconds(typingSpeed);
         }
         isTyping = false;
