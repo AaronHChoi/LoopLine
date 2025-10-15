@@ -12,6 +12,7 @@ namespace DependencyInjection
         public CinemachineContainer CinemachineContainer { get; private set; } = new CinemachineContainer();
         public PhotoContainer PhotoContainer { get; private set; } = new PhotoContainer();
         public ManagerContainer ManagerContainer { get; private set; } = new ManagerContainer();
+        public DialogueContainer DialogueContainer { get; private set; } = new DialogueContainer();
         private void Awake()
         {
             if (Instance != null && Instance != this)

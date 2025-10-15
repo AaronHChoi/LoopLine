@@ -5,7 +5,7 @@ public class DialogueManager2 : MonoBehaviour
     public static DialogueManager2 Instance { get; private set; }
 
     [SerializeField] private DialogueUI2 dialogueUI;
-    DialogueSpeaker2 currentSpeaker;
+    DialogueSpeakerBase currentSpeaker;
 
     private void Awake()
     {
@@ -18,7 +18,7 @@ public class DialogueManager2 : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public void ShowDialogue(DialogueSO2 data, DialogueSpeaker2 speaker = null)
+    public void ShowDialogue(DialogueSO2 data, DialogueSpeakerBase speaker = null)
     {
         if (data == null)
         {
@@ -34,7 +34,7 @@ public class DialogueManager2 : MonoBehaviour
         dialogueUI.HideDialogue();
         currentSpeaker = null;
     }
-    public DialogueSpeaker2 GetCurrentSpeaker()
+    public DialogueSpeakerBase GetCurrentSpeaker()
     {
         return currentSpeaker;  
     }

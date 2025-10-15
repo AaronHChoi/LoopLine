@@ -11,32 +11,29 @@ public class DialogueGroup
     public Events eventType;
     public List<DialogueSO2> dialogues = new List<DialogueSO2>();
 }
-public class DialogueSpeaker2 : MonoBehaviour, IInteract
+public abstract class DialogueSpeakerBase : MonoBehaviour
 {
-    [SerializeField] private List<DialogueGroup> dialogueGroups = new List<DialogueGroup>();
+    [SerializeField] protected List<DialogueGroup> dialogueGroups = new List<DialogueGroup>();
+    [SerializeField] protected Events currentEvent = Events.Test;
+    [SerializeField] protected string id;
 
-    [SerializeField] private Events currentEvent = Events.Test;
+    [SerializeField] protected bool autoAdvance = false;
 
-    [SerializeField] private KeyCode interactKey = KeyCode.E;
-    [SerializeField] private float interactionDistance = 3f;
-    [SerializeField] private bool autoAdvance = false;
+    protected List<DialogueSO2> currentDialogues = new List<DialogueSO2>();
+    protected int currentDialogueIndex = 0;
+    protected bool isShowingDialogue = false;
 
-    private List<DialogueSO2> currentDialogues = new List<DialogueSO2>();
-    private int currentDialogueIndex = 0;
-    private bool isShowingDialogue = false;
+    protected IPlayerStateController playerStateController;
 
-    string interactText;
-
-    IPlayerStateController playerStateController;
-    private void Awake()
+    protected virtual void Awake()
     {
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();   
     }
-    private void Start()
+    protected virtual void Start()
     {
         LoadDialoguesForCurrentEvent();
     }
-    private void LoadDialoguesForCurrentEvent()
+    protected virtual void LoadDialoguesForCurrentEvent()
     {
         DialogueGroup group = dialogueGroups.FirstOrDefault(g => g.eventType == currentEvent);
 
@@ -63,24 +60,19 @@ public class DialogueSpeaker2 : MonoBehaviour, IInteract
         currentDialogueIndex = 0;
         ShowCurrentDialogue();
     }
-    private void ShowCurrentDialogue()
+    protected virtual void ShowCurrentDialogue()
     {
         if (currentDialogueIndex < currentDialogues.Count)
         {
             DialogueSO2 dialogue = currentDialogues[currentDialogueIndex];
             DialogueManager2.Instance.ShowDialogue(dialogue, this);
-
-            if (autoAdvance)
-            {
-                Invoke(nameof(ShowNextDialogue), 3f);
-            }
         }
         else
         {
             EndDialogueSequence();
         }
     }
-    public void ShowNextDialogue()
+    public virtual void ShowNextDialogue()
     {
         if (!isShowingDialogue) return;
 
@@ -95,43 +87,28 @@ public class DialogueSpeaker2 : MonoBehaviour, IInteract
             EndDialogueSequence();
         }
     }
-    private void EndDialogueSequence()
+    protected virtual void EndDialogueSequence()
     {
         isShowingDialogue = false;
         currentDialogueIndex = 0;
         DialogueManager2.Instance.HideDialogue();
     }
-    public void SetCurrentEvent(Events newEvent)
+    public virtual void SetCurrentEvent(Events newEvent)
     {
         currentEvent = newEvent;
         LoadDialoguesForCurrentEvent();
         Debug.Log($"Evento cambiado a: {currentEvent}");
     }
-    public void TriggerEventDialogue(Events eventType)
+    public virtual void TriggerEventDialogue(Events eventType)
     {
         SetCurrentEvent(eventType);
         StartDialogueSequence();
     }
-    //public DialogueSO2 GetDialogueById(string id)
-    //{
-    //    foreach (var group in dialogueGroups)
-    //    {
-    //        DialogueSO2 found = group.dialogues.FirstOrDefault(d => d.dialogueId == id);
-    //        if (found != null) return found;
-    //    }
-    //    return null;
-    //}
-    public void Interact()
+    public virtual void HandleEventChange(string targetNPC, Events newEvent)
     {
-        if (!isShowingDialogue && playerStateController.IsInState(playerStateController.NormalState))
+        if(targetNPC == id || targetNPC == "ALL")
         {
-            StartDialogueSequence();
+            SetCurrentEvent(newEvent);
         }
-    }
-    public string GetInteractText()
-    {
-        if (interactText == null) return interactText = "";
-
-        return interactText;
     }
 }

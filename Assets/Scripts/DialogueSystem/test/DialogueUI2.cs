@@ -15,7 +15,7 @@ public class DialogueUI2 : MonoBehaviour
 
     private bool isTyping = false;
     private string fullText;
-    private DialogueSpeaker2 currentSpeaker;
+    DialogueSpeakerBase currentSpeaker;
     Coroutine typingCoroutine;
 
     IPlayerStateController playerStateController;
@@ -60,7 +60,7 @@ public class DialogueUI2 : MonoBehaviour
             currentSpeaker?.ShowNextDialogue();
         }
     }
-    public void DisplayDialogue(DialogueSO2 data, DialogueSpeaker2 speaker = null)
+    public void DisplayDialogue(DialogueSO2 data, DialogueSpeakerBase speaker = null)
     {
         playerStateController.ChangeState(playerStateController.DialogueState);
         dialoguePanel.SetActive(true);

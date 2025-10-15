@@ -19,5 +19,8 @@ public enum Events
     With_Two_Good_Photos_M,
     With_Some_Good_Photos_M2,
     #endregion
-    Test
+    Test,
+    MonologueTest1,
+    MonologueTest2,
+    MonologueTest3
 }

@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 
     IDialogueManager dialogueManager;
     IGameSceneManager sceneManager;
+    IMonologueSpeaker monologueSpeaker;
     private void Awake()
     {
         if (Instance == null)
@@ -34,6 +35,7 @@ public class GameManager : MonoBehaviour
 
         dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
         sceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
     }
     private void Start()
     {
@@ -44,13 +46,14 @@ public class GameManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.P)) //TEST
         {
-            CameraGirlPhoto = true;
-            for (int i = 0; i < CameraGirlPhotoMision.Count; i++)
-            {
-                CameraGirlPhotoMision[i].CanSpawn = true;
-            }
+            NPCDialogueManager.Instance.HandleEventChange("cameraGirl", Events.Test);
+            monologueSpeaker.StartMonologue(Events.MonologueTest1);
         }
-        if(sceneManager.IsCurrentScene("04. Train") && TrainLoop > 0)
+        if (Input.GetKeyDown(KeyCode.O)) //TEST
+        {
+            monologueSpeaker.StartMonologue(Events.MonologueTest2);
+        }
+        if (sceneManager.IsCurrentScene("04. Train") && TrainLoop > 0)
         {
             CameraGirlMarkerBoard.Instance.DeactivateMakerBoard();
         }
