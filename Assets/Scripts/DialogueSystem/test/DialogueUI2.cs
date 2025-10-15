@@ -27,7 +27,6 @@ public class DialogueUI2 : MonoBehaviour
     {
         HideDialogue();
     }
-
     private void Update()
     {
         if (continueIndicator != null)
