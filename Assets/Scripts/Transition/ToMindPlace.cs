@@ -1,57 +1,86 @@
 using UnityEngine;
 using UnityEngine.Rendering;
+using Unity.Cinemachine;
 using DependencyInjection;
+
 public class ToMindPlace : MonoBehaviour
 {
+    [Header("Settings")]
     [SerializeField] private float transitionVolumeSpeed = 2f;
-    [SerializeField] private float timeExplosionRemaining;
-    private float volumeWeight = 1f;
-    private Volume volumeExplosion;
+    [SerializeField] private float fovSpeed = 60f;
+    [SerializeField] private float startFOV = 60f;
+    [SerializeField] private float endFOV = 120f;
 
-    private bool isVolumeActive = false;
+    [Header("Scene References")]
+    [SerializeField] private Volume volumeExplosion;
+    [SerializeField] private CinemachineCamera mainCamera;
+    [SerializeField] private CinemachineImpulseSource impulseSource;
 
-    ITimeProvider timeProvider;
+    private ITimeProvider timeProvider;
+    private bool isActive = false;
+    private bool isReverse = false;
+    private float targetWeight = 1f;
+    private float currentFOV;
 
     private void Awake()
     {
         timeProvider = InterfaceDependencyInjector.Instance.Resolve<ITimeProvider>();
     }
-    void Start()
+
+    private void Start()
     {
-        InitializeVolume();
-    }
-    void Update()
-    {
-        CheckActivationCondition();
-        UpdateVolumeTransition();
-    }
-    private void InitializeVolume()
-    {
-        GameObject volume = GameObject.Find("VolumeExplosion");
-        if (volume != null)
+        if (volumeExplosion)
+            volumeExplosion.weight = 1f;
+
+        if (mainCamera)
         {
-            volumeExplosion = volume.GetComponent<Volume>();
-            if (volumeExplosion != null)
-                volumeExplosion.weight = 0f;
+            currentFOV = startFOV;
+            mainCamera.Lens.FieldOfView = currentFOV;
         }
+
+        // reverse entry fade
+        ReverseTransition();
     }
-    private void CheckActivationCondition()
+
+    private void Update()
     {
-        if (timeProvider != null && !isVolumeActive && timeProvider.LoopTime <= timeExplosionRemaining)
-        {
-            isVolumeActive = true;
-        }
+        if (Input.GetKeyDown(KeyCode.N))
+            Activate();
+
+        UpdateTransition();
     }
-    private void UpdateVolumeTransition()
+
+    public void Activate()
     {
-        if(!isVolumeActive || volumeExplosion == null)
-        {
+        if (isActive) return;
+        isActive = true;
+        isReverse = false;
+        targetWeight = 1f;
+
+        if (impulseSource)
+            impulseSource.GenerateImpulse();
+    }
+
+    public void ReverseTransition()
+    {
+        isActive = true;
+        isReverse = true;
+        targetWeight = 0f;
+    }
+
+    private void UpdateTransition()
+    {
+        if (!isActive || volumeExplosion == null || mainCamera == null)
             return;
-        }
 
-        volumeExplosion.weight = Mathf.Lerp(volumeExplosion.weight, volumeWeight, Time.deltaTime * transitionVolumeSpeed);
+        volumeExplosion.weight = Mathf.MoveTowards(
+            volumeExplosion.weight, targetWeight, Time.deltaTime * transitionVolumeSpeed);
 
-        if (Mathf.Abs(volumeExplosion.weight - volumeWeight) < 0.01f)
-            volumeExplosion.weight = volumeWeight;
+        float targetFov = isReverse ? startFOV : endFOV;
+        currentFOV = Mathf.MoveTowards(currentFOV, targetFov, Time.deltaTime * fovSpeed);
+        mainCamera.Lens.FieldOfView = currentFOV;
+
+        if (Mathf.Approximately(volumeExplosion.weight, targetWeight))
+            isActive = false;
     }
 }
