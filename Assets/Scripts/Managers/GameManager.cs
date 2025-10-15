@@ -50,13 +50,5 @@ public class GameManager : MonoBehaviour
                 CameraGirlPhotoMision[i].CanSpawn = true;
             }
         }
-        if(sceneManager.IsCurrentScene("04. Train") && TrainLoop > 0)
-        {
-            CameraGirlMarkerBoard.Instance.DeactivateMakerBoard();
-        }
-        else if (TrainLoop > 0) 
-        {
-            CameraGirlMarkerBoard.Instance.ActivateMakerBoard();
-        }
     }
 }
