@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class DoorInteract : MonoBehaviour, IInteract
 {
-    [SerializeField] private string doorText = "open door";
+    [SerializeField] private string doorText;
     [SerializeField] private Transform doorLeft, doorRight;
-    [SerializeField] private float doorSpeed = 2f;
-    [SerializeField] private float doorDistance = 2f;
-    [SerializeField] private float closeDoorsAfterTime = 3f;
+    [SerializeField] private float doorSpeed;
+    [SerializeField] private float doorDistance;
+    [SerializeField] private float closeDoorsAfterTime;
 
     private AudioSource openDoor;
     [SerializeField] private Vector3 doorLeftMovement = Vector3.forward;
@@ -15,11 +15,18 @@ public class DoorInteract : MonoBehaviour, IInteract
 
     private Vector3 doorLeftPosOpen, doorRightPosOpen;
     private Vector3 doorLeftClosed, doorRightClosed;
+
     private bool isOpen = false;
+    private bool isMoving = false;
+
+    private float closeDelayInitial;
+    private float closeTimer;
+
     private void Awake()
     {
         openDoor = GetComponent<AudioSource>();
     }
+
     void Start()
     {
         doorLeftClosed = doorLeft.position;
@@ -27,6 +34,9 @@ public class DoorInteract : MonoBehaviour, IInteract
 
         doorLeftPosOpen = doorLeftClosed + doorLeftMovement * doorDistance;
         doorRightPosOpen = doorRightClosed + doorRightMovement * doorDistance;
+
+        closeDelayInitial = closeDoorsAfterTime;
+        closeTimer = closeDelayInitial;
     }
 
     public string GetInteractText()
@@ -36,32 +46,41 @@ public class DoorInteract : MonoBehaviour, IInteract
 
     public void Interact()
     {
-        ToggleDoors();  
+        if (isMoving || isOpen) return;
+
+        OpenDoors();
     }
 
-    private void ToggleDoors()
+    private void OpenDoors()
     {
         StopAllCoroutines();
-
-            StartCoroutine(MoveDoors(isOpen ? doorLeftClosed : doorLeftPosOpen, isOpen ? doorRightClosed : doorRightPosOpen));
-        isOpen = !isOpen;
+        StartCoroutine(MoveDoors(doorLeftPosOpen, doorRightPosOpen, true));
     }
+
+    private void CloseDoors()
+    {
+        if (isMoving || !isOpen) return;
+        StopAllCoroutines();
+        StartCoroutine(MoveDoors(doorLeftClosed, doorRightClosed, false));
+    }
+
     private void Update()
     {
-        if (isOpen)
+        if (isOpen && !isMoving)
         {
-            closeDoorsAfterTime -= Time.deltaTime;
-            if (closeDoorsAfterTime <= 0)
+            closeTimer -= Time.deltaTime;
+            if (closeTimer <= 0f)
             {
-                ToggleDoors();
-                closeDoorsAfterTime = 3f; 
+                CloseDoors();
             }
         }
     }
 
-    private IEnumerator MoveDoors(Vector3 leftTarget, Vector3 rightTarget)
+    private IEnumerator MoveDoors(Vector3 leftTarget, Vector3 rightTarget, bool resultIsOpen)
     {
-        openDoor.Play();
+        isMoving = true;
+        if (openDoor) openDoor.Play();
+
         while (Vector3.Distance(doorLeft.position, leftTarget) > 0.01f || Vector3.Distance(doorRight.position, rightTarget) > 0.01f)
         {
             doorLeft.position = Vector3.Lerp(doorLeft.position, leftTarget, Time.deltaTime * doorSpeed);
@@ -71,5 +90,13 @@ public class DoorInteract : MonoBehaviour, IInteract
 
         doorLeft.position = leftTarget;
         doorRight.position = rightTarget;
+
+        isOpen = resultIsOpen;
+        isMoving = false;
+
+        if (isOpen)
+        {
+            closeTimer = closeDelayInitial;
+        }
     }
 }
