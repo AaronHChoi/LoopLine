@@ -23,7 +23,7 @@ public class InsideMindPlace : MonoBehaviour
     private void Start()
     {
         if (volumeInsideMindPlace)
-            volumeInsideMindPlace.weight = 1f;
+            volumeInsideMindPlace.weight = 0f;
 
         if (mainCamera)
         {
