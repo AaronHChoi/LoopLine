@@ -1,4 +1,6 @@
 using System.Collections;
+using DependencyInjection;
+using Player;
 using TMPro;
 using UnityEngine;
 
@@ -14,7 +16,13 @@ public class DialogueUI2 : MonoBehaviour
     private bool isTyping = false;
     private string fullText;
     private DialogueSpeaker2 currentSpeaker;
+    Coroutine typingCoroutine;
 
+    IPlayerStateController playerStateController;
+    private void Awake()
+    {
+        playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
+    }
     private void Start()
     {
         HideDialogue();
@@ -22,35 +30,57 @@ public class DialogueUI2 : MonoBehaviour
 
     private void Update()
     {
-        if (dialoguePanel.activeSelf && Input.GetKeyDown(KeyCode.E))
-        {
-            if (isTyping && skipTypingOnClick)
-            {
-                CompleteTyping();
-            }
-        }
-
         if (continueIndicator != null)
         {
             continueIndicator.SetActive(dialoguePanel.activeSelf && !isTyping);
         }
     }
-
+    private void OnEnable()
+    {
+        if(playerStateController != null)
+        {
+            playerStateController.OnDialogueNext += HandleInteraction;
+        }
+    }
+    private void OnDisable()
+    {
+        if (playerStateController != null)
+        {
+            playerStateController.OnDialogueNext -= HandleInteraction;
+        }
+    }
+    private void HandleInteraction()
+    {
+        if (isTyping)
+        {
+            CompleteTyping();
+        }
+        else
+        {
+            currentSpeaker?.ShowNextDialogue();
+        }
+    }
     public void DisplayDialogue(DialogueSO2 data, DialogueSpeaker2 speaker = null)
     {
+        playerStateController.ChangeState(playerStateController.DialogueState);
         dialoguePanel.SetActive(true);
         currentSpeaker = speaker;
 
         fullText = data.dialogueText;
-        StartCoroutine(TypeText());
+        typingCoroutine = StartCoroutine(TypeText());
     }
-
     public void HideDialogue()
     {
-        StopAllCoroutines();
+        if(typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+            typingCoroutine = null;
+        }
+
         dialoguePanel.SetActive(false);
         isTyping = false;
         currentSpeaker = null;
+        playerStateController.ChangeState(playerStateController.NormalState);
     }
     private void CompleteTyping()
     {
@@ -68,8 +98,8 @@ public class DialogueUI2 : MonoBehaviour
             dialogueText.text += c;
             yield return new WaitForSeconds(typingSpeed);
         }
-
         isTyping = false;
+        typingCoroutine = null;
     }
     public bool IsTyping()
     {

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DependencyInjection;
+using Player;
 using UnityEngine;
 
 [Serializable]
@@ -9,56 +11,30 @@ public class DialogueGroup
     public Events eventType;
     public List<DialogueSO2> dialogues = new List<DialogueSO2>();
 }
-public class DialogueSpeaker2 : MonoBehaviour
+public class DialogueSpeaker2 : MonoBehaviour, IInteract
 {
     [SerializeField] private List<DialogueGroup> dialogueGroups = new List<DialogueGroup>();
 
-    [SerializeField] private Events currentEvent = Events.BreakCrystal;
+    [SerializeField] private Events currentEvent = Events.Test;
 
     [SerializeField] private KeyCode interactKey = KeyCode.E;
     [SerializeField] private float interactionDistance = 3f;
     [SerializeField] private bool autoAdvance = false;
 
-    private Transform player;
-    private bool playerInRange = false;
     private List<DialogueSO2> currentDialogues = new List<DialogueSO2>();
     private int currentDialogueIndex = 0;
     private bool isShowingDialogue = false;
 
+    string interactText;
+
+    IPlayerStateController playerStateController;
+    private void Awake()
+    {
+        playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();   
+    }
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player")?.transform;
         LoadDialoguesForCurrentEvent();
-    }
-
-    private void Update()
-    {
-        CheckPlayerDistance();
-
-        if (playerInRange && Input.GetKeyDown(interactKey))
-        {
-            if (!isShowingDialogue)
-            {
-                StartDialogueSequence();
-            }
-            else
-            {
-                ShowNextDialogue();
-            }
-        }
-    }
-
-    private void CheckPlayerDistance()
-    {
-        if (player == null) return;
-
-        float distance = Vector3.Distance(transform.position, player.position);
-        playerInRange = distance <= interactionDistance;
-
-        if (!playerInRange && isShowingDialogue)
-        {
-            EndDialogueSequence();
-        }
     }
     private void LoadDialoguesForCurrentEvent()
     {
@@ -92,7 +68,7 @@ public class DialogueSpeaker2 : MonoBehaviour
         if (currentDialogueIndex < currentDialogues.Count)
         {
             DialogueSO2 dialogue = currentDialogues[currentDialogueIndex];
-            DialogueManager2.Instance.ShowDialogue(dialogue);
+            DialogueManager2.Instance.ShowDialogue(dialogue, this);
 
             if (autoAdvance)
             {
@@ -136,18 +112,26 @@ public class DialogueSpeaker2 : MonoBehaviour
         SetCurrentEvent(eventType);
         StartDialogueSequence();
     }
-    public DialogueSO2 GetDialogueById(string id)
+    //public DialogueSO2 GetDialogueById(string id)
+    //{
+    //    foreach (var group in dialogueGroups)
+    //    {
+    //        DialogueSO2 found = group.dialogues.FirstOrDefault(d => d.dialogueId == id);
+    //        if (found != null) return found;
+    //    }
+    //    return null;
+    //}
+    public void Interact()
     {
-        foreach (var group in dialogueGroups)
+        if (!isShowingDialogue && playerStateController.IsInState(playerStateController.NormalState))
         {
-            DialogueSO2 found = group.dialogues.FirstOrDefault(d => d.dialogueId == id);
-            if (found != null) return found;
+            StartDialogueSequence();
         }
-        return null;
     }
-    private void OnDrawGizmosSelected()
+    public string GetInteractText()
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, interactionDistance);
+        if (interactText == null) return interactText = "";
+
+        return interactText;
     }
 }
