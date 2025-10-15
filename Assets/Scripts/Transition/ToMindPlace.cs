@@ -30,7 +30,7 @@ public class ToMindPlace : MonoBehaviour
     private void Start()
     {
         if (volumeExplosion)
-            volumeExplosion.weight = 1f;
+            volumeExplosion.weight = 0f;
 
         if (mainCamera)
         {
