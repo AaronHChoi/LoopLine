@@ -11,7 +11,6 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerInputHandler
     InputAction takePhotoAction;
     InputAction interact;
     InputAction passDialog;
-    //InputAction skipDialogue;
     InputAction openInventory;
     InputAction developmentMode;
     InputAction focusMode;
@@ -30,7 +29,6 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerInputHandler
         takePhotoAction = playerInput.actions["TakePhoto"];
         interact = playerInput.actions["Interact1"];
         passDialog = playerInput.actions["PassDialog"];
-        //skipDialogue = playerInput.actions["SkipDialogueTyping"];
         openInventory = playerInput.actions["OpenInventory"];
         developmentMode = playerInput.actions["DevelopmentMode"];
         focusMode = playerInput.actions["FocusMode"];
@@ -58,10 +56,6 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerInputHandler
     {
         return passDialog.WasPerformedThisFrame();
     }
-    //public bool SkipDialogueTyping()
-    //{
-    //    return skipDialogue.WasPerformedThisFrame();
-    //}
     public bool FocusModePressed()
     {
         return focusMode.WasPerformedThisFrame();

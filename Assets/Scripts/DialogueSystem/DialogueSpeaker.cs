@@ -202,7 +202,6 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
     {
         if (AvailableDialogs == null || AvailableDialogs.Count == 0)
         {
-            //uiManager.ShowUIText("No hay dialogos disponibles");
             StartCoroutine(ExecuteAfterDelay());
         }
         else

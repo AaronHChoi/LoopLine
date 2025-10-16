@@ -29,6 +29,7 @@ namespace DependencyInjection
             provider.ManagerContainer.RegisterServices(this);
             provider.UIContainer.RegisterServices(this);
             provider.PhotoContainer.RegisterServices(this);
+            provider.DialogueContainer.RegisterServices(this);
         }
         public void Register<T>(Func<T> factory)
         {
