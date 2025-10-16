@@ -5,7 +5,7 @@ public class NPCDialogueManager : MonoBehaviour
 {
     public static NPCDialogueManager Instance { get; private set; }
 
-    private Dictionary<string, NPCDialogueSpeaker> npcSpeakers = new Dictionary<string, NPCDialogueSpeaker>();
+    private Dictionary<NPCType, NPCDialogueSpeaker> npcSpeakers = new Dictionary<NPCType, NPCDialogueSpeaker>();
 
     private void Awake()
     {
@@ -18,28 +18,28 @@ public class NPCDialogueManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public void RegisterNPC(string npcId, NPCDialogueSpeaker speaker)
+    public void RegisterNPC(NPCType npcType, NPCDialogueSpeaker speaker)
     {
-        if (!npcSpeakers.ContainsKey(npcId))
+        if (!npcSpeakers.ContainsKey(npcType))
         {
-            npcSpeakers.Add(npcId, speaker);
-            Debug.Log($"Registered NPC: {npcId}");
+            npcSpeakers.Add(npcType, speaker);
+            Debug.Log($"Registered NPC: {npcType}");
         }
         else
         {
-            Debug.LogWarning($"NPC with ID {npcId} is already registered");
+            Debug.LogWarning($"NPC with ID {npcType} is already registered");
         }
     }
-    public void UnregisterNPC(string npcId)
+    public void UnregisterNPC(NPCType npcType)
     {
-        if (npcSpeakers.ContainsKey(npcId))
+        if (npcSpeakers.ContainsKey(npcType))
         {
-            npcSpeakers.Remove(npcId);
+            npcSpeakers.Remove(npcType);
         }
     }
-    public void HandleEventChange(string targetNPC, Events newEvent)
+    public void HandleEventChange(NPCType targetNPC, Events newEvent)
     {
-        if (targetNPC == "ALL")
+        if (targetNPC == NPCType.None)
         {
             foreach (var speaker in npcSpeakers.Values)
             {

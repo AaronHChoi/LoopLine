@@ -2,25 +2,38 @@ using UnityEngine;
 
 public class NPCDialogueSpeaker : DialogueSpeakerBase, IInteract
 { 
-    string interactText;
+    [SerializeField] string interactText;
+
     protected override void Awake()
     {
         base.Awake();
+    }
+    protected override void Start()
+    {
+        base.Start();
 
-        if (!string.IsNullOrEmpty(id))
+        if (npcType != NPCType.None)
         {
-            NPCDialogueManager.Instance?.RegisterNPC(id, this);
+            if (NPCDialogueManager.Instance != null)
+            {
+                NPCDialogueManager.Instance.RegisterNPC(npcType, this);
+                Debug.Log($"Registered NPC: {npcType}");
+            }
+            else
+            {
+                Debug.LogError($"NPCDialogueManager.Instance is null for NPC: {npcType}");
+            }
         }
         else
         {
-            Debug.LogWarning($"NPC {gameObject.name} has no id assigned", gameObject);
+            Debug.LogWarning($"NPC {gameObject.name} has no NPCType assigned", gameObject);
         }
     }
     protected void OnDestroy()
     {
-        if (!string.IsNullOrEmpty(id))
+        if (npcType != NPCType.None)
         {
-            NPCDialogueManager.Instance?.UnregisterNPC(id);
+            NPCDialogueManager.Instance?.UnregisterNPC(npcType);
         }
     }
     public string GetInteractText()

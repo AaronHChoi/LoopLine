@@ -15,7 +15,7 @@ public abstract class DialogueSpeakerBase : MonoBehaviour
 {
     [SerializeField] protected List<DialogueGroup> dialogueGroups = new List<DialogueGroup>();
     [SerializeField] protected Events currentEvent = Events.Test;
-    [SerializeField] protected string id;
+    [SerializeField] protected NPCType npcType = NPCType.Test;
 
     [SerializeField] protected bool autoAdvance = false;
 
@@ -24,6 +24,8 @@ public abstract class DialogueSpeakerBase : MonoBehaviour
     protected bool isShowingDialogue = false;
 
     protected IPlayerStateController playerStateController;
+
+    public NPCType NPCType => npcType;
 
     protected virtual void Awake()
     {
@@ -104,9 +106,9 @@ public abstract class DialogueSpeakerBase : MonoBehaviour
         SetCurrentEvent(eventType);
         StartDialogueSequence();
     }
-    public virtual void HandleEventChange(string targetNPC, Events newEvent)
+    public virtual void HandleEventChange(NPCType targetNPC, Events newEvent)
     {
-        if(targetNPC == id || targetNPC == "ALL")
+        if(targetNPC == npcType || targetNPC == NPCType.None) // None = "ALL"
         {
             SetCurrentEvent(newEvent);
         }

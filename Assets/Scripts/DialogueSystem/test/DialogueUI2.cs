@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using DependencyInjection;
 using Player;
 using TMPro;
@@ -61,14 +62,42 @@ public class DialogueUI2 : MonoBehaviour
             currentSpeaker?.ShowNextDialogue();
         }
     }
+    private Dictionary<NPCType, string> npcDisplayNames = new Dictionary<NPCType, string>()
+    {
+         { NPCType.None, "None" },
+         { NPCType.Test, "Tester" },
+         { NPCType.CameraGirl, "Cámara Girl" },
+         { NPCType.MysteryBoy, "Mystery Boy" },
+         { NPCType.WorkingMan, "Working Man" },
+         { NPCType.BassGirl, "Bass Girl" }
+    };
     public void DisplayDialogue(DialogueSO2 data, DialogueSpeakerBase speaker = null)
     {
         playerStateController.ChangeState(playerStateController.DialogueState);
         dialoguePanel.SetActive(true);
         currentSpeaker = speaker;
 
-        fullText = data.dialogueText;
+        string npcName = GetNPCName(speaker);
+
+        string baseText = data.IsAMonologue ? ApplyItalicFormat(data.dialogueText) : data.dialogueText;
+        fullText = $"{npcName}{baseText}";
+
         typingCoroutine = StartCoroutine(TypeText());
+    }
+    private string GetNPCName(DialogueSpeakerBase speaker)
+    {
+        if (speaker == null) return "";
+
+        if(npcDisplayNames.TryGetValue(speaker.NPCType, out string displayName))
+        {
+            return $"{displayName}: ";
+        }
+
+        string enumName = speaker.NPCType.ToString();
+        string formattedName = System.Text.RegularExpressions.Regex
+            .Replace(enumName, "([a-z])([A-Z])", "$1 $2");
+
+        return $"{formattedName}: ";
     }
     public void HideDialogue()
     {
@@ -105,6 +134,10 @@ public class DialogueUI2 : MonoBehaviour
         }
         isTyping = false;
         typingCoroutine = null;
+    }
+    private string ApplyItalicFormat(string text)
+    {
+        return $"<i>{text}</i>";
     }
     public bool IsTyping()
     {
