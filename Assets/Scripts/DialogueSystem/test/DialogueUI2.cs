@@ -10,6 +10,7 @@ public class DialogueUI2 : MonoBehaviour
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] GameObject continueIndicator;
+    [SerializeField] private FadeInOutController letterBoxFadeInOut;
 
     [SerializeField] private float typingSpeed = 0.05f;
     [SerializeField] private bool skipTypingOnClick = true;
@@ -22,9 +23,12 @@ public class DialogueUI2 : MonoBehaviour
     Coroutine typingCoroutine;
 
     IPlayerStateController playerStateController;
+    IDialogueManager2 dialogueManager;
+
     private void Awake()
     {
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
+        dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager2>();
     }
     private void Start()
     {
@@ -43,6 +47,8 @@ public class DialogueUI2 : MonoBehaviour
         {
             playerStateController.OnDialogueNext += HandleInteraction;
         }
+        dialogueManager.OnDialogueStarted += OnDialogueStartedHandler;
+        dialogueManager.OnDialogueEnded += OnDialogueEndedHandler;
     }
     private void OnDisable()
     {
@@ -50,6 +56,20 @@ public class DialogueUI2 : MonoBehaviour
         {
             playerStateController.OnDialogueNext -= HandleInteraction;
         }
+        dialogueManager.OnDialogueStarted -= OnDialogueStartedHandler;
+        dialogueManager.OnDialogueEnded -= OnDialogueEndedHandler;
+    }
+    private void OnDialogueStartedHandler()
+    {
+        ShowletterBox(true);
+    }
+    private void OnDialogueEndedHandler()
+    {
+        ShowletterBox(false);
+    }
+    private void ShowletterBox(bool showLetterBox)
+    {
+        letterBoxFadeInOut.ForceFade(showLetterBox);
     }
     private void HandleInteraction()
     {
@@ -73,31 +93,40 @@ public class DialogueUI2 : MonoBehaviour
     };
     public void DisplayDialogue(DialogueSO2 data, DialogueSpeakerBase speaker = null)
     {
-        playerStateController.ChangeState(playerStateController.DialogueState);
+        if (data.IsAMonologue)
+        {
+            playerStateController.ChangeState(playerStateController.MonologueState);
+        }
+        else
+        {
+            playerStateController.ChangeState(playerStateController.DialogueState);
+        }
+
         dialoguePanel.SetActive(true);
         currentSpeaker = speaker;
 
-        string npcName = GetNPCName(speaker);
+        string npcName = GetNPCName(speaker, data.IsAMonologue);
 
         string baseText = data.IsAMonologue ? ApplyItalicFormat(data.dialogueText) : data.dialogueText;
         fullText = $"{npcName}{baseText}";
 
         typingCoroutine = StartCoroutine(TypeText());
     }
-    private string GetNPCName(DialogueSpeakerBase speaker)
+    private string GetNPCName(DialogueSpeakerBase speaker, bool isMonologue = false)
     {
         if (speaker == null) return "";
 
-        if(npcDisplayNames.TryGetValue(speaker.NPCType, out string displayName))
+        string displayName;
+        if(npcDisplayNames.TryGetValue(speaker.NPCType, out displayName))
         {
-            return $"{displayName}: ";
+            return isMonologue ? $"{ApplyItalicFormat(displayName)}: " : $"{displayName}: ";
         }
 
         string enumName = speaker.NPCType.ToString();
         string formattedName = System.Text.RegularExpressions.Regex
             .Replace(enumName, "([a-z])([A-Z])", "$1 $2");
 
-        return $"{formattedName}: ";
+        return isMonologue ? $"{ApplyItalicFormat(formattedName)}: " : $"{formattedName}: ";
     }
     public void HideDialogue()
     {
