@@ -1,8 +1,12 @@
+using System;
 using UnityEngine;
 
-public class DialogueManager2 : MonoBehaviour
+public class DialogueManager2 : MonoBehaviour, IDialogueManager2
 {
     public static DialogueManager2 Instance { get; private set; }
+
+    public event Action OnDialogueStarted;
+    public event Action OnDialogueEnded;
 
     [SerializeField] private DialogueUI2 dialogueUI;
     DialogueSpeakerBase currentSpeaker;
@@ -26,11 +30,13 @@ public class DialogueManager2 : MonoBehaviour
             return;
         }
 
+        OnDialogueStarted?.Invoke();
         currentSpeaker = speaker;
         dialogueUI.DisplayDialogue(data, speaker);
     }
     public void HideDialogue()
     {
+        OnDialogueEnded?.Invoke();
         dialogueUI.HideDialogue();
         currentSpeaker = null;
     }
@@ -38,4 +44,9 @@ public class DialogueManager2 : MonoBehaviour
     {
         return currentSpeaker;  
     }
+}
+public interface IDialogueManager2
+{
+    event Action OnDialogueStarted;
+    event Action OnDialogueEnded;
 }

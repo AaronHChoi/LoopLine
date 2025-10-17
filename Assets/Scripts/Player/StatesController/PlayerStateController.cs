@@ -60,7 +60,7 @@ namespace Player
             FocusModeState = new FocusModeState(this, inputHandler, playerMovement, cinemachinePOVExtension);
             MindPlaceState = new MindPlaceState(this, inputHandler, playerMovement);
             ObjectInHandState = new ObjectInHandState(this, inputHandler, playerMovement, cinemachinePOVExtension);
-            MonologueState = new MonologueState(this, playerMovement, inputHandler);
+            MonologueState = new MonologueState(this, playerMovement, inputHandler, cinemachinePOVExtension);
 
             stateMachine.Initialize(NormalState);
         }
