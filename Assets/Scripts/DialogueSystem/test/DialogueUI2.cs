@@ -86,7 +86,7 @@ public class DialogueUI2 : MonoBehaviour
     {
          { NPCType.None, "None" },
          { NPCType.Test, "Tester" },
-         { NPCType.CameraGirl, "Cámara Girl" },
+         { NPCType.CameraGirl, "Camera Girl" },
          { NPCType.MysteryBoy, "Mystery Boy" },
          { NPCType.WorkingMan, "Working Man" },
          { NPCType.BassGirl, "Bass Girl" }

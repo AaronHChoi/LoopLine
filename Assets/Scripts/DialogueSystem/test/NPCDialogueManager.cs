@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCDialogueManager : MonoBehaviour
+public class NPCDialogueManager : MonoBehaviour, INPCDialogueManager
 {
     public static NPCDialogueManager Instance { get; private set; }
 
@@ -55,4 +55,8 @@ public class NPCDialogueManager : MonoBehaviour
             Debug.LogWarning($"NPC with ID {targetNPC} not found");
         }
     }
+}
+public interface INPCDialogueManager
+{
+    void HandleEventChange(NPCType targetNPC, Events newEvent);
 }

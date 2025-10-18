@@ -15,12 +15,10 @@ public class ItemInteract : MonoBehaviour, IItemGrabInteract
 
     [Header("References")]
     IInventoryUI inventoryUI;
-    IEventDialogueManager eventDialogueManager;
 
     private void Awake()
     {
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
-        eventDialogueManager = InterfaceDependencyInjector.Instance.Resolve<IEventDialogueManager>();
     }
     void Start()
     {
@@ -49,15 +47,9 @@ public class ItemInteract : MonoBehaviour, IItemGrabInteract
                 if (inventoryUI.CheckInventory(this) == false)
                 {
                     inventoryUI.AddInventorySlot(this);
-                }                                
-
-                NotifyItemPicked(id);
+                }
             }
         }
-    }
-    void NotifyItemPicked(string pickedId)
-    {
-        eventDialogueManager.OnItemPicked?.Invoke(pickedId);
     }
     public string GetInteractText()
     {
@@ -65,5 +57,4 @@ public class ItemInteract : MonoBehaviour, IItemGrabInteract
 
         return interactText;
     }
- 
 }
