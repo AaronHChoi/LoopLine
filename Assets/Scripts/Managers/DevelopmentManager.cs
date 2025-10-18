@@ -54,7 +54,7 @@ public class DevelopmentManager : MonoBehaviour
     }
     public void OpenDevelopMode()
     {
-        if (UIPrinciplal != null && !dialogueManager.IsDialogueActive)
+        if (UIPrinciplal != null)
         {
             ToggleUI();
         }

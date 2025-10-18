@@ -33,12 +33,6 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
         StartRotation = transform.rotation.eulerAngles;
         Forward = doorGameObject.transform.forward; //this is because the forward of the door is orienteted to the right if the forwar chages chage this line
     }
-
-    private void Start()
-    {
-        
-    }
-    
     public void OpenDoor(Vector3 UserPosition)
     {
         if (!isOpen)
@@ -52,14 +46,13 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
                 float dot = Vector3.Dot(Forward, (UserPosition - doorGameObject.transform.position).normalized);
                 AnimationCorutine = StartCoroutine(DoRotationOpen(dot));
                 Debug.Log(dot);
-                if (AutoCloseCoroutine != null)
-                    StopCoroutine(AutoCloseCoroutine);
+                //if (AutoCloseCoroutine != null)
+                //    StopCoroutine(AutoCloseCoroutine);
 
-                AutoCloseCoroutine = StartCoroutine(CloseDoorAfterTime(AutoCloseDelay));
+                //AutoCloseCoroutine = StartCoroutine(CloseDoorAfterTime(AutoCloseDelay));
             }
         }
     }
-
     public void CloseDoor()
     {
         if (isOpen)
@@ -82,13 +75,15 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
             OpenDoor(playerPosition);
             Debug.Log(playerPosition);
         }
+        else
+        {
+            CloseDoor();
+        }
     }
-        
     public string GetInteractText()
     {
         return doorText;
     }
-
     private IEnumerator DoRotationOpen(float ForwardAmount)
     {
         Quaternion startRotation = doorGameObject.transform.rotation;
@@ -113,7 +108,6 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
             time += Time.deltaTime * Speed;
         }
     }
-
     private IEnumerator DoRotationClose()
     {
         Quaternion startRotation = doorGameObject.transform.rotation;
@@ -129,7 +123,6 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
             time += Time.deltaTime * Speed;
         }
     }
-
     private IEnumerator CloseDoorAfterTime(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -139,5 +132,4 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
             CloseDoor();
         }
     }
-
 }

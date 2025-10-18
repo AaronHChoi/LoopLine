@@ -16,7 +16,6 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
     [SerializeField] Transform headTarget;
     [SerializeField] string id;
 
-    IEventDialogueManager eventDialogueManager;
     IUIManager uiManager;
     IDialogueManager dialogueManager;
     IPlayerController playerController;
@@ -43,7 +42,6 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
         dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
         playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
-        eventDialogueManager = InterfaceDependencyInjector.Instance.Resolve<IEventDialogueManager>();
     }
     private void Start()
     {
@@ -62,16 +60,6 @@ public class DialogueSpeaker : MonoBehaviour, IInteract, IObserver
         {
             TriggerEventDialogue(_event);
         }
-    }
-    private void OnEnable()
-    {
-        if (eventDialogueManager != null)
-            eventDialogueManager.AddObserver(this);
-    }
-    private void OnDisable()
-    {
-        if (eventDialogueManager != null)
-            eventDialogueManager.RemoveObserver(this);
     }
     #endregion
     public void TriggerEventDialogue(Events triggeredEvent)
