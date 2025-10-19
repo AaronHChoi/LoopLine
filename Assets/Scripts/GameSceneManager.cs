@@ -9,8 +9,8 @@ public class GameSceneManager : MonoBehaviour, IGameSceneManager
     [SerializeField] private List<WeightScene> weightedScenes = new List<WeightScene>();
 
     [Header("Active Scenes")]
-    private List<string> activeScenes = new List<string>();
-    private List <string> constantActiveScenes = new List<string>();
+    [SerializeField] private List<string> activeScenes = new List<string>();
+    [SerializeField] private List <string> constantActiveScenes = new List<string>();
  
     IDialogueManager dialogueManager;
     private void Awake()

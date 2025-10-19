@@ -1,8 +1,16 @@
+using DependencyInjection;
 using UnityEngine;
 
 public class TeleportLoop : MonoBehaviour
 {
     public Transform TeleportZoneObject;
+
+    IGameSceneManager gameSceneManager;
+
+    private void Awake()
+    {
+        gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -16,6 +24,9 @@ public class TeleportLoop : MonoBehaviour
 
             if(cc != null)
             {
+                gameSceneManager.UnloadLastScene();
+                gameSceneManager.LoadRandomScene();
+
                 cc.enabled = false;
 
                 other.transform.position = TeleportZoneObject.TransformPoint(localOffset);
