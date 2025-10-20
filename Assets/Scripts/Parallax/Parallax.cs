@@ -37,7 +37,6 @@ public class Parallax : MonoBehaviour, IObserver
     {
         eventManager = InterfaceDependencyInjector.Instance.Resolve<IEventManager>();
     }
-
     public void OnNotify(Events _event, string _id = null)
     {
         if (_event == Events.StopTrain)
@@ -133,7 +132,6 @@ public class Parallax : MonoBehaviour, IObserver
         layers.RemoveAt(index);
         layers.Add(layer);
     }
-    
     private float UpdateSpeedMultiplier(float _a, float _b, float _timer, float _duration)
     {
         speedMultiplier = Mathf.Lerp(_a, _b, _timer / _duration);
@@ -143,7 +141,6 @@ public class Parallax : MonoBehaviour, IObserver
     {
         speedMultiplier = multipler;
     }
-
     public string GetObserverID()
     {
         return Id;
