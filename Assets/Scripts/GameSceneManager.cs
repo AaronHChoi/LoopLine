@@ -1,4 +1,3 @@
-using DependencyInjection;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,12 +11,6 @@ public class GameSceneManager : MonoBehaviour, IGameSceneManager
     [SerializeField] private List<string> activeScenes = new List<string>();
     [SerializeField] private List <string> constantActiveScenes = new List<string>();
  
-    IDialogueManager dialogueManager;
-    private void Awake()
-    {
-        dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
-    }
-
     private void Start()
     {     
         foreach (var sceneName in constantActiveScenes)
@@ -28,29 +21,19 @@ public class GameSceneManager : MonoBehaviour, IGameSceneManager
             }
         }
     }
-
     public void LoadRandomScene()
     {
         string selectedScene = GetRandomSceneByWeight();
         StartCoroutine(LoadSceneAsync(selectedScene));
     }
-
     public void LoadNextScene(string _sceneName)
     {
-        if(_sceneName == "05. MindPlace")
-        {
-            GameManager.Instance.TrainLoop++;
-            dialogueManager.ResetAllDialogues();
-            dialogueManager.UnlockFirstDialogues();
-        }
         SceneManager.LoadScene(_sceneName);
     }
     public bool IsCurrentScene(string _sceneName)
     {
         return SceneManager.GetActiveScene().name == _sceneName;
     }
-
-
     private string GetRandomSceneByWeight()
     {
         float totalWeight = 0f;
@@ -69,7 +52,6 @@ public class GameSceneManager : MonoBehaviour, IGameSceneManager
 
         return weightedScenes[0].sceneName;
     }
-
     private IEnumerator LoadSceneAsync(string sceneName)
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
@@ -78,7 +60,6 @@ public class GameSceneManager : MonoBehaviour, IGameSceneManager
 
         activeScenes.Add(sceneName);
     }
-
     public void UnloadLastScene()
     {
         if (activeScenes.Count == 0)
@@ -89,7 +70,6 @@ public class GameSceneManager : MonoBehaviour, IGameSceneManager
         string lastScene = activeScenes[activeScenes.Count - 1];
         StartCoroutine(UnloadSceneAsync(lastScene));
     }
-
     private IEnumerator UnloadSceneAsync(string sceneName)
     {
         AsyncOperation asyncUnload = SceneManager.UnloadSceneAsync(sceneName);
@@ -99,7 +79,6 @@ public class GameSceneManager : MonoBehaviour, IGameSceneManager
         activeScenes.Remove(sceneName);
     }
 }
-
 public interface IGameSceneManager
 {
     bool IsCurrentScene(string _sceneName);

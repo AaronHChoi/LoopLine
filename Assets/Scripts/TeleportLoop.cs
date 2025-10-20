@@ -11,7 +11,6 @@ public class TeleportLoop : MonoBehaviour
     {
         gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -24,8 +23,9 @@ public class TeleportLoop : MonoBehaviour
 
             if(cc != null)
             {
-                gameSceneManager.UnloadLastScene();
-                gameSceneManager.LoadRandomScene();
+                //Comment until add additive scenes
+                //gameSceneManager.UnloadLastScene();
+                //gameSceneManager.LoadRandomScene();
 
                 cc.enabled = false;
 
