@@ -10,7 +10,6 @@ public class DoorInteract : MonoBehaviour, IInteract
     [SerializeField] private float doorDistance;
     [SerializeField] private float closeDoorsAfterTime;
 
-    private AudioSource openDoor;
     [SerializeField] private Vector3 doorLeftMovement = Vector3.forward;
     [SerializeField] private Vector3 doorRightMovement = Vector3.back;
 
@@ -22,10 +21,12 @@ public class DoorInteract : MonoBehaviour, IInteract
     private float closeDelayInitial;
     private float closeTimer;
 
-    private void Awake()
-    {
-        openDoor = GetComponent<AudioSource>();
-    }
+    [SerializeField] SoundData openDoorSound;
+
+    [SerializeField] Animator doorLeftAnimator;
+    [SerializeField] Animator doorRightAnimator;
+    string openTrigger = "Open";
+    string closeTrigger = "Close";
 
     void Start()
     {
@@ -44,28 +45,24 @@ public class DoorInteract : MonoBehaviour, IInteract
         closeDelayInitial = closeDoorsAfterTime;
         closeTimer = closeDelayInitial;
     }
-
     public string GetInteractText() => doorText;
-
     public void Interact()
     {
         if (isMoving || isOpen) return;
         OpenDoors();
     }
-
     private void OpenDoors()
     {
         StopAllCoroutines();
+        closeTimer = closeDelayInitial;
         StartCoroutine(MoveDoors(true));
     }
-
     private void CloseDoors()
     {
         if (isMoving || !isOpen) return;
         StopAllCoroutines();
         StartCoroutine(MoveDoors(false));
     }
-
     private void Update()
     {
         if (isOpen && !isMoving)
@@ -75,11 +72,17 @@ public class DoorInteract : MonoBehaviour, IInteract
                 CloseDoors();
         }
     }
-
     private IEnumerator MoveDoors(bool opening)
     {
         isMoving = true;
-        if (openDoor) openDoor.Play();
+
+        SoundManager.Instance.PlayQuickSound(openDoorSound);
+
+        if (doorLeftAnimator != null)
+            doorLeftAnimator.SetTrigger(opening ? openTrigger : closeTrigger);
+
+        if (doorRightAnimator != null)
+            doorRightAnimator.SetTrigger(opening ? openTrigger : closeTrigger);
 
         Vector3 leftTarget = opening ? doorLeftPosOpen : doorLeftClosed;
         Vector3 rightTarget = opening ? doorRightPosOpen : doorRightClosed;

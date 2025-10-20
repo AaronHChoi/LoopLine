@@ -13,8 +13,6 @@ public class SoundManager : MonoBehaviour
     [SerializeField] int defaultCapacity = 10;
     [SerializeField] int maxPoolSize = 100;
 
-
-
     IObjectPool<SoundEmitter> soundEmitterPool;
     readonly List<SoundEmitter> activeSoundEmitters = new();
 
@@ -40,7 +38,6 @@ public class SoundManager : MonoBehaviour
             ReturnToPool(activeSoundEmitters[i]);
         }
     }
-
     public SoundBuilder CreateSound() => new SoundBuilder(this);
     public SoundEmitter Get()
     {
@@ -50,7 +47,6 @@ public class SoundManager : MonoBehaviour
     {
         soundEmitterPool.Release(soundEmitter);
     }
-
     private void InitializePool()
     {
         soundEmitterPool = new ObjectPool<SoundEmitter>(
@@ -84,7 +80,6 @@ public class SoundManager : MonoBehaviour
     {
         Destroy(soundEmitter.gameObject);
     }
-
     public void AfterFirstInteraction(string _name)
     {
         throw new System.NotImplementedException();
