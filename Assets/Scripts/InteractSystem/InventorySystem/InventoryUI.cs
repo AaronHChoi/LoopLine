@@ -113,7 +113,7 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
     #endregion
     private void OpenInventory()
     {
-        if (!dialogueManager.IsDialogueActive && inventorySlots.Count != 0 && !isInventoryOpen)
+        if (/*!dialogueManager.IsDialogueActive &&*/ inventorySlots.Count != 0 && !isInventoryOpen)
         {
             ShowInventory();
             MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
