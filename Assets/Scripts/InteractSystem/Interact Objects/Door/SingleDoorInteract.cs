@@ -29,7 +29,6 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     private void Awake()
     {
         playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
-        doorGameObject = transform.parent.gameObject;
         StartRotation = transform.rotation.eulerAngles;
         Forward = doorGameObject.transform.forward; //this is because the forward of the door is orienteted to the right if the forwar chages chage this line
     }
