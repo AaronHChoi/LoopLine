@@ -28,17 +28,16 @@ public class TimeManager : MonoBehaviour, ITimeProvider
     }
     private void Update()
     { 
-        if (changeLoopTime && loopTime >= 5f)
-        {
-            LoopTime = 5f;
+        //if (changeLoopTime && loopTime >= 5f)
+        //{
+        //    LoopTime = 5f;
 
-            ChangeLoopTime = false;
-        }
-        if (!IsTimePaused && gameSceneManager.IsCurrentScene("04. Train"))
-        {
-            AdvanceTime();
-        }
-        
+        //    ChangeLoopTime = false;
+        //}
+        //if (!IsTimePaused && gameSceneManager.IsCurrentScene("04. Train"))
+        //{
+        //    AdvanceTime();
+        //}
     }
     public void ResetLoopTime()
     {

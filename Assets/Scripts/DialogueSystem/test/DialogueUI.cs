@@ -155,10 +155,22 @@ public class DialogueUI : MonoBehaviour
         var soundInstance = SoundManager.Instance.CreateSound()
             .WithSoundData(typeSound);
 
-        foreach (char c in fullText)
+        int i = 0;
+        while (i < fullText.Length)
         {
-            dialogueText.text += c;
-            soundInstance.Play();
+            if (fullText[i] == '<')
+            {
+                int tagEnd = fullText.IndexOf('>', i);
+                if (tagEnd != -1)
+                {
+                    dialogueText.text += fullText.Substring(i, tagEnd - i + 1);
+                    i = tagEnd + 1;
+                    continue;
+                }
+            }
+            dialogueText.text += fullText[i];
+
+            i++;
             yield return new WaitForSeconds(typingSpeed);
         }
         isTyping = false;
