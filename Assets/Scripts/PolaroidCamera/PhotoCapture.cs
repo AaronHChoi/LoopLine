@@ -46,7 +46,6 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
     int photoTaken = 0;
 
     IPlayerStateController playerStateController;
-    IPhotoMarkerManager photoMarkerManager;
     ITogglePhotoDetection photoDetectionZone;
     IPlayerMovement playerMovement;
     IGameSceneManager gameSceneManager;
@@ -59,7 +58,6 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
     {
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
         photoDetectionZone = InterfaceDependencyInjector.Instance.Resolve<ITogglePhotoDetection>();
-        photoMarkerManager = InterfaceDependencyInjector.Instance.Resolve<IPhotoMarkerManager>();
         playerMovement = InterfaceDependencyInjector.Instance.Resolve<IPlayerMovement>();
         gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
         blackRoomManager = InterfaceDependencyInjector.Instance.Resolve<IBlackRoomManager>();
@@ -140,9 +138,6 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
         cameraUI.SetActive(false);
         cameraActive = false;
         viewvingPhoto = true;
-        
-        if (gameSceneManager.IsCurrentScene("04. Trian"))
-            photoMarkerManager.ShowMarker(); 
 
         yield return new WaitForEndOfFrame();
 
@@ -158,7 +153,7 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
 
         string clueId = null;
 
-        if (gameSceneManager.IsCurrentScene("04. Trian"))
+        if (gameSceneManager.IsCurrentScene("04. Train"))
         {
             if (photoDetectionZone.CheckIfAnyClue())
             {
@@ -184,7 +179,6 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
         }            
         photoTaken++;
         UpdatePhotoCounter();
-        photoMarkerManager.HideMarker();    
     }
     void ShowPhoto()
     {
