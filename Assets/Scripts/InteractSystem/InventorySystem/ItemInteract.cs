@@ -33,8 +33,9 @@ public class ItemInteract : MonoBehaviour, IItemGrabInteract
             objectPrefab = gameObject;
         }
     }
-    public void Interact()
+    public bool Interact()
     {
+        bool isGrabbable = false;
         if (gameObject.tag == "Item" && canBePicked)
         {
             if (inventoryUI.ItemInUse == inventoryUI.HandItemUI || inventoryUI.ItemInUse == null)
@@ -49,7 +50,10 @@ public class ItemInteract : MonoBehaviour, IItemGrabInteract
                     inventoryUI.AddInventorySlot(this);
                 }
             }
+            isGrabbable = true;
         }
+
+        return isGrabbable;
     }
     public string GetInteractText()
     {

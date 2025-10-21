@@ -2,6 +2,6 @@ using UnityEngine;
 
 public interface IItemGrabInteract 
 {
-    void Interact();
+    bool Interact();
     string GetInteractText();
 }
