@@ -1078,6 +1078,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TeleportZoneObject: {fileID: 1560672992}
+  doorInteract: {fileID: 969106767}
+  player: {fileID: 1239135392}
 --- !u!65 &231760747
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1461,6 +1463,7 @@ MonoBehaviour:
   closeDoorsAfterTime: 0.01
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
+  connectedDoor: {fileID: 1946914215}
   openDoorSound:
     clip: {fileID: 8300000, guid: 67f80b7e2188da84f8de36e59ea19bb9, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
@@ -1470,6 +1473,7 @@ MonoBehaviour:
     secondsDelay: 0
   doorLeftAnimator: {fileID: 438966383}
   doorRightAnimator: {fileID: 1475412622}
+  tp: {fileID: 485346769}
 --- !u!1 &275840706
 GameObject:
   m_ObjectHideFlags: 0
@@ -2722,6 +2726,7 @@ MonoBehaviour:
   closeDoorsAfterTime: 1
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
+  connectedDoor: {fileID: 0}
   openDoorSound:
     clip: {fileID: 0}
     mixerGroup: {fileID: 0}
@@ -2731,6 +2736,7 @@ MonoBehaviour:
     secondsDelay: 0
   doorLeftAnimator: {fileID: 0}
   doorRightAnimator: {fileID: 0}
+  tp: {fileID: 0}
 --- !u!1 &349358447
 GameObject:
   m_ObjectHideFlags: 0
@@ -3622,6 +3628,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TeleportZoneObject: {fileID: 1473496769}
+  doorInteract: {fileID: 265493939}
+  player: {fileID: 1239135392}
 --- !u!1 &494751394
 GameObject:
   m_ObjectHideFlags: 0
@@ -4866,14 +4874,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cffb4ea323ead147bb0c2dd62e15ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trainSpeed: 20
-  parallaxFactor: 0.5
-  enableLooping: 1
-  resetDistance: 100
-  startPosition: 100
-  addRandomVariation: 0
-  variationAmount: 0.1
-  actualSpeed: 0
 --- !u!1 &682964441
 GameObject:
   m_ObjectHideFlags: 0
@@ -5606,14 +5606,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cffb4ea323ead147bb0c2dd62e15ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trainSpeed: 20
-  parallaxFactor: 0.5
-  enableLooping: 1
-  resetDistance: 100
-  startPosition: 100
-  addRandomVariation: 0
-  variationAmount: 0.1
-  actualSpeed: 0
 --- !u!1 &777267074
 GameObject:
   m_ObjectHideFlags: 0
@@ -6157,6 +6149,10 @@ PrefabInstance:
       propertyPath: slotChangeCooldown
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 2666793908012548134, guid: 02b82f6c457e3c448be87eb43fc898ef, type: 3}
+      propertyPath: inventorySlots.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5052255505947582091, guid: 02b82f6c457e3c448be87eb43fc898ef, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -6462,14 +6458,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cffb4ea323ead147bb0c2dd62e15ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trainSpeed: 20
-  parallaxFactor: 0.5
-  enableLooping: 1
-  resetDistance: 100
-  startPosition: 100
-  addRandomVariation: 0
-  variationAmount: 0.1
-  actualSpeed: 0
 --- !u!1 &837923203
 GameObject:
   m_ObjectHideFlags: 0
@@ -12547,6 +12535,7 @@ MonoBehaviour:
   closeDoorsAfterTime: 0.01
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
+  connectedDoor: {fileID: 2070832424}
   openDoorSound:
     clip: {fileID: 8300000, guid: 67f80b7e2188da84f8de36e59ea19bb9, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
@@ -12556,6 +12545,7 @@ MonoBehaviour:
     secondsDelay: 0
   doorLeftAnimator: {fileID: 866597542}
   doorRightAnimator: {fileID: 1094892068}
+  tp: {fileID: 231760746}
 --- !u!1 &985977824
 GameObject:
   m_ObjectHideFlags: 0
@@ -12861,6 +12851,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2062721427}
     m_Modifications:
+    - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
+      propertyPath: weightedScenes.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
       propertyPath: weightedScenes.Array.data[1].weight
       value: 10
@@ -13344,14 +13338,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cffb4ea323ead147bb0c2dd62e15ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trainSpeed: 20
-  parallaxFactor: 0.5
-  enableLooping: 1
-  resetDistance: 100
-  startPosition: 100
-  addRandomVariation: 0
-  variationAmount: 0.1
-  actualSpeed: 0
 --- !u!1 &1124604827 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3364216233468677732, guid: 002ecf8dc93abc4478e944281e92837b, type: 3}
@@ -13425,14 +13411,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cffb4ea323ead147bb0c2dd62e15ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trainSpeed: 20
-  parallaxFactor: 0.5
-  enableLooping: 1
-  resetDistance: 100
-  startPosition: 100
-  addRandomVariation: 0
-  variationAmount: 0.1
-  actualSpeed: 0
 --- !u!23 &1130426058
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -13560,6 +13538,10 @@ PrefabInstance:
     - target: {fileID: 4539868868090495325, guid: 8cfd8e921ece1ea4c9b7c80cd54521c5, type: 3}
       propertyPath: m_Name
       value: Polaroid
+      objectReference: {fileID: 0}
+    - target: {fileID: 4539868868090495325, guid: 8cfd8e921ece1ea4c9b7c80cd54521c5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14022,14 +14004,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cffb4ea323ead147bb0c2dd62e15ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trainSpeed: 20
-  parallaxFactor: 0.5
-  enableLooping: 1
-  resetDistance: 100
-  startPosition: 100
-  addRandomVariation: 0
-  variationAmount: 0.1
-  actualSpeed: 0
 --- !u!1 &1216786028
 GameObject:
   m_ObjectHideFlags: 0
@@ -14220,6 +14194,7 @@ MonoBehaviour:
   closeDoorsAfterTime: 1
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
+  connectedDoor: {fileID: 0}
   openDoorSound:
     clip: {fileID: 0}
     mixerGroup: {fileID: 0}
@@ -14229,6 +14204,7 @@ MonoBehaviour:
     secondsDelay: 0
   doorLeftAnimator: {fileID: 0}
   doorRightAnimator: {fileID: 0}
+  tp: {fileID: 0}
 --- !u!65 &1238736102
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14250,6 +14226,11 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.8594105, y: 0.65, z: 11.322127}
   m_Center: {x: -1.9297053, y: 0, z: 5.6610637}
+--- !u!1 &1239135392 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1965095351449339405, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+  m_PrefabInstance: {fileID: 910019719}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1244378511
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14445,14 +14426,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cffb4ea323ead147bb0c2dd62e15ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trainSpeed: 20
-  parallaxFactor: 0.5
-  enableLooping: 1
-  resetDistance: 100
-  startPosition: 100
-  addRandomVariation: 0
-  variationAmount: 0.1
-  actualSpeed: 0
 --- !u!1 &1306804163
 GameObject:
   m_ObjectHideFlags: 0
@@ -21903,14 +21876,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cffb4ea323ead147bb0c2dd62e15ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trainSpeed: 20
-  parallaxFactor: 0.5
-  enableLooping: 1
-  resetDistance: 100
-  startPosition: 100
-  addRandomVariation: 0
-  variationAmount: 0.1
-  actualSpeed: 0
 --- !u!23 &1634360172
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -22102,14 +22067,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cffb4ea323ead147bb0c2dd62e15ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trainSpeed: 20
-  parallaxFactor: 0.5
-  enableLooping: 1
-  resetDistance: 100
-  startPosition: 100
-  addRandomVariation: 0
-  variationAmount: 0.1
-  actualSpeed: 0
 --- !u!1 &1655547189
 GameObject:
   m_ObjectHideFlags: 0
@@ -22717,14 +22674,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cffb4ea323ead147bb0c2dd62e15ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trainSpeed: 20
-  parallaxFactor: 0.5
-  enableLooping: 1
-  resetDistance: 100
-  startPosition: 100
-  addRandomVariation: 0
-  variationAmount: 0.1
-  actualSpeed: 0
 --- !u!1 &1784122466
 GameObject:
   m_ObjectHideFlags: 0
@@ -28635,14 +28584,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cffb4ea323ead147bb0c2dd62e15ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trainSpeed: 20
-  parallaxFactor: 0.5
-  enableLooping: 1
-  resetDistance: 100
-  startPosition: 100
-  addRandomVariation: 0
-  variationAmount: 0.1
-  actualSpeed: 0
 --- !u!23 &1917436079
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -29000,6 +28941,7 @@ MonoBehaviour:
   closeDoorsAfterTime: 0.01
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
+  connectedDoor: {fileID: 0}
   openDoorSound:
     clip: {fileID: 8300000, guid: 67f80b7e2188da84f8de36e59ea19bb9, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
@@ -29009,6 +28951,7 @@ MonoBehaviour:
     secondsDelay: 0
   doorLeftAnimator: {fileID: 371790002}
   doorRightAnimator: {fileID: 482640102}
+  tp: {fileID: 0}
 --- !u!1 &1949342183
 GameObject:
   m_ObjectHideFlags: 0
@@ -30036,6 +29979,7 @@ MonoBehaviour:
   closeDoorsAfterTime: 0.01
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
+  connectedDoor: {fileID: 0}
   openDoorSound:
     clip: {fileID: 8300000, guid: 67f80b7e2188da84f8de36e59ea19bb9, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
@@ -30045,6 +29989,7 @@ MonoBehaviour:
     secondsDelay: 0
   doorLeftAnimator: {fileID: 717133264}
   doorRightAnimator: {fileID: 1124604831}
+  tp: {fileID: 0}
 --- !u!1 &2075132567
 GameObject:
   m_ObjectHideFlags: 0
@@ -30511,14 +30456,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cffb4ea323ead147bb0c2dd62e15ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trainSpeed: 20
-  parallaxFactor: 0.5
-  enableLooping: 1
-  resetDistance: 100
-  startPosition: 100
-  addRandomVariation: 0
-  variationAmount: 0.1
-  actualSpeed: 0
 --- !u!23 &2147270975
 MeshRenderer:
   m_ObjectHideFlags: 0

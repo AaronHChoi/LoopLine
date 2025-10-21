@@ -55,7 +55,7 @@ namespace Player
 
             NormalState = new NormalState(this, inputHandler, playerMovement, cinemachinePOVExtension);
             DialogueState = new DialogueState(this, inputHandler, playerMovement, cinemachinePOVExtension);
-            CameraState = new CameraState(this, inputHandler, playerMovement, photoCapture, cinemachinePOVExtension, interaction, togglePhotoDetection, photoMarker, gameSceneManager);
+            CameraState = new CameraState(this, inputHandler, playerMovement, photoCapture, cinemachinePOVExtension, interaction, togglePhotoDetection, gameSceneManager);
             DevelopmentState = new DevelopmentState(this, inputHandler, playerMovement, cinemachinePOVExtension, timeManager);
             FocusModeState = new FocusModeState(this, inputHandler, playerMovement, cinemachinePOVExtension);
             MindPlaceState = new MindPlaceState(this, inputHandler, playerMovement);

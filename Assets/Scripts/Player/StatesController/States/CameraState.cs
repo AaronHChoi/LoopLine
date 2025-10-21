@@ -14,13 +14,12 @@ namespace Player
         IPhotoCapture photo;
         ICameraOrientation playerCamera;
         IPlayerInteractMarkerPrompt interaction;
-        IPhotoMarker photoMarker;
         ITogglePhotoDetection togglePhotoDetection;
         IGameSceneManager gameSceneManager;
         GameObject polaroidItem;
         public CameraState(IPlayerStateController controller, IPlayerInputHandler input, IPlayerMovement movement, 
             IPhotoCapture photo, ICameraOrientation playerCamera, IPlayerInteractMarkerPrompt interaction, 
-            ITogglePhotoDetection togglePhotoDetection, IPhotoMarker photoMarker, IGameSceneManager gameSceneManager)
+            ITogglePhotoDetection togglePhotoDetection, IGameSceneManager gameSceneManager)
         {
             this.controller = controller;
             this.input = input;
@@ -28,7 +27,6 @@ namespace Player
             this.photo = photo;
             this.playerCamera = playerCamera;
             this.interaction = interaction;
-            this.photoMarker = photoMarker;
             this.togglePhotoDetection = togglePhotoDetection;
             this.gameSceneManager = gameSceneManager;
         }
@@ -36,13 +34,16 @@ namespace Player
         {
             interaction.IsDetecting = false;
             movement.CanMove = true;
-            if (gameSceneManager.IsCurrentScene("04. Train")) 
-                photoMarker.SetGameObjectEnable(true);
+
             playerCamera.CanLook = true;
             togglePhotoDetection.ToggleCollider(true);
+
             if (polaroidItem == null)
+            {
                 polaroidItem = GameObject.FindWithTag("PolaroidItem");
+            }
             polaroidItem.SetActive(false);
+
             PolaroidIsActive = true;
             Debug.Log("Entering CameraState");
         }
@@ -64,7 +65,6 @@ namespace Player
         {
             interaction.IsDetecting = true;
             movement.CanMove = false;
-            photoMarker.SetGameObjectEnable(false);
             playerCamera.CanLook = false;
             togglePhotoDetection.ToggleCollider(false);
             polaroidItem.SetActive(true);

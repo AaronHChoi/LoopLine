@@ -13,6 +13,8 @@ public class DoorInteract : MonoBehaviour, IInteract
     [SerializeField] private Vector3 doorLeftMovement = Vector3.forward;
     [SerializeField] private Vector3 doorRightMovement = Vector3.back;
 
+    [SerializeField] DoorInteract connectedDoor;
+
     private Vector3 doorLeftPosOpen, doorRightPosOpen;
     private Vector3 doorLeftClosed, doorRightClosed;
     private bool isOpen;
@@ -27,6 +29,8 @@ public class DoorInteract : MonoBehaviour, IInteract
     [SerializeField] Animator doorRightAnimator;
     string openTrigger = "Open";
     string closeTrigger = "Close";
+
+    [SerializeField] TeleportLoop tp;
 
     void Start()
     {
@@ -49,15 +53,28 @@ public class DoorInteract : MonoBehaviour, IInteract
     public void Interact()
     {
         if (isMoving || isOpen) return;
-        OpenDoors();
+        if(tp != null)
+        {
+            tp.Teleport();
+
+            if(connectedDoor != null)
+            {
+                connectedDoor.OpenDoors();
+            }
+        }
+
+        if(connectedDoor == null)
+        {
+            OpenDoors();
+        }
     }
-    private void OpenDoors()
+    public void OpenDoors()
     {
         StopAllCoroutines();
         closeTimer = closeDelayInitial;
         StartCoroutine(MoveDoors(true));
     }
-    private void CloseDoors()
+    public void CloseDoors()
     {
         if (isMoving || !isOpen) return;
         StopAllCoroutines();

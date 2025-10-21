@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Clock : MonoBehaviour
+public class Clock : MonoBehaviour, IInteract
 {
     public Transform HandHour;
     public Transform HandMinute;
@@ -16,13 +16,11 @@ public class Clock : MonoBehaviour
     private int currentHourIndex = 0;
     private int currentMinuteIndex = 0;
 
+    [SerializeField] Light minuteLight;
+    [SerializeField] Light hourLight;
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            activeMode = !activeMode;
-        }
-
         if (!activeMode) return;
 
         if (Input.GetKeyDown(KeyCode.E))
@@ -38,10 +36,19 @@ public class Clock : MonoBehaviour
         {
             HandMove(1); 
         }
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            Debug.Log(GetClockTime());
+        }
     }
     private void LateUpdate()
     {
         RotationUpdate();
+    }
+    private void ActiveClock()
+    {
+        activeMode = !activeMode;
+        Debug.Log(activeMode);
     }
     void HandMove(int direction)
     {
@@ -63,11 +70,11 @@ public class Clock : MonoBehaviour
     void RotationUpdate()
     {
         float hourAngleTarget = hourAngle[currentHourIndex];
-        Quaternion rotationTargetHour  = Quaternion.Euler(0f, 0f, -hourAngleTarget);
+        Quaternion rotationTargetHour  = Quaternion.Euler(hourAngleTarget, 0f, 0f);
         HandHour.rotation = Quaternion.Lerp(HandHour.rotation, rotationTargetHour, Time.deltaTime * rotationSpeed);
 
         float minuteAngleTarget = minuteAngle[currentMinuteIndex];
-        Quaternion rotationTargetMinute = Quaternion.Euler(0f, 0f, -minuteAngleTarget);
+        Quaternion rotationTargetMinute = Quaternion.Euler(minuteAngleTarget, 0f, 0f);
         HandMinute.rotation = Quaternion.Lerp(HandMinute.rotation, rotationTargetMinute, Time.deltaTime * rotationSpeed);
     }
     public void SetClockTime(int hora, int minuto)
@@ -77,5 +84,20 @@ public class Clock : MonoBehaviour
 
         currentHourIndex = hora;
         currentMinuteIndex = minuto;
+    }
+    public string GetClockTime()
+    {
+        int hour = currentHourIndex;
+        int minute = currentMinuteIndex * 5;
+
+        return $"{hour}:{minute:00}";
+    }
+    public void Interact()
+    {
+        ActiveClock();
+    }
+    public string GetInteractText()
+    {
+        throw new System.NotImplementedException();
     }
 }
