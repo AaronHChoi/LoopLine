@@ -22,10 +22,9 @@ public class TeleportLoop : MonoBehaviour
             CharacterController cc = other.GetComponent<CharacterController>();
 
             if(cc != null)
-            {
-                //Comment until add additive scenes
-                //gameSceneManager.UnloadLastScene();
-                //gameSceneManager.LoadRandomScene();
+            {               
+                gameSceneManager.UnloadLastScene();
+                gameSceneManager.LoadRandomScene();
 
                 cc.enabled = false;
 

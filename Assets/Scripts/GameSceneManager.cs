@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameSceneManager : MonoBehaviour, IGameSceneManager
 {
     [Header("Scene Settings")]
+    [SerializeField] private WeightScene firstScene;
     [SerializeField] private List<WeightScene> weightedScenes = new List<WeightScene>();
 
     [Header("Active Scenes")]
@@ -20,6 +21,8 @@ public class GameSceneManager : MonoBehaviour, IGameSceneManager
                 SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
             }
         }
+
+        StartCoroutine(LoadSceneAsync(firstScene.sceneName));
     }
     public void LoadRandomScene()
     {
