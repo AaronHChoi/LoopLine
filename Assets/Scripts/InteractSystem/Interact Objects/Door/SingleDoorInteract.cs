@@ -29,7 +29,7 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     private void Awake()
     {
         playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
-        StartRotation = transform.rotation.eulerAngles;
+        StartRotation = doorGameObject.transform.rotation.eulerAngles;
         Forward = doorGameObject.transform.forward; //this is because the forward of the door is orienteted to the right if the forwar chages chage this line
     }
     public void OpenDoor(Vector3 UserPosition)
@@ -90,11 +90,11 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
 
         if (ForwardAmount >= ForwardDirection)
         {
-            endRotation = Quaternion.Euler(new Vector3(0, StartRotation.y + RotatingAmount, 0));
+            endRotation = Quaternion.Euler(new Vector3(StartRotation.x, StartRotation.y + RotatingAmount, StartRotation.z));
         }
         else 
         {
-            endRotation = Quaternion.Euler(new Vector3(0, StartRotation.y - RotatingAmount, 0));
+            endRotation = Quaternion.Euler(new Vector3(StartRotation.x, StartRotation.y - RotatingAmount, StartRotation.z));
         }
 
         isOpen = true;
