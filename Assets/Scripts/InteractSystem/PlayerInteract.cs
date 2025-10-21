@@ -2,11 +2,13 @@ using Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DependencyInjection;
+using System.Collections.Generic;
 
 public class PlayerInteract : MonoBehaviour, IPlayerInteract
 {
     [SerializeField] private RaycastController rayController;
     [SerializeField, Range(0f,1f)] private float minScoreAllowed;
+    [SerializeField] List<SoundData> grabSoundData;
 
     IPlayerStateController playerStateController;
     IInventoryUI inventoryUI;
@@ -54,7 +56,12 @@ public class PlayerInteract : MonoBehaviour, IPlayerInteract
                 IItemGrabInteract intemGrabObject = GetItemGrabIteractableObject();
                 if (intemGrabObject != null)
                 {
-                    intemGrabObject.Interact();
+                    if (intemGrabObject.Interact())
+                    {
+                        SoundManager.Instance.CreateSound()
+                            .WithSoundData(grabSoundData[Random.Range(0, grabSoundData.Count)])
+                            .Play();
+                    }
                 }
             }
         

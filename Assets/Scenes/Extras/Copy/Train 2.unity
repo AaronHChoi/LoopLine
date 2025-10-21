@@ -4628,6 +4628,15 @@ MonoBehaviour:
   closeDoorsAfterTime: 5
   doorLeftMovement: {x: 1, y: 0, z: 0}
   doorRightMovement: {x: -1, y: 0, z: 0}
+  openDoorSound:
+    clip: {fileID: 0}
+    mixerGroup: {fileID: 0}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 1
+    secondsDelay: 0
+  doorLeftAnimator: {fileID: 0}
+  doorRightAnimator: {fileID: 0}
 --- !u!65 &453662485
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6391,6 +6400,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab3e0e94674767b4d9ac1e584536ca6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weightedScenes: []
+  activeScenes: []
+  constantActiveScenes: []
 --- !u!4 &641032775
 Transform:
   m_ObjectHideFlags: 0
@@ -28096,6 +28108,15 @@ MonoBehaviour:
   closeDoorsAfterTime: 5
   doorLeftMovement: {x: 1, y: 0, z: 0}
   doorRightMovement: {x: -1, y: 0, z: 0}
+  openDoorSound:
+    clip: {fileID: 0}
+    mixerGroup: {fileID: 0}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 1
+    secondsDelay: 0
+  doorLeftAnimator: {fileID: 0}
+  doorRightAnimator: {fileID: 0}
 --- !u!65 &1767160696
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -37476,6 +37497,46 @@ PrefabInstance:
       propertyPath: crosshairImage
       value: 
       objectReference: {fileID: 240250476}
+    - target: {fileID: 8228458676933299257, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: grabSoundData.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8228458676933299257, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: grabSoundData.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 8af6825e32e5bf2479f00ead4a6b62c9, type: 3}
+    - target: {fileID: 8228458676933299257, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: grabSoundData.Array.data[1].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: c61be29615f16b64fa65f244d8523f29, type: 3}
+    - target: {fileID: 8228458676933299257, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: grabSoundData.Array.data[2].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 58a6261b286374347a8350b63ec0a273, type: 3}
+    - target: {fileID: 8228458676933299257, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: grabSoundData.Array.data[0].volume
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8228458676933299257, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: grabSoundData.Array.data[1].volume
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8228458676933299257, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: grabSoundData.Array.data[2].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8228458676933299257, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: grabSoundData.Array.data[0].mixerGroup
+      value: 
+      objectReference: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
+    - target: {fileID: 8228458676933299257, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: grabSoundData.Array.data[1].mixerGroup
+      value: 
+      objectReference: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
+    - target: {fileID: 8228458676933299257, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: grabSoundData.Array.data[2].mixerGroup
+      value: 
+      objectReference: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -39247,7 +39308,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6927490108564477205, guid: d970789b0e28cbe40bbbb2f4f4ef6ca8, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -5.395172
+      value: -5.3951416
       objectReference: {fileID: 0}
     - target: {fileID: 7254916800634900418, guid: d970789b0e28cbe40bbbb2f4f4ef6ca8, type: 3}
       propertyPath: m_AnchoredPosition.y
