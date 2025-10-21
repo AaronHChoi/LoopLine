@@ -1,0 +1,251 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1959643606194235897
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1135376049464927057}
+  - component: {fileID: 7603601935952042500}
+  - component: {fileID: 6337690105500881750}
+  - component: {fileID: 5222365416130496092}
+  - component: {fileID: 8320718991220843788}
+  m_Layer: 3
+  m_Name: TrainPhotos
+  m_TagString: Item
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &1135376049464927057
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959643606194235897}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.2207687, z: -0, w: 0.9753262}
+  m_LocalPosition: {x: 1.8041065, y: 1.2916222, z: 2.0216055}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 6317573485331399598}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 25.508, z: 0}
+--- !u!65 &7603601935952042500
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959643606194235897}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.5911756, y: 0.041638255, z: 0.45857197}
+  m_Center: {x: -0.0107655525, y: 0.011500776, z: 0.013024763}
+--- !u!114 &6337690105500881750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959643606194235897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd995697258d7d24ca5c1e437dbdc2a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactText: Fotos del tren
+  AvailableDialogs: []
+  dialogueIndex: 0
+  DialogueLocalIndex: 0
+  isDialogueActive: 0
+  NPCInteracted: 0
+  headTarget: {fileID: 0}
+  id: 
+  DialogueEvents: []
+--- !u!114 &5222365416130496092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959643606194235897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58a81b347b9f73d43bda71d317d1412d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactText: 
+  id: 
+  ItemData: {fileID: 11400000, guid: ceaef5b63c08dc541a85b7eeed5e2bd3, type: 2}
+  canBePicked: 0
+  deactivateOnPickup: 1
+  objectPrefab: {fileID: 0}
+--- !u!114 &8320718991220843788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959643606194235897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptMessage: Photos
+  uiOffset: {x: 0, y: 0, z: 0}
+  uiOffsetPrompt: {x: 0, y: 0.15, z: 0}
+--- !u!1001 &5775372710740206661
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1135376049464927057}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: f05ea15649363ee43a75dfb416d35539, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f05ea15649363ee43a75dfb416d35539, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f05ea15649363ee43a75dfb416d35539, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f05ea15649363ee43a75dfb416d35539, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f05ea15649363ee43a75dfb416d35539, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f05ea15649363ee43a75dfb416d35539, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f05ea15649363ee43a75dfb416d35539, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f05ea15649363ee43a75dfb416d35539, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f05ea15649363ee43a75dfb416d35539, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f05ea15649363ee43a75dfb416d35539, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f05ea15649363ee43a75dfb416d35539, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f05ea15649363ee43a75dfb416d35539, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f05ea15649363ee43a75dfb416d35539, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: f05ea15649363ee43a75dfb416d35539, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f05ea15649363ee43a75dfb416d35539, type: 3}
+      propertyPath: m_Name
+      value: fotos
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f05ea15649363ee43a75dfb416d35539, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767400413853537203, guid: f05ea15649363ee43a75dfb416d35539, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5148817236446094103, guid: f05ea15649363ee43a75dfb416d35539, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6507901977716847365, guid: f05ea15649363ee43a75dfb416d35539, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f05ea15649363ee43a75dfb416d35539, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1159014326198333759}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f05ea15649363ee43a75dfb416d35539, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5012945492109328594}
+  m_SourcePrefab: {fileID: 100100000, guid: f05ea15649363ee43a75dfb416d35539, type: 3}
+--- !u!4 &6317573485331399598 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f05ea15649363ee43a75dfb416d35539, type: 3}
+  m_PrefabInstance: {fileID: 5775372710740206661}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6694415236678195476 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f05ea15649363ee43a75dfb416d35539, type: 3}
+  m_PrefabInstance: {fileID: 5775372710740206661}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1159014326198333759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6694415236678195476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58a81b347b9f73d43bda71d317d1412d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactText: 
+  id: TrainPhotos
+  ItemData: {fileID: 11400000, guid: ceaef5b63c08dc541a85b7eeed5e2bd3, type: 2}
+  canBePicked: 0
+  deactivateOnPickup: 1
+  objectPrefab: {fileID: 0}
+--- !u!114 &5012945492109328594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6694415236678195476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptMessage: Photos
+  uiOffset: {x: 0, y: 0, z: 0}
+  uiOffsetPrompt: {x: 0, y: 0, z: 0}
