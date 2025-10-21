@@ -21,7 +21,6 @@ public class GameSceneManager : MonoBehaviour, IGameSceneManager
                 SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
             }
         }
-
         StartCoroutine(LoadSceneAsync(firstScene.sceneName));
     }
     public void LoadRandomScene()
@@ -52,7 +51,6 @@ public class GameSceneManager : MonoBehaviour, IGameSceneManager
             if (randomValue <= current)
                 return scene.sceneName;
         }
-
         return weightedScenes[0].sceneName;
     }
     private IEnumerator LoadSceneAsync(string sceneName)
@@ -69,7 +67,6 @@ public class GameSceneManager : MonoBehaviour, IGameSceneManager
         {           
             return;
         }
-
         string lastScene = activeScenes[activeScenes.Count - 1];
         StartCoroutine(UnloadSceneAsync(lastScene));
     }

@@ -1,14 +1,14 @@
 using System;
 using UnityEngine;
 
-public class DialogueManager2 : MonoBehaviour, IDialogueManager2
+public class DialogueManager : MonoBehaviour, IDialogueManager
 {
-    public static DialogueManager2 Instance { get; private set; }
+    public static DialogueManager Instance { get; private set; }
 
     public event Action OnDialogueStarted;
     public event Action OnDialogueEnded;
 
-    [SerializeField] private DialogueUI2 dialogueUI;
+    [SerializeField] private DialogueUI dialogueUI;
     DialogueSpeakerBase currentSpeaker;
 
     private void Awake()
@@ -45,7 +45,7 @@ public class DialogueManager2 : MonoBehaviour, IDialogueManager2
         return currentSpeaker;  
     }
 }
-public interface IDialogueManager2
+public interface IDialogueManager
 {
     event Action OnDialogueStarted;
     event Action OnDialogueEnded;

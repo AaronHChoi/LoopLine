@@ -3,7 +3,6 @@ using DependencyInjection;
 public class TimeManager : MonoBehaviour, ITimeProvider
 {
     IGameSceneManager gameSceneManager;
-    IDialogueManager dialogueManager;
 
     float loopTime = 360f;
     bool IsTimePaused = false;  
@@ -21,7 +20,6 @@ public class TimeManager : MonoBehaviour, ITimeProvider
     const float DEFAULT_LOOP_TIME = 360f;
     private void Awake()
     {
-        dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
         gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
     }
     private void Start()
@@ -73,7 +71,6 @@ public class TimeManager : MonoBehaviour, ITimeProvider
         {
             ResetLoopTime();
             gameSceneManager.LoadNextScene(GameManager.Instance.nextScene);
-            dialogueManager.ResetAllQuestions();
         }
     }
     public void PauseTime(bool pause) => IsTimePaused = pause;

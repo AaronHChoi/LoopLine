@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DependencyInjection;
 public class EventManager : Subject, IEventManager
@@ -19,8 +18,6 @@ public class EventManager : Subject, IEventManager
     [SerializeField] private float AddTime = 30f;
     [SerializeField] StopButtonInteract stopButtonInteract;
     private Coroutine coroutineDelay;
-
-    [SerializeField] private QuestionSO stopTrainQuestion;
 
     ITimeProvider timeManager;
     IUIManager uiManager;
@@ -54,11 +51,8 @@ public class EventManager : Subject, IEventManager
                     .WithSoundData(trainStopSoundData)
                     .Play();
 
-                dialogueManager.StopAndFinishDialogue();
-
                 stopTrain = true;
 
-                stopTrainQuestion.Options[3].Choosen = false;
             }
         }
     }
@@ -89,8 +83,6 @@ public class EventManager : Subject, IEventManager
                 .WithSoundData(crystalBreakSoundData)
                 .WithSoundPosition(crystalBreakTransform.position)
                 .PlayWithDelay(crystalBreakSoundData);
-
-            dialogueManager.StopAndFinishDialogue();
 
             stopTrain = false;
             brokenWindow = true;

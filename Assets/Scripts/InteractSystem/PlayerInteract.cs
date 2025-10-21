@@ -34,7 +34,6 @@ public class PlayerInteract : MonoBehaviour, IPlayerInteract
             playerStateController.OnGrab -= GrabItem;
         }
     }
-
     private void HandleInteraction()
     {
         if (SceneManager.GetActiveScene().name == "04. Train")
@@ -64,7 +63,6 @@ public class PlayerInteract : MonoBehaviour, IPlayerInteract
                     }
                 }
             }
-        
     }
     private void TryInteract()
     {
@@ -83,14 +81,10 @@ public class PlayerInteract : MonoBehaviour, IPlayerInteract
                 return interactable;
             }
         }
-
         return null;
     }
-
     public IItemGrabInteract GetItemGrabIteractableObject()
     {
-        
-        
             if (inventoryUI.IsInventoryOpen == false && inventoryUI.ItemInUse == inventoryUI.HandItemUI && rayController.FoundInteract && rayController.BestScore > minScoreAllowed)
             {
                 if (rayController.Target.TryGetComponent(out IItemGrabInteract itemGrabInteractable))
@@ -98,12 +92,9 @@ public class PlayerInteract : MonoBehaviour, IPlayerInteract
                     return itemGrabInteractable;
                 }
             }
-        
-
         return null;
     }
 }
-
 public interface IPlayerInteract
 {
     IInteract GetInteractableObject();

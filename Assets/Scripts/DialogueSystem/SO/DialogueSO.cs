@@ -6,7 +6,7 @@ public class DialogueSO : ScriptableObject
     [System.Serializable]
     public struct Line
     {
-        public CharacterSO character;
+        //public CharacterSO character;
         public AudioClip sound;
         [TextArea(3, 5)] 
         public string dialogue;
@@ -17,7 +17,7 @@ public class DialogueSO : ScriptableObject
     public Events events = Events.None;
 
     public Line[] Dialogues;
-    public QuestionSO Questions;
+    //public QuestionSO Questions;
 
     public void ResetValues()
     {

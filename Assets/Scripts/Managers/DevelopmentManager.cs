@@ -21,11 +21,9 @@ public class DevelopmentManager : MonoBehaviour
     IItemManager itemManager;
     IPlayerController playerController;
     IPlayerStateController playerStateController;
-    IDialogueManager dialogueManager;
     ITimeProvider timeManager;
     private void Awake()
     {
-        dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
         timeManager = InterfaceDependencyInjector.Instance.Resolve<ITimeProvider>();
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
         playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
@@ -113,11 +111,6 @@ public class DevelopmentManager : MonoBehaviour
             Cursor.visible = isCursorVisible;
             Cursor.lockState = isCursorVisible ? CursorLockMode.None : CursorLockMode.Locked;
         }
-    }
-    public void ResetDialogues()
-    {
-        dialogueManager.ResetAllDialogues();
-        dialogueManager.UnlockFirstDialogues();
     }
     public void ResetLevel()
     {

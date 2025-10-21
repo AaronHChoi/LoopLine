@@ -8,21 +8,13 @@ public class PlayerController : MonoBehaviour, IPlayerController
 {
     [SerializeField] PlayerModel playerModel;
 
-    private DialogueSpeaker dialogueSpeaker;
-
     IPlayerMovement playerMovement;
 
     public PlayerModel PlayerModel => playerModel;
-    public DialogueSpeaker DialogueSpeaker => dialogueSpeaker;
 
     private void Awake()
     {
         playerMovement = InterfaceDependencyInjector.Instance.Resolve<IPlayerMovement>();
-    }
-
-    private void Start()
-    {
-        dialogueSpeaker = GetComponent<DialogueSpeaker>();
     }
     private void Update()
     {
@@ -44,6 +36,5 @@ public interface IPlayerController
 {
     Transform GetTransform();
     GameObject GetGameObject();
-    public DialogueSpeaker DialogueSpeaker { get; }
     public PlayerModel PlayerModel { get; }
 }

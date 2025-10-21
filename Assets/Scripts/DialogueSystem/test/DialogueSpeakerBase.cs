@@ -67,7 +67,7 @@ public abstract class DialogueSpeakerBase : MonoBehaviour
         if (currentDialogueIndex < currentDialogues.Count)
         {
             DialogueSO2 dialogue = currentDialogues[currentDialogueIndex];
-            DialogueManager2.Instance.ShowDialogue(dialogue, this);
+            DialogueManager.Instance.ShowDialogue(dialogue, this);
         }
         else
         {
@@ -93,7 +93,7 @@ public abstract class DialogueSpeakerBase : MonoBehaviour
     {
         isShowingDialogue = false;
         currentDialogueIndex = 0;
-        DialogueManager2.Instance.HideDialogue();
+        DialogueManager.Instance.HideDialogue();
     }
     public virtual void SetCurrentEvent(Events newEvent)
     {

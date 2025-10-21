@@ -5,7 +5,7 @@ using Player;
 using TMPro;
 using UnityEngine;
 
-public class DialogueUI2 : MonoBehaviour
+public class DialogueUI : MonoBehaviour
 {
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
@@ -23,12 +23,12 @@ public class DialogueUI2 : MonoBehaviour
     Coroutine typingCoroutine;
 
     IPlayerStateController playerStateController;
-    IDialogueManager2 dialogueManager;
+    IDialogueManager dialogueManager;
 
     private void Awake()
     {
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
-        dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager2>();
+        dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
     }
     private void Start()
     {

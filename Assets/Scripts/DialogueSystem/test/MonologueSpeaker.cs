@@ -34,7 +34,7 @@ public class MonologueSpeaker : DialogueSpeakerBase, IMonologueSpeaker
         if (currentDialogueIndex < currentDialogues.Count)
         {
             DialogueSO2 dialogue = currentDialogues[currentDialogueIndex];
-            DialogueManager2.Instance.ShowDialogue(dialogue, this);
+            DialogueManager.Instance.ShowDialogue(dialogue, this);
 
             if (autoAdvance)
             {
