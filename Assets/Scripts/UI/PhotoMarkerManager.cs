@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UI
 {
-    public class PhotoMarkerManager : MonoBehaviour, IPhotoMarkerManager
+    public class PhotoMarkerManager : MonoBehaviour
     {
         [SerializeField] private PhotoMarker marker;
         [Tooltip("Manually assign up to 5 trackable objects here.")]
@@ -41,9 +41,6 @@ namespace UI
 
             marker.SetTarget(closest);
         }
-
-        public void ShowMarker() => marker.Show();
-        public void HideMarker() => marker.Hide();
     }
 
     public interface IPhotoMarkerManager
