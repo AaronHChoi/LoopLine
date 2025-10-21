@@ -1,9 +1,13 @@
 using DependencyInjection;
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class SingleDoorInteract : MonoBehaviour, IInteract
 {
+    public event Action OnDoorOpened;
+    public event Action OnDoorClosed;
+
     public bool isOpen = false;
 
     [SerializeField] private GameObject doorGameObject;
@@ -44,7 +48,6 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
             {
                 float dot = Vector3.Dot(Forward, (UserPosition - doorGameObject.transform.position).normalized);
                 AnimationCorutine = StartCoroutine(DoRotationOpen(dot));
-                Debug.Log(dot);
                 //if (AutoCloseCoroutine != null)
                 //    StopCoroutine(AutoCloseCoroutine);
 
@@ -71,17 +74,32 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
         if (!isOpen)
         {   
             playerPosition = playerController.GetTransform().position;
-            OpenDoor(playerPosition);
-            Debug.Log(playerPosition);
+            StartCoroutine(OpenSequence(playerPosition));
         }
         else
         {
-            CloseDoor();
+            StartCoroutine(CloseSequence());
         }
     }
     public string GetInteractText()
     {
         return doorText;
+    }
+    private IEnumerator OpenSequence(Vector3 userPosition)
+    {
+        OnDoorOpened?.Invoke();
+
+        yield return new WaitForSeconds(0.6f);
+
+        OpenDoor(userPosition);
+    }
+    private IEnumerator CloseSequence()
+    {
+        OnDoorClosed?.Invoke();
+
+        yield return new WaitForSeconds(0.6f);
+
+        CloseDoor();
     }
     private IEnumerator DoRotationOpen(float ForwardAmount)
     {

@@ -50,19 +50,19 @@ public class PlayerInteract : MonoBehaviour, IPlayerInteract
     }
     private void GrabItem()
     {
-            if (inventoryUI.IsInventoryOpen == false && inventoryUI.ItemInUse == inventoryUI.HandItemUI)
+        if (inventoryUI.IsInventoryOpen == false && inventoryUI.ItemInUse == inventoryUI.HandItemUI)
+        {
+            IItemGrabInteract intemGrabObject = GetItemGrabIteractableObject();
+            if (intemGrabObject != null)
             {
-                IItemGrabInteract intemGrabObject = GetItemGrabIteractableObject();
-                if (intemGrabObject != null)
+                if (intemGrabObject.Interact())
                 {
-                    if (intemGrabObject.Interact())
-                    {
-                        SoundManager.Instance.CreateSound()
-                            .WithSoundData(grabSoundData[Random.Range(0, grabSoundData.Count)])
-                            .Play();
-                    }
+                    SoundManager.Instance.CreateSound()
+                        .WithSoundData(grabSoundData[Random.Range(0, grabSoundData.Count)])
+                        .Play();
                 }
             }
+        }
     }
     private void TryInteract()
     {
@@ -85,13 +85,13 @@ public class PlayerInteract : MonoBehaviour, IPlayerInteract
     }
     public IItemGrabInteract GetItemGrabIteractableObject()
     {
-            if (inventoryUI.IsInventoryOpen == false && inventoryUI.ItemInUse == inventoryUI.HandItemUI && rayController.FoundInteract && rayController.BestScore > minScoreAllowed)
+        if (inventoryUI.IsInventoryOpen == false && inventoryUI.ItemInUse == inventoryUI.HandItemUI && rayController.FoundInteract && rayController.BestScore > minScoreAllowed)
+        {
+            if (rayController.Target.TryGetComponent(out IItemGrabInteract itemGrabInteractable))
             {
-                if (rayController.Target.TryGetComponent(out IItemGrabInteract itemGrabInteractable))
-                {
-                    return itemGrabInteractable;
-                }
+                return itemGrabInteractable;
             }
+        }
         return null;
     }
 }
