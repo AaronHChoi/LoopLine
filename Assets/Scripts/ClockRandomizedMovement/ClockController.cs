@@ -10,8 +10,8 @@ namespace ClockRandomizedMovement
         [SerializeField] private Transform secondHand;
 
         [Header("Speed Multiplier Range")]
-        [SerializeField] private float minSpeed = 50f;
-        [SerializeField] private float maxSpeed = 300f;
+        [SerializeField] private float minSpeed = 5f;
+        [SerializeField] private float maxSpeed = 100f;
 
         private float _timeSpeed;
         private float _elapsed;
