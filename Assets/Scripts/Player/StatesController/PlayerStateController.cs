@@ -19,7 +19,7 @@ namespace Player
         public event Action OnFocusMode;
         public event Action OnScrollInventory;
         public event Action OnGrab;
-
+        public event Action OnTeleport;
         StateMachine stateMachine { get; set; }
 
         ITimeProvider timeManager;
@@ -111,6 +111,10 @@ namespace Player
         {
             OnScrollInventory?.Invoke();
         }
+        public void UseEventTeleport()
+        {
+            OnTeleport?.Invoke();
+        }
         #endregion
     }
 
@@ -125,6 +129,7 @@ namespace Player
         public event Action OnFocusMode;
         public event Action OnScrollInventory;
         public event Action OnGrab;
+        public event Action OnTeleport;
         public StateMachine StateMachine { get; }
         bool IsInState(IState state);
         void ChangeState(IState newState);
@@ -135,6 +140,7 @@ namespace Player
         void UseEventDialogueNext();
         void UseEventFocusMode();
         void UseEventGrab();
+        void UseEventTeleport();
         bool CanUseNormalStateExecute { get; set; }
         NormalState NormalState { get;  set; }
         DialogueState DialogueState { get; set; }

@@ -17,6 +17,7 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerInputHandler
     InputAction scrollInventory;
     InputAction grabItem;
     InputAction look;
+    InputAction teleportToMindPlace;
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -35,6 +36,7 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerInputHandler
         scrollInventory = playerInput.actions["ScrollInventory"];
         grabItem = playerInput.actions["GrabItem"];
         look = playerInput.actions["Look"];
+        teleportToMindPlace = playerInput.actions["Teleport"];
     }
     public Vector2 GetInputMove()
     {
@@ -47,6 +49,10 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerInputHandler
     public bool IsSprinting()
     {
         return sprintAction.IsPressed();
+    }
+    public bool TeleportToMindplace()
+    {
+        return teleportToMindPlace.WasPerformedThisFrame();
     }
     public bool InteractPressed()
     {
@@ -99,4 +105,5 @@ public interface IPlayerInputHandler
     bool TakePhotoPressed();
     bool DevelopmentModePressed();
     bool GrabItemPressed();
+    bool TeleportToMindplace();
 }
