@@ -318,6 +318,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 434101787}
+  - component: {fileID: 434101789}
   - component: {fileID: 434101788}
   m_Layer: 3
   m_Name: InteractCollider
@@ -362,6 +363,30 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1.7654665, z: 0.67904663}
   m_Center: {x: 0, y: 1.6180097, z: -0.12131882}
+--- !u!114 &434101789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 434101786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1115c04571bbba4fb19def5dcff0ea7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueGroups:
+  - eventType: 17
+    dialogues:
+    - {fileID: 11400000, guid: df884dd125906a54e963dcaa87baa30d, type: 2}
+    - {fileID: 11400000, guid: 4d31247a6ea778f46ba9a2e7cae9dca7, type: 2}
+    - {fileID: 11400000, guid: 244064813fa99c84785587f98b06e5f1, type: 2}
+    - {fileID: 11400000, guid: f3e04a37f330a4c46a18966b9c1628fb, type: 2}
+    - {fileID: 11400000, guid: 16e93fbbfecc9eb459aba9b42bd0316f, type: 2}
+  currentEvent: 17
+  npcType: 2
+  autoAdvance: 0
+  interactText: 
 --- !u!1 &856138212
 GameObject:
   m_ObjectHideFlags: 0
@@ -781,6 +806,10 @@ PrefabInstance:
     - target: {fileID: 6716321614135629048, guid: 2ed735121a67ddb4eae77e118a4dd73b, type: 3}
       propertyPath: m_Name
       value: HeahphonesGuy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6716321614135629048, guid: 2ed735121a67ddb4eae77e118a4dd73b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1214,6 +1243,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Polaroid
       objectReference: {fileID: 0}
+    - target: {fileID: 4539868868090495325, guid: 8cfd8e921ece1ea4c9b7c80cd54521c5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1477,6 +1510,10 @@ PrefabInstance:
     - target: {fileID: 4629314006113631733, guid: 481cf2347ab5b424baf6d285143f160c, type: 3}
       propertyPath: m_Name
       value: Coffee
+      objectReference: {fileID: 0}
+    - target: {fileID: 4629314006113631733, guid: 481cf2347ab5b424baf6d285143f160c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5016655084423528113, guid: 481cf2347ab5b424baf6d285143f160c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1825,6 +1862,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: a09ac211335c9514cb7fa0a5611668ad, type: 3}
       propertyPath: m_Name
       value: mystery sit
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a09ac211335c9514cb7fa0a5611668ad, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

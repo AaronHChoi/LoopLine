@@ -6,6 +6,7 @@ public class Clock : MonoBehaviour, IInteract
     public Transform HandMinute;
 
     public float rotationSpeed = 2f;
+    public float lightChangeSpeed = 5f;
 
     private bool hourMode = true; 
     private bool activeMode = false;
@@ -21,11 +22,18 @@ public class Clock : MonoBehaviour, IInteract
 
     void Update()
     {
-        if (!activeMode) return;
+        if (!activeMode)
+        {
+            UpdateLights(false);
+            return;
+        }
+
+        UpdateLights(true);
 
         if (Input.GetKeyDown(KeyCode.E))
         {
             hourMode = !hourMode;
+            UpdateLights(true);
         }
 
         if (Input.GetKeyDown(KeyCode.Z))
@@ -34,7 +42,8 @@ public class Clock : MonoBehaviour, IInteract
         }
         else if (Input.GetKeyDown(KeyCode.X))
         {
-            HandMove(1); 
+            HandMove(1);
+            minuteLight.enabled = true;
         }
         if (Input.GetKeyDown(KeyCode.J))
         {
@@ -44,6 +53,20 @@ public class Clock : MonoBehaviour, IInteract
     private void LateUpdate()
     {
         RotationUpdate();
+    }
+    void UpdateLights(bool active)
+    {
+        float targetHourIntensity = 0f;
+        float targetMinuteIntensity = 0f;
+
+        if (active)
+        {
+            targetHourIntensity = hourMode ? 600f : 0f;
+            targetMinuteIntensity = hourMode ? 0f : 600f;
+        }
+
+        hourLight.intensity = Mathf.Lerp(hourLight.intensity, targetHourIntensity, Time.deltaTime * lightChangeSpeed);
+        minuteLight.intensity = Mathf.Lerp(minuteLight.intensity, targetMinuteIntensity, Time.deltaTime * lightChangeSpeed);
     }
     private void ActiveClock()
     {

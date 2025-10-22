@@ -3,6 +3,7 @@ using UnityEngine;
 public class ClockPuzzleManager : MonoBehaviour
 {
     [SerializeField] Clock clock;
+    [SerializeField] GameObject doorHandlerItem;
     [SerializeField] GameObject doorHandler;
 
     [SerializeField] int targetHour;
@@ -27,9 +28,9 @@ public class ClockPuzzleManager : MonoBehaviour
     }
     private void RevealObject()
     {
-        if (doorHandler != null && !doorHandler.activeInHierarchy)
+        if (doorHandlerItem != null && !doorHandlerItem.activeInHierarchy)
         {
-            doorHandler.SetActive(true);
+            doorHandlerItem.SetActive(true);
         }
     }
 }
