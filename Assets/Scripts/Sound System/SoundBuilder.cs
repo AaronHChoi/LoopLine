@@ -32,9 +32,12 @@ namespace SoundSystem
             return this;
 
         }
-        public void Play()
+        public SoundEmitter Play()
         {
-            PlayBase().Play();
+            var soundEmitted = PlayBase();
+            soundEmitted.Play();
+
+            return soundEmitted;
         }
         public void PlayWithDelay(SoundData soundData)
         {
