@@ -17,12 +17,18 @@ namespace ClockRandomizedMovement
         private float _elapsed;
         private System.DateTime _startTime;
 
+        // Arbitrary date values since only the time component is used
+        private const int ARBITRARY_YEAR = 1;
+        private const int ARBITRARY_MONTH = 1;
+        private const int ARBITRARY_DAY = 1;
+
         void Start()
         {
             int hour = Random.Range(0, 24);
             int minute = Random.Range(0, 60);
             int second = Random.Range(0, 60);
-            _startTime = new System.DateTime(1, 1, 1, hour, minute, second);
+            // Only the time component matters; date is arbitrary
+            _startTime = new System.DateTime(ARBITRARY_YEAR, ARBITRARY_MONTH, ARBITRARY_DAY, hour, minute, second);
             _timeSpeed = Random.Range(minSpeed, maxSpeed);
         }
 
