@@ -1,4 +1,6 @@
+using DependencyInjection;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,7 +19,8 @@ public class GameManager : MonoBehaviour
         get { return clockQuest; }
         set { clockQuest = value; }
     }
-    
+
+    IGameSceneManager gameSceneManager;
     private void Awake()
     {
         if (Instance == null)
@@ -29,6 +32,23 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+
+        gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
+    }
+    private void Update() 
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            gameSceneManager.UnloadLastScene();
+            if (gameSceneManager.IsCurrentScene("04. Train"))
+            {
+                SceneManager.LoadScene("05. MindPlace");
+            }
+            else if (gameSceneManager.IsCurrentScene("05. MindPlace"))
+            {
+                SceneManager.LoadScene("04. Train");
+            }
         }
     }
 }

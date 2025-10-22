@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using DependencyInjection;
+using Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class GameSceneManager : MonoBehaviour, IGameSceneManager
 {
+    public static GameSceneManager Instance;
     [Header("Scene Settings")]
     [SerializeField] private WeightScene firstScene;
     [SerializeField] private List<WeightScene> weightedScenes = new List<WeightScene>();
@@ -11,7 +14,21 @@ public class GameSceneManager : MonoBehaviour, IGameSceneManager
     [Header("Active Scenes")]
     [SerializeField] private List<string> activeScenes = new List<string>();
     [SerializeField] private List <string> constantActiveScenes = new List<string>();
- 
+
+    IPlayerStateController playerStateController;
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            transform.SetParent(null);
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     private void Start()
     {     
         foreach (var sceneName in constantActiveScenes)
@@ -22,6 +39,31 @@ public class GameSceneManager : MonoBehaviour, IGameSceneManager
             }
         }
         StartCoroutine(LoadSceneAsync(firstScene.sceneName));
+    }
+    private void OnEnable()
+    {
+        if (playerStateController != null)
+        {
+            playerStateController.OnTeleport += TeleportPlayer;
+        }
+    }
+    private void OnDisable()
+    {
+        if (playerStateController != null)
+        {
+            playerStateController.OnTeleport -= TeleportPlayer;
+        }
+    }
+    private void TeleportPlayer()
+    {
+        if (IsCurrentScene("05. Train"))
+        {
+            SceneManager.LoadScene("05. MindPlace");
+        }
+        else if (IsCurrentScene("05. MindPlace"))
+        {
+            SceneManager.LoadScene("05. Train");
+        }
     }
     public void LoadRandomScene()
     {
