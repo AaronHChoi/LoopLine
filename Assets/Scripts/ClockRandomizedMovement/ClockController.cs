@@ -147,14 +147,6 @@ public class ClockController : MonoBehaviour
 
         UpdateClock(startTime.AddSeconds(elapsed));
         
-        // Smooth interpolation
-        currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, Time.deltaTime * accelerationRate);
-        elapsed += Time.deltaTime * currentSpeed;
-
-        if (elapsed >= 12 * 3600f) elapsed -= 12 * 3600f;
-
-        UpdateClock(startTime.AddSeconds(elapsed));
-        
     }
 
     void UpdateClock(DateTime t)
