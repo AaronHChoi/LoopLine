@@ -13,4 +13,7 @@ public class DialogueSO2 : ScriptableObject
     }
     public bool IsAMonologue;
     public DialogueLine[] lines;
+
+    public bool hasPostMonologue;
+    public Events postMonologueEvent;
 }

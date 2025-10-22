@@ -1,6 +1,7 @@
 using DependencyInjection;
 using Player;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -168,8 +169,9 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
     {
         if (CheckInventory(item) == true)
         {
-            UIInventoryItemSlot slot = item.GetComponent<UIInventoryItemSlot>();
-            inventorySlots.Remove(slot);
+            inventorySlots[currentSlotIndex].gameObject.SetActive(false);
+            inventorySlots[currentSlotIndex].IsActive = false;
+            inventorySlots.Remove(inventorySlots[currentSlotIndex]);
             ResetArrowPosition();
         }
     }

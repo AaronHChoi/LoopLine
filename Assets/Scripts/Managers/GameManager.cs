@@ -11,6 +11,13 @@ public class GameManager : MonoBehaviour
     [Header("DeveloperTools")]
     public bool isMuted = false;
 
+    bool clockQuest;
+    public bool ClockQuest
+    {
+        get { return clockQuest; }
+        set { clockQuest = value; }
+    }
+    
     private void Awake()
     {
         if (Instance == null)

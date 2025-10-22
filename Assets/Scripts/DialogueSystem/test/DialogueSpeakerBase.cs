@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DependencyInjection;
@@ -93,7 +94,33 @@ public abstract class DialogueSpeakerBase : MonoBehaviour
     {
         isShowingDialogue = false;
         currentDialogueIndex = 0;
+
+        if (currentDialogues.Count > 0)
+        {
+            DialogueSO2 lastDialogue = currentDialogues[currentDialogues.Count -1];
+            TryTriggerPostMonologue(lastDialogue);
+        }
+
         DialogueManager.Instance.HideDialogue();
+    }
+    protected virtual void TryTriggerPostMonologue(DialogueSO2 dialogue)
+    {
+        if (dialogue == null || !dialogue.hasPostMonologue)
+        {
+            return;
+        }
+
+        MonologueSpeaker monologueSpeaker = FindFirstObjectByType<MonologueSpeaker>();
+        if (monologueSpeaker == null)
+        {
+            return;
+        }
+        StartCoroutine(StartMonologueAfterDelay(monologueSpeaker, dialogue.postMonologueEvent));
+    }
+    private IEnumerator StartMonologueAfterDelay(MonologueSpeaker speaker, Events monologueEvent)
+    {
+        yield return new WaitForSeconds(0.5f);
+        speaker.StartMonologue(monologueEvent);
     }
     public virtual void SetCurrentEvent(Events newEvent)
     {

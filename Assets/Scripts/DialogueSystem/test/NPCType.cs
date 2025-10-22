@@ -6,5 +6,6 @@ public enum NPCType
     CameraGirl,
     MysteryBoy,
     WorkingMan,
-    BassGirl
+    BassGirl,
+    Player
 }

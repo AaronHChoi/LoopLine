@@ -1,0 +1,32 @@
+using DependencyInjection;
+using UnityEngine;
+
+public class PhotoQuestManager : MonoBehaviour
+{
+    IInventoryUI inventoryUI;
+    [SerializeField] SingleDoorInteract doorInteract;
+
+    [SerializeField] ItemInteract doorHandler;
+    private void Awake()
+    {
+        inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
+    }
+    private void OnEnable()
+    {
+        if (doorInteract  != null)
+        {
+            doorInteract.OnPhotoQuestOpenDoor += OpenDoorPhotoQuest;
+        }
+    }
+    private void OnDisable()
+    {
+        if (doorInteract != null)
+        {
+            doorInteract.OnPhotoQuestOpenDoor -= OpenDoorPhotoQuest;
+        }
+    }
+    private void OpenDoorPhotoQuest()
+    {
+        inventoryUI.RemoveInventorySlot(doorHandler);
+    }
+}

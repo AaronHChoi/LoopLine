@@ -7,6 +7,7 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
 {
     public event Action OnDoorOpened;
     public event Action OnDoorClosed;
+    public event Action OnPhotoQuestOpenDoor;
 
     public bool isOpen = false;
 
@@ -29,10 +30,15 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     private Coroutine AutoCloseCoroutine;
 
     IPlayerController playerController;
+    IInventoryUI inventoryUI;
+
+    [SerializeField] GameObject doorHandler;
+    [SerializeField] bool active = false;
 
     private void Awake()
     {
         playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
+        inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
         StartRotation = doorGameObject.transform.rotation.eulerAngles;
         Forward = doorGameObject.transform.forward; //this is because the forward of the door is orienteted to the right if the forwar chages chage this line
     }
@@ -71,14 +77,24 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     }
     public void Interact()
     {
-        if (!isOpen)
-        {   
-            playerPosition = playerController.GetTransform().position;
-            StartCoroutine(OpenSequence(playerPosition));
-        }
-        else
+        if (inventoryUI.ItemInUse.id == "DoorHandler" && doorHandler != null)
         {
-            StartCoroutine(CloseSequence());
+            doorHandler.SetActive(true);
+            active = true;
+            OnPhotoQuestOpenDoor?.Invoke();
+        }
+
+        if (active)
+        {
+            if (!isOpen)
+            {
+                playerPosition = playerController.GetTransform().position;
+                StartCoroutine(OpenSequence(playerPosition));
+            }
+            else
+            {
+                StartCoroutine(CloseSequence());
+            }
         }
     }
     public string GetInteractText()

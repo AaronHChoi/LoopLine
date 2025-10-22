@@ -902,7 +902,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1295091035
 Transform:
   m_ObjectHideFlags: 0
@@ -1659,9 +1659,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1918759329}
+  - component: {fileID: 1918759332}
   - component: {fileID: 1918759331}
-  - component: {fileID: 1918759330}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: InteractCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1683,19 +1683,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 856138213}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1918759330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1918759328}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5840b4250c2500d4cb91a5572d6c45c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Type: Person
 --- !u!65 &1918759331
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1715,8 +1702,28 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1.5526125, z: 0.6787739}
-  m_Center: {x: 0, y: 1.6302062, z: -0.1767044}
+  m_Size: {x: 1.1572075, y: 1.5526124, z: 0.9478842}
+  m_Center: {x: 4.792975, y: 1.6302063, z: 6.4747963}
+--- !u!114 &1918759332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918759328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1115c04571bbba4fb19def5dcff0ea7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueGroups:
+  - eventType: 17
+    dialogues:
+    - {fileID: 11400000, guid: c0a7bf3a8916b224594c25bb4a632d23, type: 2}
+  currentEvent: 17
+  npcType: 4
+  autoAdvance: 0
+  interactText: 
 --- !u!1001 &1930968639
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1943,8 +1950,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2137699078}
+  - component: {fileID: 2137699081}
   - component: {fileID: 2137699080}
-  - component: {fileID: 2137699079}
   m_Layer: 3
   m_Name: InteractCollider
   m_TagString: Untagged
@@ -1967,19 +1974,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1833368917}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2137699079
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2137699077}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5840b4250c2500d4cb91a5572d6c45c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Type: Person
 --- !u!65 &2137699080
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1999,8 +1993,28 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1.431582, z: 0.7041626}
-  m_Center: {x: 0, y: 1.5483458, z: -0.13064957}
+  m_Size: {x: 0.94337875, y: 1.431582, z: 0.7041626}
+  m_Center: {x: 5.0138626, y: 1.5483458, z: -0.13064957}
+--- !u!114 &2137699081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2137699077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1115c04571bbba4fb19def5dcff0ea7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueGroups:
+  - eventType: 17
+    dialogues:
+    - {fileID: 11400000, guid: 91bcafdb46e0eaa4eaf2dc1218bfb4d6, type: 2}
+  currentEvent: 17
+  npcType: 5
+  autoAdvance: 0
+  interactText: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

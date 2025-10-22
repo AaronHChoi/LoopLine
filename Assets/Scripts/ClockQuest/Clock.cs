@@ -1,14 +1,18 @@
+using System;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class Clock : MonoBehaviour, IInteract
 {
+    public event Action OnExitClock;
+
     public Transform HandHour;
     public Transform HandMinute;
 
     public float rotationSpeed = 2f;
     public float lightChangeSpeed = 5f;
 
-    private bool hourMode = true; 
+    private bool hourMode = true;
     private bool activeMode = false;
 
     private float[] hourAngle = { 0f, 30f, 60f, 90f, 120f, 150f, 180f, 210f, 240f, 270f, 300f, 330f };
@@ -20,6 +24,10 @@ public class Clock : MonoBehaviour, IInteract
     [SerializeField] Light minuteLight;
     [SerializeField] Light hourLight;
 
+    [SerializeField] CinemachineCamera player;
+    [SerializeField] CinemachineCamera clockZoom;
+
+    [SerializeField] PlayerMovement playerMovement; //test
     void Update()
     {
         if (!activeMode)
@@ -36,18 +44,13 @@ public class Clock : MonoBehaviour, IInteract
             UpdateLights(true);
         }
 
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             HandMove(-1);
         }
-        else if (Input.GetKeyDown(KeyCode.X))
+        else if (Input.GetKeyDown(KeyCode.D))
         {
             HandMove(1);
-            minuteLight.enabled = true;
-        }
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            Debug.Log(GetClockTime());
         }
     }
     private void LateUpdate()
@@ -71,7 +74,22 @@ public class Clock : MonoBehaviour, IInteract
     private void ActiveClock()
     {
         activeMode = !activeMode;
-        Debug.Log(activeMode);
+
+        if(activeMode)
+        {
+            playerMovement.CanMove = false;
+            clockZoom.gameObject.SetActive(true);
+            clockZoom.Priority = 20;
+            player.Priority = 10;
+        }
+        else
+        {
+            clockZoom.gameObject.SetActive(false);
+            clockZoom.Priority = 10;
+            player.Priority = 20;
+            playerMovement.CanMove = true;
+            OnExitClock?.Invoke();
+        }
     }
     void HandMove(int direction)
     {

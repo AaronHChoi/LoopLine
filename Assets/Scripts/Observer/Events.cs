@@ -22,5 +22,11 @@ public enum Events
     Test,
     MonologueTest1,
     MonologueTest2,
-    MonologueTest3
+    MonologueTest3,
+    Base,
+    Base_WM,
+    Base_BG,
+    Base_CG,
+    Additive_Clocks_MG,
+    Additive_Clocks_WM
 }

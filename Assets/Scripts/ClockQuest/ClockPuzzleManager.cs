@@ -4,16 +4,31 @@ public class ClockPuzzleManager : MonoBehaviour
 {
     [SerializeField] Clock clock;
     [SerializeField] GameObject doorHandlerItem;
-    [SerializeField] GameObject doorHandler;
 
     [SerializeField] int targetHour;
     [SerializeField] int targetMinute;
-
-    private void Update()
+    private void Start()
     {
-        CheckTime();
+        if (GameManager.Instance.ClockQuest == true)
+        {
+            doorHandlerItem.SetActive(true);
+        }
     }
-    private void CheckTime()
+    private void OnEnable()
+    {
+        if(clock != null)
+        {
+            clock.OnExitClock += CheckTime;
+        }
+    }
+    private void OnDisable()
+    {
+        if (clock != null)
+        {
+            clock.OnExitClock -= CheckTime;
+        }
+    }
+    public void CheckTime()
     {
         string currentTime = clock.GetClockTime();
         string[] timeParts = currentTime.Split(':');
@@ -28,9 +43,10 @@ public class ClockPuzzleManager : MonoBehaviour
     }
     private void RevealObject()
     {
-        if (doorHandlerItem != null && !doorHandlerItem.activeInHierarchy)
+        if (doorHandlerItem != null && !doorHandlerItem.activeInHierarchy && !GameManager.Instance.ClockQuest)
         {
             doorHandlerItem.SetActive(true);
+            GameManager.Instance.ClockQuest = true;
         }
     }
 }

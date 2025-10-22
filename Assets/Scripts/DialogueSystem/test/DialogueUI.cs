@@ -79,6 +79,15 @@ public class DialogueUI : MonoBehaviour
         if (isTyping)
         {
             CompleteTyping();
+            return;
+        }
+
+        if (currentDialogue == null)
+            return;
+
+        if (currentLineIndex < currentDialogue.lines.Length - 1)
+        {
+            ShowNextLine();
         }
         else
         {
@@ -88,7 +97,7 @@ public class DialogueUI : MonoBehaviour
             }
             else
             {
-                ShowNextLine();
+                dialogueManager.HideDialogue();
             }
         }
     }
@@ -99,7 +108,8 @@ public class DialogueUI : MonoBehaviour
          { NPCType.CameraGirl, "Camera Girl" },
          { NPCType.MysteryBoy, "Mystery Boy" },
          { NPCType.WorkingMan, "Working Man" },
-         { NPCType.BassGirl, "Bass Girl" }
+         { NPCType.BassGirl, "Bass Girl" },
+         { NPCType.Player, "Claire" }
     };
     public void DisplayDialogue(DialogueSO2 data, DialogueSpeakerBase speaker = null)
     {

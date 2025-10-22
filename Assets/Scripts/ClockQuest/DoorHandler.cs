@@ -4,6 +4,7 @@ public class DoorHandler : MonoBehaviour
 { 
     Animator doorHandlerAnimator;
     SingleDoorInteract doorInteract;
+    [SerializeField] bool leftSide;
     private void Awake()
     {
         doorHandlerAnimator = GetComponent<Animator>();
@@ -27,10 +28,24 @@ public class DoorHandler : MonoBehaviour
     }
     public void OpenAnimation()
     {
-        doorHandlerAnimator.SetTrigger("Open");
+        if (leftSide)
+        {
+            doorHandlerAnimator.SetTrigger("Open2");
+        }
+        else
+        {
+            doorHandlerAnimator.SetTrigger("Open");
+        }
     }
     public void CloseAnimation()
     {
-        doorHandlerAnimator.SetTrigger("Close");
+        if (leftSide)
+        {
+            doorHandlerAnimator.SetTrigger("Close2");
+        }
+        else
+        {
+            doorHandlerAnimator.SetTrigger("Close");
+        }
     }
 }
