@@ -101,7 +101,7 @@ public class ClockController : MonoBehaviour
                 if (tickSource != null)
                 {
                     // If paused, keep a minimal pitch for the tick
-                    tickSource.pitch = Mathf.Lerp(minPitch, maxPitch, targetSpeed);
+                    tickSource.pitch = Mathf.Lerp(maxPitch, minPitch, targetSpeed);
 
                     if (!tickSource.isPlaying)
                         tickSource.Play();
