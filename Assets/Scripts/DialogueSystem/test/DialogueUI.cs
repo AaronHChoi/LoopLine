@@ -19,6 +19,9 @@ public class DialogueUI : MonoBehaviour
 
     private bool isTyping = false;
     private string fullText;
+    private DialogueSO2 currentDialogue;
+    private int currentLineIndex = 0;
+
     DialogueSpeakerBase currentSpeaker;
     Coroutine typingCoroutine;
 
@@ -79,7 +82,14 @@ public class DialogueUI : MonoBehaviour
         }
         else
         {
-            currentSpeaker?.ShowNextDialogue();
+            if (currentSpeaker != null)
+            {
+                currentSpeaker.ShowNextDialogue();
+            }
+            else
+            {
+                ShowNextLine();
+            }
         }
     }
     private Dictionary<NPCType, string> npcDisplayNames = new Dictionary<NPCType, string>()
@@ -93,6 +103,16 @@ public class DialogueUI : MonoBehaviour
     };
     public void DisplayDialogue(DialogueSO2 data, DialogueSpeakerBase speaker = null)
     {
+        if (currentDialogue == data && dialoguePanel.activeSelf)
+        {
+            ShowNextLine();
+            return;
+        }
+
+        currentDialogue = data;
+        currentLineIndex = 0;
+        currentSpeaker = speaker;
+
         if (data.IsAMonologue)
         {
             playerStateController.ChangeState(playerStateController.MonologueState);
@@ -103,26 +123,52 @@ public class DialogueUI : MonoBehaviour
         }
 
         dialoguePanel.SetActive(true);
-        currentSpeaker = speaker;
+        ShowCurrentLine();
+    }
+    private void ShowCurrentLine()
+    {
+        var line = currentDialogue.lines[currentLineIndex];
+        NPCType npcTypeToUse = line.npcType;
+        string npcName = GetNPCName(npcTypeToUse, currentDialogue.IsAMonologue);
 
-        string npcName = GetNPCName(speaker, data.IsAMonologue);
-
-        string baseText = data.IsAMonologue ? ApplyItalicFormat(data.dialogueText) : data.dialogueText;
+        string baseText = currentDialogue.IsAMonologue ? ApplyItalicFormat(line.dialogueText) : line.dialogueText;
         fullText = $"{npcName}{baseText}";
+
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+        }
 
         typingCoroutine = StartCoroutine(TypeText());
     }
-    private string GetNPCName(DialogueSpeakerBase speaker, bool isMonologue = false)
+    public void ShowNextLine()
     {
-        if (speaker == null) return "";
+        if (currentDialogue == null) return;
 
-        string displayName;
-        if(npcDisplayNames.TryGetValue(speaker.NPCType, out displayName))
+        currentLineIndex++;
+
+        if (currentDialogue == null || currentLineIndex >= currentDialogue.lines.Length)
+        {
+            dialogueManager.HideDialogue();
+            return;
+        }
+
+        ShowCurrentLine();
+    }
+    private string GetNPCName(NPCType npcType, bool isMonologue = false)
+    {
+        if (npcType == NPCType.None)
+        {
+            return "";
+        }
+
+        if (npcDisplayNames.TryGetValue(npcType, out string displayName))
         {
             return isMonologue ? $"{ApplyItalicFormat(displayName)}: " : $"{displayName}: ";
         }
 
-        string enumName = speaker.NPCType.ToString();
+        string enumName = npcType.ToString();
+
         string formattedName = System.Text.RegularExpressions.Regex
             .Replace(enumName, "([a-z])([A-Z])", "$1 $2");
 
@@ -179,9 +225,5 @@ public class DialogueUI : MonoBehaviour
     private string ApplyItalicFormat(string text)
     {
         return $"<i>{text}</i>";
-    }
-    public bool IsTyping()
-    {
-        return isTyping;
     }
 }

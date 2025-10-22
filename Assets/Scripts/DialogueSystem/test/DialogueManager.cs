@@ -49,4 +49,5 @@ public interface IDialogueManager
 {
     event Action OnDialogueStarted;
     event Action OnDialogueEnded;
+    void HideDialogue();
 }
