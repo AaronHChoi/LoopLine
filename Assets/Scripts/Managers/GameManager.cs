@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public string nextScene;
+    public bool isGamePaused;
 
     public int TrainLoop = 0;
     public int MindPlaceLoop = 0;
@@ -21,6 +22,8 @@ public class GameManager : MonoBehaviour
     }
 
     IGameSceneManager gameSceneManager;
+    public IScreenManager screenManager;
+
     private void Awake()
     {
         if (Instance == null)
@@ -35,6 +38,7 @@ public class GameManager : MonoBehaviour
         }
 
         gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
+        screenManager = InterfaceDependencyInjector.Instance.Resolve<IScreenManager>();
     }
     private void Update() 
     {

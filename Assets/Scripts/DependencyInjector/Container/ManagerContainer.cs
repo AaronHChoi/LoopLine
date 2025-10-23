@@ -14,6 +14,7 @@ namespace DependencyInjection
         public void RegisterServices(InterfaceDependencyInjector injector)
         {
             injector.Register<IDialogueManager>(() => FindAndValidate<DialogueManager>());
+            injector.Register<IScreenManager>(() => FindAndValidate<ScreenManager>());
             injector.Register<IGameSceneManager>(() => FindAndValidate<GameSceneManager>());
             injector.Register<ITimeProvider>(() => FindAndValidate<TimeManager>());
             injector.Register<IEventManager>(() => FindAndValidate<EventManager>());
