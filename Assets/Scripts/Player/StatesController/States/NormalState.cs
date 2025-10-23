@@ -45,6 +45,12 @@ namespace Player
                 controller.UseEventDevelopment();
                 controller.StateMachine.TransitionTo(controller.DevelopmentState);
             }
+            if (input.PauseMenuModePressed())
+            {
+                //controller.UseEventPauseMenu();
+                GameManager.Instance.screenManager.Push(EnumScreenName.Pause);
+                controller.StateMachine.TransitionTo(controller.PauseMenuState);
+            }
             if (input.FocusModePressed())
             {
                 controller.UseEventFocusMode();

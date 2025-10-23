@@ -13,6 +13,7 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerInputHandler
     InputAction passDialog;
     InputAction openInventory;
     InputAction developmentMode;
+    InputAction pauseMenuMode;
     InputAction focusMode;
     InputAction scrollInventory;
     InputAction grabItem;
@@ -32,6 +33,7 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerInputHandler
         passDialog = playerInput.actions["PassDialog"];
         openInventory = playerInput.actions["OpenInventory"];
         developmentMode = playerInput.actions["DevelopmentMode"];
+        pauseMenuMode = playerInput.actions["PauseMenuMode"];
         focusMode = playerInput.actions["FocusMode"];
         scrollInventory = playerInput.actions["ScrollInventory"];
         grabItem = playerInput.actions["GrabItem"];
@@ -86,6 +88,10 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerInputHandler
     {
         return developmentMode.WasPerformedThisFrame();
     }
+    public bool PauseMenuModePressed()
+    {
+        return pauseMenuMode.WasPerformedThisFrame();
+    }
     public bool GrabItemPressed()
     {
         return grabItem.WasPerformedThisFrame();
@@ -104,6 +110,7 @@ public interface IPlayerInputHandler
     bool ToggleCameraPressed();
     bool TakePhotoPressed();
     bool DevelopmentModePressed();
+    bool PauseMenuModePressed();
     bool GrabItemPressed();
     bool TeleportToMindplace();
 }

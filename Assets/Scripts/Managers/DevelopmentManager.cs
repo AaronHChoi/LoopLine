@@ -13,7 +13,7 @@ public class DevelopmentManager : MonoBehaviour
     [SerializeField] private AudioMixer audioMixer;
 
     [SerializeField] private FadeInOutController cinemaFade;
-    private Dictionary<AudioSource, float> audiosVolumeDic;
+    //private Dictionary<AudioSource, float> audiosVolumeDic;
     bool isCursorVisible = false;
     bool isUIActive = false;
     private bool isCinemaOn = false;
@@ -32,9 +32,8 @@ public class DevelopmentManager : MonoBehaviour
     void Start()
     {
         timeManager.ChangeLoopTime = false;
-        UpdateCursorState();
-        InitAudios();
-        Mute(false);
+        UpdateCursorState();       
+        //Mute(false);
     }
     private void OnEnable()
     {
@@ -66,10 +65,12 @@ public class DevelopmentManager : MonoBehaviour
 
         if (isUIActive)
         {
+            Time.timeScale = 0f;
             playerStateController.ChangeState(playerStateController.DialogueState);
         }
         else
         {
+            Time.timeScale = 1.0f;
             playerStateController.ChangeState(playerStateController.NormalState);
         }
 
@@ -90,17 +91,7 @@ public class DevelopmentManager : MonoBehaviour
             UpdateCursorState();
         }
     }
-    private void InitAudios()
-    {
-        audiosVolumeDic = new Dictionary<AudioSource, float>();
-
-        var auxAudios = FindObjectsByType<AudioSource>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-
-        foreach (var audio in auxAudios)
-        {
-            audiosVolumeDic.Add(audio, audio.volume);
-        }
-    }
+    
     void UpdateCursorState()
     {
         bool shouldShowCursor = UIDeveloperMode.activeInHierarchy;
@@ -120,30 +111,30 @@ public class DevelopmentManager : MonoBehaviour
     {
         SceneManager.LoadScene("01. MainMenu");
     }
-    public void Mute(bool changeMute)
-    {
-        if(changeMute) GameManager.Instance.isMuted = !GameManager.Instance.isMuted;
+    //public void Mute(bool changeMute)
+    //{
+    //    if(changeMute) GameManager.Instance.isMuted = !GameManager.Instance.isMuted;
 
-        foreach (var audio in audiosVolumeDic)
-        {
-            if (GameManager.Instance.isMuted)
-            {
-                audio.Key.volume = 0;
-            }
-            else
-            {
-                audio.Key.volume = audio.Value;
-            }
-        }
-        if (GameManager.Instance.isMuted)
-        {
-            audioMixer.SetFloat("Master", -80f);
-        }
-        else
-        {
-            audioMixer.SetFloat("Master", 0f);
-        }
-    }
+    //    foreach (var audio in audiosVolumeDic)
+    //    {
+    //        if (GameManager.Instance.isMuted)
+    //        {
+    //            audio.Key.volume = 0;
+    //        }
+    //        else
+    //        {
+    //            audio.Key.volume = audio.Value;
+    //        }
+    //    }
+    //    if (GameManager.Instance.isMuted)
+    //    {
+    //        audioMixer.SetFloat("Master", -80f);
+    //    }
+    //    else
+    //    {
+    //        audioMixer.SetFloat("Master", 0f);
+    //    }
+    //}
     public void LoadMainLevel()
     {
         if ("05. MindPlace, 99. Showcase".Contains(SceneManager.GetActiveScene().name))
