@@ -12,9 +12,11 @@ public class PauseMenuManager : MonoBehaviour, IScreen
     [Header("Audio Settings")]
     [SerializeField] private Slider masterVolumeSlider;
     [SerializeField] private Slider sfxVolumeSlider;
+    [SerializeField] private Slider musicVolumeSlider;
     [SerializeField] private AudioMixer audioMixer;
     private Dictionary<AudioSource, float> MasterAudio;
-    private Dictionary<AudioSource, float> fbxAudio;
+    private Dictionary<AudioSource, float> sfxAudio;
+    private Dictionary<AudioSource, float> MusicAudio;
 
     IPlayerStateController playerStateController;
 
@@ -27,6 +29,7 @@ public class PauseMenuManager : MonoBehaviour, IScreen
     {
         masterVolumeSlider.onValueChanged.AddListener(OnVolumeChangedMaster);
         sfxVolumeSlider.onValueChanged.AddListener(OnVolumeChangedSFX);
+        musicVolumeSlider.onValueChanged.AddListener(OnVolumeChangedMusic);
         InitAudios();
     }
     //private void OnEnable()
@@ -77,6 +80,8 @@ public class PauseMenuManager : MonoBehaviour, IScreen
         {
             MasterAudio.Add(audio, audio.volume);
         }
+       
+
     }
     private void OnVolumeChangedMaster(float value)
     {
@@ -86,6 +91,11 @@ public class PauseMenuManager : MonoBehaviour, IScreen
     private void OnVolumeChangedSFX(float value)
     {
         SetVolume("SFX", value);
+    }
+
+    private void OnVolumeChangedMusic(float value)
+    {
+        SetVolume("BGM", value);
     }
 
     private void SetVolume(string parameterName, float value)
