@@ -28,6 +28,7 @@ public class GameSceneManager : MonoBehaviour, IGameSceneManager
         {
             Destroy(gameObject);
         }
+        playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
     }
     private void Start()
     {     
@@ -56,14 +57,15 @@ public class GameSceneManager : MonoBehaviour, IGameSceneManager
     }
     private void TeleportPlayer()
     {
-        if (IsCurrentScene("05. Train"))
-        {
-            SceneManager.LoadScene("05. MindPlace");
-        }
-        else if (IsCurrentScene("05. MindPlace"))
-        {
-            SceneManager.LoadScene("05. Train");
-        }
+        //if (IsCurrentScene("04. Train"))
+        //{
+        //    SceneManager.LoadScene("05. MindPlace");
+        //}
+        
+        //if (IsCurrentScene("05. MindPlace"))
+        //{
+        //    SceneManager.LoadScene("04. Train");
+        //}
     }
     public void LoadRandomScene()
     {

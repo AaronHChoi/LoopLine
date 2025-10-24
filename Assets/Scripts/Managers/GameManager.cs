@@ -2,9 +2,9 @@ using DependencyInjection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-    public static GameManager Instance { get; private set; }
+    [Header("GameManager")]
     public string nextScene;
     public bool isGamePaused;
 
@@ -24,25 +24,16 @@ public class GameManager : MonoBehaviour
     IGameSceneManager gameSceneManager;
     public IScreenManager screenManager;
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            transform.SetParent(null);
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        base.Awake();
 
         gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
         screenManager = InterfaceDependencyInjector.Instance.Resolve<IScreenManager>();
     }
     private void Update() 
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F)) //TEST
         {
             gameSceneManager.UnloadLastScene();
             if (gameSceneManager.IsCurrentScene("04. Train"))
