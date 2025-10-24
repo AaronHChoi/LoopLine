@@ -168,8 +168,10 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
     public void RemoveInventorySlot(ItemInteract item)
     {
         if (CheckInventory(item) == true)
-        {
+        {   
+            
             inventorySlots[currentSlotIndex].gameObject.SetActive(false);
+            inventorySlots[currentSlotIndex].gameObject.transform.parent = null;
             inventorySlots[currentSlotIndex].IsActive = false;
             inventorySlots.Remove(inventorySlots[currentSlotIndex]);
             ResetArrowPosition();
