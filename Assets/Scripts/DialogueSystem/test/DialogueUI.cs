@@ -11,6 +11,8 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] GameObject continueIndicator;
     [SerializeField] private FadeInOutController letterBoxFadeInOut;
+    [SerializeField] private Color dialogueColor;
+    [SerializeField] private Color monologueColor;
 
     [SerializeField] private float typingSpeed = 0.05f;
     [SerializeField] private bool skipTypingOnClick = true;
@@ -123,6 +125,8 @@ public class DialogueUI : MonoBehaviour
         currentLineIndex = 0;
         currentSpeaker = speaker;
 
+        ChangeDialogeColor(data.IsAMonologue);
+
         if (data.IsAMonologue)
         {
             playerStateController.ChangeState(playerStateController.MonologueState);
@@ -134,6 +138,10 @@ public class DialogueUI : MonoBehaviour
 
         dialoguePanel.SetActive(true);
         ShowCurrentLine();
+    }
+    private void ChangeDialogeColor(bool isMonologue)
+    {
+        dialogueText.color = isMonologue ? monologueColor : dialogueColor;
     }
     private void ShowCurrentLine()
     {
