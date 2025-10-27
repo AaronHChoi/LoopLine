@@ -13,7 +13,6 @@ namespace Player
         public event Action OnTakePhoto;
         public event Action OnInteract;
         public event Action OnDialogueNext;
-        //public event Action OnDialogueSkip;
         public event Action OnOpenInventory;
         public event Action OnOpenDevelopment;
         public event Action OnFocusMode;
@@ -55,7 +54,7 @@ namespace Player
 
             NormalState = new NormalState(this, inputHandler, playerMovement, cinemachinePOVExtension);
             DialogueState = new DialogueState(this, inputHandler, playerMovement, cinemachinePOVExtension);
-            CameraState = new CameraState(this, inputHandler, playerMovement, photoCapture, cinemachinePOVExtension, interaction, togglePhotoDetection, gameSceneManager);
+            CameraState = new CameraState(this, inputHandler, playerMovement, photoCapture, cinemachinePOVExtension, interaction, togglePhotoDetection);
             DevelopmentState = new DevelopmentState(this, inputHandler, playerMovement, cinemachinePOVExtension, timeManager);
             PauseMenuState = new PauseMenuState(this, inputHandler, playerMovement, cinemachinePOVExtension, timeManager);
             FocusModeState = new FocusModeState(this, inputHandler, playerMovement, cinemachinePOVExtension);
@@ -121,7 +120,6 @@ namespace Player
         }
         #endregion
     }
-
     public interface IPlayerStateController
     {
         public event Action<IState> OnStateChanged;

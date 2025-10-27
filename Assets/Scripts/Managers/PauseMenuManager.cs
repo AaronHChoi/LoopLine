@@ -11,7 +11,7 @@ public class PauseMenuManager : MonoBehaviour, IScreen
     [Header("Audio Settings")]
     [SerializeField] private Slider masterVolumeSlider;
     [SerializeField] private Slider sfxVolumeSlider;
-    [SerializeField] private Slider musicVolumeSlider;
+    [SerializeField] private Slider bgmVolumeSlider;
     [SerializeField] private AudioMixer audioMixer;
     private Dictionary<AudioSource, float> MasterAudio;
     private Dictionary<AudioSource, float> sfxAudio;
@@ -28,7 +28,10 @@ public class PauseMenuManager : MonoBehaviour, IScreen
     {
         masterVolumeSlider.onValueChanged.AddListener(OnVolumeChangedMaster);
         sfxVolumeSlider.onValueChanged.AddListener(OnVolumeChangedSFX);
-        musicVolumeSlider.onValueChanged.AddListener(OnVolumeChangedMusic);
+        bgmVolumeSlider.onValueChanged.AddListener(OnVolumeChangedBgm);
+        OnVolumeChangedMaster(0.5f);
+        OnVolumeChangedBgm(0.5f);
+        OnVolumeChangedSFX(0.5f);
         InitAudios();
     }
     //private void OnEnable()
@@ -56,19 +59,16 @@ public class PauseMenuManager : MonoBehaviour, IScreen
         gameObject.SetActive(true);
         UpdateCursorState();
     }
-
     public void Deactivate()
     {
         gameObject.SetActive(false);
         UpdateCursorState();
     }
-
     public void Free()
     {
         gameObject.SetActive(false);
         UpdateCursorState();
     }
-
     private void InitAudios()
     {
         MasterAudio = new Dictionary<AudioSource, float>();
@@ -84,12 +84,11 @@ public class PauseMenuManager : MonoBehaviour, IScreen
     {
         SetVolume("Master", value);
     }
-
     private void OnVolumeChangedSFX(float value)
     {
         SetVolume("SFX", value);
     }
-    private void OnVolumeChangedMusic(float value)
+    private void OnVolumeChangedBgm(float value)
     {
         SetVolume("BGM", value);
     }

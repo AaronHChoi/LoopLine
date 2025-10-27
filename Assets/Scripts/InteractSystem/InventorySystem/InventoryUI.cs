@@ -169,7 +169,6 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
     {
         if (CheckInventory(item) == true)
         {   
-            
             inventorySlots[currentSlotIndex].gameObject.SetActive(false);
             inventorySlots[currentSlotIndex].gameObject.transform.parent = null;
             inventorySlots[currentSlotIndex].IsActive = false;

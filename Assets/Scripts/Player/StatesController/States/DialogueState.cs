@@ -28,10 +28,6 @@ namespace Player
             {
                 controller.UseEventDialogueNext();
             }
-            //if (input.SkipDialogueTyping())
-            //{
-            //    OnDialogueSkip?.Invoke();
-            //}
         }
         public void Exit()
         {
