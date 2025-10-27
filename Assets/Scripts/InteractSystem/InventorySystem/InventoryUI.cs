@@ -1,5 +1,6 @@
 using DependencyInjection;
 using Player;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -176,18 +177,21 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
     }
     public void RemoveInventorySlot(ItemInteract item)
     {
-        if (CheckInventory(item) == true)
+        if (CheckInventory(item))
         {
-            UIInventoryItemSlot InventorySlutToRemove = inventorySlots[currentSlotIndex];   
+            UIInventoryItemSlot slotToRemove = inventorySlots[currentSlotIndex];
+
             if (currentSlotIndex > 0)
             {
                 inventorySlots[currentSlotIndex].IsActive = false;
                 inventorySlots[currentSlotIndex].gameObject.SetActive(false);
-                inventorySlots.Remove(InventorySlutToRemove);
-                InventorySlutToRemove.transform.parent = null;
-                inventorySlots[currentSlotIndex - 1].IsActive = true;
+                inventorySlots.Remove(slotToRemove);
+                slotToRemove.transform.parent = null;
+
                 currentSlotIndex--;
-                HideInventory();
+                inventorySlots[currentSlotIndex].IsActive = true;
+
+                StartCoroutine(UpdateArrowNextFrame());
             }
             else
             {
@@ -240,6 +244,12 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
     public Transform GetSpawnPosition()
     {
         return spawnPosition;
+    }
+
+    private IEnumerator UpdateArrowNextFrame()
+    {
+        yield return null; 
+        MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
     }
 }
 
