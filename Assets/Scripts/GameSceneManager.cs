@@ -4,9 +4,9 @@ using DependencyInjection;
 using Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class GameSceneManager : MonoBehaviour, IGameSceneManager
+
+public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
 {
-    public static GameSceneManager Instance;
     [Header("Scene Settings")]
     [SerializeField] private WeightScene firstScene;
     [SerializeField] private List<WeightScene> weightedScenes = new List<WeightScene>();
@@ -16,30 +16,25 @@ public class GameSceneManager : MonoBehaviour, IGameSceneManager
     [SerializeField] private List <string> constantActiveScenes = new List<string>();
 
     IPlayerStateController playerStateController;
-    private void Awake()
+    protected override void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            transform.SetParent(null);
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        base.Awake();
+
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
     }
     private void Start()
     {     
-        foreach (var sceneName in constantActiveScenes)
+        if (IsCurrentScene("04. Train"))
         {
-            if (!SceneManager.GetSceneByName(sceneName).isLoaded)
+            foreach (var sceneName in constantActiveScenes)
             {
-                SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+                if (!SceneManager.GetSceneByName(sceneName).isLoaded)
+                {
+                    SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+                }
             }
+            StartCoroutine(LoadSceneAsync(firstScene.sceneName));
         }
-        StartCoroutine(LoadSceneAsync(firstScene.sceneName));
     }
     private void OnEnable()
     {
@@ -57,15 +52,15 @@ public class GameSceneManager : MonoBehaviour, IGameSceneManager
     }
     private void TeleportPlayer()
     {
-        //if (IsCurrentScene("04. Train"))
-        //{
-        //    SceneManager.LoadScene("05. MindPlace");
-        //}
-        
-        //if (IsCurrentScene("05. MindPlace"))
-        //{
-        //    SceneManager.LoadScene("04. Train");
-        //}
+        if (IsCurrentScene("04. Train"))
+        {
+            SceneManager.LoadScene("05. MindPlace");
+        }
+
+        if (IsCurrentScene("05. MindPlace"))
+        {
+            SceneManager.LoadScene("04. Train");
+        }
     }
     public void LoadRandomScene()
     {

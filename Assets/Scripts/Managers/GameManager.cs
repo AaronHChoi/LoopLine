@@ -1,6 +1,5 @@
 using DependencyInjection;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -30,20 +29,5 @@ public class GameManager : Singleton<GameManager>
 
         gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
         screenManager = InterfaceDependencyInjector.Instance.Resolve<IScreenManager>();
-    }
-    private void Update() 
-    {
-        if (Input.GetKeyDown(KeyCode.F)) //TEST
-        {
-            gameSceneManager.UnloadLastScene();
-            if (gameSceneManager.IsCurrentScene("04. Train"))
-            {
-                SceneManager.LoadScene("05. MindPlace");
-            }
-            else if (gameSceneManager.IsCurrentScene("05. MindPlace"))
-            {
-                SceneManager.LoadScene("04. Train");
-            }
-        }
     }
 }

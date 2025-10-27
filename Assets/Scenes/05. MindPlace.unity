@@ -865,6 +865,7 @@ MonoBehaviour:
   IsRootatingDoor: 1
   Speed: 0.5
   AutoCloseDelay: 3
+  delayOpenDoorAnimation: 0.9
   RotatingAmount: 90
   ForwardDirection: 0
   doorHandler: {fileID: 0}
@@ -3834,6 +3835,7 @@ MonoBehaviour:
   IsRootatingDoor: 1
   Speed: 0.5
   AutoCloseDelay: 3
+  delayOpenDoorAnimation: 0.9
   RotatingAmount: 90
   ForwardDirection: 0
   doorHandler: {fileID: 644322723}
@@ -4056,11 +4058,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1019765329}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab3e0e94674767b4d9ac1e584536ca6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 0
   firstScene:
     sceneName: 
     weight: 1
@@ -7977,6 +7980,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92f6da37bfee7e943bcc22e1971c1a53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 1
   nextScene: 05. MindPlace
   isGamePaused: 0
   TrainLoop: 0

@@ -56,7 +56,7 @@ namespace Player
                 controller.UseEventFocusMode();
                 controller.StateMachine.TransitionTo(controller.FocusModeState);
             }
-            if (input.TeleportToMindplace())
+            if (input.Teleport())
             {
                 controller.UseEventTeleport();
             }

@@ -1,4 +1,5 @@
 using System;
+using DependencyInjection;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -28,6 +29,12 @@ public class Clock : MonoBehaviour, IInteract
     [SerializeField] CinemachineCamera clockZoom;
 
     [SerializeField] PlayerMovement playerMovement; //test
+    [SerializeField] ICameraOrientation playerCamera;
+
+    private void Awake()
+    {
+        playerCamera = InterfaceDependencyInjector.Instance.Resolve<ICameraOrientation>();
+    }
     void Update()
     {
         if (!activeMode)
@@ -78,6 +85,7 @@ public class Clock : MonoBehaviour, IInteract
         if(activeMode)
         {
             playerMovement.CanMove = false;
+            playerCamera.CanLook = false;
             clockZoom.gameObject.SetActive(true);
             clockZoom.Priority = 20;
             player.Priority = 10;
@@ -88,6 +96,7 @@ public class Clock : MonoBehaviour, IInteract
             clockZoom.Priority = 10;
             player.Priority = 20;
             playerMovement.CanMove = true;
+            playerCamera.CanLook = true;
             OnExitClock?.Invoke();
         }
     }

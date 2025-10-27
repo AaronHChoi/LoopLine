@@ -24,7 +24,6 @@ namespace Player
         StateMachine stateMachine { get; set; }
 
         ITimeProvider timeManager;
-        IPhotoMarker photoMarker;
         ICameraOrientation cinemachinePOVExtension;
         IPhotoCapture photoCapture;
         IPlayerInteractMarkerPrompt interaction;
@@ -48,7 +47,6 @@ namespace Player
             playerMovement = InterfaceDependencyInjector.Instance.Resolve<IPlayerMovement>();
             interaction = InterfaceDependencyInjector.Instance.Resolve<IPlayerInteractMarkerPrompt>();
             photoCapture = InterfaceDependencyInjector.Instance.Resolve<IPhotoCapture>();
-            photoMarker = InterfaceDependencyInjector.Instance.Resolve<IPhotoMarker>();
             cinemachinePOVExtension = InterfaceDependencyInjector.Instance.Resolve<ICameraOrientation>();
             timeManager = InterfaceDependencyInjector.Instance.Resolve<ITimeProvider>();
             gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
@@ -67,7 +65,6 @@ namespace Player
 
             stateMachine.Initialize(NormalState);
         }
-
         private void Update()
         {
             stateMachine.Execute();

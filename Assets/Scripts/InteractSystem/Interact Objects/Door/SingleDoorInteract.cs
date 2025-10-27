@@ -16,6 +16,7 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     [SerializeField] private bool IsRootatingDoor = true;
     [SerializeField] private float Speed = 1f;
     [SerializeField] private float AutoCloseDelay = 3f;
+    [SerializeField] float delayOpenDoorAnimation = 0.5f;
 
     private Vector3 playerPosition;
 
@@ -27,7 +28,6 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     private Vector3 Forward;
 
     private Coroutine AnimationCorutine;
-    private Coroutine AutoCloseCoroutine;
 
     IPlayerController playerController;
     IInventoryUI inventoryUI;
@@ -54,10 +54,6 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
             {
                 float dot = Vector3.Dot(Forward, (UserPosition - doorGameObject.transform.position).normalized);
                 AnimationCorutine = StartCoroutine(DoRotationOpen(dot));
-                //if (AutoCloseCoroutine != null)
-                //    StopCoroutine(AutoCloseCoroutine);
-
-                //AutoCloseCoroutine = StartCoroutine(CloseDoorAfterTime(AutoCloseDelay));
             }
         }
     }
@@ -105,7 +101,7 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     {
         OnDoorOpened?.Invoke();
 
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(delayOpenDoorAnimation);
 
         OpenDoor(userPosition);
     }
@@ -154,15 +150,6 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
             doorGameObject.transform.rotation = Quaternion.Slerp(startRotation, endRotation, time);
             yield return null;
             time += Time.deltaTime * Speed;
-        }
-    }
-    private IEnumerator CloseDoorAfterTime(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        if (isOpen)
-        {
-            CloseDoor();
         }
     }
 }
