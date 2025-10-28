@@ -5,9 +5,8 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
-public class PauseMenuManager : Singleton<PauseMenuManager>
+public class PauseMenuManager : Singleton<PauseMenuManager>, IPauseMenuManager
 {
-    bool isCursorVisible = false;
     [Header("Audio Settings")]
     [SerializeField] private Slider masterVolumeSlider;
     [SerializeField] private Slider sfxVolumeSlider;
@@ -15,14 +14,10 @@ public class PauseMenuManager : Singleton<PauseMenuManager>
     [SerializeField] private AudioMixer audioMixer;
     private Dictionary<AudioSource, float> MasterAudio;
 
-    [SerializeField] private GameObject pauseMenu { get; set; }
-
-    IGameStateController Controller;
 
     protected override void Awake()
     {
         base.Awake();
-        Controller = InterfaceDependencyInjector.Instance.Resolve<IGameStateController>();
     }
 
     private void Start()
@@ -36,21 +31,7 @@ public class PauseMenuManager : Singleton<PauseMenuManager>
         InitAudios();
        
     }
-    private void OnEnable()
-    {     
-        Controller.OnPauseMenu += PauseMenu;
-        UpdateCursorState();
-    }
-    private void OnDisable()
-    {
-        Controller.OnPauseMenu -= PauseMenu;
-        UpdateCursorState();
-    }
-
-    public void PauseMenu()
-    {
-        pauseMenu.SetActive(!pauseMenu.activeSelf);
-    }
+    
     private void InitAudios()
     {
         MasterAudio = new Dictionary<AudioSource, float>();
@@ -81,28 +62,22 @@ public class PauseMenuManager : Singleton<PauseMenuManager>
 
         PlayerPrefs.SetFloat(parameterName, value);
     }
-    void UpdateCursorState()
-    {
-        bool shouldShowCursor = gameObject.activeInHierarchy;
-
-        if (isCursorVisible != shouldShowCursor)
-        {
-            isCursorVisible = shouldShowCursor;
-            Cursor.visible = isCursorVisible;
-            Cursor.lockState = isCursorVisible ? CursorLockMode.None : CursorLockMode.Locked;
-        }
-    }
+    
     protected override void OnDestroy()
     {
         if (masterVolumeSlider != null)
             masterVolumeSlider.onValueChanged.RemoveListener(OnVolumeChangedMaster);
         if (sfxVolumeSlider != null)
             sfxVolumeSlider.onValueChanged.RemoveListener(OnVolumeChangedSFX);
-        Controller.OnPauseMenu -= PauseMenu;
+    }
+
+    public GameObject PauseGameObject()
+    {
+        return gameObject;
     }
 }
 
 public interface IPauseMenuManager
 {
-   
+    GameObject PauseGameObject();
 }

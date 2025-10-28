@@ -21,6 +21,7 @@ public class PauseState : IGameState
         if (input.PauseMenuModePressed())
         {
             Time.timeScale = 1f;
+            controller.UseEventPauseMenu();
             controller.ChangeState(controller.GameplayState);
         }
     }

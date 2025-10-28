@@ -21,6 +21,7 @@ namespace DependencyInjection
             injector.Register<IItemManager>(() => FindAndValidate<ItemManager>());
             injector.Register<IBlackRoomManager>(() => FindAndValidate<BlackRoomManager>());
             injector.Register<ISceneTransitionController>(() => FindAndValidate<SceneTransitionController>());
+            injector.Register<IPauseMenuManager>(() => FindAndValidate<PauseMenuManager>());
         }
     }
 }
