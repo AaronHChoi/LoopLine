@@ -22,9 +22,7 @@ namespace Player
     
         public void Enter()
         {
-            movement.CanMove = false;
-            playerCamera.CanLook = false;
-            timeManager.PauseTime(true);
+            Time.timeScale = 0f;
             Debug.Log("Enter PauseManuState");
         }
         public void Execute()
@@ -37,9 +35,7 @@ namespace Player
         }
         public void Exit()
         {
-            movement.CanMove = true;
-            playerCamera.CanLook = true;
-            timeManager.PauseTime(false);
+            Time.timeScale = 1f;
             Debug.Log("Exiting PauseManuState");
         }
     }
