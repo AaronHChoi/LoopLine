@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
-public class PauseMenuManager : MonoBehaviour, IScreen
+public class PauseMenuManager : Singleton<PauseMenuManager>
 {
     bool isCursorVisible = false;
     [Header("Audio Settings")]
@@ -14,14 +14,13 @@ public class PauseMenuManager : MonoBehaviour, IScreen
     [SerializeField] private Slider bgmVolumeSlider;
     [SerializeField] private AudioMixer audioMixer;
     private Dictionary<AudioSource, float> MasterAudio;
-    private Dictionary<AudioSource, float> sfxAudio;
-    private Dictionary<AudioSource, float> MusicAudio;
 
-    IPlayerStateController playerStateController;
+    IGameStateController Controller;
 
-    private void Awake()
+    protected override void Awake()
     {
-        playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
+        base.Awake();
+        Controller = InterfaceDependencyInjector.Instance.Resolve<IGameStateController>();
     }
 
     private void Start()
@@ -34,40 +33,20 @@ public class PauseMenuManager : MonoBehaviour, IScreen
         OnVolumeChangedSFX(1f);
         InitAudios();
     }
-    //private void OnEnable()
-    //{
-    //    if (playerStateController != null)
-    //    {
-    //        playerStateController.OnPauseMenu += OnPauseGameMode;
-    //    }
-    //}
-    //private void OnDisable()
-    //{
-    //    if (playerStateController != null)
-    //    {
-    //        playerStateController.OnPauseMenu -= OnPauseGameMode;
-            
-    //    }
-    //}
-    //public void OnPauseGameMode()
-    //{
-        
-    //}
+    private void OnEnable()
+    {
+        Controller.OnPauseMenu += UseEventPauseMenu;
+        UpdateCursorState();
+    }
+    private void OnDisable()
+    {
+        Controller.OnPauseMenu -= UseEventPauseMenu;
+        UpdateCursorState();
+    }
 
-    public void Activate()
+    public void UseEventPauseMenu()
     {
-        gameObject.SetActive(true);
-        UpdateCursorState();
-    }
-    public void Deactivate()
-    {
-        gameObject.SetActive(false);
-        UpdateCursorState();
-    }
-    public void Free()
-    {
-        gameObject.SetActive(false);
-        UpdateCursorState();
+        gameObject.SetActive(!gameObject.activeSelf);
     }
     private void InitAudios()
     {

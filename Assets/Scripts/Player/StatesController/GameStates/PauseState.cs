@@ -4,10 +4,12 @@ using UnityEngine;
 public class PauseState : IGameState
 {
     GameStateController controller;
+    IPlayerInputHandler input;
 
-    public PauseState(GameStateController controller)
+    public PauseState(GameStateController controller, IPlayerInputHandler input)
     {
         this.controller = controller;
+        this.input = input;
     }
     public void Enter()
     {
@@ -16,7 +18,7 @@ public class PauseState : IGameState
 
     public void Execute()
     {
-        if (Input.GetKeyDown(KeyCode.B))
+        if (input.PauseMenuModePressed())
         {
             Time.timeScale = 1f;
             controller.ChangeState(controller.GameplayState);

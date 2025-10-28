@@ -27,11 +27,10 @@ namespace Player
         }
         public void Execute()
         {
-            if (input.PauseMenuModePressed())
-            {
-                GameManager.Instance.screenManager.Pop();
-                controller.ChangeState(controller.NormalState);
-            }
+            //if (input.PauseMenuModePressed())
+            //{
+            //    PauseMenuManager.Instance.gameObject.SetActive(!PauseMenuManager.Instance.gameObject.activeSelf);              
+            //}
         }
         public void Exit()
         {
