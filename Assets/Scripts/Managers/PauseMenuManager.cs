@@ -29,9 +29,9 @@ public class PauseMenuManager : MonoBehaviour, IScreen
         masterVolumeSlider.onValueChanged.AddListener(OnVolumeChangedMaster);
         sfxVolumeSlider.onValueChanged.AddListener(OnVolumeChangedSFX);
         bgmVolumeSlider.onValueChanged.AddListener(OnVolumeChangedBgm);
-        OnVolumeChangedMaster(0.5f);
-        OnVolumeChangedBgm(0.5f);
-        OnVolumeChangedSFX(0.5f);
+        OnVolumeChangedMaster(1f);
+        OnVolumeChangedBgm(1f);
+        OnVolumeChangedSFX(1f);
         InitAudios();
     }
     //private void OnEnable()
