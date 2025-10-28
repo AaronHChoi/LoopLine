@@ -15,6 +15,8 @@ public class PauseMenuManager : Singleton<PauseMenuManager>
     [SerializeField] private AudioMixer audioMixer;
     private Dictionary<AudioSource, float> MasterAudio;
 
+    [SerializeField] private GameObject pauseMenu { get; set; }
+
     IGameStateController Controller;
 
     protected override void Awake()
@@ -32,21 +34,22 @@ public class PauseMenuManager : Singleton<PauseMenuManager>
         OnVolumeChangedBgm(1f);
         OnVolumeChangedSFX(1f);
         InitAudios();
+       
     }
     private void OnEnable()
-    {
-        Controller.OnPauseMenu += UseEventPauseMenu;
+    {     
+        Controller.OnPauseMenu += PauseMenu;
         UpdateCursorState();
     }
     private void OnDisable()
     {
-        Controller.OnPauseMenu -= UseEventPauseMenu;
+        Controller.OnPauseMenu -= PauseMenu;
         UpdateCursorState();
     }
 
-    public void UseEventPauseMenu()
+    public void PauseMenu()
     {
-        gameObject.SetActive(!gameObject.activeSelf);
+        pauseMenu.SetActive(!pauseMenu.activeSelf);
     }
     private void InitAudios()
     {
@@ -89,11 +92,17 @@ public class PauseMenuManager : Singleton<PauseMenuManager>
             Cursor.lockState = isCursorVisible ? CursorLockMode.None : CursorLockMode.Locked;
         }
     }
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
         if (masterVolumeSlider != null)
             masterVolumeSlider.onValueChanged.RemoveListener(OnVolumeChangedMaster);
         if (sfxVolumeSlider != null)
             sfxVolumeSlider.onValueChanged.RemoveListener(OnVolumeChangedSFX);
+        Controller.OnPauseMenu -= PauseMenu;
     }
+}
+
+public interface IPauseMenuManager
+{
+   
 }
