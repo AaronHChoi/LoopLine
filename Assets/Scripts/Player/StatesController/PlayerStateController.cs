@@ -19,7 +19,7 @@ namespace Player
         public event Action OnScrollInventory;
         public event Action OnGrab;
         public event Action OnTeleport;
-        public event Action OnPauseMenu;
+        
         StateMachine stateMachine { get; set; }
 
         ITimeProvider timeManager;
@@ -56,7 +56,6 @@ namespace Player
             DialogueState = new DialogueState(this, inputHandler, playerMovement, cinemachinePOVExtension);
             CameraState = new CameraState(this, inputHandler, playerMovement, photoCapture, cinemachinePOVExtension, interaction, togglePhotoDetection);
             DevelopmentState = new DevelopmentState(this, inputHandler, playerMovement, cinemachinePOVExtension, timeManager);
-            PauseMenuState = new PauseMenuState(this, inputHandler, playerMovement, cinemachinePOVExtension, timeManager);
             FocusModeState = new FocusModeState(this, inputHandler, playerMovement, cinemachinePOVExtension);
             MindPlaceState = new MindPlaceState(this, inputHandler, playerMovement);
             ObjectInHandState = new ObjectInHandState(this, inputHandler, playerMovement, cinemachinePOVExtension);
@@ -98,10 +97,7 @@ namespace Player
         {
             OnOpenDevelopment?.Invoke();
         }
-        public void UseEventPauseMenu()
-        {
-            OnPauseMenu?.Invoke();
-        }
+  
         public void UseEventFocusMode()
         {
             OnFocusMode?.Invoke();
@@ -128,7 +124,6 @@ namespace Player
         public event Action OnDialogueNext;
         public event Action OnOpenInventory;
         public event Action OnOpenDevelopment;
-        public event Action OnPauseMenu;
         public event Action OnFocusMode;
         public event Action OnScrollInventory;
         public event Action OnGrab;
@@ -140,7 +135,6 @@ namespace Player
         void UseEventTakePhoto();
         void UseEventOpenInventory();
         void UseEventDevelopment();
-        void UseEventPauseMenu();
         void UseEventDialogueNext();
         void UseEventFocusMode();
         void UseEventGrab();

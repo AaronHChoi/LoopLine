@@ -5,23 +5,19 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
-public class PauseMenuManager : MonoBehaviour, IScreen
+public class PauseMenuManager : Singleton<PauseMenuManager>, IPauseMenuManager
 {
-    bool isCursorVisible = false;
     [Header("Audio Settings")]
     [SerializeField] private Slider masterVolumeSlider;
     [SerializeField] private Slider sfxVolumeSlider;
     [SerializeField] private Slider bgmVolumeSlider;
     [SerializeField] private AudioMixer audioMixer;
     private Dictionary<AudioSource, float> MasterAudio;
-    private Dictionary<AudioSource, float> sfxAudio;
-    private Dictionary<AudioSource, float> MusicAudio;
 
-    IPlayerStateController playerStateController;
 
-    private void Awake()
+    protected override void Awake()
     {
-        playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
+        base.Awake();
     }
 
     private void Start()
@@ -33,42 +29,9 @@ public class PauseMenuManager : MonoBehaviour, IScreen
         OnVolumeChangedBgm(1f);
         OnVolumeChangedSFX(1f);
         InitAudios();
+       
     }
-    //private void OnEnable()
-    //{
-    //    if (playerStateController != null)
-    //    {
-    //        playerStateController.OnPauseMenu += OnPauseGameMode;
-    //    }
-    //}
-    //private void OnDisable()
-    //{
-    //    if (playerStateController != null)
-    //    {
-    //        playerStateController.OnPauseMenu -= OnPauseGameMode;
-            
-    //    }
-    //}
-    //public void OnPauseGameMode()
-    //{
-        
-    //}
-
-    public void Activate()
-    {
-        gameObject.SetActive(true);
-        UpdateCursorState();
-    }
-    public void Deactivate()
-    {
-        gameObject.SetActive(false);
-        UpdateCursorState();
-    }
-    public void Free()
-    {
-        gameObject.SetActive(false);
-        UpdateCursorState();
-    }
+    
     private void InitAudios()
     {
         MasterAudio = new Dictionary<AudioSource, float>();
@@ -99,22 +62,22 @@ public class PauseMenuManager : MonoBehaviour, IScreen
 
         PlayerPrefs.SetFloat(parameterName, value);
     }
-    void UpdateCursorState()
-    {
-        bool shouldShowCursor = gameObject.activeInHierarchy;
-
-        if (isCursorVisible != shouldShowCursor)
-        {
-            isCursorVisible = shouldShowCursor;
-            Cursor.visible = isCursorVisible;
-            Cursor.lockState = isCursorVisible ? CursorLockMode.None : CursorLockMode.Locked;
-        }
-    }
-    private void OnDestroy()
+    
+    protected override void OnDestroy()
     {
         if (masterVolumeSlider != null)
             masterVolumeSlider.onValueChanged.RemoveListener(OnVolumeChangedMaster);
         if (sfxVolumeSlider != null)
             sfxVolumeSlider.onValueChanged.RemoveListener(OnVolumeChangedSFX);
     }
+
+    public GameObject PauseGameObject()
+    {
+        return gameObject;
+    }
+}
+
+public interface IPauseMenuManager
+{
+    GameObject PauseGameObject();
 }

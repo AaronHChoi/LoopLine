@@ -6,10 +6,13 @@ public class GameplayState : IGameState
     GameStateController controller;
     PlayerStateController playerController;
 
-    public GameplayState(GameStateController controller, PlayerStateController playerController)
+    IPlayerInputHandler input;
+
+    public GameplayState(GameStateController controller, PlayerStateController playerController, IPlayerInputHandler input)
     {
         this.controller = controller;
         this.playerController = playerController;
+        this.input = input;
     }
     public void Enter()
     {
@@ -18,8 +21,9 @@ public class GameplayState : IGameState
 
     public void Execute()
     {
-        if (Input.GetKeyDown(KeyCode.B))
+        if (input.PauseMenuModePressed())
         {
+            controller.UseEventPauseMenu();
             controller.ChangeState(controller.PauseState);
         }
     }
