@@ -26,14 +26,18 @@ public class UIManager : MonoBehaviour, IUIManager
 
     private void OnEnable()
     {
-        gameController.OnPauseMenu += PauseMenu;
-        
+        if(gameController != null)
+        {
+            gameController.OnPauseMenu += PauseMenu;
+        }
     }
     private void OnDisable()
     {
-        gameController.OnPauseMenu -= PauseMenu;
+        if (gameController != null)
+        {
+            gameController.OnPauseMenu -= PauseMenu;
+        }
     }
-
     public void PauseMenu()
     {
         pauseManager.SetActive(!pauseManager.activeSelf);

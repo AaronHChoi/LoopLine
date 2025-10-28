@@ -127,15 +127,8 @@ public class DialogueUI : MonoBehaviour
 
         ChangeDialogeColor(data.IsAMonologue);
 
-        if (data.IsAMonologue)
-        {
-            playerStateController.ChangeState(playerStateController.MonologueState);
-        }
-        else
-        {
-            playerStateController.ChangeState(playerStateController.DialogueState);
-        }
-
+        playerStateController.ChangeState(playerStateController.DialogueState);
+        
         dialoguePanel.SetActive(true);
         ShowCurrentLine();
     }
