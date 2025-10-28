@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class InventoryUI : MonoBehaviour, IInventoryUI
+public class InventoryUI : Singleton<InventoryUI>, IInventoryUI
 {
     [SerializeField] public List<UIInventoryItemSlot> inventorySlots { get; } = new List<UIInventoryItemSlot>(); 
     
@@ -17,7 +17,7 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
     [SerializeField] private ItemInteract handItemUI;
     [SerializeField] private Vector2 offset = new Vector2(50f, 0f);
     [SerializeField] private float slotChangeCooldown = 0.5f;
-    [SerializeField] private bool isInCorrectScene = false;
+    [SerializeField] private int maxInventorySlots = 5;
     [SerializeField] private Transform spawnPosition;
 
     private float lastSlotChangeTime = 0f;
@@ -68,10 +68,7 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
         ItemInUse = HandItemUI;
         currentSlotIndex = 0;
         inventorySlots[0].IsActive = true;
-        if (SceneManager.GetActiveScene().name == "05. MindPlace" || SceneManager.GetActiveScene().name == "TestMindPlace")
-        {
-            isInCorrectScene = true;
-        }
+
     }
     private void Update()
     {
@@ -167,13 +164,31 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
 
     public void AddInventorySlot(ItemInteract item)
     {
-        GameObject itemUI = Instantiate(item.ItemData.objectPrefab);
-        itemUI.transform.SetParent(transform, false);
+        if (inventorySlots.Count < maxInventorySlots)
+        {
+            if (CheckInventory(item))
+            {
+                RemoveInventorySlot(item);
+                GameObject itemUI = Instantiate(item.ItemData.objectPrefab);
+                itemUI.transform.SetParent(transform, false);
 
-        UIInventoryItemSlot slot = itemUI.GetComponent<UIInventoryItemSlot>();
-        slot.Set(item);
-        inventorySlots.Add(slot);
-        MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
+                UIInventoryItemSlot slot = itemUI.GetComponent<UIInventoryItemSlot>();
+                slot.Set(item);
+                inventorySlots.Add(slot);
+                MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
+            }
+            else
+            {
+                GameObject itemUI = Instantiate(item.ItemData.objectPrefab);
+                itemUI.transform.SetParent(transform, false);
+
+                UIInventoryItemSlot slot = itemUI.GetComponent<UIInventoryItemSlot>();
+                slot.Set(item);
+                inventorySlots.Add(slot);
+                MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
+            }
+        }
+              
     }
     public void RemoveInventorySlot(ItemInteract item)
     {
@@ -199,6 +214,29 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
             }
         }
    
+    }
+    public void RemoveUIInventoryLastSlot(UIInventoryItemSlot slotToRemove)
+    {
+         slotToRemove = inventorySlots[currentSlotIndex];
+
+         if (currentSlotIndex > 0)
+         {
+             inventorySlots[currentSlotIndex].IsActive = false;
+             inventorySlots[currentSlotIndex].gameObject.SetActive(false);
+             inventorySlots.Remove(slotToRemove);
+             slotToRemove.transform.parent = null;
+
+             currentSlotIndex--;
+             inventorySlots[currentSlotIndex].IsActive = true;
+
+             StartCoroutine(UpdateArrowNextFrame());
+         }
+         else
+         {
+             ResetArrowPosition();
+         }
+        
+
     }
     public bool CheckInventory(ItemInteract itemInteract)
     {
@@ -264,5 +302,6 @@ public interface IInventoryUI
     void MoveArrowToSlot(RectTransform slotTransform);
     void AddInventorySlot(ItemInteract item);
     void RemoveInventorySlot(ItemInteract item);
+    void RemoveUIInventoryLastSlot(UIInventoryItemSlot slotToRemove);
     bool CheckInventory(ItemInteract itemInteract);
 }
