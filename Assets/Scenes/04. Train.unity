@@ -2368,6 +2368,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: b6a6f63fead253e498a8da8a1e518a0a, type: 2}
     - target: {fileID: 8784206747904870207, guid: 002ecf8dc93abc4478e944281e92837b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8784206747904870207, guid: 002ecf8dc93abc4478e944281e92837b, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
@@ -9171,28 +9175,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03986901a2cb4c8418341d0929746f26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 15
-  teleportZ: 171
-  limitZ: -188.1
-  movingObjects:
-  - {fileID: 347859135}
-  - {fileID: 347859134}
-  - {fileID: 347859133}
-  - {fileID: 347859132}
-  - {fileID: 760192885}
-  - {fileID: 1289273497}
-  - {fileID: 1215643401}
-  - {fileID: 1116410100}
-  - {fileID: 1097569473}
-  - {fileID: 484378178}
-  - {fileID: 1327980479}
-  - {fileID: 28588790}
-  - {fileID: 791695025}
-  - {fileID: 865693529}
-  - {fileID: 1634360170}
-  - {fileID: 2147270973}
-  - {fileID: 1917436077}
-  - {fileID: 1130426056}
+  limitZ: -236.5
+  layers:
+  - name: Rail
+    moveSpeed: 60
+    objects:
+    - {fileID: 1130426056}
+    - {fileID: 1116410100}
+    - {fileID: 347859132}
+    spacing: 0
+  - name: Base
+    moveSpeed: 60
+    objects:
+    - {fileID: 1634360170}
+    - {fileID: 760192885}
+    - {fileID: 347859135}
+    spacing: 0
+  - name: Cable
+    moveSpeed: 60
+    objects:
+    - {fileID: 1215643401}
+    - {fileID: 1917436077}
+    - {fileID: 347859133}
+    spacing: 0
+  - name: Support
+    moveSpeed: 60
+    objects:
+    - {fileID: 1289273497}
+    - {fileID: 2147270973}
+    - {fileID: 347859134}
+    spacing: 0
+  - name: Terrain
+    moveSpeed: 20
+    objects:
+    - {fileID: 865693529}
+    - {fileID: 28588790}
+    - {fileID: 1327980479}
+    spacing: 0
+  - name: Buildings
+    moveSpeed: 20
+    objects:
+    - {fileID: 791695025}
+    - {fileID: 484378178}
+    - {fileID: 1097569473}
+    spacing: 0
   gizmoHeight: 20
   limitColor: {r: 1, g: 0, b: 0, a: 1}
   teleportColor: {r: 0, g: 1, b: 0, a: 1}
