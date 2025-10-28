@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using Unity.Cinemachine;
 
-public class SceneTransitionController : MonoBehaviour
+public class SceneTransitionController : MonoBehaviour, ISceneTransitionController
 {
     [Header("Transition Settings")]
     [SerializeField] private float shakeDuration = 0.3f;
@@ -28,16 +28,6 @@ public class SceneTransitionController : MonoBehaviour
         if (mainCamera)
             mainCamera.Lens.FieldOfView = startFOV;
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.N))
-            StartTransition(true); // Forward
-
-        if (Input.GetKeyDown(KeyCode.M))
-            StartTransition(false); // Reverse
-    }
-
     public void StartTransition(bool forward)
     {
         if (currentTransition != null)
@@ -45,11 +35,8 @@ public class SceneTransitionController : MonoBehaviour
 
         currentTransition = StartCoroutine(TransitionSequence(forward));
     }
-
     private System.Collections.IEnumerator TransitionSequence(bool forward)
     {
-        isActive = true;
-
         // Start rumble immediately
         if (impulseSource != null)
             impulseSource.GenerateImpulse();
@@ -72,11 +59,7 @@ public class SceneTransitionController : MonoBehaviour
         // Wait until both coroutines finish
         yield return fovCoroutine;
         yield return fadeCoroutine;
-
-        isActive = false;
     }
-
-
     private System.Collections.IEnumerator FOVWarpCoroutine(float fromFOV, float toFOV, float duration)
     {
         if (mainCamera == null || duration <= 0f)
@@ -91,7 +74,6 @@ public class SceneTransitionController : MonoBehaviour
         }
         mainCamera.Lens.FieldOfView = toFOV;
     }
-
     private System.Collections.IEnumerator FadeVolumeCoroutine(float fromWeight, float toWeight, float duration)
     {
         if (transitionVolume == null || duration <= 0f)
@@ -106,4 +88,8 @@ public class SceneTransitionController : MonoBehaviour
         }
         transitionVolume.weight = toWeight;
     }
+}
+public interface ISceneTransitionController
+{
+    void StartTransition(bool forward);
 }
