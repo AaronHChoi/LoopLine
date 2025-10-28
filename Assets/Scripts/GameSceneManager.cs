@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using DependencyInjection;
-using Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,12 +13,9 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
     [SerializeField] private List<string> activeScenes = new List<string>();
     [SerializeField] private List <string> constantActiveScenes = new List<string>();
 
-    IPlayerStateController playerStateController;
     protected override void Awake()
     {
         base.Awake();
-
-        playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
     }
     private void Start()
     {     
@@ -34,32 +29,6 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
                 }
             }
             StartCoroutine(LoadSceneAsync(firstScene.sceneName));
-        }
-    }
-    private void OnEnable()
-    {
-        if (playerStateController != null)
-        {
-            playerStateController.OnTeleport += TeleportPlayer;
-        }
-    }
-    private void OnDisable()
-    {
-        if (playerStateController != null)
-        {
-            playerStateController.OnTeleport -= TeleportPlayer;
-        }
-    }
-    private void TeleportPlayer()
-    {
-        if (IsCurrentScene("04. Train"))
-        {
-            SceneManager.LoadScene("05. MindPlace");
-        }
-
-        if (IsCurrentScene("05. MindPlace"))
-        {
-            SceneManager.LoadScene("04. Train");
         }
     }
     public void LoadRandomScene()
