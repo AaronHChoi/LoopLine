@@ -31,9 +31,18 @@ public class Clock : MonoBehaviour, IInteract
     [SerializeField] PlayerMovement playerMovement; //test
     [SerializeField] ICameraOrientation playerCamera;
 
+    [SerializeField] SoundData clockSecondsData;
+
     private void Awake()
     {
         playerCamera = InterfaceDependencyInjector.Instance.Resolve<ICameraOrientation>();
+    }
+    private void Start()
+    {
+         SoundManager.Instance.CreateSound()
+            .WithSoundData(clockSecondsData)
+            .WithSoundPosition(transform.position)
+            .Play();
     }
     void Update()
     {
