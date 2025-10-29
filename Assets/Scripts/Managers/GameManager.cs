@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DependencyInjection;
 using UnityEngine;
 
@@ -8,26 +9,37 @@ public class GameManager : Singleton<GameManager>
     public bool isGamePaused;
 
     public int TrainLoop = 0;
-    public int MindPlaceLoop = 0;
+
+    Dictionary<GameCondition, bool> conditions = new Dictionary<GameCondition, bool>();
 
     [Header("DeveloperTools")]
     public bool isMuted = false;
 
-    bool clockQuest;
+    [Header("ClockQuest")]
+    bool clockQuestCompleted;
     public bool ClockQuest
     {
-        get { return clockQuest; }
-        set { clockQuest = value; }
+        get { return clockQuestCompleted; }
+        set { clockQuestCompleted = value; }
     }
 
-    IGameSceneManager gameSceneManager;
     public IScreenManager screenManager;
 
     protected override void Awake()
     {
         base.Awake();
 
-        gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
         screenManager = InterfaceDependencyInjector.Instance.Resolve<IScreenManager>();
+
+        conditions[GameCondition.IsClockQuestComplete] = false;
+        conditions[GameCondition.IsPhotoQuestComplete] = false;
+    }
+    public bool GetCondition(GameCondition condition)
+    {
+        return conditions.ContainsKey(condition) && conditions[condition];
+    }
+    public void SetCondition(GameCondition condition, bool value)
+    {
+        conditions[condition] = value;
     }
 }

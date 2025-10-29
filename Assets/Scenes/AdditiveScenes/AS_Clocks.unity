@@ -196,7 +196,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fadc873b61ce9c3498d90a32b0ecc5b9, type: 3}
-      insertIndex: -1
+      insertIndex: 1
       addedObject: {fileID: 32914109}
   m_SourcePrefab: {fileID: 100100000, guid: fadc873b61ce9c3498d90a32b0ecc5b9, type: 3}
 --- !u!4 &32914107 stripped
@@ -221,9 +221,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1115c04571bbba4fb19def5dcff0ea7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueGroups: []
-  currentEvent: 17
-  npcType: 1
+  dialogueGroups:
+  - eventType: 26
+    dialogues:
+    - {fileID: 11400000, guid: 7ace4e54cc5a47245b57484fb1eacab5, type: 2}
+  currentEvent: 26
+  npcType: 4
   autoAdvance: 0
   interactText: 
 --- !u!1001 &47966801
@@ -582,18 +585,16 @@ MonoBehaviour:
   hourHand: {fileID: 107376925}
   minuteHand: {fileID: 107376924}
   secondHand: {fileID: 107376923}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!4 &107376923 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4260600078610731462, guid: 9000b822191b58d40922961b70a85623, type: 3}
@@ -726,18 +727,16 @@ MonoBehaviour:
   hourHand: {fileID: 129188521}
   minuteHand: {fileID: 129188520}
   secondHand: {fileID: 129188519}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!4 &129188519 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4260600078610731462, guid: 9000b822191b58d40922961b70a85623, type: 3}
@@ -753,6 +752,71 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8727298160719224535, guid: 9000b822191b58d40922961b70a85623, type: 3}
   m_PrefabInstance: {fileID: 129188515}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &141426135
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 66228917943479368, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.9989634
+      objectReference: {fileID: 0}
+    - target: {fileID: 66228917943479368, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.866
+      objectReference: {fileID: 0}
+    - target: {fileID: 66228917943479368, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -15.410668
+      objectReference: {fileID: 0}
+    - target: {fileID: 66228917943479368, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.8175067
+      objectReference: {fileID: 0}
+    - target: {fileID: 66228917943479368, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 66228917943479368, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.5759192
+      objectReference: {fileID: 0}
+    - target: {fileID: 66228917943479368, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 66228917943479368, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 66228917943479368, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 70.328
+      objectReference: {fileID: 0}
+    - target: {fileID: 66228917943479368, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 837839358216206066, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: m_Name
+      value: Clock 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975192068019363688, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: jitterSpeed
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975192068019363688, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: jitterAmount
+      value: 0.001
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
 --- !u!1001 &224703835
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -870,18 +934,16 @@ MonoBehaviour:
   hourHand: {fileID: 224703841}
   minuteHand: {fileID: 224703840}
   secondHand: {fileID: 224703839}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!4 &224703839 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4260600078610731462, guid: 9000b822191b58d40922961b70a85623, type: 3}
@@ -1014,18 +1076,16 @@ MonoBehaviour:
   hourHand: {fileID: 282622678}
   minuteHand: {fileID: 282622677}
   secondHand: {fileID: 282622676}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!4 &282622676 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4260600078610731462, guid: 9000b822191b58d40922961b70a85623, type: 3}
@@ -1267,18 +1327,16 @@ MonoBehaviour:
   hourHand: {fileID: 441475237}
   minuteHand: {fileID: 441475236}
   secondHand: {fileID: 441475235}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!1001 &459834489
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1505,18 +1563,16 @@ MonoBehaviour:
   hourHand: {fileID: 467169312}
   minuteHand: {fileID: 467169311}
   secondHand: {fileID: 467169310}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!1001 &482609231
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1634,18 +1690,16 @@ MonoBehaviour:
   hourHand: {fileID: 482609237}
   minuteHand: {fileID: 482609236}
   secondHand: {fileID: 482609235}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!4 &482609235 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4260600078610731462, guid: 9000b822191b58d40922961b70a85623, type: 3}
@@ -1778,18 +1832,16 @@ MonoBehaviour:
   hourHand: {fileID: 489196994}
   minuteHand: {fileID: 489196993}
   secondHand: {fileID: 489196992}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!4 &489196992 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4260600078610731462, guid: 9000b822191b58d40922961b70a85623, type: 3}
@@ -1937,18 +1989,16 @@ MonoBehaviour:
   hourHand: {fileID: 603281601}
   minuteHand: {fileID: 603281600}
   secondHand: {fileID: 603281599}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!1001 &687933853
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2066,18 +2116,16 @@ MonoBehaviour:
   hourHand: {fileID: 687933859}
   minuteHand: {fileID: 687933858}
   secondHand: {fileID: 687933857}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!4 &687933857 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4260600078610731462, guid: 9000b822191b58d40922961b70a85623, type: 3}
@@ -2358,18 +2406,16 @@ MonoBehaviour:
   hourHand: {fileID: 720931015}
   minuteHand: {fileID: 720931014}
   secondHand: {fileID: 720931013}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!4 &720931013 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4260600078610731462, guid: 9000b822191b58d40922961b70a85623, type: 3}
@@ -2502,18 +2548,16 @@ MonoBehaviour:
   hourHand: {fileID: 744656634}
   minuteHand: {fileID: 744656633}
   secondHand: {fileID: 744656632}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!4 &744656632 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4260600078610731462, guid: 9000b822191b58d40922961b70a85623, type: 3}
@@ -2740,18 +2784,16 @@ MonoBehaviour:
   hourHand: {fileID: 802550901}
   minuteHand: {fileID: 802550900}
   secondHand: {fileID: 802550899}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!4 &802550899 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4260600078610731462, guid: 9000b822191b58d40922961b70a85623, type: 3}
@@ -2884,18 +2926,16 @@ MonoBehaviour:
   hourHand: {fileID: 838734837}
   minuteHand: {fileID: 838734836}
   secondHand: {fileID: 838734835}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!4 &838734835 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4260600078610731462, guid: 9000b822191b58d40922961b70a85623, type: 3}
@@ -3028,18 +3068,16 @@ MonoBehaviour:
   hourHand: {fileID: 845702545}
   minuteHand: {fileID: 845702544}
   secondHand: {fileID: 845702543}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!4 &845702543 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4260600078610731462, guid: 9000b822191b58d40922961b70a85623, type: 3}
@@ -3172,18 +3210,16 @@ MonoBehaviour:
   hourHand: {fileID: 889113794}
   minuteHand: {fileID: 889113793}
   secondHand: {fileID: 889113792}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!4 &889113792 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4260600078610731462, guid: 9000b822191b58d40922961b70a85623, type: 3}
@@ -3316,18 +3352,16 @@ MonoBehaviour:
   hourHand: {fileID: 912873114}
   minuteHand: {fileID: 912873113}
   secondHand: {fileID: 912873112}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!4 &912873112 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4260600078610731462, guid: 9000b822191b58d40922961b70a85623, type: 3}
@@ -3411,6 +3445,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: mystery@Sitting
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a09ac211335c9514cb7fa0a5611668ad, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: a09ac211335c9514cb7fa0a5611668ad, type: 3}
       propertyPath: m_Controller
       value: 
@@ -3420,8 +3458,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a09ac211335c9514cb7fa0a5611668ad, type: 3}
-      insertIndex: -1
+      insertIndex: 1
       addedObject: {fileID: 960307502}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a09ac211335c9514cb7fa0a5611668ad, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 960307503}
   m_SourcePrefab: {fileID: 100100000, guid: a09ac211335c9514cb7fa0a5611668ad, type: 3}
 --- !u!4 &960307500 stripped
 Transform:
@@ -3445,11 +3486,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1115c04571bbba4fb19def5dcff0ea7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueGroups: []
-  currentEvent: 17
-  npcType: 1
+  dialogueGroups:
+  - eventType: 25
+    dialogues:
+    - {fileID: 11400000, guid: 273a3ab1546f53c46937979a57058c38, type: 2}
+  currentEvent: 25
+  npcType: 3
   autoAdvance: 0
   interactText: 
+--- !u!114 &960307503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 960307501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 298d29818d0f905409a4f8f685a28dc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditionCheck: 0
+  active: 0
 --- !u!1001 &1002232746
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3567,18 +3625,16 @@ MonoBehaviour:
   hourHand: {fileID: 1002232752}
   minuteHand: {fileID: 1002232751}
   secondHand: {fileID: 1002232750}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!4 &1002232750 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4260600078610731462, guid: 9000b822191b58d40922961b70a85623, type: 3}
@@ -3899,18 +3955,16 @@ MonoBehaviour:
   hourHand: {fileID: 1041943594}
   minuteHand: {fileID: 1041943593}
   secondHand: {fileID: 1041943592}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!4 &1041943592 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4260600078610731462, guid: 9000b822191b58d40922961b70a85623, type: 3}
@@ -4278,18 +4332,16 @@ MonoBehaviour:
   hourHand: {fileID: 1178437471}
   minuteHand: {fileID: 1178437470}
   secondHand: {fileID: 1178437469}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!4 &1178437469 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4260600078610731462, guid: 9000b822191b58d40922961b70a85623, type: 3}
@@ -4422,18 +4474,16 @@ MonoBehaviour:
   hourHand: {fileID: 1182858272}
   minuteHand: {fileID: 1182858271}
   secondHand: {fileID: 1182858270}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!4 &1182858270 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4260600078610731462, guid: 9000b822191b58d40922961b70a85623, type: 3}
@@ -4566,18 +4616,16 @@ MonoBehaviour:
   hourHand: {fileID: 1190534703}
   minuteHand: {fileID: 1190534702}
   secondHand: {fileID: 1190534701}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!4 &1190534701 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4260600078610731462, guid: 9000b822191b58d40922961b70a85623, type: 3}
@@ -4804,18 +4852,16 @@ MonoBehaviour:
   hourHand: {fileID: 1196499714}
   minuteHand: {fileID: 1196499713}
   secondHand: {fileID: 1196499712}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!4 &1196499712 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4260600078610731462, guid: 9000b822191b58d40922961b70a85623, type: 3}
@@ -4948,18 +4994,16 @@ MonoBehaviour:
   hourHand: {fileID: 1208323388}
   minuteHand: {fileID: 1208323387}
   secondHand: {fileID: 1208323386}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!4 &1208323386 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4260600078610731462, guid: 9000b822191b58d40922961b70a85623, type: 3}
@@ -5057,6 +5101,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: startAt
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
       propertyPath: maxPitch
       value: 5
       objectReference: {fileID: 0}
@@ -5079,6 +5127,14 @@ PrefabInstance:
     - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
       propertyPath: enableSlowdown
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: minSpeedFactor
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: slowdownRangeMinutes
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3179236063881231960, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -5414,18 +5470,16 @@ MonoBehaviour:
   hourHand: {fileID: 1260073573}
   minuteHand: {fileID: 1473376716}
   secondHand: {fileID: 1473376715}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!4 &1473376715 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4260600078610731462, guid: 9000b822191b58d40922961b70a85623, type: 3}
@@ -5835,18 +5889,16 @@ MonoBehaviour:
   hourHand: {fileID: 1540225556}
   minuteHand: {fileID: 1540225555}
   secondHand: {fileID: 1540225554}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!4 &1540225554 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4260600078610731462, guid: 9000b822191b58d40922961b70a85623, type: 3}
@@ -6073,18 +6125,16 @@ MonoBehaviour:
   hourHand: {fileID: 1646329669}
   minuteHand: {fileID: 1646329668}
   secondHand: {fileID: 1646329667}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!4 &1646329667 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4260600078610731462, guid: 9000b822191b58d40922961b70a85623, type: 3}
@@ -6311,18 +6361,16 @@ MonoBehaviour:
   hourHand: {fileID: 1801044398}
   minuteHand: {fileID: 1801044397}
   secondHand: {fileID: 1801044396}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!4 &1801044396 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4260600078610731462, guid: 9000b822191b58d40922961b70a85623, type: 3}
@@ -6455,18 +6503,16 @@ MonoBehaviour:
   hourHand: {fileID: 1828277299}
   minuteHand: {fileID: 1828277298}
   secondHand: {fileID: 1828277297}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!4 &1828277297 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4260600078610731462, guid: 9000b822191b58d40922961b70a85623, type: 3}
@@ -6599,18 +6645,16 @@ MonoBehaviour:
   hourHand: {fileID: 1857764590}
   minuteHand: {fileID: 1857764589}
   secondHand: {fileID: 1857764588}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!4 &1857764588 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4260600078610731462, guid: 9000b822191b58d40922961b70a85623, type: 3}
@@ -7119,18 +7163,16 @@ MonoBehaviour:
   hourHand: {fileID: 1975231812}
   minuteHand: {fileID: 1975231811}
   secondHand: {fileID: 1975231810}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 0.5
+  baseSpeed: 0
+  slowdownRangeMinutes: 30
+  slowdownStrength: 4
   minSpeedFactor: 0.05
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
 --- !u!4 &1975231810 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4260600078610731462, guid: 9000b822191b58d40922961b70a85623, type: 3}
@@ -7186,3 +7228,4 @@ SceneRoots:
   - {fileID: 1109052836}
   - {fileID: 708391517}
   - {fileID: 88629403}
+  - {fileID: 141426135}
