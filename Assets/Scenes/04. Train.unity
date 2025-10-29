@@ -2778,6 +2778,7 @@ GameObject:
   - component: {fileID: 349358451}
   - component: {fileID: 349358453}
   - component: {fileID: 349358454}
+  - component: {fileID: 349358455}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3030,6 +3031,20 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 0
       enableBigTilePrepass: 0
       isFptlEnabled: 0
+--- !u!114 &349358455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349358447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efaa86cb4049e8d4680132ef709be718, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  force: 10
+  forceOffset: 0.1
 --- !u!1 &371789998 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4608017614222654096, guid: 002ecf8dc93abc4478e944281e92837b, type: 3}
@@ -21833,6 +21848,26 @@ PrefabInstance:
     - target: {fileID: 3891986478810099063, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: m_Height
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7046774766287870829, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 31
+      objectReference: {fileID: 0}
+    - target: {fileID: 7046774766287870829, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: m_ActionEvents.Array.data[29].m_ActionId
+      value: 05409b9d-7030-4f33-94f2-accc72fe5854
+      objectReference: {fileID: 0}
+    - target: {fileID: 7046774766287870829, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: m_ActionEvents.Array.data[30].m_ActionId
+      value: 031593be-7982-4c7c-bed5-a2241ca725df
+      objectReference: {fileID: 0}
+    - target: {fileID: 7046774766287870829, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: m_ActionEvents.Array.data[29].m_ActionName
+      value: 'Player/Teleport[/Keyboard/f]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7046774766287870829, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: m_ActionEvents.Array.data[30].m_ActionName
+      value: 'Player/PauseMenuMode[/Keyboard/escape]'
       objectReference: {fileID: 0}
     - target: {fileID: 7276671746339684356, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: crosshairImage
