@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2494031811227071395}
   - component: {fileID: 6907062166202276798}
-  - component: {fileID: 3240853839754122994}
   - component: {fileID: 8525692512006223476}
   - component: {fileID: 5248429285610734478}
+  - component: {fileID: 4685011381677625655}
   m_Layer: 3
   m_Name: Polaroid
   m_TagString: Item
@@ -57,24 +57,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.44928, y: 0.34708637, z: 0.61268616}
   m_Center: {x: -0.024963817, y: -0.006016925, z: -0.08519637}
---- !u!114 &3240853839754122994
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4539868868090495325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58a81b347b9f73d43bda71d317d1412d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactText: 
-  id: PolaroidItem
-  ItemData: {fileID: 11400000, guid: 6e665f960c994b24a92df3efb6ffa7ad, type: 2}
-  canBePicked: 1
-  deactivateOnPickup: 1
-  objectPrefab: {fileID: 0}
 --- !u!114 &8525692512006223476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,6 +85,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Type: 
+--- !u!114 &4685011381677625655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4539868868090495325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2830406988144ce46b7702d0437448cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactText: 
+  id: 
+  ItemData: {fileID: 11400000, guid: 6e665f960c994b24a92df3efb6ffa7ad, type: 2}
+  canBePicked: 1
+  deactivateOnPickup: 1
+  objectPrefab: {fileID: 0}
 --- !u!1 &4717876951799541594
 GameObject:
   m_ObjectHideFlags: 0

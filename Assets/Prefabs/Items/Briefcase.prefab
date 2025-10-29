@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3681655265451715332}
   - component: {fileID: 8422152530189043843}
-  - component: {fileID: 281145953102538162}
   - component: {fileID: 5175080248962882360}
+  - component: {fileID: 751944480924925516}
   m_Layer: 3
   m_Name: Briefcase
   m_TagString: Item
@@ -56,24 +56,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.161252, y: 0.27170908, z: 0.80922973}
   m_Center: {x: -0.007932632, y: 0.0044207573, z: -0.00036528692}
---- !u!114 &281145953102538162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3597808844304126260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58a81b347b9f73d43bda71d317d1412d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactText: 
-  id: 
-  ItemData: {fileID: 11400000, guid: a9596bd9cff8c984db782b4692ccef62, type: 2}
-  canBePicked: 0
-  deactivateOnPickup: 1
-  objectPrefab: {fileID: 0}
 --- !u!114 &5175080248962882360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,6 +71,24 @@ MonoBehaviour:
   promptMessage: Briefcase
   uiOffset: {x: 0, y: 0, z: 0}
   uiOffsetPrompt: {x: 0, y: 0.2, z: 0}
+--- !u!114 &751944480924925516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3597808844304126260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2830406988144ce46b7702d0437448cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactText: 
+  id: 
+  ItemData: {fileID: 11400000, guid: a9596bd9cff8c984db782b4692ccef62, type: 2}
+  canBePicked: 0
+  deactivateOnPickup: 1
+  objectPrefab: {fileID: 0}
 --- !u!1001 &4602353657788802368
 PrefabInstance:
   m_ObjectHideFlags: 0
