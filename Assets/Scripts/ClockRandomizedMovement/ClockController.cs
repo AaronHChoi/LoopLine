@@ -155,8 +155,14 @@ public class ClockController : MonoBehaviour
         float minuteAngle = (t.Minute + t.Second / 60f) * 6f;
         float secondAngle = t.Second * 6f;
 
-        hourHand.localRotation = Quaternion.Euler(0, 0, -hourAngle);
-        minuteHand.localRotation = Quaternion.Euler(0, 0, -minuteAngle);
-        secondHand.localRotation = Quaternion.Euler(0, 0, -secondAngle);
+        Quaternion rotHour = Quaternion.Euler(0f, hourAngle, 0f);
+        Quaternion rotMinute = Quaternion.Euler(0f, minuteAngle, 0f);
+        Quaternion rotSecond = Quaternion.Euler(0f, secondAngle, 0f);
+
+        // Apply in world space, neutralizing parent rotation
+        hourHand.rotation = transform.rotation * rotHour;
+        minuteHand.rotation = transform.rotation * rotMinute;
+        secondHand.rotation = transform.rotation * rotSecond;
     }
+
 }
