@@ -7,14 +7,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class InventoryUI : Singleton<InventoryUI>, IInventoryUI
+public class InventoryUI : MonoBehaviour, IInventoryUI
 {
     [SerializeField] public List<UIInventoryItemSlot> inventorySlots { get; } = new List<UIInventoryItemSlot>(); 
     
     [SerializeField] public RawImage arrowImage;
     [SerializeField] public ItemInteract ItemInUse { get; set; }
 
-    [SerializeField] private ItemInteract handItemUI;
+    [SerializeField] private BaseItemInteract handItemUI;
     [SerializeField] private Vector2 offset = new Vector2(50f, 0f);
     [SerializeField] private float slotChangeCooldown = 0.5f;
     [SerializeField] private int maxInventorySlots = 5;
@@ -26,7 +26,7 @@ public class InventoryUI : Singleton<InventoryUI>, IInventoryUI
     {
         get => isInventoryOpen;
     }
-    public ItemInteract HandItemUI { get { return handItemUI; } } 
+    public BaseItemInteract HandItemUI { get { return handItemUI; } } 
 
     private int currentSlotIndex = 0;
 
@@ -296,7 +296,7 @@ public interface IInventoryUI
     public List<UIInventoryItemSlot> inventorySlots { get; }
     int CurrentSlotIndex { get; }
     bool IsInventoryOpen { get; }
-    public ItemInteract HandItemUI { get; }
+    public BaseItemInteract HandItemUI { get; }
     public ItemInteract ItemInUse { get; set; }
     Transform GetSpawnPosition();
     void MoveArrowToSlot(RectTransform slotTransform);

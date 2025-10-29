@@ -7,7 +7,6 @@ public class UIInventoryItemSlot : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI itemNameLabel;
     [SerializeField] private Image itemImage;
-    [SerializeField] private Button itemButton;
     [SerializeField] public string itemId;
     public ItemInteract itemToSpawn { get; private set; }
 
@@ -26,12 +25,10 @@ public class UIInventoryItemSlot : MonoBehaviour
                 DeactivateItem();
         }
     }
-    IInventoryUI inventorySystem;
     IPlayerStateController controller;
 
     private void Start()
     {
-        inventorySystem = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
         controller = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
     }
   
@@ -49,11 +46,11 @@ public class UIInventoryItemSlot : MonoBehaviour
         if (item != null)
         {
             item.SetActive(true);
-            item.transform.position = inventorySystem.GetSpawnPosition().position;
-            item.transform.rotation = inventorySystem.GetSpawnPosition().rotation;
-            item.transform.SetParent(inventorySystem.GetSpawnPosition());
+            item.transform.position = InventoryUI.Instance.GetSpawnPosition().position;
+            item.transform.rotation = InventoryUI.Instance.GetSpawnPosition().rotation;
+            item.transform.SetParent(InventoryUI.Instance.GetSpawnPosition());
 
-            inventorySystem.ItemInUse = itemToSpawn;
+            InventoryUI.Instance.ItemInUse = itemToSpawn;
 
             controller.ChangeState(controller.ObjectInHandState);
         }
