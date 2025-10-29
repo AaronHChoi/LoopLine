@@ -3,15 +3,15 @@ using UnityEngine;
 public class ClockPuzzleManager : MonoBehaviour
 {
     [SerializeField] Clock clock;
-    [SerializeField] GameObject doorHandlerItem;
 
     [SerializeField] int targetHour;
     [SerializeField] int targetMinute;
+    [SerializeField] GenericMove doorHandlerBase;
     private void Start()
     {
         if (GameManager.Instance.ClockQuest == true)
         {
-            doorHandlerItem.SetActive(true);
+            doorHandlerBase.Move();
         }
     }
     private void OnEnable()
@@ -43,10 +43,10 @@ public class ClockPuzzleManager : MonoBehaviour
     }
     private void RevealObject()
     {
-        if (doorHandlerItem != null && !doorHandlerItem.activeInHierarchy && !GameManager.Instance.ClockQuest)
+        if (!GameManager.Instance.ClockQuest)
         {
-            doorHandlerItem.SetActive(true);
             GameManager.Instance.ClockQuest = true;
+            doorHandlerBase.Move();
         }
     }
 }
