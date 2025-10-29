@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3425584740185293773}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071069, y: 0.000000029802322, z: -0.000000029802322, w: 0.70710677}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -128,7 +128,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4979570933251045429}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071069, y: 0.000000029802322, z: -0.000000029802322, w: 0.70710677}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -229,7 +229,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7127928601604904633}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071069, y: 0.000000029802322, z: -0.000000029802322, w: 0.70710677}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -302,8 +302,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad1e07088dbc6dc4884aa3cd8e145deb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jitterAmount: 0.000424
-  jitterSpeed: 0.00309
+  jitterAmount: 0.001
+  jitterSpeed: 0.01
 --- !u!1 &8571408946404415705
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,7 +331,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8571408946404415705}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071069, y: 0.000000029802322, z: -0.000000029802322, w: 0.70710677}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -542,15 +542,17 @@ MonoBehaviour:
   hourHand: {fileID: 5880532159284250421}
   minuteHand: {fileID: 7503501369432785163}
   secondHand: {fileID: 6584696096959117571}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 0
-  slowDistanceMinutes: 30
-  accelerationRate: 1
+  baseSpeed: 150
+  slowdownRangeMinutes: 20
+  slowdownStrength: 4
   minSpeedFactor: 0.05
+  enablePause: 0
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
+  defaultJitterAmount: 0.000482
+  defaultJitterSpeed: 0.00503
+  jitterSmooth: 2

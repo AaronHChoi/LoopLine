@@ -403,8 +403,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad1e07088dbc6dc4884aa3cd8e145deb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jitterAmount: 0.000482
-  jitterSpeed: 0.00503
+  jitterAmount: 0.001
+  jitterSpeed: 0.01
 --- !u!1001 &531974120621755299
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -578,15 +578,17 @@ MonoBehaviour:
   hourHand: {fileID: 852052728915021442}
   minuteHand: {fileID: 453266508258467218}
   secondHand: {fileID: 982489922295726981}
-  minSpeed: 5
-  maxSpeed: 100
-  enableSlowdown: 1
-  slowDistanceMinutes: 30
-  accelerationRate: 1
+  baseSpeed: 150
+  slowdownRangeMinutes: 20
+  slowdownStrength: 4
   minSpeedFactor: 0.05
+  enablePause: 0
   pauseDuration: 7
   resumeSmoothTime: 3
-  slowdownTimeout: 60
   tickSource: {fileID: 0}
   minPitch: 0.5
   maxPitch: 2
+  startAt: 0
+  defaultJitterAmount: 0.000482
+  defaultJitterSpeed: 0.00503
+  jitterSmooth: 2

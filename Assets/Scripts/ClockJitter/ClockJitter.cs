@@ -37,5 +37,4 @@ public class ClockJitter : MonoBehaviour
         mesh.vertices = workingVerts;
         mesh.RecalculateNormals();
     }
-
 }
