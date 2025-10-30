@@ -3,7 +3,7 @@ using UnityEngine;
 public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     private static T instance;
-    private static bool isShittingDown = false;
+    private static bool isShuttingDown = false;
     private static readonly object lockObject = new object();
 
     [Header("Singleton Options")]
@@ -13,7 +13,7 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         get
         {
-            if (isShittingDown)
+            if (isShuttingDown)
             {
                 Debug.LogWarning($"[Singleton] Instance '{typeof(T)}' already destroyed. Returning null.");
                 return null;
@@ -53,13 +53,13 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     }
     protected virtual void OnApplicationQuit()
     {
-        isShittingDown = true;
+        isShuttingDown = true;
     }
     protected virtual void OnDestroy()
     {
         if (instance == this)
         {
-            isShittingDown = true;
+            isShuttingDown = true;
         }
     }
 }
