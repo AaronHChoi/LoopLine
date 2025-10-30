@@ -7,10 +7,10 @@ public class ClockPuzzleManager : MonoBehaviour
     [SerializeField] int targetHour;
     [SerializeField] int targetMinute;
     [SerializeField] GenericMove doorHandlerBase;
-
+    
     private void Start()
     {
-        if (GameManager.Instance.ClockQuest == true)
+        if (GameManager.Instance.GetCondition(GameCondition.IsClockQuestComplete))
         {
             doorHandlerBase.Move();
         }
@@ -44,10 +44,8 @@ public class ClockPuzzleManager : MonoBehaviour
     }
     private void RevealObject()
     {
-        if (!GameManager.Instance.ClockQuest)
-        {
-            GameManager.Instance.ClockQuest = true;
-            doorHandlerBase.Move();
-        }
+        DelayUtility.Instance.Delay(1f, null);
+        doorHandlerBase.Move();
+        GameManager.Instance.SetCondition(GameCondition.IsClockQuestComplete, true);
     }
 }

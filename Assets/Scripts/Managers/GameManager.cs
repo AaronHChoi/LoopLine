@@ -31,8 +31,15 @@ public class GameManager : Singleton<GameManager>
 
         screenManager = InterfaceDependencyInjector.Instance.Resolve<IScreenManager>();
 
-        conditions[GameCondition.IsClockQuestComplete] = false;
-        conditions[GameCondition.IsPhotoQuestComplete] = false;
+        SetGameConditions();
+    }
+    public void SetGameConditions()
+    {
+        var keys = new List<GameCondition>(conditions.Keys);
+        foreach (var key in keys)
+        {
+            conditions[key] = false;
+        }
     }
     public bool GetCondition(GameCondition condition)
     {

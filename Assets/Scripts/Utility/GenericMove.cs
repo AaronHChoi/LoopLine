@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -60,7 +61,7 @@ public class GenericMove : MonoBehaviour
 
         StartCoroutine(DoMove());
     }
-    private System.Collections.IEnumerator DoMove()
+    private IEnumerator DoMove()
     {
         while (timer < moveDuration)
         {

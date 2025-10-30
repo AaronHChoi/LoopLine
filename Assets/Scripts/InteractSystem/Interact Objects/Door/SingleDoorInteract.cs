@@ -42,6 +42,14 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
         StartRotation = doorGameObject.transform.rotation.eulerAngles;
         Forward = doorGameObject.transform.forward; //this is because the forward of the door is orienteted to the right if the forwar chages chage this line
     }
+    private void Start()
+    {
+        if (GameManager.Instance.GetCondition(GameCondition.PhotoDoorOpen) && doorHandler != null)
+        {
+            active = true;
+            doorHandler.SetActive(true);
+        }
+    }
     public void OpenDoor(Vector3 UserPosition)
     {
         if (!isOpen)

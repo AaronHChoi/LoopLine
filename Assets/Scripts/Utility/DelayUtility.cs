@@ -13,11 +13,11 @@ public class DelayUtility : Singleton<DelayUtility>
         yield return new WaitForSeconds(seconds);
         action?.Invoke();
     }
-    public void WaitUntil(Func<bool> condition, Action onComplete)
+    public void WaitUntil(Func<bool> condition, Action onComplete = null)
     {
         StartCoroutine(WaitUntilCoroutine(condition, onComplete));
     }
-    private IEnumerator WaitUntilCoroutine(Func<bool> condition, Action onComplete)
+    private IEnumerator WaitUntilCoroutine(Func<bool> condition, Action onComplete = null)
     {
         yield return new WaitUntil(condition);
         onComplete?.Invoke();
