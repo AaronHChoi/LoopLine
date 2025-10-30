@@ -10,16 +10,13 @@ namespace InWorldUI
         [SerializeField] private Sprite grabIcon;       // Icon for when canBePicked = true
         [SerializeField] private Sprite interactIcon;   // Icon for when canBePicked = false
 
-        private ItemInteract _itemInteract;
         private BaseItemInteract _baseInteract;
 
         private void Awake()
         {
-            // Find the ItemInteract script in the root of the parent object
-            _itemInteract = GetComponentInParent<ItemInteract>();
-            _baseInteract = GetComponent<BaseItemInteract>();
+            _baseInteract = GetComponentInParent<BaseItemInteract>();
 
-            if (_itemInteract == null && _baseInteract == null)
+            if (_baseInteract == null)
             {
                 Debug.LogError($"[DynamicIconChange] No ItemInteract found in parent for {gameObject.name}");
             }
@@ -32,13 +29,11 @@ namespace InWorldUI
 
         private void LateUpdate()
         {
-            if (_itemInteract == null || iconImage == null || _baseInteract) return;
+            if (_baseInteract == null || iconImage == null) return;
 
             // Switch icon depending on canBePicked
             if (_baseInteract != null ) 
                 iconImage.sprite = _baseInteract.canBePicked ? grabIcon : interactIcon;
-            if (_itemInteract != null )
-                iconImage.sprite = _itemInteract.canBePicked ? grabIcon : interactIcon;
         }
     }
 }
