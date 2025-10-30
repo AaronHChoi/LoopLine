@@ -7,6 +7,7 @@ public class ClockPuzzleManager : MonoBehaviour
     [SerializeField] int targetHour;
     [SerializeField] int targetMinute;
     [SerializeField] GenericMove doorHandlerBase;
+
     private void Start()
     {
         if (GameManager.Instance.ClockQuest == true)

@@ -38,7 +38,6 @@ namespace Player
         public FocusModeState FocusModeState { get;  set; }
         public MindPlaceState MindPlaceState { get;  set; }
         public ObjectInHandState ObjectInHandState { get;  set; }
-        public MonologueState MonologueState { get; set; }
         private void Awake()
         {
             togglePhotoDetection = InterfaceDependencyInjector.Instance.Resolve<ITogglePhotoDetection>();           
@@ -59,7 +58,6 @@ namespace Player
             FocusModeState = new FocusModeState(this, inputHandler, playerMovement, cinemachinePOVExtension);
             MindPlaceState = new MindPlaceState(this, inputHandler, playerMovement);
             ObjectInHandState = new ObjectInHandState(this, inputHandler, playerMovement, cinemachinePOVExtension);
-            MonologueState = new MonologueState(this, playerMovement, inputHandler, cinemachinePOVExtension);
 
             stateMachine.Initialize(NormalState);
         }
@@ -97,7 +95,6 @@ namespace Player
         {
             OnOpenDevelopment?.Invoke();
         }
-  
         public void UseEventFocusMode()
         {
             OnFocusMode?.Invoke();
@@ -148,6 +145,5 @@ namespace Player
         FocusModeState FocusModeState { get; set; }
         MindPlaceState MindPlaceState { get; set; }
         ObjectInHandState ObjectInHandState { get; set; }
-        MonologueState MonologueState { get; set; }
     }
 }
