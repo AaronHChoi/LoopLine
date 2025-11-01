@@ -9,6 +9,8 @@ public class ClockJitter : MonoBehaviour
     Mesh mesh;
     Vector3[] baseVerts, workingVerts;
 
+    static readonly Vector3 noiseDir = new Vector3(12.9898f, 78.233f, 37.719f);
+
     void Start()
     {
         mesh = Instantiate(GetComponent<MeshFilter>().sharedMesh);
@@ -21,17 +23,24 @@ public class ClockJitter : MonoBehaviour
 
     void Update()
     {
-        float t = Time.time * (jitterSpeed * 0.1f); // slower motion
+        if (jitterAmount <= 0f) return; // skip work if no jitter
+
+        float t = Time.time * (jitterSpeed * 0.1f);
+        float amt = jitterAmount * 0.3f;
+
         for (int i = 0; i < baseVerts.Length; i++)
         {
             Vector3 v = baseVerts[i];
-            float hash = Mathf.Sin(Vector3.Dot(v, new Vector3(12.9898f, 78.233f, 37.719f)) + t) * 43758.5453f;
-            Vector3 offset = new Vector3(
-                Mathf.Sin(hash * 0.3f) * jitterAmount * 0.3f,
-                Mathf.Cos(hash * 0.2f) * jitterAmount * 0.3f,
-                Mathf.Sin(hash * 0.4f) * jitterAmount * 0.3f
+            float hash = Mathf.Sin(Vector3.Dot(v, noiseDir) + t) * 43758.5453f;
+
+            float sinH = Mathf.Sin(hash);
+            float cosH = Mathf.Cos(hash);
+
+            workingVerts[i] = new Vector3(
+                v.x + sinH * amt * 0.3f,
+                v.y + cosH * amt * 0.2f,
+                v.z + Mathf.Sin(hash * 0.4f) * amt
             );
-            workingVerts[i] = v + offset;
         }
 
         mesh.vertices = workingVerts;
