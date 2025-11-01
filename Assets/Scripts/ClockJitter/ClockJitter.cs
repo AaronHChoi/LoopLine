@@ -23,7 +23,7 @@ public class ClockJitter : MonoBehaviour
 
     void Update()
     {
-        if (jitterAmount <= 0f) return; // skip work if no jitter
+        if (jitterAmount <= 0f || jitterSpeed <= 0f) return; // skip work if no jitter or speed
 
         float t = Time.time * (jitterSpeed * 0.1f);
         float amt = jitterAmount * 0.3f;
