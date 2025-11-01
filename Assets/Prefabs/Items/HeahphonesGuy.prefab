@@ -97,8 +97,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2278650509689366099}
   - component: {fileID: 2403255738385802843}
-  - component: {fileID: 772636661655938377}
   - component: {fileID: 5763250928027012341}
+  - component: {fileID: 5349404611079943386}
   m_Layer: 3
   m_Name: HeahphonesGuy
   m_TagString: Item
@@ -143,24 +143,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.3997096, y: 0.15818098, z: 0.4845136}
   m_Center: {x: -0.000000014901165, y: 0.009781372, z: -0.025042167}
---- !u!114 &772636661655938377
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6716321614135629048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58a81b347b9f73d43bda71d317d1412d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactText: 
-  id: 
-  ItemData: {fileID: 11400000, guid: 089fba0e7a7af7f4ca558eed6d5692a0, type: 2}
-  canBePicked: 0
-  deactivateOnPickup: 1
-  objectPrefab: {fileID: 0}
 --- !u!114 &5763250928027012341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,3 +158,21 @@ MonoBehaviour:
   promptMessage: Headphones
   uiOffset: {x: 0, y: 0, z: 0}
   uiOffsetPrompt: {x: 0, y: 0.15, z: 0}
+--- !u!114 &5349404611079943386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6716321614135629048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2830406988144ce46b7702d0437448cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactText: 
+  id: 
+  ItemData: {fileID: 11400000, guid: 089fba0e7a7af7f4ca558eed6d5692a0, type: 2}
+  canBePicked: 0
+  deactivateOnPickup: 1
+  objectPrefab: {fileID: 0}

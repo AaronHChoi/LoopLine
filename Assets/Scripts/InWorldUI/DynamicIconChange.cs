@@ -5,35 +5,27 @@ namespace InWorldUI
 {
     public class DynamicIconChange : MonoBehaviour
     {
-        [Header("UI Icon Settings")]
-        [SerializeField] private Image iconImage;       // The UI Image component on the prefab
-        [SerializeField] private Sprite grabIcon;       // Icon for when canBePicked = true
-        [SerializeField] private Sprite interactIcon;   // Icon for when canBePicked = false
+        [SerializeField] private Image iconImage;
+        [SerializeField] private Sprite grabIcon;
+        [SerializeField] private Sprite interactIcon;
 
-        private ItemInteract _itemInteract;
+        BaseItemInteract item;
 
-        private void Awake()
+        void OnEnable()
         {
-            // Find the ItemInteract script in the root of the parent object
-            _itemInteract = GetComponentInParent<ItemInteract>();
+            if (item == null)
+                item = GetComponentInParent<BaseItemInteract>();
 
-            if (_itemInteract == null)
+            if (item == null)
             {
-                Debug.LogError($"[DynamicIconChange] No ItemInteract found in parent for {gameObject.name}");
+                Debug.LogWarning($"[DynamicIconChange] No BaseItemInteract found for {gameObject.name}");
+                return;
             }
 
-            if (iconImage == null)
-            {
-                Debug.LogError($"[DynamicIconChange] No Image assigned on {gameObject.name}");
-            }
-        }
+            if (!iconImage)
+                iconImage = GetComponentInChildren<Image>();
 
-        private void LateUpdate()
-        {
-            if (_itemInteract == null || iconImage == null) return;
-
-            // Switch icon depending on canBePicked
-            iconImage.sprite = _itemInteract.canBePicked ? grabIcon : interactIcon;
+            iconImage.sprite = item.canBePicked ? grabIcon : interactIcon;
         }
     }
 }

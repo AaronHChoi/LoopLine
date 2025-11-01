@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4761135353113166461}
   - component: {fileID: 3338991279775529705}
-  - component: {fileID: 502672658581990934}
   - component: {fileID: 4073577529963992612}
+  - component: {fileID: 7215665898261908805}
   m_Layer: 3
   m_Name: Cigarettes
   m_TagString: Item
@@ -56,24 +56,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.20950931, y: 0.07253754, z: 0.25802147}
   m_Center: {x: -0.0020359384, y: 0.0020272136, z: 0.00040438026}
---- !u!114 &502672658581990934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6577390071045298968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58a81b347b9f73d43bda71d317d1412d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactText: 
-  id: 
-  ItemData: {fileID: 11400000, guid: fe849f7c06eb09847961e49fb3e87373, type: 2}
-  canBePicked: 0
-  deactivateOnPickup: 1
-  objectPrefab: {fileID: 0}
 --- !u!114 &4073577529963992612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,6 +71,24 @@ MonoBehaviour:
   promptMessage: Cigarettes
   uiOffset: {x: 0, y: 0, z: 0}
   uiOffsetPrompt: {x: 0, y: 0.15, z: 0}
+--- !u!114 &7215665898261908805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6577390071045298968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2830406988144ce46b7702d0437448cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactText: 
+  id: 
+  ItemData: {fileID: 11400000, guid: fe849f7c06eb09847961e49fb3e87373, type: 2}
+  canBePicked: 0
+  deactivateOnPickup: 1
+  objectPrefab: {fileID: 0}
 --- !u!1001 &8260486569619676652
 PrefabInstance:
   m_ObjectHideFlags: 0

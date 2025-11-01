@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2092441914042214966}
   - component: {fileID: 8010355547459966218}
-  - component: {fileID: 5905040388844184736}
   - component: {fileID: 3858933341730110163}
+  - component: {fileID: 7091909720607493305}
   m_Layer: 3
   m_Name: Cellphone
   m_TagString: Item
@@ -56,24 +56,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.16314518, y: 0.03873527, z: 0.2407904}
   m_Center: {x: -0.0032445341, y: 0.0027822852, z: -0.0055119996}
---- !u!114 &5905040388844184736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1322726607955031695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58a81b347b9f73d43bda71d317d1412d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactText: 
-  id: 
-  ItemData: {fileID: 11400000, guid: 3afcc44611dc3d9408bda1711776faae, type: 2}
-  canBePicked: 0
-  deactivateOnPickup: 1
-  objectPrefab: {fileID: 0}
 --- !u!114 &3858933341730110163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,6 +71,24 @@ MonoBehaviour:
   promptMessage: Cellphone
   uiOffset: {x: 0, y: 0, z: 0}
   uiOffsetPrompt: {x: 0, y: 0.15, z: 0}
+--- !u!114 &7091909720607493305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322726607955031695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2830406988144ce46b7702d0437448cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactText: 
+  id: 
+  ItemData: {fileID: 11400000, guid: 3afcc44611dc3d9408bda1711776faae, type: 2}
+  canBePicked: 0
+  deactivateOnPickup: 1
+  objectPrefab: {fileID: 0}
 --- !u!1001 &7897723771196492441
 PrefabInstance:
   m_ObjectHideFlags: 0

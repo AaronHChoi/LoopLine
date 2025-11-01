@@ -97,8 +97,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5016655084423528113}
   - component: {fileID: 9094832055423964343}
-  - component: {fileID: 5991637565288342397}
   - component: {fileID: 1817974916533798193}
+  - component: {fileID: 4032595611009029917}
   m_Layer: 3
   m_Name: Coffee
   m_TagString: Item
@@ -143,24 +143,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.22597101, y: 0.32544005, z: 0.23759997}
   m_Center: {x: 0.00335126, y: -0.040779464, z: -0.010157298}
---- !u!114 &5991637565288342397
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4629314006113631733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58a81b347b9f73d43bda71d317d1412d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactText: 
-  id: 
-  ItemData: {fileID: 11400000, guid: e489fd40e9884f74cb5919533922fd20, type: 2}
-  canBePicked: 0
-  deactivateOnPickup: 1
-  objectPrefab: {fileID: 0}
 --- !u!114 &1817974916533798193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,3 +158,21 @@ MonoBehaviour:
   promptMessage: Coffee
   uiOffset: {x: 0, y: 0, z: 0}
   uiOffsetPrompt: {x: 0, y: 0.15, z: 0}
+--- !u!114 &4032595611009029917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4629314006113631733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2830406988144ce46b7702d0437448cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactText: 
+  id: 
+  ItemData: {fileID: 11400000, guid: e489fd40e9884f74cb5919533922fd20, type: 2}
+  canBePicked: 0
+  deactivateOnPickup: 1
+  objectPrefab: {fileID: 0}
