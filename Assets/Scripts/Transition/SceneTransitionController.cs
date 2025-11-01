@@ -23,11 +23,15 @@ public class SceneTransitionController : MonoBehaviour, ISceneTransitionControll
     private void Start()
     {
         if (transitionVolume)
-            transitionVolume.weight = 0f;
+            transitionVolume.weight = fadeTargetWeight; // Start fully faded (1)
 
         if (mainCamera)
             mainCamera.Lens.FieldOfView = startFOV;
+
+        // Fade out (1 → 0) when scene starts
+        StartTransition(false);
     }
+
     public void StartTransition(bool forward)
     {
         if (currentTransition != null)
