@@ -48,6 +48,7 @@ public abstract class ItemInteract : MonoBehaviour, IItemGrabInteract
                 if (inventoryUI.CheckInventory(this) == false)
                 {
                     inventoryUI.AddInventorySlot(this);
+                    InventoryManager.Instance.AddItemToInventory(ItemData);
                 }
             }
             isGrabbable = true;

@@ -27,7 +27,7 @@ public class UIInventoryItemSlot : MonoBehaviour
     }
     IPlayerStateController controller;
 
-    private void Start()
+    private void Awake()
     {
         controller = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
     }

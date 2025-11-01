@@ -78,6 +78,28 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
         string lastScene = activeScenes[activeScenes.Count - 1];
         StartCoroutine(UnloadSceneAsync(lastScene));
     }
+
+    public void ChangeSceneWeighth(string SceneName, int newWeight)
+    {
+        for (int i = 0; i < weightedScenes.Count; i++) 
+        {
+            if (weightedScenes[i].sceneName == SceneName)
+            {
+                weightedScenes[i].weight = newWeight;
+            }
+        } 
+    }
+
+    public void RemoveScene(string SceneName)
+    {
+        for (int i = 0; i < weightedScenes.Count; i++)
+        {
+            if (weightedScenes[i].sceneName == SceneName)
+            {
+                weightedScenes.Remove(weightedScenes[i]);
+            }
+        }
+    }
     private IEnumerator UnloadSceneAsync(string sceneName)
     {
         AsyncOperation asyncUnload = SceneManager.UnloadSceneAsync(sceneName);
@@ -93,4 +115,6 @@ public interface IGameSceneManager
     void LoadNextScene(string _sceneName);
     void LoadRandomScene();
     void UnloadLastScene();
+    void ChangeSceneWeighth(string SceneName, int newWeight);
+    void RemoveScene(string SceneName);
 }
