@@ -8,15 +8,19 @@ public class InventoryManager : Singleton<InventoryManager>
     IInventoryUI inventoryUI;
 
     [SerializeField] public ItemInventoryManager itemsInventoryManager;
-    
+    private static bool hasInitialized = false;
+
     protected override void Awake()
     {
         base.Awake();
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
-        if (itemsInventoryManager != null)
+        if (!hasInitialized)
         {
-            itemsInventoryManager.items.Clear();
-
+            if (itemsInventoryManager != null)
+            {
+                itemsInventoryManager.items.Clear();
+            }
+            hasInitialized = true;
         }
     }
 
