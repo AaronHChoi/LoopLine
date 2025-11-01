@@ -22,12 +22,13 @@ public class GearRotator : MonoBehaviour
 
         for (int i = 0; i < gears.Length; i++)
         {
-            if (gears[i].gearTransform == null) continue;
+            Gear gear = gears[i];
+            if (gear.gearTransform == null) continue;
 
-            float dir = gears[i].clockwise ? 1f : -1f;
-            Vector3 axisVector = GetAxisVector(gears[i].axis);
+            float dir = gear.clockwise ? 1f : -1f;
+            Vector3 axisVector = GetAxisVector(gear.axis);
 
-            gears[i].gearTransform.Rotate(axisVector, gears[i].rotationSpeed * dir * dt, Space.Self);
+            gear.gearTransform.Rotate(axisVector, gear.rotationSpeed * dir * dt, Space.Self);
         }
     }
 
