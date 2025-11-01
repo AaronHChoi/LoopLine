@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour, IPlayerController
         if (gameSceneManager.IsCurrentScene("04. Train"))
         {
             sceneTransitionController.StartTransition(true);
-            DelayUtility.Instance.Delay(1.8f, () =>
+            DelayUtility.Instance.Delay(2f, () =>
             {
                 gameSceneManager.LoadNextScene("05. MindPlace");
             });
@@ -54,8 +54,8 @@ public class PlayerController : MonoBehaviour, IPlayerController
 
         if (gameSceneManager.IsCurrentScene("05. MindPlace"))
         {
-            sceneTransitionController.StartTransition(false);
-            DelayUtility.Instance.Delay(1.8f, () =>
+            sceneTransitionController.StartTransition(true);
+            DelayUtility.Instance.Delay(2f, () =>
             {
                 gameSceneManager.LoadNextScene("04. Train");
             });
