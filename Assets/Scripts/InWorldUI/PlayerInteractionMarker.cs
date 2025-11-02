@@ -11,9 +11,6 @@ namespace InWorldUI
         [Space]
         [Header("Marker Settings")]
         [SerializeField] private LayerMask interactableLayer;
-        [Space]
-        [Header("Prompt Settings")]
-        [SerializeField, Range(0f,1f)] private float minScoreAllowed;
 
         private InteractableInWorld currentPrompt;
         private InteractableInWorld auxTargetInteractable;
@@ -26,12 +23,11 @@ namespace InWorldUI
 
             bool validTarget =
                 rayController.FoundInteract &&
-                rayController.BestScore > minScoreAllowed &&
                 rayController.Target.TryGetComponent(out auxTargetInteractable);
 
             bool shouldClear =
                 (!rayController.FoundInteract && currentPrompt != null) ||
-                (rayController.FoundInteract && rayController.BestScore < minScoreAllowed && rayController.Target == currentPrompt?.gameObject);
+                (rayController.FoundInteract && rayController.Target != currentPrompt?.gameObject);
 
             if (validTarget)
             {
