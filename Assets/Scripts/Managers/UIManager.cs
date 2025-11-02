@@ -13,8 +13,10 @@ public class UIManager : Singleton<UIManager>, IUIManager
     ITimeProvider timeManager;
     ICrosshairFade crosshairFade;
     IGameStateController gameController;
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         timeManager = InterfaceDependencyInjector.Instance.Resolve<ITimeProvider>();
         gameController = InterfaceDependencyInjector.Instance.Resolve<IGameStateController>();
         crosshairFade = InterfaceDependencyInjector.Instance.Resolve<ICrosshairFade>();
@@ -24,11 +26,9 @@ public class UIManager : Singleton<UIManager>, IUIManager
     {
         uiText.gameObject.SetActive(false);
     }
-
     private void OnEnable()
     {
         gameController.OnPauseMenu += PauseMenu;
-        
     }
     private void OnDisable()
     {
@@ -93,4 +93,5 @@ public interface IUIManager
     void ShowUIText(string _message);
     void HideUIText();
     void ShowCrossHairFade(bool show);
+    void ShowClockTutorial(bool show);
 }

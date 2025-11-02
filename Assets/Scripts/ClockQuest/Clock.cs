@@ -30,13 +30,15 @@ public class Clock : MonoBehaviour, IInteract, IClock
     [SerializeField] CinemachineCamera clockZoom;
 
     [SerializeField] PlayerMovement playerMovement; //test
-    [SerializeField] ICameraOrientation playerCamera;
+    ICameraOrientation playerCamera;
+    IUIManager uiManager;
 
     [SerializeField] SoundData clockSecondsData;
     [SerializeField] DialogueUI dialogueUI;
     private void Awake()
     {
         playerCamera = InterfaceDependencyInjector.Instance.Resolve<ICameraOrientation>();
+        uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
     }
     private void Start()
     {
@@ -92,7 +94,7 @@ public class Clock : MonoBehaviour, IInteract, IClock
     {
         activeMode = !activeMode;
 
-        UIManager.Instance.ShowClockTutorial(activeMode);
+        uiManager.ShowClockTutorial(activeMode);
 
         if(activeMode)
         {
