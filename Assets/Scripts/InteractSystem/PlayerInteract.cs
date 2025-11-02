@@ -12,11 +12,13 @@ public class PlayerInteract : MonoBehaviour, IPlayerInteract
 
     IPlayerStateController playerStateController;
     IInventoryUI inventoryUI;
-    
+    IGameSceneManager gameSceneManager;
+
     private void Awake()
     {
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
+        gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
     }
     private void OnEnable()
     {
@@ -36,9 +38,9 @@ public class PlayerInteract : MonoBehaviour, IPlayerInteract
     }
     private void HandleInteraction()
     {
-        if (SceneManager.GetActiveScene().name == "04. Train")
+        if (gameSceneManager.IsCurrentScene("05. MindPlace"))
         {
-            if (inventoryUI.IsInventoryOpen == false /*&& playerInventorySystem.ItemInUse == inventoryUI.HandItemUI*/)
+            if (inventoryUI.IsInventoryOpen == false)
             {
                 TryInteract();
             }
@@ -50,16 +52,19 @@ public class PlayerInteract : MonoBehaviour, IPlayerInteract
     }
     private void GrabItem()
     {
-        if (inventoryUI.IsInventoryOpen == false && inventoryUI.ItemInUse == inventoryUI.HandItemUI)
+        if (gameSceneManager.IsCurrentScene("05. MindPlace"))
         {
-            IItemGrabInteract intemGrabObject = GetItemGrabIteractableObject();
-            if (intemGrabObject != null)
+            if (inventoryUI.IsInventoryOpen == false && inventoryUI.ItemInUse == inventoryUI.HandItemUI)
             {
-                if (intemGrabObject.Interact())
+                IItemGrabInteract intemGrabObject = GetItemGrabIteractableObject();
+                if (intemGrabObject != null)
                 {
-                    SoundManager.Instance.CreateSound()
-                        .WithSoundData(grabSoundData[Random.Range(0, grabSoundData.Count)])
-                        .Play();
+                    if (intemGrabObject.Interact())
+                    {
+                        SoundManager.Instance.CreateSound()
+                            .WithSoundData(grabSoundData[Random.Range(0, grabSoundData.Count)])
+                            .Play();
+                    }
                 }
             }
         }
