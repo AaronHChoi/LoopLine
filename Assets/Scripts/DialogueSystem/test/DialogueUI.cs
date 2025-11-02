@@ -29,11 +29,12 @@ public class DialogueUI : MonoBehaviour
 
     IPlayerStateController playerStateController;
     IDialogueManager dialogueManager;
-
+    IClock mindplaceClock;
     private void Awake()
     {
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
         dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
+        mindplaceClock = InterfaceDependencyInjector.Instance.Resolve<IClock>();
     }
     private void Start()
     {
@@ -54,6 +55,11 @@ public class DialogueUI : MonoBehaviour
         }
         dialogueManager.OnDialogueStarted += OnDialogueStartedHandler;
         dialogueManager.OnDialogueEnded += OnDialogueEndedHandler;
+        if(mindplaceClock != null)
+        {
+            mindplaceClock.OnEnterClock += OnClockStartedHandler;
+            mindplaceClock.OnExitClock += OnClockEndedHandler;
+        }
     }
     private void OnDisable()
     {
@@ -63,12 +69,25 @@ public class DialogueUI : MonoBehaviour
         }
         dialogueManager.OnDialogueStarted -= OnDialogueStartedHandler;
         dialogueManager.OnDialogueEnded -= OnDialogueEndedHandler;
+        if (mindplaceClock != null)
+        {
+            mindplaceClock.OnEnterClock -= OnClockStartedHandler;
+            mindplaceClock.OnExitClock -= OnClockEndedHandler;
+        }
     }
     private void OnDialogueStartedHandler()
     {
         ShowletterBox(true);
     }
     private void OnDialogueEndedHandler()
+    {
+        ShowletterBox(false);
+    }
+    private void OnClockStartedHandler()
+    {
+        ShowletterBox(true);
+    }
+    private void OnClockEndedHandler()
     {
         ShowletterBox(false);
     }

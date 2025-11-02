@@ -47,6 +47,10 @@ namespace Player
                 controller.UseEventFocusMode();
                 controller.StateMachine.TransitionTo(controller.FocusModeState);
             }
+            if (input.Teleport())
+            {
+                controller.UseEventTeleport();
+            }
         }
         public void Exit()
         {

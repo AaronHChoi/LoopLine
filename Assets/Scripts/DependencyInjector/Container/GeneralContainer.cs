@@ -11,6 +11,7 @@ namespace DependencyInjection
         public void RegisterServices(InterfaceDependencyInjector injector)
         {
             injector.Register<IGameStateController>(() => FindAndValidate<GameStateController>());
+            injector.Register<IClock>(() => FindAndValidate<Clock>());
         }
 
     }

@@ -1,12 +1,13 @@
 using DependencyInjection;
 using TMPro;
 using UnityEngine;
-public class UIManager : MonoBehaviour, IUIManager
+public class UIManager : Singleton<UIManager>, IUIManager
 {
     [SerializeField] private TextMeshProUGUI contador_provicional;
     [SerializeField] private TextMeshProUGUI uiText;
     [SerializeField] GameObject pauseManager;
     bool isCursorVisible = false;
+    [SerializeField] GameObject tutorialClockUI;
 
     IGameSceneManager gameSceneManager;
     ITimeProvider timeManager;
@@ -33,7 +34,13 @@ public class UIManager : MonoBehaviour, IUIManager
     {
         gameController.OnPauseMenu -= PauseMenu;
     }
-
+    public void ShowClockTutorial(bool show)
+    {
+        if(tutorialClockUI != null)
+        {
+            tutorialClockUI.SetActive(show);
+        }
+    }
     public void PauseMenu()
     {
         pauseManager.SetActive(!pauseManager.activeSelf);

@@ -3,9 +3,10 @@ using DependencyInjection;
 using Unity.Cinemachine;
 using UnityEngine;
 
-public class Clock : MonoBehaviour, IInteract
+public class Clock : MonoBehaviour, IInteract, IClock
 {
     public event Action OnExitClock;
+    public event Action OnEnterClock;
 
     public Transform HandHour;
     public Transform HandMinute;
@@ -32,7 +33,7 @@ public class Clock : MonoBehaviour, IInteract
     [SerializeField] ICameraOrientation playerCamera;
 
     [SerializeField] SoundData clockSecondsData;
-
+    [SerializeField] DialogueUI dialogueUI;
     private void Awake()
     {
         playerCamera = InterfaceDependencyInjector.Instance.Resolve<ICameraOrientation>();
@@ -91,6 +92,8 @@ public class Clock : MonoBehaviour, IInteract
     {
         activeMode = !activeMode;
 
+        UIManager.Instance.ShowClockTutorial(activeMode);
+
         if(activeMode)
         {
             playerMovement.CanMove = false;
@@ -98,6 +101,7 @@ public class Clock : MonoBehaviour, IInteract
             clockZoom.gameObject.SetActive(true);
             clockZoom.Priority = 20;
             player.Priority = 10;
+            OnEnterClock?.Invoke();
         }
         else
         {
@@ -159,4 +163,9 @@ public class Clock : MonoBehaviour, IInteract
     {
         throw new System.NotImplementedException();
     }
+}
+public interface IClock
+{
+    event Action OnExitClock;
+    event Action OnEnterClock;
 }

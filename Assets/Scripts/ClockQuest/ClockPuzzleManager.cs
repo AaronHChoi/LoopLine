@@ -1,3 +1,4 @@
+using SoundSystem;
 using UnityEngine;
 
 public class ClockPuzzleManager : MonoBehaviour
@@ -7,7 +8,7 @@ public class ClockPuzzleManager : MonoBehaviour
     [SerializeField] int targetHour;
     [SerializeField] int targetMinute;
     [SerializeField] GenericMove doorHandlerBase;
-    
+    [SerializeField] SoundData complete;
     private void Start()
     {
         if (GameManager.Instance.GetCondition(GameCondition.IsClockQuestComplete))
@@ -40,6 +41,7 @@ public class ClockPuzzleManager : MonoBehaviour
         if (currenHour == targetHour && currentMinute == targetMinute)
         {
             RevealObject();
+            SoundManager.Instance.PlayQuickSound(complete);
         }
     }
     private void RevealObject()
