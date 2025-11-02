@@ -65,6 +65,7 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
         FadeController = GetComponent<FadeInOutController>();
         ArrowFadeController = arrowImage.GetComponent<FadeInOutController>();
         RebuildInventoryFromManager();
+        arrowImage.gameObject.SetActive(false);
         HideInventory();
         
 
@@ -191,7 +192,7 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
                 inventorySlots.Remove(slotToRemove);
                 slotToRemove.transform.parent = null;
                 InventoryManager.Instance.RemoveItemFromInventory(item.ItemData);
-
+                RebuildInventoryFromManager();
                 currentSlotIndex--;
                 inventorySlots[currentSlotIndex].IsActive = true;
 
@@ -294,13 +295,11 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
     private void ShowInventory()
     {
         FadeController.ForceFade(true);
-        ArrowFadeController.ForceFade(true);
         isInventoryOpen = true;
     }
     private void HideInventory()
     {
         FadeController.ForceFade(false);
-        ArrowFadeController.ForceFade(false );
         isInventoryOpen = false;
     }
 
