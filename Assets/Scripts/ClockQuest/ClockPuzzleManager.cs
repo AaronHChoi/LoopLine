@@ -9,6 +9,9 @@ public class ClockPuzzleManager : MonoBehaviour
     [SerializeField] int targetMinute;
     [SerializeField] GenericMove doorHandlerBase;
     [SerializeField] SoundData complete;
+
+    bool firstTime = false;
+
     private void Start()
     {
         if (GameManager.Instance.GetCondition(GameCondition.IsClockQuestComplete))
@@ -38,10 +41,16 @@ public class ClockPuzzleManager : MonoBehaviour
         int currenHour = int.Parse(timeParts[0]);
         int currentMinute = int.Parse(timeParts[1]);
 
-        if (currenHour == targetHour && currentMinute == targetMinute)
+        if (currenHour == targetHour && currentMinute == targetMinute && !firstTime)
         {
             RevealObject();
-            SoundManager.Instance.PlayQuickSound(complete);
+
+            SoundManager.Instance.CreateSound()
+                .WithSoundData(complete)
+                .WithSoundPosition(transform.position)
+                .Play();
+
+            firstTime = true;
         }
     }
     private void RevealObject()
