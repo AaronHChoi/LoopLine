@@ -43,15 +43,6 @@ namespace Player
                 controller.UseEventDevelopment();
                 controller.StateMachine.TransitionTo(controller.DevelopmentState);
             }
-            //if (input.PauseMenuModePressed())
-            //{
-            //    //controller.UseEventPauseMenu();  
-            //}
-            if (input.FocusModePressed())
-            {
-                controller.UseEventFocusMode();
-                controller.StateMachine.TransitionTo(controller.FocusModeState);
-            }
             if (input.Teleport())
             {
                 controller.UseEventTeleport();

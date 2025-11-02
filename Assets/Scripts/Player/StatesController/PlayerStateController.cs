@@ -15,7 +15,6 @@ namespace Player
         public event Action OnDialogueNext;
         public event Action OnOpenInventory;
         public event Action OnOpenDevelopment;
-        public event Action OnFocusMode;
         public event Action OnScrollInventory;
         public event Action OnGrab;
         public event Action OnTeleport;
@@ -35,7 +34,6 @@ namespace Player
         public CameraState CameraState { get;  set; }
         public DevelopmentState DevelopmentState { get;  set; }
         public PauseMenuState PauseMenuState { get; set; }
-        public FocusModeState FocusModeState { get;  set; }
         public MindPlaceState MindPlaceState { get;  set; }
         public ObjectInHandState ObjectInHandState { get;  set; }
         private void Awake()
@@ -55,7 +53,6 @@ namespace Player
             DialogueState = new DialogueState(this, inputHandler, playerMovement, cinemachinePOVExtension);
             CameraState = new CameraState(this, inputHandler, playerMovement, photoCapture, cinemachinePOVExtension, interaction, togglePhotoDetection);
             DevelopmentState = new DevelopmentState(this, inputHandler, playerMovement, cinemachinePOVExtension, timeManager);
-            FocusModeState = new FocusModeState(this, inputHandler, playerMovement, cinemachinePOVExtension);
             MindPlaceState = new MindPlaceState(this, inputHandler, playerMovement);
             ObjectInHandState = new ObjectInHandState(this, inputHandler, playerMovement, cinemachinePOVExtension);
 
@@ -95,10 +92,6 @@ namespace Player
         {
             OnOpenDevelopment?.Invoke();
         }
-        public void UseEventFocusMode()
-        {
-            OnFocusMode?.Invoke();
-        }
         public void UseEventGrab()
         {
             OnGrab?.Invoke();
@@ -121,7 +114,6 @@ namespace Player
         public event Action OnDialogueNext;
         public event Action OnOpenInventory;
         public event Action OnOpenDevelopment;
-        public event Action OnFocusMode;
         public event Action OnScrollInventory;
         public event Action OnGrab;
         public event Action OnTeleport;
@@ -133,7 +125,6 @@ namespace Player
         void UseEventOpenInventory();
         void UseEventDevelopment();
         void UseEventDialogueNext();
-        void UseEventFocusMode();
         void UseEventGrab();
         void UseEventTeleport();
         bool CanUseNormalStateExecute { get; set; }
@@ -142,7 +133,6 @@ namespace Player
         CameraState CameraState { get; set; }
         DevelopmentState DevelopmentState { get; set; }
         PauseMenuState PauseMenuState { get; set; }
-        FocusModeState FocusModeState { get; set; }
         MindPlaceState MindPlaceState { get; set; }
         ObjectInHandState ObjectInHandState { get; set; }
     }
