@@ -39,7 +39,7 @@ public class UIManager : Singleton<UIManager>, IUIManager
     }
     public void ShowCrossHairFade(bool show)
     {
-        crosshairFade.ShowCrosshair(show);
+        //  crosshairFade.ShowCrosshair(show);
     }
     void UpdateCursorState()
     {

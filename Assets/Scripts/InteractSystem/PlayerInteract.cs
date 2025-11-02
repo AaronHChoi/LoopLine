@@ -7,7 +7,6 @@ using System.Collections.Generic;
 public class PlayerInteract : MonoBehaviour, IPlayerInteract
 {
     [SerializeField] private RaycastController rayController;
-    [SerializeField, Range(0f,1f)] private float minScoreAllowed;
     [SerializeField] List<SoundData> grabSoundData;
 
     IPlayerStateController playerStateController;
@@ -79,7 +78,7 @@ public class PlayerInteract : MonoBehaviour, IPlayerInteract
     }
     public IInteract GetInteractableObject()
     {
-        if (/*inventoryUI.IsInventoryOpen == false && */rayController.FoundInteract && rayController.BestScore > minScoreAllowed) 
+        if (rayController.FoundInteract) 
         {
             if (rayController.Target.TryGetComponent(out IInteract interactable))
             {
@@ -90,7 +89,7 @@ public class PlayerInteract : MonoBehaviour, IPlayerInteract
     }
     public IItemGrabInteract GetItemGrabIteractableObject()
     {
-        if (inventoryUI.IsInventoryOpen == false && inventoryUI.ItemInUse == inventoryUI.HandItemUI && rayController.FoundInteract && rayController.BestScore > minScoreAllowed)
+        if (inventoryUI.IsInventoryOpen == false && inventoryUI.ItemInUse == inventoryUI.HandItemUI && rayController.FoundInteract)
         {
             if (rayController.Target.TryGetComponent(out IItemGrabInteract itemGrabInteractable))
             {
