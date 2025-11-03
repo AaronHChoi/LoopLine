@@ -1,57 +1,60 @@
+using DependencyInjection;
 using TMPro;
 using UnityEngine;
-using DependencyInjection;
-public class UIManager : MonoBehaviour, IUIManager
+public class UIManager : Singleton<UIManager>, IUIManager
 {
     [SerializeField] private TextMeshProUGUI contador_provicional;
-    [SerializeField] private TextMeshProUGUI uiText;
+    [SerializeField] GameObject pauseManager;
+    bool isCursorVisible = false;
+    [SerializeField] GameObject tutorialClockUI;
 
-    IGameSceneManager gameSceneManager;
-    ITimeProvider timeManager;
     ICrosshairFade crosshairFade;
-    private void Awake()
+    IGameStateController gameController;
+    protected override void Awake()
     {
-        timeManager = InterfaceDependencyInjector.Instance.Resolve<ITimeProvider>();
+        base.Awake();
+
+        gameController = InterfaceDependencyInjector.Instance.Resolve<IGameStateController>();
         crosshairFade = InterfaceDependencyInjector.Instance.Resolve<ICrosshairFade>();
-        gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
     }
-    private void Start()
+    private void OnEnable()
     {
-        uiText.gameObject.SetActive(false);
+        gameController.OnPauseMenu += PauseMenu;
     }
-    void Update()
+    private void OnDisable()
     {
-        if (gameSceneManager != null && gameSceneManager.IsCurrentScene("04. Train"))
+        gameController.OnPauseMenu -= PauseMenu;
+    }
+    public void ShowClockTutorial(bool show)
+    {
+        if(tutorialClockUI != null)
         {
-            ShowLoopTime();
+            tutorialClockUI.SetActive(show);
         }
     }
-    private void ShowLoopTime()
+    public void PauseMenu()
     {
-        if(timeManager != null)
-            contador_provicional.text = GetFormattedLoopTime(timeManager.LoopTime);
-    }
-    public string GetFormattedLoopTime(float loopTime)
-    {
-        return Mathf.FloorToInt(loopTime).ToString();
-    }
-    public void ShowUIText(string _message)
-    {
-        uiText.gameObject.SetActive(true);
-        uiText.text = _message;
-    }
-    public void HideUIText()
-    {
-        uiText.gameObject.SetActive(false);
+        pauseManager.SetActive(!pauseManager.activeSelf);
+        UpdateCursorState();
     }
     public void ShowCrossHairFade(bool show)
     {
-        crosshairFade.ShowCrosshair(show);
+        //  crosshairFade.ShowCrosshair(show);
+    }
+    void UpdateCursorState()
+    {
+        bool shouldShowCursor = pauseManager.activeInHierarchy;
+
+        if (isCursorVisible != shouldShowCursor)
+        {
+            isCursorVisible = shouldShowCursor;
+            Cursor.visible = isCursorVisible;
+            Cursor.lockState = isCursorVisible ? CursorLockMode.None : CursorLockMode.Locked;
+        }
     }
 }
 public interface IUIManager
 {
-    void ShowUIText(string _message);
-    void HideUIText();
     void ShowCrossHairFade(bool show);
+    void ShowClockTutorial(bool show);
 }

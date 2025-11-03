@@ -98,10 +98,10 @@ PrefabInstance:
       addedObject: {fileID: 8587037590839332643}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 51aad8b2e9924d14fb87c8854d761251, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4023796982996942851}
+      addedObject: {fileID: 3446061182648536311}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 51aad8b2e9924d14fb87c8854d761251, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3446061182648536311}
+      addedObject: {fileID: 9117073182869292958}
   m_SourcePrefab: {fileID: 100100000, guid: 51aad8b2e9924d14fb87c8854d761251, type: 3}
 --- !u!4 &467311913305127516 stripped
 Transform:
@@ -134,24 +134,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.0531857, y: 0.059177414, z: 0.008152963}
   m_Center: {x: -0.00021636486, y: -0.00021246076, z: -0.0000402336}
---- !u!114 &4023796982996942851
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 952486140155027686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58a81b347b9f73d43bda71d317d1412d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactText: 
-  id: 
-  ItemData: {fileID: 11400000, guid: 014c4782a20ee1541b29d8856d0a6a8b, type: 2}
-  canBePicked: 0
-  deactivateOnPickup: 1
-  objectPrefab: {fileID: 0}
 --- !u!114 &3446061182648536311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,6 +149,24 @@ MonoBehaviour:
   promptMessage: Coin
   uiOffset: {x: 0, y: 0, z: 0}
   uiOffsetPrompt: {x: 0, y: 0.15, z: 0}
+--- !u!114 &9117073182869292958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 952486140155027686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2830406988144ce46b7702d0437448cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactText: 
+  id: 
+  ItemData: {fileID: 11400000, guid: 014c4782a20ee1541b29d8856d0a6a8b, type: 2}
+  canBePicked: 1
+  deactivateOnPickup: 1
+  objectPrefab: {fileID: 0}
 --- !u!1001 &6928709891086155260
 PrefabInstance:
   m_ObjectHideFlags: 0

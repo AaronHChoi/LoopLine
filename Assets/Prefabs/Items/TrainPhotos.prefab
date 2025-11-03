@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1135376049464927057}
   - component: {fileID: 7603601935952042500}
-  - component: {fileID: 6337690105500881750}
-  - component: {fileID: 5222365416130496092}
   - component: {fileID: 8320718991220843788}
   m_Layer: 3
   m_Name: TrainPhotos
@@ -57,45 +55,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5911756, y: 0.041638255, z: 0.45857197}
   m_Center: {x: -0.0107655525, y: 0.011500776, z: 0.013024763}
---- !u!114 &6337690105500881750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1959643606194235897}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd995697258d7d24ca5c1e437dbdc2a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactText: Fotos del tren
-  AvailableDialogs: []
-  dialogueIndex: 0
-  DialogueLocalIndex: 0
-  isDialogueActive: 0
-  NPCInteracted: 0
-  headTarget: {fileID: 0}
-  id: 
-  DialogueEvents: []
---- !u!114 &5222365416130496092
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1959643606194235897}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58a81b347b9f73d43bda71d317d1412d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactText: 
-  id: 
-  ItemData: {fileID: 11400000, guid: ceaef5b63c08dc541a85b7eeed5e2bd3, type: 2}
-  canBePicked: 0
-  deactivateOnPickup: 1
-  objectPrefab: {fileID: 0}
 --- !u!114 &8320718991220843788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,10 +160,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f05ea15649363ee43a75dfb416d35539, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1159014326198333759}
+      addedObject: {fileID: 5012945492109328594}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f05ea15649363ee43a75dfb416d35539, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5012945492109328594}
+      addedObject: {fileID: 4406876109654693668}
   m_SourcePrefab: {fileID: 100100000, guid: f05ea15649363ee43a75dfb416d35539, type: 3}
 --- !u!4 &6317573485331399598 stripped
 Transform:
@@ -216,24 +175,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f05ea15649363ee43a75dfb416d35539, type: 3}
   m_PrefabInstance: {fileID: 5775372710740206661}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1159014326198333759
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6694415236678195476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58a81b347b9f73d43bda71d317d1412d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactText: 
-  id: TrainPhotos
-  ItemData: {fileID: 11400000, guid: ceaef5b63c08dc541a85b7eeed5e2bd3, type: 2}
-  canBePicked: 0
-  deactivateOnPickup: 1
-  objectPrefab: {fileID: 0}
 --- !u!114 &5012945492109328594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,3 +190,21 @@ MonoBehaviour:
   promptMessage: Photos
   uiOffset: {x: 0, y: 0, z: 0}
   uiOffsetPrompt: {x: 0, y: 0, z: 0}
+--- !u!114 &4406876109654693668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6694415236678195476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2830406988144ce46b7702d0437448cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactText: 
+  id: 
+  ItemData: {fileID: 11400000, guid: ceaef5b63c08dc541a85b7eeed5e2bd3, type: 2}
+  canBePicked: 0
+  deactivateOnPickup: 1
+  objectPrefab: {fileID: 0}

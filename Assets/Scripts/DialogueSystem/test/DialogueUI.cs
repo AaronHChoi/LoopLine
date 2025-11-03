@@ -11,6 +11,8 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] GameObject continueIndicator;
     [SerializeField] private FadeInOutController letterBoxFadeInOut;
+    [SerializeField] private Color dialogueColor;
+    [SerializeField] private Color monologueColor;
 
     [SerializeField] private float typingSpeed = 0.05f;
     [SerializeField] private bool skipTypingOnClick = true;
@@ -27,11 +29,12 @@ public class DialogueUI : MonoBehaviour
 
     IPlayerStateController playerStateController;
     IDialogueManager dialogueManager;
-
+    IClock mindplaceClock;
     private void Awake()
     {
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
         dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
+        mindplaceClock = InterfaceDependencyInjector.Instance.Resolve<IClock>();
     }
     private void Start()
     {
@@ -52,6 +55,11 @@ public class DialogueUI : MonoBehaviour
         }
         dialogueManager.OnDialogueStarted += OnDialogueStartedHandler;
         dialogueManager.OnDialogueEnded += OnDialogueEndedHandler;
+        if(mindplaceClock != null)
+        {
+            mindplaceClock.OnEnterClock += OnClockStartedHandler;
+            mindplaceClock.OnExitClock += OnClockEndedHandler;
+        }
     }
     private void OnDisable()
     {
@@ -61,12 +69,25 @@ public class DialogueUI : MonoBehaviour
         }
         dialogueManager.OnDialogueStarted -= OnDialogueStartedHandler;
         dialogueManager.OnDialogueEnded -= OnDialogueEndedHandler;
+        if (mindplaceClock != null)
+        {
+            mindplaceClock.OnEnterClock -= OnClockStartedHandler;
+            mindplaceClock.OnExitClock -= OnClockEndedHandler;
+        }
     }
     private void OnDialogueStartedHandler()
     {
         ShowletterBox(true);
     }
     private void OnDialogueEndedHandler()
+    {
+        ShowletterBox(false);
+    }
+    private void OnClockStartedHandler()
+    {
+        ShowletterBox(true);
+    }
+    private void OnClockEndedHandler()
     {
         ShowletterBox(false);
     }
@@ -123,17 +144,16 @@ public class DialogueUI : MonoBehaviour
         currentLineIndex = 0;
         currentSpeaker = speaker;
 
-        if (data.IsAMonologue)
-        {
-            playerStateController.ChangeState(playerStateController.MonologueState);
-        }
-        else
-        {
-            playerStateController.ChangeState(playerStateController.DialogueState);
-        }
+        ChangeDialogeColor(data.IsAMonologue);
 
+        playerStateController.ChangeState(playerStateController.DialogueState);
+        
         dialoguePanel.SetActive(true);
         ShowCurrentLine();
+    }
+    private void ChangeDialogeColor(bool isMonologue)
+    {
+        dialogueText.color = isMonologue ? monologueColor : dialogueColor;
     }
     private void ShowCurrentLine()
     {

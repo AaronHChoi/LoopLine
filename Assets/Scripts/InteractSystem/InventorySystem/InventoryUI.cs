@@ -1,5 +1,6 @@
 using DependencyInjection;
 using Player;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -8,15 +9,15 @@ using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour, IInventoryUI
 {
-    [SerializeField] public List<UIInventoryItemSlot> inventorySlots = new List<UIInventoryItemSlot>();
+    [SerializeField] public List<UIInventoryItemSlot> inventorySlots { get; } = new List<UIInventoryItemSlot>(); 
     
     [SerializeField] public RawImage arrowImage;
     [SerializeField] public ItemInteract ItemInUse { get; set; }
 
-    [SerializeField] private ItemInteract handItemUI;
+    [SerializeField] private BaseItemInteract handItemUI;
     [SerializeField] private Vector2 offset = new Vector2(50f, 0f);
     [SerializeField] private float slotChangeCooldown = 0.5f;
-    [SerializeField] private bool isInCorrectScene = false;
+    [SerializeField] private int maxInventorySlots = 5;
     [SerializeField] private Transform spawnPosition;
 
     private float lastSlotChangeTime = 0f;
@@ -25,9 +26,14 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
     {
         get => isInventoryOpen;
     }
-    public ItemInteract HandItemUI { get { return handItemUI; } } 
+    public BaseItemInteract HandItemUI { get { return handItemUI; } } 
 
-    public int currentSlotIndex = 0;
+    private int currentSlotIndex = 0;
+
+    public int CurrentSlotIndex
+    {
+        get => currentSlotIndex;
+    }
     public static InventoryUI Instance { get; private set; }
 
     FadeInOutController FadeController;
@@ -54,23 +60,18 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
         {
             Destroy(gameObject);
         }
-
+        arrowImage = GameObject.FindGameObjectWithTag("ArrowUI").GetComponent<RawImage>();
+        handItemUI = GameObject.FindGameObjectWithTag("HandItem").GetComponent<BaseItemInteract>();
         FadeController = GetComponent<FadeInOutController>();
         ArrowFadeController = arrowImage.GetComponent<FadeInOutController>();
+        RebuildInventoryFromManager();
+        arrowImage.gameObject.SetActive(false);
         HideInventory();
-        AddInventorySlot(HandItemUI);
-        ItemInUse = HandItemUI;
-        currentSlotIndex = 0;
-        inventorySlots[0].IsActive = true;
-        if (SceneManager.GetActiveScene().name == "05. MindPlace" || SceneManager.GetActiveScene().name == "TestMindPlace")
-        {
-            isInCorrectScene = true;
-        }
+        
+
     }
     private void Update()
     {
-        //if (!DependencyContainer.Instance.PlayerStateController.IsInState(playerStateController.InventoryState)) return;
-
         float scroll = inputHandler.GetScrollValue();
 
         if (Time.time - lastSlotChangeTime < slotChangeCooldown)
@@ -109,7 +110,7 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
     #endregion
     private void OpenInventory()
     {
-        if (/*!dialogueManager.IsDialogueActive &&*/ inventorySlots.Count != 0 && !isInventoryOpen)
+        if (inventorySlots.Count != 0 && !isInventoryOpen)
         {
             ShowInventory();
             MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
@@ -123,7 +124,10 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
     }
     public void ChangeSlot(int direction)
     {
-        inventorySlots[currentSlotIndex].IsActive = false;
+        if (inventorySlots.Count > 1)
+        {          
+            inventorySlots[currentSlotIndex].IsActive = false;
+        }
 
         currentSlotIndex += direction;
 
@@ -155,27 +159,74 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
         currentSlotIndex = 0;
         MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
     }
+
     public void AddInventorySlot(ItemInteract item)
     {
-        GameObject itemUI = Instantiate(item.ItemData.objectPrefab);
-        itemUI.transform.SetParent(transform, false);
+        if (inventorySlots.Count < maxInventorySlots)
+        {
+            if (CheckInventory(item))
+            {
+                RemoveInventorySlot(item);
+            }
+            GameObject itemUI = Instantiate(item.ItemData.UIPrefab);
+            itemUI.transform.SetParent(transform, false);
 
-        UIInventoryItemSlot slot = itemUI.GetComponent<UIInventoryItemSlot>();
-        slot.Set(item);
-        inventorySlots.Add(slot);
-        MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
+            UIInventoryItemSlot slot = itemUI.GetComponent<UIInventoryItemSlot>();
+            slot.Set(item);            
+            inventorySlots.Add(slot);
+            MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
+            
+        }
+              
     }
     public void RemoveInventorySlot(ItemInteract item)
     {
-        if (CheckInventory(item) == true)
-        {   
-            
-            inventorySlots[currentSlotIndex].gameObject.SetActive(false);
-            inventorySlots[currentSlotIndex].gameObject.transform.parent = null;
-            inventorySlots[currentSlotIndex].IsActive = false;
-            inventorySlots.Remove(inventorySlots[currentSlotIndex]);
-            ResetArrowPosition();
+        if (CheckInventory(item))
+        {
+            UIInventoryItemSlot slotToRemove = inventorySlots[currentSlotIndex];
+
+            if (currentSlotIndex > 0)
+            {
+                inventorySlots[currentSlotIndex].IsActive = false;
+                inventorySlots[currentSlotIndex].gameObject.SetActive(false);
+                inventorySlots.Remove(slotToRemove);
+                slotToRemove.transform.parent = null;
+                InventoryManager.Instance.RemoveItemFromInventory(item.ItemData);
+                RebuildInventoryFromManager();
+                currentSlotIndex--;
+                inventorySlots[currentSlotIndex].IsActive = true;
+
+                StartCoroutine(UpdateArrowNextFrame());
+            }
+            else
+            {
+                ResetArrowPosition();
+            }
         }
+   
+    }
+    public void RemoveUIInventoryLastSlot(UIInventoryItemSlot slotToRemove)
+    {
+         slotToRemove = inventorySlots[currentSlotIndex];
+
+         if (currentSlotIndex > 0)
+         {
+             inventorySlots[currentSlotIndex].IsActive = false;
+             inventorySlots[currentSlotIndex].gameObject.SetActive(false);
+             inventorySlots.Remove(slotToRemove);
+             slotToRemove.transform.parent = null;
+
+             currentSlotIndex--;
+             inventorySlots[currentSlotIndex].IsActive = true;
+
+             StartCoroutine(UpdateArrowNextFrame());
+         }
+         else
+         {
+             ResetArrowPosition();
+         }
+        
+
     }
     public bool CheckInventory(ItemInteract itemInteract)
     {
@@ -207,6 +258,40 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
             }
         }
     }
+   
+    public void AddHandItem()
+    {
+        AddInventorySlot(HandItemUI);
+        ItemInUse = HandItemUI;
+        currentSlotIndex = 0;
+        inventorySlots[0].IsActive = true;
+    }
+    private void RebuildInventoryFromManager()
+    {
+        var manager = InventoryManager.Instance;
+        if (manager == null || manager.itemsInventoryManager == null) return;
+        AddHandItem();
+
+        List<ItemInfo> savedItems = manager.itemsInventoryManager.items;
+
+        if (savedItems.Count == 0)
+        {
+            Debug.Log("No hay ítems guardados en InventoryManager");
+            return;
+        }
+
+        for (int i = 0; i < savedItems.Count; i++)
+        {
+            GameObject itemInstance = Instantiate(savedItems[i].itemPrefab);
+
+            ItemInteract interactComponent = itemInstance.GetComponent<ItemInteract>();
+            if (interactComponent == null)
+                interactComponent = itemInstance.GetComponentInChildren<ItemInteract>(true);
+            interactComponent.Start();
+            interactComponent.Interact();
+        }
+
+    }
     private void ShowInventory()
     {
         FadeController.ForceFade(true);
@@ -222,15 +307,26 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
     {
         return spawnPosition;
     }
+
+    private IEnumerator UpdateArrowNextFrame()
+    {
+        yield return null; 
+        MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
+    }
 }
 
 public interface IInventoryUI
 {
+    public List<UIInventoryItemSlot> inventorySlots { get; }
+    int CurrentSlotIndex { get; }
     bool IsInventoryOpen { get; }
-    public ItemInteract HandItemUI { get; }
+    public BaseItemInteract HandItemUI { get; }
     public ItemInteract ItemInUse { get; set; }
     Transform GetSpawnPosition();
+    void AddHandItem();
+    void MoveArrowToSlot(RectTransform slotTransform);
     void AddInventorySlot(ItemInteract item);
     void RemoveInventorySlot(ItemInteract item);
+    void RemoveUIInventoryLastSlot(UIInventoryItemSlot slotToRemove);
     bool CheckInventory(ItemInteract itemInteract);
 }

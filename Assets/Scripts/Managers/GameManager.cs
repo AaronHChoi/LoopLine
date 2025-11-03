@@ -1,58 +1,52 @@
+using System.Collections.Generic;
 using DependencyInjection;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-    public static GameManager Instance { get; private set; }
+    [Header("GameManager")]
     public string nextScene;
     public bool isGamePaused;
 
     public int TrainLoop = 0;
-    public int MindPlaceLoop = 0;
+
+    Dictionary<GameCondition, bool> conditions = new Dictionary<GameCondition, bool>();
 
     [Header("DeveloperTools")]
     public bool isMuted = false;
 
-    bool clockQuest;
+    [Header("ClockQuest")]
+    bool clockQuestCompleted;
     public bool ClockQuest
     {
-        get { return clockQuest; }
-        set { clockQuest = value; }
+        get { return clockQuestCompleted; }
+        set { clockQuestCompleted = value; }
     }
 
-    IGameSceneManager gameSceneManager;
     public IScreenManager screenManager;
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            transform.SetParent(null);
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        base.Awake();
 
-        gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
         screenManager = InterfaceDependencyInjector.Instance.Resolve<IScreenManager>();
+
+        SetGameConditions();
     }
-    private void Update() 
+    public void SetGameConditions()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        var keys = new List<GameCondition>(conditions.Keys);
+        foreach (var key in keys)
         {
-            gameSceneManager.UnloadLastScene();
-            if (gameSceneManager.IsCurrentScene("04. Train"))
-            {
-                SceneManager.LoadScene("05. MindPlace");
-            }
-            else if (gameSceneManager.IsCurrentScene("05. MindPlace"))
-            {
-                SceneManager.LoadScene("04. Train");
-            }
+            conditions[key] = false;
         }
+    }
+    public bool GetCondition(GameCondition condition)
+    {
+        return conditions.ContainsKey(condition) && conditions[condition];
+    }
+    public void SetCondition(GameCondition condition, bool value)
+    {
+        conditions[condition] = value;
     }
 }

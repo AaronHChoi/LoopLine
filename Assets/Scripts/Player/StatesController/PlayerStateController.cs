@@ -13,18 +13,15 @@ namespace Player
         public event Action OnTakePhoto;
         public event Action OnInteract;
         public event Action OnDialogueNext;
-        //public event Action OnDialogueSkip;
         public event Action OnOpenInventory;
         public event Action OnOpenDevelopment;
-        public event Action OnFocusMode;
         public event Action OnScrollInventory;
         public event Action OnGrab;
         public event Action OnTeleport;
-        public event Action OnPauseMenu;
+        
         StateMachine stateMachine { get; set; }
 
         ITimeProvider timeManager;
-        IPhotoMarker photoMarker;
         ICameraOrientation cinemachinePOVExtension;
         IPhotoCapture photoCapture;
         IPlayerInteractMarkerPrompt interaction;
@@ -37,10 +34,8 @@ namespace Player
         public CameraState CameraState { get;  set; }
         public DevelopmentState DevelopmentState { get;  set; }
         public PauseMenuState PauseMenuState { get; set; }
-        public FocusModeState FocusModeState { get;  set; }
         public MindPlaceState MindPlaceState { get;  set; }
         public ObjectInHandState ObjectInHandState { get;  set; }
-        public MonologueState MonologueState { get; set; }
         private void Awake()
         {
             togglePhotoDetection = InterfaceDependencyInjector.Instance.Resolve<ITogglePhotoDetection>();           
@@ -48,7 +43,6 @@ namespace Player
             playerMovement = InterfaceDependencyInjector.Instance.Resolve<IPlayerMovement>();
             interaction = InterfaceDependencyInjector.Instance.Resolve<IPlayerInteractMarkerPrompt>();
             photoCapture = InterfaceDependencyInjector.Instance.Resolve<IPhotoCapture>();
-            photoMarker = InterfaceDependencyInjector.Instance.Resolve<IPhotoMarker>();
             cinemachinePOVExtension = InterfaceDependencyInjector.Instance.Resolve<ICameraOrientation>();
             timeManager = InterfaceDependencyInjector.Instance.Resolve<ITimeProvider>();
             gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
@@ -57,17 +51,13 @@ namespace Player
 
             NormalState = new NormalState(this, inputHandler, playerMovement, cinemachinePOVExtension);
             DialogueState = new DialogueState(this, inputHandler, playerMovement, cinemachinePOVExtension);
-            CameraState = new CameraState(this, inputHandler, playerMovement, photoCapture, cinemachinePOVExtension, interaction, togglePhotoDetection, gameSceneManager);
+            CameraState = new CameraState(this, inputHandler, playerMovement, photoCapture, cinemachinePOVExtension, interaction, togglePhotoDetection);
             DevelopmentState = new DevelopmentState(this, inputHandler, playerMovement, cinemachinePOVExtension, timeManager);
-            PauseMenuState = new PauseMenuState(this, inputHandler, playerMovement, cinemachinePOVExtension, timeManager);
-            FocusModeState = new FocusModeState(this, inputHandler, playerMovement, cinemachinePOVExtension);
             MindPlaceState = new MindPlaceState(this, inputHandler, playerMovement);
             ObjectInHandState = new ObjectInHandState(this, inputHandler, playerMovement, cinemachinePOVExtension);
-            MonologueState = new MonologueState(this, playerMovement, inputHandler, cinemachinePOVExtension);
 
             stateMachine.Initialize(NormalState);
         }
-
         private void Update()
         {
             stateMachine.Execute();
@@ -102,14 +92,6 @@ namespace Player
         {
             OnOpenDevelopment?.Invoke();
         }
-        public void UseEventPauseMenu()
-        {
-            OnPauseMenu?.Invoke();
-        }
-        public void UseEventFocusMode()
-        {
-            OnFocusMode?.Invoke();
-        }
         public void UseEventGrab()
         {
             OnGrab?.Invoke();
@@ -124,7 +106,6 @@ namespace Player
         }
         #endregion
     }
-
     public interface IPlayerStateController
     {
         public event Action<IState> OnStateChanged;
@@ -133,8 +114,6 @@ namespace Player
         public event Action OnDialogueNext;
         public event Action OnOpenInventory;
         public event Action OnOpenDevelopment;
-        public event Action OnPauseMenu;
-        public event Action OnFocusMode;
         public event Action OnScrollInventory;
         public event Action OnGrab;
         public event Action OnTeleport;
@@ -145,9 +124,7 @@ namespace Player
         void UseEventTakePhoto();
         void UseEventOpenInventory();
         void UseEventDevelopment();
-        void UseEventPauseMenu();
         void UseEventDialogueNext();
-        void UseEventFocusMode();
         void UseEventGrab();
         void UseEventTeleport();
         bool CanUseNormalStateExecute { get; set; }
@@ -156,9 +133,7 @@ namespace Player
         CameraState CameraState { get; set; }
         DevelopmentState DevelopmentState { get; set; }
         PauseMenuState PauseMenuState { get; set; }
-        FocusModeState FocusModeState { get; set; }
         MindPlaceState MindPlaceState { get; set; }
         ObjectInHandState ObjectInHandState { get; set; }
-        MonologueState MonologueState { get; set; }
     }
 }

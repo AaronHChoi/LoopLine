@@ -1,10 +1,12 @@
 using System;
+using DependencyInjection;
 using Unity.Cinemachine;
 using UnityEngine;
 
-public class Clock : MonoBehaviour, IInteract
+public class Clock : MonoBehaviour, IInteract, IClock
 {
     public event Action OnExitClock;
+    public event Action OnEnterClock;
 
     public Transform HandHour;
     public Transform HandMinute;
@@ -28,6 +30,23 @@ public class Clock : MonoBehaviour, IInteract
     [SerializeField] CinemachineCamera clockZoom;
 
     [SerializeField] PlayerMovement playerMovement; //test
+    ICameraOrientation playerCamera;
+    IUIManager uiManager;
+
+    [SerializeField] SoundData clockSecondsData;
+    [SerializeField] DialogueUI dialogueUI;
+    private void Awake()
+    {
+        playerCamera = InterfaceDependencyInjector.Instance.Resolve<ICameraOrientation>();
+        uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
+    }
+    private void Start()
+    {
+         SoundManager.Instance.CreateSound()
+            .WithSoundData(clockSecondsData)
+            .WithSoundPosition(transform.position)
+            .Play();
+    }
     void Update()
     {
         if (!activeMode)
@@ -75,12 +94,16 @@ public class Clock : MonoBehaviour, IInteract
     {
         activeMode = !activeMode;
 
+        uiManager.ShowClockTutorial(activeMode);
+
         if(activeMode)
         {
             playerMovement.CanMove = false;
+            playerCamera.CanLook = false;
             clockZoom.gameObject.SetActive(true);
             clockZoom.Priority = 20;
             player.Priority = 10;
+            OnEnterClock?.Invoke();
         }
         else
         {
@@ -88,6 +111,7 @@ public class Clock : MonoBehaviour, IInteract
             clockZoom.Priority = 10;
             player.Priority = 20;
             playerMovement.CanMove = true;
+            playerCamera.CanLook = true;
             OnExitClock?.Invoke();
         }
     }
@@ -141,4 +165,9 @@ public class Clock : MonoBehaviour, IInteract
     {
         throw new System.NotImplementedException();
     }
+}
+public interface IClock
+{
+    event Action OnExitClock;
+    event Action OnEnterClock;
 }

@@ -16,6 +16,7 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     [SerializeField] private bool IsRootatingDoor = true;
     [SerializeField] private float Speed = 1f;
     [SerializeField] private float AutoCloseDelay = 3f;
+    [SerializeField] float delayOpenDoorAnimation = 0.75f;
 
     private Vector3 playerPosition;
 
@@ -27,7 +28,6 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     private Vector3 Forward;
 
     private Coroutine AnimationCorutine;
-    private Coroutine AutoCloseCoroutine;
 
     IPlayerController playerController;
     IInventoryUI inventoryUI;
@@ -42,6 +42,14 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
         StartRotation = doorGameObject.transform.rotation.eulerAngles;
         Forward = doorGameObject.transform.forward; //this is because the forward of the door is orienteted to the right if the forwar chages chage this line
     }
+    private void Start()
+    {
+        if (GameManager.Instance.GetCondition(GameCondition.PhotoDoorOpen) && doorHandler != null)
+        {
+            active = true;
+            doorHandler.SetActive(true);
+        }
+    }
     public void OpenDoor(Vector3 UserPosition)
     {
         if (!isOpen)
@@ -54,10 +62,6 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
             {
                 float dot = Vector3.Dot(Forward, (UserPosition - doorGameObject.transform.position).normalized);
                 AnimationCorutine = StartCoroutine(DoRotationOpen(dot));
-                //if (AutoCloseCoroutine != null)
-                //    StopCoroutine(AutoCloseCoroutine);
-
-                //AutoCloseCoroutine = StartCoroutine(CloseDoorAfterTime(AutoCloseDelay));
             }
         }
     }
@@ -89,11 +93,12 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
             if (!isOpen)
             {
                 playerPosition = playerController.GetTransform().position;
-                StartCoroutine(OpenSequence(playerPosition));
+
+                OpenSequence(playerPosition);
             }
             else
             {
-                StartCoroutine(CloseSequence());
+                CloseSequence();
             }
         }
     }
@@ -101,21 +106,17 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     {
         return doorText;
     }
-    private IEnumerator OpenSequence(Vector3 userPosition)
+    private void OpenSequence(Vector3 userPosition)
     {
         OnDoorOpened?.Invoke();
 
-        yield return new WaitForSeconds(0.6f);
-
-        OpenDoor(userPosition);
+        DelayUtility.Instance.Delay(delayOpenDoorAnimation, () => OpenDoor(userPosition));
     }
-    private IEnumerator CloseSequence()
+    private void CloseSequence()
     {
         OnDoorClosed?.Invoke();
 
-        yield return new WaitForSeconds(0.6f);
-
-        CloseDoor();
+        DelayUtility.Instance.Delay(0.6f, CloseDoor);
     }
     private IEnumerator DoRotationOpen(float ForwardAmount)
     {
@@ -154,15 +155,6 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
             doorGameObject.transform.rotation = Quaternion.Slerp(startRotation, endRotation, time);
             yield return null;
             time += Time.deltaTime * Speed;
-        }
-    }
-    private IEnumerator CloseDoorAfterTime(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        if (isOpen)
-        {
-            CloseDoor();
         }
     }
 }

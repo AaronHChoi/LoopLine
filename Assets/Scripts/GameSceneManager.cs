@@ -1,12 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using DependencyInjection;
-using Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class GameSceneManager : MonoBehaviour, IGameSceneManager
+
+public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
 {
-    public static GameSceneManager Instance;
     [Header("Scene Settings")]
     [SerializeField] private WeightScene firstScene;
     [SerializeField] private List<WeightScene> weightedScenes = new List<WeightScene>();
@@ -15,54 +13,22 @@ public class GameSceneManager : MonoBehaviour, IGameSceneManager
     [SerializeField] private List<string> activeScenes = new List<string>();
     [SerializeField] private List <string> constantActiveScenes = new List<string>();
 
-    IPlayerStateController playerStateController;
-    private void Awake()
+    protected override void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            transform.SetParent(null);
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        base.Awake();
     }
     private void Start()
     {     
-        foreach (var sceneName in constantActiveScenes)
+        if (IsCurrentScene("04. Train"))
         {
-            if (!SceneManager.GetSceneByName(sceneName).isLoaded)
+            foreach (var sceneName in constantActiveScenes)
             {
-                SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+                if (!SceneManager.GetSceneByName(sceneName).isLoaded)
+                {
+                    SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+                }
             }
-        }
-        StartCoroutine(LoadSceneAsync(firstScene.sceneName));
-    }
-    private void OnEnable()
-    {
-        if (playerStateController != null)
-        {
-            playerStateController.OnTeleport += TeleportPlayer;
-        }
-    }
-    private void OnDisable()
-    {
-        if (playerStateController != null)
-        {
-            playerStateController.OnTeleport -= TeleportPlayer;
-        }
-    }
-    private void TeleportPlayer()
-    {
-        if (IsCurrentScene("05. Train"))
-        {
-            SceneManager.LoadScene("05. MindPlace");
-        }
-        else if (IsCurrentScene("05. MindPlace"))
-        {
-            SceneManager.LoadScene("05. Train");
+            StartCoroutine(LoadSceneAsync(firstScene.sceneName));
         }
     }
     public void LoadRandomScene()
@@ -112,6 +78,28 @@ public class GameSceneManager : MonoBehaviour, IGameSceneManager
         string lastScene = activeScenes[activeScenes.Count - 1];
         StartCoroutine(UnloadSceneAsync(lastScene));
     }
+
+    public void ChangeSceneWeighth(string SceneName, int newWeight)
+    {
+        for (int i = 0; i < weightedScenes.Count; i++) 
+        {
+            if (weightedScenes[i].sceneName == SceneName)
+            {
+                weightedScenes[i].weight = newWeight;
+            }
+        } 
+    }
+
+    public void RemoveScene(string SceneName)
+    {
+        for (int i = 0; i < weightedScenes.Count; i++)
+        {
+            if (weightedScenes[i].sceneName == SceneName)
+            {
+                weightedScenes.Remove(weightedScenes[i]);
+            }
+        }
+    }
     private IEnumerator UnloadSceneAsync(string sceneName)
     {
         AsyncOperation asyncUnload = SceneManager.UnloadSceneAsync(sceneName);
@@ -127,4 +115,6 @@ public interface IGameSceneManager
     void LoadNextScene(string _sceneName);
     void LoadRandomScene();
     void UnloadLastScene();
+    void ChangeSceneWeighth(string SceneName, int newWeight);
+    void RemoveScene(string SceneName);
 }

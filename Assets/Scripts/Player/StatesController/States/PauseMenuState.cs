@@ -22,24 +22,19 @@ namespace Player
     
         public void Enter()
         {
-            movement.CanMove = false;
-            playerCamera.CanLook = false;
-            timeManager.PauseTime(true);
+            Time.timeScale = 0f;
             Debug.Log("Enter PauseManuState");
         }
         public void Execute()
         {
-            if (input.PauseMenuModePressed())
-            {
-                GameManager.Instance.screenManager.Pop();
-                controller.ChangeState(controller.NormalState);
-            }
+            //if (input.PauseMenuModePressed())
+            //{
+            //    PauseMenuManager.Instance.gameObject.SetActive(!PauseMenuManager.Instance.gameObject.activeSelf);              
+            //}
         }
         public void Exit()
         {
-            movement.CanMove = true;
-            playerCamera.CanLook = true;
-            timeManager.PauseTime(false);
+            Time.timeScale = 1f;
             Debug.Log("Exiting PauseManuState");
         }
     }

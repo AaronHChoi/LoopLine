@@ -97,8 +97,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5055988739347739817}
   - component: {fileID: 4211580908035778441}
-  - component: {fileID: 802330139900500467}
   - component: {fileID: 5463782788868755939}
+  - component: {fileID: 8569974665091180598}
   m_Layer: 3
   m_Name: Key
   m_TagString: Item
@@ -143,24 +143,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.10956636, y: 0.030080272, z: 0.3243766}
   m_Center: {x: -0.0047183177, y: 0.007840133, z: 0.06017359}
---- !u!114 &802330139900500467
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7472622407173248628}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58a81b347b9f73d43bda71d317d1412d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactText: 
-  id: 
-  ItemData: {fileID: 11400000, guid: a760a8532a2690343ac94176f9f78f2a, type: 2}
-  canBePicked: 0
-  deactivateOnPickup: 1
-  objectPrefab: {fileID: 0}
 --- !u!114 &5463782788868755939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,3 +158,21 @@ MonoBehaviour:
   promptMessage: Key
   uiOffset: {x: 0, y: 0, z: 0}
   uiOffsetPrompt: {x: 0, y: 0.15, z: 0}
+--- !u!114 &8569974665091180598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7472622407173248628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2830406988144ce46b7702d0437448cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactText: 
+  id: 
+  ItemData: {fileID: 11400000, guid: a760a8532a2690343ac94176f9f78f2a, type: 2}
+  canBePicked: 0
+  deactivateOnPickup: 1
+  objectPrefab: {fileID: 0}

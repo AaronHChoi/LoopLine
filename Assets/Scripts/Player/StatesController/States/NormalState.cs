@@ -1,5 +1,3 @@
-using System.Threading;
-using Unity.Cinemachine.Samples;
 using UnityEngine;
 
 namespace Player
@@ -45,18 +43,7 @@ namespace Player
                 controller.UseEventDevelopment();
                 controller.StateMachine.TransitionTo(controller.DevelopmentState);
             }
-            if (input.PauseMenuModePressed())
-            {
-                //controller.UseEventPauseMenu();
-                GameManager.Instance.screenManager.Push(EnumScreenName.Pause);
-                controller.StateMachine.TransitionTo(controller.PauseMenuState);
-            }
-            if (input.FocusModePressed())
-            {
-                controller.UseEventFocusMode();
-                controller.StateMachine.TransitionTo(controller.FocusModeState);
-            }
-            if (input.TeleportToMindplace())
+            if (input.Teleport())
             {
                 controller.UseEventTeleport();
             }

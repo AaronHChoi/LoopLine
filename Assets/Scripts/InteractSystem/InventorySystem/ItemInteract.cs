@@ -1,7 +1,7 @@
 using UnityEngine;
 using DependencyInjection;
 
-public class ItemInteract : MonoBehaviour, IItemGrabInteract
+public abstract class ItemInteract : MonoBehaviour, IItemGrabInteract
 {
     [Header("Settings")]
     [SerializeField] private string interactText = "";
@@ -20,7 +20,7 @@ public class ItemInteract : MonoBehaviour, IItemGrabInteract
     {
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
     }
-    void Start()
+    public virtual void Start()
     {
         id = ItemData.itemName;
         interactText = ItemData.itemName;
@@ -33,7 +33,7 @@ public class ItemInteract : MonoBehaviour, IItemGrabInteract
             objectPrefab = gameObject;
         }
     }
-    public bool Interact()
+    public virtual bool Interact()
     {
         bool isGrabbable = false;
         if (gameObject.tag == "Item" && canBePicked)
@@ -48,6 +48,7 @@ public class ItemInteract : MonoBehaviour, IItemGrabInteract
                 if (inventoryUI.CheckInventory(this) == false)
                 {
                     inventoryUI.AddInventorySlot(this);
+                    InventoryManager.Instance.AddItemToInventory(ItemData);
                 }
             }
             isGrabbable = true;

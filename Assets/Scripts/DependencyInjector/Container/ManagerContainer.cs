@@ -20,6 +20,8 @@ namespace DependencyInjection
             injector.Register<IEventManager>(() => FindAndValidate<EventManager>());
             injector.Register<IItemManager>(() => FindAndValidate<ItemManager>());
             injector.Register<IBlackRoomManager>(() => FindAndValidate<BlackRoomManager>());
+            injector.Register<ISceneTransitionController>(() => FindAndValidate<SceneTransitionController>());
+            injector.Register<IPauseMenuManager>(() => FindAndValidate<PauseMenuManager>());
         }
     }
 }

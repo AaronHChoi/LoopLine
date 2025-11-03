@@ -1,57 +1,59 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CrosshairFadeController : MonoBehaviour, ICrosshairFade
 {
-    [SerializeField] private RawImage crosshairImage;
+    [SerializeField] private FadeInOutController fadeCrosshairBig;
+    [SerializeField] private FadeInOutController fadeCrosshairSmall;
     [SerializeField] private RaycastController rayController;
 
-    private FadeInOutController crossFade;
-    private bool isVisible = true;
+    private bool bigCroshairVisibility = false;
+    private bool smallCroshairVisibility = false;
 
 
     void Start()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        SetCrosshairVisible(false); // hide crosshair at start
-        if (crosshairImage != null) crossFade = crosshairImage.GetComponent<FadeInOutController>();
     }
+
 
     void Update()
     {
         if (rayController.FoundInteract)
         {
-            SetCrosshairOpacity(rayController.BestScore); // fade based on angle + distance
-            SetCrosshairVisible(true);
+            ShowCrosshairByFade(fadeCrosshairBig, ref bigCroshairVisibility, true);
+            ShowCrosshairByFade(fadeCrosshairSmall, ref smallCroshairVisibility, false);
         }
         else
         {
-            SetCrosshairVisible(false);
+            ShowCrosshairByFade(fadeCrosshairBig, ref bigCroshairVisibility, false);
+            ShowCrosshairByFade(fadeCrosshairSmall, ref smallCroshairVisibility, true);
         }
     }
-
-    private void SetCrosshairVisible(bool visible)
+    private void ShowCrosshairByFade(FadeInOutController fade, ref bool visibility, bool show)
     {
-        crosshairImage.enabled = visible;
-    }
+        //Fades if it can be fade and save it's state
+        if (visibility == show) return;
+        else visibility = show;
 
-    private void SetCrosshairOpacity(float opacity)
-    {
-        Color color = crosshairImage.color;
-        opacity = Mathf.Clamp01(opacity);
-        color.a = opacity;
-        crosshairImage.color = color;
+        if (fade == null) return;
+
+        fade.ForceFade(show);
     }
     public void ShowCrosshair(bool show)
     {
-        //Fades if it can be fade and save it's state
-        if (isVisible == show) return;
-        else isVisible = show;
-
-        if (crossFade == null) return;
-
-        crossFade.ForceFade(!show);
+        if (show)
+        {
+            ShowCrosshairByFade(fadeCrosshairBig, ref bigCroshairVisibility, false);
+            ShowCrosshairByFade(fadeCrosshairSmall, ref smallCroshairVisibility, true);
+        }
+        else
+        {
+            ShowCrosshairByFade(fadeCrosshairBig, ref bigCroshairVisibility, false);
+            ShowCrosshairByFade(fadeCrosshairSmall, ref smallCroshairVisibility, false);
+        }
     }
 }
 

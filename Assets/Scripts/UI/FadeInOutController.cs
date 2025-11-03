@@ -45,7 +45,7 @@ public class FadeInOutController : MonoBehaviour
     }
     private IEnumerator FadeProcess(FadeTiming fadeTiming, FadeState fadeState)
     {
-        canvasGroup.alpha = fadeState == FadeState.FadeIn ? 0f : 1f;
+        //canvasGroup.alpha = fadeState == FadeState.FadeIn ? 0f : 1f;
 
         if (fadeTiming.TimeBeforeFade > 0)
         {
@@ -59,19 +59,23 @@ public class FadeInOutController : MonoBehaviour
 
     private IEnumerator Fade(float fadeTime, FadeState fadeState)
     {
-        float timer = 0;
-        float startAlpha = fadeState == FadeState.FadeIn ? 0f : 1f;
-        float endAlpha = fadeState == FadeState.FadeIn ? 1f : 0f;
+        float startAlpha = canvasGroup.alpha;
+        float targetAlpha = fadeState == FadeState.FadeIn ? 1f : 0f;
+        float alphaDifference = Mathf.Abs(targetAlpha - startAlpha);
 
-        while (timer < fadeTime)
+        // Adjust fade duration proportionally so speed is constant
+        float adjustedFadeTime = fadeTime * alphaDifference;
+
+        float timer = 0f;
+        while (timer < adjustedFadeTime)
         {
             timer += Time.deltaTime;
-            float t = Mathf.Clamp01(timer / fadeTime);
-            canvasGroup.alpha = Mathf.Lerp(startAlpha, endAlpha, t);
+            float t = Mathf.Clamp01(timer / adjustedFadeTime);
+            canvasGroup.alpha = Mathf.Lerp(startAlpha, targetAlpha, t);
             yield return null;
         }
 
-        canvasGroup.alpha = endAlpha;
+        canvasGroup.alpha = targetAlpha;
     }
     public void ForceFade(bool isFadeIn)
     {

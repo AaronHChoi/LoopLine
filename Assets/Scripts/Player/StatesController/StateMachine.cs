@@ -7,7 +7,6 @@ namespace Player
     {
         public IState CurrentState { get; private set; }
 
-        public NormalState normalState;
         public void Initialize(IState startingState)
         {
             CurrentState = startingState;

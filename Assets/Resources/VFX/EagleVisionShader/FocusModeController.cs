@@ -14,23 +14,10 @@ public class FocusModeController : MonoBehaviour
     private bool defaultMaterial = true;
     private float volumeWeight;
 
-    IPlayerStateController playerStateController;
-    private void Awake()
-    {
-        playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
-    }
     private void Start()
     {
         InitializeTargets();
         InitializeVolume();
-    }
-    private void OnEnable()
-    {
-        playerStateController.OnFocusMode += HandleInput;
-    }
-    private void OnDisable()
-    {
-        playerStateController.OnFocusMode -= HandleInput;
     }
     private void Update()
     {
@@ -93,5 +80,4 @@ public class FocusModeController : MonoBehaviour
                 volumeFocusMode.weight = volumeWeight;
         }
     }
-
 }

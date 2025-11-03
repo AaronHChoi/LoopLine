@@ -11,6 +11,13 @@ public class PhotoQuestManager : MonoBehaviour
     {
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
     }
+    private void Start()
+    {
+        if (GameManager.Instance.GetCondition(GameCondition.PhotoDoorOpen))
+        {
+            doorHandler.gameObject.SetActive(false);
+        }
+    }
     private void OnEnable()
     {
         if (doorInteract  != null)
@@ -28,5 +35,6 @@ public class PhotoQuestManager : MonoBehaviour
     private void OpenDoorPhotoQuest()
     {
         inventoryUI.RemoveInventorySlot(doorHandler);
+        GameManager.Instance.SetCondition(GameCondition.PhotoDoorOpen, true);
     }
 }

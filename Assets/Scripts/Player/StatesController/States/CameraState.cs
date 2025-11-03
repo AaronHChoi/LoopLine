@@ -15,11 +15,10 @@ namespace Player
         ICameraOrientation playerCamera;
         IPlayerInteractMarkerPrompt interaction;
         ITogglePhotoDetection togglePhotoDetection;
-        IGameSceneManager gameSceneManager;
         GameObject polaroidItem;
         public CameraState(IPlayerStateController controller, IPlayerInputHandler input, IPlayerMovement movement, 
             IPhotoCapture photo, ICameraOrientation playerCamera, IPlayerInteractMarkerPrompt interaction, 
-            ITogglePhotoDetection togglePhotoDetection, IGameSceneManager gameSceneManager)
+            ITogglePhotoDetection togglePhotoDetection)
         {
             this.controller = controller;
             this.input = input;
@@ -28,7 +27,6 @@ namespace Player
             this.playerCamera = playerCamera;
             this.interaction = interaction;
             this.togglePhotoDetection = togglePhotoDetection;
-            this.gameSceneManager = gameSceneManager;
         }
         public void Enter()
         {
