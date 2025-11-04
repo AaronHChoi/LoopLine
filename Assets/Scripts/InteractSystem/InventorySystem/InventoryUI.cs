@@ -192,7 +192,8 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
                 inventorySlots.Remove(slotToRemove);
                 slotToRemove.transform.parent = null;
                 InventoryManager.Instance.RemoveItemFromInventory(item.ItemData);
-                RebuildInventoryFromManager();
+                if(InventoryManager.Instance.itemsInventoryManager.items.Count > 0)
+                    RebuildInventoryFromManager();
                 currentSlotIndex--;
                 inventorySlots[currentSlotIndex].IsActive = true;
 
