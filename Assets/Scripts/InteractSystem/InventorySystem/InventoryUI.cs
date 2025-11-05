@@ -37,6 +37,8 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
     public static InventoryUI Instance { get; private set; }
 
     FadeInOutController FadeController;
+    CanvasGroup InventoryCanvasGroup;
+    CanvasGroup ArrowCanvasGroup;
     FadeInOutController ArrowFadeController;
     IPlayerStateController controller;
     IDialogueManager dialogueManager;
@@ -62,6 +64,8 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
         }
         arrowImage = GameObject.FindGameObjectWithTag("ArrowUI").GetComponent<RawImage>();
         handItemUI = GameObject.FindGameObjectWithTag("HandItem").GetComponent<BaseItemInteract>();
+        InventoryCanvasGroup = GetComponent<CanvasGroup>();
+        ArrowCanvasGroup = arrowImage.GetComponent<CanvasGroup>();
         FadeController = GetComponent<FadeInOutController>();
         ArrowFadeController = arrowImage.GetComponent<FadeInOutController>();
         RebuildInventoryFromManager();
@@ -295,6 +299,11 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
     }
     private void ShowInventory()
     {
+        if (InventoryCanvasGroup.alpha == 0)
+        {
+            InventoryCanvasGroup.alpha = 1;
+            ArrowCanvasGroup.alpha = 1;
+        }
         FadeController.ForceFade(true);
         isInventoryOpen = true;
     }
