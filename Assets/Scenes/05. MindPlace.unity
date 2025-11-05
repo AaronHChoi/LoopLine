@@ -388,7 +388,10 @@ MonoBehaviour:
   dontDestroyOnLoad: 0
   contador_provicional: {fileID: 142067229}
   pauseManager: {fileID: 1554334951}
-  tutorialClockUI: {fileID: 1554485289}
+  managedPanels:
+  - panelID: ClockTutorial
+    panelGameObject: {fileID: 380357069}
+    panelData: {fileID: 11400000, guid: 26c2a17af380ac2499d635f3320efedd, type: 2}
 --- !u!1 &39577001
 GameObject:
   m_ObjectHideFlags: 0
@@ -3098,6 +3101,7 @@ GameObject:
   - component: {fileID: 380357070}
   - component: {fileID: 380357072}
   - component: {fileID: 380357071}
+  - component: {fileID: 380357073}
   m_Layer: 5
   m_Name: UIText
   m_TagString: Untagged
@@ -3119,10 +3123,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 37244479}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 303}
-  m_SizeDelta: {x: 449.6256, y: 114.9536}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -277.508, y: 375}
+  m_SizeDelta: {x: 555.016, y: 256.2726}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &380357071
 MonoBehaviour:
@@ -3144,7 +3148,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: sdfasd
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 903146a8c5bf4e446b58b2f5e0a142fa, type: 2}
   m_sharedMaterial: {fileID: -6814170995879473686, guid: 903146a8c5bf4e446b58b2f5e0a142fa, type: 2}
@@ -3223,6 +3227,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 380357069}
   m_CullTransparentMesh: 1
+--- !u!114 &380357073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380357069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e915b809eb8d3247b6d1bda65190632, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainTextComponent: {fileID: 380357071}
 --- !u!1 &385464383 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1107284901103661606, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
@@ -9036,7 +9053,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1517622224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10476,7 +10493,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1660288688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10973,7 +10990,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1798657112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13761,7 +13778,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2097593184
 MonoBehaviour:
   m_ObjectHideFlags: 0

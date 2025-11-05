@@ -1,12 +1,29 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using DependencyInjection;
 using TMPro;
 using UnityEngine;
+
+[Serializable]
+public class UIPanelEntry
+{
+    public string panelID;
+    public GameObject panelGameObject;
+    public UIPanelData panelData;
+}
+
 public class UIManager : Singleton<UIManager>, IUIManager
 {
     [SerializeField] private TextMeshProUGUI contador_provicional;
     [SerializeField] GameObject pauseManager;
     bool isCursorVisible = false;
-    [SerializeField] GameObject tutorialClockUI;
+
+    [Header("UI Panel Manager")]
+    [SerializeField] List<UIPanelEntry> managedPanels = new List<UIPanelEntry>();
+
+    GameObject currentActivePanel = null;
+    //[SerializeField] GameObject tutorialClockUI;
 
     ICrosshairFade crosshairFade;
     IGameStateController gameController;
@@ -16,6 +33,14 @@ public class UIManager : Singleton<UIManager>, IUIManager
 
         gameController = InterfaceDependencyInjector.Instance.Resolve<IGameStateController>();
         crosshairFade = InterfaceDependencyInjector.Instance.Resolve<ICrosshairFade>();
+
+        foreach(var entry in managedPanels)
+        {
+            if(entry.panelGameObject != null)
+            {
+                entry.panelGameObject.SetActive(false);
+            }
+        }
     }
     private void OnEnable()
     {
@@ -25,16 +50,58 @@ public class UIManager : Singleton<UIManager>, IUIManager
     {
         gameController.OnPauseMenu -= PauseMenu;
     }
-    public void ShowClockTutorial(bool show)
+    //public void ShowClockTutorial(bool show)
+    //{
+    //    if(tutorialClockUI != null)
+    //    {
+    //        tutorialClockUI.SetActive(show);
+    //    }
+    //}
+    public void ShowPanel(string panelID)
     {
-        if(tutorialClockUI != null)
+        UIPanelEntry entry = managedPanels.FirstOrDefault(p => p.panelID == panelID);
+
+        if (entry == null)
         {
-            tutorialClockUI.SetActive(show);
+            Debug.LogWarning($"UIManager: No panel was found with the ID: {panelID}");
+            return;
+        }
+
+        HideCurrentPanel();
+
+        if (entry.panelGameObject != null)
+        {
+            InfoPanel panelScript = entry.panelGameObject.GetComponent<InfoPanel>();
+            if (panelScript != null && entry.panelData != null)
+            {
+                panelScript.Setup(entry.panelData);
+            }
+            else
+            {
+                Debug.LogWarning($"The {panelID} panel does no have an infoPanel script or is missing UIPanelData. It will only be activated");
+            }
+            entry.panelGameObject.SetActive(true);
+            currentActivePanel = entry.panelGameObject;
+        }
+    }
+    public void HideCurrentPanel()
+    {
+        if (currentActivePanel != null)
+        {
+            currentActivePanel.SetActive(false);
+            currentActivePanel = null;
         }
     }
     public void PauseMenu()
     {
-        pauseManager.SetActive(!pauseManager.activeSelf);
+        bool isOpeningPause = !pauseManager.activeSelf;
+
+        if (isOpeningPause)
+        {
+            HideCurrentPanel();
+        }
+
+        pauseManager.SetActive(isOpeningPause);
         UpdateCursorState();
     }
     public void ShowCrossHairFade(bool show)
@@ -56,5 +123,7 @@ public class UIManager : Singleton<UIManager>, IUIManager
 public interface IUIManager
 {
     void ShowCrossHairFade(bool show);
-    void ShowClockTutorial(bool show);
+    //void ShowClockTutorial(bool show);
+    void ShowPanel(string panelID);
+    void HideCurrentPanel();
 }
