@@ -2107,7 +2107,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!114 &276109285
 MonoBehaviour:
@@ -4272,6 +4272,26 @@ PrefabInstance:
       propertyPath: m_Height
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7046774766287870829, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 31
+      objectReference: {fileID: 0}
+    - target: {fileID: 7046774766287870829, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: m_ActionEvents.Array.data[29].m_ActionId
+      value: 05409b9d-7030-4f33-94f2-accc72fe5854
+      objectReference: {fileID: 0}
+    - target: {fileID: 7046774766287870829, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: m_ActionEvents.Array.data[30].m_ActionId
+      value: 031593be-7982-4c7c-bed5-a2241ca725df
+      objectReference: {fileID: 0}
+    - target: {fileID: 7046774766287870829, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: m_ActionEvents.Array.data[29].m_ActionName
+      value: 'Player/Teleport[/Keyboard/f]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7046774766287870829, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      propertyPath: m_ActionEvents.Array.data[30].m_ActionName
+      value: 'Player/PauseMenuMode[/Keyboard/escape]'
+      objectReference: {fileID: 0}
     - target: {fileID: 7276671746339684356, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: crosshairImage
       value: 
@@ -4287,7 +4307,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1965095351449339405, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1000532515}
   m_SourcePrefab: {fileID: 100100000, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
 --- !u!4 &595811700 stripped
 Transform:
@@ -5866,7 +5889,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 489988536104913948, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
   m_PrefabInstance: {fileID: 595811699}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1000532506}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5a7660729301b964f91de30f1399de34, type: 3}
@@ -5877,7 +5900,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1048711227675933098, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
   m_PrefabInstance: {fileID: 595811699}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1000532506}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e6fc17a339abef4fbb427ceeccffce6, type: 3}
@@ -6123,6 +6146,23 @@ Light:
   m_LightUnit: 0
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &1000532506 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1965095351449339405, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+  m_PrefabInstance: {fileID: 595811699}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1000532515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000532506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76a3f31d7be6b8c47a0016eb88286aa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1019765329
 GameObject:
   m_ObjectHideFlags: 0
@@ -11107,6 +11147,7 @@ MonoBehaviour:
   isGamePaused: 0
   TrainLoop: 0
   isMuted: 0
+  hasCamera: 0
 --- !u!4 &1771727360
 Transform:
   m_ObjectHideFlags: 0
