@@ -5,12 +5,18 @@ using DependencyInjection;
 using TMPro;
 using UnityEngine;
 
+public enum PanelPosition
+{
+    Center,
+    Left, 
+    Right
+}
 [Serializable]
 public class UIPanelEntry
 {
     public string panelID;
-    public GameObject panelGameObject;
     public UIPanelData panelData;
+    public PanelPosition position = PanelPosition.Center;
 }
 
 public class UIManager : Singleton<UIManager>, IUIManager
@@ -21,8 +27,15 @@ public class UIManager : Singleton<UIManager>, IUIManager
 
     [Header("UI Panel Manager")]
     [SerializeField] List<UIPanelEntry> managedPanels = new List<UIPanelEntry>();
+    [SerializeField] GameObject infoPanelObject;
+
+    [Header("Panel positions (RectTransforms)")]
+    [SerializeField] Transform centerPosition;
+    [SerializeField] Transform leftPosition;
+    [SerializeField] Transform rightPosition;
 
     GameObject currentActivePanel = null;
+    InfoPanel panelScript;
     //[SerializeField] GameObject tutorialClockUI;
 
     ICrosshairFade crosshairFade;
@@ -34,12 +47,18 @@ public class UIManager : Singleton<UIManager>, IUIManager
         gameController = InterfaceDependencyInjector.Instance.Resolve<IGameStateController>();
         crosshairFade = InterfaceDependencyInjector.Instance.Resolve<ICrosshairFade>();
 
-        foreach(var entry in managedPanels)
+        if (infoPanelObject != null)
         {
-            if(entry.panelGameObject != null)
+            infoPanelObject.SetActive(false);
+            panelScript = infoPanelObject.GetComponent<InfoPanel>();
+            if(panelScript == null)
             {
-                entry.panelGameObject.SetActive(false);
+                Debug.LogError("infoPanelObject dont have the infoPanel script");
             }
+        }
+        else
+        {
+            Debug.LogError("UIManager dont have assigned infoPanelObject");
         }
     }
     private void OnEnable()
@@ -50,13 +69,6 @@ public class UIManager : Singleton<UIManager>, IUIManager
     {
         gameController.OnPauseMenu -= PauseMenu;
     }
-    //public void ShowClockTutorial(bool show)
-    //{
-    //    if(tutorialClockUI != null)
-    //    {
-    //        tutorialClockUI.SetActive(show);
-    //    }
-    //}
     public void ShowPanel(string panelID)
     {
         UIPanelEntry entry = managedPanels.FirstOrDefault(p => p.panelID == panelID);
@@ -69,19 +81,46 @@ public class UIManager : Singleton<UIManager>, IUIManager
 
         HideCurrentPanel();
 
-        if (entry.panelGameObject != null)
+        if (infoPanelObject  == null || panelScript == null)
         {
-            InfoPanel panelScript = entry.panelGameObject.GetComponent<InfoPanel>();
-            if (panelScript != null && entry.panelData != null)
-            {
-                panelScript.Setup(entry.panelData);
-            }
-            else
-            {
-                Debug.LogWarning($"The {panelID} panel does no have an infoPanel script or is missing UIPanelData. It will only be activated");
-            }
-            entry.panelGameObject.SetActive(true);
-            currentActivePanel = entry.panelGameObject;
+            Debug.LogError("The panel cannot be displayed, infoPanelObject is not setting");
+            return;
+        }
+        
+        if (entry.panelData != null)
+        {
+            panelScript.Setup(entry.panelData);
+        }
+        else
+        {
+            Debug.LogError($"The panel {panelID} does not have UIPanelData. it will be displayed empty");
+        }
+
+        ApplyPanelPosition(entry.position);
+
+        infoPanelObject.SetActive(true);
+        currentActivePanel = infoPanelObject;
+    }
+    private void ApplyPanelPosition(PanelPosition position)
+    {
+        Transform targetPosition = centerPosition;
+
+        switch (position)
+        {
+            case PanelPosition.Left:
+                targetPosition = leftPosition;
+                break;
+            case PanelPosition.Right:
+                targetPosition = rightPosition;
+                break;
+            case PanelPosition.Center:
+                targetPosition = centerPosition;
+                break;
+        }
+
+        if (targetPosition != null)
+        {
+            infoPanelObject.transform.position = targetPosition.position;
         }
     }
     public void HideCurrentPanel()
