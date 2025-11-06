@@ -189,15 +189,15 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
         {
             UIInventoryItemSlot slotToRemove = inventorySlots[currentSlotIndex];
 
-            if (currentSlotIndex > 0)
+            if (currentSlotIndex > 0 && slotToRemove != null)
             {
                 inventorySlots[currentSlotIndex].IsActive = false;
                 inventorySlots[currentSlotIndex].gameObject.SetActive(false);
-                inventorySlots.Remove(slotToRemove);
                 slotToRemove.transform.parent = null;
+                inventorySlots.Remove(slotToRemove);
                 InventoryManager.Instance.RemoveItemFromInventory(item.ItemData);
-                if(InventoryManager.Instance.itemsInventoryManager.items.Count > 0)
-                    RebuildInventoryFromManager();
+                //if(InventoryManager.Instance.itemsInventoryManager.items.Count > 0)
+                //    RebuildInventoryFromManager();
                 currentSlotIndex--;
                 inventorySlots[currentSlotIndex].IsActive = true;
 
