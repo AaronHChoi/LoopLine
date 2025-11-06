@@ -98,24 +98,31 @@ public abstract class DialogueSpeakerBase : MonoBehaviour
         if (currentDialogues.Count > 0)
         {
             DialogueSO2 lastDialogue = currentDialogues[currentDialogues.Count -1];
-            TryTriggerPostMonologue(lastDialogue);
+
+            bool willTriggerMonologue = TryTriggerPostMonologue(lastDialogue);
+
+            if (willTriggerMonologue)
+            {
+                DialogueManager.Instance.StartInteractionCooldown(0.6f);
+            }
         }
 
         DialogueManager.Instance.HideDialogue();
     }
-    protected virtual void TryTriggerPostMonologue(DialogueSO2 dialogue)
+    protected virtual bool TryTriggerPostMonologue(DialogueSO2 dialogue)
     {
         if (dialogue == null || !dialogue.hasPostMonologue)
         {
-            return;
+            return false;
         }
 
         MonologueSpeaker monologueSpeaker = FindFirstObjectByType<MonologueSpeaker>();
         if (monologueSpeaker == null)
         {
-            return;
+            return false;
         }
         StartCoroutine(StartMonologueAfterDelay(monologueSpeaker, dialogue.postMonologueEvent));
+        return true;
     }
     private IEnumerator StartMonologueAfterDelay(MonologueSpeaker speaker, Events monologueEvent)
     {

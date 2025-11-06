@@ -58,7 +58,7 @@ public class ClockController : MonoBehaviour
         }
         else
         {
-            startTime = new DateTime(ARBITRARY_YEAR, ARBITRARY_MONTH, ARBITRARY_DAY, 8, 0, 0);
+            startTime = new DateTime(ARBITRARY_YEAR, ARBITRARY_MONTH, ARBITRARY_DAY, 10, 0, 0);
         }
 
         currentSpeed = baseSpeed;

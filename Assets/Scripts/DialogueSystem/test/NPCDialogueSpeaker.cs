@@ -44,6 +44,11 @@ public class NPCDialogueSpeaker : DialogueSpeakerBase, IInteract
     }
     public void Interact()
     {
+        if (DialogueManager.Instance.IsOnCooldown)
+        {
+            return;
+        }
+
         if (!isShowingDialogue && playerStateController.IsInState(playerStateController.NormalState))
         {
             StartDialogueSequence();

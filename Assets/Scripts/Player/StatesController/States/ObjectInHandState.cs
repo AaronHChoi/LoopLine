@@ -1,4 +1,3 @@
-using Unity.Cinemachine.Samples;
 using UnityEngine;
 
 namespace Player
@@ -25,10 +24,10 @@ namespace Player
         }
         public void Execute()
         {
-            if (input.ToggleCameraPressed() && controller.IsInState(controller.ObjectInHandState) && InventoryUI.Instance.ItemInUse.id == "Camera")
-            {
-                controller.ChangeState(controller.CameraState);
-            }
+            //if (input.ToggleCameraPressed() && controller.IsInState(controller.ObjectInHandState) && InventoryUI.Instance.ItemInUse.id == "Camera")
+            //{
+            //    controller.ChangeState(controller.CameraState);
+            //}
             if (input.OpenInventoryPressed())
             {
                 controller.UseEventOpenInventory();

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using DependencyInjection;
 using UnityEngine;
-using UnityEngine.InputSystem.Editor;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -22,6 +21,14 @@ public class GameManager : Singleton<GameManager>
     {
         get { return clockQuestCompleted; }
         set { clockQuestCompleted = value; }
+    }
+
+    [Header("Player")]
+    [SerializeField] bool hasCamera;
+    public bool HasCamera
+    {
+        get { return  hasCamera; }
+        set { hasCamera = value; }
     }
 
     public IScreenManager screenManager;

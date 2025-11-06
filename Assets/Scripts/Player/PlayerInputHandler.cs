@@ -7,14 +7,15 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerInputHandler
 
     InputAction moveAction;
     InputAction sprintAction;
+    #region CAMERA
     InputAction toggleCameraAction;
     InputAction takePhotoAction;
+    #endregion
     InputAction interact;
     InputAction passDialog;
     InputAction openInventory;
     InputAction developmentMode;
     InputAction pauseMenuMode;
-    InputAction focusMode;
     InputAction scrollInventory;
     InputAction grabItem;
     InputAction look;
@@ -27,14 +28,15 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerInputHandler
     {
         moveAction = playerInput.actions["Move"];
         sprintAction = playerInput.actions["Sprint"];
+        #region CAMERA
         toggleCameraAction = playerInput.actions["ToggleCamera"];
         takePhotoAction = playerInput.actions["TakePhoto"];
+        #endregion
         interact = playerInput.actions["Interact1"];
         passDialog = playerInput.actions["PassDialog"];
         openInventory = playerInput.actions["OpenInventory"];
         developmentMode = playerInput.actions["DevelopmentMode"];
         pauseMenuMode = playerInput.actions["PauseMenuMode"];
-        focusMode = playerInput.actions["FocusMode"];
         scrollInventory = playerInput.actions["ScrollInventory"];
         grabItem = playerInput.actions["GrabItem"];
         look = playerInput.actions["Look"];
@@ -63,10 +65,6 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerInputHandler
     public bool PassDialogPressed()
     {
         return passDialog.WasPerformedThisFrame();
-    }
-    public bool FocusModePressed()
-    {
-        return focusMode.WasPerformedThisFrame();
     }
     public bool OpenInventoryPressed()
     {
@@ -106,7 +104,6 @@ public interface IPlayerInputHandler
     bool InteractPressed();
     bool PassDialogPressed();
     bool OpenInventoryPressed();
-    bool FocusModePressed();
     bool ToggleCameraPressed();
     bool TakePhotoPressed();
     bool DevelopmentModePressed();

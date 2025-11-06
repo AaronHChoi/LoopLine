@@ -1,13 +1,9 @@
-using InWorldUI;
-using UI;
-using Unity.Cinemachine.Samples;
 using UnityEngine;
 
 namespace Player
 {
     public class CameraState : IState
     {
-        public static bool PolaroidIsActive { get; private set; }
         IPlayerStateController controller;
         IPlayerInputHandler input;
         IPlayerMovement movement;
@@ -15,7 +11,7 @@ namespace Player
         ICameraOrientation playerCamera;
         IPlayerInteractMarkerPrompt interaction;
         ITogglePhotoDetection togglePhotoDetection;
-        GameObject polaroidItem;
+
         public CameraState(IPlayerStateController controller, IPlayerInputHandler input, IPlayerMovement movement, 
             IPhotoCapture photo, ICameraOrientation playerCamera, IPlayerInteractMarkerPrompt interaction, 
             ITogglePhotoDetection togglePhotoDetection)
@@ -36,23 +32,15 @@ namespace Player
             playerCamera.CanLook = true;
             togglePhotoDetection.ToggleCollider(true);
 
-            if (polaroidItem == null)
-            {
-                polaroidItem = GameObject.FindWithTag("PolaroidItem");
-            }
-            polaroidItem.SetActive(false);
+            photo.SetCameraUIVisible(true);
 
-            PolaroidIsActive = true;
             Debug.Log("Entering CameraState");
         }
         public void Execute()
         {
             if (input.ToggleCameraPressed())
             {
-                if (!photo.IsViewingPhoto)
-                {
-                    controller.ChangeState(controller.ObjectInHandState);
-                }
+                controller.ChangeState(controller.NormalState);
             }
             if (input.TakePhotoPressed())
             {
@@ -65,8 +53,7 @@ namespace Player
             movement.CanMove = false;
             playerCamera.CanLook = false;
             togglePhotoDetection.ToggleCollider(false);
-            polaroidItem.SetActive(true);
-            PolaroidIsActive = false;
+            photo.SetCameraUIVisible(false);
             Debug.Log("Exiting CameraState");
         }
     }
