@@ -104,7 +104,7 @@ public class Clock : MonoBehaviour, IInteract, IClock
             clockZoom.Priority = 20;
             player.Priority = 10;
             OnEnterClock?.Invoke();
-            uiManager.ShowPanel("ClockTutorial");
+            uiManager.ShowPanel(UIPanelID.ClockTutorial);
         }
         else
         {

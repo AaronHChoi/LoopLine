@@ -14,7 +14,7 @@ public enum PanelPosition
 [Serializable]
 public class UIPanelEntry
 {
-    public string panelID;
+    public UIPanelID panelID;
     public UIPanelData panelData;
     public PanelPosition position = PanelPosition.Center;
 }
@@ -36,7 +36,6 @@ public class UIManager : Singleton<UIManager>, IUIManager
 
     GameObject currentActivePanel = null;
     InfoPanel panelScript;
-    //[SerializeField] GameObject tutorialClockUI;
 
     ICrosshairFade crosshairFade;
     IGameStateController gameController;
@@ -69,13 +68,13 @@ public class UIManager : Singleton<UIManager>, IUIManager
     {
         gameController.OnPauseMenu -= PauseMenu;
     }
-    public void ShowPanel(string panelID)
+    public void ShowPanel(UIPanelID panelID)
     {
         UIPanelEntry entry = managedPanels.FirstOrDefault(p => p.panelID == panelID);
 
         if (entry == null)
         {
-            Debug.LogWarning($"UIManager: No panel was found with the ID: {panelID}");
+            Debug.LogWarning($"UIManager: No panel was found with the ID: {panelID.ToString()}");
             return;
         }
 
@@ -93,7 +92,7 @@ public class UIManager : Singleton<UIManager>, IUIManager
         }
         else
         {
-            Debug.LogError($"The panel {panelID} does not have UIPanelData. it will be displayed empty");
+            Debug.LogError($"The panel {panelID.ToString()} does not have UIPanelData. it will be displayed empty");
         }
 
         ApplyPanelPosition(entry.position);
@@ -162,7 +161,6 @@ public class UIManager : Singleton<UIManager>, IUIManager
 public interface IUIManager
 {
     void ShowCrossHairFade(bool show);
-    //void ShowClockTutorial(bool show);
-    void ShowPanel(string panelID);
+    void ShowPanel(UIPanelID panelID);
     void HideCurrentPanel();
 }

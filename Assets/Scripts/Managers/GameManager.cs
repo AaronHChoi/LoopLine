@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using DependencyInjection;
 using UnityEngine;
+using UnityEngine.InputSystem.Editor;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -32,6 +33,14 @@ public class GameManager : Singleton<GameManager>
         screenManager = InterfaceDependencyInjector.Instance.Resolve<IScreenManager>();
 
         SetGameConditions();
+    }
+    private void Update()
+    {
+        //TEST
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            UIManager.Instance.ShowPanel(UIPanelID.Default);
+        }
     }
     public void SetGameConditions()
     {
