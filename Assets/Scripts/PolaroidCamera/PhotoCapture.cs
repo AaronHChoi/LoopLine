@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Player;
-using UI;
 using UnityEngine;
 using UnityEngine.UI;
 using DependencyInjection;
@@ -15,16 +14,6 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
     [SerializeField] GameObject cameraUI;
     [SerializeField] int maxPhotos = 5;
 
-    [Header("FlashEffect")]
-    [SerializeField] GameObject cameraFlash;
-    [SerializeField] float flashTime;
-    [SerializeField] Animator fadingAnimation;
-
-    [Header("World Photo")]
-    [SerializeField] List<Renderer> worldPhotoRenderers = new List<Renderer>();
-    [SerializeField] float brightnessFactor = 2f;
-    [SerializeField] float brightnessFactorClue = 2f;
-
     [Header("Audio")]
     [SerializeField] SoundData soundData;
     [SerializeField] SoundData soundData2;
@@ -34,34 +23,17 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
     float photoCooldown = 1.5f;
     float nextPhotoTime = 0f;
 
-    Texture2D screenCapture;
-    bool viewvingPhoto;
-    public bool IsViewingPhoto {  get { return viewvingPhoto; } }
-
-    bool cameraActive = false;
-    bool isCurrentPhotoClue = false;
-
     [Header("UI Counter")]
     [SerializeField] TextMeshProUGUI photoCounterText;
     int photoTaken = 0;
 
     IPlayerStateController playerStateController;
-    ITogglePhotoDetection photoDetectionZone;
-    IPlayerMovement playerMovement;
-    IGameSceneManager gameSceneManager;
-    IBlackRoomManager blackRoomManager;
-    ICameraOrientation cameraOrientation;
 
     public event Action<string> OnPhotoClueCaptured;
     #region MAGIC_METHODS
     private void Awake()
     {
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
-        photoDetectionZone = InterfaceDependencyInjector.Instance.Resolve<ITogglePhotoDetection>();
-        playerMovement = InterfaceDependencyInjector.Instance.Resolve<IPlayerMovement>();
-        gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
-        blackRoomManager = InterfaceDependencyInjector.Instance.Resolve<IBlackRoomManager>();
-        cameraOrientation = InterfaceDependencyInjector.Instance.Resolve<ICameraOrientation>();
     }
     private void Start()
     {
@@ -87,40 +59,27 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
     {
         if (Time.time < nextPhotoTime) return;
 
-        if (!viewvingPhoto)
+        if (photoTaken < maxPhotos)
         {
-            playerMovement.CanMove = false;
-            cameraOrientation.CanLook = false;
-            if (photoTaken < maxPhotos)
-            {
-                StartCoroutine(CapturePhoto());
-                nextPhotoTime = Time.time + photoCooldown;
-            }
-            else
-            {
-                SoundManager.Instance.PlayQuickSound(soundData2);
-                nextPhotoTime = Time.time + photoCooldown;
-            }
+            StartCoroutine(CapturePhoto());
+            nextPhotoTime = Time.time + photoCooldown;
         }
         else
         {
-            playerMovement.CanMove = true;
-            cameraOrientation.CanLook = true;
+            SoundManager.Instance.PlayQuickSound(soundData2);
+            nextPhotoTime = Time.time + photoCooldown;
         }
     }
     IEnumerator CapturePhoto()
     {
-        cameraUI.SetActive(false);
-        viewvingPhoto = true;
-
         yield return new WaitForEndOfFrame();
 
         SoundManager.Instance.PlayQuickSound(soundData);
 
-        string clueId = null;
-          
         photoTaken++;
         UpdatePhotoCounter();
+
+        playerStateController.ChangeState(playerStateController.NormalState);
     }
     void UpdatePhotoCounter()
     {
