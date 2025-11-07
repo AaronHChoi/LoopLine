@@ -28,12 +28,14 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
     int photoTaken = 0;
 
     IPlayerStateController playerStateController;
+    IPolaroidUIAnimation uiAnimation;
 
     public event Action<string> OnPhotoClueCaptured;
     #region MAGIC_METHODS
     private void Awake()
     {
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
+        uiAnimation = InterfaceDependencyInjector.Instance.Resolve<IPolaroidUIAnimation>();
     }
     private void Start()
     {
@@ -79,7 +81,7 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
         photoTaken++;
         UpdatePhotoCounter();
 
-        
+        uiAnimation.PhotoUIAnimation();
 
         playerStateController.ChangeState(playerStateController.NormalState);
     }
