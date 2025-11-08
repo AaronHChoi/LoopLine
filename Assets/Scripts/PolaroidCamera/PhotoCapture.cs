@@ -82,8 +82,6 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
         UpdatePhotoCounter();
 
         uiAnimation.PhotoUIAnimation();
-
-        playerStateController.ChangeState(playerStateController.NormalState);
     }
     void UpdatePhotoCounter()
     {

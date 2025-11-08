@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DependencyInjection;
@@ -15,7 +16,7 @@ public enum PanelPosition
 public class UIPanelEntry
 {
     public UIPanelID panelID;
-    public UIPanelData panelData;
+    public UIPanelDataSO panelData;
     public PanelPosition position = PanelPosition.Center;
 }
 
@@ -36,6 +37,8 @@ public class UIManager : Singleton<UIManager>, IUIManager
 
     GameObject currentActivePanel = null;
     InfoPanel panelScript;
+
+    Coroutine activeCloseCoroutine = null;
 
     ICrosshairFade crosshairFade;
     IGameStateController gameController;
@@ -89,18 +92,29 @@ public class UIManager : Singleton<UIManager>, IUIManager
         if (entry.panelData != null)
         {
             panelScript.Setup(entry.panelData);
+
+            ApplyPanelPosition(entry.position, entry.panelData.OffSetX, entry.panelData.OffSetY);
+
+            infoPanelObject.SetActive(true);
+            currentActivePanel = infoPanelObject;
+
+            if (entry.panelData.HowToClose == PanelClose.Time)
+            {
+                activeCloseCoroutine = StartCoroutine(AutoClosePanel(entry.panelData.CloseTime));
+            }
         }
         else
         {
             Debug.LogError($"The panel {panelID.ToString()} does not have UIPanelData. it will be displayed empty");
         }
-
-        ApplyPanelPosition(entry.position);
-
-        infoPanelObject.SetActive(true);
-        currentActivePanel = infoPanelObject;
     }
-    private void ApplyPanelPosition(PanelPosition position)
+    private IEnumerator AutoClosePanel(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        activeCloseCoroutine = null;
+        HideCurrentPanel();
+    }
+    private void ApplyPanelPosition(PanelPosition position, float offsetX, float offsetY)
     {
         Transform targetPosition = centerPosition;
 
@@ -120,10 +134,21 @@ public class UIManager : Singleton<UIManager>, IUIManager
         if (targetPosition != null)
         {
             infoPanelObject.transform.position = targetPosition.position;
+
+            if (offsetX != 0 || offsetY != 0)
+            {
+                infoPanelObject.transform.position += new Vector3(offsetX, offsetY, 0);
+            }
         }
     }
     public void HideCurrentPanel()
     {
+        if (activeCloseCoroutine != null)
+        {
+            StopCoroutine(activeCloseCoroutine);
+            activeCloseCoroutine = null;
+        }
+
         if (currentActivePanel != null)
         {
             currentActivePanel.SetActive(false);

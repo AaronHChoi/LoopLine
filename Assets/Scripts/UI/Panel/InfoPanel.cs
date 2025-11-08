@@ -5,7 +5,7 @@ public class InfoPanel : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI mainTextComponent;
 
-    public void Setup(UIPanelData data)
+    public void Setup(UIPanelDataSO data)
     {
         if (mainTextComponent != null)
         {
