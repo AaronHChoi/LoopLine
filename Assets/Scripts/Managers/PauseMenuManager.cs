@@ -14,7 +14,7 @@ public class PauseMenuManager : Singleton<PauseMenuManager>, IPauseMenuManager
     [SerializeField] private AudioMixer audioMixer;
     private Dictionary<AudioSource, float> MasterAudio;
 
-
+    [SerializeField] private GameObject pauseMenu;
     protected override void Awake()
     {
         base.Awake();
@@ -22,6 +22,7 @@ public class PauseMenuManager : Singleton<PauseMenuManager>, IPauseMenuManager
 
     private void Start()
     {
+        pauseMenu = transform.GetChild(0).gameObject;
         masterVolumeSlider.onValueChanged.AddListener(OnVolumeChangedMaster);
         sfxVolumeSlider.onValueChanged.AddListener(OnVolumeChangedSFX);
         bgmVolumeSlider.onValueChanged.AddListener(OnVolumeChangedBgm);
@@ -73,7 +74,7 @@ public class PauseMenuManager : Singleton<PauseMenuManager>, IPauseMenuManager
 
     public GameObject PauseGameObject()
     {
-        return gameObject;
+        return pauseMenu;
     }
 }
 

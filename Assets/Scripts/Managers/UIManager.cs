@@ -23,7 +23,6 @@ public class UIPanelEntry
 public class UIManager : Singleton<UIManager>, IUIManager
 {
     [SerializeField] private TextMeshProUGUI contador_provicional;
-    [SerializeField] GameObject pauseManager;
     bool isCursorVisible = false;
 
     [Header("UI Panel Manager")]
@@ -40,6 +39,7 @@ public class UIManager : Singleton<UIManager>, IUIManager
 
     Coroutine activeCloseCoroutine = null;
 
+    IPauseMenuManager pauseManager;
     ICrosshairFade crosshairFade;
     IGameStateController gameController;
     protected override void Awake()
@@ -48,6 +48,7 @@ public class UIManager : Singleton<UIManager>, IUIManager
 
         gameController = InterfaceDependencyInjector.Instance.Resolve<IGameStateController>();
         crosshairFade = InterfaceDependencyInjector.Instance.Resolve<ICrosshairFade>();
+        pauseManager = InterfaceDependencyInjector.Instance.Resolve<IPauseMenuManager>();
 
         if (infoPanelObject != null)
         {
@@ -157,14 +158,14 @@ public class UIManager : Singleton<UIManager>, IUIManager
     }
     public void PauseMenu()
     {
-        bool isOpeningPause = !pauseManager.activeSelf;
+        bool isOpeningPause = !pauseManager.PauseGameObject().activeSelf;
 
         if (isOpeningPause)
         {
             HideCurrentPanel();
         }
 
-        pauseManager.SetActive(isOpeningPause);
+        pauseManager.PauseGameObject().SetActive(isOpeningPause);
         UpdateCursorState();
     }
     public void ShowCrossHairFade(bool show)
@@ -173,7 +174,7 @@ public class UIManager : Singleton<UIManager>, IUIManager
     }
     void UpdateCursorState()
     {
-        bool shouldShowCursor = pauseManager.activeInHierarchy;
+        bool shouldShowCursor = pauseManager.PauseGameObject().activeInHierarchy;
 
         if (isCursorVisible != shouldShowCursor)
         {
