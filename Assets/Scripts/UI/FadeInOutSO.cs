@@ -21,10 +21,10 @@ public class FadeInOutSO : ScriptableObject
 }
 
 [System.Serializable]
-public  struct FadeTiming
+public struct FadeTiming
 {
-    public  float TimeBeforeFade;
-    public  float FadeTime;
+    public float TimeBeforeFade;
+    public float FadeTime;
 }
 
 public enum FadeState
