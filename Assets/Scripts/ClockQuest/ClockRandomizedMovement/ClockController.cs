@@ -20,17 +20,17 @@ public class ClockController : MonoBehaviour
     [SerializeField] private float resumeSmoothTime = 3f;
 
     [Header("Audio")]
-    [SerializeField] private AudioSource tickSource;       // assign in inspector
-    [SerializeField] private float minPitch = 0.5f;        // slowest pitch
-    [SerializeField] private float maxPitch = 2f;          // fastest pitch
+    [SerializeField] private AudioSource tickSource;
+    [SerializeField] private float minPitch = 0.5f;
+    [SerializeField] private float maxPitch = 2f;
 
     [Header("Start Options")]
     [SerializeField] private bool startAt = false;
 
     [Header("Jitter Control")]
-    private ClockJitter jitterComponent;
-    [SerializeField] private float defaultJitterAmount = 0.001f;
-    [SerializeField] private float defaultJitterSpeed = 0.01f;
+    [SerializeField] private ClockJitter jitterComponent;
+    [SerializeField] private float defaultJitterAmount = 0.000482f;
+    [SerializeField] private float defaultJitterSpeed = 0.00503f;
     [SerializeField] private float jitterSmooth = 2f;
 
     private float currentSpeed;
@@ -46,8 +46,6 @@ public class ClockController : MonoBehaviour
 
     void Start()
     {
-        jitterComponent = GetComponentInChildren<ClockJitter>();
-
         if (!startAt)
         {
             int hour = UnityEngine.Random.Range(0, 12);
@@ -58,7 +56,7 @@ public class ClockController : MonoBehaviour
         }
         else
         {
-            startTime = new DateTime(ARBITRARY_YEAR, ARBITRARY_MONTH, ARBITRARY_DAY, 10, 0, 0);
+            startTime = new DateTime(ARBITRARY_YEAR, ARBITRARY_MONTH, ARBITRARY_DAY, 11, 0, 0);
         }
 
         currentSpeed = baseSpeed;
@@ -76,10 +74,7 @@ public class ClockController : MonoBehaviour
             }
 
             UpdateClock(startTime.AddSeconds(elapsed));
-            if (enablePause)
-            {
-                UpdateJitter();
-            }
+            UpdateJitter();
             return;
         }
 
@@ -91,7 +86,7 @@ public class ClockController : MonoBehaviour
 
         float targetSpeed = baseSpeed;
 
-        if (diffMinutes <= slowdownRangeMinutes && diffMinutes > 0.1f && !isResuming)
+        if (enablePause && diffMinutes <= slowdownRangeMinutes && diffMinutes > 0.1f && !isResuming)
         {
             float t = Mathf.Clamp01((float)(diffMinutes / slowdownRangeMinutes));
             t = Mathf.Pow(t, slowdownStrength);
@@ -103,10 +98,10 @@ public class ClockController : MonoBehaviour
             isPaused = true;
             currentSpeed = 0f;
             pauseTimer = 0f;
+
             if (tickSource && tickSource.isPlaying)
-            {
                 tickSource.Stop();
-            }
+
             UpdateJitter();
             return;
         }
@@ -139,10 +134,7 @@ public class ClockController : MonoBehaviour
         }
 
         UpdateClock(startTime.AddSeconds(elapsed));
-        if (enablePause)
-        {
-            UpdateJitter();
-        }
+        UpdateJitter();
     }
     void UpdateClock(DateTime t)
     {
@@ -154,7 +146,6 @@ public class ClockController : MonoBehaviour
         Quaternion rotMinute = Quaternion.Euler(0f, minuteAngle, 0f);
         Quaternion rotSecond = Quaternion.Euler(0f, secondAngle, 0f);
 
-        // Apply in world space, neutralizing parent rotation
         hourHand.rotation = transform.rotation * rotHour;
         minuteHand.rotation = transform.rotation * rotMinute;
         secondHand.rotation = transform.rotation * rotSecond;
@@ -164,11 +155,10 @@ public class ClockController : MonoBehaviour
         if (!jitterComponent) return;
 
         float speedFactor = Mathf.Clamp01(currentSpeed / baseSpeed);
-
         float targetAmount = Mathf.Lerp(0f, defaultJitterAmount, speedFactor);
         float targetSpeed = Mathf.Lerp(0f, defaultJitterSpeed, speedFactor);
 
-        jitterComponent.jitterAmount = Mathf.Lerp(jitterComponent.jitterAmount, targetAmount, Time.deltaTime + jitterSmooth);
-        jitterComponent.jitterSpeed = Mathf.Lerp(jitterComponent.jitterSpeed, targetSpeed, Time.deltaTime + jitterSmooth);
+        jitterComponent.jitterAmount = Mathf.Lerp(jitterComponent.jitterAmount, targetAmount, Time.deltaTime * jitterSmooth);
+        jitterComponent.jitterSpeed = Mathf.Lerp(jitterComponent.jitterSpeed, targetSpeed, Time.deltaTime * jitterSmooth);
     }
 }

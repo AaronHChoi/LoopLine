@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using Player;
 using UnityEngine;
 using UnityEngine.UI;
@@ -100,7 +99,6 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
         cameraUI.SetActive(isVisible);
     }
 }
-
 public interface IPhotoCapture
 {
     event Action<string> OnPhotoClueCaptured;

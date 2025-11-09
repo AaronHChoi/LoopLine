@@ -42,6 +42,8 @@ public class UIManager : Singleton<UIManager>, IUIManager
     IPauseMenuManager pauseManager;
     ICrosshairFade crosshairFade;
     IGameStateController gameController;
+
+    #region MAGIC_METHODS
     protected override void Awake()
     {
         base.Awake();
@@ -72,6 +74,8 @@ public class UIManager : Singleton<UIManager>, IUIManager
     {
         gameController.OnPauseMenu -= PauseMenu;
     }
+    #endregion
+    #region UI_TEXT
     public void ShowPanel(UIPanelID panelID)
     {
         UIPanelEntry entry = managedPanels.FirstOrDefault(p => p.panelID == panelID);
@@ -156,6 +160,7 @@ public class UIManager : Singleton<UIManager>, IUIManager
             currentActivePanel = null;
         }
     }
+    #endregion
     public void PauseMenu()
     {
         bool isOpeningPause = !pauseManager.PauseGameObject().activeSelf;

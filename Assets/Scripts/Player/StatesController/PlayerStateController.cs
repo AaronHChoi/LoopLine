@@ -18,6 +18,7 @@ namespace Player
         public event Action OnScrollInventory;
         public event Action OnGrab;
         public event Action OnTeleport;
+        public event Action OnSwitchCameraMode;
         
         StateMachine stateMachine { get; set; }
 
