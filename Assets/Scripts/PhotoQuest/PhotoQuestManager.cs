@@ -61,4 +61,8 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
 public interface IPhotoQuestManager
 {
     void CheckAllFrames();
+    private void PhotoQuestComplete()
+    {
+        GameManager.Instance.SetCondition(GameCondition.IsPhotoQuestComplete, true);
+    }
 }

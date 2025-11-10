@@ -1,7 +1,8 @@
+using System;
 using SoundSystem;
 using UnityEngine;
 
-public class ClockPuzzleManager : MonoBehaviour
+public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
 {
     [SerializeField] Clock clock;
 
@@ -11,6 +12,8 @@ public class ClockPuzzleManager : MonoBehaviour
     [SerializeField] SoundData complete;
 
     bool firstTime = false;
+
+    public event Action OnPhotoQuestFinished;
 
     private void Start()
     {
@@ -51,6 +54,8 @@ public class ClockPuzzleManager : MonoBehaviour
                 .Play();
 
             firstTime = true;
+
+            OnPhotoQuestFinished?.Invoke();
         }
     }
     private void RevealObject()
@@ -59,4 +64,8 @@ public class ClockPuzzleManager : MonoBehaviour
         doorHandlerBase.Move();
         GameManager.Instance.SetCondition(GameCondition.IsClockQuestComplete, true);
     }
+}
+public interface IClockPuzzleManager
+{
+    event Action OnPhotoQuestFinished;
 }
