@@ -37,4 +37,8 @@ public class PhotoQuestManager : MonoBehaviour
         inventoryUI.RemoveInventorySlot(doorHandler);
         GameManager.Instance.SetCondition(GameCondition.PhotoDoorOpen, true);
     }
+    private void PhotoQuestComplete()
+    {
+        GameManager.Instance.SetCondition(GameCondition.IsPhotoQuestComplete, true);
+    }
 }
