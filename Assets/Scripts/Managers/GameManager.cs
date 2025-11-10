@@ -46,7 +46,7 @@ public class GameManager : Singleton<GameManager>
         //TESTING
         if (Input.GetKeyDown(KeyCode.H))
         {
-            UIManager.Instance.ShowPanel(UIPanelID.Default);
+
         }
     }
     public void SetGameConditions()
