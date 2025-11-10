@@ -1,3 +1,4 @@
+using DependencyInjection;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -5,11 +6,14 @@ public class PhotoQuestComponent : ItemInteract
 {
     public bool isItemPlaced = false;
     public PhotoFrame photoFrame;
+    [SerializeField] public Transform PhotoScalePicked;
 
     public override void Start()
     {
-        resetLayerOnPickup = false;
         base.Start();
+        PhotoScalePicked = gameObject.transform;
+        PhotoScalePicked.localScale = gameObject.transform.localScale;
+        resetLayerOnPickup = false;
     }
     public override bool Interact()
     {
@@ -17,12 +21,14 @@ public class PhotoQuestComponent : ItemInteract
         {
             return base.Interact();
         }
-        else
+        else 
         {
+            gameObject.transform.localScale = PhotoScalePicked.localScale;
             photoFrame.RemovePhoto();
             photoFrame = null;
             isItemPlaced = false;
             return base.Interact();
         }
+        
     }
 }

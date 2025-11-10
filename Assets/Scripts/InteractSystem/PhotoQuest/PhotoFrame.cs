@@ -8,6 +8,7 @@ public class PhotoFrame : MonoBehaviour, IInteract
     [SerializeField] private string interactText = "Place Photo";
     [SerializeField] private PhotoQuestComponent correctPhoto;
     [SerializeField] private Transform photoSpawnPoint;
+    [SerializeField] private Transform photoScalePlaced;
 
     public bool CorrectPhotoPlaced { get; private set; }
     private bool isFrameOccupied = false;
@@ -24,7 +25,7 @@ public class PhotoFrame : MonoBehaviour, IInteract
 
     public void Interact()
     {
-        if (inventoryUI.ItemInUse.id != inventoryUI.HandItemUI.id)
+        if (inventoryUI.ItemInUse.id != inventoryUI.HandItemUI.id && !photoQuestManager.allFramesCorrect)
         {
             var itemInUse = inventoryUI.ItemInUse.TryGetComponent<PhotoQuestComponent>(out var photoComponent) ? photoComponent : null;
             if (itemInUse == null) return;
@@ -43,6 +44,8 @@ public class PhotoFrame : MonoBehaviour, IInteract
         inventoryUI.RemoveInventorySlot(photo);
         photo.gameObject.transform.position = photoSpawnPoint.position;
         photo.gameObject.transform.rotation = photoSpawnPoint.rotation;
+        photo.objectPrefab.transform.rotation = photoSpawnPoint.rotation;
+        photo.gameObject.transform.localScale = photoScalePlaced.localScale;
         photo.objectPrefab.SetActive(true);
         photo.gameObject.SetActive(true);
 
@@ -55,6 +58,10 @@ public class PhotoFrame : MonoBehaviour, IInteract
             CorrectPhotoPlaced = true;
     }
 
+    public void AllCorrectPhotoPlaced()
+    {
+        correctPhoto.gameObject.layer = LayerMask.NameToLayer("Default");
+    }
     public void RemovePhoto()
     {
         if (currentPhoto == null) return;

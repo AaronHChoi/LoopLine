@@ -10,6 +10,7 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
     [SerializeField] ItemInteract doorHandler;
 
     [SerializeField] private List<PhotoFrame> frames;
+    public bool allFramesCorrect { get; private set; } = false;
     private void Awake()
     {
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
@@ -50,6 +51,11 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
     private void OnQuestCompleted()
     {
         Debug.Log("Todas las fotos colocadas correctamente");       
+        allFramesCorrect = true;
+        foreach (var frame in frames)
+        {
+            frame.AllCorrectPhotoPlaced();
+        }
     }
     private void OpenDoorPhotoQuest()
     {
@@ -61,6 +67,7 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
 public interface IPhotoQuestManager
 {
     void CheckAllFrames();
+    bool allFramesCorrect { get; }
     private void PhotoQuestComplete()
     {
         GameManager.Instance.SetCondition(GameCondition.IsPhotoQuestComplete, true);
