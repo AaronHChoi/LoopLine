@@ -11,6 +11,7 @@ public abstract class ItemInteract : MonoBehaviour, IItemGrabInteract
 
     [Header("Item Inventory UI")]
     [SerializeField] private bool deactivateOnPickup = true;
+    [SerializeField] protected bool resetLayerOnPickup = true;
     [SerializeField] public GameObject objectPrefab;
 
     [Header("References")]
@@ -43,7 +44,8 @@ public abstract class ItemInteract : MonoBehaviour, IItemGrabInteract
                 if (deactivateOnPickup)
                 {
                     gameObject.SetActive(false);
-                    gameObject.layer = LayerMask.NameToLayer("Default");
+                    if (resetLayerOnPickup) 
+                        gameObject.layer = LayerMask.NameToLayer("Default");
                 }
                 if (inventoryUI.CheckInventory(this) == false)
                 {
