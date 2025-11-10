@@ -24,6 +24,11 @@ namespace Player
         }
         public void Execute()
         {
+            if (GameManager.Instance.HasCamera && input.ToggleCameraPressed())
+            {
+                controller.StateMachine.TransitionTo(controller.CameraState);
+            }
+
             if (!controller.CanUseNormalStateExecute) return;
 
             if (input.InteractPressed())

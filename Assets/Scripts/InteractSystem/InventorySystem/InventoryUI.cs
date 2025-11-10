@@ -37,6 +37,8 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
     public static InventoryUI Instance { get; private set; }
 
     FadeInOutController FadeController;
+    CanvasGroup InventoryCanvasGroup;
+    CanvasGroup ArrowCanvasGroup;
     FadeInOutController ArrowFadeController;
     IPlayerStateController controller;
     IDialogueManager dialogueManager;
@@ -62,6 +64,8 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
         }
         arrowImage = GameObject.FindGameObjectWithTag("ArrowUI").GetComponent<RawImage>();
         handItemUI = GameObject.FindGameObjectWithTag("HandItem").GetComponent<BaseItemInteract>();
+        InventoryCanvasGroup = GetComponent<CanvasGroup>();
+        ArrowCanvasGroup = arrowImage.GetComponent<CanvasGroup>();
         FadeController = GetComponent<FadeInOutController>();
         ArrowFadeController = arrowImage.GetComponent<FadeInOutController>();
         RebuildInventoryFromManager();
@@ -181,21 +185,23 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
     }
     public void RemoveInventorySlot(ItemInteract item)
     {
-        if (CheckInventory(item))
+        if (CheckItemInUse(item))
         {
             UIInventoryItemSlot slotToRemove = inventorySlots[currentSlotIndex];
 
-            if (currentSlotIndex > 0)
+            if (currentSlotIndex > 0 && slotToRemove != null)
             {
-                inventorySlots[currentSlotIndex].IsActive = false;
-                inventorySlots[currentSlotIndex].gameObject.SetActive(false);
-                inventorySlots.Remove(slotToRemove);
+                ChangeSlot(-1);
+                inventorySlots[currentSlotIndex + 1].IsActive = false;
+                inventorySlots[currentSlotIndex + 1].gameObject.SetActive(false);
+                inventorySlots[currentSlotIndex + 1].itemToSpawn.objectPrefab.transform.parent = item.transform;
+                inventorySlots[currentSlotIndex + 1].itemToSpawn.objectPrefab.transform.position = item.transform.position;
                 slotToRemove.transform.parent = null;
+                inventorySlots.Remove(slotToRemove);
                 InventoryManager.Instance.RemoveItemFromInventory(item.ItemData);
-                RebuildInventoryFromManager();
-                currentSlotIndex--;
-                inventorySlots[currentSlotIndex].IsActive = true;
-
+                Debug.Log("Item Removed from Inventory: " + item.ItemData.itemName);
+                Debug.Log("Current Inventory Count: " + inventorySlots.Count);
+                Debug.Log("Current Slot Index: " + currentSlotIndex);
                 StartCoroutine(UpdateArrowNextFrame());
             }
             else
@@ -203,7 +209,8 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
                 ResetArrowPosition();
             }
         }
-   
+
+
     }
     public void RemoveUIInventoryLastSlot(UIInventoryItemSlot slotToRemove)
     {
@@ -244,6 +251,18 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
         }
         return isInInventory;
     }
+
+    public bool CheckItemInUse(ItemInteract itemInteract)
+    {
+        if (ItemInUse.id == itemInteract.id)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }   
     private void CheckArrowPosition()
     {
         if (SceneManager.GetActiveScene().name == "04. Train")
@@ -294,6 +313,11 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
     }
     private void ShowInventory()
     {
+        if (InventoryCanvasGroup.alpha == 0)
+        {
+            InventoryCanvasGroup.alpha = 1;
+            ArrowCanvasGroup.alpha = 1;
+        }
         FadeController.ForceFade(true);
         isInventoryOpen = true;
     }
@@ -329,4 +353,5 @@ public interface IInventoryUI
     void RemoveInventorySlot(ItemInteract item);
     void RemoveUIInventoryLastSlot(UIInventoryItemSlot slotToRemove);
     bool CheckInventory(ItemInteract itemInteract);
+    bool CheckItemInUse(ItemInteract itemInteract);
 }

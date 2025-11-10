@@ -23,6 +23,14 @@ public class GameManager : Singleton<GameManager>
         set { clockQuestCompleted = value; }
     }
 
+    [Header("Player")]
+    [SerializeField] bool hasCamera;
+    public bool HasCamera
+    {
+        get { return  hasCamera; }
+        set { hasCamera = value; }
+    }
+
     public IScreenManager screenManager;
 
     protected override void Awake()
@@ -32,6 +40,14 @@ public class GameManager : Singleton<GameManager>
         screenManager = InterfaceDependencyInjector.Instance.Resolve<IScreenManager>();
 
         SetGameConditions();
+    }
+    private void Update()
+    {
+        //TESTING
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+
+        }
     }
     public void SetGameConditions()
     {

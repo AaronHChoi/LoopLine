@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class DialogueManager : MonoBehaviour, IDialogueManager
@@ -10,6 +11,9 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
 
     [SerializeField] private DialogueUI dialogueUI;
     DialogueSpeakerBase currentSpeaker;
+
+    public bool IsOnCooldown { get; private set; }
+    Coroutine cooldownCoroutine;
 
     private void Awake()
     {
@@ -44,10 +48,26 @@ public class DialogueManager : MonoBehaviour, IDialogueManager
     {
         return currentSpeaker;  
     }
+    public void StartInteractionCooldown(float duration)
+    {
+        if (cooldownCoroutine != null)
+        {
+            StopCoroutine(cooldownCoroutine);
+        }
+        cooldownCoroutine = StartCoroutine(SetCooldown(duration));
+    }
+    private IEnumerator SetCooldown(float duration)
+    {
+        IsOnCooldown = true;
+        yield return new WaitForSeconds(duration);
+        IsOnCooldown = false;
+        cooldownCoroutine = null;
+    }
 }
 public interface IDialogueManager
 {
     event Action OnDialogueStarted;
     event Action OnDialogueEnded;
     void HideDialogue();
+    bool IsOnCooldown { get; }
 }

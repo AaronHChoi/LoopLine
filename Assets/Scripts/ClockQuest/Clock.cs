@@ -94,7 +94,7 @@ public class Clock : MonoBehaviour, IInteract, IClock
     {
         activeMode = !activeMode;
 
-        uiManager.ShowClockTutorial(activeMode);
+        //uiManager.ShowClockTutorial(activeMode);
 
         if(activeMode)
         {
@@ -104,6 +104,7 @@ public class Clock : MonoBehaviour, IInteract, IClock
             clockZoom.Priority = 20;
             player.Priority = 10;
             OnEnterClock?.Invoke();
+            uiManager.ShowPanel(UIPanelID.ClockTutorial);
         }
         else
         {
@@ -113,6 +114,7 @@ public class Clock : MonoBehaviour, IInteract, IClock
             playerMovement.CanMove = true;
             playerCamera.CanLook = true;
             OnExitClock?.Invoke();
+            uiManager.HideCurrentPanel();
         }
     }
     void HandMove(int direction)
