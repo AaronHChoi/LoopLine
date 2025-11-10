@@ -185,24 +185,23 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
     }
     public void RemoveInventorySlot(ItemInteract item)
     {
-        if (CheckInventory(item))
+        if (CheckItemInUse(item))
         {
             UIInventoryItemSlot slotToRemove = inventorySlots[currentSlotIndex];
 
             if (currentSlotIndex > 0 && slotToRemove != null)
             {
-                inventorySlots[currentSlotIndex].IsActive = false;
-                inventorySlots[currentSlotIndex].gameObject.SetActive(false);
+                ChangeSlot(-1);
+                inventorySlots[currentSlotIndex + 1].IsActive = false;
+                inventorySlots[currentSlotIndex + 1].gameObject.SetActive(false);
+                inventorySlots[currentSlotIndex + 1].itemToSpawn.objectPrefab.transform.parent = item.transform;
+                inventorySlots[currentSlotIndex + 1].itemToSpawn.objectPrefab.transform.position = item.transform.position;
                 slotToRemove.transform.parent = null;
                 inventorySlots.Remove(slotToRemove);
                 InventoryManager.Instance.RemoveItemFromInventory(item.ItemData);
-                //if(InventoryManager.Instance.itemsInventoryManager.items.Count > 0)
-                //    RebuildInventoryFromManager();
-                //currentSlotIndex--;
-                //inventorySlots[currentSlotIndex].IsActive = true;
-                //ItemInUse = inventorySlots[currentSlotIndex].itemToSpawn;
-                ChangeSlot(-1);
-
+                Debug.Log("Item Removed from Inventory: " + item.ItemData.itemName);
+                Debug.Log("Current Inventory Count: " + inventorySlots.Count);
+                Debug.Log("Current Slot Index: " + currentSlotIndex);
                 StartCoroutine(UpdateArrowNextFrame());
             }
             else
@@ -210,7 +209,8 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
                 ResetArrowPosition();
             }
         }
-   
+
+
     }
     public void RemoveUIInventoryLastSlot(UIInventoryItemSlot slotToRemove)
     {
@@ -251,6 +251,18 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
         }
         return isInInventory;
     }
+
+    public bool CheckItemInUse(ItemInteract itemInteract)
+    {
+        if (ItemInUse.id == itemInteract.id)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }   
     private void CheckArrowPosition()
     {
         if (SceneManager.GetActiveScene().name == "04. Train")
@@ -341,4 +353,5 @@ public interface IInventoryUI
     void RemoveInventorySlot(ItemInteract item);
     void RemoveUIInventoryLastSlot(UIInventoryItemSlot slotToRemove);
     bool CheckInventory(ItemInteract itemInteract);
+    bool CheckItemInUse(ItemInteract itemInteract);
 }
