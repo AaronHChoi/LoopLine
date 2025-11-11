@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DependencyInjection;
 using TMPro;
+
 public class PhotoCapture : MonoBehaviour, IPhotoCapture
 {
     [Header("Photo Taker")]
@@ -12,11 +13,11 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
     [SerializeField] GameObject photoFrame;
     [SerializeField] GameObject cameraUI;
     [SerializeField] int maxPhotos = 5;
+    [SerializeField] float delay;
 
     [Header("Audio")]
     [SerializeField] SoundData soundData;
     [SerializeField] SoundData soundData2;
-    [SerializeField] AudioSource bgmAudio;
 
     [Header("Cooldown")]
     float photoCooldown = 1.5f;
@@ -28,13 +29,16 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
 
     IPlayerStateController playerStateController;
     IPolaroidUIAnimation uiAnimation;
+    IPlayerInteract playerInteract;
 
     public event Action<string> OnPhotoClueCaptured;
+
     #region MAGIC_METHODS
     private void Awake()
     {
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
         uiAnimation = InterfaceDependencyInjector.Instance.Resolve<IPolaroidUIAnimation>();
+        playerInteract = InterfaceDependencyInjector.Instance.Resolve<IPlayerInteract>();
     }
     private void Start()
     {
@@ -81,6 +85,14 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
         UpdatePhotoCounter();
 
         uiAnimation.PhotoUIAnimation();
+
+        yield return new WaitForSeconds(delay);
+
+        GameObject target = playerInteract.GetRaycastTarget();
+        if (target != null && target.TryGetComponent(out RaycastActivator activator))
+        {
+            activator.SetChildrenActive(true);
+        }
     }
     void UpdatePhotoCounter()
     {

@@ -1,5 +1,4 @@
 using System;
-using SoundSystem;
 using UnityEngine;
 
 public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
@@ -8,20 +7,14 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
 
     [SerializeField] int targetHour;
     [SerializeField] int targetMinute;
-    [SerializeField] GenericMove doorHandlerBase;
     [SerializeField] SoundData complete;
 
     bool firstTime = false;
 
+    [SerializeField] Rigidbody rb;
+
     public event Action OnPhotoQuestFinished;
 
-    private void Start()
-    {
-        if (GameManager.Instance.GetCondition(GameCondition.IsClockQuestComplete))
-        {
-            doorHandlerBase.Move();
-        }
-    }
     private void OnEnable()
     {
         if(clock != null)
@@ -60,8 +53,7 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
     }
     private void RevealObject()
     {
-        DelayUtility.Instance.Delay(1f, null);
-        doorHandlerBase.Move();
+        rb.isKinematic = false;
         GameManager.Instance.SetCondition(GameCondition.IsClockQuestComplete, true);
     }
 }

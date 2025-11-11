@@ -10,11 +10,9 @@ namespace Player
         IPhotoCapture photo;
         ICameraOrientation playerCamera;
         IPlayerInteractMarkerPrompt interaction;
-        ITogglePhotoDetection togglePhotoDetection;
 
         public CameraState(IPlayerStateController controller, IPlayerInputHandler input, IPlayerMovement movement, 
-            IPhotoCapture photo, ICameraOrientation playerCamera, IPlayerInteractMarkerPrompt interaction, 
-            ITogglePhotoDetection togglePhotoDetection)
+            IPhotoCapture photo, ICameraOrientation playerCamera, IPlayerInteractMarkerPrompt interaction)
         {
             this.controller = controller;
             this.input = input;
@@ -22,7 +20,6 @@ namespace Player
             this.photo = photo;
             this.playerCamera = playerCamera;
             this.interaction = interaction;
-            this.togglePhotoDetection = togglePhotoDetection;
         }
         public void Enter()
         {
@@ -30,7 +27,6 @@ namespace Player
             movement.CanMove = true;
 
             playerCamera.CanLook = true;
-            togglePhotoDetection.ToggleCollider(true);
 
             photo.SetCameraUIVisible(true);
 
@@ -52,7 +48,6 @@ namespace Player
             interaction.IsDetecting = true;
             movement.CanMove = false;
             playerCamera.CanLook = false;
-            togglePhotoDetection.ToggleCollider(false);
             photo.SetCameraUIVisible(false);
             Debug.Log("Exiting CameraState");
         }

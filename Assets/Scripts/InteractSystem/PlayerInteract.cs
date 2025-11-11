@@ -98,8 +98,17 @@ public class PlayerInteract : MonoBehaviour, IPlayerInteract
         }
         return null;
     }
+    public GameObject GetRaycastTarget()
+    {
+        if (rayController.FoundInteract)
+        {
+            return rayController.Target;
+        }
+        return null;
+    }
 }
 public interface IPlayerInteract
 {
     IInteract GetInteractableObject();
+    GameObject GetRaycastTarget();
 }
