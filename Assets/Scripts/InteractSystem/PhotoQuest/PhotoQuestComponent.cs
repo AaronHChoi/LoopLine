@@ -6,13 +6,17 @@ public class PhotoQuestComponent : ItemInteract
 {
     public bool isItemPlaced = false;
     public PhotoFrame photoFrame;
-    [SerializeField] public Transform PhotoScalePicked;
+                     
+    [SerializeField] public Vector3 PhotoScalePicked;
+    [SerializeField] public Vector3 objectPrefabScalePicked;
+
 
     public override void Start()
     {
         base.Start();
-        PhotoScalePicked = gameObject.transform;
-        PhotoScalePicked.localScale = gameObject.transform.localScale;
+        PhotoScalePicked = gameObject.transform.localScale;
+        objectPrefabScalePicked = objectPrefab.transform.localScale;
+        Debug.Log(PhotoScalePicked);
         resetLayerOnPickup = false;
     }
     public override bool Interact()
@@ -23,7 +27,7 @@ public class PhotoQuestComponent : ItemInteract
         }
         else 
         {
-            gameObject.transform.localScale = PhotoScalePicked.localScale;
+            //gameObject.transform.localScale = PhotoScalePicked.localScale;
             photoFrame.RemovePhoto();
             photoFrame = null;
             isItemPlaced = false;

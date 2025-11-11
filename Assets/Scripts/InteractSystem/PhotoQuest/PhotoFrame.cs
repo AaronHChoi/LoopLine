@@ -8,7 +8,7 @@ public class PhotoFrame : MonoBehaviour, IInteract
     [SerializeField] private string interactText = "Place Photo";
     [SerializeField] private PhotoQuestComponent correctPhoto;
     [SerializeField] private Transform photoSpawnPoint;
-    [SerializeField] private Transform photoScalePlaced;
+    [SerializeField] private Vector3 photoScalePlaced;
 
     public bool CorrectPhotoPlaced { get; private set; }
     private bool isFrameOccupied = false;
@@ -45,7 +45,7 @@ public class PhotoFrame : MonoBehaviour, IInteract
         photo.gameObject.transform.position = photoSpawnPoint.position;
         photo.gameObject.transform.rotation = photoSpawnPoint.rotation;
         photo.objectPrefab.transform.rotation = photoSpawnPoint.rotation;
-        photo.gameObject.transform.localScale = photoScalePlaced.localScale;
+        photo.gameObject.transform.localScale = photoScalePlaced;
         photo.objectPrefab.SetActive(true);
         photo.gameObject.SetActive(true);
 
@@ -65,6 +65,10 @@ public class PhotoFrame : MonoBehaviour, IInteract
     public void RemovePhoto()
     {
         if (currentPhoto == null) return;
+        currentPhoto.gameObject.transform.localScale = currentPhoto.PhotoScalePicked;
+        currentPhoto.objectPrefab.transform.localScale = currentPhoto.objectPrefabScalePicked;
+        //currentPhoto.objectPrefab.transform.localScale = currentPhoto.gameObject.transform.localScale;
+        print(currentPhoto.PhotoScalePicked);
         currentPhoto = null;
         isFrameOccupied = false;
         CorrectPhotoPlaced = false;
