@@ -1,10 +1,11 @@
+using DependencyInjection;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using DependencyInjection;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum PanelPosition
 {
@@ -65,6 +66,8 @@ public class UIManager : Singleton<UIManager>, IUIManager
         {
             Debug.LogError("UIManager dont have assigned infoPanelObject");
         }
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
     private void OnEnable()
     {
@@ -184,6 +187,16 @@ public class UIManager : Singleton<UIManager>, IUIManager
         if (isCursorVisible != shouldShowCursor)
         {
             isCursorVisible = shouldShowCursor;
+            Cursor.visible = isCursorVisible;
+            Cursor.lockState = isCursorVisible ? CursorLockMode.None : CursorLockMode.Locked;
+        }
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (SceneManager.GetActiveScene().name == "01. MainMenu")
+        {
+            isCursorVisible = true;
             Cursor.visible = isCursorVisible;
             Cursor.lockState = isCursorVisible ? CursorLockMode.None : CursorLockMode.Locked;
         }
