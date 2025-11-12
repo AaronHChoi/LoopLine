@@ -587,6 +587,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1046939374}
+  - component: {fileID: 1046939375}
   m_Layer: 0
   m_Name: BassGirl
   m_TagString: Untagged
@@ -612,6 +613,28 @@ Transform:
   - {fileID: 1131223110}
   m_Father: {fileID: 207410454}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!95 &1046939375
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1046939373}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1093169044
 GameObject:
   m_ObjectHideFlags: 1
@@ -729,6 +752,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: basist
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 519b01e7756104341a5c68d80a80a594, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 22863757bb6f6be4b8e4825365a0d327, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -885,6 +912,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: mystery
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: fb4bded9eeff497449def8882e6a6bbe, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: ba79fb73d2c4f8741a31b8fe287d2ef9, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -962,6 +993,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 984cf2b07e72dd04186ff6a6edf1846b, type: 3}
       propertyPath: m_Name
       value: working
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 984cf2b07e72dd04186ff6a6edf1846b, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: e14fad280aff6014baff5d4d6c8e7e47, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 984cf2b07e72dd04186ff6a6edf1846b, type: 3}
+      propertyPath: m_CullingMode
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1217,12 +1256,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: fadc873b61ce9c3498d90a32b0ecc5b9, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: fadc873b61ce9c3498d90a32b0ecc5b9, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 9100000, guid: e14fad280aff6014baff5d4d6c8e7e47, type: 2}
     - target: {fileID: 7666680083751660616, guid: fadc873b61ce9c3498d90a32b0ecc5b9, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0.03068466
