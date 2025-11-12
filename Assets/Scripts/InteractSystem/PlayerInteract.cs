@@ -51,20 +51,14 @@ public class PlayerInteract : MonoBehaviour, IPlayerInteract
     }
     private void GrabItem()
     {
-        if (gameSceneManager.IsCurrentScene("05. MindPlace"))
+        IItemGrabInteract intemGrabObject = GetItemGrabIteractableObject();
+        if (intemGrabObject != null)
         {
-            if (inventoryUI.IsInventoryOpen == false && inventoryUI.ItemInUse == inventoryUI.HandItemUI)
+            if (intemGrabObject.Interact())
             {
-                IItemGrabInteract intemGrabObject = GetItemGrabIteractableObject();
-                if (intemGrabObject != null)
-                {
-                    if (intemGrabObject.Interact())
-                    {
-                        SoundManager.Instance.CreateSound()
-                            .WithSoundData(grabSoundData[Random.Range(0, grabSoundData.Count)])
-                            .Play();
-                    }
-                }
+                SoundManager.Instance.CreateSound()
+                    .WithSoundData(grabSoundData[Random.Range(0, grabSoundData.Count)])
+                    .Play();
             }
         }
     }
@@ -89,7 +83,7 @@ public class PlayerInteract : MonoBehaviour, IPlayerInteract
     }
     public IItemGrabInteract GetItemGrabIteractableObject()
     {
-        if (inventoryUI.IsInventoryOpen == false && inventoryUI.ItemInUse == inventoryUI.HandItemUI && rayController.FoundInteract)
+        if (rayController.FoundInteract)
         {
             if (rayController.Target.TryGetComponent(out IItemGrabInteract itemGrabInteractable))
             {
