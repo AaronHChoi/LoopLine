@@ -5,18 +5,13 @@ using UnityEngine;
 public class PhotoQuestComponent : ItemInteract
 {
     public bool isItemPlaced = false;
-    public PhotoFrame photoFrame;
-                     
-    [SerializeField] public Vector3 PhotoScalePicked;
-    [SerializeField] public Vector3 objectPrefabScalePicked;
-
+    public PhotoFrame photoFrame;                    
 
     public override void Start()
     {
         base.Start();
-        PhotoScalePicked = gameObject.transform.localScale;
-        objectPrefabScalePicked = objectPrefab.transform.localScale;
-        Debug.Log(PhotoScalePicked);
+       
+        this.id = ItemData.itemName;    
         resetLayerOnPickup = false;
     }
     public override bool Interact()
@@ -27,8 +22,6 @@ public class PhotoQuestComponent : ItemInteract
         }
         else 
         {
-            //gameObject.transform.localScale = PhotoScalePicked.localScale;
-            //photoFrame.RemovePhoto(this);
             photoFrame = null;
             isItemPlaced = false;
             return base.Interact();
