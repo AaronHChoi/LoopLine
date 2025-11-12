@@ -1,12 +1,16 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class MonologueSpeaker : DialogueSpeakerBase, IMonologueSpeaker
 {
+    public event Action<Events> OnMonologueEnded;
+
     [SerializeField] private Events defaultEvent = Events.MonologueTest3;
     [SerializeField] private float startDelay = 1.5f;
 
     private Events currentMonologueEvent;
+
     protected override void Start()
     {
         base.Start();
@@ -41,14 +45,17 @@ public class MonologueSpeaker : DialogueSpeakerBase, IMonologueSpeaker
                 Invoke(nameof(ShowNextDialogue), 3f);
             }
         }
-        else
-        {
-            EndDialogueSequence();
-        }
+    }
+    protected override void EndDialogueSequence()
+    {
+        base.EndDialogueSequence();
+
+        OnMonologueEnded?.Invoke(currentMonologueEvent);
     }
     public Events CurrentMonologueEvent => currentMonologueEvent;
 }
 public interface IMonologueSpeaker
 {
     public void StartMonologue(Events eventType);
+    event Action<Events> OnMonologueEnded;
 }
