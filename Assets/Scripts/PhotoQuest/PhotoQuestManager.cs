@@ -1,7 +1,14 @@
 using DependencyInjection;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
+public struct PhotoActivationEntry
+{
+    public GameCondition condition;
+    public GameObject photo;
+}
 public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
 {
     IInventoryUI inventoryUI;
@@ -10,6 +17,8 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
     [SerializeField] ItemInteract doorHandler;
 
     [SerializeField] private List<PhotoFrame> frames;
+
+    [SerializeField] List<PhotoActivationEntry> photoActivations;
     public bool allFramesCorrect { get; private set; } = false;
     private void Awake()
     {
@@ -21,6 +30,8 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
         {
             doorHandler.gameObject.SetActive(false);
         }
+
+        UpdatePhotoActivationStates();
     }
     private void OnEnable()
     {
@@ -36,6 +47,20 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
             doorInteract.OnPhotoQuestOpenDoor -= OpenDoorPhotoQuest;
         }
     }
+    void UpdatePhotoActivationStates()
+    {
+        if (photoActivations == null) return;
+
+        foreach (var entry in photoActivations)
+        {
+            bool isConditionMet = GameManager.Instance.GetCondition(entry.condition);
+
+            if (entry.photo != null)
+            {
+                entry.photo.SetActive(isConditionMet);
+            }
+        }
+    }
     public void CheckAllFrames()
     {
         foreach (var frame in frames)
@@ -48,6 +73,8 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
     }
     private void OnQuestCompleted()
     {
+        PhotoQuestComplete();
+
         Debug.Log("Todas las fotos colocadas correctamente");       
         allFramesCorrect = true;
         foreach (var frame in frames)
