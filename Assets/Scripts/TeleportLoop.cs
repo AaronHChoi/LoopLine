@@ -31,6 +31,8 @@ public class TeleportLoop : MonoBehaviour
             player.transform.rotation = relativeRotation * player.transform.rotation;
 
             cc.enabled = true;
+
+            GameManager.Instance.TrainLoop += 1;
         }
     }
 }
