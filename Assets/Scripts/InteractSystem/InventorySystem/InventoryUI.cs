@@ -283,6 +283,7 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
         ItemInUse = HandItemUI;
         currentSlotIndex = 0;
         inventorySlots[0].IsActive = true;
+        ChangeSlot(0);
     }
     private void RebuildInventoryFromManager()
     {
