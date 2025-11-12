@@ -488,73 +488,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd995697258d7d24ca5c1e437dbdc2a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: Interactuar
-  AvailableDialogs:
-  - {fileID: 11400000, guid: eca99817153ccb347b3e3a24f4cfa37f, type: 2}
-  - {fileID: 11400000, guid: 674db46758eed024d8c5f942bbe2bd41, type: 2}
-  - {fileID: 11400000, guid: fbc7865a61ac87548b2e039d907d136c, type: 2}
-  - {fileID: 11400000, guid: a65e9b76a1d4e4547a249d19041c5866, type: 2}
-  - {fileID: 11400000, guid: 891666a7d8d4bc849a465803a8e900a9, type: 2}
-  - {fileID: 11400000, guid: 55534b7fe0e78e14282fadeb8d3c011d, type: 2}
-  - {fileID: 11400000, guid: ea94500aec2a4a54e9dd082aea0a6453, type: 2}
-  - {fileID: 11400000, guid: 8eef705246f5cb64aabbee40cf954cca, type: 2}
-  dialogueIndex: 0
-  DialogueLocalIndex: 0
-  isDialogueActive: 0
-  NPCInteracted: 0
-  headTarget: {fileID: 0}
-  id: 
-  DialogueEvents:
-  - EventType: 6
-    changes:
-    - dialogue: {fileID: 11400000, guid: eca99817153ccb347b3e3a24f4cfa37f, type: 2}
-      unlock: 0
-    - dialogue: {fileID: 11400000, guid: 674db46758eed024d8c5f942bbe2bd41, type: 2}
-      unlock: 0
-    - dialogue: {fileID: 11400000, guid: fbc7865a61ac87548b2e039d907d136c, type: 2}
-      unlock: 0
-    - dialogue: {fileID: 11400000, guid: a65e9b76a1d4e4547a249d19041c5866, type: 2}
-      unlock: 1
-  - EventType: 8
-    changes:
-    - dialogue: {fileID: 11400000, guid: 891666a7d8d4bc849a465803a8e900a9, type: 2}
-      unlock: 1
-    - dialogue: {fileID: 11400000, guid: 55534b7fe0e78e14282fadeb8d3c011d, type: 2}
-      unlock: 0
-    - dialogue: {fileID: 11400000, guid: ea94500aec2a4a54e9dd082aea0a6453, type: 2}
-      unlock: 0
-    - dialogue: {fileID: 11400000, guid: 8eef705246f5cb64aabbee40cf954cca, type: 2}
-      unlock: 0
-  - EventType: 9
-    changes:
-    - dialogue: {fileID: 11400000, guid: 55534b7fe0e78e14282fadeb8d3c011d, type: 2}
-      unlock: 1
-    - dialogue: {fileID: 11400000, guid: 891666a7d8d4bc849a465803a8e900a9, type: 2}
-      unlock: 0
-    - dialogue: {fileID: 11400000, guid: ea94500aec2a4a54e9dd082aea0a6453, type: 2}
-      unlock: 0
-    - dialogue: {fileID: 11400000, guid: 8eef705246f5cb64aabbee40cf954cca, type: 2}
-      unlock: 0
-  - EventType: 10
-    changes:
-    - dialogue: {fileID: 11400000, guid: ea94500aec2a4a54e9dd082aea0a6453, type: 2}
-      unlock: 1
-    - dialogue: {fileID: 11400000, guid: 891666a7d8d4bc849a465803a8e900a9, type: 2}
-      unlock: 0
-    - dialogue: {fileID: 11400000, guid: 55534b7fe0e78e14282fadeb8d3c011d, type: 2}
-      unlock: 0
-    - dialogue: {fileID: 11400000, guid: 8eef705246f5cb64aabbee40cf954cca, type: 2}
-      unlock: 0
-  - EventType: 11
-    changes:
-    - dialogue: {fileID: 11400000, guid: 8eef705246f5cb64aabbee40cf954cca, type: 2}
-      unlock: 1
-    - dialogue: {fileID: 11400000, guid: 891666a7d8d4bc849a465803a8e900a9, type: 2}
-      unlock: 0
-    - dialogue: {fileID: 11400000, guid: 55534b7fe0e78e14282fadeb8d3c011d, type: 2}
-      unlock: 0
-    - dialogue: {fileID: 11400000, guid: ea94500aec2a4a54e9dd082aea0a6453, type: 2}
-      unlock: 0
 --- !u!65 &61159255
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1008,13 +941,13 @@ MonoBehaviour:
   - layerTransform: {fileID: 1722483711}
     parallaxEffect: 1
     type: 
-  - layerTransform: {fileID: 635479147}
+  - layerTransform: {fileID: 0}
     parallaxEffect: 1
     type: 
-  - layerTransform: {fileID: 1328475274}
+  - layerTransform: {fileID: 0}
     parallaxEffect: 1
     type: 
-  - layerTransform: {fileID: 1974430415}
+  - layerTransform: {fileID: 0}
     parallaxEffect: 1
     type: 
   - layerTransform: {fileID: 862006098}
@@ -1516,12 +1449,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a81b347b9f73d43bda71d317d1412d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: 
-  id: 
-  ItemData: {fileID: 11400000, guid: 3afcc44611dc3d9408bda1711776faae, type: 2}
-  canBePicked: 0
-  deactivateOnPickup: 1
-  objectPrefab: {fileID: 0}
 --- !u!114 &212487567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1534,16 +1461,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd995697258d7d24ca5c1e437dbdc2a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: Celular
-  AvailableDialogs:
-  - {fileID: 11400000, guid: 0e762ff5aed157545a51622e6f5239ea, type: 2}
-  dialogueIndex: 0
-  DialogueLocalIndex: 0
-  isDialogueActive: 0
-  NPCInteracted: 0
-  headTarget: {fileID: 0}
-  id: 
-  DialogueEvents: []
 --- !u!65 &212487568
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2984,12 +2901,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a81b347b9f73d43bda71d317d1412d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: 
-  id: TrainPhotos
-  ItemData: {fileID: 11400000, guid: ceaef5b63c08dc541a85b7eeed5e2bd3, type: 2}
-  canBePicked: 0
-  deactivateOnPickup: 1
-  objectPrefab: {fileID: 0}
 --- !u!1 &341322545
 GameObject:
   m_ObjectHideFlags: 0
@@ -3367,12 +3278,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a81b347b9f73d43bda71d317d1412d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: 
-  id: 
-  ItemData: {fileID: 11400000, guid: 6e665f960c994b24a92df3efb6ffa7ad, type: 2}
-  canBePicked: 0
-  deactivateOnPickup: 1
-  objectPrefab: {fileID: 0}
 --- !u!114 &372056171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3385,15 +3290,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd995697258d7d24ca5c1e437dbdc2a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: "C\xE1mara"
-  AvailableDialogs: []
-  dialogueIndex: 0
-  DialogueLocalIndex: 0
-  isDialogueActive: 0
-  NPCInteracted: 0
-  headTarget: {fileID: 0}
-  id: 
-  DialogueEvents: []
 --- !u!65 &372056172
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3498,12 +3394,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a81b347b9f73d43bda71d317d1412d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: 
-  id: 
-  ItemData: {fileID: 11400000, guid: 089fba0e7a7af7f4ca558eed6d5692a0, type: 2}
-  canBePicked: 0
-  deactivateOnPickup: 1
-  objectPrefab: {fileID: 0}
 --- !u!1 &385668466
 GameObject:
   m_ObjectHideFlags: 0
@@ -3533,11 +3423,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbd141e209dc9d74cbc29ce842db5af9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayMonologue: 1
-  firstDialogueQuest: {fileID: 11400000, guid: eca99817153ccb347b3e3a24f4cfa37f, type: 2}
-  quest: {fileID: 11400000, guid: a65e9b76a1d4e4547a249d19041c5866, type: 2}
-  personQuest: {fileID: 11400000, guid: ea94500aec2a4a54e9dd082aea0a6453, type: 2}
-  trainPhotos: {fileID: 2129773582}
 --- !u!4 &385668468
 Transform:
   m_ObjectHideFlags: 0
@@ -4073,12 +3958,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a81b347b9f73d43bda71d317d1412d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: 
-  id: 
-  ItemData: {fileID: 11400000, guid: fe849f7c06eb09847961e49fb3e87373, type: 2}
-  canBePicked: 0
-  deactivateOnPickup: 1
-  objectPrefab: {fileID: 0}
 --- !u!114 &479100163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4091,17 +3970,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd995697258d7d24ca5c1e437dbdc2a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: Cigarillos
-  AvailableDialogs:
-  - {fileID: 11400000, guid: 11c3778ead0152945bac4ba0edbaa2f8, type: 2}
-  - {fileID: 11400000, guid: 4ebe2e326f7248843b49135636fe1f9d, type: 2}
-  dialogueIndex: 0
-  DialogueLocalIndex: 0
-  isDialogueActive: 0
-  NPCInteracted: 0
-  headTarget: {fileID: 0}
-  id: 
-  DialogueEvents: []
 --- !u!65 &479100164
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4906,6 +4774,17 @@ MonoBehaviour:
   closeDoorsAfterTime: 1
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
+  connectedDoor: {fileID: 0}
+  openDoorSound:
+    clip: {fileID: 0}
+    mixerGroup: {fileID: 0}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 1
+    secondsDelay: 0
+  doorLeftAnimator: {fileID: 0}
+  doorRightAnimator: {fileID: 0}
+  tp: {fileID: 0}
 --- !u!65 &485380316
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6502,11 +6381,6 @@ Transform:
   - {fileID: 1595290236}
   m_Father: {fileID: 29840425}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!4 &635479147 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3447720647831420573, guid: 002ecf8dc93abc4478e944281e92837b, type: 3}
-  m_PrefabInstance: {fileID: 485380313}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &638171522
 GameObject:
   m_ObjectHideFlags: 0
@@ -6799,16 +6673,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd995697258d7d24ca5c1e437dbdc2a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: 
-  AvailableDialogs:
-  - {fileID: 11400000, guid: f6ebf22ce78768f4486772420c4d2379, type: 2}
-  dialogueIndex: 0
-  DialogueLocalIndex: 0
-  isDialogueActive: 0
-  NPCInteracted: 0
-  headTarget: {fileID: 0}
-  id: 
-  DialogueEvents: []
 --- !u!65 &673741958
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6931,12 +6795,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a81b347b9f73d43bda71d317d1412d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: 
-  id: 
-  ItemData: {fileID: 11400000, guid: a9596bd9cff8c984db782b4692ccef62, type: 2}
-  canBePicked: 0
-  deactivateOnPickup: 1
-  objectPrefab: {fileID: 0}
 --- !u!114 &733445169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6949,17 +6807,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd995697258d7d24ca5c1e437dbdc2a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: "Malet\xEDn"
-  AvailableDialogs:
-  - {fileID: 11400000, guid: 494b70721d0120d4aad458a0f8a5b2ee, type: 2}
-  - {fileID: 11400000, guid: 21071020c0efaf641ae4aa0855864326, type: 2}
-  dialogueIndex: 0
-  DialogueLocalIndex: 0
-  isDialogueActive: 0
-  NPCInteracted: 0
-  headTarget: {fileID: 0}
-  id: 
-  DialogueEvents: []
 --- !u!65 &733445170
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7312,12 +7159,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a81b347b9f73d43bda71d317d1412d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: 
-  id: 
-  ItemData: {fileID: 11400000, guid: e489fd40e9884f74cb5919533922fd20, type: 2}
-  canBePicked: 0
-  deactivateOnPickup: 1
-  objectPrefab: {fileID: 0}
 --- !u!1001 &797019560
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12903,12 +12744,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a81b347b9f73d43bda71d317d1412d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: 
-  id: 
-  ItemData: {fileID: 11400000, guid: 114f6f2eae6018445b998e528b7e971a, type: 2}
-  canBePicked: 0
-  deactivateOnPickup: 1
-  objectPrefab: {fileID: 0}
 --- !u!65 &894565076
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12942,16 +12777,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd995697258d7d24ca5c1e437dbdc2a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: Bolso con el bajo
-  AvailableDialogs:
-  - {fileID: 11400000, guid: e88ef15c4b26c1c4f8ab2710d969e4ac, type: 2}
-  dialogueIndex: 0
-  DialogueLocalIndex: 0
-  isDialogueActive: 0
-  NPCInteracted: 0
-  headTarget: {fileID: 0}
-  id: 
-  DialogueEvents: []
 --- !u!1 &904333894
 GameObject:
   m_ObjectHideFlags: 0
@@ -13183,6 +13008,17 @@ MonoBehaviour:
   closeDoorsAfterTime: 1
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
+  connectedDoor: {fileID: 0}
+  openDoorSound:
+    clip: {fileID: 0}
+    mixerGroup: {fileID: 0}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 1
+    secondsDelay: 0
+  doorLeftAnimator: {fileID: 0}
+  doorRightAnimator: {fileID: 0}
+  tp: {fileID: 0}
 --- !u!65 &939438417
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19454,8 +19290,12 @@ PrefabInstance:
       value: work man sit
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: fadc873b61ce9c3498d90a32b0ecc5b9, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: 984cf2b07e72dd04186ff6a6edf1846b, type: 3}
+    - target: {fileID: 5866666021909216657, guid: fadc873b61ce9c3498d90a32b0ecc5b9, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: fadc873b61ce9c3498d90a32b0ecc5b9, type: 3}
       propertyPath: m_Controller
@@ -24487,12 +24327,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a81b347b9f73d43bda71d317d1412d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: 
-  id: 
-  ItemData: {fileID: 11400000, guid: a760a8532a2690343ac94176f9f78f2a, type: 2}
-  canBePicked: 0
-  deactivateOnPickup: 1
-  objectPrefab: {fileID: 0}
 --- !u!1 &1255542754 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7103946081566000008, guid: 002ecf8dc93abc4478e944281e92837b, type: 3}
@@ -29842,11 +29676,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1820565010}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!4 &1328475274 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -3857415936246475360, guid: 002ecf8dc93abc4478e944281e92837b, type: 3}
-  m_PrefabInstance: {fileID: 485380313}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1337571379
 GameObject:
   m_ObjectHideFlags: 0
@@ -30095,6 +29924,17 @@ MonoBehaviour:
   closeDoorsAfterTime: 1
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
+  connectedDoor: {fileID: 0}
+  openDoorSound:
+    clip: {fileID: 0}
+    mixerGroup: {fileID: 0}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 1
+    secondsDelay: 0
+  doorLeftAnimator: {fileID: 0}
+  doorRightAnimator: {fileID: 0}
+  tp: {fileID: 0}
 --- !u!1 &1359938207 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8763101872386325471, guid: 002ecf8dc93abc4478e944281e92837b, type: 3}
@@ -30621,14 +30461,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92f6da37bfee7e943bcc22e1971c1a53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 1
   nextScene: 05. MindPlace
+  isGamePaused: 0
   TrainLoop: 0
-  MindPlaceLoop: 0
-  CameraGirlPhoto: 0
-  CameraGirlPhotoMision:
-  - {fileID: 11400000, guid: 82f94499aa3c05a4181f0d6147fcd912, type: 2}
-  - {fileID: 11400000, guid: edc95a820c140a04ea9f37b6446a0c2b, type: 2}
   isMuted: 0
+  hasCamera: 0
 --- !u!1 &1435485876
 GameObject:
   m_ObjectHideFlags: 0
@@ -31162,6 +31000,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab3e0e94674767b4d9ac1e584536ca6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 1
+  firstScene:
+    sceneName: 
+    weight: 1
+  weightedScenes: []
+  activeScenes: []
+  constantActiveScenes: []
 --- !u!1001 &1505637520
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31626,12 +31471,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a81b347b9f73d43bda71d317d1412d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: 
-  id: Diary
-  ItemData: {fileID: 11400000, guid: b41401a1054b209448601909abccc44c, type: 2}
-  canBePicked: 0
-  deactivateOnPickup: 1
-  objectPrefab: {fileID: 0}
 --- !u!114 &1590089833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31644,16 +31483,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd995697258d7d24ca5c1e437dbdc2a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: Cuaderno
-  AvailableDialogs:
-  - {fileID: 11400000, guid: 1a6d432b2faa1784ba7ff238b0f0c72b, type: 2}
-  dialogueIndex: 0
-  DialogueLocalIndex: 0
-  isDialogueActive: 0
-  NPCInteracted: 0
-  headTarget: {fileID: 0}
-  id: 
-  DialogueEvents: []
 --- !u!65 &1590089834
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -31833,6 +31662,17 @@ MonoBehaviour:
   closeDoorsAfterTime: 1
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
+  connectedDoor: {fileID: 0}
+  openDoorSound:
+    clip: {fileID: 0}
+    mixerGroup: {fileID: 0}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 1
+    secondsDelay: 0
+  doorLeftAnimator: {fileID: 0}
+  doorRightAnimator: {fileID: 0}
+  tp: {fileID: 0}
 --- !u!65 &1594254946
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -31866,16 +31706,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd995697258d7d24ca5c1e437dbdc2a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: 
-  AvailableDialogs:
-  - {fileID: 11400000, guid: 884643ed6cff5d242b803c807229180f, type: 2}
-  dialogueIndex: 0
-  DialogueLocalIndex: 0
-  isDialogueActive: 0
-  NPCInteracted: 0
-  headTarget: {fileID: 0}
-  id: 
-  DialogueEvents: []
 --- !u!1 &1595290235
 GameObject:
   m_ObjectHideFlags: 0
@@ -32321,16 +32151,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd995697258d7d24ca5c1e437dbdc2a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: 
-  AvailableDialogs:
-  - {fileID: 11400000, guid: f6ebf22ce78768f4486772420c4d2379, type: 2}
-  dialogueIndex: 0
-  DialogueLocalIndex: 0
-  isDialogueActive: 0
-  NPCInteracted: 0
-  headTarget: {fileID: 0}
-  id: 
-  DialogueEvents: []
 --- !u!65 &1669718348
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -32415,12 +32235,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a81b347b9f73d43bda71d317d1412d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: 
-  id: MP3
-  ItemData: {fileID: 11400000, guid: 3d3b164a13642b243940a3bf7d9d0138, type: 2}
-  canBePicked: 0
-  deactivateOnPickup: 1
-  objectPrefab: {fileID: 0}
 --- !u!65 &1677032638
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -32454,16 +32268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd995697258d7d24ca5c1e437dbdc2a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: MP3
-  AvailableDialogs:
-  - {fileID: 11400000, guid: d1a8c695b6f2a7140b4220759f1101a6, type: 2}
-  dialogueIndex: 0
-  DialogueLocalIndex: 0
-  isDialogueActive: 0
-  NPCInteracted: 0
-  headTarget: {fileID: 0}
-  id: 
-  DialogueEvents: []
 --- !u!1 &1698538302
 GameObject:
   m_ObjectHideFlags: 0
@@ -39388,17 +39192,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7359b9d7891f9b4ba6cab798785e579, type: 3}
---- !u!114 &1878733413 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8639627735482964560, guid: b7359b9d7891f9b4ba6cab798785e579, type: 3}
-  m_PrefabInstance: {fileID: 1878733412}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1878733414}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58a81b347b9f73d43bda71d317d1412d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1878733414 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7359426875308882540, guid: b7359b9d7891f9b4ba6cab798785e579, type: 3}
@@ -39834,12 +39627,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a81b347b9f73d43bda71d317d1412d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: 
-  id: 
-  ItemData: {fileID: 11400000, guid: 2656e0ee07bf51e4a884e605f0c0854a, type: 2}
-  canBePicked: 0
-  deactivateOnPickup: 1
-  objectPrefab: {fileID: 0}
 --- !u!114 &1961069311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39852,15 +39639,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd995697258d7d24ca5c1e437dbdc2a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: Reloj de bolsillo
-  AvailableDialogs: []
-  dialogueIndex: 0
-  DialogueLocalIndex: 0
-  isDialogueActive: 0
-  NPCInteracted: 0
-  headTarget: {fileID: 0}
-  id: 
-  DialogueEvents: []
 --- !u!65 &1961069312
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -39885,11 +39663,6 @@ BoxCollider:
 --- !u!1 &1966160212 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2326339305827683243, guid: 002ecf8dc93abc4478e944281e92837b, type: 3}
-  m_PrefabInstance: {fileID: 485380313}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1974430415 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1212012201101819427, guid: 002ecf8dc93abc4478e944281e92837b, type: 3}
   m_PrefabInstance: {fileID: 485380313}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1978672674 stripped
@@ -39996,6 +39769,17 @@ MonoBehaviour:
   closeDoorsAfterTime: 1
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
+  connectedDoor: {fileID: 0}
+  openDoorSound:
+    clip: {fileID: 0}
+    mixerGroup: {fileID: 0}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 1
+    secondsDelay: 0
+  doorLeftAnimator: {fileID: 0}
+  doorRightAnimator: {fileID: 0}
+  tp: {fileID: 0}
 --- !u!114 &1982478777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40008,16 +39792,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd995697258d7d24ca5c1e437dbdc2a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: 
-  AvailableDialogs:
-  - {fileID: 11400000, guid: 884643ed6cff5d242b803c807229180f, type: 2}
-  dialogueIndex: 0
-  DialogueLocalIndex: 0
-  isDialogueActive: 0
-  NPCInteracted: 0
-  headTarget: {fileID: 0}
-  id: 
-  DialogueEvents: []
 --- !u!4 &1984103465 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8038264235095997063, guid: 002ecf8dc93abc4478e944281e92837b, type: 3}
@@ -40328,16 +40102,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd995697258d7d24ca5c1e437dbdc2a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: Ventana rota
-  AvailableDialogs:
-  - {fileID: 11400000, guid: 98feb9d105fab734a8e8cbab37edd23c, type: 2}
-  dialogueIndex: 0
-  DialogueLocalIndex: 0
-  isDialogueActive: 0
-  NPCInteracted: 0
-  headTarget: {fileID: 0}
-  id: 
-  DialogueEvents: []
 --- !u!23 &2031792890
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -40468,12 +40232,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a81b347b9f73d43bda71d317d1412d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: 
-  id: PolaroidItem
-  ItemData: {fileID: 11400000, guid: 6e665f960c994b24a92df3efb6ffa7ad, type: 2}
-  canBePicked: 1
-  deactivateOnPickup: 1
-  objectPrefab: {fileID: 0}
 --- !u!65 &2032910910
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -40986,6 +40744,17 @@ MonoBehaviour:
   closeDoorsAfterTime: 1
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
+  connectedDoor: {fileID: 0}
+  openDoorSound:
+    clip: {fileID: 0}
+    mixerGroup: {fileID: 0}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 1
+    secondsDelay: 0
+  doorLeftAnimator: {fileID: 0}
+  doorRightAnimator: {fileID: 0}
+  tp: {fileID: 0}
 --- !u!65 &2114317937
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -41520,7 +41289,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58a81b347b9f73d43bda71d317d1412d, type: 3}
+  m_Script: {fileID: 11500000, guid: 2830406988144ce46b7702d0437448cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2125096221
@@ -41639,12 +41408,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a81b347b9f73d43bda71d317d1412d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: 
-  id: 
-  ItemData: {fileID: 11400000, guid: ceaef5b63c08dc541a85b7eeed5e2bd3, type: 2}
-  canBePicked: 0
-  deactivateOnPickup: 1
-  objectPrefab: {fileID: 0}
 --- !u!114 &2129773583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41657,15 +41420,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd995697258d7d24ca5c1e437dbdc2a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactText: Fotos del tren
-  AvailableDialogs: []
-  dialogueIndex: 0
-  DialogueLocalIndex: 0
-  isDialogueActive: 0
-  NPCInteracted: 0
-  headTarget: {fileID: 0}
-  id: 
-  DialogueEvents: []
 --- !u!65 &2129773584
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -41912,7 +41666,7 @@ MonoBehaviour:
   interactText: Stop train
   Crystal: {fileID: 7474806123952103556}
   TriggerRock: {fileID: 1424379684}
-  Rock: {fileID: 1878733413}
+  Rock: {fileID: 0}
 --- !u!33 &3562314645427504869
 MeshFilter:
   m_ObjectHideFlags: 0
