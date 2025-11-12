@@ -191,6 +191,7 @@ public class UIManager : Singleton<UIManager>, IUIManager
 }
 public interface IUIManager
 {
+    void PauseMenu();
     void ShowCrossHairFade(bool show);
     void ShowPanel(UIPanelID panelID);
     void HideCurrentPanel();

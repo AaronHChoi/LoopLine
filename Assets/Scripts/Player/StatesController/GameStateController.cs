@@ -48,6 +48,7 @@ public class GameStateController : MonoBehaviour, IGameStateController
 public interface IGameStateController
 {
     public event Action OnPauseMenu;
-
+    public GameplayState GameplayState{ get; }
+    void ChangeState(IGameState newState);
     void UseEventPauseMenu();
 }

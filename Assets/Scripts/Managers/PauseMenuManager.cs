@@ -1,8 +1,10 @@
 using DependencyInjection;
 using Player;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PauseMenuManager : Singleton<PauseMenuManager>, IPauseMenuManager
@@ -15,9 +17,14 @@ public class PauseMenuManager : Singleton<PauseMenuManager>, IPauseMenuManager
     private Dictionary<AudioSource, float> MasterAudio;
 
     [SerializeField] private GameObject pauseMenu;
+
+    IGameStateController gameStateController;
+    IUIManager uiManager;
     protected override void Awake()
     {
         base.Awake();
+        gameStateController = InterfaceDependencyInjector.Instance.Resolve<IGameStateController>();
+        uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
     }
 
     private void Start()
@@ -72,6 +79,12 @@ public class PauseMenuManager : Singleton<PauseMenuManager>, IPauseMenuManager
             sfxVolumeSlider.onValueChanged.RemoveListener(OnVolumeChangedSFX);
     }
 
+    public void LoadMenu()
+    {
+        gameStateController.ChangeState(gameStateController.GameplayState);
+        SceneManager.LoadScene("01. MainMenu");
+        pauseMenu.SetActive(false);
+    }
     public GameObject PauseGameObject()
     {
         return pauseMenu;

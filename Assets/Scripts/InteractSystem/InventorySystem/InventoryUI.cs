@@ -294,7 +294,7 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
 
         if (savedItems.Count == 0)
         {
-            Debug.Log("No hay ítems guardados en InventoryManager");
+            Debug.Log("No hay items guardados en InventoryManager");
             return;
         }
 
