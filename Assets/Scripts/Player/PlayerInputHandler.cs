@@ -84,7 +84,8 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerInputHandler
     }
     public bool DevelopmentModePressed()
     {
-        return developmentMode.WasPerformedThisFrame();
+        return false;
+        //return developmentMode.WasPerformedThisFrame();
     }
     public bool PauseMenuModePressed()
     {

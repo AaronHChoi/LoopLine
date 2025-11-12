@@ -41,6 +41,11 @@ public class GameManager : Singleton<GameManager>
 
         SetGameConditions();
     }
+    //public void CheckAdditiveScene()
+    //{
+    //    PolaroidItem polaroid = FindAnyObjectByType<PolaroidItem>();
+    //    polaroid.gameObject.SetActive(false);
+    //}
     private void Update()
     {
         //TESTING

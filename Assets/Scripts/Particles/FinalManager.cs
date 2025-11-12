@@ -4,6 +4,7 @@ using UnityEngine;
 public class FinalManager : MonoBehaviour
 {
     [SerializeField] ParticleSystem twirlParticles;
+    [SerializeField] Material distortion;
 
     IClockPuzzleManager clockPuzzleManager;
 
@@ -22,6 +23,8 @@ public class FinalManager : MonoBehaviour
     private void FirstQuestComplete()
     {
         var emissionModule = twirlParticles.emission;
+
+        distortion.SetFloat("_Distorsion_Strength", 0.01f);
 
         emissionModule.rateOverTime = 250f;
     }
