@@ -28,5 +28,13 @@ public enum Events
     Base_BG,
     Base_CG,
     Additive_Clocks_MG,
-    Additive_Clocks_WM
+    Additive_Clocks_WM,
+    #region PHOTO_QUEST_2
+    Photo1Quest2,
+    Photo2Quest2,
+    Photo3Quest2,
+    Photo4Quest2,
+    Photo5Quest2,
+    Photo6Quest2,
+    #endregion
 }
