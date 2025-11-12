@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using DependencyInjection;
 using UnityEngine;
@@ -46,15 +47,19 @@ public class GameManager : Singleton<GameManager>
         //TESTING
         if (Input.GetKeyDown(KeyCode.H))
         {
-
+            foreach (KeyValuePair<GameCondition, bool> entry in conditions)
+            {
+                Debug.Log($"<b>{entry.Key}</b>: {entry.Value}");
+            }
         }
     }
     public void SetGameConditions()
     {
-        var keys = new List<GameCondition>(conditions.Keys);
-        foreach (var key in keys)
+        conditions.Clear();
+
+        foreach (GameCondition enumValue in Enum.GetValues(typeof(GameCondition)))
         {
-            conditions[key] = false;
+            conditions[enumValue] = false;
         }
     }
     public bool GetCondition(GameCondition condition)

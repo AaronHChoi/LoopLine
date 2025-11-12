@@ -228,8 +228,7 @@ public class DialogueUI : MonoBehaviour
         isTyping = true;
         dialogueText.text = "";
 
-        var soundInstance = SoundManager.Instance.CreateSound()
-            .WithSoundData(typeSound);
+        
 
         int i = 0;
         while (i < fullText.Length)
@@ -240,12 +239,15 @@ public class DialogueUI : MonoBehaviour
                 if (tagEnd != -1)
                 {
                     dialogueText.text += fullText.Substring(i, tagEnd - i + 1);
+                    
                     i = tagEnd + 1;
                     continue;
                 }
             }
             dialogueText.text += fullText[i];
-
+            SoundManager.Instance.CreateSound()
+                        .WithSoundData(typeSound)
+                        .Play();
             i++;
             yield return new WaitForSeconds(typingSpeed);
         }

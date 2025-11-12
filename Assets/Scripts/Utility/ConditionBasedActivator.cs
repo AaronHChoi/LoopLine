@@ -9,7 +9,11 @@ public class ConditionBasedActivator : MonoBehaviour
     {
         bool conditionValue = GameManager.Instance.GetCondition(conditionCheck);
 
-        if (conditionValue)
+        if (!conditionValue)
+        {
+            gameObject.SetActive(!active);
+        }
+        else
         {
             gameObject.SetActive(active);
         }

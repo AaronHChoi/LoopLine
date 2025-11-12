@@ -30,6 +30,7 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
     IPlayerStateController playerStateController;
     IPolaroidUIAnimation uiAnimation;
     IPlayerInteract playerInteract;
+    IMonologueSpeaker monologueSpeaker;
 
     public event Action<string> OnPhotoClueCaptured;
 
@@ -39,6 +40,7 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
         uiAnimation = InterfaceDependencyInjector.Instance.Resolve<IPolaroidUIAnimation>();
         playerInteract = InterfaceDependencyInjector.Instance.Resolve<IPlayerInteract>();
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
     }
     private void Start()
     {
@@ -92,6 +94,10 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
         if (target != null && target.TryGetComponent(out RaycastActivator activator))
         {
             activator.SetChildrenActive(true);
+
+            Events eventToPlay = activator.monologueToTrigger;
+
+            monologueSpeaker.StartMonologue(eventToPlay);
         }
     }
     void UpdatePhotoCounter()

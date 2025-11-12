@@ -17,7 +17,7 @@ public abstract class ItemInteract : MonoBehaviour, IItemGrabInteract
     [Header("References")]
     IInventoryUI inventoryUI;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
     }

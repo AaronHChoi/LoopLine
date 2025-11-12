@@ -1,6 +1,17 @@
 using System.Collections;
 using UnityEngine;
 using DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+[Serializable]
+public class MonologuePanelMapping
+{
+    public Events monologueEvent;
+    public UIPanelID panelID;
+}
+
 public class EventManager : Subject, IEventManager
 {
     [Header("Sound System Event 1")]
@@ -19,6 +30,8 @@ public class EventManager : Subject, IEventManager
     [SerializeField] StopButtonInteract stopButtonInteract;
     private Coroutine coroutineDelay;
 
+    [SerializeField] List<MonologuePanelMapping> monologuePanelMap = new List<MonologuePanelMapping>();
+
     ITimeProvider timeManager;
     IUIManager uiManager;
     IDialogueManager dialogueManager;
@@ -31,11 +44,34 @@ public class EventManager : Subject, IEventManager
     private void Start()
     {
         stopButtonInteract = FindAnyObjectByType<StopButtonInteract>();
+
+        MonologueSpeaker[] allSpeakers = FindObjectsByType<MonologueSpeaker>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        foreach(MonologueSpeaker speaker in allSpeakers)
+        {
+            speaker.OnMonologueEnded += HandleMonologueEnded;
+        }
     }
     void Update()
     {
         TrainEventResumeTrain();
         TrainEvent2();
+    }
+    private void OnDisable()
+    {
+        MonologueSpeaker[] allSpeakers = FindObjectsByType<MonologueSpeaker>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        foreach (MonologueSpeaker speaker in allSpeakers)
+        {
+            speaker.OnMonologueEnded -= HandleMonologueEnded;
+        }
+    }
+    private void HandleMonologueEnded(Events monologueEvent)
+    {
+        MonologuePanelMapping mapping = monologuePanelMap.FirstOrDefault(m => m.monologueEvent == monologueEvent);
+
+        if (mapping != null)
+        {
+            uiManager.ShowPanel(mapping.panelID);
+        }
     }
     #region TrainEvents
     public void TrainEventStopTrain()
