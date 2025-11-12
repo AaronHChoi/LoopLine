@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using DependencyInjection;
 using UnityEngine;
 
 public class MonologueSpeaker : DialogueSpeakerBase, IMonologueSpeaker

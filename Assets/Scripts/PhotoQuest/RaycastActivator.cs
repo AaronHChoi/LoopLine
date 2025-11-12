@@ -3,6 +3,7 @@ using UnityEngine;
 public class RaycastActivator : MonoBehaviour
 {
     [SerializeField] GameCondition gameCondition;
+    [SerializeField] public Events monologueToTrigger;
     bool afterAwake = false;
     private void Awake()
     {
