@@ -509,13 +509,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameCondition: 5
+  monologueToTrigger: 0
 --- !u!1001 &195182341
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 522155960}
+    m_TransformParent: {fileID: 674814412}
     m_Modifications:
     - target: {fileID: 1719721594945810833, guid: a7cfd94fd7fdef7428f94513779662ce, type: 3}
       propertyPath: m_text
@@ -527,15 +528,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4599706620215128423, guid: a7cfd94fd7fdef7428f94513779662ce, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.9
+      value: 0.03700006
       objectReference: {fileID: 0}
     - target: {fileID: 4599706620215128423, guid: a7cfd94fd7fdef7428f94513779662ce, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.802
+      value: 0.027999997
       objectReference: {fileID: 0}
     - target: {fileID: 4599706620215128423, guid: a7cfd94fd7fdef7428f94513779662ce, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.491
+      value: -0.013000488
       objectReference: {fileID: 0}
     - target: {fileID: 4599706620215128423, guid: a7cfd94fd7fdef7428f94513779662ce, type: 3}
       propertyPath: m_LocalRotation.w
@@ -981,7 +982,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 195182342}
+  - {fileID: 674814412}
   - {fileID: 191857517}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1378,6 +1379,81 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 66228917943479368, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
   m_PrefabInstance: {fileID: 654491185}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &674814411
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 674814412}
+  - component: {fileID: 674814414}
+  - component: {fileID: 674814413}
+  m_Layer: 3
+  m_Name: EvidenceMarker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &674814412
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674814411}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.937, y: 0.774, z: -8.478}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 195182342}
+  m_Father: {fileID: 522155960}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &674814413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674814411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1115c04571bbba4fb19def5dcff0ea7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueGroups:
+  - eventType: 17
+    dialogues:
+    - {fileID: 11400000, guid: 0e8c66af74e27ea439fedd06d06073ae, type: 2}
+  currentEvent: 17
+  npcType: 6
+  autoAdvance: 0
+  interactText: 
+--- !u!65 &674814414
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674814411}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.2300458, y: 0.26205403, z: 0.29910994}
+  m_Center: {x: 0.03230846, y: 0.11425558, z: -0.014495492}
 --- !u!1001 &909841429
 PrefabInstance:
   m_ObjectHideFlags: 0
