@@ -7,12 +7,14 @@ public class TeleportLoop : MonoBehaviour
 
     [SerializeField] private DoorInteract doorInteract;
     IGameSceneManager gameSceneManager;
+    IPhotoCapture polaroid;
 
     [SerializeField] GameObject player;
 
     private void Awake()
     {
         gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
+        polaroid = InterfaceDependencyInjector.Instance.Resolve<IPhotoCapture>();
     }
     public void Teleport()
     {
@@ -33,6 +35,7 @@ public class TeleportLoop : MonoBehaviour
             cc.enabled = true;
 
             GameManager.Instance.TrainLoop += 1;
+            polaroid.ResetPhotoCounter();
         }
     }
 }

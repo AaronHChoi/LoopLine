@@ -9,6 +9,11 @@ public class CameraClue : ItemInteract
     public override void Start()
     {
         base.Start();
+
+        if (GameManager.Instance.GetCondition(GameCondition.CameraGirlClue))
+        {
+            gameObject.SetActive(false);
+        }
     }
     public override bool Interact()
     {

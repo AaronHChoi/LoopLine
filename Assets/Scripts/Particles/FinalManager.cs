@@ -7,18 +7,22 @@ public class FinalManager : MonoBehaviour
     [SerializeField] Material distortion;
 
     IClockPuzzleManager clockPuzzleManager;
+    IPhotoQuestManager photoQuestManager;
 
     private void Awake()
     {
         clockPuzzleManager = InterfaceDependencyInjector.Instance.Resolve<IClockPuzzleManager>();
+        photoQuestManager = InterfaceDependencyInjector.Instance.Resolve<IPhotoQuestManager>();
     }
     private void OnEnable()
     {
-        clockPuzzleManager.OnPhotoQuestFinished += FirstQuestComplete;
+        clockPuzzleManager.OnClockQuestFinished += FirstQuestComplete;
+        photoQuestManager.OnPhotoQuestFinished += SecondQuestComplete;
     }
     private void OnDisable()
     {
-        clockPuzzleManager.OnPhotoQuestFinished -= FirstQuestComplete;
+        clockPuzzleManager.OnClockQuestFinished -= FirstQuestComplete;
+        photoQuestManager.OnPhotoQuestFinished -= SecondQuestComplete;
     }
     private void FirstQuestComplete()
     {
@@ -27,5 +31,13 @@ public class FinalManager : MonoBehaviour
         distortion.SetFloat("_Distorsion_Strength", 0.01f);
 
         emissionModule.rateOverTime = 250f;
+    }
+    private void SecondQuestComplete()
+    {
+        var emissionModule = twirlParticles.emission;
+
+        distortion.SetFloat("_Distorsion_Strength", 0f);
+
+        emissionModule.rateOverTime = 0f;
     }
 }

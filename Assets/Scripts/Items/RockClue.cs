@@ -8,6 +8,11 @@ public class RockClue : ItemInteract
     public override void Start()
     {
         base.Start();
+
+        if (GameManager.Instance.GetCondition(GameCondition.RockClue))
+        {
+            gameObject.SetActive(false);
+        }
     }
     public override bool Interact()
     {

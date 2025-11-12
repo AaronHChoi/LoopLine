@@ -8,6 +8,11 @@ public class LetterClue : ItemInteract
     public override void Start()
     {
         base.Start();
+
+        if (GameManager.Instance.GetCondition(GameCondition.LetterClue))
+        {
+            gameObject.SetActive(false);
+        }
     }
     public override bool Interact()
     {

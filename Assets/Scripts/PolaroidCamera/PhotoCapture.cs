@@ -112,6 +112,10 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
             Debug.LogWarning("photoCounterText is not assigned in the inspector.");
         }
     }
+    public void ResetPhotoCounter()
+    {
+        maxPhotos = 6;
+    }
     public void SetCameraUIVisible(bool isVisible)
     {
         cameraUI.SetActive(isVisible);
@@ -121,4 +125,5 @@ public interface IPhotoCapture
 {
     event Action<string> OnPhotoClueCaptured;
     void SetCameraUIVisible(bool isVisible);
+    void ResetPhotoCounter();
 }

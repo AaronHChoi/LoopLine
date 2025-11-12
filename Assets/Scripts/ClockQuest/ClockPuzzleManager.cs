@@ -13,7 +13,6 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
 
     [SerializeField] Rigidbody rb;
 
-    public event Action OnPhotoQuestFinished;
     public event Action OnClockQuestFinished;
 
     private void OnEnable()
@@ -49,7 +48,6 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
 
             firstTime = true;
 
-            OnPhotoQuestFinished?.Invoke();
             OnClockQuestFinished?.Invoke();
         }
     }
@@ -61,6 +59,5 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
 }
 public interface IClockPuzzleManager
 {
-    event Action OnPhotoQuestFinished;
     event Action OnClockQuestFinished;
 }

@@ -11,7 +11,8 @@ public struct PhotoActivationEntry
 }
 public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
 {
-    IInventoryUI inventoryUI;
+    public event Action OnPhotoQuestFinished;
+
     [SerializeField] SingleDoorInteract doorInteract;
 
     [SerializeField] ItemInteract doorHandler;
@@ -20,6 +21,9 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
 
     [SerializeField] List<PhotoActivationEntry> photoActivations;
     public bool allFramesCorrect { get; private set; } = false;
+
+    IInventoryUI inventoryUI;
+
     private void Awake()
     {
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
@@ -89,6 +93,7 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
     }
     private void PhotoQuestComplete()
     {
+        OnPhotoQuestFinished?.Invoke();
         GameManager.Instance.SetCondition(GameCondition.IsPhotoQuestComplete, true);
     }
 }
@@ -96,4 +101,6 @@ public interface IPhotoQuestManager
 {
     void CheckAllFrames();
     bool allFramesCorrect { get; }
+
+    event Action OnPhotoQuestFinished;
 }
