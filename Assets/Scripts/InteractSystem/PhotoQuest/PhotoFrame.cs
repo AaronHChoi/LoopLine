@@ -1,4 +1,5 @@
 using DependencyInjection;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -23,6 +24,10 @@ public class PhotoFrame : MonoBehaviour, IInteract
         photoQuestManager = InterfaceDependencyInjector.Instance.Resolve<IPhotoQuestManager>();
     }
 
+    private void Start()
+    {
+        StartCoroutine(UpdateNextFrame());
+    }
     public void Interact()
     {
         if (inventoryUI.ItemInUse.id != inventoryUI.HandItemUI.id && !photoQuestManager.allFramesCorrect)
@@ -87,5 +92,13 @@ public class PhotoFrame : MonoBehaviour, IInteract
         CorrectPhotoPlaced = false;
     }
 
+    private IEnumerator UpdateNextFrame()
+    {
+        yield return null;
+        for (int i = 0; i < Photos.Count; i++)
+        {
+            Photos[i].gameObject.SetActive(false);
+        }
+    }
     public string GetInteractText() => interactText;
 }
