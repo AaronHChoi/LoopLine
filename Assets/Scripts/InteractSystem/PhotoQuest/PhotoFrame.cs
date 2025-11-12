@@ -1,4 +1,5 @@
 using DependencyInjection;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -7,13 +8,12 @@ public class PhotoFrame : MonoBehaviour, IInteract
     [Header("Settings")]
     [SerializeField] private string interactText = "Place Photo";
     [SerializeField] private PhotoQuestComponent correctPhoto;
-    [SerializeField] private Transform photoSpawnPoint;
-    [SerializeField] private Vector3 photoScalePlaced;
+    [SerializeField] private PhotoQuestComponent currentPhoto;
+    [SerializeField] private List<PhotoQuestComponent> Photos;
 
     public bool CorrectPhotoPlaced { get; private set; }
     private bool isFrameOccupied = false;
 
-    private PhotoQuestComponent currentPhoto;
     private IInventoryUI inventoryUI;
     private IPhotoQuestManager photoQuestManager;
 
@@ -35,6 +35,10 @@ public class PhotoFrame : MonoBehaviour, IInteract
                 PlacePhoto(itemInUse);
             }
         }
+        else if (currentPhoto != null && inventoryUI.ItemInUse.id == inventoryUI.HandItemUI.id && !photoQuestManager.allFramesCorrect)
+        {
+            RemovePhoto(currentPhoto);
+        }
 
         photoQuestManager.CheckAllFrames();
     }
@@ -42,12 +46,16 @@ public class PhotoFrame : MonoBehaviour, IInteract
     private void PlacePhoto(PhotoQuestComponent photo)
     {
         inventoryUI.RemoveInventorySlot(photo);
-        photo.gameObject.transform.position = photoSpawnPoint.position;
-        photo.gameObject.transform.rotation = photoSpawnPoint.rotation;
-        photo.objectPrefab.transform.rotation = photoSpawnPoint.rotation;
-        photo.gameObject.transform.localScale = photoScalePlaced;
-        photo.objectPrefab.SetActive(true);
-        photo.gameObject.SetActive(true);
+
+        for (int i = 0; i < Photos.Count; i++)
+        {
+            if (photo.id == Photos[i].id)
+            {
+                Photos[i].gameObject.SetActive(true);
+                Photos[i].gameObject.layer = LayerMask.NameToLayer("Default");
+                break;
+            }
+        }
 
         isFrameOccupied = true;
         photo.isItemPlaced = true;
@@ -62,13 +70,18 @@ public class PhotoFrame : MonoBehaviour, IInteract
     {
         correctPhoto.gameObject.layer = LayerMask.NameToLayer("Default");
     }
-    public void RemovePhoto()
+    public void RemovePhoto(PhotoQuestComponent photo)
     {
-        if (currentPhoto == null) return;
-        currentPhoto.gameObject.transform.localScale = currentPhoto.PhotoScalePicked;
-        currentPhoto.objectPrefab.transform.localScale = currentPhoto.objectPrefabScalePicked;
-        //currentPhoto.objectPrefab.transform.localScale = currentPhoto.gameObject.transform.localScale;
-        print(currentPhoto.PhotoScalePicked);
+        for (int i = 0; i < Photos.Count; i++)
+        {
+            if (photo.id == Photos[i].id)
+            {
+                Photos[i].gameObject.SetActive(false);
+                currentPhoto.Interact();
+                Photos[i].gameObject.layer = LayerMask.NameToLayer("Default");
+                break;
+            }
+        }
         currentPhoto = null;
         isFrameOccupied = false;
         CorrectPhotoPlaced = false;

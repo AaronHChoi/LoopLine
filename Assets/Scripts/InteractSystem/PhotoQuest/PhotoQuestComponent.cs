@@ -28,7 +28,7 @@ public class PhotoQuestComponent : ItemInteract
         else 
         {
             //gameObject.transform.localScale = PhotoScalePicked.localScale;
-            photoFrame.RemovePhoto();
+            //photoFrame.RemovePhoto(this);
             photoFrame = null;
             isItemPlaced = false;
             return base.Interact();
