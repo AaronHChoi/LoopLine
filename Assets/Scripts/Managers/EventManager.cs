@@ -31,6 +31,10 @@ public class EventManager : Subject, IEventManager
     private void Start()
     {
         stopButtonInteract = FindAnyObjectByType<StopButtonInteract>();
+        if (GameManager.Instance.TrainLoop == 0)
+        {
+            uiManager.ShowPanel(UIPanelID.FirstMovements);
+        }
     }
     void Update()
     {
