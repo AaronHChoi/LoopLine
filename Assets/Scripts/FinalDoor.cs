@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class FinalDoor : MonoBehaviour, IInteract
 {
+    private bool isCursorVisible = false;
     IGameSceneManager gameSceneManager;
 
     private void Awake()
@@ -20,4 +21,5 @@ public class FinalDoor : MonoBehaviour, IInteract
             gameSceneManager.LoadNextScene("01. MainMenu");
         }
     }
+
 }
