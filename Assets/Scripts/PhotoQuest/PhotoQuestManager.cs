@@ -36,7 +36,6 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
             doorInteract.OnPhotoQuestOpenDoor -= OpenDoorPhotoQuest;
         }
     }
-
     public void CheckAllFrames()
     {
         foreach (var frame in frames)
@@ -47,7 +46,6 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
 
         OnQuestCompleted();
     }
-
     private void OnQuestCompleted()
     {
         Debug.Log("Todas las fotos colocadas correctamente");       
@@ -62,14 +60,13 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
         inventoryUI.RemoveInventorySlot(doorHandler);
         GameManager.Instance.SetCondition(GameCondition.PhotoDoorOpen, true);
     }
-}
-
-public interface IPhotoQuestManager
-{
-    void CheckAllFrames();
-    bool allFramesCorrect { get; }
     private void PhotoQuestComplete()
     {
         GameManager.Instance.SetCondition(GameCondition.IsPhotoQuestComplete, true);
     }
+}
+public interface IPhotoQuestManager
+{
+    void CheckAllFrames();
+    bool allFramesCorrect { get; }
 }

@@ -11,17 +11,26 @@ public class CrosshairFadeController : MonoBehaviour, ICrosshairFade
     private bool bigCroshairVisibility = false;
     private bool smallCroshairVisibility = false;
 
+    string ignoreTag = "PhotoQuest";
 
     void Start()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
-
-
     void Update()
     {
+        bool showInteractCrosshair = false;
+
         if (rayController.FoundInteract)
+        {
+            if (rayController.Target != null && !rayController.Target.CompareTag(ignoreTag))
+            {
+                showInteractCrosshair = true;
+            }
+        }
+
+        if (showInteractCrosshair)
         {
             ShowCrosshairByFade(fadeCrosshairBig, ref bigCroshairVisibility, true);
             ShowCrosshairByFade(fadeCrosshairSmall, ref smallCroshairVisibility, false);

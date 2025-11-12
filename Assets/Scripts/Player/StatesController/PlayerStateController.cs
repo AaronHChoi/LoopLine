@@ -27,7 +27,6 @@ namespace Player
         IPhotoCapture photoCapture;
         IPlayerInteractMarkerPrompt interaction;
         IPlayerMovement playerMovement;
-        ITogglePhotoDetection togglePhotoDetection;
         IPlayerInputHandler inputHandler;
         IGameSceneManager gameSceneManager;
         public NormalState NormalState { get; set; }
@@ -38,8 +37,7 @@ namespace Player
         public MindPlaceState MindPlaceState { get;  set; }
         public ObjectInHandState ObjectInHandState { get;  set; }
         private void Awake()
-        {
-            togglePhotoDetection = InterfaceDependencyInjector.Instance.Resolve<ITogglePhotoDetection>();           
+        {         
             inputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
             playerMovement = InterfaceDependencyInjector.Instance.Resolve<IPlayerMovement>();
             interaction = InterfaceDependencyInjector.Instance.Resolve<IPlayerInteractMarkerPrompt>();
@@ -52,7 +50,7 @@ namespace Player
 
             NormalState = new NormalState(this, inputHandler, playerMovement, cinemachinePOVExtension);
             DialogueState = new DialogueState(this, inputHandler, playerMovement, cinemachinePOVExtension);
-            CameraState = new CameraState(this, inputHandler, playerMovement, photoCapture, cinemachinePOVExtension, interaction, togglePhotoDetection);
+            CameraState = new CameraState(this, inputHandler, playerMovement, photoCapture, cinemachinePOVExtension, interaction);
             DevelopmentState = new DevelopmentState(this, inputHandler, playerMovement, cinemachinePOVExtension, timeManager);
             MindPlaceState = new MindPlaceState(this, inputHandler, playerMovement);
             ObjectInHandState = new ObjectInHandState(this, inputHandler, playerMovement, cinemachinePOVExtension);
