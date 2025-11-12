@@ -11,4 +11,8 @@ public enum GameCondition
     Photo4,
     Photo5,
     Photo6,
+    LetterClue,
+    PhotosClue,
+    RockClue,
+    CameraGirlClue,
 }
