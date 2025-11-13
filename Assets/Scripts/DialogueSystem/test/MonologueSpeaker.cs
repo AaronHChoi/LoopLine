@@ -17,7 +17,11 @@ public class MonologueSpeaker : DialogueSpeakerBase, IMonologueSpeaker
         base.Start();
         currentMonologueEvent = defaultEvent;
 
-        StartCoroutine(StartMonologueWithDelay());
+        if (GameManager.Instance.HasCamera) //Patch
+        {
+            StartCoroutine(StartMonologueWithDelay());
+            GameManager.Instance.HasCamera = false;
+        }
     }
     public void StartMonologue(Events eventType)
     {

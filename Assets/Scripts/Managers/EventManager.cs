@@ -66,6 +66,8 @@ public class EventManager : Subject, IEventManager
     }
     private void HandleMonologueEnded(Events monologueEvent)
     {
+        if (GameManager.Instance.TrainLoop > 0) return;
+
         MonologuePanelMapping mapping = monologuePanelMap.FirstOrDefault(m => m.monologueEvent == monologueEvent);
 
         if (mapping != null)

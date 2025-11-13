@@ -25,7 +25,7 @@ public class GameManager : Singleton<GameManager>
     }
 
     [Header("Player")]
-    [SerializeField] bool hasCamera;
+    [SerializeField] bool hasCamera = true;
     public bool HasCamera
     {
         get { return  hasCamera; }
