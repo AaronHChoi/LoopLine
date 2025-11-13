@@ -3,5 +3,6 @@ public enum UIPanelID
 {
     Default,
     ClockTutorial,
-    FirstMovements  
+    FirstMovements,
+    InventoryTutorial
 }
