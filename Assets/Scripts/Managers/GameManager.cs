@@ -33,12 +33,13 @@ public class GameManager : Singleton<GameManager>
     }
 
     public IScreenManager screenManager;
-
+    IGameSceneManager gameSceneManager;
     protected override void Awake()
     {
         base.Awake();
 
         screenManager = InterfaceDependencyInjector.Instance.Resolve<IScreenManager>();
+        gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
 
         SetGameConditions();
     }
@@ -47,10 +48,11 @@ public class GameManager : Singleton<GameManager>
         //TESTING
         if (Input.GetKeyDown(KeyCode.H))
         {
-            foreach (KeyValuePair<GameCondition, bool> entry in conditions)
-            {
-                Debug.Log($"<b>{entry.Key}</b>: {entry.Value}");
-            }
+            gameSceneManager.SetInitialLoop(true);
+        }
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            gameSceneManager.SetInitialLoop(false);
         }
     }
     public void SetGameConditions()
