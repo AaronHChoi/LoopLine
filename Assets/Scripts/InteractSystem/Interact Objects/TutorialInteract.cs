@@ -1,8 +1,7 @@
-
 using DependencyInjection;
 using UnityEngine;
 
-public class PolaroidItem : ItemInteract
+public class TutorialInteract : ItemInteract
 {
     IUIManager uiManager;
     [SerializeField] UIPanelID panelID;
@@ -17,16 +16,7 @@ public class PolaroidItem : ItemInteract
     }
     public override bool Interact()
     {
-        if (canBePicked)
-        {
-            GameManager.Instance.HasCamera = true;
-            uiManager.ShowPanel(panelID);
-            GameManager.Instance.SetCondition(GameCondition.PolaroidTaken, true);
-            gameObject.SetActive(false);
-            return true;
-        }
-        return false;
+        uiManager.ShowPanel(panelID);
+        return base.Interact();
     }
-
-
 }
