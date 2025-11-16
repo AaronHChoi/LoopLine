@@ -9,4 +9,5 @@ public enum GameCondition
     PhotosClue,
     RockClue,
     CameraGirlClue,
+    TeleportAvailable,
 }

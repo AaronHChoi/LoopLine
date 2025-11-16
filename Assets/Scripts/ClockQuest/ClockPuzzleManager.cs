@@ -55,6 +55,7 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
     {
         rb.isKinematic = false;
         GameManager.Instance.SetCondition(GameCondition.IsClockQuestComplete, true);
+        GameManager.Instance.SetCondition(GameCondition.TeleportAvailable, false);
     }
 }
 public interface IClockPuzzleManager

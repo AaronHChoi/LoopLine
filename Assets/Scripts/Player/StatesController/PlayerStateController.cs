@@ -126,7 +126,6 @@ namespace Player
         void UseEventDialogueNext();
         void UseEventGrab();
         void UseEventTeleport();
-        bool CanUseNormalStateExecute { get; set; }
         NormalState NormalState { get;  set; }
         DialogueState DialogueState { get; set; }
         CameraState CameraState { get; set; }

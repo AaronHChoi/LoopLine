@@ -90,6 +90,7 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
     {
         inventoryUI.RemoveInventorySlot(doorHandler);
         GameManager.Instance.SetCondition(GameCondition.PhotoDoorOpen, true);
+        GameManager.Instance.SetCondition(GameCondition.TeleportAvailable, true);
     }
     private void PhotoQuestComplete()
     {

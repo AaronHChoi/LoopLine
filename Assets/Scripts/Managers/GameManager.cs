@@ -9,7 +9,20 @@ public class GameManager : Singleton<GameManager>
     public string nextScene;
     public bool isGamePaused;
 
-    public int TrainLoop = 0;
+    [SerializeField] int trainLoop = 0;
+
+    public int TrainLoop
+    {
+        get { return trainLoop; }
+        set
+        {
+            trainLoop = value;
+            if (trainLoop > 3)
+            {
+                SetCondition(GameCondition.TeleportAvailable, true);
+            }
+        }
+    }
 
     Dictionary<GameCondition, bool> conditions = new Dictionary<GameCondition, bool>();
 
@@ -33,13 +46,11 @@ public class GameManager : Singleton<GameManager>
     }
 
     public IScreenManager screenManager;
-    IGameSceneManager gameSceneManager;
     protected override void Awake()
     {
         base.Awake();
 
         screenManager = InterfaceDependencyInjector.Instance.Resolve<IScreenManager>();
-        gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
 
         SetGameConditions();
     }
@@ -48,11 +59,7 @@ public class GameManager : Singleton<GameManager>
         //TESTING
         if (Input.GetKeyDown(KeyCode.H))
         {
-            gameSceneManager.SetInitialLoop(true);
-        }
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            gameSceneManager.SetInitialLoop(false);
+
         }
     }
     public void SetGameConditions()
