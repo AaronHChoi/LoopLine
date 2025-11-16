@@ -24,8 +24,13 @@ public class TeleportLoop : MonoBehaviour
 
         if (cc != null)
         {
-            gameSceneManager.UnloadLastScene();
-            gameSceneManager.LoadRandomScene();
+            bool isInitialLoop = gameSceneManager.GetIsInInitialLoop();
+
+            if (!isInitialLoop)
+            {
+                gameSceneManager.UnloadLastScene();
+                gameSceneManager.LoadRandomScene();
+            }
 
             cc.enabled = false;
 

@@ -11,25 +11,27 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
 
     [Header("Active Scenes")]
     [SerializeField] private List<string> activeScenes = new List<string>();
-    [SerializeField] private List <string> constantActiveScenes = new List<string>();
+
+    bool isInInitialLoop = true;
 
     protected override void Awake()
     {
         base.Awake();
     }
     private void Start()
-    {     
+    {
         if (IsCurrentScene("04. Train"))
         {
-            foreach (var sceneName in constantActiveScenes)
-            {
-                if (!SceneManager.GetSceneByName(sceneName).isLoaded)
-                {
-                    SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-                }
-            }
             StartCoroutine(LoadSceneAsync(firstScene.sceneName));
         }
+    }
+    public void SetInitialLoop(bool isActive)
+    {
+        isInInitialLoop = isActive;
+    }
+    public bool GetIsInInitialLoop()
+    {
+        return isInInitialLoop;
     }
     public void LoadRandomScene()
     {
@@ -61,7 +63,7 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
         }
         return weightedScenes[0].sceneName;
     }
-    private IEnumerator LoadSceneAsync(string sceneName)
+    public IEnumerator LoadSceneAsync(string sceneName)
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         while (!asyncLoad.isDone)
@@ -89,7 +91,6 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
             }
         } 
     }
-
     public void RemoveScene(string SceneName)
     {
         for (int i = 0; i < weightedScenes.Count; i++)
@@ -117,4 +118,7 @@ public interface IGameSceneManager
     void UnloadLastScene();
     void ChangeSceneWeighth(string SceneName, int newWeight);
     void RemoveScene(string SceneName);
+    IEnumerator LoadSceneAsync(string sceneName);
+    void SetInitialLoop(bool isActive);
+    bool GetIsInInitialLoop();
 }
