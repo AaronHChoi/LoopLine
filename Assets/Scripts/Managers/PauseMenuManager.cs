@@ -1,4 +1,5 @@
 using DependencyInjection;
+using Player;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -17,11 +18,15 @@ public class PauseMenuManager : Singleton<PauseMenuManager>, IPauseMenuManager
     [SerializeField] private GameObject pauseMenu;
 
     IGameStateController gameStateController;
+    IPlayerStateController playerStateController;
+    IPlayerInputHandler inputHandler;
     IUIManager uiManager;
     protected override void Awake()
     {
         base.Awake();
         gameStateController = InterfaceDependencyInjector.Instance.Resolve<IGameStateController>();
+        playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
+        inputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
     }
 
@@ -79,9 +84,12 @@ public class PauseMenuManager : Singleton<PauseMenuManager>, IPauseMenuManager
 
     public void LoadMenu()
     {
-        gameStateController.ChangeState(gameStateController.GameplayState);
-        SceneManager.LoadScene("01. MainMenu");
+        //gameStateController.ChangeState(gameStateController.GameplayState);
+        //gameStateController.GameplayState.Enter();
+        //inputHandler.PauseMenuModePressed();
+        Time.timeScale = 1f;
         pauseMenu.SetActive(false);
+        SceneManager.LoadScene("01. MainMenu");
     }
     public GameObject PauseGameObject()
     {
