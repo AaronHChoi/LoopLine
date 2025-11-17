@@ -29,6 +29,11 @@ public class GameStateController : MonoBehaviour, IGameStateController
 
         gameStateMachine.Initialize(GameplayState);
     }
+
+    private void Start()
+    {
+        ChangeState(GameplayState);
+    }
     private void Update()
     {
         gameStateMachine.Execute();
