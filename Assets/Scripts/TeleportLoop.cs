@@ -1,11 +1,14 @@
+using System;
 using DependencyInjection;
 using UnityEngine;
 
-public class TeleportLoop : MonoBehaviour
+public class TeleportLoop : MonoBehaviour, ITeleportLoop
 {
     public Transform TeleportZoneObject;
 
     [SerializeField] private DoorInteract doorInteract;
+    public event Action OnTeleportTrain;
+
     IGameSceneManager gameSceneManager;
     IPhotoCapture polaroid;
 
@@ -42,5 +45,11 @@ public class TeleportLoop : MonoBehaviour
             GameManager.Instance.TrainLoop += 1;
             polaroid.ResetPhotoCounter();
         }
+
+        OnTeleportTrain?.Invoke();
     }
+}
+public interface ITeleportLoop
+{
+    event Action OnTeleportTrain;
 }

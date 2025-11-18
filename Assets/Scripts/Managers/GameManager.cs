@@ -14,14 +14,7 @@ public class GameManager : Singleton<GameManager>
     public int TrainLoop
     {
         get { return trainLoop; }
-        set
-        {
-            trainLoop = value;
-            if (trainLoop > 3)
-            {
-                SetCondition(GameCondition.TeleportAvailable, true);
-            }
-        }
+        set { trainLoop = value; }
     }
 
     Dictionary<GameCondition, bool> conditions = new Dictionary<GameCondition, bool>();
@@ -53,6 +46,16 @@ public class GameManager : Singleton<GameManager>
         screenManager = InterfaceDependencyInjector.Instance.Resolve<IScreenManager>();
 
         SetGameConditions();
+    }
+    private void OnValidate()
+    {
+        if (trainLoop > 2)
+        {
+            if (Application.isPlaying)
+            {
+                TrainLoop = trainLoop;
+            }
+        }
     }
     private void Update()
     {
