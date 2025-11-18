@@ -19,6 +19,9 @@ namespace Player
         public event Action OnGrab;
         public event Action OnTeleport;
         public event Action OnSwitchCameraMode;
+        public event Action OnPuzzleInteract;
+        public event Action OnPuzzleLeftInteract;
+        public event Action OnPuzzleRightInteract;
         
         StateMachine stateMachine { get; set; }
 
@@ -36,6 +39,7 @@ namespace Player
         public PauseMenuState PauseMenuState { get; set; }
         public MindPlaceState MindPlaceState { get;  set; }
         public ObjectInHandState ObjectInHandState { get;  set; }
+        public PuzzleState PuzzleState { get; set; }
         private void Awake()
         {         
             inputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
@@ -54,6 +58,7 @@ namespace Player
             DevelopmentState = new DevelopmentState(this, inputHandler, playerMovement, cinemachinePOVExtension, timeManager);
             MindPlaceState = new MindPlaceState(this, inputHandler, playerMovement);
             ObjectInHandState = new ObjectInHandState(this, inputHandler, playerMovement, cinemachinePOVExtension);
+            PuzzleState = new PuzzleState(playerMovement, inputHandler, this, cinemachinePOVExtension);
 
             stateMachine.Initialize(NormalState);
         }
@@ -103,6 +108,18 @@ namespace Player
         {
             OnTeleport?.Invoke();
         }
+        public void UseEventPuzzleInteract()
+        {
+            OnPuzzleInteract?.Invoke();
+        }
+        public void UseEventPuzzleLeftInteract() 
+        { 
+            OnPuzzleLeftInteract?.Invoke();
+        }
+        public void UseEventPuzzleRightInteract()
+        {
+            OnPuzzleRightInteract?.Invoke();
+        }
         #endregion
     }
     public interface IPlayerStateController
@@ -116,6 +133,9 @@ namespace Player
         public event Action OnScrollInventory;
         public event Action OnGrab;
         public event Action OnTeleport;
+        public event Action OnPuzzleInteract;
+        public event Action OnPuzzleLeftInteract;
+        public event Action OnPuzzleRightInteract;
         public StateMachine StateMachine { get; }
         bool IsInState(IState state);
         void ChangeState(IState newState);
@@ -126,6 +146,9 @@ namespace Player
         void UseEventDialogueNext();
         void UseEventGrab();
         void UseEventTeleport();
+        void UseEventPuzzleInteract();
+        void UseEventPuzzleLeftInteract();
+        void UseEventPuzzleRightInteract();
         NormalState NormalState { get;  set; }
         DialogueState DialogueState { get; set; }
         CameraState CameraState { get; set; }
@@ -133,5 +156,6 @@ namespace Player
         PauseMenuState PauseMenuState { get; set; }
         MindPlaceState MindPlaceState { get; set; }
         ObjectInHandState ObjectInHandState { get; set; }
+        PuzzleState PuzzleState { get; set; }
     }
 }

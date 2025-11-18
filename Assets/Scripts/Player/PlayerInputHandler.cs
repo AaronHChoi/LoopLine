@@ -20,6 +20,9 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerInputHandler
     InputAction grabItem;
     InputAction look;
     InputAction teleport;
+    InputAction puzzleInteract;
+    InputAction leftPuzzleInteract;
+    InputAction rightPuzzleInteract;
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -41,6 +44,9 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerInputHandler
         grabItem = playerInput.actions["GrabItem"];
         look = playerInput.actions["Look"];
         teleport = playerInput.actions["Teleport"];
+        puzzleInteract = playerInput.actions["PuzzleInteract"];
+        leftPuzzleInteract = playerInput.actions["LeftPuzzleInteract"];
+        rightPuzzleInteract = playerInput.actions["RightPuzzleInteract"];
     }
     public Vector2 GetInputMove()
     {
@@ -95,6 +101,18 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerInputHandler
     {
         return grabItem.WasPerformedThisFrame();
     }
+    public bool PuzzleInteract()
+    {
+        return puzzleInteract.WasPerformedThisFrame();
+    }
+    public bool PuzzleLeftInteract()
+    {
+        return leftPuzzleInteract.WasPerformedThisFrame();
+    }
+    public bool PuzzleRightInteract()
+    {
+        return rightPuzzleInteract.WasPerformedThisFrame();
+    }
 }
 public interface IPlayerInputHandler
 {
@@ -111,4 +129,7 @@ public interface IPlayerInputHandler
     bool PauseMenuModePressed();
     bool GrabItemPressed();
     bool Teleport();
+    bool PuzzleInteract();
+    bool PuzzleLeftInteract();
+    bool PuzzleRightInteract();
 }

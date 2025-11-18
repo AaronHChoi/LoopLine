@@ -1,5 +1,6 @@
 using System;
 using DependencyInjection;
+using Player;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -29,16 +30,15 @@ public class Clock : MonoBehaviour, IInteract, IClock
     [SerializeField] CinemachineCamera player;
     [SerializeField] CinemachineCamera clockZoom;
 
-    [SerializeField] PlayerMovement playerMovement; //test
-    ICameraOrientation playerCamera;
     IUIManager uiManager;
+    IPlayerStateController playerStateController;
 
     [SerializeField] SoundData clockSecondsData;
     [SerializeField] DialogueUI dialogueUI;
     private void Awake()
     {
-        playerCamera = InterfaceDependencyInjector.Instance.Resolve<ICameraOrientation>();
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
+        playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
     }
     private void Start()
     {
@@ -56,21 +56,37 @@ public class Clock : MonoBehaviour, IInteract, IClock
         }
 
         UpdateLights(true);
-
-        if (Input.GetKeyDown(KeyCode.E))
+    }
+    private void OnEnable()
+    {
+        if (playerStateController != null)
         {
-            hourMode = !hourMode;
-            UpdateLights(true);
+            playerStateController.OnPuzzleInteract += PuzzleInteract;
+            playerStateController.OnPuzzleLeftInteract += LeftInteract;
+            playerStateController.OnPuzzleRightInteract += RightInteract;
         }
-
-        if (Input.GetKeyDown(KeyCode.A))
+    }
+    private void OnDisable()
+    {
+        if (playerStateController != null)
         {
-            HandMove(-1);
+            playerStateController.OnPuzzleInteract -= PuzzleInteract;
+            playerStateController.OnPuzzleLeftInteract -= LeftInteract;
+            playerStateController.OnPuzzleRightInteract -= RightInteract;
         }
-        else if (Input.GetKeyDown(KeyCode.D))
-        {
-            HandMove(1);
-        }
+    }
+    private void PuzzleInteract()
+    {
+        hourMode = !hourMode;
+        UpdateLights(true);
+    }
+    private void LeftInteract()
+    {
+        HandMove(-1);
+    }
+    private void RightInteract()
+    {
+        HandMove(1);
     }
     private void LateUpdate()
     {
@@ -94,12 +110,9 @@ public class Clock : MonoBehaviour, IInteract, IClock
     {
         activeMode = !activeMode;
 
-        //uiManager.ShowClockTutorial(activeMode);
-
         if(activeMode)
         {
-            playerMovement.CanMove = false;
-            playerCamera.CanLook = false;
+            playerStateController.ChangeState(playerStateController.PuzzleState);
             clockZoom.gameObject.SetActive(true);
             clockZoom.Priority = 20;
             player.Priority = 10;
@@ -108,11 +121,10 @@ public class Clock : MonoBehaviour, IInteract, IClock
         }
         else
         {
+            playerStateController.ChangeState(playerStateController.NormalState);
             clockZoom.gameObject.SetActive(false);
             clockZoom.Priority = 10;
             player.Priority = 20;
-            playerMovement.CanMove = true;
-            playerCamera.CanLook = true;
             OnExitClock?.Invoke();
             uiManager.HideCurrentPanel();
         }
