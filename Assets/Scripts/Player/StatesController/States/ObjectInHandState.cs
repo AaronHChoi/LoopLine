@@ -36,21 +36,14 @@ namespace Player
             {
                 controller.UseEventInteract();
             }
-            if (input.GrabItemPressed())
-            {
-                controller.UseEventGrab();
-            }
             if (input.DevelopmentModePressed())
             {
                 controller.UseEventDevelopment();
                 controller.StateMachine.TransitionTo(controller.DevelopmentState);
             }
-            if (GameManager.Instance.GetCondition(GameCondition.TeleportAvailable))
+            if (input.Teleport())
             {
-                if (input.Teleport())
-                {
-                    controller.UseEventTeleport();
-                }
+                controller.UseEventTeleport();
             }
         }
         public void Exit()

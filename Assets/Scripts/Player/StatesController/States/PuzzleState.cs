@@ -1,4 +1,5 @@
 using Player;
+using UnityEngine;
 
 public class PuzzleState : IState
 {
@@ -19,6 +20,7 @@ public class PuzzleState : IState
         movement.CanMove = false;
         playerCamera.CanLook = false;
     }
+
     public void Execute()
     {
         if (inputHandler.PuzzleInteract())
@@ -38,6 +40,7 @@ public class PuzzleState : IState
             controller.UseEventInteract();
         }
     }
+
     public void Exit()
     {
         movement.CanMove = true;

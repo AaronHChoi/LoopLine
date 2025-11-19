@@ -1,8 +1,6 @@
-using UnityEngine;
 
 public class LetterClue : ItemInteract
 {
-    [SerializeField] ItemDissolve item;
     protected override void Awake()
     {
 
@@ -21,8 +19,7 @@ public class LetterClue : ItemInteract
         if (canBePicked)
         {
             GameManager.Instance.SetCondition(GameCondition.LetterClue6, true);
-            //gameObject.SetActive(false);
-            item.DeactivatePhoto();
+            gameObject.SetActive(false);
             return true;
         }
         return false;
