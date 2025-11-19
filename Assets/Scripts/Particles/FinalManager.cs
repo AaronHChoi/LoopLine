@@ -14,6 +14,23 @@ public class FinalManager : MonoBehaviour
         clockPuzzleManager = InterfaceDependencyInjector.Instance.Resolve<IClockPuzzleManager>();
         photoQuestManager = InterfaceDependencyInjector.Instance.Resolve<IPhotoQuestManager>();
     }
+    private void Start()
+    {
+        if (!GameManager.Instance.GetCondition(GameCondition.IsClockQuestComplete))
+        {
+            distortion.SetFloat("_Distorsion_Strength", 0.05f);
+
+            var emissionModule = twirlParticles.emission;
+            emissionModule.rateOverTime = 1000f;
+        } 
+        else if (GameManager.Instance.GetCondition(GameCondition.IsClockQuestComplete))
+        {
+            distortion.SetFloat("_Distorsion_Strength", 0.01f);
+
+            var emissionModule = twirlParticles.emission;
+            emissionModule.rateOverTime = 250f;
+        }
+    }
     private void OnEnable()
     {
         clockPuzzleManager.OnClockQuestFinished += FirstQuestComplete;

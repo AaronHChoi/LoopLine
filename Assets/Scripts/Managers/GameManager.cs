@@ -37,6 +37,7 @@ public class GameManager : Singleton<GameManager>
         get { return  hasCamera; }
         set { hasCamera = value; }
     }
+    public int currentPhotoIndex;
 
     public IScreenManager screenManager;
     protected override void Awake()
