@@ -29,10 +29,34 @@ public class TeleportLoop : MonoBehaviour, ITeleportLoop
         {
             bool isInitialLoop = gameSceneManager.GetIsInInitialLoop();
 
-            if (!isInitialLoop)
+            if (!isInitialLoop && GameManager.Instance.GetCondition(GameCondition.IsFirstLoopsCompleted))
             {
                 gameSceneManager.UnloadLastScene();
                 gameSceneManager.LoadRandomScene();
+            }
+            else if (!GameManager.Instance.GetCondition(GameCondition.IsFirstLoopsCompleted))
+            {
+                
+                switch (GameManager.Instance.TrainLoop)
+                {
+                    case 0:
+                    case 1:
+                        gameSceneManager.UnloadLastScene();
+                        gameSceneManager.LoadSceneAsync("AS_NPC");
+                        break;
+                    case 2:
+                        gameSceneManager.UnloadLastScene();
+                        gameSceneManager.LoadSceneAsync("AS_NoNPC-NoItems");
+                        break;
+                    case 3:
+                        gameSceneManager.UnloadLastScene();
+                        gameSceneManager.LoadSceneAsync("AS_Clocks");
+                        break;
+                    default:
+                        gameSceneManager.UnloadLastScene();
+                        gameSceneManager.LoadRandomScene();
+                        break;
+                }
             }
 
             cc.enabled = false;
