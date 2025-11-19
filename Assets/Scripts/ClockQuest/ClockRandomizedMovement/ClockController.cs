@@ -41,7 +41,7 @@ public class ClockController : MonoBehaviour
     private float resumeTimer;
     private bool isResuming;
 
-    private readonly TimeSpan targetTime = new TimeSpan(11, 40, 0);
+    private readonly TimeSpan targetTime = new TimeSpan(11, 20, 0);
     private const int ARBITRARY_YEAR = 1, ARBITRARY_MONTH = 1, ARBITRARY_DAY = 1;
 
     void Start()
@@ -56,7 +56,7 @@ public class ClockController : MonoBehaviour
         }
         else
         {
-            startTime = new DateTime(ARBITRARY_YEAR, ARBITRARY_MONTH, ARBITRARY_DAY, 11, 0, 0);
+            startTime = new DateTime(ARBITRARY_YEAR, ARBITRARY_MONTH, ARBITRARY_DAY, 10, 40, 0);
         }
 
         currentSpeed = baseSpeed;
