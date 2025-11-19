@@ -9,8 +9,6 @@ public class ItemDissolve : MonoBehaviour
 
     public void DeactivatePhoto()
     {
-
-
         foreach (var c in item)
         {
             c.ActivateDissolve();
