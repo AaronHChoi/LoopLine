@@ -13,13 +13,18 @@ public class RaycastActivator : MonoBehaviour
     {
         SetChildrenActive(false);
     }
-    public void SetChildrenActive(bool active)
+    public bool SetChildrenActive(bool active)
     {
+        bool isRightOrder = false;
         if (active)
         {
             if (myOrderIndex != GameManager.Instance.currentPhotoIndex)
             {
-                return;
+                return isRightOrder;
+            }
+            else
+            {
+                isRightOrder = true;
             }
             GameManager.Instance.currentPhotoIndex++;
         }
@@ -33,5 +38,6 @@ public class RaycastActivator : MonoBehaviour
         {
             item.TakePhoto();
         }
+        return isRightOrder;
     }
 }

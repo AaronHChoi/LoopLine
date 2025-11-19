@@ -9,12 +9,13 @@ public class ItemDissolve : MonoBehaviour
 
     public void DeactivatePhoto()
     {
+        GameManager.Instance.SetCondition(clueGameCondition, true);
+
         foreach (var c in item)
         {
             c.ActivateDissolve();
         }
 
-        GameManager.Instance.SetCondition(clueGameCondition, true);
     }
     public void TakePhoto()
     {
