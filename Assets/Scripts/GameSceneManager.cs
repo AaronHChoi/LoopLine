@@ -94,6 +94,10 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
         }
         return weightedScenes[0].sceneName;
     }
+    public void LoadSceneAsync2(string sceneName)
+    {
+        StartCoroutine(LoadSceneAsync(sceneName));
+    }
     public IEnumerator LoadSceneAsync(string sceneName)
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
@@ -152,4 +156,5 @@ public interface IGameSceneManager
     IEnumerator LoadSceneAsync(string sceneName);
     void SetInitialLoop(bool isActive);
     bool GetIsInInitialLoop();
+    void LoadSceneAsync2(string sceneName);
 }

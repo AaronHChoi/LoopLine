@@ -11,6 +11,7 @@ public class TeleportLoop : MonoBehaviour, ITeleportLoop
 
     IGameSceneManager gameSceneManager;
     IPhotoCapture polaroid;
+    IUIManager uiManager;
 
     [SerializeField] GameObject player;
 
@@ -18,6 +19,7 @@ public class TeleportLoop : MonoBehaviour, ITeleportLoop
     {
         gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
         polaroid = InterfaceDependencyInjector.Instance.Resolve<IPhotoCapture>();
+        uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
     }
     public void Teleport()
     {
@@ -31,6 +33,10 @@ public class TeleportLoop : MonoBehaviour, ITeleportLoop
 
             if (!isInitialLoop && GameManager.Instance.GetCondition(GameCondition.IsFirstLoopsCompleted))
             {
+                if (GameManager.Instance.TrainLoop == 4)
+                {
+                    uiManager.ShowPanel(UIPanelID.TeleportTutorial);
+                }
                 gameSceneManager.UnloadLastScene();
                 gameSceneManager.LoadRandomScene();
             }
@@ -41,20 +47,28 @@ public class TeleportLoop : MonoBehaviour, ITeleportLoop
                 {
                     case 0:
                     case 1:
-                        gameSceneManager.UnloadLastScene();
-                        gameSceneManager.LoadSceneAsync("AS_NPC");
+                        {
+                            gameSceneManager.UnloadLastScene();
+                            gameSceneManager.LoadSceneAsync2("AS_NPC");
+                        }
                         break;
                     case 2:
-                        gameSceneManager.UnloadLastScene();
-                        gameSceneManager.LoadSceneAsync("AS_NoNPC-NoItems");
+                        {
+                            gameSceneManager.UnloadLastScene();
+                            gameSceneManager.LoadSceneAsync2("AS_NoNPC-NoItems");
+                        }
                         break;
                     case 3:
-                        gameSceneManager.UnloadLastScene();
-                        gameSceneManager.LoadSceneAsync("AS_Clocks");
+                        {
+                            gameSceneManager.UnloadLastScene();
+                            gameSceneManager.LoadSceneAsync2("AS_Clocks");
+                        }
                         break;
                     default:
-                        gameSceneManager.UnloadLastScene();
-                        gameSceneManager.LoadRandomScene();
+                        {
+                            gameSceneManager.UnloadLastScene();
+                            gameSceneManager.LoadRandomScene();
+                        }
                         break;
                 }
             }

@@ -5,5 +5,6 @@ public enum UIPanelID
     ClockTutorial,
     FirstMovements,
     InventoryTutorial,
-    CameraTutorial
+    CameraTutorial,
+    TeleportTutorial,
 }
