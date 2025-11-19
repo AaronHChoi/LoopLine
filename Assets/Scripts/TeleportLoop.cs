@@ -36,7 +36,7 @@ public class TeleportLoop : MonoBehaviour, ITeleportLoop
                 gameSceneManager.UnloadLastScene();
                 gameSceneManager.LoadRandomScene();
             }
-            else if (!GameManager.Instance.GetCondition(GameCondition.IsFirstLoopsCompleted))
+            else if (!isInitialLoop && !GameManager.Instance.GetCondition(GameCondition.IsFirstLoopsCompleted))
             {
                 
                     switch (GameManager.Instance.TrainLoop)
