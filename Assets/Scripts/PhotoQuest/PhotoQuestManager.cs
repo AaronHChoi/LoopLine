@@ -23,10 +23,12 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
     public bool allFramesCorrect { get; private set; } = false;
 
     IInventoryUI inventoryUI;
+    IGameSceneManager gameSceneManager;
 
     private void Awake()
     {
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
+        gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
     }
     private void Start()
     {
@@ -91,6 +93,7 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
         inventoryUI.RemoveInventorySlot(doorHandler);
         GameManager.Instance.SetCondition(GameCondition.PhotoDoorOpen, true);
         GameManager.Instance.SetCondition(GameCondition.TeleportAvailable, true);
+        gameSceneManager.SetInitialLoop(true);
     }
     private void PhotoQuestComplete()
     {
