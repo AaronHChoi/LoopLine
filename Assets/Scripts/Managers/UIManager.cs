@@ -68,6 +68,12 @@ public class UIManager : Singleton<UIManager>, IUIManager
         }
 
         SceneManager.sceneLoaded += OnSceneLoaded;
+        
+    }
+
+    private void Start()
+    {
+        Screen.SetResolution(1920, 1080, FullScreenMode.FullScreenWindow);
     }
     private void OnEnable()
     {
@@ -79,6 +85,8 @@ public class UIManager : Singleton<UIManager>, IUIManager
     }
     #endregion
     #region UI_TEXT
+
+   
     public void ShowPanel(UIPanelID panelID)
     {
         UIPanelEntry entry = managedPanels.FirstOrDefault(p => p.panelID == panelID);
