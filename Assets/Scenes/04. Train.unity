@@ -1824,10 +1824,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6166828265561349957, guid: a7cfd94fd7fdef7428f94513779662ce, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7cfd94fd7fdef7428f94513779662ce, type: 3}
 --- !u!1001 &301818662
 PrefabInstance:
@@ -31259,6 +31256,15 @@ MonoBehaviour:
   - eventType: 28
     dialogues:
     - {fileID: 11400000, guid: d47b758aa92465d4a8396f5ed6875fec, type: 2}
+  - eventType: 30
+    dialogues:
+    - {fileID: 11400000, guid: d47b758aa92465d4a8396f5ed6875fec, type: 2}
+  - eventType: 30
+    dialogues:
+    - {fileID: 11400000, guid: d47b758aa92465d4a8396f5ed6875fec, type: 2}
+  - eventType: 30
+    dialogues:
+    - {fileID: 11400000, guid: d47b758aa92465d4a8396f5ed6875fec, type: 2}
   currentEvent: 21
   npcType: 6
   autoAdvance: 0
@@ -31328,7 +31334,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ExecuteInEditor: 1
-  m_Bindings: []
+  m_Bindings:
+  - {fileID: 1544543422}
   m_VisualEffect: {fileID: 1544543425}
 --- !u!73398921 &1544543424
 VFXRenderer:
@@ -32490,7 +32497,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ExecuteInEditor: 1
-  m_Bindings: []
+  m_Bindings:
+  - {fileID: 1623961952}
   m_VisualEffect: {fileID: 1623961955}
 --- !u!73398921 &1623961954
 VFXRenderer:
@@ -36166,7 +36174,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6551025050477080150, guid: 56422696f875fd340be386f7c79f94e5, type: 3}
       propertyPath: managedPanels.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6551025050477080150, guid: 56422696f875fd340be386f7c79f94e5, type: 3}
       propertyPath: managedPanels.Array.data[1].panelID
@@ -36181,6 +36189,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6551025050477080150, guid: 56422696f875fd340be386f7c79f94e5, type: 3}
+      propertyPath: managedPanels.Array.data[4].panelID
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6551025050477080150, guid: 56422696f875fd340be386f7c79f94e5, type: 3}
       propertyPath: managedPanels.Array.data[1].position
       value: 1
       objectReference: {fileID: 0}
@@ -36190,6 +36202,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6551025050477080150, guid: 56422696f875fd340be386f7c79f94e5, type: 3}
       propertyPath: managedPanels.Array.data[3].position
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6551025050477080150, guid: 56422696f875fd340be386f7c79f94e5, type: 3}
+      propertyPath: managedPanels.Array.data[4].position
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6551025050477080150, guid: 56422696f875fd340be386f7c79f94e5, type: 3}
@@ -36208,6 +36224,10 @@ PrefabInstance:
       propertyPath: managedPanels.Array.data[3].panelData
       value: 
       objectReference: {fileID: 11400000, guid: e464d6ef4f6187b469923daeb98d3c9e, type: 2}
+    - target: {fileID: 6551025050477080150, guid: 56422696f875fd340be386f7c79f94e5, type: 3}
+      propertyPath: managedPanels.Array.data[4].panelData
+      value: 
+      objectReference: {fileID: 11400000, guid: 5e3d905175a45494ba69bdea516b8296, type: 2}
     - target: {fileID: 6799510411151660684, guid: 56422696f875fd340be386f7c79f94e5, type: 3}
       propertyPath: m_TargetDisplay
       value: 0

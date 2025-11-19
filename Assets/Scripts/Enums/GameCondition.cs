@@ -11,4 +11,5 @@ public enum GameCondition
     CameraGirlClue2,
     TeleportAvailable,
     PillsClue5,
+    IsFirstLoopsCompleted,
 }
