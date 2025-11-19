@@ -5,6 +5,7 @@ public class RaycastActivator : MonoBehaviour
 {
     [SerializeField] GameCondition gameCondition;
     [SerializeField] public Events monologueToTrigger;
+    [SerializeField] public int monologueDelay;
     [SerializeField] ItemDissolve item;
     [SerializeField] int myOrderIndex;
 
