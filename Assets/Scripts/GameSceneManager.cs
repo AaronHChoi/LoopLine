@@ -49,7 +49,7 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
         if (GameManager.Instance.TrainLoop >= 2)
         {
             GameManager.Instance.SetCondition(GameCondition.TeleportAvailable, true);
-            GameSceneManager.Instance.SetInitialLoop(false);
+            SetInitialLoop(false);
         }
     }
     public void SetInitialLoop(bool isActive)

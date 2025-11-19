@@ -25,7 +25,6 @@ public class PlayerController : MonoBehaviour, IPlayerController
     private void Update()
     {
         playerMovement.HandleMovement();
-        playerMovement.RotateCharacterToCamera();
     }
     private void OnEnable()
     {

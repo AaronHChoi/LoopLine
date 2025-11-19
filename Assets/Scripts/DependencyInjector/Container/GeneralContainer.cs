@@ -13,6 +13,7 @@ namespace DependencyInjection
             injector.Register<IGameStateController>(() => FindAndValidate<GameStateController>());
             injector.Register<IClock>(() => FindAndValidate<Clock>());
             injector.Register<ITeleportLoop>(() => FindAndValidate<TeleportLoop>());
+            injector.Register<IPolaraidItem>(() => FindAndValidate<PolaroidItem>());
         }
     }
 }

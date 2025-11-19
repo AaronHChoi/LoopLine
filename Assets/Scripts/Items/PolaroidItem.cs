@@ -1,11 +1,15 @@
 
+using System;
 using DependencyInjection;
 using UnityEngine;
 
-public class PolaroidItem : ItemInteract
+public class PolaroidItem : ItemInteract, IPolaraidItem
 {
+    public event Action OnPolaroidTaken;
+
     IUIManager uiManager;
     [SerializeField] UIPanelID panelID;
+
     protected override void Awake()
     {
         base.Awake();
@@ -19,6 +23,7 @@ public class PolaroidItem : ItemInteract
     {
         if (canBePicked)
         {
+            OnPolaroidTaken?.Invoke();
             GameManager.Instance.HasCamera = true;
             uiManager.ShowPanel(panelID);
             GameManager.Instance.SetCondition(GameCondition.PolaroidTaken, true);
@@ -27,6 +32,8 @@ public class PolaroidItem : ItemInteract
         }
         return false;
     }
-
-
+}
+public interface IPolaraidItem
+{
+    event Action OnPolaroidTaken;
 }

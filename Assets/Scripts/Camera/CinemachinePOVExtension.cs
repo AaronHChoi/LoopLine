@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DependencyInjection;
-using Player;
+using UnityEngine.InputSystem;
 
 namespace Unity.Cinemachine.Samples
 {
@@ -59,6 +59,14 @@ namespace Unity.Cinemachine.Samples
         public void HandleLook()
         {
             if (!canLook) return;
+
+            var gamepad = Gamepad.current;
+
+            if (gamepad != null)
+            {
+                Vector2 stick = gamepad.leftStick.ReadValue();
+                Vector2 mov = stick * 2f;
+            }
 
             Vector2 lookDelta = inputHandler.GetInputDelta();
             // Manejar rotación de la cámara

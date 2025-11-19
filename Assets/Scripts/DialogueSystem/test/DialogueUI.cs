@@ -53,8 +53,11 @@ public class DialogueUI : MonoBehaviour
         {
             playerStateController.OnDialogueNext += HandleInteraction;
         }
-        dialogueManager.OnDialogueStarted += OnDialogueStartedHandler;
-        dialogueManager.OnDialogueEnded += OnDialogueEndedHandler;
+        if (dialogueManager != null)
+        {
+            dialogueManager.OnDialogueStarted += OnDialogueStartedHandler;
+            dialogueManager.OnDialogueEnded += OnDialogueEndedHandler;
+        }
         if(mindplaceClock != null)
         {
             mindplaceClock.OnEnterClock += OnClockStartedHandler;
@@ -67,8 +70,11 @@ public class DialogueUI : MonoBehaviour
         {
             playerStateController.OnDialogueNext -= HandleInteraction;
         }
-        dialogueManager.OnDialogueStarted -= OnDialogueStartedHandler;
-        dialogueManager.OnDialogueEnded -= OnDialogueEndedHandler;
+        if (dialogueManager != null)
+        {
+            dialogueManager.OnDialogueStarted -= OnDialogueStartedHandler;
+            dialogueManager.OnDialogueEnded -= OnDialogueEndedHandler;
+        }
         if (mindplaceClock != null)
         {
             mindplaceClock.OnEnterClock -= OnClockStartedHandler;
@@ -227,8 +233,6 @@ public class DialogueUI : MonoBehaviour
     {
         isTyping = true;
         dialogueText.text = "";
-
-        
 
         int i = 0;
         while (i < fullText.Length)
