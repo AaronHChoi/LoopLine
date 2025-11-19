@@ -13,7 +13,7 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
     [Header("Active Scenes")]
     [SerializeField] private List<string> activeScenes = new List<string>();
 
-    bool isInInitialLoop = true;
+    bool isInInitialLoop = false;
 
     ITeleportLoop teleportLoop;
 
@@ -46,10 +46,9 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
     }
     public void CheckTrainLoop()
     {
-        if (GameManager.Instance.TrainLoop >= 2)
+        if (GameManager.Instance.TrainLoop >= 5)
         {
             GameManager.Instance.SetCondition(GameCondition.TeleportAvailable, true);
-            SetInitialLoop(false);
         }
     }
     public void SetInitialLoop(bool isActive)

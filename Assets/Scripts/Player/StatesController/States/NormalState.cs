@@ -24,7 +24,7 @@ namespace Player
         }
         public void Execute()
         {
-            if (/*GameManager.Instance.GetCondition(GameCondition.PolaroidTaken) &&*/ input.ToggleCameraPressed())
+            if (GameManager.Instance.GetCondition(GameCondition.PolaroidTaken) && input.ToggleCameraPressed())
             {
                 controller.StateMachine.TransitionTo(controller.CameraState);
             }

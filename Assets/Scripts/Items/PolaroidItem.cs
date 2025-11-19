@@ -8,12 +8,14 @@ public class PolaroidItem : ItemInteract, IPolaraidItem
     public event Action OnPolaroidTaken;
 
     IUIManager uiManager;
+    IGameSceneManager gameSceneManager;
     [SerializeField] UIPanelID panelID;
 
     protected override void Awake()
     {
         base.Awake();
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
+        gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
     }
     public override void Start()
     {
@@ -26,6 +28,7 @@ public class PolaroidItem : ItemInteract, IPolaraidItem
             OnPolaroidTaken?.Invoke();
             uiManager.ShowPanel(panelID);
             GameManager.Instance.SetCondition(GameCondition.PolaroidTaken, true);
+            gameSceneManager.SetInitialLoop(false);
 
             gameObject.SetActive(false);
             return true;
