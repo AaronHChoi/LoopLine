@@ -9,7 +9,7 @@ public class PhotosClue : ItemInteract
     {
         base.Start();
 
-        if (GameManager.Instance.GetCondition(GameCondition.PhotosClue))
+        if (GameManager.Instance.GetCondition(GameCondition.PhotosClue1))
         {
             gameObject.SetActive(false);
         }
@@ -18,7 +18,7 @@ public class PhotosClue : ItemInteract
     {
         if (canBePicked)
         {
-            GameManager.Instance.SetCondition(GameCondition.PhotosClue, true);
+            GameManager.Instance.SetCondition(GameCondition.PhotosClue1, true);
             gameObject.SetActive(false);
             return true;
         }

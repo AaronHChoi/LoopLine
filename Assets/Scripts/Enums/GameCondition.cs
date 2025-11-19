@@ -6,7 +6,7 @@ public enum GameCondition
     PhotoDoorOpen,
     PolaroidTaken,
     LetterClue,
-    PhotosClue,
+    PhotosClue1,
     RockClue,
     CameraGirlClue,
     TeleportAvailable,

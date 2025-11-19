@@ -24,6 +24,7 @@ public class PauseState : IGameState
             controller.UseEventPauseMenu();
             controller.ChangeState(controller.GameplayState);
         }
+
     }
 
     public void Exit()
