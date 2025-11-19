@@ -46,9 +46,14 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
     }
     public void CheckTrainLoop()
     {
-        if (GameManager.Instance.TrainLoop >= 5)
+        if (GameManager.Instance.TrainLoop >= 4)
         {
             GameManager.Instance.SetCondition(GameCondition.TeleportAvailable, true);
+            GameManager.Instance.SetCondition(GameCondition.IsFirstLoopsCompleted, true);
+        }
+        else
+        {
+            GameManager.Instance.SetCondition(GameCondition.IsFirstLoopsCompleted, false);
         }
     }
     public void SetInitialLoop(bool isActive)
