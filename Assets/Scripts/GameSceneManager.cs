@@ -35,7 +35,7 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
         if (teleportLoop != null)
         {
             teleportLoop.OnTeleportTrain += CheckTrainLoop;
-        }
+        }   
     }
     private void OnDisable()
     {
@@ -45,7 +45,7 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
         }
     }
     public void CheckTrainLoop()
-    {
+    {/*
         if (GameManager.Instance.TrainLoop >= 4)
         {
             GameManager.Instance.SetCondition(GameCondition.TeleportAvailable, true);
@@ -54,7 +54,7 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
         else
         {
             GameManager.Instance.SetCondition(GameCondition.IsFirstLoopsCompleted, false);
-        }
+        }*/
     }
     public void SetInitialLoop(bool isActive)
     {
