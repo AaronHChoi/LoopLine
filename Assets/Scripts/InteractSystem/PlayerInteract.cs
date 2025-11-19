@@ -39,13 +39,6 @@ public class PlayerInteract : MonoBehaviour, IPlayerInteract
     {
         if (gameSceneManager.IsCurrentScene("05. MindPlace"))
         {
-            if (inventoryUI.IsInventoryOpen == false)
-            {
-                TryInteract();
-            }
-        }
-        else
-        {
             TryInteract();
         }
     }
