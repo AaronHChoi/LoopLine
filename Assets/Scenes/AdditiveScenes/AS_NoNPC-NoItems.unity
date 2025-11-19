@@ -5758,6 +5758,7 @@ GameObject:
   - component: {fileID: 965605904}
   - component: {fileID: 965605905}
   - component: {fileID: 965605906}
+  - component: {fileID: 965605907}
   m_Layer: 3
   m_Name: Photo#1
   m_TagString: PhotoQuest
@@ -5796,7 +5797,7 @@ MonoBehaviour:
   gameCondition: 4
   monologueToTrigger: 27
   monologueDelay: 5
-  item: {fileID: 0}
+  item: {fileID: 965605907}
   myOrderIndex: 1
 --- !u!65 &965605906
 BoxCollider:
@@ -5819,6 +5820,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.9594406, y: 1.5670972, z: 2.2948606}
   m_Center: {x: 0.23373336, y: 0.8083204, z: -0.25695702}
+--- !u!114 &965605907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965605903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d54cd45d5b542c43b584c5ec1a8d987, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: []
+  clueGameCondition: 5
+  delay: 0
 --- !u!1 &1004993095
 GameObject:
   m_ObjectHideFlags: 0
