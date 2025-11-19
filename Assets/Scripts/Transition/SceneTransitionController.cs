@@ -25,7 +25,11 @@ public class SceneTransitionController : MonoBehaviour, ISceneTransitionControll
         if (mainCamera)
             mainCamera.Lens.FieldOfView = startFOV;
 
-        FadeOutOnStart();
+        if (GameManager.Instance.GetCondition(GameCondition.TeleportAvailable))
+        {
+            StartTransition(true);
+            FadeOutOnStart();
+        }
     }
 
     private void FadeOutOnStart()
