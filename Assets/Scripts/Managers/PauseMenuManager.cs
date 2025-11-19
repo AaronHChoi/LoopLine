@@ -95,6 +95,7 @@ public class PauseMenuManager : Singleton<PauseMenuManager>, IPauseMenuManager
     {
         return pauseMenu;
     }
+
 }
 
 public interface IPauseMenuManager
