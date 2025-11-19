@@ -24,9 +24,9 @@ public class PolaroidItem : ItemInteract, IPolaraidItem
         if (canBePicked)
         {
             OnPolaroidTaken?.Invoke();
-            GameManager.Instance.HasCamera = true;
             uiManager.ShowPanel(panelID);
             GameManager.Instance.SetCondition(GameCondition.PolaroidTaken, true);
+
             gameObject.SetActive(false);
             return true;
         }
