@@ -112,7 +112,8 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
     }
     public void ResetPhotoCounter()
     {
-        maxPhotos = 6;
+        photoTaken = 0;
+        UpdatePhotoCounter();
     }
     public void SetCameraUIVisible(bool isVisible)
     {
