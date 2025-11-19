@@ -9,7 +9,7 @@ public class RockClue : ItemInteract
     {
         base.Start();
 
-        if (GameManager.Instance.GetCondition(GameCondition.RockClue))
+        if (GameManager.Instance.GetCondition(GameCondition.RockClue4))
         {
             gameObject.SetActive(false);
         }
@@ -18,7 +18,7 @@ public class RockClue : ItemInteract
     {
         if (canBePicked)
         {
-            GameManager.Instance.SetCondition(GameCondition.RockClue, true);
+            GameManager.Instance.SetCondition(GameCondition.RockClue4, true);
             gameObject.SetActive(false);
             return true;
         }

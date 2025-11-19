@@ -5,9 +5,10 @@ public enum GameCondition
     IsPhotoQuestComplete,
     PhotoDoorOpen,
     PolaroidTaken,
-    LetterClue,
+    LetterClue6,
     PhotosClue1,
-    RockClue,
-    CameraGirlClue,
+    RockClue4,
+    CameraGirlClue2,
     TeleportAvailable,
+    PillsClue5,
 }

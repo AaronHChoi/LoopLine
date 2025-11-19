@@ -10,7 +10,7 @@ public class CameraClue : ItemInteract
     {
         base.Start();
 
-        if (GameManager.Instance.GetCondition(GameCondition.CameraGirlClue))
+        if (GameManager.Instance.GetCondition(GameCondition.CameraGirlClue2))
         {
             gameObject.SetActive(false);
         }
@@ -19,7 +19,7 @@ public class CameraClue : ItemInteract
     {
         if (canBePicked)
         {
-            GameManager.Instance.SetCondition(GameCondition.CameraGirlClue, true);
+            GameManager.Instance.SetCondition(GameCondition.CameraGirlClue2, true);
             gameObject.SetActive(false);
             return true;
         }

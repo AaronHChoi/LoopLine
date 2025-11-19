@@ -7,9 +7,9 @@ public class LetterClue : ItemInteract
     }
     public override void Start()
     {
-        base.Start();
+        //base.Start();
 
-        if (GameManager.Instance.GetCondition(GameCondition.LetterClue))
+        if (GameManager.Instance.GetCondition(GameCondition.LetterClue6))
         {
             gameObject.SetActive(false);
         }
@@ -18,7 +18,7 @@ public class LetterClue : ItemInteract
     {
         if (canBePicked)
         {
-            GameManager.Instance.SetCondition(GameCondition.LetterClue, true);
+            GameManager.Instance.SetCondition(GameCondition.LetterClue6, true);
             gameObject.SetActive(false);
             return true;
         }
