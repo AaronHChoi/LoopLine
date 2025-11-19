@@ -38,8 +38,6 @@ public class GameManager : Singleton<GameManager>
         set { hasCamera = value; }
     }
 
-    public int currentPhotoIndex = 0;
-
     public IScreenManager screenManager;
     protected override void Awake()
     {
