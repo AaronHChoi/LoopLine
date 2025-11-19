@@ -1663,6 +1663,8 @@ MonoBehaviour:
   npcType: 2
   autoAdvance: 0
   interactText: 
+  animator: {fileID: 0}
+  ikTarget: {fileID: 0}
 --- !u!1 &296284834
 GameObject:
   m_ObjectHideFlags: 0
@@ -3795,7 +3797,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -3821,6 +3823,8 @@ MonoBehaviour:
   npcType: 5
   autoAdvance: 0
   interactText: 
+  animator: {fileID: 1077733841}
+  ikTarget: {fileID: 489151877}
 --- !u!1 &725139379
 GameObject:
   m_ObjectHideFlags: 0
@@ -5337,6 +5341,11 @@ PrefabInstance:
 --- !u!4 &1077733840 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c6d6af3fad25e8942b488d9221fad89e, type: 3}
+  m_PrefabInstance: {fileID: 1077733839}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1077733841 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: c6d6af3fad25e8942b488d9221fad89e, type: 3}
   m_PrefabInstance: {fileID: 1077733839}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1079736840
@@ -7299,6 +7308,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: fadc873b61ce9c3498d90a32b0ecc5b9, type: 3}
   m_PrefabInstance: {fileID: 1398064379}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1398064381 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: fadc873b61ce9c3498d90a32b0ecc5b9, type: 3}
+  m_PrefabInstance: {fileID: 1398064379}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1401829694
 GameObject:
   m_ObjectHideFlags: 0
@@ -7657,6 +7671,8 @@ MonoBehaviour:
   npcType: 4
   autoAdvance: 0
   interactText: 
+  animator: {fileID: 1398064381}
+  ikTarget: {fileID: 696587606}
 --- !u!1 &1479815577
 GameObject:
   m_ObjectHideFlags: 0
