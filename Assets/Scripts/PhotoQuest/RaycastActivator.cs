@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RaycastActivator : MonoBehaviour
@@ -5,19 +6,23 @@ public class RaycastActivator : MonoBehaviour
     [SerializeField] GameCondition gameCondition;
     [SerializeField] public Events monologueToTrigger;
     [SerializeField] ItemDissolve item;
-    //bool afterAwake = false;
+    [SerializeField] int myOrderIndex;
+
     private void Awake()
     {
         SetChildrenActive(false);
-        //afterAwake = true;
     }
     public void SetChildrenActive(bool active)
     {
-        //if (afterAwake)
-        //{
-        //    GameManager.Instance.SetCondition(gameCondition, true);
-        //}
-        
+        if (active)
+        {
+            if (myOrderIndex != GameManager.Instance.currentPhotoIndex)
+            {
+                return;
+            }
+            GameManager.Instance.currentPhotoIndex++;
+        }
+
         foreach (Transform child in transform)
         {
             child.gameObject.SetActive(active);
