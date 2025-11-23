@@ -73,15 +73,15 @@ public class ParallaxManager3D : MonoBehaviour
         }
         return front;
     }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = limitColor;
-        Vector3 limitStart = new Vector3(-1000, gizmoHeight, limitZ);
-        Vector3 limitEnd = new Vector3(1000, gizmoHeight, limitZ);
-        Gizmos.DrawLine(limitStart, limitEnd);
+//    private void OnDrawGizmos()
+//    {
+//        Gizmos.color = limitColor;
+//        Vector3 limitStart = new Vector3(-1000, gizmoHeight, limitZ);
+//        Vector3 limitEnd = new Vector3(1000, gizmoHeight, limitZ);
+//        Gizmos.DrawLine(limitStart, limitEnd);
 
-#if UNITY_EDITOR
-        UnityEditor.Handles.Label(new Vector3(0, gizmoHeight + 2, limitZ), "Límite Z");
-#endif
-    }
+//#if UNITY_EDITOR
+//        UnityEditor.Handles.Label(new Vector3(0, gizmoHeight + 2, limitZ), "Límite Z");
+//#endif
+//    }
 }

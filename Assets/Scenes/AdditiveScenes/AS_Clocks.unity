@@ -151,11 +151,6 @@ Transform:
   - {fileID: 1785066804}
   m_Father: {fileID: 1545127738}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &25832884 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 837839358216206066, guid: cf99a48313942564c88f1622f3891d72, type: 3}
-  m_PrefabInstance: {fileID: 1151063125}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &26704468
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,8 +251,32 @@ PrefabInstance:
       value: Clock (3)
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
-      propertyPath: enablePause
+      propertyPath: startAt
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: baseSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: enablePause
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: pauseDuration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: minSpeedFactor
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: jitterComponent
+      value: 
+      objectReference: {fileID: 48050293}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: slowdownRangeMinutes
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -269,6 +288,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 66228917943479368, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
   m_PrefabInstance: {fileID: 48050291}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &48050293 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5066436721018797890, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+  m_PrefabInstance: {fileID: 48050291}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1e07088dbc6dc4884aa3cd8e145deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &66008680
 GameObject:
   m_ObjectHideFlags: 0
@@ -600,8 +630,32 @@ PrefabInstance:
       value: Clock
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
-      propertyPath: enablePause
+      propertyPath: startAt
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: baseSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: enablePause
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: pauseDuration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: minSpeedFactor
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: jitterComponent
+      value: 
+      objectReference: {fileID: 111348325}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: slowdownRangeMinutes
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -613,6 +667,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 66228917943479368, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
   m_PrefabInstance: {fileID: 111348323}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &111348325 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5066436721018797890, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+  m_PrefabInstance: {fileID: 111348323}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1e07088dbc6dc4884aa3cd8e145deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &140906687 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5016655084423528113, guid: 481cf2347ab5b424baf6d285143f160c, type: 3}
@@ -817,8 +882,32 @@ PrefabInstance:
       value: Clock (5)
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
-      propertyPath: enablePause
+      propertyPath: startAt
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: baseSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: enablePause
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: pauseDuration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: minSpeedFactor
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: jitterComponent
+      value: 
+      objectReference: {fileID: 169230872}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: slowdownRangeMinutes
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3066290742996775862, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
       propertyPath: m_LocalScale.y
@@ -850,6 +939,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 66228917943479368, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
   m_PrefabInstance: {fileID: 169230870}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &169230872 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5066436721018797890, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+  m_PrefabInstance: {fileID: 169230870}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1e07088dbc6dc4884aa3cd8e145deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &184136133
 GameObject:
   m_ObjectHideFlags: 0
@@ -985,13 +1085,13 @@ VisualEffect:
       m_Array: []
     m_Vector3f:
       m_Array:
-      - m_Value: {x: 0.11843001, y: 98.38825, z: 14.351685}
+      - m_Value: {x: 0.1184266, y: 98.38825, z: 14.351685}
         m_Name: Transform_angles
         m_Overridden: 1
-      - m_Value: {x: 0.671996, y: -1.1533989, z: 10.694657}
+      - m_Value: {x: 0.671996, y: -1.1533991, z: 10.694657}
         m_Name: Transform_position
         m_Overridden: 1
-      - m_Value: {x: 0.5294122, y: 0.5294117, z: 0.52941227}
+      - m_Value: {x: 0.5294121, y: 0.5294116, z: 0.52941227}
         m_Name: Transform_scale
         m_Overridden: 1
     m_Vector4f:
@@ -1219,8 +1319,32 @@ PrefabInstance:
       value: Clock 1 (5)
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
-      propertyPath: enablePause
+      propertyPath: startAt
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: baseSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: enablePause
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: pauseDuration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: minSpeedFactor
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: jitterComponent
+      value: 
+      objectReference: {fileID: 238581009}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: slowdownRangeMinutes
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1232,6 +1356,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 66228917943479368, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
   m_PrefabInstance: {fileID: 238581007}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &238581009 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4632963575930104298, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+  m_PrefabInstance: {fileID: 238581007}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1e07088dbc6dc4884aa3cd8e145deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &257604872
 GameObject:
   m_ObjectHideFlags: 0
@@ -2207,8 +2342,32 @@ PrefabInstance:
       value: Clock 2
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
-      propertyPath: enablePause
+      propertyPath: startAt
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: baseSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: enablePause
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: pauseDuration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: minSpeedFactor
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: jitterComponent
+      value: 
+      objectReference: {fileID: 433852288}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: slowdownRangeMinutes
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2220,6 +2379,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 66228917943479368, guid: cf99a48313942564c88f1622f3891d72, type: 3}
   m_PrefabInstance: {fileID: 433852286}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &433852288 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4297758048505328861, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+  m_PrefabInstance: {fileID: 433852286}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1e07088dbc6dc4884aa3cd8e145deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &438547007
 GameObject:
   m_ObjectHideFlags: 0
@@ -2536,8 +2706,32 @@ PrefabInstance:
       value: Clock 3
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: 5dcf60e502df49f4fb9fb6749bb68b8c, type: 3}
-      propertyPath: enablePause
+      propertyPath: startAt
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: 5dcf60e502df49f4fb9fb6749bb68b8c, type: 3}
+      propertyPath: baseSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: 5dcf60e502df49f4fb9fb6749bb68b8c, type: 3}
+      propertyPath: enablePause
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: 5dcf60e502df49f4fb9fb6749bb68b8c, type: 3}
+      propertyPath: pauseDuration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: 5dcf60e502df49f4fb9fb6749bb68b8c, type: 3}
+      propertyPath: minSpeedFactor
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: 5dcf60e502df49f4fb9fb6749bb68b8c, type: 3}
+      propertyPath: jitterComponent
+      value: 
+      objectReference: {fileID: 577576618}
+    - target: {fileID: 2765939377110141541, guid: 5dcf60e502df49f4fb9fb6749bb68b8c, type: 3}
+      propertyPath: slowdownRangeMinutes
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2549,6 +2743,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 66228917943479368, guid: 5dcf60e502df49f4fb9fb6749bb68b8c, type: 3}
   m_PrefabInstance: {fileID: 577576616}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &577576618 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3275239481564165809, guid: 5dcf60e502df49f4fb9fb6749bb68b8c, type: 3}
+  m_PrefabInstance: {fileID: 577576616}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1e07088dbc6dc4884aa3cd8e145deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &578516788
 GameObject:
   m_ObjectHideFlags: 0
@@ -3172,8 +3377,32 @@ PrefabInstance:
       value: Clock 1 (2)
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
-      propertyPath: enablePause
+      propertyPath: startAt
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: baseSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: enablePause
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: pauseDuration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: minSpeedFactor
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: jitterComponent
+      value: 
+      objectReference: {fileID: 639831087}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: slowdownRangeMinutes
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3185,6 +3414,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 66228917943479368, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
   m_PrefabInstance: {fileID: 639831085}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &639831087 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4632963575930104298, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+  m_PrefabInstance: {fileID: 639831085}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1e07088dbc6dc4884aa3cd8e145deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &653205640
 GameObject:
   m_ObjectHideFlags: 0
@@ -3282,8 +3522,32 @@ PrefabInstance:
       value: Clock 1
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
-      propertyPath: enablePause
+      propertyPath: startAt
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: baseSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: enablePause
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: pauseDuration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: minSpeedFactor
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: jitterComponent
+      value: 
+      objectReference: {fileID: 654491187}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: slowdownRangeMinutes
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3295,6 +3559,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 66228917943479368, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
   m_PrefabInstance: {fileID: 654491185}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &654491187 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4632963575930104298, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+  m_PrefabInstance: {fileID: 654491185}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1e07088dbc6dc4884aa3cd8e145deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &664878052
 GameObject:
   m_ObjectHideFlags: 0
@@ -3840,8 +4115,32 @@ PrefabInstance:
       value: Clock (1)
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
-      propertyPath: enablePause
+      propertyPath: startAt
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: baseSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: enablePause
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: pauseDuration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: minSpeedFactor
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: jitterComponent
+      value: 
+      objectReference: {fileID: 909841431}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: slowdownRangeMinutes
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3853,6 +4152,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 66228917943479368, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
   m_PrefabInstance: {fileID: 909841429}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &909841431 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5066436721018797890, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+  m_PrefabInstance: {fileID: 909841429}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1e07088dbc6dc4884aa3cd8e145deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &963672777
 GameObject:
   m_ObjectHideFlags: 0
@@ -4054,6 +4364,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 375015908}
     - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: baseSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
       propertyPath: minuteHand
       value: 
       objectReference: {fileID: 1500205550}
@@ -4067,19 +4381,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
       propertyPath: enablePause
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
       propertyPath: pauseDuration
-      value: 7
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
       propertyPath: minSpeedFactor
-      value: 0.05
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: jitterComponent
+      value: 
+      objectReference: {fileID: 971786402}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
       propertyPath: slowdownRangeMinutes
-      value: 20
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4091,6 +4409,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 66228917943479368, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
   m_PrefabInstance: {fileID: 971786400}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &971786402 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5066436721018797890, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+  m_PrefabInstance: {fileID: 971786400}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1e07088dbc6dc4884aa3cd8e145deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &988005580
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4160,8 +4489,32 @@ PrefabInstance:
       value: Clock (2)
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
-      propertyPath: enablePause
+      propertyPath: startAt
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: baseSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: enablePause
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: pauseDuration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: minSpeedFactor
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: jitterComponent
+      value: 
+      objectReference: {fileID: 988005582}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: slowdownRangeMinutes
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4173,6 +4526,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 66228917943479368, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
   m_PrefabInstance: {fileID: 988005580}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &988005582 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5066436721018797890, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+  m_PrefabInstance: {fileID: 988005580}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1e07088dbc6dc4884aa3cd8e145deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &999231850
 GameObject:
   m_ObjectHideFlags: 0
@@ -4327,8 +4691,32 @@ PrefabInstance:
       value: Clock 2 (4)
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
-      propertyPath: enablePause
+      propertyPath: startAt
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: baseSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: enablePause
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: pauseDuration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: minSpeedFactor
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: jitterComponent
+      value: 
+      objectReference: {fileID: 1000704706}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: slowdownRangeMinutes
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4340,6 +4728,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 66228917943479368, guid: cf99a48313942564c88f1622f3891d72, type: 3}
   m_PrefabInstance: {fileID: 1000704704}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1000704706 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4297758048505328861, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+  m_PrefabInstance: {fileID: 1000704704}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1e07088dbc6dc4884aa3cd8e145deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1027141365
 GameObject:
   m_ObjectHideFlags: 0
@@ -4992,12 +5391,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
       propertyPath: startAt
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
       propertyPath: hourHand
       value: 
       objectReference: {fileID: 1151063130}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: baseSpeed
+      value: 400
+      objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
       propertyPath: minuteHand
       value: 
@@ -5009,7 +5412,7 @@ PrefabInstance:
     - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
       propertyPath: tickSource
       value: 
-      objectReference: {fileID: 1151063127}
+      objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
       propertyPath: enablePause
       value: 1
@@ -5023,119 +5426,34 @@ PrefabInstance:
       value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: jitterComponent
+      value: 
+      objectReference: {fileID: 1151063127}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
       propertyPath: slowdownRangeMinutes
       value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 837839358216206066, guid: cf99a48313942564c88f1622f3891d72, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1151063127}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf99a48313942564c88f1622f3891d72, type: 3}
 --- !u!4 &1151063126 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 66228917943479368, guid: cf99a48313942564c88f1622f3891d72, type: 3}
   m_PrefabInstance: {fileID: 1151063125}
   m_PrefabAsset: {fileID: 0}
---- !u!82 &1151063127
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+--- !u!114 &1151063127 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4297758048505328861, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+  m_PrefabInstance: {fileID: 1151063125}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 25832884}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
-  m_audioClip: {fileID: 8300000, guid: a207a4ec7b9b477448f76ca681caa21a, type: 3}
-  m_Resource: {fileID: 8300000, guid: a207a4ec7b9b477448f76ca681caa21a, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1e07088dbc6dc4884aa3cd8e145deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1151063128 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8483434335578864833, guid: cf99a48313942564c88f1622f3891d72, type: 3}
@@ -5387,8 +5705,32 @@ PrefabInstance:
       value: Clock 1 (4)
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
-      propertyPath: enablePause
+      propertyPath: startAt
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: baseSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: enablePause
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: pauseDuration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: minSpeedFactor
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: jitterComponent
+      value: 
+      objectReference: {fileID: 1172177619}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: slowdownRangeMinutes
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5400,6 +5742,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 66228917943479368, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
   m_PrefabInstance: {fileID: 1172177617}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1172177619 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4632963575930104298, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+  m_PrefabInstance: {fileID: 1172177617}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1e07088dbc6dc4884aa3cd8e145deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1177930088
 GameObject:
   m_ObjectHideFlags: 0
@@ -5627,8 +5980,32 @@ PrefabInstance:
       value: Clock 2
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
-      propertyPath: enablePause
+      propertyPath: startAt
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: baseSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: enablePause
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: pauseDuration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: minSpeedFactor
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: jitterComponent
+      value: 
+      objectReference: {fileID: 1240957096}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: slowdownRangeMinutes
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5640,6 +6017,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 66228917943479368, guid: cf99a48313942564c88f1622f3891d72, type: 3}
   m_PrefabInstance: {fileID: 1240957094}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1240957096 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4297758048505328861, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+  m_PrefabInstance: {fileID: 1240957094}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1e07088dbc6dc4884aa3cd8e145deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1250147499
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5709,8 +6097,32 @@ PrefabInstance:
       value: Clock (6)
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
-      propertyPath: enablePause
+      propertyPath: startAt
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: baseSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: enablePause
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: pauseDuration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: minSpeedFactor
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: jitterComponent
+      value: 
+      objectReference: {fileID: 1250147501}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: slowdownRangeMinutes
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3066290742996775862, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
       propertyPath: m_LocalScale.y
@@ -5742,6 +6154,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 66228917943479368, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
   m_PrefabInstance: {fileID: 1250147499}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1250147501 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5066436721018797890, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+  m_PrefabInstance: {fileID: 1250147499}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1e07088dbc6dc4884aa3cd8e145deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1285952649
 GameObject:
   m_ObjectHideFlags: 0
@@ -6332,8 +6755,32 @@ PrefabInstance:
       value: Clock (7)
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
-      propertyPath: enablePause
+      propertyPath: startAt
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: baseSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: enablePause
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: pauseDuration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: minSpeedFactor
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: jitterComponent
+      value: 
+      objectReference: {fileID: 1431124534}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: slowdownRangeMinutes
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3066290742996775862, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
       propertyPath: m_LocalScale.y
@@ -6365,6 +6812,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 66228917943479368, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
   m_PrefabInstance: {fileID: 1431124532}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1431124534 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5066436721018797890, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+  m_PrefabInstance: {fileID: 1431124532}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1e07088dbc6dc4884aa3cd8e145deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1433184401
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6399,31 +6857,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 66228917943479368, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.5
+      value: 0.59918195
       objectReference: {fileID: 0}
     - target: {fileID: 66228917943479368, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.5
+      value: -0.5843987
       objectReference: {fileID: 0}
     - target: {fileID: 66228917943479368, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.5
+      value: -0.4109857
       objectReference: {fileID: 0}
     - target: {fileID: 66228917943479368, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.5
+      value: -0.361317
       objectReference: {fileID: 0}
     - target: {fileID: 66228917943479368, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
+      value: -85.8
       objectReference: {fileID: 0}
     - target: {fileID: 66228917943479368, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
+      value: -106.55
       objectReference: {fileID: 0}
     - target: {fileID: 66228917943479368, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 40.3
       objectReference: {fileID: 0}
     - target: {fileID: 66228917943479368, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -6434,8 +6892,32 @@ PrefabInstance:
       value: Clock (8)
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
-      propertyPath: enablePause
+      propertyPath: startAt
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: baseSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: enablePause
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: pauseDuration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: minSpeedFactor
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: jitterComponent
+      value: 
+      objectReference: {fileID: 1433184403}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: slowdownRangeMinutes
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6447,6 +6929,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 66228917943479368, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
   m_PrefabInstance: {fileID: 1433184401}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1433184403 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5066436721018797890, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+  m_PrefabInstance: {fileID: 1433184401}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1e07088dbc6dc4884aa3cd8e145deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1452609386
 GameObject:
   m_ObjectHideFlags: 0
@@ -6544,8 +7037,32 @@ PrefabInstance:
       value: Clock 2 (5)
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
-      propertyPath: enablePause
+      propertyPath: startAt
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: baseSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: enablePause
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: pauseDuration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: minSpeedFactor
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: jitterComponent
+      value: 
+      objectReference: {fileID: 1460748659}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: slowdownRangeMinutes
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6557,6 +7074,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 66228917943479368, guid: cf99a48313942564c88f1622f3891d72, type: 3}
   m_PrefabInstance: {fileID: 1460748657}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1460748659 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4297758048505328861, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+  m_PrefabInstance: {fileID: 1460748657}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1e07088dbc6dc4884aa3cd8e145deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1468554683
 GameObject:
   m_ObjectHideFlags: 0
@@ -6914,8 +7442,32 @@ PrefabInstance:
       value: Clock 1 (1)
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
-      propertyPath: enablePause
+      propertyPath: startAt
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: baseSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: enablePause
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: pauseDuration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: minSpeedFactor
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: jitterComponent
+      value: 
+      objectReference: {fileID: 1585695457}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: slowdownRangeMinutes
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6927,6 +7479,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 66228917943479368, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
   m_PrefabInstance: {fileID: 1585695455}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1585695457 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4632963575930104298, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+  m_PrefabInstance: {fileID: 1585695455}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1e07088dbc6dc4884aa3cd8e145deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1586911706
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6995,6 +7558,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: Clock
       objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: startAt
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: baseSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: enablePause
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: pauseDuration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: minSpeedFactor
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: jitterComponent
+      value: 
+      objectReference: {fileID: 1586911708}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: slowdownRangeMinutes
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7005,6 +7596,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 66228917943479368, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
   m_PrefabInstance: {fileID: 1586911706}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1586911708 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5066436721018797890, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+  m_PrefabInstance: {fileID: 1586911706}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1e07088dbc6dc4884aa3cd8e145deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1589323860
 GameObject:
   m_ObjectHideFlags: 0
@@ -7133,8 +7735,32 @@ PrefabInstance:
       value: Clock 1 (3)
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
-      propertyPath: enablePause
+      propertyPath: startAt
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: baseSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: enablePause
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: pauseDuration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: minSpeedFactor
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: jitterComponent
+      value: 
+      objectReference: {fileID: 1602051909}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: slowdownRangeMinutes
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7146,6 +7772,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 66228917943479368, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
   m_PrefabInstance: {fileID: 1602051907}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1602051909 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4632963575930104298, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+  m_PrefabInstance: {fileID: 1602051907}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1e07088dbc6dc4884aa3cd8e145deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1602665497
 GameObject:
   m_ObjectHideFlags: 0
@@ -7882,8 +8519,32 @@ PrefabInstance:
       value: Clock 2 (3)
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
-      propertyPath: enablePause
+      propertyPath: startAt
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: baseSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: enablePause
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: pauseDuration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: minSpeedFactor
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: jitterComponent
+      value: 
+      objectReference: {fileID: 1675280499}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: slowdownRangeMinutes
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7895,6 +8556,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 66228917943479368, guid: cf99a48313942564c88f1622f3891d72, type: 3}
   m_PrefabInstance: {fileID: 1675280497}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1675280499 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4297758048505328861, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+  m_PrefabInstance: {fileID: 1675280497}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1e07088dbc6dc4884aa3cd8e145deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1706333549
 GameObject:
   m_ObjectHideFlags: 0
@@ -8369,8 +9041,32 @@ PrefabInstance:
       value: Clock (4)
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
-      propertyPath: enablePause
+      propertyPath: startAt
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: baseSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: enablePause
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: pauseDuration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: minSpeedFactor
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: jitterComponent
+      value: 
+      objectReference: {fileID: 1775022856}
+    - target: {fileID: 2765939377110141541, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+      propertyPath: slowdownRangeMinutes
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8382,6 +9078,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 66228917943479368, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
   m_PrefabInstance: {fileID: 1775022854}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1775022856 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5066436721018797890, guid: ffb4f624d856e704baa6f3cdf2e20e1d, type: 3}
+  m_PrefabInstance: {fileID: 1775022854}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1e07088dbc6dc4884aa3cd8e145deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1777946995
 GameObject:
   m_ObjectHideFlags: 0
@@ -8542,8 +9249,32 @@ PrefabInstance:
       value: Clock 1 (6)
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
-      propertyPath: enablePause
+      propertyPath: startAt
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: baseSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: enablePause
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: pauseDuration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: minSpeedFactor
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: jitterComponent
+      value: 
+      objectReference: {fileID: 1803453933}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: slowdownRangeMinutes
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8555,6 +9286,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 66228917943479368, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
   m_PrefabInstance: {fileID: 1803453931}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1803453933 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4632963575930104298, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+  m_PrefabInstance: {fileID: 1803453931}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1e07088dbc6dc4884aa3cd8e145deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1806762251
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8620,8 +9362,32 @@ PrefabInstance:
       value: Clock 1
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
-      propertyPath: enablePause
+      propertyPath: startAt
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: baseSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: enablePause
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: pauseDuration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: minSpeedFactor
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: jitterComponent
+      value: 
+      objectReference: {fileID: 1806762253}
+    - target: {fileID: 2765939377110141541, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+      propertyPath: slowdownRangeMinutes
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8633,6 +9399,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 66228917943479368, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
   m_PrefabInstance: {fileID: 1806762251}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1806762253 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4632963575930104298, guid: f7e56118e0d46a842ad8ee29f5cff9ad, type: 3}
+  m_PrefabInstance: {fileID: 1806762251}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1e07088dbc6dc4884aa3cd8e145deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1828861912
 GameObject:
   m_ObjectHideFlags: 0
@@ -8718,8 +9495,32 @@ PrefabInstance:
       value: Clock 3
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: 5dcf60e502df49f4fb9fb6749bb68b8c, type: 3}
-      propertyPath: enablePause
+      propertyPath: startAt
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: 5dcf60e502df49f4fb9fb6749bb68b8c, type: 3}
+      propertyPath: baseSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: 5dcf60e502df49f4fb9fb6749bb68b8c, type: 3}
+      propertyPath: enablePause
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: 5dcf60e502df49f4fb9fb6749bb68b8c, type: 3}
+      propertyPath: pauseDuration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: 5dcf60e502df49f4fb9fb6749bb68b8c, type: 3}
+      propertyPath: minSpeedFactor
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: 5dcf60e502df49f4fb9fb6749bb68b8c, type: 3}
+      propertyPath: jitterComponent
+      value: 
+      objectReference: {fileID: 1830222958}
+    - target: {fileID: 2765939377110141541, guid: 5dcf60e502df49f4fb9fb6749bb68b8c, type: 3}
+      propertyPath: slowdownRangeMinutes
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4070639437297952366, guid: 5dcf60e502df49f4fb9fb6749bb68b8c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8795,6 +9596,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 66228917943479368, guid: 5dcf60e502df49f4fb9fb6749bb68b8c, type: 3}
   m_PrefabInstance: {fileID: 1830222956}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1830222958 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3275239481564165809, guid: 5dcf60e502df49f4fb9fb6749bb68b8c, type: 3}
+  m_PrefabInstance: {fileID: 1830222956}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1e07088dbc6dc4884aa3cd8e145deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1834288429
 GameObject:
   m_ObjectHideFlags: 0
@@ -9092,8 +9904,32 @@ PrefabInstance:
       value: Clock 2 (2)
       objectReference: {fileID: 0}
     - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
-      propertyPath: enablePause
+      propertyPath: startAt
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: baseSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: enablePause
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: pauseDuration
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: minSpeedFactor
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: jitterComponent
+      value: 
+      objectReference: {fileID: 1903643460}
+    - target: {fileID: 2765939377110141541, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+      propertyPath: slowdownRangeMinutes
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9105,6 +9941,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 66228917943479368, guid: cf99a48313942564c88f1622f3891d72, type: 3}
   m_PrefabInstance: {fileID: 1903643458}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1903643460 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4297758048505328861, guid: cf99a48313942564c88f1622f3891d72, type: 3}
+  m_PrefabInstance: {fileID: 1903643458}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad1e07088dbc6dc4884aa3cd8e145deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1911307590
 GameObject:
   m_ObjectHideFlags: 0
