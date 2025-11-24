@@ -17,11 +17,13 @@ public class PhotoFrame : MonoBehaviour, IInteract
 
     private IInventoryUI inventoryUI;
     private IPhotoQuestManager photoQuestManager;
+    private IPlayerInputHandler playerInputHandler;
 
     private void Awake()
     {
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
         photoQuestManager = InterfaceDependencyInjector.Instance.Resolve<IPhotoQuestManager>();
+        playerInputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
     }
 
     private void Start()
@@ -45,7 +47,6 @@ public class PhotoFrame : MonoBehaviour, IInteract
             RemovePhoto(currentPhoto);
         }
 
-        photoQuestManager.CheckAllFrames();
     }
 
     private void PlacePhoto(PhotoQuestComponent photo)
@@ -69,6 +70,7 @@ public class PhotoFrame : MonoBehaviour, IInteract
 
         if (photo == correctPhoto)
             CorrectPhotoPlaced = true;
+        photoQuestManager.CheckAllFrames();
     }
 
     public void AllCorrectPhotoPlaced()
