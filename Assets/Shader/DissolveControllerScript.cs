@@ -9,65 +9,60 @@ public class DissolveControllerScript : MonoBehaviour
     public VisualEffect VFXGraph;
 
     [Header("Dissolve Settings")]
-    // Drag your "Shader Graphs_DisolveShader" material here in the Inspector
     public Material dissolveMaterialTemplate;
     public float dissolveRate = 0.0125f;
     public float refreshRate = 0.025f;
 
-    // Ensure this string matches the property name in your VFX Graph exactly
-    [SerializeField] private string vfxMeshPropertyName = "MeshRenderer";
+    [Header("Runtime Options")] 
+    [Tooltip("If true, original shared materials are restored after the dissolve finishes.")] public bool restoreOriginalAfterDissolve = false;
 
-    private Material[] runtimeMaterials;
-    private bool isDissolving = false;
+    private Material[] _runtimeMaterials; // instanced materials used during play
+    private Material[] _originalSharedMaterials; // cached for restoration if desired
+    private bool _isDissolving;
 
-    void Start()
+    // Cached shader property IDs
+    private static readonly int AlbedoId = Shader.PropertyToID("_Albedo");
+    private static readonly int BaseMapId = Shader.PropertyToID("_BaseMap");
+    private static readonly int MainTexId = Shader.PropertyToID("_MainTex");
+    private static readonly int DissolveAmountId = Shader.PropertyToID("_DissolveAmount");
+
+    private void Start()
     {
-        // Auto-assign references if missing
         if (meshRenderer == null) meshRenderer = GetComponent<MeshRenderer>();
         if (VFXGraph == null) VFXGraph = GetComponent<VisualEffect>();
 
-        // Stop VFX immediately on start so it doesn't play automatically
         if (VFXGraph != null)
         {
             VFXGraph.Stop();
-
-            // Pass the generic mesh to the VFX Graph so particles spawn in the correct shape
             MeshFilter mf = GetComponent<MeshFilter>();
-            if (mf != null)
+            if (mf != null && !VFXGraph.HasMesh("MeshRenderer"))
             {
-                if (VFXGraph.HasFloat(vfxMeshPropertyName) == false) // Simple check to avoid errors if property missing
-                {
-                    VFXGraph.SetMesh(vfxMeshPropertyName, mf.mesh);
-                }
+                VFXGraph.SetMesh("MeshRenderer", mf.mesh);
             }
         }
     }
 
-    // --- PUBLIC METHODS ---
-
-    // Call this method from your Interaction/PickUp script
+    // Public dissolve trigger
     public void ActivateDissolve()
     {
-        if (!isDissolving)
+        // Prevent any material changes while in edit mode
+        if (!Application.isPlaying)
         {
-            // 1. Swap materials BEFORE starting the effect
-            PrepareMaterials();
+            Debug.LogWarning("DissolveController: ActivateDissolve called in edit mode. Enter Play Mode to run dissolve.");
+            return;
+        }
 
-            // 2. Start the dissolve loop
+        if (!_isDissolving)
+        {
+            PrepareMaterials();
             StartCoroutine(DissolveEffect());
         }
     }
 
-    // This allows you to right-click the script in the Inspector and choose "Test Dissolve"
     [ContextMenu("Test Dissolve")]
-    public void TestDissolve()
-    {
-        ActivateDissolve();
-    }
+    private void TestDissolve() => ActivateDissolve();
 
-    // --- INTERNAL LOGIC ---
-
-    void PrepareMaterials()
+    private void PrepareMaterials()
     {
         if (meshRenderer == null || dissolveMaterialTemplate == null)
         {
@@ -75,63 +70,64 @@ public class DissolveControllerScript : MonoBehaviour
             return;
         }
 
-        Material[] originalMaterials = meshRenderer.materials;
-        runtimeMaterials = new Material[originalMaterials.Length];
+        Material[] originalMaterials = meshRenderer.sharedMaterials;
+        _runtimeMaterials = new Material[originalMaterials.Length];
+        _originalSharedMaterials = originalMaterials;
 
         for (int i = 0; i < originalMaterials.Length; i++)
         {
-            // Create a new material copy based on your blue dissolve shader
-            Material newMat = new Material(dissolveMaterialTemplate);
-
-            // STEAL THE TEXTURE from the old material
-            // This makes the wood box look like wood, and the metal box look like metal
-            // before they dissolve.
-            if (originalMaterials[i].HasProperty("_BaseMap")) // HDRP/URP standard
+            Material newMat = Instantiate(dissolveMaterialTemplate);
+            var src = originalMaterials[i];
+            if (src != null)
             {
-                newMat.SetTexture("_Albedo", originalMaterials[i].GetTexture("_BaseMap"));
+                if (src.HasProperty(BaseMapId))
+                    newMat.SetTexture(AlbedoId, src.GetTexture(BaseMapId));
+                else if (src.HasProperty(MainTexId))
+                    newMat.SetTexture(AlbedoId, src.GetTexture(MainTexId));
             }
-            else if (originalMaterials[i].HasProperty("_MainTex")) // Built-in standard
-            {
-                newMat.SetTexture("_Albedo", originalMaterials[i].GetTexture("_MainTex"));
-            }
-
-            // Initialize dissolve amount to 0
-            newMat.SetFloat("_DissolveAmount", 0);
-
-            runtimeMaterials[i] = newMat;
+            newMat.SetFloat(DissolveAmountId, 0f);
+            _runtimeMaterials[i] = newMat;
         }
 
-        // Swap the materials on the object
-        meshRenderer.materials = runtimeMaterials;
+        meshRenderer.materials = _runtimeMaterials;
     }
 
-    IEnumerator DissolveEffect()
+    private IEnumerator DissolveEffect()
     {
-        isDissolving = true;
+        _isDissolving = true;
+        if (VFXGraph != null) VFXGraph.Play();
 
-        // Play the VFX now that the dissolve is starting
-        if (VFXGraph != null)
-        {
-            VFXGraph.Play();
-        }
-
-        // Animate the dissolve value from 0 to 1
-        if (runtimeMaterials != null && runtimeMaterials.Length > 0)
+        if (_runtimeMaterials != null && _runtimeMaterials.Length > 0)
         {
             float counter = 0f;
-
             while (counter < 1f)
             {
                 counter += dissolveRate;
-                for (int i = 0; i < runtimeMaterials.Length; i++)
+                for (int i = 0; i < _runtimeMaterials.Length; i++)
                 {
-                    runtimeMaterials[i].SetFloat("_DissolveAmount", counter);
+                    var m = _runtimeMaterials[i];
+                    if (m != null) m.SetFloat(DissolveAmountId, counter);
                 }
                 yield return new WaitForSeconds(refreshRate);
             }
         }
 
-        // Optional: Destroy object after dissolve completes
-        // Destroy(gameObject, 1.0f);
+        if (restoreOriginalAfterDissolve && _originalSharedMaterials != null)
+        {
+            meshRenderer.sharedMaterials = _originalSharedMaterials;
+        }
+        _isDissolving = false;
+    }
+
+    private void OnDestroy()
+    {
+        if (_runtimeMaterials != null && Application.isPlaying)
+        {
+            for (int i = 0; i < _runtimeMaterials.Length; i++)
+            {
+                if (_runtimeMaterials[i] != null)
+                    Destroy(_runtimeMaterials[i]);
+            }
+        }
     }
 }
