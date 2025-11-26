@@ -46,13 +46,10 @@ namespace Player
                 controller.UseEventDevelopment();
                 controller.StateMachine.TransitionTo(controller.DevelopmentState);
             }
-            if (GameManager.Instance.GetCondition(GameCondition.TeleportAvailable))
+            if (input.Teleport())
             {
-                if (input.Teleport())
-                {
-                    uiManager.HideCurrentPanel();
-                    controller.UseEventTeleport();
-                }
+                uiManager.HideCurrentPanel();
+                controller.UseEventTeleport();
             }
         }
         public void Exit()
