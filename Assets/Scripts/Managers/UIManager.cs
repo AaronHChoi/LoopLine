@@ -85,8 +85,6 @@ public class UIManager : Singleton<UIManager>, IUIManager
     }
     #endregion
     #region UI_TEXT
-
-   
     public void ShowPanel(UIPanelID panelID)
     {
         UIPanelEntry entry = managedPanels.FirstOrDefault(p => p.panelID == panelID);

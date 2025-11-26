@@ -8,13 +8,14 @@ namespace Player
         IPlayerInputHandler input;
         IPlayerMovement movement;
         ICameraOrientation playerCamera;
-
-        public NormalState(IPlayerStateController controller, IPlayerInputHandler input, IPlayerMovement movement, ICameraOrientation playerCamera)
+        IUIManager uiManager;
+        public NormalState(IPlayerStateController controller, IPlayerInputHandler input, IPlayerMovement movement, ICameraOrientation playerCamera, IUIManager uiManager)
         {
             this.controller = controller;
             this.input = input;
             this.movement = movement;
             this.playerCamera = playerCamera;
+            this.uiManager = uiManager;
         }
         public void Enter()
         {
@@ -49,6 +50,7 @@ namespace Player
             {
                 if (input.Teleport())
                 {
+                    uiManager.HideCurrentPanel();
                     controller.UseEventTeleport();
                 }
             }
