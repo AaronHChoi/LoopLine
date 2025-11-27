@@ -906,7 +906,7 @@ MonoBehaviour:
   dissolveMaterialTemplate: {fileID: 2100000, guid: 230a1b4658c82fb498ef670dedd13b5b, type: 2}
   dissolveRate: 0.0125
   refreshRate: 0.025
-  vfxMeshPropertyName: MeshRenderer
+  restoreOriginalAfterDissolve: 0
 --- !u!23 &181815105 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -4747328900159247050, guid: 31f77fb967606ec4a81d63719b8271b2, type: 3}
@@ -2954,8 +2954,9 @@ GameObject:
   - component: {fileID: 349358450}
   - component: {fileID: 349358449}
   - component: {fileID: 349358451}
-  - component: {fileID: 349358453}
   - component: {fileID: 349358454}
+  - component: {fileID: 349358456}
+  - component: {fileID: 349358455}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3061,14 +3062,6 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   CustomBlends: {fileID: 0}
---- !u!81 &349358453
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 349358447}
-  m_Enabled: 1
 --- !u!114 &349358454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3208,6 +3201,42 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 0
       enableBigTilePrepass: 0
       isFptlEnabled: 0
+--- !u!114 &349358455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349358447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 101f76b4a1c061f4582ddaf4308c089c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isDefaultListener: 1
+  listenerId: 0
+--- !u!114 &349358456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349358447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 539f47555215f4c4cb104c8f5f55ec33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_listeners:
+    initialListenerList: []
+    useDefaultListeners: 1
+  isEnvironmentAware: 0
+  isStaticObject: 0
+  m_positionOffsetData:
+    KeepMe: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+  m_posOffsetData: {fileID: 0}
+  listenerMask: 1
 --- !u!1 &371789998 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4608017614222654096, guid: 002ecf8dc93abc4478e944281e92837b, type: 3}
@@ -3294,7 +3323,7 @@ MonoBehaviour:
   dissolveMaterialTemplate: {fileID: 2100000, guid: 230a1b4658c82fb498ef670dedd13b5b, type: 2}
   dissolveRate: 0.0125
   refreshRate: 0.025
-  vfxMeshPropertyName: MeshRenderer
+  restoreOriginalAfterDissolve: 0
 --- !u!23 &382360637 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 5e262693254d32547abbc70c0458d29a, type: 3}
@@ -4373,6 +4402,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 437234635}
   m_CullTransparentMesh: 1
+--- !u!1 &438509927
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 438509929}
+  - component: {fileID: 438509928}
+  m_Layer: 0
+  m_Name: WwiseGlobal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &438509928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 438509927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93588fb31d61ca2409916f1e06317dd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitializationSettings: {fileID: 11400000, guid: 216ec58bb70fccf49bf6d8211b970d23, type: 2}
+  basePath: 
+  language: 
+  defaultPoolSize: 0
+  lowerPoolSize: 0
+  streamingPoolSize: 0
+  memoryCutoffThreshold: 0
+  monitorPoolSize: 0
+  monitorQueuePoolSize: 0
+  callbackManagerBufferSize: 0
+  spatialAudioPoolSize: 0
+  maxSoundPropagationDepth: 0
+  engineLogging: 0
+--- !u!4 &438509929
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 438509927}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &438966379 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3375814493685486405, guid: 002ecf8dc93abc4478e944281e92837b, type: 3}
@@ -4866,7 +4952,7 @@ MonoBehaviour:
   dissolveMaterialTemplate: {fileID: 2100000, guid: 230a1b4658c82fb498ef670dedd13b5b, type: 2}
   dissolveRate: 0.0125
   refreshRate: 0.025
-  vfxMeshPropertyName: MeshRenderer
+  restoreOriginalAfterDissolve: 0
 --- !u!23 &505167896 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -83848013702501910, guid: 31f77fb967606ec4a81d63719b8271b2, type: 3}
@@ -16248,7 +16334,7 @@ MonoBehaviour:
   dissolveMaterialTemplate: {fileID: 2100000, guid: 230a1b4658c82fb498ef670dedd13b5b, type: 2}
   dissolveRate: 0.0125
   refreshRate: 0.025
-  vfxMeshPropertyName: MeshRenderer
+  restoreOriginalAfterDissolve: 0
 --- !u!23 &785002799 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 5e262693254d32547abbc70c0458d29a, type: 3}
@@ -27124,7 +27210,7 @@ MonoBehaviour:
   dissolveMaterialTemplate: {fileID: 2100000, guid: 230a1b4658c82fb498ef670dedd13b5b, type: 2}
   dissolveRate: 0.0125
   refreshRate: 0.025
-  vfxMeshPropertyName: MeshRenderer
+  restoreOriginalAfterDissolve: 0
 --- !u!23 &920942987 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 5e262693254d32547abbc70c0458d29a, type: 3}
@@ -27350,7 +27436,7 @@ MonoBehaviour:
   dissolveMaterialTemplate: {fileID: 2100000, guid: 230a1b4658c82fb498ef670dedd13b5b, type: 2}
   dissolveRate: 0.0125
   refreshRate: 0.025
-  vfxMeshPropertyName: MeshRenderer
+  restoreOriginalAfterDissolve: 0
 --- !u!23 &960658917 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 5e262693254d32547abbc70c0458d29a, type: 3}
@@ -28372,7 +28458,7 @@ MonoBehaviour:
   dissolveMaterialTemplate: {fileID: 2100000, guid: 230a1b4658c82fb498ef670dedd13b5b, type: 2}
   dissolveRate: 0.0125
   refreshRate: 0.025
-  vfxMeshPropertyName: MeshRenderer
+  restoreOriginalAfterDissolve: 0
 --- !u!23 &1182689107 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 5e262693254d32547abbc70c0458d29a, type: 3}
@@ -30793,7 +30879,7 @@ MonoBehaviour:
   dissolveMaterialTemplate: {fileID: 2100000, guid: 230a1b4658c82fb498ef670dedd13b5b, type: 2}
   dissolveRate: 0.0125
   refreshRate: 0.025
-  vfxMeshPropertyName: MeshRenderer
+  restoreOriginalAfterDissolve: 0
 --- !u!23 &1486681553 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 7054144470096349240, guid: 31f77fb967606ec4a81d63719b8271b2, type: 3}
@@ -32216,7 +32302,7 @@ MonoBehaviour:
   dissolveMaterialTemplate: {fileID: 2100000, guid: 230a1b4658c82fb498ef670dedd13b5b, type: 2}
   dissolveRate: 0.0125
   refreshRate: 0.025
-  vfxMeshPropertyName: MeshRenderer
+  restoreOriginalAfterDissolve: 0
 --- !u!23 &1566670288 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 5e262693254d32547abbc70c0458d29a, type: 3}
@@ -33343,7 +33429,7 @@ MonoBehaviour:
   dissolveMaterialTemplate: {fileID: 2100000, guid: 230a1b4658c82fb498ef670dedd13b5b, type: 2}
   dissolveRate: 0.0125
   refreshRate: 0.025
-  vfxMeshPropertyName: MeshRenderer
+  restoreOriginalAfterDissolve: 0
 --- !u!23 &1681081174 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 5e262693254d32547abbc70c0458d29a, type: 3}
@@ -33704,7 +33790,7 @@ MonoBehaviour:
   dissolveMaterialTemplate: {fileID: 2100000, guid: 230a1b4658c82fb498ef670dedd13b5b, type: 2}
   dissolveRate: 0.0125
   refreshRate: 0.025
-  vfxMeshPropertyName: MeshRenderer
+  restoreOriginalAfterDissolve: 0
 --- !u!23 &1754317675 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 5e262693254d32547abbc70c0458d29a, type: 3}
@@ -36759,7 +36845,7 @@ MonoBehaviour:
   dissolveMaterialTemplate: {fileID: 2100000, guid: 230a1b4658c82fb498ef670dedd13b5b, type: 2}
   dissolveRate: 0.0125
   refreshRate: 0.025
-  vfxMeshPropertyName: MeshRenderer
+  restoreOriginalAfterDissolve: 0
 --- !u!23 &2011608817 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 5e262693254d32547abbc70c0458d29a, type: 3}
@@ -42240,7 +42326,7 @@ MonoBehaviour:
   dissolveMaterialTemplate: {fileID: 2100000, guid: 230a1b4658c82fb498ef670dedd13b5b, type: 2}
   dissolveRate: 0.0125
   refreshRate: 0.025
-  vfxMeshPropertyName: MeshRenderer
+  restoreOriginalAfterDissolve: 0
 --- !u!23 &2100157823 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 5e262693254d32547abbc70c0458d29a, type: 3}
@@ -43276,3 +43362,4 @@ SceneRoots:
   - {fileID: 1941502222}
   - {fileID: 1984333166}
   - {fileID: 1568450721}
+  - {fileID: 438509929}
