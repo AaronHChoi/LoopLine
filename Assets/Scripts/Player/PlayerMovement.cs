@@ -1,5 +1,6 @@
 using UnityEngine;
 using DependencyInjection;
+using AK.Wwise;
 public class PlayerMovement : MonoBehaviour, IPlayerMovement
 {
     bool canMove = true;
@@ -40,6 +41,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
         if (transform.position.y != controller.PlayerModel.YAxisLocation)
         {
             moveDirection.y = (controller.PlayerModel.YAxisLocation - transform.position.y) * 0.9f;
+
         }
 
         if (input.IsSprinting())

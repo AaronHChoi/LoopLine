@@ -79,40 +79,26 @@ MonoBehaviour:
       guid: 00000000000000000000000000000000
     - ElementName: Default Work Unit
       ObjectType: 12
-      guid: f8e645132031be4bb79995676592c5fe
+      guid: fcbfa63c1b2ddd409d2fb730aab09852
     ParentPath: SoundBanks\Default Work Unit
-    guid: f8e645132031be4bb79995676592c5fe
+    guid: fcbfa63c1b2ddd409d2fb730aab09852
     GuidInternal: 
-    m_lastTime: -8584373970760611601
+    m_lastTime: -8584373169739944070
     List:
-    - name: Main_SoundBank
-      guid: dd068399b730204b8257ae404c07b4d0
-      id: 2228651116
+    - name: SoundBanckTPFinal
+      guid: 58cd94ce193d044fa292ad420ef69477
+      id: 3943289805
       PathAndIcons:
       - ElementName: SoundBanks
         ObjectType: 5
         guid: 00000000000000000000000000000000
       - ElementName: Default Work Unit
         ObjectType: 12
-        guid: f8e645132031be4bb79995676592c5fe
-      - ElementName: Main_SoundBank
+        guid: fcbfa63c1b2ddd409d2fb730aab09852
+      - ElementName: SoundBanckTPFinal
         ObjectType: 7
-        guid: dd068399b730204b8257ae404c07b4d0
-      Path: SoundBanks\Default Work Unit\Main_SoundBank
-    - name: SoundBankTP2
-      guid: e5d4f2256988864797bd395e1ce39623
-      id: 4244561510
-      PathAndIcons:
-      - ElementName: SoundBanks
-        ObjectType: 5
-        guid: 00000000000000000000000000000000
-      - ElementName: Default Work Unit
-        ObjectType: 12
-        guid: f8e645132031be4bb79995676592c5fe
-      - ElementName: SoundBankTP2
-        ObjectType: 7
-        guid: e5d4f2256988864797bd395e1ce39623
-      Path: SoundBanks\Default Work Unit\SoundBankTP2
+        guid: 58cd94ce193d044fa292ad420ef69477
+      Path: SoundBanks\Default Work Unit\SoundBanckTPFinal
   EventWwu:
   - PhysicalPath: Events\Default Work Unit.wwu
     PathAndIcons:
@@ -125,7 +111,7 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit
     guid: d00ac7ac0911884e938b39631ca2f9dd
     GuidInternal: 
-    m_lastTime: -8584373489015631976
+    m_lastTime: -8584373169740116606
     List:
     - name: Play_AmbientSound
       guid: 3f1037425842ae4ab0342d93c17c79c7
@@ -141,6 +127,57 @@ MonoBehaviour:
         ObjectType: 3
         guid: 3f1037425842ae4ab0342d93c17c79c7
       Path: Events\Default Work Unit\Play_AmbientSound
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Rain
+      guid: 5da02bbd96d06f498ccbccc113a862d7
+      id: 2838936948
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: d00ac7ac0911884e938b39631ca2f9dd
+      - ElementName: Play_Rain
+        ObjectType: 3
+        guid: 5da02bbd96d06f498ccbccc113a862d7
+      Path: Events\Default Work Unit\Play_Rain
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_SwitchFootsteps
+      guid: a2a43a21b5cc6a4f80a5c12203e1f003
+      id: 2737938367
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: d00ac7ac0911884e938b39631ca2f9dd
+      - ElementName: Play_SwitchFootsteps
+        ObjectType: 3
+        guid: a2a43a21b5cc6a4f80a5c12203e1f003
+      Path: Events\Default Work Unit\Play_SwitchFootsteps
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Play_Train_SwitchMusic
+      guid: 267b612e31da1b4989402865d3b4f76c
+      id: 3922861132
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: d00ac7ac0911884e938b39631ca2f9dd
+      - ElementName: Play_Train_SwitchMusic
+        ObjectType: 3
+        guid: 267b612e31da1b4989402865d3b4f76c
+      Path: Events\Default Work Unit\Play_Train_SwitchMusic
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
@@ -189,25 +226,8 @@ MonoBehaviour:
     ParentPath: Events\tt
     guid: 180240dc935f1748b6f0895891213546
     GuidInternal: 
-    m_lastTime: -8584373504421026593
-    List:
-    - name: Play_Train_SwitchMusic
-      guid: 267b612e31da1b4989402865d3b4f76c
-      id: 3922861132
-      PathAndIcons:
-      - ElementName: Events
-        ObjectType: 5
-        guid: 00000000000000000000000000000000
-      - ElementName: tt
-        ObjectType: 12
-        guid: 180240dc935f1748b6f0895891213546
-      - ElementName: Play_Train_SwitchMusic
-        ObjectType: 3
-        guid: 267b612e31da1b4989402865d3b4f76c
-      Path: Events\tt\Play_Train_SwitchMusic
-      maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+    m_lastTime: -8584373169740208835
+    List: []
   - PhysicalPath: Events\vv.wwu
     PathAndIcons:
     - ElementName: Events
@@ -219,42 +239,8 @@ MonoBehaviour:
     ParentPath: Events\vv
     guid: 006f33d70432314d952212586d51b876
     GuidInternal: 
-    m_lastTime: -8584373489015796741
-    List:
-    - name: Play_Rain
-      guid: 5da02bbd96d06f498ccbccc113a862d7
-      id: 2838936948
-      PathAndIcons:
-      - ElementName: Events
-        ObjectType: 5
-        guid: 00000000000000000000000000000000
-      - ElementName: vv
-        ObjectType: 12
-        guid: 006f33d70432314d952212586d51b876
-      - ElementName: Play_Rain
-        ObjectType: 3
-        guid: 5da02bbd96d06f498ccbccc113a862d7
-      Path: Events\vv\Play_Rain
-      maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
-    - name: Play_SwitchFootsteps
-      guid: a2a43a21b5cc6a4f80a5c12203e1f003
-      id: 2737938367
-      PathAndIcons:
-      - ElementName: Events
-        ObjectType: 5
-        guid: 00000000000000000000000000000000
-      - ElementName: vv
-        ObjectType: 12
-        guid: 006f33d70432314d952212586d51b876
-      - ElementName: Play_SwitchFootsteps
-        ObjectType: 3
-        guid: a2a43a21b5cc6a4f80a5c12203e1f003
-      Path: Events\vv\Play_SwitchFootsteps
-      maxAttenuation: 0
-      maxDuration: -1
-      minDuration: -1
+    m_lastTime: -8584373169739715615
+    List: []
   RtpcWwu:
   - PhysicalPath: Game Parameters\Default Work Unit.wwu
     PathAndIcons:
@@ -481,59 +467,88 @@ MonoBehaviour:
       guid: 00000000000000000000000000000000
     - ElementName: Default Work Unit
       ObjectType: 12
-      guid: 7b9b73da15f6e440a85511045764bb26
+      guid: 34af56c5c9784d448a639426f333f05d
     ParentPath: Switches\Default Work Unit
-    guid: 7b9b73da15f6e440a85511045764bb26
+    guid: 34af56c5c9784d448a639426f333f05d
     GuidInternal: 
-    m_lastTime: -8584403325934775808
+    m_lastTime: -8584373169739852622
+    List: []
+  - PhysicalPath: Switches\New Work Unit.wwu
+    PathAndIcons:
+    - ElementName: Switches
+      ObjectType: 5
+      guid: 00000000000000000000000000000000
+    - ElementName: New Work Unit
+      ObjectType: 12
+      guid: 26971c600967b440b5c8c4f5f5219593
+    ParentPath: Switches\New Work Unit
+    guid: 26971c600967b440b5c8c4f5f5219593
+    GuidInternal: 
+    m_lastTime: -8584373169739644825
     List:
-    - name: FootSteps
-      guid: ad3191911a34a94b8e897ecff5a9c33c
-      id: 2385628198
+    - name: Switch_Group_FootSteps
+      guid: 130392ab7e885b48a5c0e18630c6a77e
+      id: 2722725641
       PathAndIcons:
       - ElementName: Switches
         ObjectType: 5
         guid: 00000000000000000000000000000000
-      - ElementName: Default Work Unit
+      - ElementName: New Work Unit
         ObjectType: 12
-        guid: 7b9b73da15f6e440a85511045764bb26
-      - ElementName: FootSteps
+        guid: 26971c600967b440b5c8c4f5f5219593
+      - ElementName: Switch_Group_FootSteps
         ObjectType: 11
-        guid: ad3191911a34a94b8e897ecff5a9c33c
-      Path: Switches\Default Work Unit\FootSteps
+        guid: 130392ab7e885b48a5c0e18630c6a77e
+      Path: Switches\New Work Unit\Switch_Group_FootSteps
       values:
-      - name: Dirt
-        guid: 0736f2d38fca434a913c4c833bea647e
-        id: 2195636714
+      - name: SwitchConcrete
+        guid: 0811bec891716643b91b98c19eec7d5c
+        id: 593326092
         PathAndIcons:
         - ElementName: Switches
           ObjectType: 5
           guid: 00000000000000000000000000000000
-        - ElementName: Default Work Unit
+        - ElementName: New Work Unit
           ObjectType: 12
-          guid: 7b9b73da15f6e440a85511045764bb26
-        - ElementName: FootSteps
+          guid: 26971c600967b440b5c8c4f5f5219593
+        - ElementName: Switch_Group_FootSteps
           ObjectType: 11
-          guid: ad3191911a34a94b8e897ecff5a9c33c
-        - ElementName: Dirt
+          guid: 130392ab7e885b48a5c0e18630c6a77e
+        - ElementName: SwitchConcrete
           ObjectType: 10
-          guid: 0736f2d38fca434a913c4c833bea647e
-      - name: Grass
-        guid: 05524f277f8c13498d05d33cb296da38
-        id: 4248645337
+          guid: 0811bec891716643b91b98c19eec7d5c
+      - name: SwitchMetalic_1
+        guid: aef064732f5d9445bb68b1688b3ac21b
+        id: 2388064994
         PathAndIcons:
         - ElementName: Switches
           ObjectType: 5
           guid: 00000000000000000000000000000000
-        - ElementName: Default Work Unit
+        - ElementName: New Work Unit
           ObjectType: 12
-          guid: 7b9b73da15f6e440a85511045764bb26
-        - ElementName: FootSteps
+          guid: 26971c600967b440b5c8c4f5f5219593
+        - ElementName: Switch_Group_FootSteps
           ObjectType: 11
-          guid: ad3191911a34a94b8e897ecff5a9c33c
-        - ElementName: Grass
+          guid: 130392ab7e885b48a5c0e18630c6a77e
+        - ElementName: SwitchMetalic_1
           ObjectType: 10
-          guid: 05524f277f8c13498d05d33cb296da38
+          guid: aef064732f5d9445bb68b1688b3ac21b
+      - name: SwitchMetalic_2
+        guid: 1c321483e7882c459cd82cd3d1aa128b
+        id: 2388064993
+        PathAndIcons:
+        - ElementName: Switches
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: New Work Unit
+          ObjectType: 12
+          guid: 26971c600967b440b5c8c4f5f5219593
+        - ElementName: Switch_Group_FootSteps
+          ObjectType: 11
+          guid: 130392ab7e885b48a5c0e18630c6a77e
+        - ElementName: SwitchMetalic_2
+          ObjectType: 10
+          guid: 1c321483e7882c459cd82cd3d1aa128b
       ValueGuids: []
       ValueIcons: []
       valuesInternal: []
@@ -551,7 +566,7 @@ MonoBehaviour:
     GuidInternal: 
     m_lastTime: -8584421419854775808
     List: []
-  ExpandedFileSystemItemIds: 2100000022000000
+  ExpandedFileSystemItemIds: 020000000300000007000000090000000c0000000d0000000e0000000f000000110000001200000013000000170000001c0000001d0000002100000022000000
   ExpandedWaapiItemIds: 2100000022000000
   AutoSyncSelection: 0
   autoPopulateEnabled: 1

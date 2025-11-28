@@ -45,6 +45,8 @@ namespace Player
             {
                 if (input.Teleport())
                 {
+                    Music.Instance.ChangeState(Music.Instance.MindPlace1State);
+                    
                     controller.UseEventTeleport();
                 }
             }
