@@ -33,9 +33,10 @@ public class TeleportLoop : MonoBehaviour, ITeleportLoop
 
             //if (!isInitialLoop && GameManager.Instance.GetCondition(GameCondition.IsFirstLoopsCompleted))
             //{
-            //    gameSceneManager.UnloadLastScene();
-            //    gameSceneManager.LoadRandomScene();
+                
             //}
+            gameSceneManager.UnloadLastScene();
+            gameSceneManager.LoadRandomScene();
             //else if (!isInitialLoop && !GameManager.Instance.GetCondition(GameCondition.IsFirstLoopsCompleted))
             //{
 
