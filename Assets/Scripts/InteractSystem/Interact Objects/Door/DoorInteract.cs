@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class DoorInteract : MonoBehaviour, IInteract
 {
+    [Header("Wwise Events")]
+    public AK.Wwise.Event DoorEvent;
+
     [SerializeField] private string doorText;
     [SerializeField] private Transform doorLeft;
     [SerializeField] private Transform doorRight;
@@ -94,6 +97,7 @@ public class DoorInteract : MonoBehaviour, IInteract
         isMoving = true;
 
         SoundManager.Instance.PlayQuickSound(openDoorSound);
+        DoorEvent.Post(this.gameObject);
 
         if (doorLeftAnimator != null)
             doorLeftAnimator.SetTrigger(opening ? openTrigger : closeTrigger);
