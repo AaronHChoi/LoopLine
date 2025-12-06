@@ -1,5 +1,6 @@
 using DependencyInjection;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,6 +19,7 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
     [SerializeField] ItemInteract doorHandler;
 
     [SerializeField] private List<PhotoFrame> frames;
+    [SerializeField] private List<PhotoQuestComponent> Photos;
 
     [SerializeField] List<PhotoActivationEntry> photoActivations;
     public bool allFramesCorrect { get; private set; } = false;
@@ -36,7 +38,7 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
         {
             doorHandler.gameObject.SetActive(false);
         }
-
+        StartCoroutine(UpdateNextFrame());
         UpdatePhotoActivationStates();
     }
     private void OnEnable()
@@ -77,6 +79,34 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
 
         OnQuestCompleted();
     }
+
+    public void SetPhotoPosition(PhotoQuestComponent photo, PhotoFrame frame)
+    {
+        for (int i = 0; i < Photos.Count; i++)
+        {
+            if (photo.id == Photos[i].id)
+            {
+                Photos[i].gameObject.transform.position = frame.SpawnPosition.position;
+                Photos[i].gameObject.SetActive(true);
+                Photos[i].gameObject.layer = LayerMask.NameToLayer("Default");
+                break;
+            }
+        }
+    }
+
+    public void RemovePhoto(PhotoQuestComponent photo, PhotoFrame frame)
+    {
+        for (int i = 0; i < Photos.Count; i++)
+        {
+            if (photo.id == Photos[i].id)
+            {
+                Photos[i].gameObject.SetActive(false);
+                frame.currentPhoto.Interact();
+                Photos[i].gameObject.layer = LayerMask.NameToLayer("Default");
+                break;
+            }
+        }
+    }
     private void OnQuestCompleted()
     {
         PhotoQuestComplete();
@@ -100,6 +130,14 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
         OnPhotoQuestFinished?.Invoke();
         GameManager.Instance.SetCondition(GameCondition.IsPhotoQuestComplete, true);
     }
+    private IEnumerator UpdateNextFrame()
+    {
+        yield return null;
+        for (int i = 0; i < Photos.Count; i++)
+        {
+            Photos[i].gameObject.SetActive(false);
+        }
+    }
 }
 public interface IPhotoQuestManager
 {
@@ -107,4 +145,6 @@ public interface IPhotoQuestManager
     bool allFramesCorrect { get; }
 
     event Action OnPhotoQuestFinished;
+    void SetPhotoPosition(PhotoQuestComponent photo, PhotoFrame frame);
+    void RemovePhoto(PhotoQuestComponent photo, PhotoFrame frame);
 }

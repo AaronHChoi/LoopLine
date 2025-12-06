@@ -9,8 +9,8 @@ public class PhotoFrame : MonoBehaviour, IInteract
     [Header("Settings")]
     [SerializeField] private string interactText = "Place Photo";
     [SerializeField] private PhotoQuestComponent correctPhoto;
-    [SerializeField] private PhotoQuestComponent currentPhoto;
-    [SerializeField] private List<PhotoQuestComponent> Photos;
+    [SerializeField] public PhotoQuestComponent currentPhoto;
+    [SerializeField] public Transform SpawnPosition;
 
     public bool CorrectPhotoPlaced { get; private set; }
     private bool isFrameOccupied = false;
@@ -24,11 +24,6 @@ public class PhotoFrame : MonoBehaviour, IInteract
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
         photoQuestManager = InterfaceDependencyInjector.Instance.Resolve<IPhotoQuestManager>();
         playerInputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
-    }
-
-    private void Start()
-    {
-        StartCoroutine(UpdateNextFrame());
     }
     public void Interact()
     {
@@ -53,15 +48,17 @@ public class PhotoFrame : MonoBehaviour, IInteract
     {
         inventoryUI.RemoveInventorySlot(photo);
 
-        for (int i = 0; i < Photos.Count; i++)
-        {
-            if (photo.id == Photos[i].id)
-            {
-                Photos[i].gameObject.SetActive(true);
-                Photos[i].gameObject.layer = LayerMask.NameToLayer("Default");
-                break;
-            }
-        }
+        //for (int i = 0; i < Photos.Count; i++)
+        //{
+        //    if (photo.id == Photos[i].id)
+        //    {
+        //        Photos[i].gameObject.SetActive(true);
+        //        Photos[i].gameObject.layer = LayerMask.NameToLayer("Default");
+        //        break;
+        //    }
+        //}
+
+        photoQuestManager.SetPhotoPosition(photo, this);
 
         isFrameOccupied = true;
         photo.isItemPlaced = true;
@@ -79,28 +76,21 @@ public class PhotoFrame : MonoBehaviour, IInteract
     }
     public void RemovePhoto(PhotoQuestComponent photo)
     {
-        for (int i = 0; i < Photos.Count; i++)
-        {
-            if (photo.id == Photos[i].id)
-            {
-                Photos[i].gameObject.SetActive(false);
-                currentPhoto.Interact();
-                Photos[i].gameObject.layer = LayerMask.NameToLayer("Default");
-                break;
-            }
-        }
+        //for (int i = 0; i < Photos.Count; i++)
+        //{
+        //    if (photo.id == Photos[i].id)
+        //    {
+        //        Photos[i].gameObject.SetActive(false);
+        //        currentPhoto.Interact();
+        //        Photos[i].gameObject.layer = LayerMask.NameToLayer("Default");
+        //        break;
+        //    }
+        //}
+        photoQuestManager.RemovePhoto(photo, this);
         currentPhoto = null;
         isFrameOccupied = false;
         CorrectPhotoPlaced = false;
     }
 
-    private IEnumerator UpdateNextFrame()
-    {
-        yield return null;
-        for (int i = 0; i < Photos.Count; i++)
-        {
-            Photos[i].gameObject.SetActive(false);
-        }
-    }
     public string GetInteractText() => interactText;
 }
