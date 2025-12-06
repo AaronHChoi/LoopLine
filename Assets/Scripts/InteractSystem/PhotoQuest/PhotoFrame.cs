@@ -9,21 +9,23 @@ public class PhotoFrame : MonoBehaviour, IInteract
     [Header("Settings")]
     [SerializeField] private string interactText = "Place Photo";
     [SerializeField] private PhotoQuestComponent correctPhoto;
+    [SerializeField] private Events photoFrameEvent = Events.PodiumEmpty;
     [SerializeField] public PhotoQuestComponent currentPhoto;
     [SerializeField] public Transform SpawnPosition;
-
     public bool CorrectPhotoPlaced { get; private set; }
     private bool isFrameOccupied = false;
 
     private IInventoryUI inventoryUI;
     private IPhotoQuestManager photoQuestManager;
     private IPlayerInputHandler playerInputHandler;
+    private IMonologueSpeaker monologueSpeaker;
 
     private void Awake()
     {
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
         photoQuestManager = InterfaceDependencyInjector.Instance.Resolve<IPhotoQuestManager>();
         playerInputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
     }
     public void Interact()
     {
@@ -39,7 +41,12 @@ public class PhotoFrame : MonoBehaviour, IInteract
         }
         else if (currentPhoto != null && inventoryUI.ItemInUse.id == inventoryUI.HandItemUI.id && !photoQuestManager.allFramesCorrect)
         {
+            
             RemovePhoto(currentPhoto);
+        }
+        if (currentPhoto == null && inventoryUI.ItemInUse.id == inventoryUI.HandItemUI.id)
+        {
+            monologueSpeaker.StartMonologue(photoFrameEvent);
         }
 
     }

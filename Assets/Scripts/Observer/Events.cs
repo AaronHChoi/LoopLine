@@ -37,4 +37,7 @@ public enum Events
     Photo5Quest2,
     Photo6Quest2,
     #endregion
+    #region ITEMS
+    PodiumEmpty,
+    #endregion
 }
