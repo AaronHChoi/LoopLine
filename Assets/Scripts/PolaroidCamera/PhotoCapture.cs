@@ -32,8 +32,6 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
     IPlayerInteract playerInteract;
     IMonologueSpeaker monologueSpeaker;
 
-    public event Action<string> OnPhotoClueCaptured;
-
     #region MAGIC_METHODS
     private void Awake()
     {
@@ -125,7 +123,6 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
 }
 public interface IPhotoCapture
 {
-    event Action<string> OnPhotoClueCaptured;
     void SetCameraUIVisible(bool isVisible);
     void ResetPhotoCounter();
 }

@@ -15,7 +15,6 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     [SerializeField] private string doorText;
     [SerializeField] private bool IsRootatingDoor = true;
     [SerializeField] private float Speed = 1f;
-    [SerializeField] private float AutoCloseDelay = 3f;
     [SerializeField] float delayOpenDoorAnimation = 0.75f;
 
     private Vector3 playerPosition;

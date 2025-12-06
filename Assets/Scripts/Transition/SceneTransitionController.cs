@@ -5,7 +5,7 @@ using Unity.Cinemachine;
 public class SceneTransitionController : MonoBehaviour, ISceneTransitionController
 {
     [Header("Transition Settings")]
-    [SerializeField] private float shakeDuration = 0.3f;
+    //[SerializeField] private float shakeDuration = 0.3f;
     [SerializeField] private float fovDuration = 0.5f;
     [SerializeField] private float fadeDuration = 1f;
 
@@ -18,7 +18,6 @@ public class SceneTransitionController : MonoBehaviour, ISceneTransitionControll
     [SerializeField] private float fadeTargetWeight = 1f;
 
     private Coroutine currentTransition = null;
-    private bool isActive = false;
 
     private void Start()
     {

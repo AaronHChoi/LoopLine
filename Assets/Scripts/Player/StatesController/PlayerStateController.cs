@@ -18,7 +18,6 @@ namespace Player
         public event Action OnScrollInventory;
         public event Action OnGrab;
         public event Action OnTeleport;
-        public event Action OnSwitchCameraMode;
         public event Action OnPuzzleInteract;
         public event Action OnPuzzleLeftInteract;
         public event Action OnPuzzleRightInteract;

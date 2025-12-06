@@ -1,5 +1,4 @@
 using DependencyInjection;
-using InWorldUI;
 using UnityEngine;
 //using static Unity.Cinemachine.InputAxisControllerBase<T>;
 public class RockTrigger : MonoBehaviour
@@ -7,7 +6,7 @@ public class RockTrigger : MonoBehaviour
     IPlayerInteract playerInteract;
     IPlayerInteractMarkerPrompt playerInteraction;
 
-    private float OriginalPlayerInteractRange;
+    //private float OriginalPlayerInteractRange;
     //private float OriginalPlayerInteractionRange;
     void Awake()
     {
@@ -17,7 +16,7 @@ public class RockTrigger : MonoBehaviour
 
     private void Start()
     {
-        OriginalPlayerInteractRange = 2f;
+        //OriginalPlayerInteractRange = 2f;
         //OriginalPlayerInteractionRange = playerInteraction.interactRange;
     }
 

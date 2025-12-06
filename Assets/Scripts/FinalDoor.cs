@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class FinalDoor : MonoBehaviour, IInteract
 {
-    private bool isCursorVisible = false;
+    //private bool isCursorVisible = false;
     IGameSceneManager gameSceneManager;
 
     private void Awake()

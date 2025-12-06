@@ -15,7 +15,6 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private Color monologueColor;
 
     [SerializeField] private float typingSpeed = 0.05f;
-    [SerializeField] private bool skipTypingOnClick = true;
 
     [SerializeField] SoundData typeSound;
 

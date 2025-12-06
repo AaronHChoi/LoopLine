@@ -15,9 +15,8 @@ public class ParallaxManager3D : MonoBehaviour
     [SerializeField] private float limitZ = -706f;
     [SerializeField] private List<ParallaxLayer> layers = new List<ParallaxLayer>();
     
-    [SerializeField] private float gizmoHeight = 20f;  
-    [SerializeField] private Color limitColor = Color.red;
-    [SerializeField] private Color teleportColor = Color.green;
+    //[SerializeField] private Color limitColor = Color.red;
+    //[SerializeField] private Color teleportColor = Color.green;
 
     private void Start()
     {

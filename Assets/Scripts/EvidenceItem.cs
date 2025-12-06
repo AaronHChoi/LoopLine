@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class EvidenceItem : MonoBehaviour
 {
-    BoxCollider collider;
+    BoxCollider evidenceCollider;
 
     IPolaraidItem item;
 
     private void Awake()
     {
-        collider = GetComponent<BoxCollider>();
+        evidenceCollider = GetComponent<BoxCollider>();
         item = InterfaceDependencyInjector.Instance.Resolve<IPolaraidItem>();
     }
     private void OnEnable()
@@ -28,6 +28,6 @@ public class EvidenceItem : MonoBehaviour
     }
     private void OnPolaroidTaken()
     {
-        collider.enabled = false;
+        evidenceCollider.enabled = false;
     }
 }
