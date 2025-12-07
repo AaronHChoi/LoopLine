@@ -37,11 +37,11 @@ public class PhotoFrame : MonoBehaviour, IInteract
             if (!isFrameOccupied)
             {
                 PlacePhoto(itemInUse);
+                photoQuestManager.CheckAllFrames();
             }
         }
         else if (currentPhoto != null && inventoryUI.ItemInUse.id == inventoryUI.HandItemUI.id && !photoQuestManager.allFramesCorrect)
         {
-            
             RemovePhoto(currentPhoto);
         }
         if (currentPhoto == null && inventoryUI.ItemInUse.id == inventoryUI.HandItemUI.id)
@@ -55,16 +55,6 @@ public class PhotoFrame : MonoBehaviour, IInteract
     {
         inventoryUI.RemoveInventorySlot(photo);
 
-        //for (int i = 0; i < Photos.Count; i++)
-        //{
-        //    if (photo.id == Photos[i].id)
-        //    {
-        //        Photos[i].gameObject.SetActive(true);
-        //        Photos[i].gameObject.layer = LayerMask.NameToLayer("Default");
-        //        break;
-        //    }
-        //}
-
         photoQuestManager.SetPhotoPosition(photo, this);
 
         isFrameOccupied = true;
@@ -74,7 +64,6 @@ public class PhotoFrame : MonoBehaviour, IInteract
 
         if (photo == correctPhoto)
             CorrectPhotoPlaced = true;
-        photoQuestManager.CheckAllFrames();
     }
 
     public void AllCorrectPhotoPlaced()

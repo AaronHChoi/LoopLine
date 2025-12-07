@@ -10,6 +10,7 @@ namespace InWorldUI
         [SerializeField] private Sprite interactIcon;
 
         BaseItemInteract item;
+        IInteract interact;
 
         void OnEnable()
         {
@@ -18,7 +19,12 @@ namespace InWorldUI
 
             if (item == null)
             {
-                Debug.LogWarning($"[DynamicIconChange] No BaseItemInteract found for {gameObject.name}");
+                interact = GetComponentInParent<IInteract>() ;
+                if (interact == null)
+                    return;
+                if (!iconImage)
+                    iconImage = GetComponentInChildren<Image>();
+                iconImage.sprite = interactIcon;
                 return;
             }
 
