@@ -906,7 +906,7 @@ MonoBehaviour:
   dissolveMaterialTemplate: {fileID: 2100000, guid: 230a1b4658c82fb498ef670dedd13b5b, type: 2}
   dissolveRate: 0.0125
   refreshRate: 0.025
-  vfxMeshPropertyName: MeshRenderer
+  restoreOriginalAfterDissolve: 0
 --- !u!23 &181815105 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -4747328900159247050, guid: 31f77fb967606ec4a81d63719b8271b2, type: 3}
@@ -3294,7 +3294,7 @@ MonoBehaviour:
   dissolveMaterialTemplate: {fileID: 2100000, guid: 230a1b4658c82fb498ef670dedd13b5b, type: 2}
   dissolveRate: 0.0125
   refreshRate: 0.025
-  vfxMeshPropertyName: MeshRenderer
+  restoreOriginalAfterDissolve: 0
 --- !u!23 &382360637 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 5e262693254d32547abbc70c0458d29a, type: 3}
@@ -4866,7 +4866,7 @@ MonoBehaviour:
   dissolveMaterialTemplate: {fileID: 2100000, guid: 230a1b4658c82fb498ef670dedd13b5b, type: 2}
   dissolveRate: 0.0125
   refreshRate: 0.025
-  vfxMeshPropertyName: MeshRenderer
+  restoreOriginalAfterDissolve: 0
 --- !u!23 &505167896 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -83848013702501910, guid: 31f77fb967606ec4a81d63719b8271b2, type: 3}
@@ -10266,9 +10266,6 @@ MonoBehaviour:
     - {fileID: 484378178}
     - {fileID: 1097569473}
     spacing: 0
-  gizmoHeight: 20
-  limitColor: {r: 1, g: 0, b: 0, a: 1}
-  teleportColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!4 &573265677
 Transform:
   m_ObjectHideFlags: 0
@@ -11211,7 +11208,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3b072026d385144dbf018e371310450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shakeDuration: 1
   fovDuration: 1
   fadeDuration: 1
   transitionVolume: {fileID: 1644992112}
@@ -11273,6 +11269,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &755873489 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6209836867477829733, guid: 75bc562f1892f2841afe6314b5a73f2e, type: 3}
+  m_PrefabInstance: {fileID: 5084124191104396135}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &755873491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755873489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 434882409911c124986b7660595cdfda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryOpenSound:
+    clip: {fileID: 8300000, guid: 1739df0a34f2b634f98c5251bd7880e7, type: 3}
+    mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 1
+    secondsDelay: 0
+  inventoryCloseSound:
+    clip: {fileID: 8300000, guid: faf81418b843f27408a27c268c02d5a1, type: 3}
+    mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 1
+    secondsDelay: 0
 --- !u!1001 &756728607
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16248,7 +16275,7 @@ MonoBehaviour:
   dissolveMaterialTemplate: {fileID: 2100000, guid: 230a1b4658c82fb498ef670dedd13b5b, type: 2}
   dissolveRate: 0.0125
   refreshRate: 0.025
-  vfxMeshPropertyName: MeshRenderer
+  restoreOriginalAfterDissolve: 0
 --- !u!23 &785002799 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 5e262693254d32547abbc70c0458d29a, type: 3}
@@ -27124,7 +27151,7 @@ MonoBehaviour:
   dissolveMaterialTemplate: {fileID: 2100000, guid: 230a1b4658c82fb498ef670dedd13b5b, type: 2}
   dissolveRate: 0.0125
   refreshRate: 0.025
-  vfxMeshPropertyName: MeshRenderer
+  restoreOriginalAfterDissolve: 0
 --- !u!23 &920942987 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 5e262693254d32547abbc70c0458d29a, type: 3}
@@ -27350,7 +27377,7 @@ MonoBehaviour:
   dissolveMaterialTemplate: {fileID: 2100000, guid: 230a1b4658c82fb498ef670dedd13b5b, type: 2}
   dissolveRate: 0.0125
   refreshRate: 0.025
-  vfxMeshPropertyName: MeshRenderer
+  restoreOriginalAfterDissolve: 0
 --- !u!23 &960658917 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 5e262693254d32547abbc70c0458d29a, type: 3}
@@ -28372,7 +28399,7 @@ MonoBehaviour:
   dissolveMaterialTemplate: {fileID: 2100000, guid: 230a1b4658c82fb498ef670dedd13b5b, type: 2}
   dissolveRate: 0.0125
   refreshRate: 0.025
-  vfxMeshPropertyName: MeshRenderer
+  restoreOriginalAfterDissolve: 0
 --- !u!23 &1182689107 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 5e262693254d32547abbc70c0458d29a, type: 3}
@@ -29909,7 +29936,6 @@ MonoBehaviour:
   dialogueColor: {r: 1, g: 1, b: 1, a: 1}
   monologueColor: {r: 1, g: 0.90588236, b: 0.5176471, a: 1}
   typingSpeed: 0.02
-  skipTypingOnClick: 1
   typeSound:
     clip: {fileID: 8300000, guid: 1722a39727515734dbe7d03458f168af, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
@@ -30793,7 +30819,7 @@ MonoBehaviour:
   dissolveMaterialTemplate: {fileID: 2100000, guid: 230a1b4658c82fb498ef670dedd13b5b, type: 2}
   dissolveRate: 0.0125
   refreshRate: 0.025
-  vfxMeshPropertyName: MeshRenderer
+  restoreOriginalAfterDissolve: 0
 --- !u!23 &1486681553 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 7054144470096349240, guid: 31f77fb967606ec4a81d63719b8271b2, type: 3}
@@ -32216,7 +32242,7 @@ MonoBehaviour:
   dissolveMaterialTemplate: {fileID: 2100000, guid: 230a1b4658c82fb498ef670dedd13b5b, type: 2}
   dissolveRate: 0.0125
   refreshRate: 0.025
-  vfxMeshPropertyName: MeshRenderer
+  restoreOriginalAfterDissolve: 0
 --- !u!23 &1566670288 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 5e262693254d32547abbc70c0458d29a, type: 3}
@@ -33343,7 +33369,7 @@ MonoBehaviour:
   dissolveMaterialTemplate: {fileID: 2100000, guid: 230a1b4658c82fb498ef670dedd13b5b, type: 2}
   dissolveRate: 0.0125
   refreshRate: 0.025
-  vfxMeshPropertyName: MeshRenderer
+  restoreOriginalAfterDissolve: 0
 --- !u!23 &1681081174 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 5e262693254d32547abbc70c0458d29a, type: 3}
@@ -33704,7 +33730,7 @@ MonoBehaviour:
   dissolveMaterialTemplate: {fileID: 2100000, guid: 230a1b4658c82fb498ef670dedd13b5b, type: 2}
   dissolveRate: 0.0125
   refreshRate: 0.025
-  vfxMeshPropertyName: MeshRenderer
+  restoreOriginalAfterDissolve: 0
 --- !u!23 &1754317675 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 5e262693254d32547abbc70c0458d29a, type: 3}
@@ -36759,7 +36785,7 @@ MonoBehaviour:
   dissolveMaterialTemplate: {fileID: 2100000, guid: 230a1b4658c82fb498ef670dedd13b5b, type: 2}
   dissolveRate: 0.0125
   refreshRate: 0.025
-  vfxMeshPropertyName: MeshRenderer
+  restoreOriginalAfterDissolve: 0
 --- !u!23 &2011608817 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 5e262693254d32547abbc70c0458d29a, type: 3}
@@ -42240,7 +42266,7 @@ MonoBehaviour:
   dissolveMaterialTemplate: {fileID: 2100000, guid: 230a1b4658c82fb498ef670dedd13b5b, type: 2}
   dissolveRate: 0.0125
   refreshRate: 0.025
-  vfxMeshPropertyName: MeshRenderer
+  restoreOriginalAfterDissolve: 0
 --- !u!23 &2100157823 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 5e262693254d32547abbc70c0458d29a, type: 3}
@@ -43070,7 +43096,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6209836867477829733, guid: 75bc562f1892f2841afe6314b5a73f2e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 755873491}
   m_SourcePrefab: {fileID: 100100000, guid: 75bc562f1892f2841afe6314b5a73f2e, type: 3}
 --- !u!1001 &7247117707713144200
 PrefabInstance:
