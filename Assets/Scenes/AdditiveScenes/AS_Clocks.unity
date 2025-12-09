@@ -1085,13 +1085,13 @@ VisualEffect:
       m_Array: []
     m_Vector3f:
       m_Array:
-      - m_Value: {x: -0.0000008471663, y: 0.0000011583727, z: 0.000004232022}
+      - m_Value: {x: -0.000000061204254, y: -0.00000014358255, z: 0.0000016787322}
         m_Name: Transform_angles
         m_Overridden: 1
-      - m_Value: {x: 0.0000008640564, y: -0.00000043198898, z: 0.0000008445015}
+      - m_Value: {x: 0.00000019305836, y: -0.00000023875788, z: 0.0000004977055}
         m_Name: Transform_position
         m_Overridden: 1
-      - m_Value: {x: 1.0000005, y: 1.0000001, z: 1.0000006}
+      - m_Value: {x: 1.0000006, y: 1.0000005, z: 1.0000011}
         m_Name: Transform_scale
         m_Overridden: 1
     m_Vector4f:
@@ -6219,7 +6219,7 @@ PrefabInstance:
     - target: {fileID: 1402170253972459125, guid: 8cfd8e921ece1ea4c9b7c80cd54521c5, type: 3}
       propertyPath: 'm_Materials.Array.data[3]'
       value: 
-      objectReference: {fileID: 3691300173897140086, guid: 8783a20c6c761e6488cf4026c401a789, type: 3}
+      objectReference: {fileID: -4151747639703313478, guid: 8c682ea38e0b77d4ca49a642516d8beb, type: 3}
     - target: {fileID: 2494031811227071395, guid: 8cfd8e921ece1ea4c9b7c80cd54521c5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.083
@@ -6260,10 +6260,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 102.284
       objectReference: {fileID: 0}
+    - target: {fileID: 2880347799929697234, guid: 8cfd8e921ece1ea4c9b7c80cd54521c5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2880347799929697234, guid: 8cfd8e921ece1ea4c9b7c80cd54521c5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2880347799929697234, guid: 8cfd8e921ece1ea4c9b7c80cd54521c5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4539868868090495325, guid: 8cfd8e921ece1ea4c9b7c80cd54521c5, type: 3}
       propertyPath: m_Name
       value: Polaroid
       objectReference: {fileID: 0}
+    - target: {fileID: 4553579807392895350, guid: 8cfd8e921ece1ea4c9b7c80cd54521c5, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -8377841050064929091, guid: 8c682ea38e0b77d4ca49a642516d8beb, type: 3}
     m_RemovedComponents:
     - {fileID: 8525692512006223476, guid: 8cfd8e921ece1ea4c9b7c80cd54521c5, type: 3}
     - {fileID: 6907062166202276798, guid: 8cfd8e921ece1ea4c9b7c80cd54521c5, type: 3}
@@ -6316,7 +6332,7 @@ MonoBehaviour:
   dissolveMaterialTemplate: {fileID: 2100000, guid: 230a1b4658c82fb498ef670dedd13b5b, type: 2}
   dissolveRate: 0.0125
   refreshRate: 0.025
-  vfxMeshPropertyName: MeshRenderer
+  restoreOriginalAfterDissolve: 0
 --- !u!1 &1323389981
 GameObject:
   m_ObjectHideFlags: 0
