@@ -25,6 +25,7 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
     {
         get => isInventoryOpen;
     }
+    public bool isFirstTimeOpening { get; set; } = true;
     public BaseItemInteract HandItemUI { get { return handItemUI; } } 
 
     private int currentSlotIndex = 0;
@@ -113,6 +114,10 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
     #endregion
     private void OpenInventory()
     {
+        if (isFirstTimeOpening)
+        {
+            isFirstTimeOpening = false;
+        }
         if (inventorySlots.Count != 0 && !isInventoryOpen)
         {
             ShowInventory();
@@ -346,6 +351,8 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
 public interface IInventoryUI
 {
     public List<UIInventoryItemSlot> inventorySlots { get; }
+
+    bool isFirstTimeOpening { get;}
     int CurrentSlotIndex { get; }
     bool IsInventoryOpen { get; }
     public BaseItemInteract HandItemUI { get; }
