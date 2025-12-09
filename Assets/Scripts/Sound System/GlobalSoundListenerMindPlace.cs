@@ -1,16 +1,15 @@
 using DependencyInjection;
+using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GlobalSoundListenerMindPlace : MonoBehaviour
+public class GlobalSoundListener : MonoBehaviour
 {
     [Header("UI Sounds")]
     [SerializeField] SoundData inventoryOpenSound;
     [SerializeField] SoundData inventoryCloseSound;
+    [SerializeField] private List<SoundData> PlayerSteps;
 
-    [Header("Interaction Sounds")]
-    [SerializeField] List<SoundData> grabSounds;
-    [SerializeField] SoundData openDoor;
 
     IInventoryUI inventoryUI;
     private void Awake()
@@ -20,12 +19,12 @@ public class GlobalSoundListenerMindPlace : MonoBehaviour
     private void OnEnable()
     {
         EventBus.Subscribe<PlayerInventoryEvent>(OnInventoryToggled);
-        EventBus.Subscribe<PlayerGrabItemEvent>(OnGrabItems);
+        EventBus.Subscribe<PlayerStepEvent>(PlayPlayerStepSound);
     }
     private void OnDisable()
     {
         EventBus.Unsubscribe<PlayerInventoryEvent>(OnInventoryToggled);
-        EventBus.Unsubscribe<PlayerGrabItemEvent>(OnGrabItems);
+        EventBus.Unsubscribe<PlayerStepEvent>(PlayPlayerStepSound);
     }
     void OnInventoryToggled(PlayerInventoryEvent ev)
     {
@@ -39,10 +38,15 @@ public class GlobalSoundListenerMindPlace : MonoBehaviour
                 .Play();
         }
     }
-    void OnGrabItems(PlayerGrabItemEvent ev)
+
+    void PlayPlayerStepSound(PlayerStepEvent st)
     {
+        if (PlayerSteps.Count == 0) return;
+        int randomIndex = Random.Range(0, PlayerSteps.Count);
+        SoundData stepSound = PlayerSteps[randomIndex];
         SoundManager.Instance.CreateSound()
-            .WithSoundData(grabSounds[Random.Range(0, grabSounds.Count)])
+            .WithSoundData(stepSound)
+            .WithRandomPitch()
             .Play();
     }
 }
