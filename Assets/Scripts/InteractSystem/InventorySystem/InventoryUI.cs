@@ -320,11 +320,15 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
         }
         FadeController.ForceFade(true);
         isInventoryOpen = true;
+
+        EventBus.Publish(new PlayerInventoryEvent { IsOpening = true });
     }
     private void HideInventory()
     {
         FadeController.ForceFade(false);
         isInventoryOpen = false;
+
+        EventBus.Publish(new PlayerInventoryEvent { IsOpening = false });
     }
 
     public Transform GetSpawnPosition()
