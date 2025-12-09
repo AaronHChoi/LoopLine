@@ -1,0 +1,2 @@
+
+public struct PlayerGrabItemEvent : IGameEvent { }

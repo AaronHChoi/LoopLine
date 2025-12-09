@@ -80,11 +80,12 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     }
     public void Interact()
     {
-        if (inventoryUI.ItemInUse.id == "DoorHandler" && doorHandler != null)
+        if (inventoryUI.ItemInUse.id == "Key" && !active)
         {
-            doorHandler.SetActive(true);
             active = true;
-            OnPhotoQuestOpenDoor?.Invoke();
+            EventBus.Publish(new UnlockDoorEvent { SoundID = EventsID.SecondDoor, ShouldPlay = true });
+            //OnPhotoQuestOpenDoor?.Invoke();
+            return;
         }
 
         if (active)

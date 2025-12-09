@@ -41,14 +41,12 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
     CanvasGroup ArrowCanvasGroup;
     FadeInOutController ArrowFadeController;
     IPlayerStateController controller;
-    IDialogueManager dialogueManager;
     IPlayerInputHandler inputHandler;
 
     #region MagicMethods
     private void Awake()
     {
         inputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
-        dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
         controller = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
     }
     private void Start()
@@ -71,8 +69,6 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
         RebuildInventoryFromManager();
         arrowImage.gameObject.SetActive(false);
         HideInventory();
-        
-
     }
     private void Update()
     {
@@ -117,6 +113,7 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
         if (isFirstTimeOpening)
         {
             isFirstTimeOpening = false;
+            return;
         }
         if (inventorySlots.Count != 0 && !isInventoryOpen)
         {

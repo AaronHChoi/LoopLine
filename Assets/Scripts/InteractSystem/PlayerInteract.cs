@@ -1,6 +1,5 @@
 using Player;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using DependencyInjection;
 using System.Collections.Generic;
 
@@ -10,12 +9,10 @@ public class PlayerInteract : MonoBehaviour, IPlayerInteract
     [SerializeField] List<SoundData> grabSoundData;
 
     IPlayerStateController playerStateController;
-    IInventoryUI inventoryUI;
     IGameSceneManager gameSceneManager;
 
     private void Awake()
     {
-        inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
         gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
     }
@@ -48,14 +45,12 @@ public class PlayerInteract : MonoBehaviour, IPlayerInteract
     }
     private void GrabItem()
     {
-        IItemGrabInteract intemGrabObject = GetItemGrabIteractableObject();
+        IItemGrabInteractable intemGrabObject = GetItemGrabIteractableObject();
         if (intemGrabObject != null)
         {
             if (intemGrabObject.Interact())
             {
-                SoundManager.Instance.CreateSound()
-                    .WithSoundData(grabSoundData[Random.Range(0, grabSoundData.Count)])
-                    .Play();
+                EventBus.Publish(new PlayerGrabItemEvent());
             }
         }
     }
@@ -78,11 +73,11 @@ public class PlayerInteract : MonoBehaviour, IPlayerInteract
         }
         return null;
     }
-    public IItemGrabInteract GetItemGrabIteractableObject()
+    public IItemGrabInteractable GetItemGrabIteractableObject()
     {
         if (rayController.FoundInteract)
         {
-            if (rayController.Target.TryGetComponent(out IItemGrabInteract itemGrabInteractable))
+            if (rayController.Target.TryGetComponent(out IItemGrabInteractable itemGrabInteractable))
             {
                 return itemGrabInteractable;
             }

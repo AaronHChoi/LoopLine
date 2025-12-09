@@ -1,7 +1,7 @@
 using UnityEngine;
 using DependencyInjection;
 
-public abstract class ItemInteract : MonoBehaviour, IItemGrabInteract
+public abstract class ItemInteract : MonoBehaviour, IItemGrabInteractable
 {
     [Header("Settings")]
     [SerializeField] private string interactText = "";
