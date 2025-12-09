@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerView : MonoBehaviour, IPlayerView
 {
-    private CharacterController characterController;
+    public CharacterController characterController;
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();

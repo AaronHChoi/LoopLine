@@ -8,6 +8,10 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
         get => canMove; 
         set => canMove = value; 
     }
+    private float stepTimer; 
+    private bool wasMovingLastFrame;
+    public float walkStepInterval = 0.6f; 
+    public float runStepInterval = 0.35f;
 
     IPlayerController controller;
     IPlayerInputHandler input;
@@ -49,6 +53,36 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
         else
         {
             moveDirection *= controller.PlayerModel.Speed;
+        }
+
+        float speed = moveDirection.magnitude;
+
+        if (speed < controller.PlayerModel.Speed)
+        {
+            wasMovingLastFrame = false;
+            stepTimer = 0f;
+        }
+        else
+        {
+            if (!wasMovingLastFrame)
+            {
+                EventBus.Publish(new PlayerStepEvent());
+                stepTimer = 0f;
+            }
+
+            wasMovingLastFrame = true;
+
+            float interval = (speed > controller.PlayerModel.SprintSpeed)
+                ? runStepInterval
+                : walkStepInterval;
+
+            stepTimer += Time.deltaTime;
+
+            if (stepTimer >= interval)
+            {
+                EventBus.Publish(new PlayerStepEvent());
+                stepTimer = 0f;
+            }
         }
 
         playerView.Move(moveDirection * Time.deltaTime);
