@@ -47,13 +47,5 @@ public class LocalSoundEmitter : MonoBehaviour
                 }
             }
         }
-        else
-        {
-            if (activeEmitter != null)
-            {
-                activeEmitter.Stop();
-                activeEmitter = null;
-            }
-        }
     }
 }
