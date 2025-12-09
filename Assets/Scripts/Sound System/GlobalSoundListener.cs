@@ -1,3 +1,4 @@
+using DependencyInjection;
 using UnityEngine;
 
 public class GlobalSoundListener : MonoBehaviour
@@ -6,6 +7,12 @@ public class GlobalSoundListener : MonoBehaviour
     [SerializeField] SoundData inventoryOpenSound;
     [SerializeField] SoundData inventoryCloseSound;
 
+
+    IInventoryUI inventoryUI;
+    private void Awake()
+    {
+        inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
+    }
     private void OnEnable()
     {
         EventBus.Subscribe<PlayerInventoryEvent>(OnInventoryToggled);
@@ -18,7 +25,7 @@ public class GlobalSoundListener : MonoBehaviour
     {
         SoundData soundToPlay = ev.IsOpening ? inventoryOpenSound : inventoryCloseSound;
 
-        if (soundToPlay != null)
+        if (soundToPlay != null && !inventoryUI.isFirstTimeOpening)
         {
             SoundManager.Instance.CreateSound()
                 .WithSoundData(soundToPlay)

@@ -1,4 +1,5 @@
 using DependencyInjection;
+using InWorldUI;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -44,7 +45,7 @@ public class PhotoFrame : MonoBehaviour, IInteract
         {
             RemovePhoto(currentPhoto);
         }
-        if (currentPhoto == null && inventoryUI.ItemInUse.id == inventoryUI.HandItemUI.id)
+        if (currentPhoto == null && inventoryUI.ItemInUse.id == inventoryUI.HandItemUI.id && !photoQuestManager.allFramesCorrect)
         {
             monologueSpeaker.StartMonologue(photoFrameEvent);
         }
@@ -69,6 +70,10 @@ public class PhotoFrame : MonoBehaviour, IInteract
     public void AllCorrectPhotoPlaced()
     {
         correctPhoto.gameObject.layer = LayerMask.NameToLayer("Default");
+        foreach (Transform child in gameObject.transform)
+        {
+            child.gameObject.SetActive(false);
+        }
     }
     public void RemovePhoto(PhotoQuestComponent photo)
     {
