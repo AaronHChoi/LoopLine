@@ -30,6 +30,10 @@ public class PhotoFrame : MonoBehaviour, IInteract
     }
     public void Interact()
     {
+        if (currentPhoto == null && inventoryUI.ItemInUse.id == inventoryUI.HandItemUI.id && !photoQuestManager.allFramesCorrect)
+        {
+            monologueSpeaker.StartMonologue(photoFrameEvent);
+        }
         if (inventoryUI.ItemInUse.id != inventoryUI.HandItemUI.id && !photoQuestManager.allFramesCorrect)
         {
             var itemInUse = inventoryUI.ItemInUse.TryGetComponent<PhotoQuestComponent>(out var photoComponent) ? photoComponent : null;
@@ -44,10 +48,6 @@ public class PhotoFrame : MonoBehaviour, IInteract
         else if (currentPhoto != null && inventoryUI.ItemInUse.id == inventoryUI.HandItemUI.id && !photoQuestManager.allFramesCorrect)
         {
             RemovePhoto(currentPhoto);
-        }
-        if (currentPhoto == null && inventoryUI.ItemInUse.id == inventoryUI.HandItemUI.id && !photoQuestManager.allFramesCorrect)
-        {
-            monologueSpeaker.StartMonologue(photoFrameEvent);
         }
 
     }
