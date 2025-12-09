@@ -1,4 +1,6 @@
 using DependencyInjection;
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GlobalSoundListener : MonoBehaviour
@@ -6,6 +8,7 @@ public class GlobalSoundListener : MonoBehaviour
     [Header("UI Sounds")]
     [SerializeField] SoundData inventoryOpenSound;
     [SerializeField] SoundData inventoryCloseSound;
+    [SerializeField] private List<SoundData> PlayerSteps;
 
 
     IInventoryUI inventoryUI;
@@ -16,10 +19,12 @@ public class GlobalSoundListener : MonoBehaviour
     private void OnEnable()
     {
         EventBus.Subscribe<PlayerInventoryEvent>(OnInventoryToggled);
+        EventBus.Subscribe<PlayerStepEvent>(PlayPlayerStepSound);
     }
     private void OnDisable()
     {
         EventBus.Unsubscribe<PlayerInventoryEvent>(OnInventoryToggled);
+        EventBus.Unsubscribe<PlayerStepEvent>(PlayPlayerStepSound);
     }
     void OnInventoryToggled(PlayerInventoryEvent ev)
     {
@@ -32,5 +37,16 @@ public class GlobalSoundListener : MonoBehaviour
                 .WithRandomPitch()
                 .Play();
         }
+    }
+
+    void PlayPlayerStepSound(PlayerStepEvent st)
+    {
+        if (PlayerSteps.Count == 0) return;
+        int randomIndex = Random.Range(0, PlayerSteps.Count);
+        SoundData stepSound = PlayerSteps[randomIndex];
+        SoundManager.Instance.CreateSound()
+            .WithSoundData(stepSound)
+            .WithRandomPitch()
+            .Play();
     }
 }

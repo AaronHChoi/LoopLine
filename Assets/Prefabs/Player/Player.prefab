@@ -259,6 +259,7 @@ GameObject:
   - component: {fileID: 489988536104913948}
   - component: {fileID: 1982087446048684932}
   - component: {fileID: 1048711227675933098}
+  - component: {fileID: 6408213331684775633}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -276,9 +277,10 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 8184326696572124634}
   - {fileID: 6738153658621300136}
   - {fileID: 10905606423551343}
   - {fileID: 1511619312946824358}
@@ -304,7 +306,7 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 2
+  m_Height: 7
   m_Radius: 0.5
   m_SlopeLimit: 0
   m_StepOffset: 0.3
@@ -467,10 +469,6 @@ MonoBehaviour:
     m_ActionName: 'Player/PassDialog[/Mouse/leftButton]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 87228888-a2af-4b48-9e52-9c388fbeae2e
-    m_ActionName: 'Player/SkipDialogueTyping[/Mouse/leftButton]'
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: 2e959ae8-fe9d-41e5-ae14-786e3f6a0160
     m_ActionName: 'Player/OpenInventory[/Keyboard/tab]'
   - m_PersistentCalls:
@@ -489,6 +487,26 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 88bc41ec-141e-4440-917c-d734e4a8d626
     m_ActionName: 'Player/GrabItem[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 05409b9d-7030-4f33-94f2-accc72fe5854
+    m_ActionName: 'Player/Teleport[/Keyboard/f]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 031593be-7982-4c7c-bed5-a2241ca725df
+    m_ActionName: 'Player/PauseMenuMode[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 42629c80-e0c8-419a-88bc-5dda36382f4d
+    m_ActionName: 'Player/PuzzleInteract[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: df91e21e-9d4f-49b1-bdf4-42a150c1d595
+    m_ActionName: 'Player/LeftPuzzleInteract[/Keyboard/a]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8493b0e9-e5e3-4689-8a72-c61b81cbe2fa
+    m_ActionName: 'Player/RightPuzzleInteract[/Keyboard/d]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -544,6 +562,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a7660729301b964f91de30f1399de34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  walkStepInterval: 0.6
+  runStepInterval: 0.2
 --- !u!114 &1982087446048684932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -566,6 +586,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e6fc17a339abef4fbb427ceeccffce6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6408213331684775633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1965095351449339405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76a3f31d7be6b8c47a0016eb88286aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2887781547482913969
@@ -837,7 +869,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rayController: {fileID: 3534618851014398844}
-  minScoreAllowed: 0.03
   grabSoundData:
   - clip: {fileID: 8300000, guid: 8af6825e32e5bf2479f00ead4a6b62c9, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
@@ -874,7 +905,6 @@ MonoBehaviour:
   interactableLayer:
     serializedVersion: 2
     m_Bits: 8
-  minScoreAllowed: 0.03
 --- !u!114 &7276671746339684356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -887,7 +917,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55f7d76c521e89941b61aaf8f5457671, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crosshairImage: {fileID: 0}
+  fadeCrosshairBig: {fileID: 0}
+  fadeCrosshairSmall: {fileID: 0}
   rayController: {fileID: 3534618851014398844}
 --- !u!135 &5018810498263520707
 SphereCollider:
@@ -937,3 +968,89 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!1001 &5856585897693079007
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1133552872947455245}
+    m_Modifications:
+    - target: {fileID: 1743830314105354290, guid: 8845d33f58a903640af2636bd8e563b0, type: 3}
+      propertyPath: bgmAudio
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1743830314105354290, guid: 8845d33f58a903640af2636bd8e563b0, type: 3}
+      propertyPath: cameraFlash
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2365045235947640837, guid: 8845d33f58a903640af2636bd8e563b0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2365045235947640837, guid: 8845d33f58a903640af2636bd8e563b0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2365045235947640837, guid: 8845d33f58a903640af2636bd8e563b0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2365045235947640837, guid: 8845d33f58a903640af2636bd8e563b0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2365045235947640837, guid: 8845d33f58a903640af2636bd8e563b0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2365045235947640837, guid: 8845d33f58a903640af2636bd8e563b0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 22.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2365045235947640837, guid: 8845d33f58a903640af2636bd8e563b0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2365045235947640837, guid: 8845d33f58a903640af2636bd8e563b0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2365045235947640837, guid: 8845d33f58a903640af2636bd8e563b0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2365045235947640837, guid: 8845d33f58a903640af2636bd8e563b0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2365045235947640837, guid: 8845d33f58a903640af2636bd8e563b0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2365045235947640837, guid: 8845d33f58a903640af2636bd8e563b0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2365045235947640837, guid: 8845d33f58a903640af2636bd8e563b0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7899167772522073780, guid: 8845d33f58a903640af2636bd8e563b0, type: 3}
+      propertyPath: m_Name
+      value: Polaroid
+      objectReference: {fileID: 0}
+    - target: {fileID: 7899167772522073780, guid: 8845d33f58a903640af2636bd8e563b0, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8845d33f58a903640af2636bd8e563b0, type: 3}
+--- !u!4 &8184326696572124634 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2365045235947640837, guid: 8845d33f58a903640af2636bd8e563b0, type: 3}
+  m_PrefabInstance: {fileID: 5856585897693079007}
+  m_PrefabAsset: {fileID: 0}

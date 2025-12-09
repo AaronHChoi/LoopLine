@@ -10,12 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 7068545759168376733}
   - component: {fileID: 8460895395143425424}
+  - component: {fileID: 3705335142568398951}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7068545759168376733
 Transform:
@@ -25,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6209836867477829733}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -48,3 +49,72 @@ MonoBehaviour:
   collectionCheck: 1
   defaultCapacity: 10
   maxPoolSize: 100
+--- !u!114 &3705335142568398951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6209836867477829733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 434882409911c124986b7660595cdfda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryOpenSound:
+    clip: {fileID: 8300000, guid: 1739df0a34f2b634f98c5251bd7880e7, type: 3}
+    mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 0.2
+    secondsDelay: 0
+  inventoryCloseSound:
+    clip: {fileID: 8300000, guid: faf81418b843f27408a27c268c02d5a1, type: 3}
+    mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 0.2
+    secondsDelay: 0
+  PlayerSteps:
+  - clip: {fileID: 8300000, guid: daf50f4346a24b04995c9f2e7ad95ce4, type: 3}
+    mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 0.2
+    secondsDelay: 0
+  - clip: {fileID: 8300000, guid: b24be9020369d0c4980f7014f9d25194, type: 3}
+    mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 0.2
+    secondsDelay: 0
+  - clip: {fileID: 8300000, guid: 98f8e74e746bbea458215d12c93a7821, type: 3}
+    mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 0.2
+    secondsDelay: 0
+  - clip: {fileID: 8300000, guid: b82be37ddf3dd6641b5312cd35c2378b, type: 3}
+    mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 0.2
+    secondsDelay: 0
+  - clip: {fileID: 8300000, guid: 9f3c624649434c3409f56a5ef4ee6b68, type: 3}
+    mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 0.2
+    secondsDelay: 0
+  - clip: {fileID: 8300000, guid: 4d0b860e65f699141a15b0fffb12b368, type: 3}
+    mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 0.2
+    secondsDelay: 0
+  - clip: {fileID: 8300000, guid: 5e9e7e29ea654474da9cb111c1f59059, type: 3}
+    mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 0.2
+    secondsDelay: 0
