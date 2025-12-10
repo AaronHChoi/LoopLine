@@ -18,6 +18,8 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
     IPlayerCamera playerCamera;
     IPlayerView playerView;
 
+    readonly PlayerStepEvent stepEvent = new PlayerStepEvent();
+
     private void Awake()
     {
         controller = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
@@ -71,7 +73,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
 
             if (!wasMovingLastFrame)
             {
-                EventBus.Publish(new PlayerStepEvent());
+                EventBus.Publish(stepEvent);
                 stepTimer = 0f;
             }
 
@@ -81,7 +83,7 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
 
             if (stepTimer >= interval)
             {
-                EventBus.Publish(new PlayerStepEvent());
+                EventBus.Publish(stepEvent);
                 stepTimer = 0f;
             }
         }

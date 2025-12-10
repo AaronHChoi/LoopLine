@@ -6,7 +6,6 @@ public class LocalSoundEmitter : MonoBehaviour
     [SerializeField] EventsID emitterID;
     [SerializeField] SoundData sound;
     [SerializeField] bool PlayOnStart = false;
-    SoundEmitter activeEmitter;
 
     private void OnEnable()
     {

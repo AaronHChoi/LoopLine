@@ -59,7 +59,7 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
             {
                 StopCoroutine(AnimationCorutine);
             }
-            if (IsRootatingDoor) 
+            if (IsRootatingDoor)
             {
                 EventBus.Publish(new UnlockDoorEvent { SoundID = EventsID.OpenDoor, ShouldPlay = true });
                 float dot = Vector3.Dot(Forward, (UserPosition - doorGameObject.transform.position).normalized);
