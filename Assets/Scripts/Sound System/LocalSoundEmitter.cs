@@ -34,18 +34,10 @@ public class LocalSoundEmitter : MonoBehaviour
     {
         if (shouldPlay)
         {
-            if (activeEmitter == null)
-            {
-                activeEmitter = SoundManager.Instance.CreateSound()
-                   .WithSoundData(sound)
-                   .WithSoundPosition(transform.position)
-                   .Play();
-
-                if (activeEmitter != null)
-                {
-                    activeEmitter.transform.SetParent(this.transform);
-                }
-            }
+            SoundManager.Instance.CreateSound()
+                .WithSoundData(sound)
+                .WithSoundPosition(transform.position)
+                .Play();
         }
     }
 }

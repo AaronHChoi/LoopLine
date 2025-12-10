@@ -34,6 +34,8 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     [SerializeField] GameObject doorHandler;
     [SerializeField] bool active = false;
 
+    [SerializeField] EventsID soundEventID;
+
     private void Awake()
     {
         playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
@@ -59,7 +61,7 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
             }
             if (IsRootatingDoor) 
             {
-                EventBus.Publish(new UnlockDoorEvent { SoundID = EventsID.Test, ShouldPlay = true });
+                EventBus.Publish(new UnlockDoorEvent { SoundID = EventsID.OpenDoor, ShouldPlay = true });
                 float dot = Vector3.Dot(Forward, (UserPosition - doorGameObject.transform.position).normalized);
                 AnimationCorutine = StartCoroutine(DoRotationOpen(dot));
             }
@@ -84,7 +86,7 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
         if (inventoryUI.ItemInUse.id == "Key" && !active)
         {
             active = true;
-            EventBus.Publish(new UnlockDoorEvent { SoundID = EventsID.SecondDoor, ShouldPlay = true });
+            EventBus.Publish(new UnlockDoorEvent { SoundID = soundEventID, ShouldPlay = true });
             //OnPhotoQuestOpenDoor?.Invoke();
             return;
         }
