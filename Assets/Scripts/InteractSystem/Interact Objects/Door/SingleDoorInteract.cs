@@ -35,6 +35,7 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     [SerializeField] bool active = false;
 
     [SerializeField] EventsID soundEventID;
+    [SerializeField] string keyString;
 
     private void Awake()
     {
@@ -83,7 +84,7 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     }
     public void Interact()
     {
-        if (inventoryUI.ItemInUse.id == "Key" && !active)
+        if (inventoryUI.ItemInUse.id == keyString && !active)
         {
             active = true;
             EventBus.Publish(new UnlockDoorEvent { SoundID = soundEventID, ShouldPlay = true });
