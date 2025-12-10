@@ -55,15 +55,20 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
             moveDirection *= controller.PlayerModel.Speed;
         }
 
-        float speed = moveDirection.magnitude;
+        float movementThreshold = 0.1f;
 
-        if (speed < controller.PlayerModel.Speed)
+        // Chequeo de movimiento real
+        bool isMoving = inputMovement.magnitude > movementThreshold;
+
+        if (!isMoving)
         {
             wasMovingLastFrame = false;
             stepTimer = 0f;
         }
         else
         {
+            float interval = input.IsSprinting() ? runStepInterval : walkStepInterval;
+
             if (!wasMovingLastFrame)
             {
                 EventBus.Publish(new PlayerStepEvent());
@@ -71,10 +76,6 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
             }
 
             wasMovingLastFrame = true;
-
-            float interval = (speed > controller.PlayerModel.SprintSpeed)
-                ? runStepInterval
-                : walkStepInterval;
 
             stepTimer += Time.deltaTime;
 
