@@ -8,6 +8,8 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     public event Action OnDoorOpened;
     public event Action OnDoorClosed;
     public event Action OnPhotoQuestOpenDoor;
+    public event Action OnMusicSaveQuestOpenDoor;
+
 
     public bool isOpen = false;
 
@@ -32,6 +34,7 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     IInventoryUI inventoryUI;
 
     [SerializeField] GameObject doorHandler;
+    [SerializeField] TutorialInteract correctKey;
     [SerializeField] bool active = false;
 
     [SerializeField] EventsID soundEventID;
@@ -83,13 +86,26 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     }
     public void Interact()
     {
-        if (inventoryUI.ItemInUse.id == "Key" && !active)
+        if (correctKey != null)
         {
-            active = true;
-            EventBus.Publish(new UnlockDoorEvent { SoundID = soundEventID, ShouldPlay = true });
-            //OnPhotoQuestOpenDoor?.Invoke();
-            return;
+            if (inventoryUI.ItemInUse.id == "KeyClock" && !active && inventoryUI.ItemInUse.id == correctKey.id)
+            {
+                active = true;
+                EventBus.Publish(new UnlockDoorEvent { SoundID = soundEventID, ShouldPlay = true });
+                OnPhotoQuestOpenDoor?.Invoke();
+                return;
+            }
+            if (inventoryUI.ItemInUse.id == "KeyPhoto" && !active && inventoryUI.ItemInUse.id == correctKey.id)
+            {
+                active = true;
+                EventBus.Publish(new UnlockDoorEvent { SoundID = soundEventID, ShouldPlay = true });
+                OnMusicSaveQuestOpenDoor?.Invoke();
+                return;
+            }
         }
+       
+       
+
 
         if (active)
         {

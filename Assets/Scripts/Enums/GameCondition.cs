@@ -4,6 +4,7 @@ public enum GameCondition
     IsClockQuestComplete,
     IsPhotoQuestComplete,
     PhotoDoorOpen,
+    MusicSafeDoorOpen,
     PolaroidTaken,
     LetterClue6,
     PhotosClue1,
