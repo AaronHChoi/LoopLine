@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RaycastActivator : MonoBehaviour
@@ -7,7 +6,7 @@ public class RaycastActivator : MonoBehaviour
     [SerializeField] public Events monologueToTrigger;
     [SerializeField] public int monologueDelay;
     [SerializeField] ItemDissolve item;
-    [SerializeField] int myOrderIndex;
+    //[SerializeField] int myOrderIndex;
 
     private void Awake()
     {
@@ -15,19 +14,19 @@ public class RaycastActivator : MonoBehaviour
     }
     public bool SetChildrenActive(bool active)
     {
-        bool isRightOrder = false;
-        if (active)
-        {
-            if (myOrderIndex != GameManager.Instance.currentPhotoIndex)
-            {
-                return isRightOrder;
-            }
-            else
-            {
-                isRightOrder = true;
-            }
-            GameManager.Instance.currentPhotoIndex++;
-        }
+        ////bool isRightOrder = false;
+        ////if (active)
+        ////{
+        ////    if (myOrderIndex != GameManager.Instance.currentPhotoIndex)
+        ////    {
+        ////        return isRightOrder;
+        ////    }
+        ////    else
+        ////    {
+        ////        isRightOrder = true;
+        ////    }
+        ////    GameManager.Instance.currentPhotoIndex++;
+        ////}
 
         foreach (Transform child in transform)
         {
@@ -38,6 +37,7 @@ public class RaycastActivator : MonoBehaviour
         {
             item.TakePhoto();
         }
-        return isRightOrder;
+
+        return true;
     }
 }

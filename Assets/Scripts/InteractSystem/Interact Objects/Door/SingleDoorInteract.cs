@@ -38,6 +38,7 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     [SerializeField] bool active = false;
 
     [SerializeField] EventsID soundEventID;
+    [SerializeField] string keyString;
 
     private void Awake()
     {
