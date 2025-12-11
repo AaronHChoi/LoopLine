@@ -15,8 +15,8 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
     public event Action OnPhotoQuestFinished;
 
     [SerializeField] SingleDoorInteract doorInteract;
-
     [SerializeField] ItemInteract doorHandler;
+    [SerializeField] Rigidbody rb;
 
     [SerializeField] private List<PhotoFrame> frames;
     [SerializeField] private List<PhotoQuestComponent> Photos;
@@ -120,13 +120,14 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
     }
     private void OpenDoorPhotoQuest()
     {
-        inventoryUI.RemoveInventorySlot(doorHandler);
+        inventoryUI.RemoveInventorySlot(doorHandler);        
         GameManager.Instance.SetCondition(GameCondition.PhotoDoorOpen, true);
         GameManager.Instance.SetCondition(GameCondition.TeleportAvailable, true);
         gameSceneManager.SetInitialLoop(true);
     }
     private void PhotoQuestComplete()
     {
+        rb.isKinematic = false;
         OnPhotoQuestFinished?.Invoke();
         GameManager.Instance.SetCondition(GameCondition.IsPhotoQuestComplete, true);
     }
