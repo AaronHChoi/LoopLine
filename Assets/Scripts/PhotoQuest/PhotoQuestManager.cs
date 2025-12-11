@@ -55,14 +55,6 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
             doorInteract.OnPhotoQuestOpenDoor -= OpenDoorPhotoQuest;
         }
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            PhotoQuestComplete();
-        }
-    }
     void UpdatePhotoActivationStates()
     {
         if (photoActivations == null) return;
