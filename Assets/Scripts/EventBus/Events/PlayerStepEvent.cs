@@ -1,6 +1,2 @@
-using UnityEngine;
 
-public struct PlayerStepEvent : IGameEvent
-{
-
-}
+public struct PlayerStepEvent : IGameEvent { }

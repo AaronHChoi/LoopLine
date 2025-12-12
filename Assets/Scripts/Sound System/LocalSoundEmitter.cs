@@ -1,4 +1,3 @@
-using SoundSystem;
 using UnityEngine;
 
 public class LocalSoundEmitter : MonoBehaviour
@@ -6,10 +5,10 @@ public class LocalSoundEmitter : MonoBehaviour
     [SerializeField] EventsID emitterID;
     [SerializeField] SoundData sound;
     [SerializeField] bool PlayOnStart = false;
-
+     
     private void OnEnable()
     {
-        EventBus.Subscribe<UnlockDoorEvent>(OnToggleEvent);
+        EventBus.Subscribe<DoorEvent>(OnToggleEvent);
 
         if (PlayOnStart)
         {
@@ -18,11 +17,11 @@ public class LocalSoundEmitter : MonoBehaviour
     }
     private void OnDisable()
     {
-        EventBus.Unsubscribe<UnlockDoorEvent>(OnToggleEvent);
+        EventBus.Unsubscribe<DoorEvent>(OnToggleEvent);
 
         ToggleSound(false);
     }
-    void OnToggleEvent(UnlockDoorEvent ev)
+    void OnToggleEvent(DoorEvent ev)
     {
         if (ev.SoundID == emitterID || ev.SoundID == EventsID.All)
         {
