@@ -4,15 +4,24 @@ using DependencyInjection;
 public class PlayerCamera : MonoBehaviour, IDependencyInjectable, IPlayerCamera
 {
     CinemachineCamera virtualCamera;
+    CinemachineCameraOffset cameraOffset;
     Transform cameraTransform;
 
-    CinemachineBasicMultiChannelPerlin m_Noise;
+    private float timer = 0;
+    private Vector3 currentOffset = Vector3.zero;
+
+    //CinemachineBasicMultiChannelPerlin m_Noise;
     private void Awake()
     {
         InjectDependencies(DependencyContainer.Instance);
         cameraTransform = virtualCamera.transform;
 
-        m_Noise = virtualCamera.GetCinemachineComponent(CinemachineCore.Stage.Noise) as CinemachineBasicMultiChannelPerlin;
+        cameraOffset = virtualCamera.GetComponent<CinemachineCameraOffset>();
+        if (cameraOffset != null )
+        {
+            Debug.LogError("CinemachineCameraOffset missing component");
+        }
+        //m_Noise = virtualCamera.GetCinemachineComponent(CinemachineCore.Stage.Noise) as CinemachineBasicMultiChannelPerlin;
     }
     public void InjectDependencies(DependencyContainer provider)
     {
@@ -22,26 +31,50 @@ public class PlayerCamera : MonoBehaviour, IDependencyInjectable, IPlayerCamera
     {
         return cameraTransform;
     }
-    public void SetNoiseGains(float amplitudeGain, float frequencyGain, float smoothTime)
+    public void ApplyHeadBob(float frequency, float amplitude, float horizontalMultiplier)
     {
-        if (m_Noise != null)
-        {
-            m_Noise.AmplitudeGain = Mathf.Lerp(
-                m_Noise.AmplitudeGain,
-                amplitudeGain,
-                Time.deltaTime * smoothTime
-            );
+        if (cameraOffset == null) return;
 
-            m_Noise.FrequencyGain = Mathf.Lerp(
-                m_Noise.FrequencyGain,
-                frequencyGain,
-                Time.deltaTime * smoothTime
-            );
-        }
+        timer += Time.deltaTime * frequency;
+
+        float bobY = Mathf.Sin(timer) * amplitude;
+
+        float bobX = Mathf.Cos(timer / 2) * amplitude * horizontalMultiplier;
+
+        Vector3 targetOffset = new Vector3(bobX, bobY, 0);
+
+        cameraOffset.Offset = Vector3.Lerp(cameraOffset.Offset, targetOffset, Time.deltaTime * 10f);
     }
+    public void ResetHeadBob(float smoothTime)
+    {
+        if (cameraOffset == null) return;
+
+        timer = 0; 
+
+        cameraOffset.Offset = Vector3.Lerp(cameraOffset.Offset, Vector3.zero, Time.deltaTime * smoothTime);
+    }
+    //public void SetNoiseGains(float amplitudeGain, float frequencyGain, float smoothTime)
+    //{
+    //    if (m_Noise != null)
+    //    {
+    //        m_Noise.AmplitudeGain = Mathf.Lerp(
+    //            m_Noise.AmplitudeGain,
+    //            amplitudeGain,
+    //            Time.deltaTime * smoothTime
+    //        );
+
+    //        m_Noise.FrequencyGain = Mathf.Lerp(
+    //            m_Noise.FrequencyGain,
+    //            frequencyGain,
+    //            Time.deltaTime * smoothTime
+    //        );
+    //    }
+    //}
 }
 public interface IPlayerCamera
 {
     Transform GetCameraTransform();
-    void SetNoiseGains(float amplitudeGain, float frequencyGain, float smoothTime);
+    //void SetNoiseGains(float amplitudeGain, float frequencyGain, float smoothTime);
+    void ApplyHeadBob(float frequency, float amplitude, float horizontalMultiplier);
+    void ResetHeadBob(float smoothTime);
 }

@@ -7,24 +7,32 @@ namespace Player
         IPlayerStateController controller;
         IPlayerInputHandler input;
         IPlayerMovement movement;
-        ICameraOrientation playerCamera;
+        ICameraOrientation playerCameraOrientation;
         IUIManager uiManager;
-        public NormalState(IPlayerStateController controller, IPlayerInputHandler input, IPlayerMovement movement, ICameraOrientation playerCamera, IUIManager uiManager)
+        IPlayerCamera playerCamera;
+        IPlayerController playerController;
+        public NormalState(IPlayerStateController controller, IPlayerInputHandler input, 
+            IPlayerMovement movement, ICameraOrientation playerCameraOrientation, IUIManager uiManager,
+            IPlayerController playerController, IPlayerCamera playerCamera)
         {
             this.controller = controller;
             this.input = input;
             this.movement = movement;
-            this.playerCamera = playerCamera;
+            this.playerCameraOrientation = playerCameraOrientation;
             this.uiManager = uiManager;
+            this.playerController = playerController;
+            this.playerCamera = playerCamera;
         }
         public void Enter()
         {
             movement.CanMove = true;
-            playerCamera.CanLook = true;
+            playerCameraOrientation.CanLook = true;
             Debug.Log("Entering NormalState");
         }
         public void Execute()
         {
+            HandleHeadBob();
+
             if (GameManager.Instance.GetCondition(GameCondition.PolaroidTaken) && input.ToggleCameraPressed())
             {
                 controller.StateMachine.TransitionTo(controller.CameraState);
@@ -58,8 +66,34 @@ namespace Player
         public void Exit()
         {
             movement.CanMove = false;
-            playerCamera.CanLook = false;
+            playerCameraOrientation.CanLook = false;
+
             Debug.Log("Exiting NormalState");
+        }
+        void HandleHeadBob()
+        {
+            PlayerModel model = playerController.PlayerModel;
+            Vector2 moveInput = input.GetInputMove();
+
+            float horizontalFactor = 0.2f;
+
+            if (moveInput.magnitude > 0.1f)
+            {
+                bool isSprinting = input.IsSprinting();
+
+                if (isSprinting)
+                {
+                    playerCamera.ApplyHeadBob(model.SprintBobFrequencyGain, model.SprintBobAmplitudeGain, horizontalFactor);
+                }
+                else
+                {
+                    playerCamera.ApplyHeadBob(model.WalkBobFrequencyGain, model.WalkBobAmplitudeGain, horizontalFactor);
+                }
+            }
+            else
+            {
+                playerCamera.ResetHeadBob(model.BobSmoothTime);
+            }
         }
     }
 }

@@ -32,6 +32,8 @@ namespace Player
         IPlayerInputHandler inputHandler;
         IGameSceneManager gameSceneManager;
         IUIManager uiManager;
+        IPlayerCamera playerCamera;
+        IPlayerController playerController;
         public NormalState NormalState { get; set; }
         public DialogueState DialogueState { get;  set; }
         public CameraState CameraState { get;  set; }
@@ -50,10 +52,12 @@ namespace Player
             timeManager = InterfaceDependencyInjector.Instance.Resolve<ITimeProvider>();
             gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
             uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
+            playerCamera = InterfaceDependencyInjector.Instance.Resolve<IPlayerCamera>();
+            playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
 
             stateMachine = new StateMachine();
 
-            NormalState = new NormalState(this, inputHandler, playerMovement, cinemachinePOVExtension, uiManager);
+            NormalState = new NormalState(this, inputHandler, playerMovement, cinemachinePOVExtension, uiManager, playerController, playerCamera);
             DialogueState = new DialogueState(this, inputHandler, playerMovement, cinemachinePOVExtension);
             CameraState = new CameraState(this, inputHandler, playerMovement, photoCapture, cinemachinePOVExtension, interaction);
             DevelopmentState = new DevelopmentState(this, inputHandler, playerMovement, cinemachinePOVExtension, timeManager);
