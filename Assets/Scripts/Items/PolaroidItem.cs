@@ -29,7 +29,7 @@ public class PolaroidItem : ItemInteract, IPolaraidItem
             uiManager.ShowPanel(panelID);
             GameManager.Instance.SetCondition(GameCondition.PolaroidTaken, true);
             gameSceneManager.SetInitialLoop(false);
-
+            EventBus.Publish(new PlayerGrabItemEvent());
             gameObject.SetActive(false);
             return true;
         }

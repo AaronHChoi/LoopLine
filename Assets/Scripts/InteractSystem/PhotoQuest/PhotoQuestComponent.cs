@@ -18,12 +18,14 @@ public class PhotoQuestComponent : ItemInteract
     {
         if (!isItemPlaced)
         {
+            EventBus.Publish(new PlayerGrabItemEvent());
             return base.Interact();
         }
         else 
         {
             photoFrame = null;
             isItemPlaced = false;
+            EventBus.Publish(new PlayerGrabItemEvent());
             return base.Interact();
         }
         
