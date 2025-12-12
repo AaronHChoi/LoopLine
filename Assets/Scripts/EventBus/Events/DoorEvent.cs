@@ -1,5 +1,5 @@
 
-public struct UnlockDoorEvent : IGameEvent 
+public struct DoorEvent : IGameEvent 
 {
     public EventsID SoundID;
     public bool ShouldPlay;

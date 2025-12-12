@@ -2874,7 +2874,9 @@ MonoBehaviour:
   doorHandler: {fileID: 0}
   correctKey: {fileID: 0}
   active: 1
-  soundEventID: 0
+  openDoorSoundEventID: 5
+  unlockDoorSoundEventID: 0
+  lockedDoorSoundEventID: 0
   keyString: 
 --- !u!65 &159241367
 BoxCollider:
@@ -11901,6 +11903,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5678799807657421715, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
       insertIndex: -1
       addedObject: {fileID: 921083721}
+    - targetCorrespondingSourceObject: {fileID: 5678799807657421715, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 921083723}
     - targetCorrespondingSourceObject: {fileID: -4551196906710034513, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
       insertIndex: 1
       addedObject: {fileID: 322971946}
@@ -11922,6 +11927,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2726971722978617577, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1407127147}
+    - targetCorrespondingSourceObject: {fileID: 2726971722978617577, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1407127152}
     - targetCorrespondingSourceObject: {fileID: -412782615309762233, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
       insertIndex: -1
       addedObject: {fileID: 361062727}
@@ -19442,7 +19450,9 @@ MonoBehaviour:
   doorHandler: {fileID: 644322723}
   correctKey: {fileID: 423400360}
   active: 0
-  soundEventID: 2
+  openDoorSoundEventID: 6
+  unlockDoorSoundEventID: 2
+  lockedDoorSoundEventID: 9
   keyString: FirstKey
 --- !u!114 &921083719
 MonoBehaviour:
@@ -19477,9 +19487,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16ee6854268ee8d41b030f944353bfd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emitterID: 5
+  emitterID: 6
   sound:
     clip: {fileID: 8300000, guid: 9f8a3c64b166e5348a5b8cbba2914d1d, type: 3}
+    mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 1
+    secondsDelay: 0
+  PlayOnStart: 0
+--- !u!114 &921083723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 921083714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16ee6854268ee8d41b030f944353bfd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emitterID: 9
+  sound:
+    clip: {fileID: 8300000, guid: 44050e30993275e4fbace1015cda48dc, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
     isALoop: 0
     isAPlayOnAwake: 0
@@ -29213,7 +29244,9 @@ MonoBehaviour:
   doorHandler: {fileID: 0}
   correctKey: {fileID: 0}
   active: 1
-  soundEventID: 4
+  openDoorSoundEventID: 8
+  unlockDoorSoundEventID: 4
+  lockedDoorSoundEventID: 11
   keyString: ThirdKey
 --- !u!65 &1329073047
 BoxCollider:
@@ -31224,7 +31257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16ee6854268ee8d41b030f944353bfd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emitterID: 5
+  emitterID: 7
   sound:
     clip: {fileID: 8300000, guid: 9f8a3c64b166e5348a5b8cbba2914d1d, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
@@ -31298,8 +31331,31 @@ MonoBehaviour:
   doorHandler: {fileID: 1000978884}
   correctKey: {fileID: 804363553}
   active: 0
-  soundEventID: 3
+  openDoorSoundEventID: 7
+  unlockDoorSoundEventID: 3
+  lockedDoorSoundEventID: 10
   keyString: SecondKey
+--- !u!114 &1407127152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407127145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16ee6854268ee8d41b030f944353bfd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emitterID: 10
+  sound:
+    clip: {fileID: 8300000, guid: 44050e30993275e4fbace1015cda48dc, type: 3}
+    mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 1
+    secondsDelay: 0
+  PlayOnStart: 0
 --- !u!1 &1416447583
 GameObject:
   m_ObjectHideFlags: 0
@@ -61061,6 +61117,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2143519682}
     m_Modifications:
+    - target: {fileID: 615180178634177854, guid: 71f5fabffc9b26c4a90ba22e5db91ac0, type: 3}
+      propertyPath: ItemData
+      value: 
+      objectReference: {fileID: 11400000, guid: 585bc6752cddc6e4cb97660fb549d85e, type: 2}
     - target: {fileID: 4211580908035778441, guid: 71f5fabffc9b26c4a90ba22e5db91ac0, type: 3}
       propertyPath: m_Size.z
       value: 0.27660117

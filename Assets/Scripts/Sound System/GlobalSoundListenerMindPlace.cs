@@ -2,7 +2,7 @@ using DependencyInjection;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GlobalSoundListener : MonoBehaviour
+public class GlobalSoundListenerMindPlace : MonoBehaviour
 {
     [Header("UI Sounds")]
     [SerializeField] SoundData inventoryOpenSound;

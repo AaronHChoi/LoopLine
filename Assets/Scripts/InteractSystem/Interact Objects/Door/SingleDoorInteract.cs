@@ -2,6 +2,7 @@ using DependencyInjection;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.LightTransport;
 
 public class SingleDoorInteract : MonoBehaviour, IInteract
 {
@@ -9,7 +10,6 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     public event Action OnDoorClosed;
     public event Action OnPhotoQuestOpenDoor;
     public event Action OnMusicSaveQuestOpenDoor;
-
 
     public bool isOpen = false;
 
@@ -37,7 +37,9 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     [SerializeField] TutorialInteract correctKey;
     [SerializeField] bool active = false;
 
-    [SerializeField] EventsID soundEventID;
+    [SerializeField] EventsID openDoorSoundEventID;
+    [SerializeField] EventsID unlockDoorSoundEventID;
+    [SerializeField] EventsID lockedDoorSoundEventID;
     [SerializeField] string keyString;
 
     private void Awake()
@@ -65,7 +67,7 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
             }
             if (IsRootatingDoor)
             {
-                EventBus.Publish(new UnlockDoorEvent { SoundID = EventsID.OpenDoor, ShouldPlay = true });
+                EventBus.Publish(new DoorEvent { SoundID = openDoorSoundEventID, ShouldPlay = true });
                 float dot = Vector3.Dot(Forward, (UserPosition - doorGameObject.transform.position).normalized);
                 AnimationCorutine = StartCoroutine(DoRotationOpen(dot));
             }
@@ -89,24 +91,21 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     {
         if (correctKey != null)
         {
-            if (inventoryUI.ItemInUse.id == "KeyClock" && !active && inventoryUI.ItemInUse.id == correctKey.id)
+            if (inventoryUI.ItemInUse.id == keyString && !active /*&& inventoryUI.ItemInUse.id == correctKey.id*/)
             {
                 active = true;
-                EventBus.Publish(new UnlockDoorEvent { SoundID = soundEventID, ShouldPlay = true });
+                EventBus.Publish(new DoorEvent { SoundID = unlockDoorSoundEventID, ShouldPlay = true });
                 OnPhotoQuestOpenDoor?.Invoke();
                 return;
             }
-            if (inventoryUI.ItemInUse.id == "KeyPhoto" && !active && inventoryUI.ItemInUse.id == correctKey.id)
-            {
-                active = true;
-                EventBus.Publish(new UnlockDoorEvent { SoundID = soundEventID, ShouldPlay = true });
-                OnMusicSaveQuestOpenDoor?.Invoke();
-                return;
-            }
+            //if (inventoryUI.ItemInUse.id == "KeyPhoto" && !active && inventoryUI.ItemInUse.id == correctKey.id)
+            //{
+            //    active = true;
+            //    EventBus.Publish(new UnlockDoorEvent { SoundID = soundEventID, ShouldPlay = true });
+            //    OnMusicSaveQuestOpenDoor?.Invoke();
+            //    return;
+            //}
         }
-       
-       
-
 
         if (active)
         {
@@ -120,6 +119,10 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
             {
                 CloseSequence();
             }
+        }
+        else
+        {
+            EventBus.Publish(new DoorEvent { SoundID = lockedDoorSoundEventID, ShouldPlay = true });
         }
     }
     public string GetInteractText()
