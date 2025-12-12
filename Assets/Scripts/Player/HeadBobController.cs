@@ -16,34 +16,34 @@ public class HeadBobController : MonoBehaviour
         playerCamera = InterfaceDependencyInjector.Instance.Resolve<IPlayerCamera>();
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
     }
-    private void LateUpdate()
-    {
-        PlayerModel model = controller.PlayerModel;
+    //private void LateUpdate()
+    //{
+    //    PlayerModel model = controller.PlayerModel;
 
-        if (playerStateController.IsInState(playerStateController.DialogueState))
-        {
-            playerCamera.SetNoiseGains(0, 0, model.BobSmoothTime);
-            return;
-        }
+    //    if (playerStateController.IsInState(playerStateController.DialogueState))
+    //    {
+    //        playerCamera.SetNoiseGains(0, 0, model.BobSmoothTime);
+    //        return;
+    //    }
 
-        Vector2 moveInput = inputHandler.GetInputMove();
+    //    Vector2 moveInput = inputHandler.GetInputMove();
 
-        if (moveInput.magnitude > 0.1f)
-        {
-            bool isSprinting = inputHandler.IsSprinting();
+    //    if (moveInput.magnitude > 0.1f)
+    //    {
+    //        bool isSprinting = inputHandler.IsSprinting();
 
-            if (isSprinting)
-            {
-                playerCamera.SetNoiseGains(model.SprintBobAmplitudeGain, model.SprintBobFrequencyGain, model.BobSmoothTime);
-            }
-            else
-            {
-                playerCamera.SetNoiseGains(model.WalkBobAmplitudeGain, model.WalkBobFrequencyGain, model.BobSmoothTime);
-            }
-        }
-        else
-        {
-            playerCamera.SetNoiseGains(0, 0, model.BobSmoothTime);
-        }
-    }
+    //        if (isSprinting)
+    //        {
+    //            playerCamera.SetNoiseGains(model.SprintBobAmplitudeGain, model.SprintBobFrequencyGain, model.BobSmoothTime);
+    //        }
+    //        else
+    //        {
+    //            playerCamera.SetNoiseGains(model.WalkBobAmplitudeGain, model.WalkBobFrequencyGain, model.BobSmoothTime);
+    //        }
+    //    }
+    //    else
+    //    {
+    //        playerCamera.SetNoiseGains(0, 0, model.BobSmoothTime);
+    //    }
+    //}
 }

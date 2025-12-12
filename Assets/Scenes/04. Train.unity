@@ -22254,7 +22254,8 @@ PrefabInstance:
       propertyPath: fadeCrosshairSmall
       value: 
       objectReference: {fileID: 1458761941}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6408213331684775633, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -24666,6 +24667,7 @@ GameObject:
   - component: {fileID: 1339026824}
   - component: {fileID: 1339026826}
   - component: {fileID: 1339026825}
+  - component: {fileID: 1339026827}
   m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Untagged
@@ -24851,6 +24853,21 @@ MonoBehaviour:
     DissipationDistance: 100
     PropagationSpeed: 343
   DefaultVelocity: {x: 0, y: -0.1, z: 0}
+--- !u!114 &1339026827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1339026817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44d70cc20219cd84593f67d248eafe36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Offset: {x: 0, y: 0, z: 0}
+  ApplyAfter: 1
+  PreserveComposition: 0
 --- !u!114 &1346772373 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8072988207684088074, guid: 96acb2545beb58147b11c96fda4e7ebe, type: 3}

@@ -2,7 +2,6 @@ using DependencyInjection;
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.LightTransport;
 
 public class SingleDoorInteract : MonoBehaviour, IInteract
 {
