@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DependencyInjection;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,12 +17,13 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
     bool isInInitialLoop = false;
 
     ITeleportLoop teleportLoop;
-
+    IMonologueSpeaker monologueSpeaker;
     protected override void Awake()
     {
         base.Awake();
 
         teleportLoop = InterfaceDependencyInjector.Instance.Resolve<ITeleportLoop>();
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
     }
     private void Start()
     {
@@ -68,7 +70,13 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
     {
         string selectedScene = GetRandomSceneByWeight();
         StartCoroutine(LoadSceneAsync(selectedScene));
+
+        WeightScene sceneData = GetWeightScene(selectedScene);
+        sceneData.TimesLoaded++;
+
+        StartMonologueByTimesInScene(selectedScene, sceneData, 1);
     }
+
     public void LoadNextScene(string _sceneName)
     {
         SceneManager.LoadScene(_sceneName);
@@ -94,17 +102,46 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
         }
         return weightedScenes[0].sceneName;
     }
+
+    public WeightScene GetWeightScene(string sceneName)
+    {
+        foreach (var scene in weightedScenes)
+        {
+            if (scene.sceneName == sceneName)
+                return scene;
+        }
+        return null;
+    }
     public void LoadSceneAsync2(string sceneName)
     {
         StartCoroutine(LoadSceneAsync(sceneName));
+        WeightScene sceneData = GetWeightScene(sceneName);
+        sceneData.TimesLoaded++;
+        StartMonologueByTimesInScene(sceneName, sceneData, 1);
+    }
+    private void StartMonologueByTimesInScene(string sceneName, WeightScene sceneData, int TimestoLoad)
+    {
+        if (monologueSpeaker != null)
+        {
+            if (sceneData != null && sceneData.SceneEvent != Events.None && sceneData.TimesLoaded == TimestoLoad)
+            {
+                monologueSpeaker.StartMonologue(sceneData.SceneEvent);
+            }
+        }
     }
     public IEnumerator LoadSceneAsync(string sceneName)
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         while (!asyncLoad.isDone)
             yield return null;
-
         activeScenes.Add(sceneName);
+    }
+    private IEnumerator WaitforTime(float time)
+    {
+        if (time < 0f)
+            time = 0f;
+        yield return new WaitForSeconds(time);
+        yield break;
     }
     public void UnloadLastScene()
     {
@@ -156,5 +193,6 @@ public interface IGameSceneManager
     IEnumerator LoadSceneAsync(string sceneName);
     void SetInitialLoop(bool isActive);
     bool GetIsInInitialLoop();
+    public WeightScene GetWeightScene(string sceneName);
     void LoadSceneAsync2(string sceneName);
 }

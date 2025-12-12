@@ -37,6 +37,10 @@ public enum Events
     Photo5Quest2,
     Photo6Quest2,
     #endregion
+    #region SCENE_EVENTS
+    ClockSceneFT,
+
+    #endregion
     #region ITEMS
     PodiumEmpty,
     #endregion
