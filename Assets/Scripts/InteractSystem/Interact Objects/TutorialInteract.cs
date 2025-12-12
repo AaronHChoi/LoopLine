@@ -17,6 +17,8 @@ public class TutorialInteract : ItemInteract
     public override bool Interact()
     {
         uiManager.ShowPanel(panelID);
+
+        EventBus.Publish(new PlayerGrabItemEvent());
         return base.Interact();
     }
 }
