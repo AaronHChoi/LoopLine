@@ -11,6 +11,7 @@ namespace Player
         IUIManager uiManager;
         IPlayerCamera playerCamera;
         IPlayerController playerController;
+
         public NormalState(IPlayerStateController controller, IPlayerInputHandler input, 
             IPlayerMovement movement, ICameraOrientation playerCameraOrientation, IUIManager uiManager,
             IPlayerController playerController, IPlayerCamera playerCamera)

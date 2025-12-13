@@ -1,0 +1,2 @@
+
+public struct LoopTeleportEvent : IGameEvent { }

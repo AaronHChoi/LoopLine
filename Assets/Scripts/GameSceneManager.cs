@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using DependencyInjection;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,13 +15,11 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
 
     bool isInInitialLoop = false;
 
-    ITeleportLoop teleportLoop;
     IMonologueSpeaker monologueSpeaker;
     protected override void Awake()
     {
         base.Awake();
 
-        teleportLoop = InterfaceDependencyInjector.Instance.Resolve<ITeleportLoop>();
         monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
     }
     private void Start()
@@ -31,32 +28,6 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
         {
             StartCoroutine(LoadSceneAsync(firstScene.sceneName));
         }
-    }
-    private void OnEnable()
-    {
-        if (teleportLoop != null)
-        {
-            teleportLoop.OnTeleportTrain += CheckTrainLoop;
-        }   
-    }
-    private void OnDisable()
-    {
-        if (teleportLoop != null)
-        {
-            teleportLoop.OnTeleportTrain -= CheckTrainLoop;
-        }
-    }
-    public void CheckTrainLoop()
-    {/*
-        if (GameManager.Instance.TrainLoop >= 4)
-        {
-            GameManager.Instance.SetCondition(GameCondition.TeleportAvailable, true);
-            GameManager.Instance.SetCondition(GameCondition.IsFirstLoopsCompleted, true);
-        }
-        else
-        {
-            GameManager.Instance.SetCondition(GameCondition.IsFirstLoopsCompleted, false);
-        }*/
     }
     public void SetInitialLoop(bool isActive)
     {

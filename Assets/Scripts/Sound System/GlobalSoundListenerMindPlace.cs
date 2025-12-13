@@ -8,9 +8,6 @@ public class GlobalSoundListenerMindPlace : MonoBehaviour
     [SerializeField] SoundData inventoryOpenSound;
     [SerializeField] SoundData inventoryCloseSound;
     
-    [Header("Player")]
-    [SerializeField] private List<SoundData> PlayerSteps;
-
     [Header("Interaction Sounds")]
     [SerializeField] List<SoundData> grabSounds;
 
@@ -23,13 +20,11 @@ public class GlobalSoundListenerMindPlace : MonoBehaviour
     {
         EventBus.Subscribe<PlayerInventoryEvent>(OnInventoryToggled);
         EventBus.Subscribe<PlayerGrabItemEvent>(OnGrabItems);
-        EventBus.Subscribe<PlayerStepEvent>(PlayPlayerStepSound);
     }
     private void OnDisable()
     {
         EventBus.Unsubscribe<PlayerInventoryEvent>(OnInventoryToggled);
         EventBus.Unsubscribe<PlayerGrabItemEvent>(OnGrabItems);
-        EventBus.Unsubscribe<PlayerStepEvent>(PlayPlayerStepSound);
     }
     void OnInventoryToggled(PlayerInventoryEvent ev)
     {
@@ -47,16 +42,6 @@ public class GlobalSoundListenerMindPlace : MonoBehaviour
     {
         SoundManager.Instance.CreateSound()
             .WithSoundData(grabSounds[Random.Range(0, grabSounds.Count)])
-            .Play();
-    }
-    void PlayPlayerStepSound(PlayerStepEvent st)
-    {
-        if (PlayerSteps.Count == 0) return;
-        int randomIndex = Random.Range(0, PlayerSteps.Count);
-        SoundData stepSound = PlayerSteps[randomIndex];
-        SoundManager.Instance.CreateSound()
-            .WithSoundData(stepSound)
-            .WithRandomPitch()
             .Play();
     }
 }
