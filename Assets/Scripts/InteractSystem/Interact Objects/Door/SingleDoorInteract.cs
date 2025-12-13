@@ -66,7 +66,6 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
             }
             if (IsRootatingDoor)
             {
-                EventBus.Publish(new DoorEvent { SoundID = openDoorSoundEventID, ShouldPlay = true });
                 float dot = Vector3.Dot(Forward, (UserPosition - doorGameObject.transform.position).normalized);
                 AnimationCorutine = StartCoroutine(DoRotationOpen(dot));
             }
@@ -134,6 +133,7 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
 
         DelayUtility.Instance.Delay(delayOpenDoorAnimation, () => OpenDoor(userPosition));
 
+        EventBus.Publish(new DoorEvent { SoundID = openDoorSoundEventID, ShouldPlay = true });
     }
     private void CloseSequence()
     {
