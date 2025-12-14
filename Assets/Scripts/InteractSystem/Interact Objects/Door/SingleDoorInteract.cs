@@ -8,6 +8,7 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     public event Action OnDoorOpened;
     public event Action OnDoorClosed;
     public event Action OnPhotoQuestOpenDoor;
+    public event Action OnClockQuestOpenDoor;
     public event Action OnMusicSaveQuestOpenDoor;
 
     public bool isOpen = false;
@@ -35,6 +36,7 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     [SerializeField] GameObject doorHandler;
     [SerializeField] TutorialInteract correctKey;
     [SerializeField] bool active = false;
+    [SerializeField] private bool isClockDoor = false;
 
     [SerializeField] EventsID openDoorSoundEventID;
     [SerializeField] EventsID unlockDoorSoundEventID;
@@ -103,6 +105,7 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
             //    OnMusicSaveQuestOpenDoor?.Invoke();
             //    return;
             //}
+
         }
 
         if (active)
@@ -116,6 +119,10 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
             else
             {
                 CloseSequence();
+            }
+            if (isClockDoor)
+            {
+                OnClockQuestOpenDoor?.Invoke();
             }
         }
         else

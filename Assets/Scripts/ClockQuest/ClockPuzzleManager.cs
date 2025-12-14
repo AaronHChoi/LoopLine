@@ -8,6 +8,7 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
     [SerializeField] int targetHour;
     [SerializeField] int targetMinute;
     [SerializeField] SoundData complete;
+    [SerializeField] SingleDoorInteract doorInteract;
 
     bool firstTime = false;
 
@@ -21,12 +22,21 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
         {
             clock.OnExitClock += CheckTime;
         }
+
+        if (doorInteract != null)
+        {
+            doorInteract.OnClockQuestOpenDoor += OpenDoorClockQuest;
+        }
     }
     private void OnDisable()
     {
         if (clock != null)
         {
             clock.OnExitClock -= CheckTime;
+        }
+        if (doorInteract != null)
+        {
+            doorInteract.OnClockQuestOpenDoor -= OpenDoorClockQuest;
         }
     }
     public void CheckTime()
@@ -56,6 +66,11 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
         rb.isKinematic = false;
         GameManager.Instance.SetCondition(GameCondition.IsClockQuestComplete, true);
         GameManager.Instance.SetCondition(GameCondition.TeleportAvailable, false);
+    }
+
+    private void OpenDoorClockQuest()
+    {
+        GameManager.Instance.SetCondition(GameCondition.ClockDoorOpen, true);
     }
 }
 public interface IClockPuzzleManager

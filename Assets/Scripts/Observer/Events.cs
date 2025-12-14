@@ -5,6 +5,7 @@ public enum Events
     ResumeTrain,
     BreakCrystal,
     TriggerMonologue,
+    MindPlaceTrigger,
     #region CAMERA_GIRL
     Without_Camera,
     With_Camera,

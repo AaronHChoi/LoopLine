@@ -906,6 +906,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 673594088}
+  - {fileID: 791815629}
   - {fileID: 1472588940}
   - {fileID: 813615756}
   - {fileID: 2131261685}
@@ -2874,6 +2875,7 @@ MonoBehaviour:
   doorHandler: {fileID: 0}
   correctKey: {fileID: 0}
   active: 1
+  isClockDoor: 1
   openDoorSoundEventID: 5
   unlockDoorSoundEventID: 0
   lockedDoorSoundEventID: 0
@@ -3301,6 +3303,9 @@ MonoBehaviour:
   - eventType: 33
     dialogues:
     - {fileID: 11400000, guid: 54764ce7ef34e48469e512de03e2c0de, type: 2}
+  - eventType: 5
+    dialogues:
+    - {fileID: 11400000, guid: b1351ed0fb974ae49924a613cfae1c6a, type: 2}
   currentEvent: 0
   npcType: 6
   autoAdvance: 0
@@ -16534,8 +16539,9 @@ GameObject:
   - component: {fileID: 673594091}
   - component: {fileID: 673594090}
   - component: {fileID: 673594089}
+  - component: {fileID: 673594092}
   m_Layer: 0
-  m_Name: Collider
+  m_Name: ColliderStartMindplace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16550,7 +16556,7 @@ Transform:
   m_GameObject: {fileID: 673594087}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.1063, z: 13.284}
+  m_LocalPosition: {x: 0, y: 2.1063, z: 13.689}
   m_LocalScale: {x: 4.6092, y: 4.3728004, z: 0.27498}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16571,7 +16577,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -16630,6 +16636,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 673594087}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &673594092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673594087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9cdce46fc7f79a45bbf6fffacc19c97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MindPlaceEvent: 5
 --- !u!1 &688657922 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 5e262693254d32547abbc70c0458d29a, type: 3}
@@ -17436,6 +17455,114 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1acd7ceb7a4372439991c6744df611b, type: 3}
+--- !u!1 &791815628
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 791815629}
+  - component: {fileID: 791815632}
+  - component: {fileID: 791815631}
+  - component: {fileID: 791815630}
+  m_Layer: 0
+  m_Name: ColliderStartMindplace (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &791815629
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791815628}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.1063, z: 14.124}
+  m_LocalScale: {x: 4.6092, y: 4.3728004, z: 0.27498}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 39577003}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &791815630
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791815628}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &791815631
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791815628}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &791815632
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 791815628}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &793235473
 GameObject:
   m_ObjectHideFlags: 0
@@ -19450,6 +19577,7 @@ MonoBehaviour:
   doorHandler: {fileID: 644322723}
   correctKey: {fileID: 423400360}
   active: 0
+  isClockDoor: 0
   openDoorSoundEventID: 6
   unlockDoorSoundEventID: 2
   lockedDoorSoundEventID: 9
@@ -29246,6 +29374,7 @@ MonoBehaviour:
   doorHandler: {fileID: 0}
   correctKey: {fileID: 0}
   active: 1
+  isClockDoor: 0
   openDoorSoundEventID: 8
   unlockDoorSoundEventID: 4
   lockedDoorSoundEventID: 11
@@ -31333,6 +31462,7 @@ MonoBehaviour:
   doorHandler: {fileID: 1000978884}
   correctKey: {fileID: 804363553}
   active: 0
+  isClockDoor: 0
   openDoorSoundEventID: 7
   unlockDoorSoundEventID: 3
   lockedDoorSoundEventID: 10
@@ -40279,6 +40409,7 @@ MonoBehaviour:
     isAPlayOnAwake: 0
     volume: 1
     secondsDelay: 0
+  doorInteract: {fileID: 159241366}
   rb: {fileID: 423400362}
 --- !u!4 &1615316085
 Transform:
