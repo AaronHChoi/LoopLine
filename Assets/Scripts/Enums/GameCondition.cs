@@ -3,6 +3,7 @@ public enum GameCondition
 {
     IsClockQuestComplete,
     IsPhotoQuestComplete,
+    ClockDoorOpen,
     PhotoDoorOpen,
     MusicSafeDoorOpen,
     PolaroidTaken,
