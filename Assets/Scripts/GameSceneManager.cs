@@ -88,6 +88,7 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
         StartCoroutine(LoadSceneAsync(sceneName));
         WeightScene sceneData = GetWeightScene(sceneName);
         sceneData.TimesLoaded++;
+
         StartMonologueByTimesInScene(sceneName, sceneData, 1);
     }
     private void StartMonologueByTimesInScene(string sceneName, WeightScene sceneData, int TimestoLoad)
@@ -96,7 +97,13 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
         {
             if (sceneData != null && sceneData.SceneEvent != Events.None && sceneData.TimesLoaded == TimestoLoad)
             {
-                monologueSpeaker.StartMonologue(sceneData.SceneEvent);
+                DelayUtility.Instance.Delay(3f, () =>
+                {
+                    if (monologueSpeaker != null)
+                    {
+                        monologueSpeaker.StartMonologue(sceneData.SceneEvent);
+                    }
+                });
             }
         }
     }

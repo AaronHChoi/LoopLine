@@ -10,7 +10,6 @@ public class GameManager : Singleton<GameManager>
     public bool isGamePaused;
 
     [SerializeField] int trainLoop = 0;
-
     public int TrainLoop
     {
         get { return trainLoop; }
