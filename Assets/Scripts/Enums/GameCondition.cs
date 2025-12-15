@@ -5,7 +5,6 @@ public enum GameCondition
     IsPhotoQuestComplete,
     ClockDoorOpen,
     PhotoDoorOpen,
-    MusicSafeDoorOpen,
     PolaroidTaken,
     LetterClue6,
     PhotosClue1,
@@ -14,4 +13,12 @@ public enum GameCondition
     TeleportAvailable,
     PillsClue5,
     IsFirstLoopsCompleted,
+    #region Music Quest
+    MusicSafeDoorOpen,
+    AllMusicNotesCollected,
+    MusicNote1,
+    MusicNote2,
+    MusicNote3,
+    MusicNote4,
+    #endregion
 }
