@@ -37,18 +37,10 @@ public class SafeQuestManager : MonoBehaviour
     private void OnEnable()
     {
         Dial.OnDialRotated += CheckResult;
-        if (doorInteract != null)
-        {
-            doorInteract.OnPhotoQuestOpenDoor += OpenDoorMusicSafeQuest;
-        }
     }
     private void OnDisable()
     {
         Dial.OnDialRotated -= CheckResult;
-        if (doorInteract != null)
-        {
-            doorInteract.OnPhotoQuestOpenDoor -= OpenDoorMusicSafeQuest;
-        }
     }
 
     private void CheckResult(string dialName, int indexShown)
@@ -90,11 +82,9 @@ public class SafeQuestManager : MonoBehaviour
             }
         }
     }
-    private void OpenDoorMusicSafeQuest()
+    public void OpenDoorMusicSafeQuest()
     {
         inventoryUI.RemoveInventorySlot(doorKey);
         GameManager.Instance.SetCondition(GameCondition.MusicSafeDoorOpen, true);
     }
-
-
 }
