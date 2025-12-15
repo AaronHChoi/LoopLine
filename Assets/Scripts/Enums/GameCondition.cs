@@ -20,5 +20,6 @@ public enum GameCondition
     MusicNote2,
     MusicNote3,
     MusicNote4,
+    IsMusicQuestComplete,
     #endregion
 }
