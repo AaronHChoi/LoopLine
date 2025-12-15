@@ -14,4 +14,5 @@ public enum GameCondition
     TeleportAvailable,
     PillsClue5,
     IsFirstLoopsCompleted,
+    IsMusicQuestComplete,
 }

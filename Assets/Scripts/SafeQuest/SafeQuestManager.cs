@@ -48,7 +48,8 @@ public class SafeQuestManager : MonoBehaviour
             result[1] == correctCombination[1] &&
             result[2] == correctCombination[2])
         {
-            Debug.Log("Safe Unlocked!");
+            //Debug.Log("Safe Unlocked!");
+            GameManager.Instance.SetCondition(GameCondition.IsMusicQuestComplete, true);
         }
     }
     public void OpenDoorMusicSafeQuest()

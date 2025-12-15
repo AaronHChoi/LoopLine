@@ -4,7 +4,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class SingleDoorInteract : MonoBehaviour, IInteract
+public class SafeDoor : MonoBehaviour, IInteract
 {
     public event Action OnDoorOpened;
     public event Action OnDoorClosed;
@@ -81,22 +81,19 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
                 StopCoroutine(AnimationCorutine);
             }
             if (IsRootatingDoor)
-            {                
+            {
                 AnimationCorutine = StartCoroutine(DoRotationClose());
             }
         }
     }
     public void Interact()
     {
-        if (correctKey != null)
+        if (!GameManager.Instance.GetCondition(GameCondition.IsMusicQuestComplete))
         {
-            if (inventoryUI.ItemInUse.id == keyString && !active)
-            {
-                active = true;
-                EventBus.Publish(new DoorEvent { SoundID = unlockDoorSoundEventID, ShouldPlay = true });
-                OnUnlockDoorEvent?.Invoke();
-                return;
-            }
+            active = true;
+            EventBus.Publish(new DoorEvent { SoundID = unlockDoorSoundEventID, ShouldPlay = true });
+            OnUnlockDoorEvent?.Invoke();
+            return;
         }
 
         if (active)
@@ -148,11 +145,11 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
         {
             endRotation = Quaternion.Euler(new Vector3(StartRotation.x, StartRotation.y + RotatingAmount, StartRotation.z));
         }
-
+        
         isOpen = true;
 
         float time = 0;
-        while(time < 1)
+        while (time < 1)
         {
             doorGameObject.transform.rotation = Quaternion.Slerp(startRotation, endRotation, time);
             yield return null;

@@ -1,6 +1,7 @@
+using DependencyInjection;
 using System;
 using System.Collections.Generic;
-using DependencyInjection;
+using System.Text;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
@@ -81,5 +82,21 @@ public class GameManager : Singleton<GameManager>
     public void SetCondition(GameCondition condition, bool value)
     {
         conditions[condition] = value;
+    }
+    [ContextMenu("Debug All Conditions")]
+    public void DebugAllConditions()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.AppendLine("<size=14><b>--- GAME CONDITIONS STATES---</b></size>");
+
+        foreach (var kvp in conditions)
+        {
+            string color = kvp.Value ? "green" : "red";
+            string statusText = kvp.Value ? "ACTIVE" : "INACTIVE";
+
+            sb.AppendLine($"<b>{kvp.Key}:</b> <color={color}>{statusText}</color>");
+        }
+
+        Debug.Log(sb.ToString());
     }
 }
