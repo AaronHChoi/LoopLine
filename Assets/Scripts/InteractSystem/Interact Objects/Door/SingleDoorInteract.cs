@@ -2,13 +2,12 @@ using DependencyInjection;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SingleDoorInteract : MonoBehaviour, IInteract
 {
     public event Action OnDoorOpened;
     public event Action OnDoorClosed;
-    public event Action OnPhotoQuestOpenDoor;
-    public event Action OnMusicSaveQuestOpenDoor;
 
     public bool isOpen = false;
 
@@ -40,6 +39,8 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     [SerializeField] EventsID unlockDoorSoundEventID;
     [SerializeField] EventsID lockedDoorSoundEventID;
     [SerializeField] string keyString;
+
+    [SerializeField] private UnityEvent OnUnlockDoorEvent;
 
     private void Awake()
     {
@@ -89,20 +90,13 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     {
         if (correctKey != null)
         {
-            if (inventoryUI.ItemInUse.id == keyString && !active /*&& inventoryUI.ItemInUse.id == correctKey.id*/)
+            if (inventoryUI.ItemInUse.id == keyString && !active)
             {
                 active = true;
                 EventBus.Publish(new DoorEvent { SoundID = unlockDoorSoundEventID, ShouldPlay = true });
-                OnPhotoQuestOpenDoor?.Invoke();
+                OnUnlockDoorEvent?.Invoke();
                 return;
             }
-            //if (inventoryUI.ItemInUse.id == "KeyPhoto" && !active && inventoryUI.ItemInUse.id == correctKey.id)
-            //{
-            //    active = true;
-            //    EventBus.Publish(new UnlockDoorEvent { SoundID = soundEventID, ShouldPlay = true });
-            //    OnMusicSaveQuestOpenDoor?.Invoke();
-            //    return;
-            //}
         }
 
         if (active)

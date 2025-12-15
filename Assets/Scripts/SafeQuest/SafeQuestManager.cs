@@ -1,5 +1,4 @@
 using DependencyInjection;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SafeQuestManager : MonoBehaviour
@@ -23,24 +22,14 @@ public class SafeQuestManager : MonoBehaviour
             doorKey.gameObject.SetActive(false);
         }
     }
-
     private void OnEnable()
     {
         Dial.OnDialRotated += CheckResult;
-        if (doorInteract != null)
-        {
-            doorInteract.OnPhotoQuestOpenDoor += OpenDoorMusicSafeQuest;
-        }
     }
     private void OnDisable()
     {
         Dial.OnDialRotated -= CheckResult;
-        if (doorInteract != null)
-        {
-            doorInteract.OnPhotoQuestOpenDoor -= OpenDoorMusicSafeQuest;
-        }
     }
-
     private void CheckResult(string dialName, int indexShown)
     {
         switch (dialName)
@@ -62,12 +51,9 @@ public class SafeQuestManager : MonoBehaviour
             Debug.Log("Safe Unlocked!");
         }
     }
-
-    private void OpenDoorMusicSafeQuest()
+    public void OpenDoorMusicSafeQuest()
     {
         inventoryUI.RemoveInventorySlot(doorKey);
         GameManager.Instance.SetCondition(GameCondition.MusicSafeDoorOpen, true);
     }
-
-
 }

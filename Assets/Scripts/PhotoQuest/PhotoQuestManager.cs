@@ -41,21 +41,6 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
         StartCoroutine(UpdateNextFrame());
         UpdatePhotoActivationStates();
     }
-    private void OnEnable()
-    {
-        if (doorInteract  != null)
-        {
-            doorInteract.OnPhotoQuestOpenDoor += OpenDoorPhotoQuest;
-        }
-    }
-    private void OnDisable()
-    {
-        if (doorInteract != null)
-        {
-            doorInteract.OnPhotoQuestOpenDoor -= OpenDoorPhotoQuest;
-        }
-    }
-
 #if UNITY_EDITOR
     private void Update()
     {
@@ -128,7 +113,7 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
             frame.AllCorrectPhotoPlaced();
         }
     }
-    private void OpenDoorPhotoQuest()
+    public void OpenDoorPhotoQuest()
     {
         inventoryUI.RemoveInventorySlot(doorHandler);        
         GameManager.Instance.SetCondition(GameCondition.PhotoDoorOpen, true);
@@ -137,7 +122,7 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
     }
     private void PhotoQuestComplete()
     {
-        rb.isKinematic = false;
+        rb.isKinematic = false; 
         OnPhotoQuestFinished?.Invoke();
         GameManager.Instance.SetCondition(GameCondition.IsPhotoQuestComplete, true);
     }
