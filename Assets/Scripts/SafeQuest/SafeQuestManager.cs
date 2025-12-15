@@ -1,11 +1,21 @@
 using DependencyInjection;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+
+[Serializable]
+public struct MusicNotesActivations
+{
+    public GameCondition condition;
+    public GameObject musicNote;
+}
 
 public class SafeQuestManager : MonoBehaviour
 {
     [SerializeField] private int[] result, correctCombination;
     [SerializeField] SingleDoorInteract doorInteract;
     [SerializeField] ItemInteract doorKey;
+    [SerializeField] List<MusicNotesActivations> musicNotesActivations;
 
     IInventoryUI inventoryUI;
 
@@ -21,15 +31,26 @@ public class SafeQuestManager : MonoBehaviour
         {
             doorKey.gameObject.SetActive(false);
         }
+        UpdateMusicNoteActivationStates();
     }
+
     private void OnEnable()
     {
         Dial.OnDialRotated += CheckResult;
+        if (doorInteract != null)
+        {
+            doorInteract.OnPhotoQuestOpenDoor += OpenDoorMusicSafeQuest;
+        }
     }
     private void OnDisable()
     {
         Dial.OnDialRotated -= CheckResult;
+        if (doorInteract != null)
+        {
+            doorInteract.OnPhotoQuestOpenDoor -= OpenDoorMusicSafeQuest;
+        }
     }
+
     private void CheckResult(string dialName, int indexShown)
     {
         switch (dialName)
@@ -43,18 +64,37 @@ public class SafeQuestManager : MonoBehaviour
             case "Dial3":
                 result[2] = indexShown;
                 break;
+            case "Dial4":
+                result[3] = indexShown;
+                break;
         }
         if (result[0] == correctCombination[0] &&
             result[1] == correctCombination[1] &&
-            result[2] == correctCombination[2])
+            result[2] == correctCombination[2] &&
+            result[3] == correctCombination[3])
         {
-            //Debug.Log("Safe Unlocked!");
-            GameManager.Instance.SetCondition(GameCondition.IsMusicQuestComplete, true);
+            Debug.Log("Safe Unlocked!");
         }
     }
-    public void OpenDoorMusicSafeQuest()
+    void UpdateMusicNoteActivationStates()
+    {
+        if (musicNotesActivations == null) return;
+
+        foreach (var entry in musicNotesActivations)
+        {
+            bool isConditionMet = GameManager.Instance.GetCondition(entry.condition);
+
+            if (entry.musicNote != null)
+            {
+                entry.musicNote.SetActive(isConditionMet);
+            }
+        }
+    }
+    private void OpenDoorMusicSafeQuest()
     {
         inventoryUI.RemoveInventorySlot(doorKey);
         GameManager.Instance.SetCondition(GameCondition.MusicSafeDoorOpen, true);
     }
+
+
 }

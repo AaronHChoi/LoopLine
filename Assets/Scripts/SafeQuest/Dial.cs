@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Dial : MonoBehaviour, IInteract
 {
+    [SerializeField] GameCondition conditionToRotate;
     private bool coroutineAllowed = false;
     private int indexShown = 0;
     public static event System.Action<string, int> OnDialRotated = delegate { };
@@ -15,7 +16,7 @@ public class Dial : MonoBehaviour, IInteract
     }
     public void Interact()
     {
-        if (coroutineAllowed)
+        if (coroutineAllowed && GameManager.Instance.GetCondition(conditionToRotate))
         {
             StartCoroutine(Rotate());
         }
