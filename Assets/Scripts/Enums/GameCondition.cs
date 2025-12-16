@@ -22,4 +22,10 @@ public enum GameCondition
     MusicNote4,
     IsMusicQuestComplete,
     #endregion
+    #region Final Quest
+    WordGroup1,
+    WordGroup2,
+    WordGroup3,
+    FinalQuestCompleted,
+    #endregion
 }

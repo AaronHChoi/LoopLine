@@ -18,10 +18,12 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
 
     public event Action OnClockQuestFinished;
     IMonologueSpeaker monologueSpeaker;
+    IFinalQuestManager finalQuestManager;
 
     private void Awake()
     {
         monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
+        finalQuestManager = InterfaceDependencyInjector.Instance.Resolve<IFinalQuestManager>();
     }
     private void OnEnable()
     {
@@ -64,7 +66,8 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
     private void RevealObject()
     {
         DelayUtility.Instance.Delay(2f, () => Key.Interact());
-        
+        GameManager.Instance.SetCondition(GameCondition.WordGroup1, true);
+        finalQuestManager.UpdateWordsActivation();
         GameManager.Instance.SetCondition(GameCondition.IsClockQuestComplete, true);
         GameManager.Instance.SetCondition(GameCondition.TeleportAvailable, false);
     }

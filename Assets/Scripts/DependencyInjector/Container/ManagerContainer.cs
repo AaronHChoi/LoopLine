@@ -24,6 +24,7 @@ namespace DependencyInjection
             injector.Register<IPauseMenuManager>(() => FindAndValidate<PauseMenuManager>());
             injector.Register<IPhotoQuestManager>(() => FindAndValidate<PhotoQuestManager>());
             injector.Register<IClockPuzzleManager>(() => FindAndValidate<ClockPuzzleManager>());
+            injector.Register<IFinalQuestManager>(() => FindAndValidate<FinalQuestManager>());
         }
     }
 }
