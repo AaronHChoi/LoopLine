@@ -3054,6 +3054,7 @@ MonoBehaviour:
   promptMessage: Podium
   uiOffset: {x: 0, y: 0.5, z: 0}
   uiOffsetPrompt: {x: 0, y: 0, z: 0}
+  uiScale: 1
 --- !u!1 &142067227
 GameObject:
   m_ObjectHideFlags: 0
@@ -3469,6 +3470,7 @@ MonoBehaviour:
   promptMessage: Pill jar
   uiOffset: {x: 0, y: 0, z: 0}
   uiOffsetPrompt: {x: 0, y: 0, z: 0}
+  uiScale: 1
 --- !u!1 &163192592
 GameObject:
   m_ObjectHideFlags: 0
@@ -11249,7 +11251,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8047769335061468644, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8047769335061468644, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: -7918335002988649766, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -11522,6 +11528,10 @@ PrefabInstance:
     - target: {fileID: -4566491299247059183, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -4551196906710034513, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -4105824390557155653, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
       propertyPath: m_Layer
@@ -12453,6 +12463,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8047769335061468644, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
       insertIndex: 1
       addedObject: {fileID: 1737361718}
+    - targetCorrespondingSourceObject: {fileID: -8047769335061468644, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1737361723}
+    - targetCorrespondingSourceObject: {fileID: -8047769335061468644, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1737361722}
     - targetCorrespondingSourceObject: {fileID: 1107284901103661606, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
       insertIndex: -1
       addedObject: {fileID: 385464386}
@@ -12477,6 +12493,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -4551196906710034513, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
       insertIndex: 1
       addedObject: {fileID: 322971946}
+    - targetCorrespondingSourceObject: {fileID: -4551196906710034513, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 322971954}
+    - targetCorrespondingSourceObject: {fileID: -4551196906710034513, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 322971953}
     - targetCorrespondingSourceObject: {fileID: -2231189893091879173, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
       insertIndex: -1
       addedObject: {fileID: 644322724}
@@ -12638,6 +12660,41 @@ MonoBehaviour:
     volume: 1
     secondsDelay: 0
   dialogueUI: {fileID: 0}
+--- !u!114 &322971953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 322971945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2830406988144ce46b7702d0437448cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactText: 
+  id: 
+  ItemData: {fileID: 11400000, guid: 9c026af4957cc7a4c96d20b011dba8e6, type: 2}
+  canBePicked: 0
+  deactivateOnPickup: 1
+  resetLayerOnPickup: 1
+  objectPrefab: {fileID: 0}
+--- !u!114 &322971954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 322971945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptMessage: Door
+  uiOffset: {x: 5.64, y: 0, z: 0.22}
+  uiOffsetPrompt: {x: 5.64, y: 0, z: 0.22}
+  uiScale: 5
 --- !u!1 &328039295
 GameObject:
   m_ObjectHideFlags: 0
@@ -15983,6 +16040,7 @@ MonoBehaviour:
   promptMessage: Podium
   uiOffset: {x: 0, y: 0.5, z: 0}
   uiOffsetPrompt: {x: 0, y: 0, z: 0}
+  uiScale: 1
 --- !u!1 &610145179
 GameObject:
   m_ObjectHideFlags: 0
@@ -26698,6 +26756,7 @@ MonoBehaviour:
   promptMessage: Podium
   uiOffset: {x: 0, y: 0.5, z: 0}
   uiOffsetPrompt: {x: 0, y: 0, z: 0}
+  uiScale: 1
 --- !u!1 &1030392103
 GameObject:
   m_ObjectHideFlags: 0
@@ -34846,6 +34905,7 @@ MonoBehaviour:
   promptMessage: Podium
   uiOffset: {x: 0, y: 0.5, z: 0}
   uiOffsetPrompt: {x: 0, y: 0, z: 0}
+  uiScale: 1
 --- !u!1 &1517622223
 GameObject:
   m_ObjectHideFlags: 0
@@ -35577,6 +35637,7 @@ MonoBehaviour:
   promptMessage: Podium
   uiOffset: {x: 0, y: 0.5, z: 0}
   uiOffsetPrompt: {x: 0, y: 0, z: 0}
+  uiScale: 1
 --- !u!1001 &1533612111
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -49743,6 +49804,41 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 6.0294127, y: 0.6736561, z: 14.775589}
   m_Center: {x: 3.0347044, y: 0, z: 1.4774914}
+--- !u!114 &1737361722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737361714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2830406988144ce46b7702d0437448cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactText: 
+  id: 
+  ItemData: {fileID: 11400000, guid: 9c026af4957cc7a4c96d20b011dba8e6, type: 2}
+  canBePicked: 0
+  deactivateOnPickup: 1
+  resetLayerOnPickup: 1
+  objectPrefab: {fileID: 0}
+--- !u!114 &1737361723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737361714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptMessage: Door
+  uiOffset: {x: 5.64, y: 0, z: 0.22}
+  uiOffsetPrompt: {x: 5.64, y: 0, z: 0.22}
+  uiScale: 5
 --- !u!1001 &1744660027
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58481,6 +58577,7 @@ MonoBehaviour:
   promptMessage: Letter
   uiOffset: {x: 0, y: 0, z: 0}
   uiOffsetPrompt: {x: 0, y: 0, z: 0}
+  uiScale: 1
 --- !u!1 &1978360125
 GameObject:
   m_ObjectHideFlags: 0
@@ -63412,6 +63509,7 @@ MonoBehaviour:
   promptMessage: Polaroid
   uiOffset: {x: 0, y: 0, z: 0}
   uiOffsetPrompt: {x: 0, y: 0, z: 0}
+  uiScale: 1
 --- !u!23 &1707307050561730032
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -63678,6 +63776,7 @@ MonoBehaviour:
   promptMessage: Door Handler
   uiOffset: {x: 0, y: 0, z: 0}
   uiOffsetPrompt: {x: 0, y: 0, z: 0}
+  uiScale: 1
 --- !u!4 &5633286113572748358
 Transform:
   m_ObjectHideFlags: 0
@@ -63882,6 +63981,7 @@ MonoBehaviour:
   promptMessage: Photo camera
   uiOffset: {x: 0, y: 0, z: 0}
   uiOffsetPrompt: {x: 0, y: 0, z: 0}
+  uiScale: 1
 --- !u!4 &8790169236662363245
 Transform:
   m_ObjectHideFlags: 0
@@ -63955,6 +64055,7 @@ MonoBehaviour:
   promptMessage: Rock
   uiOffset: {x: 0, y: 0, z: 0}
   uiOffsetPrompt: {x: 0, y: 0, z: 0}
+  uiScale: 1
 --- !u!33 &8822405967976189822
 MeshFilter:
   m_ObjectHideFlags: 0
