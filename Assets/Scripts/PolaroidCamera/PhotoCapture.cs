@@ -1,18 +1,14 @@
-using System;
 using System.Collections;
 using Player;
 using UnityEngine;
 using UnityEngine.UI;
 using DependencyInjection;
-using TMPro;
 
 public class PhotoCapture : MonoBehaviour, IPhotoCapture
 {
     [Header("Photo Taker")]
-    [SerializeField] Image photoDisplayArea;
     [SerializeField] GameObject photoFrame;
     [SerializeField] GameObject cameraUI;
-    [SerializeField] int maxPhotos = 5;
     [SerializeField] float delay;
 
     [Header("Audio")]
@@ -22,10 +18,6 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
     [Header("Cooldown")]
     float photoCooldown = 1.5f;
     float nextPhotoTime = 0f;
-
-    [Header("UI Counter")]
-    [SerializeField] TextMeshProUGUI photoCounterText;
-    int photoTaken = 0;
 
     IPlayerStateController playerStateController;
     IPolaroidUIAnimation uiAnimation;
@@ -39,11 +31,6 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
         uiAnimation = InterfaceDependencyInjector.Instance.Resolve<IPolaroidUIAnimation>();
         playerInteract = InterfaceDependencyInjector.Instance.Resolve<IPlayerInteract>();
         monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
-    }
-    private void Start()
-    {
-        photoTaken = 0;
-        UpdatePhotoCounter();
     }
     private void OnEnable()
     {
@@ -64,25 +51,14 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
     {
         if (Time.time < nextPhotoTime) return;
 
-        if (photoTaken < maxPhotos)
-        {
-            StartCoroutine(CapturePhoto());
-            nextPhotoTime = Time.time + photoCooldown;
-        }
-        else
-        {
-            SoundManager.Instance.PlayQuickSound(soundData2);
-            nextPhotoTime = Time.time + photoCooldown;
-        }
+        StartCoroutine(CapturePhoto());
+        nextPhotoTime = Time.time + photoCooldown;
     }
     IEnumerator CapturePhoto()
     {
         yield return new WaitForEndOfFrame();
 
         SoundManager.Instance.PlayQuickSound(soundData);
-
-        photoTaken++;
-        UpdatePhotoCounter();
 
         uiAnimation.PhotoUIAnimation();
 
@@ -96,25 +72,7 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
                 Events eventToPlay = activator.monologueToTrigger;
                 DelayUtility.Instance.Delay(activator.monologueDelay, () => monologueSpeaker.StartMonologue(eventToPlay));
             }
-            
         }
-    }
-    void UpdatePhotoCounter()
-    {
-        int remainingPhotos = maxPhotos - photoTaken;
-        if (photoCounterText != null)
-        {
-            photoCounterText.text = $"{remainingPhotos} / {maxPhotos}";
-        }
-        else
-        {
-            Debug.LogWarning("photoCounterText is not assigned in the inspector.");
-        }
-    }
-    public void ResetPhotoCounter()
-    {
-        photoTaken = 0;
-        UpdatePhotoCounter();
     }
     public void SetCameraUIVisible(bool isVisible)
     {
@@ -124,5 +82,4 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
 public interface IPhotoCapture
 {
     void SetCameraUIVisible(bool isVisible);
-    void ResetPhotoCounter();
 }

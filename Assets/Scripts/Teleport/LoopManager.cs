@@ -4,13 +4,11 @@ using UnityEngine;
 public class LoopManager : MonoBehaviour
 {
     IGameSceneManager gameSceneManager;
-    IPhotoCapture polaroid;
     IUIManager uiManager;
 
     private void Awake()
     {
         gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
-        polaroid = InterfaceDependencyInjector.Instance.Resolve<IPhotoCapture>();
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
     }
     private void OnEnable()
@@ -24,7 +22,6 @@ public class LoopManager : MonoBehaviour
     void HandleLoopTransition(LoopTeleportEvent ev)
     {
         GameManager.Instance.TrainLoop += 1;
-        polaroid.ResetPhotoCounter();
 
         bool isInitialLoop = gameSceneManager.GetIsInInitialLoop();
         bool firstLoopsCompleted = GameManager.Instance.GetCondition(GameCondition.IsFirstLoopsCompleted);
