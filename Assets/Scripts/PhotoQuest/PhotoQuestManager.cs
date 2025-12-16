@@ -29,6 +29,7 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
     IInventoryUI inventoryUI;
     IGameSceneManager gameSceneManager;
     IMonologueSpeaker monologueSpeaker;
+    IFinalQuestManager finalQuestManager;
 
 
     private void Awake()
@@ -36,6 +37,7 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
         monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
         gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
+        finalQuestManager = InterfaceDependencyInjector.Instance.Resolve<IFinalQuestManager>();
     }
     private void Start()
     {
@@ -110,7 +112,8 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
     private void OnQuestCompleted()
     {
         PhotoQuestComplete();
-
+        GameManager.Instance.SetCondition(GameCondition.WordGroup2, true);
+        finalQuestManager.UpdateWordsActivation();
         Debug.Log("Todas las fotos colocadas correctamente");       
         allFramesCorrect = true;
         foreach (var frame in frames)

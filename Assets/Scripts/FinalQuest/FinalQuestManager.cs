@@ -1,28 +1,29 @@
 using DependencyInjection;
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [Serializable]
-public struct MusicNotesActivations
+public struct WordsActivations
 {
     public GameCondition condition;
     public GameObject musicNote;
 }
-
-public class SafeQuestManager : MonoBehaviour
+public class FinalQuestManager : MonoBehaviour, IFinalQuestManager
 {
     [SerializeField] private int[] result, correctCombination;
     [SerializeField] SingleDoorInteract doorInteract;
     [SerializeField] ItemInteract doorKey;
-    [SerializeField] List<MusicNotesActivations> musicNotesActivations;
+    [SerializeField] List<WordsActivations> wordsActivations;
+
+    public event Action OnQuestCompleted;
 
     IInventoryUI inventoryUI;
-    IFinalQuestManager finalQuestManager;
+
     private void Awake()
     {
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
-        finalQuestManager = InterfaceDependencyInjector.Instance.Resolve<IFinalQuestManager>();
     }
     void Start()
     {
@@ -32,50 +33,47 @@ public class SafeQuestManager : MonoBehaviour
         {
             doorKey.gameObject.SetActive(false);
         }
-        UpdateMusicNoteActivationStates();
+        UpdateWordsActivation();
     }
 
     private void OnEnable()
     {
-        Dial.OnDialRotated += CheckResult;
+        FinalQuestDial.OnDialRotated += CheckResult;
+        OnQuestCompleted += UpdateWordsActivation;
     }
     private void OnDisable()
     {
-        Dial.OnDialRotated -= CheckResult;
+        FinalQuestDial.OnDialRotated -= CheckResult;
+        OnQuestCompleted -= UpdateWordsActivation;
     }
 
     private void CheckResult(string dialName, int indexShown)
     {
         switch (dialName)
         {
-            case "Dial1":
+            case "WordGroup1":
                 result[0] = indexShown;
                 break;
-            case "Dial2":
+            case "WordGroup2":
                 result[1] = indexShown;
                 break;
-            case "Dial3":
+            case "WordGroup3":
                 result[2] = indexShown;
-                break;
-            case "Dial4":
-                result[3] = indexShown;
                 break;
         }
         if (result[0] == correctCombination[0] &&
             result[1] == correctCombination[1] &&
-            result[2] == correctCombination[2] &&
-            result[3] == correctCombination[3])
+            result[2] == correctCombination[2] )
         {
-            Debug.Log("Safe Unlocked!");
-            GameManager.Instance.SetCondition(GameCondition.WordGroup3, true);
-            finalQuestManager.UpdateWordsActivation();
+            Debug.Log("Final Quest Completed");
+            GameManager.Instance.SetCondition(GameCondition.FinalQuestCompleted, true);
         }
     }
-    void UpdateMusicNoteActivationStates()
+    public void UpdateWordsActivation()
     {
-        if (musicNotesActivations == null) return;
+        if (wordsActivations == null) return;
 
-        foreach (var entry in musicNotesActivations)
+        foreach (var entry in wordsActivations)
         {
             bool isConditionMet = GameManager.Instance.GetCondition(entry.condition);
 
@@ -85,9 +83,10 @@ public class SafeQuestManager : MonoBehaviour
             }
         }
     }
-    public void OpenDoorMusicSafeQuest()
-    {
-        inventoryUI.RemoveInventorySlot(doorKey);
-        GameManager.Instance.SetCondition(GameCondition.MusicSafeDoorOpen, true);
-    }
+
+}
+
+public interface IFinalQuestManager
+{
+    void UpdateWordsActivation();
 }
