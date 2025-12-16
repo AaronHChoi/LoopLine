@@ -39,12 +39,10 @@ public class FinalQuestManager : MonoBehaviour, IFinalQuestManager
     private void OnEnable()
     {
         FinalQuestDial.OnDialRotated += CheckResult;
-        OnQuestCompleted += UpdateWordsActivation;
     }
     private void OnDisable()
     {
         FinalQuestDial.OnDialRotated -= CheckResult;
-        OnQuestCompleted -= UpdateWordsActivation;
     }
 
     private void CheckResult(string dialName, int indexShown)
@@ -67,6 +65,7 @@ public class FinalQuestManager : MonoBehaviour, IFinalQuestManager
         {
             Debug.Log("Final Quest Completed");
             GameManager.Instance.SetCondition(GameCondition.FinalQuestCompleted, true);
+            OnQuestCompleted?.Invoke();
         }
     }
     public void UpdateWordsActivation()
@@ -89,4 +88,5 @@ public class FinalQuestManager : MonoBehaviour, IFinalQuestManager
 public interface IFinalQuestManager
 {
     void UpdateWordsActivation();
+    event Action OnQuestCompleted;
 }
