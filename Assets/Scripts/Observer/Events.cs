@@ -30,6 +30,9 @@ public enum Events
     Base_CG,
     Additive_Clocks_MG,
     Additive_Clocks_WM,
+    #region Clock_QUEST
+    ClockQuestComplete,
+    #endregion
     #region PHOTO_QUEST_2
     Photo1Quest2,
     Photo2Quest2,
@@ -40,7 +43,6 @@ public enum Events
     #endregion
     #region SCENE_EVENTS
     ClockSceneFT,
-
     #endregion
     #region ITEMS
     PodiumEmpty,

@@ -1,3 +1,4 @@
+using DependencyInjection;
 using System;
 using UnityEngine;
 
@@ -12,10 +13,16 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
 
     bool firstTime = false;
 
-    [SerializeField] Rigidbody rb;
+    [SerializeField] Events QuestCompleteEvent;
+    [SerializeField] TutorialInteract Key;
 
     public event Action OnClockQuestFinished;
+    IMonologueSpeaker monologueSpeaker;
 
+    private void Awake()
+    {
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
+    }
     private void OnEnable()
     {
         if(clock != null)
@@ -40,6 +47,8 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
 
         if (currenHour == targetHour && currentMinute == targetMinute && !firstTime)
         {
+            monologueSpeaker.StartMonologue(QuestCompleteEvent);
+
             RevealObject();
 
             SoundManager.Instance.CreateSound()
@@ -54,7 +63,8 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
     }
     private void RevealObject()
     {
-        rb.isKinematic = false;
+        DelayUtility.Instance.Delay(2f, () => Key.Interact());
+        
         GameManager.Instance.SetCondition(GameCondition.IsClockQuestComplete, true);
         GameManager.Instance.SetCondition(GameCondition.TeleportAvailable, false);
     }
