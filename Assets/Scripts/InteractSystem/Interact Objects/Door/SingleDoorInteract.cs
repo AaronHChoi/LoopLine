@@ -42,6 +42,10 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
 
     [SerializeField] private UnityEvent OnUnlockDoorEvent;
 
+    [Header("Cooldown Config")]
+    [SerializeField] private float interactCooldown = 1.0f;
+    private bool inCooldown = false;
+
     private void Awake()
     {
         playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
@@ -88,23 +92,33 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     }
     public void Interact()
     {
+        if (inCooldown)
+        {
+            return;
+        }
+
         if (keyString != null)
         {
             if (inventoryUI.ItemInUse.id == keyString && !active)
             {
+                StartCoroutine(CooldownRoutine());
+
                 active = true;
                 EventBus.Publish(new DoorEvent { SoundID = unlockDoorSoundEventID, ShouldPlay = true });
                 OnUnlockDoorEvent?.Invoke();
                 return;
             }
         }
-        if  (keyString == null || active)
+
+        if (keyString == null || active)
         {
             OnUnlockDoorEvent?.Invoke();
         }    
 
         if (active)
         {
+            StartCoroutine(CooldownRoutine());
+
             if (!isOpen)
             {
                 playerPosition = playerController.GetTransform().position;
@@ -120,6 +134,12 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
         {
             EventBus.Publish(new DoorEvent { SoundID = lockedDoorSoundEventID, ShouldPlay = true });
         }
+    }
+    IEnumerator CooldownRoutine()
+    {
+        inCooldown = true;
+        yield return new WaitForSeconds(interactCooldown);
+        inCooldown = false;
     }
     public string GetInteractText()
     {

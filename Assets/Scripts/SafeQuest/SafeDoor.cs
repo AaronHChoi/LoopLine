@@ -42,6 +42,10 @@ public class SafeDoor : MonoBehaviour, IInteract
 
     [SerializeField] private UnityEvent OnUnlockDoorEvent;
 
+    [Header("Cooldown Config")]
+    [SerializeField] private float interactCooldown = 1.0f;
+    private bool inCooldown = false;
+
     private void Awake()
     {
         playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
@@ -90,6 +94,7 @@ public class SafeDoor : MonoBehaviour, IInteract
     {
         if (!GameManager.Instance.GetCondition(GameCondition.IsMusicQuestComplete))
         {
+            StartCoroutine(CooldownRoutine());
             active = true;
             EventBus.Publish(new DoorEvent { SoundID = unlockDoorSoundEventID, ShouldPlay = true });
             OnUnlockDoorEvent?.Invoke();
@@ -98,6 +103,7 @@ public class SafeDoor : MonoBehaviour, IInteract
 
         if (active)
         {
+            StartCoroutine(CooldownRoutine());
             if (!isOpen)
             {
                 playerPosition = playerController.GetTransform().position;
@@ -113,6 +119,12 @@ public class SafeDoor : MonoBehaviour, IInteract
         {
             EventBus.Publish(new DoorEvent { SoundID = lockedDoorSoundEventID, ShouldPlay = true });
         }
+    }
+    IEnumerator CooldownRoutine()
+    {
+        inCooldown = true;
+        yield return new WaitForSeconds(interactCooldown);
+        inCooldown = false;
     }
     public string GetInteractText()
     {

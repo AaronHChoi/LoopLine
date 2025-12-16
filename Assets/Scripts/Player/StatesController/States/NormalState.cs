@@ -11,10 +11,11 @@ namespace Player
         IUIManager uiManager;
         IPlayerCamera playerCamera;
         IPlayerController playerController;
+        IGameSceneManager gameSceneManager;
 
         public NormalState(IPlayerStateController controller, IPlayerInputHandler input, 
             IPlayerMovement movement, ICameraOrientation playerCameraOrientation, IUIManager uiManager,
-            IPlayerController playerController, IPlayerCamera playerCamera)
+            IPlayerController playerController, IPlayerCamera playerCamera, IGameSceneManager gameSceneManager)
         {
             this.controller = controller;
             this.input = input;
@@ -23,6 +24,7 @@ namespace Player
             this.uiManager = uiManager;
             this.playerController = playerController;
             this.playerCamera = playerCamera;
+            this.gameSceneManager = gameSceneManager;
         }
         public void Enter()
         {
@@ -34,7 +36,7 @@ namespace Player
         {
             HandleHeadBob();
 
-            if (GameManager.Instance.GetCondition(GameCondition.PolaroidTaken) && input.ToggleCameraPressed())
+            if (GameManager.Instance.GetCondition(GameCondition.PolaroidTaken) && input.ToggleCameraPressed() && gameSceneManager.IsCurrentScene("04. Train"))
             {
                 controller.StateMachine.TransitionTo(controller.CameraState);
             }

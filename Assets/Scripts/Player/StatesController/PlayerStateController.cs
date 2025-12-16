@@ -57,7 +57,7 @@ namespace Player
 
             stateMachine = new StateMachine();
 
-            NormalState = new NormalState(this, inputHandler, playerMovement, cinemachinePOVExtension, uiManager, playerController, playerCamera);
+            NormalState = new NormalState(this, inputHandler, playerMovement, cinemachinePOVExtension, uiManager, playerController, playerCamera, gameSceneManager);
             DialogueState = new DialogueState(this, inputHandler, playerMovement, cinemachinePOVExtension);
             CameraState = new CameraState(this, inputHandler, playerMovement, photoCapture, cinemachinePOVExtension, interaction);
             DevelopmentState = new DevelopmentState(this, inputHandler, playerMovement, cinemachinePOVExtension, timeManager);
