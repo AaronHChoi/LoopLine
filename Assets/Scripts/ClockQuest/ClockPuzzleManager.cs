@@ -1,5 +1,4 @@
 using DependencyInjection;
-using Player;
 using System;
 using UnityEngine;
 
@@ -18,31 +17,26 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
     [SerializeField] TutorialInteract Key;
 
     public event Action OnClockQuestFinished;
-
     IMonologueSpeaker monologueSpeaker;
-    IPlayerStateController playerStateController;
-    IGearRotator gearRotator;
-    IClock clockLock;
+    IFinalQuestManager finalQuestManager;
 
     private void Awake()
     {
         monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
-        playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
-        gearRotator = InterfaceDependencyInjector.Instance.Resolve<IGearRotator>();
-        clockLock = InterfaceDependencyInjector.Instance.Resolve<IClock>();
+        finalQuestManager = InterfaceDependencyInjector.Instance.Resolve<IFinalQuestManager>();
     }
     private void OnEnable()
     {
         if(clock != null)
         {
-            clock.OnCheckTime += CheckTime;
+            clock.OnExitClock += CheckTime;
         }
     }
     private void OnDisable()
     {
         if (clock != null)
         {
-            clock.OnCheckTime -= CheckTime;
+            clock.OnExitClock -= CheckTime;
         }
     }
     public void CheckTime()
@@ -55,7 +49,7 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
 
         if (currenHour == targetHour && currentMinute == targetMinute && !firstTime)
         {
-            DelayUtility.Instance.Delay(3f, () => monologueSpeaker.StartMonologue(QuestCompleteEvent));
+            monologueSpeaker.StartMonologue(QuestCompleteEvent);
 
             RevealObject();
 
@@ -66,17 +60,14 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
 
             firstTime = true;
 
-            playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
-
-            gearRotator.StopGears();
             OnClockQuestFinished?.Invoke();
-            clockLock.SetLockState(true);
         }
     }
     private void RevealObject()
     {
         DelayUtility.Instance.Delay(2f, () => Key.Interact());
-        
+        GameManager.Instance.SetCondition(GameCondition.WordGroup1, true);
+        finalQuestManager.UpdateWordsActivation();
         GameManager.Instance.SetCondition(GameCondition.IsClockQuestComplete, true);
         GameManager.Instance.SetCondition(GameCondition.TeleportAvailable, false);
     }
