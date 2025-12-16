@@ -51,9 +51,10 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
 #if UNITY_EDITOR
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.V))
+        if (Input.GetKeyDown(KeyCode.K))
         {
             PhotoQuestComplete();
+            GameManager.Instance.SetCondition(GameCondition.WordGroup2, true);
         }
     }
 #endif
