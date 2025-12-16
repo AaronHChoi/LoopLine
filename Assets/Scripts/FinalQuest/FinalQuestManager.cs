@@ -44,7 +44,15 @@ public class FinalQuestManager : MonoBehaviour, IFinalQuestManager
     {
         FinalQuestDial.OnDialRotated -= CheckResult;
     }
-
+#if UNITY_EDITOR
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            UpdateWordsActivation();
+        }
+    }
+#endif
     private void CheckResult(string dialName, int indexShown)
     {
         switch (dialName)

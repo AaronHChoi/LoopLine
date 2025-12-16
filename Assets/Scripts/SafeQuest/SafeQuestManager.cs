@@ -44,7 +44,15 @@ public class SafeQuestManager : MonoBehaviour, ISafeQuestManager
     {
         Dial.OnDialRotated -= CheckResult;
     }
-
+#if UNITY_EDITOR
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            GameManager.Instance.SetCondition(GameCondition.WordGroup3, true);
+        }
+    }
+#endif
     private void CheckResult(string dialName, int indexShown)
     {
         switch (dialName)

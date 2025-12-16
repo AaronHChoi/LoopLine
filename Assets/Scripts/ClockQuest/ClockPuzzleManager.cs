@@ -46,6 +46,16 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
             clock.OnCheckTime -= CheckTime;
         }
     }
+
+#if UNITY_EDITOR
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            GameManager.Instance.SetCondition(GameCondition.WordGroup1, true);
+        }
+    }
+#endif
     public void CheckTime()
     {
         string currentTime = clock.GetClockTime();
