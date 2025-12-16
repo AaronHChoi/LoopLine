@@ -16,7 +16,9 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
 
     [SerializeField] SingleDoorInteract doorInteract;
     [SerializeField] ItemInteract doorHandler;
-    [SerializeField] Rigidbody rb;
+    [SerializeField] Events QuestCompleteEvent;
+    [SerializeField] TutorialInteract Key;
+
 
     [SerializeField] private List<PhotoFrame> frames;
     [SerializeField] private List<PhotoQuestComponent> Photos;
@@ -26,9 +28,12 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
 
     IInventoryUI inventoryUI;
     IGameSceneManager gameSceneManager;
+    IMonologueSpeaker monologueSpeaker;
+
 
     private void Awake()
     {
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
         gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
     }
@@ -121,8 +126,8 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
         gameSceneManager.SetInitialLoop(true);
     }
     private void PhotoQuestComplete()
-    {
-        rb.isKinematic = false; 
+    { 
+        Key.Interact();
         OnPhotoQuestFinished?.Invoke();
         GameManager.Instance.SetCondition(GameCondition.IsPhotoQuestComplete, true);
     }

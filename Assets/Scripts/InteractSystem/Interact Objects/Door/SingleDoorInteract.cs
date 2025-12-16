@@ -88,7 +88,7 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     }
     public void Interact()
     {
-        if (correctKey != null)
+        if (keyString != null)
         {
             if (inventoryUI.ItemInUse.id == keyString && !active)
             {
@@ -98,6 +98,10 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
                 return;
             }
         }
+        if  (keyString == null || active)
+        {
+            OnUnlockDoorEvent?.Invoke();
+        }    
 
         if (active)
         {

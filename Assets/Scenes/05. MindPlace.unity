@@ -3334,7 +3334,19 @@ MonoBehaviour:
   keyString: 
   OnUnlockDoorEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1615316084}
+        m_TargetAssemblyTypeName: ClockPuzzleManager, Assembly-CSharp
+        m_MethodName: OpenDoorClockQuest
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!65 &159241367
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3761,6 +3773,9 @@ MonoBehaviour:
   - eventType: 5
     dialogues:
     - {fileID: 11400000, guid: b1351ed0fb974ae49924a613cfae1c6a, type: 2}
+  - eventType: 28
+    dialogues:
+    - {fileID: 11400000, guid: f363bd2172f8d5c43a57c8730136c2e3, type: 2}
   currentEvent: 0
   npcType: 6
   autoAdvance: 0
@@ -9834,7 +9849,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doorInteract: {fileID: 921083717}
   doorHandler: {fileID: 423400360}
-  rb: {fileID: 804363555}
+  QuestCompleteEvent: 0
+  Key: {fileID: 804363553}
   frames:
   - {fileID: 1521413279}
   - {fileID: 137334246}
@@ -9854,7 +9870,7 @@ MonoBehaviour:
     photo: {fileID: 1491731770529672801}
   - condition: 6
     photo: {fileID: 5955600732610294978}
-  - condition: 9
+  - condition: 10
     photo: {fileID: 160662609}
   - condition: 4
     photo: {fileID: 1975309413}
@@ -11410,6 +11426,10 @@ PrefabInstance:
     - target: {fileID: -6500702963864329841, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -6500702963864329841, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -6306737415865873231, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -13880,11 +13900,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37cf809df9e54d24cb7413c48a42a3fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!54 &423400362 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 2119516590708041024, guid: 71f5fabffc9b26c4a90ba22e5db91ac0, type: 3}
-  m_PrefabInstance: {fileID: 4890007683509426474}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &425828589 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7442483527812027982, guid: 8d95926027aee6f48b4e4ce7438fb1e2, type: 3}
@@ -18565,11 +18580,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37cf809df9e54d24cb7413c48a42a3fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!54 &804363555 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 2119516590708041024, guid: 71f5fabffc9b26c4a90ba22e5db91ac0, type: 3}
-  m_PrefabInstance: {fileID: 2071784402}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &811163114
 GameObject:
   m_ObjectHideFlags: 0
@@ -41883,7 +41893,8 @@ MonoBehaviour:
     volume: 1
     secondsDelay: 0
   doorInteract: {fileID: 159241366}
-  rb: {fileID: 423400362}
+  QuestCompleteEvent: 28
+  Key: {fileID: 423400360}
 --- !u!4 &1615316085
 Transform:
   m_ObjectHideFlags: 0
