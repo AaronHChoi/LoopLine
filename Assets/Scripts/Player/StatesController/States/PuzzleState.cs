@@ -19,6 +19,7 @@ public class PuzzleState : IState
     {
         movement.CanMove = false;
         playerCamera.CanLook = false;
+        Debug.Log("Entering PuzzleState");
     }
 
     public void Execute()
@@ -45,5 +46,6 @@ public class PuzzleState : IState
     {
         movement.CanMove = true;
         playerCamera.CanLook = true;
+        Debug.Log("Exiting PuzzleState");
     }
 }

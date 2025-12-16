@@ -1,6 +1,7 @@
+using System.Collections;
 using UnityEngine;
 
-public class GearRotator : MonoBehaviour
+public class GearRotator : MonoBehaviour, IGearRotator
 {
     public enum RotationAxis { X, Y, Z }
 
@@ -16,22 +17,47 @@ public class GearRotator : MonoBehaviour
     [Header("Gear Settings")]
     [SerializeField] private Gear[] gears;
 
-    void Update()
+    private Coroutine rotationCoroutine;
+
+    private void Start()
     {
-        float dt = Time.deltaTime;
-
-        for (int i = 0; i < gears.Length; i++)
+        StartGears();
+    }
+    IEnumerator RotateRoutine()
+    {
+        while (true)
         {
-            Gear gear = gears[i];
-            if (gear.gearTransform == null) continue;
+            float dt = Time.deltaTime;
 
-            float dir = gear.clockwise ? 1f : -1f;
-            Vector3 axisVector = GetAxisVector(gear.axis);
+            for (int i = 0; i < gears.Length; i++)
+            {
+                Gear gear = gears[i];
+                if (gear.gearTransform == null) continue;
 
-            gear.gearTransform.Rotate(axisVector, gear.rotationSpeed * dir * dt, Space.Self);
+                float dir = gear.clockwise ? 1f : -1f;
+                Vector3 axisVector = GetAxisVector(gear.axis);
+
+                gear.gearTransform.Rotate(axisVector, gear.rotationSpeed * dir * dt, Space.Self);
+            }
+
+            yield return null;
         }
     }
-
+    public void StartGears()
+    {
+        if (rotationCoroutine == null)
+        {
+            rotationCoroutine = StartCoroutine(RotateRoutine());
+        }
+    }
+    public void StopGears()
+    {
+        if (rotationCoroutine != null)
+        {
+            StopCoroutine(rotationCoroutine);
+            rotationCoroutine = null;
+        }
+    }
     private Vector3 GetAxisVector(RotationAxis axis)
     {
         switch (axis)
@@ -42,4 +68,8 @@ public class GearRotator : MonoBehaviour
             default: return Vector3.right;
         }
     }
+}
+public interface IGearRotator
+{
+    void StopGears();
 }

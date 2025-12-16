@@ -1,12 +1,13 @@
 using System;
 using DependencyInjection;
 using Player;
+using SoundSystem;
 using Unity.Cinemachine;
 using UnityEngine;
 
 public class Clock : MonoBehaviour, IInteract, IClock
 {
-    public event Action OnExitClock;
+    public event Action OnCheckTime;
     public event Action OnEnterClock;
 
     public Transform HandHour;
@@ -34,7 +35,12 @@ public class Clock : MonoBehaviour, IInteract, IClock
     IPlayerStateController playerStateController;
 
     [SerializeField] SoundData clockSecondsData;
+    SoundEmitter clockAudioSource;
     [SerializeField] DialogueUI dialogueUI;
+    [SerializeField] Animator clockAnimator;
+
+    bool isLocked = false;
+
     private void Awake()
     {
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
@@ -42,7 +48,9 @@ public class Clock : MonoBehaviour, IInteract, IClock
     }
     private void Start()
     {
-         SoundManager.Instance.CreateSound()
+        clockAnimator = GetComponent<Animator>();
+
+        clockAudioSource = SoundManager.Instance.CreateSound()
             .WithSoundData(clockSecondsData)
             .WithSoundPosition(transform.position)
             .Play();
@@ -74,6 +82,10 @@ public class Clock : MonoBehaviour, IInteract, IClock
             playerStateController.OnPuzzleLeftInteract -= LeftInteract;
             playerStateController.OnPuzzleRightInteract -= RightInteract;
         }
+    }
+    public void StopClockSound()
+    {
+        clockAudioSource.Stop();
     }
     private void PuzzleInteract()
     {
@@ -125,7 +137,6 @@ public class Clock : MonoBehaviour, IInteract, IClock
             clockZoom.gameObject.SetActive(false);
             clockZoom.Priority = 10;
             player.Priority = 20;
-            OnExitClock?.Invoke();
             uiManager.HideCurrentPanel();
         }
     }
@@ -145,6 +156,8 @@ public class Clock : MonoBehaviour, IInteract, IClock
             if (currentMinuteIndex < 0) currentMinuteIndex = minuteAngle.Length - 1;
             if (currentMinuteIndex >= minuteAngle.Length) currentMinuteIndex = 0;
         }
+
+        OnCheckTime?.Invoke();
     }
     void RotationUpdate()
     {
@@ -173,15 +186,37 @@ public class Clock : MonoBehaviour, IInteract, IClock
     }
     public void Interact()
     {
+        if (isLocked)
+        {
+            return;
+        }
+
         ActiveClock();
     }
     public string GetInteractText()
     {
         throw new System.NotImplementedException();
     }
+    public void SetLockState(bool locked)
+    {
+        isLocked = locked;
+
+        StopClockSound();
+
+        if (clockAnimator != null)
+        {
+            clockAnimator.enabled = false;
+        }
+
+        if (isLocked && activeMode)
+        {
+            ActiveClock();
+        }
+    }
 }
 public interface IClock
 {
-    event Action OnExitClock;
+    event Action OnCheckTime;
     event Action OnEnterClock;
+    void SetLockState(bool locked);
 }

@@ -1,4 +1,5 @@
 using DependencyInjection;
+using Player;
 using System;
 using UnityEngine;
 
@@ -17,24 +18,31 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
     [SerializeField] TutorialInteract Key;
 
     public event Action OnClockQuestFinished;
+
     IMonologueSpeaker monologueSpeaker;
+    IPlayerStateController playerStateController;
+    IGearRotator gearRotator;
+    IClock clockLock;
 
     private void Awake()
     {
         monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
+        playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
+        gearRotator = InterfaceDependencyInjector.Instance.Resolve<IGearRotator>();
+        clockLock = InterfaceDependencyInjector.Instance.Resolve<IClock>();
     }
     private void OnEnable()
     {
         if(clock != null)
         {
-            clock.OnExitClock += CheckTime;
+            clock.OnCheckTime += CheckTime;
         }
     }
     private void OnDisable()
     {
         if (clock != null)
         {
-            clock.OnExitClock -= CheckTime;
+            clock.OnCheckTime -= CheckTime;
         }
     }
     public void CheckTime()
@@ -47,7 +55,7 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
 
         if (currenHour == targetHour && currentMinute == targetMinute && !firstTime)
         {
-            monologueSpeaker.StartMonologue(QuestCompleteEvent);
+            DelayUtility.Instance.Delay(3f, () => monologueSpeaker.StartMonologue(QuestCompleteEvent));
 
             RevealObject();
 
@@ -58,7 +66,11 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
 
             firstTime = true;
 
+            playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
+
+            gearRotator.StopGears();
             OnClockQuestFinished?.Invoke();
+            clockLock.SetLockState(true);
         }
     }
     private void RevealObject()
