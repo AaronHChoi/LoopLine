@@ -14,4 +14,8 @@ public enum EventsID
     LockedThirdDoor,
     LockedFourthDoor,
     ClockButton,
+    CloseFirstDoor,
+    CloseSecondDoor,
+    CloseThirdDoor,
+    CloseFourthDoor,
 }
