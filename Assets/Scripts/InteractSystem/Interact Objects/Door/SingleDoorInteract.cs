@@ -35,12 +35,13 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     [SerializeField] TutorialInteract correctKey;
     [SerializeField] bool active = false;
 
-    [SerializeField] EventsID openDoorSoundEventID;
     [SerializeField] EventsID unlockDoorSoundEventID;
     [SerializeField] EventsID lockedDoorSoundEventID;
     [SerializeField] string keyString;
 
     [SerializeField] private UnityEvent OnUnlockDoorEvent;
+
+    [SerializeField] bool inDoor;
 
     [Header("Cooldown Config")]
     [SerializeField] private float interactCooldown = 1.0f;
@@ -150,8 +151,6 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
         OnDoorOpened?.Invoke();
 
         DelayUtility.Instance.Delay(delayOpenDoorAnimation, () => OpenDoor(userPosition));
-
-        EventBus.Publish(new DoorEvent { SoundID = openDoorSoundEventID, ShouldPlay = true });
     }
     private void CloseSequence()
     {
@@ -164,13 +163,27 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
         Quaternion startRotation = doorGameObject.transform.rotation;
         Quaternion endRotation;
 
-        if (ForwardAmount >= ForwardDirection)
+        if (inDoor)
         {
-            endRotation = Quaternion.Euler(new Vector3(StartRotation.x, StartRotation.y - RotatingAmount, StartRotation.z));
+            if (ForwardAmount >= ForwardDirection)
+            {
+                endRotation = Quaternion.Euler(new Vector3(StartRotation.x, StartRotation.y - RotatingAmount, StartRotation.z));
+            }
+            else
+            {
+                endRotation = Quaternion.Euler(new Vector3(StartRotation.x, StartRotation.y + RotatingAmount, StartRotation.z));
+            }
         }
         else
         {
-            endRotation = Quaternion.Euler(new Vector3(StartRotation.x, StartRotation.y + RotatingAmount, StartRotation.z));
+            if (ForwardAmount >= ForwardDirection)
+            {
+                endRotation = Quaternion.Euler(new Vector3(StartRotation.x, StartRotation.y + RotatingAmount, StartRotation.z));
+            }
+            else
+            {
+                endRotation = Quaternion.Euler(new Vector3(StartRotation.x, StartRotation.y - RotatingAmount, StartRotation.z));
+            }
         }
 
         isOpen = true;

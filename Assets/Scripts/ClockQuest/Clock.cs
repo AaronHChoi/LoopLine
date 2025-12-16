@@ -35,6 +35,7 @@ public class Clock : MonoBehaviour, IInteract, IClock
     IPlayerStateController playerStateController;
 
     [SerializeField] SoundData clockSecondsData;
+    [SerializeField] SoundData clockHandler;
     SoundEmitter clockAudioSource;
     [SerializeField] DialogueUI dialogueUI;
     [SerializeField] Animator clockAnimator;
@@ -156,6 +157,11 @@ public class Clock : MonoBehaviour, IInteract, IClock
             if (currentMinuteIndex < 0) currentMinuteIndex = minuteAngle.Length - 1;
             if (currentMinuteIndex >= minuteAngle.Length) currentMinuteIndex = 0;
         }
+
+        SoundManager.Instance.CreateSound()
+               .WithSoundData(clockHandler)
+               .WithSoundPosition(transform.position)
+               .Play();
 
         OnCheckTime?.Invoke();
     }

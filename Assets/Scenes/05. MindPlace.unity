@@ -3496,7 +3496,6 @@ MonoBehaviour:
   doorHandler: {fileID: 0}
   correctKey: {fileID: 0}
   active: 1
-  openDoorSoundEventID: 5
   unlockDoorSoundEventID: 0
   lockedDoorSoundEventID: 0
   keyString: 
@@ -3515,6 +3514,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inDoor: 1
   interactCooldown: 2.5
 --- !u!65 &159241367
 BoxCollider:
@@ -3552,6 +3552,27 @@ MonoBehaviour:
   emitterID: 5
   sound:
     clip: {fileID: 8300000, guid: 9f8a3c64b166e5348a5b8cbba2914d1d, type: 3}
+    mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 1
+    secondsDelay: 0
+  PlayOnStart: 0
+--- !u!114 &159241371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159241364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16ee6854268ee8d41b030f944353bfd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emitterID: 13
+  sound:
+    clip: {fileID: 8300000, guid: d7c618a61cc6f264ca6dde9f33f39fa2, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
     isALoop: 0
     isAPlayOnAwake: 0
@@ -13195,6 +13216,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1288531585144954786, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
       insertIndex: -1
       addedObject: {fileID: 159241369}
+    - targetCorrespondingSourceObject: {fileID: 1288531585144954786, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 159241371}
     - targetCorrespondingSourceObject: {fileID: -8047769335061468644, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
       insertIndex: 1
       addedObject: {fileID: 1737361718}
@@ -13225,6 +13249,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5678799807657421715, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
       insertIndex: -1
       addedObject: {fileID: 921083723}
+    - targetCorrespondingSourceObject: {fileID: 5678799807657421715, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 921083725}
     - targetCorrespondingSourceObject: {fileID: -4551196906710034513, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
       insertIndex: 1
       addedObject: {fileID: 322971946}
@@ -13255,6 +13282,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2726971722978617577, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1407127152}
+    - targetCorrespondingSourceObject: {fileID: 2726971722978617577, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1407127154}
     - targetCorrespondingSourceObject: {fileID: -412782615309762233, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
       insertIndex: -1
       addedObject: {fileID: 361062727}
@@ -13404,6 +13434,13 @@ MonoBehaviour:
     mixerGroup: {fileID: -6426614314215605747, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
     isALoop: 1
     isAPlayOnAwake: 1
+    volume: 1
+    secondsDelay: 0
+  clockHandler:
+    clip: {fileID: 8300000, guid: d4d4a8c9b72dc334098ede633d3923f6, type: 3}
+    mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
+    isALoop: 0
+    isAPlayOnAwake: 0
     volume: 1
     secondsDelay: 0
   dialogueUI: {fileID: 0}
@@ -14581,6 +14618,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leftSide: 0
+  openDoorSoundEventID: 5
+  closeDoorSoundEventID: 13
 --- !u!95 &385464386
 Animator:
   serializedVersion: 7
@@ -18286,6 +18325,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leftSide: 1
+  openDoorSoundEventID: 6
+  closeDoorSoundEventID: 14
 --- !u!1 &646190801
 GameObject:
   m_ObjectHideFlags: 0
@@ -22170,7 +22211,6 @@ MonoBehaviour:
   doorHandler: {fileID: 644322723}
   correctKey: {fileID: 423400360}
   active: 0
-  openDoorSoundEventID: 6
   unlockDoorSoundEventID: 2
   lockedDoorSoundEventID: 9
   keyString: FirstKey
@@ -22189,6 +22229,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inDoor: 0
   interactCooldown: 2.5
 --- !u!114 &921083719
 MonoBehaviour:
@@ -22253,6 +22294,27 @@ MonoBehaviour:
     volume: 1
     secondsDelay: 0
   PlayOnStart: 0
+--- !u!114 &921083725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 921083714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16ee6854268ee8d41b030f944353bfd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emitterID: 14
+  sound:
+    clip: {fileID: 8300000, guid: d7c618a61cc6f264ca6dde9f33f39fa2, type: 3}
+    mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 1
+    secondsDelay: 0
+  PlayOnStart: 0
 --- !u!1 &931645111 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -353208641690772654, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
@@ -22271,6 +22333,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leftSide: 0
+  openDoorSoundEventID: 8
+  closeDoorSoundEventID: 0
 --- !u!95 &931645114
 Animator:
   serializedVersion: 7
@@ -23262,6 +23326,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leftSide: 0
+  openDoorSoundEventID: 7
+  closeDoorSoundEventID: 15
 --- !u!95 &1000978887
 Animator:
   serializedVersion: 7
@@ -29940,6 +30006,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leftSide: 0
+  openDoorSoundEventID: 0
+  closeDoorSoundEventID: 0
 --- !u!95 &1112560591
 Animator:
   serializedVersion: 7
@@ -32565,13 +32633,13 @@ MonoBehaviour:
   doorHandler: {fileID: 0}
   correctKey: {fileID: 0}
   active: 1
-  openDoorSoundEventID: 8
   unlockDoorSoundEventID: 4
   lockedDoorSoundEventID: 11
   keyString: ThirdKey
   OnUnlockDoorEvent:
     m_PersistentCalls:
       m_Calls: []
+  inDoor: 0
   interactCooldown: 2.5
 --- !u!65 &1329073047
 BoxCollider:
@@ -34723,7 +34791,6 @@ MonoBehaviour:
   doorHandler: {fileID: 1000978884}
   correctKey: {fileID: 804363553}
   active: 0
-  openDoorSoundEventID: 7
   unlockDoorSoundEventID: 3
   lockedDoorSoundEventID: 10
   keyString: SecondKey
@@ -34742,6 +34809,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  inDoor: 1
   interactCooldown: 2.5
 --- !u!114 &1407127152
 MonoBehaviour:
@@ -34758,6 +34826,27 @@ MonoBehaviour:
   emitterID: 10
   sound:
     clip: {fileID: 8300000, guid: 44050e30993275e4fbace1015cda48dc, type: 3}
+    mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 1
+    secondsDelay: 0
+  PlayOnStart: 0
+--- !u!114 &1407127154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407127145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16ee6854268ee8d41b030f944353bfd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emitterID: 15
+  sound:
+    clip: {fileID: 8300000, guid: d7c618a61cc6f264ca6dde9f33f39fa2, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
     isALoop: 0
     isAPlayOnAwake: 0
@@ -44351,7 +44440,7 @@ MonoBehaviour:
   targetHour: 11
   targetMinute: 20
   complete:
-    clip: {fileID: 8300000, guid: f5ba3478aa4550a46b8b1c7204eebae0, type: 3}
+    clip: {fileID: 8300000, guid: 160cc4c7cfee4a64b9941d6f965f1bbf, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
     isALoop: 0
     isAPlayOnAwake: 0
@@ -60435,6 +60524,13 @@ MonoBehaviour:
   player: {fileID: 1890026547}
   clockZoom: {fileID: 1337550680}
   clockSecondsData:
+    clip: {fileID: 0}
+    mixerGroup: {fileID: 0}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 1
+    secondsDelay: 0
+  clockHandler:
     clip: {fileID: 0}
     mixerGroup: {fileID: 0}
     isALoop: 0
