@@ -16,10 +16,10 @@ public class FinalDoor : MonoBehaviour, IInteract
     }
     public void Interact()
     {
-        if (GameManager.Instance.GetCondition(GameCondition.IsPhotoQuestComplete))
-        {
-            gameSceneManager.LoadNextScene("01. MainMenu");
-        }
+        //if (GameManager.Instance.GetCondition(GameCondition.IsPhotoQuestComplete))
+        //{
+        //    gameSceneManager.LoadNextScene("01. MainMenu");
+        //}
     }
 
 }

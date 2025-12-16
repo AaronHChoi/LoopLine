@@ -10,13 +10,14 @@ public struct MusicNotesActivations
     public GameObject musicNote;
 }
 
-public class SafeQuestManager : MonoBehaviour
+public class SafeQuestManager : MonoBehaviour, ISafeQuestManager
 {
     [SerializeField] private int[] result, correctCombination;
     [SerializeField] SingleDoorInteract doorInteract;
     [SerializeField] ItemInteract doorKey;
     [SerializeField] List<MusicNotesActivations> musicNotesActivations;
 
+    public event Action OnSafeQuestCompleted;
     IInventoryUI inventoryUI;
     IFinalQuestManager finalQuestManager;
     private void Awake()
@@ -67,6 +68,7 @@ public class SafeQuestManager : MonoBehaviour
             result[3] == correctCombination[3])
         {
             Debug.Log("Safe Unlocked!");
+            OnSafeQuestCompleted?.Invoke();
             GameManager.Instance.SetCondition(GameCondition.WordGroup3, true);
             finalQuestManager.UpdateWordsActivation();
         }
@@ -90,4 +92,10 @@ public class SafeQuestManager : MonoBehaviour
         inventoryUI.RemoveInventorySlot(doorKey);
         GameManager.Instance.SetCondition(GameCondition.MusicSafeDoorOpen, true);
     }
+}
+
+public interface ISafeQuestManager
+{
+    event Action OnSafeQuestCompleted;
+    void OpenDoorMusicSafeQuest();
 }
