@@ -7,6 +7,7 @@ namespace InWorldUI
         public string promptMessage = "Press E";
         public Vector3 uiOffset = new Vector3(0, 0f, 0);
         public Vector3 uiOffsetPrompt = new Vector3(0, 0f, 0);
+        public float uiScale = 1f;
 
         private InteractableUI _uiInstance;
         private FadeState markerState;
@@ -37,6 +38,7 @@ namespace InWorldUI
                 transform // parent at creation to keep hierarchy clean
             );
             
+            _uiInstance.transform.localScale = Vector3.one * uiScale;
             _uiInstance.Init(promptMessage, uiOffsetPrompt);
         }
 
