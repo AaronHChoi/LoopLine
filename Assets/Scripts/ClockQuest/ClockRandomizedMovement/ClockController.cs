@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using System.Collections;
 
 public class ClockController : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class ClockController : MonoBehaviour
     [SerializeField] private float slowdownRangeMinutes = 20f;
     [SerializeField] private float slowdownStrength = 4f;
     [SerializeField] private float minSpeedFactor = 0.05f;
+    [SerializeField] private float eventFastForwardSpeed = 1600f;
 
     [Header("Timing Settings")]
     [SerializeField] private bool enablePause = false;
@@ -41,6 +43,8 @@ public class ClockController : MonoBehaviour
     private float resumeTimer;
     private bool isResuming;
 
+    private bool isEventActive = false;
+
     private readonly TimeSpan targetTime = new TimeSpan(11, 20, 0);
     private const int ARBITRARY_YEAR = 1, ARBITRARY_MONTH = 1, ARBITRARY_DAY = 1;
 
@@ -61,8 +65,21 @@ public class ClockController : MonoBehaviour
 
         currentSpeed = baseSpeed;
     }
+    private void OnEnable()
+    {
+        EventBus.Subscribe<ClockSyncEvent>(ForceTimeAndPause);
+    }
+    private void OnDisable()
+    {
+        EventBus.Unsubscribe<ClockSyncEvent>(ForceTimeAndPause);
+    }
     void Update()
     {
+        if (isEventActive)
+        {
+            return;
+        }
+
         if (isPaused)
         {
             pauseTimer += Time.deltaTime;
@@ -135,6 +152,88 @@ public class ClockController : MonoBehaviour
 
         UpdateClock(startTime.AddSeconds(elapsed));
         UpdateJitter();
+    }
+    [ContextMenu("Trigger 11:20 Event")]
+    public void ForceTimeAndPause(ClockSyncEvent ev)
+    {
+        if (!isEventActive)
+        {
+            StartCoroutine(Sequence1120());
+        }
+    }
+    IEnumerator Sequence1120()
+    {
+        isEventActive = true;
+
+        DateTime now = startTime.AddSeconds(elapsed);
+        TimeSpan current = now.TimeOfDay;
+        double secondsToTarget = (targetTime - current).TotalSeconds;
+
+        if (secondsToTarget < 0)
+        {
+            secondsToTarget += 12 * 3600;
+        }
+
+        float targertElapsed = elapsed + (float)secondsToTarget;
+        currentSpeed = eventFastForwardSpeed;
+
+        if (tickSource != null)
+        {
+            tickSource.pitch = maxPitch;
+            if (!tickSource.isPlaying)
+            {
+                tickSource.Play();
+            }
+        }
+
+        while (elapsed < targertElapsed)
+        {
+            elapsed += Time.deltaTime * currentSpeed;
+
+            if (elapsed > targertElapsed)
+            {
+                elapsed = targertElapsed;
+            }
+
+            UpdateClock(startTime.AddSeconds(elapsed));
+            UpdateJitter();
+            yield return null;
+        }
+
+        currentSpeed = 0;
+        if (tickSource != null)
+        {
+            tickSource.Stop();
+        }
+
+        UpdateJitter();
+
+        yield return new WaitForSeconds(10f);
+
+        float t = 0;
+
+        while (t < 2f)
+        {
+            t += Time.deltaTime;
+            currentSpeed = Mathf.Lerp(0, baseSpeed, t / 2f);
+
+            if (tickSource != null)
+            {
+                if (!tickSource.isPlaying)
+                {
+                    tickSource.Play();
+                }
+                tickSource.pitch = Mathf.Lerp(minPitch, 1f, t / 2f);
+            }
+
+            elapsed += Time.deltaTime * currentSpeed;
+            UpdateClock(startTime.AddSeconds(elapsed));
+            UpdateJitter();
+            yield return null;
+        }
+
+        currentSpeed = baseSpeed;
+        isEventActive = false;
     }
     void UpdateClock(DateTime t)
     {
