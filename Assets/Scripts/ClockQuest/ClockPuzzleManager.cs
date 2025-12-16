@@ -56,8 +56,6 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
 
         if (currenHour == targetHour && currentMinute == targetMinute && !firstTime)
         {
-            DelayUtility.Instance.Delay(3f, () => monologueSpeaker.StartMonologue(QuestCompleteEvent));
-
             RevealObject();
 
             SoundManager.Instance.CreateSound()
@@ -71,6 +69,7 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
 
             gearRotator.StopGears();
             OnClockQuestFinished?.Invoke();
+            DelayUtility.Instance.Delay(3f, () => monologueSpeaker.StartMonologue(QuestCompleteEvent));
             clockLock.SetLockState(true);
         }
     }
@@ -78,7 +77,7 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
     {
         DelayUtility.Instance.Delay(2f, () => Key.Interact());
         GameManager.Instance.SetCondition(GameCondition.WordGroup1, true);
-        //finalQuestManager.UpdateWordsActivation();
+        finalQuestManager.UpdateWordsActivation();
         GameManager.Instance.SetCondition(GameCondition.IsClockQuestComplete, true);
         GameManager.Instance.SetCondition(GameCondition.TeleportAvailable, false);
     }
