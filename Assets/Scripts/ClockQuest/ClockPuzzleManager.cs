@@ -78,7 +78,7 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
     {
         DelayUtility.Instance.Delay(2f, () => Key.Interact());
         GameManager.Instance.SetCondition(GameCondition.WordGroup1, true);
-        finalQuestManager.UpdateWordsActivation();
+        //finalQuestManager.UpdateWordsActivation();
         GameManager.Instance.SetCondition(GameCondition.IsClockQuestComplete, true);
         GameManager.Instance.SetCondition(GameCondition.TeleportAvailable, false);
     }
