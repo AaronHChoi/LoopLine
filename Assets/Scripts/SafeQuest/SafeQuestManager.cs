@@ -50,6 +50,10 @@ public class SafeQuestManager : MonoBehaviour, ISafeQuestManager
         if (Input.GetKeyDown(KeyCode.L))
         {
             GameManager.Instance.SetCondition(GameCondition.WordGroup3, true);
+            GameManager.Instance.SetCondition(GameCondition.MusicNote1, true);
+            GameManager.Instance.SetCondition(GameCondition.MusicNote2, true);
+            GameManager.Instance.SetCondition(GameCondition.MusicNote3, true);
+            GameManager.Instance.SetCondition(GameCondition.MusicNote4, true);
         }
     }
 #endif
