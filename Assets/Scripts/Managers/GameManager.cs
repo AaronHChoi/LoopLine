@@ -9,6 +9,7 @@ public class GameManager : Singleton<GameManager>
     [Header("GameManager")]
     public string nextScene;
     public bool isGamePaused;
+    public bool isCinematicMonologue;
 
     [SerializeField] int trainLoop = 0;
     public int TrainLoop

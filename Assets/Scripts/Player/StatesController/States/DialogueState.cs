@@ -24,7 +24,7 @@ namespace Player
         }
         public void Execute()
         {
-            if (input.PassDialogPressed())
+            if (input.PassDialogPressed() && !GameManager.Instance.isCinematicMonologue)
             {
                 controller.UseEventDialogueNext();
             }
