@@ -61,6 +61,7 @@ namespace Player
             {
                 if (input.Teleport())
                 {
+                    EventBus.Publish(new TransitionEvent());
                     uiManager.HideCurrentPanel();
                     controller.UseEventTeleport();
                 }

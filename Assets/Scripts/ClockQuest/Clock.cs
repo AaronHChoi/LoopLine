@@ -9,6 +9,7 @@ public class Clock : MonoBehaviour, IInteract, IClock
 {
     public event Action OnCheckTime;
     public event Action OnEnterClock;
+    public event Action OnExitClock;
 
     public Transform HandHour;
     public Transform HandMinute;
@@ -138,6 +139,7 @@ public class Clock : MonoBehaviour, IInteract, IClock
             clockZoom.gameObject.SetActive(false);
             clockZoom.Priority = 10;
             player.Priority = 20;
+            OnExitClock?.Invoke();
             uiManager.HideCurrentPanel();
         }
     }
@@ -224,5 +226,6 @@ public interface IClock
 {
     event Action OnCheckTime;
     event Action OnEnterClock;
+    event Action OnExitClock;
     void SetLockState(bool locked);
 }

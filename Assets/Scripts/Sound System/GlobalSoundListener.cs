@@ -5,14 +5,17 @@ public class GlobalSoundListener : Singleton<GlobalSoundListener>
 {
     [Header("Player")]
     [SerializeField] private List<SoundData> PlayerSteps;
+    [SerializeField] SoundData transition;
 
     private void OnEnable()
     {
         EventBus.Subscribe<PlayerStepEvent>(PlayPlayerStepSound);
+        EventBus.Subscribe<TransitionEvent>(PlayTransition);
     }
     private void OnDisable()
     {
         EventBus.Unsubscribe<PlayerStepEvent>(PlayPlayerStepSound);
+        EventBus.Unsubscribe<TransitionEvent>(PlayTransition);
     }
     void PlayPlayerStepSound(PlayerStepEvent st)
     {
@@ -23,5 +26,12 @@ public class GlobalSoundListener : Singleton<GlobalSoundListener>
             .WithSoundData(stepSound)
             .WithRandomPitch()
             .Play();
+    }
+    void PlayTransition(TransitionEvent ev)
+    {
+        SoundManager.Instance.CreateSound()
+           .WithSoundData(transition)
+           .WithRandomPitch()
+           .Play();
     }
 }

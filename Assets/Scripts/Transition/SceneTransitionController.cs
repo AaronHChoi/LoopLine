@@ -28,6 +28,7 @@ public class SceneTransitionController : MonoBehaviour, ISceneTransitionControll
         {
             StartTransition(true);
             FadeOutOnStart();
+            EventBus.Publish(new TransitionEvent());
         }
     }
 

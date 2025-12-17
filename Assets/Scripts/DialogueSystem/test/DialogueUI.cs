@@ -60,7 +60,7 @@ public class DialogueUI : MonoBehaviour
         if(mindplaceClock != null)
         {
             mindplaceClock.OnEnterClock += OnClockStartedHandler;
-            mindplaceClock.OnCheckTime += OnClockEndedHandler;
+            mindplaceClock.OnExitClock += OnClockEndedHandler;
         }
     }
     private void OnDisable()
@@ -77,7 +77,7 @@ public class DialogueUI : MonoBehaviour
         if (mindplaceClock != null)
         {
             mindplaceClock.OnEnterClock -= OnClockStartedHandler;
-            mindplaceClock.OnCheckTime -= OnClockEndedHandler;
+            mindplaceClock.OnExitClock -= OnClockEndedHandler;
         }
     }
     private void OnDialogueStartedHandler()
