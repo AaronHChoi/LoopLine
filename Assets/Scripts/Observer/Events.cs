@@ -47,4 +47,10 @@ public enum Events
     #region ITEMS
     PodiumEmpty,
     #endregion
+    #region TIMELINE
+    TimelineIntro01,
+    TimelineIntro02,
+    TimelineIntro03,
+    TimelineIntro04,
+    #endregion
 }

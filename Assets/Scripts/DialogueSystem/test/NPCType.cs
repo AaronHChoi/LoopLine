@@ -7,5 +7,6 @@ public enum NPCType
     MysteryBoy,
     WorkingMan,
     BassGirl,
-    Player
+    Player,
+    StrangeVoice
 }
