@@ -53,4 +53,8 @@ public enum Events
     TimelineIntro03,
     TimelineIntro04,
     #endregion
+    MusicNotePicked1,
+    MusicNotePicked2,
+    MusicNotePicked3,
+    MusicNotePicked4,
 }
