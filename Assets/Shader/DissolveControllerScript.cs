@@ -41,11 +41,32 @@ public class DissolveControllerScript : MonoBehaviour
             }
         }
     }
-
+    private void OnEnable()
+    {
+        EventBus.Subscribe<FinalQuestCompleteEvent>(ActivateDissolve2);
+    }
+    private void OnDisable()
+    {
+        EventBus.Unsubscribe<FinalQuestCompleteEvent>(ActivateDissolve2);
+    }
     // Public dissolve trigger
     public void ActivateDissolve()
     {
         // Prevent any material changes while in edit mode
+        if (!Application.isPlaying)
+        {
+            Debug.LogWarning("DissolveController: ActivateDissolve called in edit mode. Enter Play Mode to run dissolve.");
+            return;
+        }
+
+        if (!_isDissolving)
+        {
+            PrepareMaterials();
+            StartCoroutine(DissolveEffect());
+        }
+    }
+    void ActivateDissolve2(FinalQuestCompleteEvent ev)
+    {
         if (!Application.isPlaying)
         {
             Debug.LogWarning("DissolveController: ActivateDissolve called in edit mode. Enter Play Mode to run dissolve.");

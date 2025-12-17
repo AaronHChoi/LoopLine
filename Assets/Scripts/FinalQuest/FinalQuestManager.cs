@@ -1,7 +1,5 @@
-using DependencyInjection;
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [Serializable]
@@ -20,12 +18,6 @@ public class FinalQuestManager : MonoBehaviour, IFinalQuestManager
 
     public event Action OnQuestCompleted;
 
-    IInventoryUI inventoryUI;
-
-    private void Awake()
-    {
-        inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
-    }
     void Start()
     {
         //result = new int[] { 1, 1, 1};
@@ -36,7 +28,6 @@ public class FinalQuestManager : MonoBehaviour, IFinalQuestManager
         }
         UpdateWordsActivation();
     }
-
     private void OnEnable()
     {
         FinalQuestDial.OnDialRotated += CheckResult;
@@ -54,6 +45,7 @@ public class FinalQuestManager : MonoBehaviour, IFinalQuestManager
         }
     }
 #endif
+
     private void CheckResult(string dialName, int indexShown)
     {
         switch (dialName)
@@ -72,10 +64,14 @@ public class FinalQuestManager : MonoBehaviour, IFinalQuestManager
             result[1] == correctCombination[1] &&
             result[2] == correctCombination[2] )
         {
-            Debug.Log("Final Quest Completed");
-            GameManager.Instance.SetCondition(GameCondition.FinalQuestCompleted, true);
-            FinalQuestGameObject.gameObject.SetActive(false);
-            OnQuestCompleted?.Invoke();
+            DelayUtility.Instance.Delay(5f, () =>
+            {
+                GameManager.Instance.SetCondition(GameCondition.FinalQuestCompleted, true);
+
+                EventBus.Publish(new FinalQuestCompleteEvent());
+                DelayUtility.Instance.Delay(2f, () => FinalQuestGameObject.gameObject.SetActive(false));
+                OnQuestCompleted?.Invoke();
+            });
         }
     }
     public void UpdateWordsActivation()
@@ -92,9 +88,7 @@ public class FinalQuestManager : MonoBehaviour, IFinalQuestManager
             }
         }
     }
-
 }
-
 public interface IFinalQuestManager
 {
     void UpdateWordsActivation();
