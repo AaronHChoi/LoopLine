@@ -44,7 +44,33 @@ namespace InWorldUI
 
         public Vector3 GetUIWorldPosition()
         {
-            return transform.TransformPoint(uiOffset);
+            // Apply X and Z offset in local space
+            Vector3 localOffset = new Vector3(uiOffset.x, 0, uiOffset.z);
+            Vector3 basePosition = transform.TransformPoint(localOffset);
+            
+            // Apply Y offset towards camera (using billboard's forward direction)
+            if (_uiInstance != null)
+            {
+                BillboardUI billboard = _uiInstance.GetComponent<BillboardUI>();
+                if (billboard != null && Camera.main != null)
+                {
+                    // Get direction from this object to camera
+                    Vector3 toCamera = (Camera.main.transform.position - transform.position).normalized;
+                    basePosition += toCamera * uiOffset.y;
+                }
+                else
+                {
+                    // Fallback to world Y if billboard or camera not available
+                    basePosition += Vector3.up * uiOffset.y;
+                }
+            }
+            else
+            {
+                // Initial creation - use world Y temporarily
+                basePosition += Vector3.up * uiOffset.y;
+            }
+            
+            return basePosition;
         }
 
         public void ShowMarker()
@@ -95,6 +121,15 @@ namespace InWorldUI
         {
             HideMarker();
             HidePrompt();
+        }
+        
+        void LateUpdate()
+        {
+            // Update UI position every frame to account for camera movement
+            if (_uiInstance != null && Camera.main != null)
+            {
+                _uiInstance.transform.position = GetUIWorldPosition();
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace InWorldUI
 {
@@ -14,6 +15,8 @@ namespace InWorldUI
 
         private InteractableInWorld currentPrompt;
         private InteractableInWorld auxTargetInteractable;
+        // Track interactables inside trigger area
+        private readonly HashSet<InteractableInWorld> nearbyInteractables = new HashSet<InteractableInWorld>();
 
         public bool IsDetecting { get { return isDetecting; } set { isDetecting = value; } }
 
@@ -21,24 +24,29 @@ namespace InWorldUI
         {
             if (!isDetecting) return;
 
-            bool validTarget =
-                rayController.FoundInteract &&
-                rayController.Target.TryGetComponent(out auxTargetInteractable);
+            bool validTarget = false;
+            if (rayController.FoundInteract && rayController.Target != null)
+            {
+                auxTargetInteractable = GetInteractableFromHierarchy(rayController.Target);
+                // Only valid if target is inside trigger area
+                validTarget = auxTargetInteractable != null && nearbyInteractables.Contains(auxTargetInteractable);
+            }
 
             bool shouldClear =
                 (!rayController.FoundInteract && currentPrompt != null) ||
-                (rayController.FoundInteract && rayController.Target != currentPrompt?.gameObject);
+                (rayController.FoundInteract && currentPrompt != null && !nearbyInteractables.Contains(currentPrompt)) ||
+                (rayController.FoundInteract && auxTargetInteractable != currentPrompt);
 
             if (validTarget)
             {
                 if (currentPrompt != auxTargetInteractable)
                 {
-                    currentPrompt?.HidePrompt(); // hide old prompt
-                    currentPrompt?.ShowMarker(); // show old prompt marker
+                    currentPrompt?.HidePrompt();
+                    currentPrompt?.ShowMarker();
 
                     currentPrompt = auxTargetInteractable;
-                    currentPrompt.HideMarker(); // hide new prompt marker
-                    currentPrompt.ShowPrompt(); // show new prompt
+                    currentPrompt.HideMarker();
+                    currentPrompt.ShowPrompt();
 
                     auxTargetInteractable = null;
                 }
@@ -53,25 +61,45 @@ namespace InWorldUI
 
         private void OnTriggerEnter(Collider other) 
         {
-            if (isDetecting && ((1 << other.gameObject.layer) & interactableLayer) != 0)
+            if (!isDetecting) return;
+            if (((1 << other.gameObject.layer) & interactableLayer) == 0) return;
+
+            InteractableInWorld interactable = GetInteractableFromHierarchy(other.gameObject);
+            if (interactable != null)
             {
-                if (other.TryGetComponent<InteractableInWorld>(out InteractableInWorld interactable))
-                    interactable.ShowMarker();
+                nearbyInteractables.Add(interactable);
+                // Show marker when entering area
+                interactable.ShowMarker();
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (isDetecting && ((1 << other.gameObject.layer) & interactableLayer) != 0)
-            {
-                if (other.TryGetComponent<InteractableInWorld>(out InteractableInWorld interactable))
-                {
-                    interactable.HideAll();
+            if (!isDetecting) return;
+            if (((1 << other.gameObject.layer) & interactableLayer) == 0) return;
 
-                    if (currentPrompt == interactable)
-                        currentPrompt = null;
+            InteractableInWorld interactable = GetInteractableFromHierarchy(other.gameObject);
+            if (interactable != null)
+            {
+                // Leaving area: hide prompt and show marker (or hide all)
+                if (currentPrompt == interactable)
+                {
+                    currentPrompt.HidePrompt();
+                    currentPrompt = null;
                 }
+                interactable.HideAll();
+                nearbyInteractables.Remove(interactable);
             }
+        }
+
+        private InteractableInWorld GetInteractableFromHierarchy(GameObject target)
+        {
+            InteractableInWorld interactable = target.GetComponent<InteractableInWorld>();
+            if (interactable != null) return interactable;
+            interactable = target.GetComponentInParent<InteractableInWorld>();
+            if (interactable != null) return interactable;
+            interactable = target.GetComponentInChildren<InteractableInWorld>();
+            return interactable;
         }
 
         #region DEPRECATED
