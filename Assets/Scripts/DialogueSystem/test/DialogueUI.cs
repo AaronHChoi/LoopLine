@@ -221,7 +221,10 @@ public class DialogueUI : MonoBehaviour
         dialoguePanel.SetActive(false);
         isTyping = false;
         currentSpeaker = null;
-        playerStateController.ChangeState(playerStateController.NormalState);
+        if (!GameManager.Instance.isCinematicMonologue)
+        {
+            playerStateController.ChangeState(playerStateController.NormalState);
+        }
     }
     private void CompleteTyping()
     {
