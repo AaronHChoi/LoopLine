@@ -9,7 +9,6 @@ public class SceneWeightController : MonoBehaviour, ISceneWeightController
     {
         public string sceneName;
         public int weightIfConditionTrue;
-        public int weightIfConditionFalse;
     }
 
     [System.Serializable]
@@ -38,23 +37,23 @@ public class SceneWeightController : MonoBehaviour, ISceneWeightController
     }
     public void HandleConditionChanged(GameCondition condition, bool isActive)
     {
+        if (!isActive) return;
+
         foreach (var rule in rules)
         {
             if (rule.conditionToCheck == condition)
             {
-                ApplyRule(rule, isActive);
+                ApplyRule(rule);
             }
         }
     }
-    void ApplyRule(WeightRule rule, bool conditionState)
+    void ApplyRule(WeightRule rule)
     {
         foreach (var target in rule.scenesToModify)
         {
-            int newWeight = conditionState ? target.weightIfConditionTrue : target.weightIfConditionFalse;
+            Debug.Log($"[Rule: {rule.ruleName}] Condition {rule.conditionToCheck} is TRUE. Updating {target.sceneName} to {target.weightIfConditionTrue}");
 
-            Debug.Log($"[Rule: {rule.ruleName}] Condition {rule.conditionToCheck} is {conditionState}. Updating {target.sceneName} to {newWeight}");
-
-            gameSceneManager.ChangeSceneWeighth(target.sceneName, newWeight);
+            gameSceneManager.ChangeSceneWeighth(target.sceneName, target.weightIfConditionTrue);
         }
     }
     void ApplyAllRules()
@@ -62,7 +61,10 @@ public class SceneWeightController : MonoBehaviour, ISceneWeightController
         foreach (var rule in rules)
         {
             bool currentState = GameManager.Instance.GetCondition(rule.conditionToCheck);
-            ApplyRule(rule, currentState);
+            if (currentState)
+            {
+                ApplyRule(rule);
+            }
         }
     }
 }

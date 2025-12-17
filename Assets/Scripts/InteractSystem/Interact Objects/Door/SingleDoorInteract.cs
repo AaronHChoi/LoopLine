@@ -47,6 +47,10 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     [SerializeField] private float interactCooldown = 1.0f;
     private bool inCooldown = false;
 
+    [Header("Persistence Settings")]
+    [SerializeField] private bool usePersistence = true;
+    [SerializeField] private GameCondition doorCondition;
+
     private void Awake()
     {
         playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
@@ -56,10 +60,12 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
     }
     private void Start()
     {
-        if (GameManager.Instance.GetCondition(GameCondition.PhotoDoorOpen) && doorHandler != null)
+        if (usePersistence)
         {
-            active = true;
-            doorHandler.SetActive(true);
+            if (GameManager.Instance.GetCondition(doorCondition) && doorHandler != null)
+            {
+                active = true;
+            }
         }
 
         // Disable the parent's trigger collider if it exists (use child colliders instead)
@@ -112,16 +118,15 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
                 StartCoroutine(CooldownRoutine());
 
                 active = true;
+                if (usePersistence)
+                {
+                    GameManager.Instance.SetCondition(doorCondition, true);
+                }
                 EventBus.Publish(new DoorEvent { SoundID = unlockDoorSoundEventID, ShouldPlay = true });
                 OnUnlockDoorEvent?.Invoke();
                 return;
             }
         }
-
-        if (keyString == null || active)
-        {
-            OnUnlockDoorEvent?.Invoke();
-        }    
 
         if (active)
         {
