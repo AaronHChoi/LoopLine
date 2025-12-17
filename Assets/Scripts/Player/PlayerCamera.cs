@@ -17,7 +17,7 @@ public class PlayerCamera : MonoBehaviour, IDependencyInjectable, IPlayerCamera
         cameraTransform = virtualCamera.transform;
 
         cameraOffset = virtualCamera.GetComponent<CinemachineCameraOffset>();
-        if (cameraOffset != null )
+        if (cameraOffset == null )
         {
             Debug.LogError("CinemachineCameraOffset missing component");
         }
