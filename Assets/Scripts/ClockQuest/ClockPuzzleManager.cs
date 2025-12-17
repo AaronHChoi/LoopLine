@@ -38,6 +38,14 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
         cinematicManager = InterfaceDependencyInjector.Instance.Resolve<ICinematicManager>();
     }
+    private void Start()
+    {
+        if (GameManager.Instance.GetCondition(GameCondition.IsClockQuestComplete))
+        {
+            clockLock.SetLockState(true);
+            gearRotator.StopGears();
+        }
+    }
     private void OnEnable()
     {
         if(clock != null)

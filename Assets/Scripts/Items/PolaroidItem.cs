@@ -23,6 +23,11 @@ public class PolaroidItem : ItemInteract, IPolaraidItem
     public override void Start()
     {
         base.Start();
+
+        if (GameManager.Instance.GetCondition(GameCondition.PolaroidTaken))
+        {
+            this.gameObject.SetActive(false);
+        }
     }
     public override bool Interact()
     {
