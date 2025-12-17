@@ -3254,8 +3254,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 349358447}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.705, y: 2.745, z: 2.561}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.805, y: 2.745, z: 2.034}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -22741,7 +22741,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1133552872947455245, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.705
+      value: 0.847
       objectReference: {fileID: 0}
     - target: {fileID: 1133552872947455245, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: m_LocalPosition.y
@@ -22749,11 +22749,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1133552872947455245, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.519
+      value: 2.034
       objectReference: {fileID: 0}
     - target: {fileID: 1133552872947455245, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 1133552872947455245, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: m_LocalRotation.x
@@ -22761,7 +22761,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1133552872947455245, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 1133552872947455245, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: m_LocalRotation.z
@@ -22773,7 +22773,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1133552872947455245, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 1133552872947455245, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -25597,8 +25597,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1339026817}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.705, y: 2.745, z: 2.561}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.805, y: 2.745, z: 2.034}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -38666,6 +38666,7 @@ MonoBehaviour:
   dontDestroyOnLoad: 1
   nextScene: 05. MindPlace
   isGamePaused: 0
+  isCinematicMonologue: 0
   trainLoop: 0
   isMuted: 0
   hasCamera: 1
@@ -39207,6 +39208,8 @@ PlayableDirector:
     value: {fileID: 1458761937}
   - key: {fileID: -1735187662865060233, guid: b2aa9c73395f83b4f88f852491d2e6d4, type: 2}
     value: {fileID: 1362966856}
+  - key: {fileID: 4237800124165556459, guid: b2aa9c73395f83b4f88f852491d2e6d4, type: 2}
+    value: {fileID: 2117729050}
   m_ExposedReferences:
     m_References:
     - 00e68d8a717ec0e409f81a5f9e6642b0: {fileID: 1339026821}
@@ -39232,12 +39235,69 @@ MonoBehaviour:
   m_Events:
     m_Signals:
     - {fileID: 11400000, guid: c5a5d7d495d4ecc4f98d4f3671df8f30, type: 2}
+    - {fileID: 11400000, guid: ef1b46ec74750244682894a474f37971, type: 2}
+    - {fileID: 11400000, guid: 342d006b8a58e5d498e8ba68f0c51d9a, type: 2}
+    - {fileID: 11400000, guid: da8010efc94d098418a44c700fc70f98, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 2117729052}
           m_TargetAssemblyTypeName: TimelineMonologueController, Assembly-CSharp
           m_MethodName: StartMonologueIncrement
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2117729052}
+          m_TargetAssemblyTypeName: TimelineMonologueController, Assembly-CSharp
+          m_MethodName: ResumePlayerActions
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2117729052}
+          m_TargetAssemblyTypeName: TimelineMonologueController, Assembly-CSharp
+          m_MethodName: ChangeCinematicMonologueState
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 2117729052}
+          m_TargetAssemblyTypeName: TimelineMonologueController, Assembly-CSharp
+          m_MethodName: ChangeCinematicMonologueState
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 2117729052}
+          m_TargetAssemblyTypeName: TimelineMonologueController, Assembly-CSharp
+          m_MethodName: ShowTooltipPanel
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -39299,6 +39359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TimeLineEvents: 25000000260000002700000028000000
+  panelID: 2
 --- !u!1 &2144088533
 GameObject:
   m_ObjectHideFlags: 0
