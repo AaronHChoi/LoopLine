@@ -2,6 +2,7 @@ using DependencyInjection;
 using Player;
 using System;
 using UnityEngine;
+using UnityEngine.Video;
 
 public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
 {
@@ -17,12 +18,16 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
     [SerializeField] Events QuestCompleteEvent;
     [SerializeField] TutorialInteract Key;
 
+    [SerializeField] VideoClip successCinematic;
+
     public event Action OnClockQuestFinished;
+
     IMonologueSpeaker monologueSpeaker;
     IFinalQuestManager finalQuestManager;
     IPlayerStateController playerStateController;
     IGearRotator gearRotator;
     IClock clockLock;
+    ICinematicManager cinematicManager;
 
     private void Awake()
     {
@@ -31,6 +36,7 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
         gearRotator = InterfaceDependencyInjector.Instance.Resolve<IGearRotator>();
         clockLock = InterfaceDependencyInjector.Instance.Resolve<IClock>();
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
+        cinematicManager = InterfaceDependencyInjector.Instance.Resolve<ICinematicManager>();
     }
     private void OnEnable()
     {
@@ -66,22 +72,28 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
 
         if (currenHour == targetHour && currentMinute == targetMinute && !firstTime)
         {
-            DelayUtility.Instance.Delay(3f, () => monologueSpeaker.StartMonologue(QuestCompleteEvent));
-
-            RevealObject();
-
-            SoundManager.Instance.CreateSound()
-                .WithSoundData(complete)
-                .WithSoundPosition(transform.position)
-                .Play();
-
             firstTime = true;
 
-            playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
-
-            gearRotator.StopGears();
-            OnClockQuestFinished?.Invoke();
             clockLock.SetLockState(true);
+            gearRotator.StopGears();
+
+            DelayUtility.Instance.Delay(1f, () =>
+                cinematicManager.PlayCinematic(successCinematic, () =>
+                {
+                    DelayUtility.Instance.Delay(3f, () => monologueSpeaker.StartMonologue(QuestCompleteEvent));
+
+                    RevealObject();
+
+                    SoundManager.Instance.CreateSound()
+                        .WithSoundData(complete)
+                        .WithSoundPosition(transform.position)
+                        .Play();
+
+                    playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
+
+                    OnClockQuestFinished?.Invoke();
+                })
+            );
         }
     }
     private void RevealObject()

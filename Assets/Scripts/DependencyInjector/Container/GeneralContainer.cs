@@ -15,6 +15,7 @@ namespace DependencyInjection
             injector.Register<IPolaraidItem>(() => FindAndValidate<PolaroidItem>());
             injector.Register<IGearRotator>(() => FindAndValidate<GearRotator>());
             injector.Register<ISceneWeightController>(() => FindAndValidate<SceneWeightController>());
+            injector.Register<ICinematicManager>(() => FindAndValidate<CinematicManager>());
         }
     }
 }

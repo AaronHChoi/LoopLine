@@ -2,6 +2,7 @@ using DependencyInjection;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 
 [Serializable]
 public struct MusicNotesActivations
@@ -9,7 +10,6 @@ public struct MusicNotesActivations
     public GameCondition condition;
     public GameObject musicNote;
 }
-
 public class SafeQuestManager : MonoBehaviour, ISafeQuestManager
 {
     [SerializeField] private int[] result, correctCombination;
@@ -17,18 +17,29 @@ public class SafeQuestManager : MonoBehaviour, ISafeQuestManager
     [SerializeField] ItemInteract doorKey;
     [SerializeField] List<MusicNotesActivations> musicNotesActivations;
 
+    [SerializeField] VideoClip successCinematic;
+
     public event Action OnSafeQuestCompleted;
+
+    bool isSolved = false;
+
     IInventoryUI inventoryUI;
     IFinalQuestManager finalQuestManager;
+    ICinematicManager cinematicManager;
     private void Awake()
     {
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
         finalQuestManager = InterfaceDependencyInjector.Instance.Resolve<IFinalQuestManager>();
+        cinematicManager = InterfaceDependencyInjector.Instance.Resolve<ICinematicManager>();
     }
     void Start()
     {
         //result = new int[] { 1, 1, 1};
         //correctCombination = new int[] { 2, 4, 3};
+        if (GameManager.Instance.GetCondition(GameCondition.IsMusicQuestComplete))
+        {
+            isSolved = true;
+        }
         if (GameManager.Instance.GetCondition(GameCondition.MusicSafeDoorOpen))
         {
             doorKey.gameObject.SetActive(false);
@@ -59,6 +70,11 @@ public class SafeQuestManager : MonoBehaviour, ISafeQuestManager
 #endif
     private void CheckResult(string dialName, int indexShown)
     {
+        if (isSolved)
+        {
+            return;
+        }
+
         switch (dialName)
         {
             case "Dial1":
@@ -79,10 +95,18 @@ public class SafeQuestManager : MonoBehaviour, ISafeQuestManager
             result[2] == correctCombination[2] &&
             result[3] == correctCombination[3])
         {
-            Debug.Log("Safe Unlocked!");
-            OnSafeQuestCompleted?.Invoke();
-            GameManager.Instance.SetCondition(GameCondition.WordGroup3, true);
-            finalQuestManager.UpdateWordsActivation();
+            isSolved = true;
+
+            cinematicManager.PlayCinematic(successCinematic, () =>
+            {
+                OnSafeQuestCompleted?.Invoke();
+
+                GameManager.Instance.SetCondition(GameCondition.IsMusicQuestComplete, true);
+
+                GameManager.Instance.SetCondition(GameCondition.WordGroup3, true);
+
+                finalQuestManager.UpdateWordsActivation();
+            });
         }
     }
     void UpdateMusicNoteActivationStates()

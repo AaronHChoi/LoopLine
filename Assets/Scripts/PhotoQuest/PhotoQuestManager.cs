@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 
 [Serializable]
 public struct PhotoActivationEntry
@@ -16,9 +17,10 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
 
     [SerializeField] SingleDoorInteract doorInteract;
     [SerializeField] ItemInteract doorHandler;
-    [SerializeField] Events QuestCompleteEvent;
+    //[SerializeField] Events QuestCompleteEvent;
     [SerializeField] TutorialInteract Key;
 
+    [SerializeField] VideoClip successCinematic;
 
     [SerializeField] private List<PhotoFrame> frames;
     [SerializeField] private List<PhotoQuestComponent> Photos;
@@ -28,16 +30,15 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
 
     IInventoryUI inventoryUI;
     IGameSceneManager gameSceneManager;
-    IMonologueSpeaker monologueSpeaker;
     IFinalQuestManager finalQuestManager;
-
+    ICinematicManager cinematicManager;
 
     private void Awake()
     {
-        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
         gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
         finalQuestManager = InterfaceDependencyInjector.Instance.Resolve<IFinalQuestManager>();
+        cinematicManager = InterfaceDependencyInjector.Instance.Resolve<ICinematicManager>();
     }
     private void Start()
     {
@@ -112,15 +113,19 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
     }
     private void OnQuestCompleted()
     {
-        PhotoQuestComplete();
-        GameManager.Instance.SetCondition(GameCondition.WordGroup2, true);
-        finalQuestManager.UpdateWordsActivation();
-        Debug.Log("Todas las fotos colocadas correctamente");       
         allFramesCorrect = true;
+
         foreach (var frame in frames)
         {
             frame.AllCorrectPhotoPlaced();
         }
+
+        cinematicManager.PlayCinematic(successCinematic, () =>
+        {
+            PhotoQuestComplete();
+            GameManager.Instance.SetCondition(GameCondition.WordGroup2, true);
+            finalQuestManager.UpdateWordsActivation();
+        });
     }
     public void OpenDoorPhotoQuest()
     {
