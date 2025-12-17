@@ -21,10 +21,10 @@ public class TrainAnnouncement : MonoBehaviour
 
     void Start()
     {
-        currentTime = startHour * 60 + startMinute;
+        //currentTime = startHour * 60 + startMinute;
         startPos = announcementText.rectTransform.localPosition;
 
-        UpdateAnnouncement();
+        //UpdateAnnouncement();
     }
 
     void Update()
@@ -36,7 +36,7 @@ public class TrainAnnouncement : MonoBehaviour
         {
             currentTime++;
             timeAccumulator = 0f;
-            UpdateAnnouncement();
+            //UpdateAnnouncement();
         }
 
         announcementText.rectTransform.localPosition += Vector3.left * Time.deltaTime * textSpeed;
