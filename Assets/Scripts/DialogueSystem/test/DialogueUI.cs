@@ -135,7 +135,8 @@ public class DialogueUI : MonoBehaviour
          { NPCType.MysteryBoy, "Mystery Boy" },
          { NPCType.WorkingMan, "Working Man" },
          { NPCType.BassGirl, "Bass Girl" },
-         { NPCType.Player, "Claire" }
+         { NPCType.Player, "Claire" },
+         { NPCType.StrangeVoice, "Strange Voice" }
     };
     public void DisplayDialogue(DialogueSO2 data, DialogueSpeakerBase speaker = null)
     {
