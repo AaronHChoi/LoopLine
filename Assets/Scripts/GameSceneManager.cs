@@ -101,7 +101,14 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
                 {
                     if (monologueSpeaker != null)
                     {
-                        monologueSpeaker.StartMonologue(sceneData.SceneEvent);
+                        if (GameManager.Instance.GetCondition(sceneData.sceneCondition) == GameManager.Instance.GetCondition(GameCondition.None))
+                        {
+                            monologueSpeaker.StartMonologue(sceneData.SceneEvent);
+                        }
+                        if (!GameManager.Instance.GetCondition(sceneData.sceneCondition))
+                        {
+                            GameManager.Instance.SetCondition(sceneData.sceneCondition, true);
+                        }
                     }
                 });
             }
