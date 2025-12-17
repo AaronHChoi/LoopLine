@@ -14,6 +14,9 @@ public class MusicalNote : MonoBehaviour, IInteract
     }
     public void Interact()
     {
-        clue.PlaySequence();
+        if (GameManager.Instance.GetCondition(GameCondition.AllMusicNotesCollected))
+        {
+            clue.PlaySequence();
+        }
     }
 }
