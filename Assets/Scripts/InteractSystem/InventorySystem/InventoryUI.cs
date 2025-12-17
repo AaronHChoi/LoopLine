@@ -113,7 +113,6 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
         if (isFirstTimeOpening)
         {
             isFirstTimeOpening = false;
-            return;
         }
         if (inventorySlots.Count != 0 && !isInventoryOpen)
         {
