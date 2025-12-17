@@ -61,6 +61,13 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
             active = true;
             doorHandler.SetActive(true);
         }
+
+        // Disable the parent's trigger collider if it exists (use child colliders instead)
+        Collider parentCollider = GetComponent<Collider>();
+        if (parentCollider != null && parentCollider.isTrigger)
+        {
+            parentCollider.enabled = false;
+        }
     }
     public void OpenDoor(Vector3 UserPosition)
     {

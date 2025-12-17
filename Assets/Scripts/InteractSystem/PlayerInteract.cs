@@ -64,12 +64,19 @@ public class PlayerInteract : MonoBehaviour, IPlayerInteract
     }
     public IInteract GetInteractableObject()
     {
-        if (rayController.FoundInteract) 
+        if (rayController.FoundInteract)
         {
-            if (rayController.Target.TryGetComponent(out IInteract interactable))
-            {
-                return interactable;
-            }
+            var target = rayController.Target;
+            if (target == null) return null;
+
+            // Search the hierarchy to support interactions on child colliders
+            IInteract interactable = target.GetComponent<IInteract>();
+            if (interactable == null)
+                interactable = target.GetComponentInParent<IInteract>();
+            if (interactable == null)
+                interactable = target.GetComponentInChildren<IInteract>();
+
+            return interactable;
         }
         return null;
     }
@@ -77,10 +84,17 @@ public class PlayerInteract : MonoBehaviour, IPlayerInteract
     {
         if (rayController.FoundInteract)
         {
-            if (rayController.Target.TryGetComponent(out IItemGrabInteractable itemGrabInteractable))
-            {
-                return itemGrabInteractable;
-            }
+            var target = rayController.Target;
+            if (target == null) return null;
+
+            // Search the hierarchy to support item grab on child colliders
+            IItemGrabInteractable itemGrabInteractable = target.GetComponent<IItemGrabInteractable>();
+            if (itemGrabInteractable == null)
+                itemGrabInteractable = target.GetComponentInParent<IItemGrabInteractable>();
+            if (itemGrabInteractable == null)
+                itemGrabInteractable = target.GetComponentInChildren<IItemGrabInteractable>();
+
+            return itemGrabInteractable;
         }
         return null;
     }

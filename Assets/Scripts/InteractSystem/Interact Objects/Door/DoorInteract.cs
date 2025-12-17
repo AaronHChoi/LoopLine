@@ -48,6 +48,13 @@ public class DoorInteract : MonoBehaviour, IInteract
 
         closeDelayInitial = closeDoorsAfterTime;
         closeTimer = closeDelayInitial;
+
+        // Disable the parent's trigger collider if it exists (optional cleanup)
+        Collider parentCollider = GetComponent<Collider>();
+        if (parentCollider != null && parentCollider.isTrigger)
+        {
+            parentCollider.enabled = false;
+        }
     }
     public string GetInteractText() => doorText;
     public void Interact()
