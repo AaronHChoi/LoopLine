@@ -1,15 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class TimelineMonologueController : MonoBehaviour
 {
     [SerializeField] List<Events> TimeLineEvents;
     MonologueSpeaker monologueSpeaker;
+    PlayableDirector playableDirector;
     int eventIndex = 0;
 
     private void Start()
     {
         monologueSpeaker = GetComponent<MonologueSpeaker>();
+        playableDirector = GetComponent<PlayableDirector>();
+
+        if(GameManager.Instance.TrainLoop == 0) playableDirector.Play();
     }
     public void StartMonologueIncrement()
     {
