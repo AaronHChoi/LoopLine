@@ -22,7 +22,7 @@ public class SoundManager : MonoBehaviour
         {
             Instance = this;
             transform.SetParent(null);
-            //DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject);
             SceneManager.activeSceneChanged += OnActiveSceneChanged;
         }
         else
