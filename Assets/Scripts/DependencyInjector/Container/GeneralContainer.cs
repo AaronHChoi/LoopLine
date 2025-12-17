@@ -16,6 +16,7 @@ namespace DependencyInjection
             injector.Register<IGearRotator>(() => FindAndValidate<GearRotator>());
             injector.Register<ISceneWeightController>(() => FindAndValidate<SceneWeightController>());
             injector.Register<ICinematicManager>(() => FindAndValidate<CinematicManager>());
+            injector.Register<IClueSafeQuest>(() => FindAndValidate<ClueSafeQuest>());
         }
     }
 }

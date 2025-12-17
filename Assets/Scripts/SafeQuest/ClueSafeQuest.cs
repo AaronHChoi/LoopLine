@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClueSafeQuest : MonoBehaviour
+public class ClueSafeQuest : MonoBehaviour, IClueSafeQuest
 {
     [SerializeField] List<GameObject> blueNotes = new List<GameObject>();
     [SerializeField] List<GameObject> yellowNotes = new List<GameObject>();
@@ -83,4 +83,8 @@ public class ClueSafeQuest : MonoBehaviour
             }
         }
     }
+}
+public interface IClueSafeQuest
+{
+    void PlaySequence();
 }
