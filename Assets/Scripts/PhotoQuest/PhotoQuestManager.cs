@@ -34,6 +34,7 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
     IFinalQuestManager finalQuestManager;
     ICinematicManager cinematicManager;
     IPlayerStateController playerStateController;
+
     private void Awake()
     {
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
@@ -99,7 +100,6 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
             }
         }
     }
-
     public void RemovePhoto(PhotoQuestComponent photo, PhotoFrame frame)
     {
         for (int i = 0; i < Photos.Count; i++)
@@ -159,7 +159,6 @@ public interface IPhotoQuestManager
 {
     void CheckAllFrames();
     bool allFramesCorrect { get; }
-
     event Action OnPhotoQuestFinished;
     void SetPhotoPosition(PhotoQuestComponent photo, PhotoFrame frame);
     void RemovePhoto(PhotoQuestComponent photo, PhotoFrame frame);

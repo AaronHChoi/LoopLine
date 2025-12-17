@@ -73,11 +73,6 @@ public class SafeQuestManager : MonoBehaviour, ISafeQuestManager
 #endif
     private void CheckResult(string dialName, int indexShown)
     {
-        if (isSolved)
-        {
-            return;
-        }
-
         switch (dialName)
         {
             case "Dial1":
@@ -98,24 +93,24 @@ public class SafeQuestManager : MonoBehaviour, ISafeQuestManager
             result[2] == correctCombination[2] &&
             result[3] == correctCombination[3])
         {
-            isSolved = true;
-
-            playerStateController.StateMachine.TransitionTo(playerStateController.CinematicState);
-            DelayUtility.Instance.Delay(1f, () =>
-                cinematicManager.PlayCinematic(successCinematic, () =>
-                {
-                    OnSafeQuestCompleted?.Invoke();
-
-                    GameManager.Instance.SetCondition(GameCondition.IsMusicQuestComplete, true);
-
-                    GameManager.Instance.SetCondition(GameCondition.WordGroup3, true);
-
-                    finalQuestManager.UpdateWordsActivation();
-
-                    playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
-                })
-            );
+            GameManager.Instance.SetCondition(GameCondition.IsMusicQuestComplete, true);
         }
+    }
+    public void OnCompleteMusicQuest()
+    {
+        playerStateController.StateMachine.TransitionTo(playerStateController.CinematicState);
+        DelayUtility.Instance.Delay(1f, () =>
+            cinematicManager.PlayCinematic(successCinematic, () =>
+            {
+                OnSafeQuestCompleted?.Invoke();
+
+                GameManager.Instance.SetCondition(GameCondition.WordGroup3, true);
+
+                finalQuestManager.UpdateWordsActivation();
+
+                playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
+            })
+        );
     }
     void UpdateMusicNoteActivationStates()
     {

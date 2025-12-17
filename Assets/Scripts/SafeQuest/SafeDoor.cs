@@ -92,7 +92,7 @@ public class SafeDoor : MonoBehaviour, IInteract
     }
     public void Interact()
     {
-        if (!GameManager.Instance.GetCondition(GameCondition.IsMusicQuestComplete))
+        if (GameManager.Instance.GetCondition(GameCondition.IsMusicQuestComplete))
         {
             StartCoroutine(CooldownRoutine());
             active = true;

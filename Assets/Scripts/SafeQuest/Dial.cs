@@ -8,7 +8,6 @@ public class Dial : MonoBehaviour, IInteract
     private int indexShown = 0;
     public static event System.Action<string, int> OnDialRotated = delegate { };
 
-
     private void Start()
     {
         coroutineAllowed = true;
@@ -21,14 +20,13 @@ public class Dial : MonoBehaviour, IInteract
             StartCoroutine(Rotate());
         }
     }
-
     private IEnumerator Rotate()
     {
         coroutineAllowed = false;
 
         for (int i = 0; i < 90; i++)
         {
-            transform.Rotate(0, 1, 0);
+            transform.Rotate(0, 0, 1);
             yield return new WaitForSeconds(0.01f);
         }
 
@@ -43,8 +41,6 @@ public class Dial : MonoBehaviour, IInteract
 
         OnDialRotated(name, indexShown);
     }
-
-
     public string GetInteractText()
     {
         throw new System.NotImplementedException();

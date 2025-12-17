@@ -52,7 +52,6 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
             clock.OnCheckTime -= CheckTime;
         }
     }
-
 #if UNITY_EDITOR
     private void Update()
     {
