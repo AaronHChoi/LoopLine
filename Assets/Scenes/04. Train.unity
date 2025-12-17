@@ -488,7 +488,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0637132e6f36d3540947ab30aa962387, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameCondition: 9
   monologueToTrigger: 0
   monologueDelay: 0
   item: {fileID: 112514028}
@@ -819,7 +818,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rules:
   - ruleName: Clock Quest Complete
-    conditionToCheck: 0
+    conditionToCheck: 1
     scenesToModify:
     - sceneName: AS_Camera
       weightIfConditionTrue: 100
@@ -832,7 +831,7 @@ MonoBehaviour:
     - sceneName: AS_NPC
       weightIfConditionTrue: 0
   - ruleName: Polaroid Taken
-    conditionToCheck: 4
+    conditionToCheck: 5
     scenesToModify:
     - sceneName: AS_Camera
       weightIfConditionTrue: 20
@@ -3004,6 +3003,10 @@ PrefabInstance:
     - target: {fileID: -7951639704373743910, guid: 0f9551ae205a00d4f9b4fec7e5f8a9d8, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: -7903564463279434191, guid: 0f9551ae205a00d4f9b4fec7e5f8a9d8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -6.22
       objectReference: {fileID: 0}
     - target: {fileID: -7813836809952394851, guid: 0f9551ae205a00d4f9b4fec7e5f8a9d8, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
