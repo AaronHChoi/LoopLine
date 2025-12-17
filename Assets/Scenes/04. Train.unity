@@ -809,6 +809,87 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 158463795}
   m_CullTransparentMesh: 1
+--- !u!1 &159319077
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 159319079}
+  - component: {fileID: 159319078}
+  m_Layer: 0
+  m_Name: SceneWeightController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &159319078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159319077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21310d08ce88f3f48bdf10e645c0ef0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rules:
+  - ruleName: Clock Quest Complete
+    conditionToCheck: 0
+    scenesToModify:
+    - sceneName: AS_Camera
+      weightIfConditionTrue: 100
+      weightIfConditionFalse: 0
+    - sceneName: AS_Clocks
+      weightIfConditionTrue: 0
+      weightIfConditionFalse: 0
+    - sceneName: AS_LOOP4
+      weightIfConditionTrue: 0
+      weightIfConditionFalse: 0
+    - sceneName: AS_NoNPC-NoItems
+      weightIfConditionTrue: 0
+      weightIfConditionFalse: 0
+    - sceneName: AS_NPC
+      weightIfConditionTrue: 0
+      weightIfConditionFalse: 0
+  - ruleName: Polaroid Taken
+    conditionToCheck: 4
+    scenesToModify:
+    - sceneName: AS_Camera
+      weightIfConditionTrue: 20
+      weightIfConditionFalse: 0
+    - sceneName: AS_Clocks
+      weightIfConditionTrue: 20
+      weightIfConditionFalse: 0
+    - sceneName: AS_LOOP4
+      weightIfConditionTrue: 20
+      weightIfConditionFalse: 0
+    - sceneName: AS_NoNPC-NoItems
+      weightIfConditionTrue: 20
+      weightIfConditionFalse: 0
+    - sceneName: AS_NPC
+      weightIfConditionTrue: 20
+      weightIfConditionFalse: 0
+--- !u!4 &159319079
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159319077}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -10.311411, y: 2.786232, z: 6.9139576}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2062721427}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &160152849
 GameObject:
   m_ObjectHideFlags: 0
@@ -32905,6 +32986,7 @@ Transform:
   - {fileID: 738816242}
   - {fileID: 790412238}
   - {fileID: 1015166687}
+  - {fileID: 159319079}
   - {fileID: 2144088534}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

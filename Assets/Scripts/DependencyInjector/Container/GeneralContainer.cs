@@ -14,6 +14,7 @@ namespace DependencyInjection
             injector.Register<IClock>(() => FindAndValidate<Clock>());
             injector.Register<IPolaraidItem>(() => FindAndValidate<PolaroidItem>());
             injector.Register<IGearRotator>(() => FindAndValidate<GearRotator>());
+            injector.Register<ISceneWeightController>(() => FindAndValidate<SceneWeightController>());
         }
     }
 }

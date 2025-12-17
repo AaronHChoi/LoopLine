@@ -9,6 +9,8 @@ public class PolaroidItem : ItemInteract, IPolaraidItem
 
     IUIManager uiManager;
     IGameSceneManager gameSceneManager;
+    ISceneWeightController weightController;
+
     [SerializeField] UIPanelID panelID;
 
     protected override void Awake()
@@ -16,6 +18,7 @@ public class PolaroidItem : ItemInteract, IPolaraidItem
         base.Awake();
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
         gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
+        weightController = InterfaceDependencyInjector.Instance.Resolve<ISceneWeightController>();
     }
     public override void Start()
     {
@@ -28,9 +31,11 @@ public class PolaroidItem : ItemInteract, IPolaraidItem
             OnPolaroidTaken?.Invoke();
             uiManager.ShowPanel(panelID);
             GameManager.Instance.SetCondition(GameCondition.PolaroidTaken, true);
+            weightController.HandleConditionChanged(GameCondition.PolaroidTaken, true);
             gameSceneManager.SetInitialLoop(false);
             EventBus.Publish(new PlayerGrabItemEvent());
             gameObject.SetActive(false);
+
             return true;
         }
         return false;

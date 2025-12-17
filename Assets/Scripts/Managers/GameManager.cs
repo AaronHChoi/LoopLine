@@ -18,6 +18,7 @@ public class GameManager : Singleton<GameManager>
     }
 
     Dictionary<GameCondition, bool> conditions = new Dictionary<GameCondition, bool>();
+    //public event Action<GameCondition, bool> OnConditionChanged;
 
     [Header("DeveloperTools")]
     public bool isMuted = false;
@@ -82,6 +83,8 @@ public class GameManager : Singleton<GameManager>
     public void SetCondition(GameCondition condition, bool value)
     {
         conditions[condition] = value;
+
+        //OnConditionChanged?.Invoke(condition, value);
     }
     [ContextMenu("Debug All Conditions")]
     public void DebugAllConditions()
