@@ -19,6 +19,7 @@ public class ItemDissolve : MonoBehaviour
     }
     public void TakePhoto()
     {
+        Debug.Log($"[ItemDissolve] Enviando condición: {clueGameCondition} (ID: {(int)clueGameCondition})");
         GameManager.Instance.SetCondition(clueGameCondition, true);
         DelayUtility.Instance.Delay(delay, DeactivatePhoto);
     }
