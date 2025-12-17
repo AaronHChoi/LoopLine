@@ -135,7 +135,7 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
             if (!isOpen)
             {
                 playerPosition = playerController.GetTransform().position;
-
+                OnUnlockDoorEvent?.Invoke();
                 OpenSequence(playerPosition);
             }
             else
