@@ -8,9 +8,16 @@ public class MusicNotesRaycastActivator : MonoBehaviour
     [SerializeField] ItemDissolve item;
     [SerializeField] int myOrderIndex;
 
-    private void Awake()
+    private void Start()
     {
-        SetChildrenActive(false);
+        if (GameManager.Instance.GetCondition(GameCondition.MusicSafeDoorOpen))
+        {
+            SetChildrenActive(true);
+        }
+        else
+        {
+            SetChildrenActive(false);
+        }
     }
     public bool SetChildrenActive(bool active)
     {

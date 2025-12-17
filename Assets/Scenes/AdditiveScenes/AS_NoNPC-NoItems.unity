@@ -131,7 +131,6 @@ GameObject:
   - component: {fileID: 40718970}
   - component: {fileID: 40718969}
   - component: {fileID: 40718968}
-  - component: {fileID: 40718967}
   m_Layer: 0
   m_Name: MusicNote
   m_TagString: Untagged
@@ -155,22 +154,6 @@ Transform:
   - {fileID: 266549943}
   m_Father: {fileID: 664685849}
   m_LocalEulerAnglesHint: {x: -46.493, y: 4.53, z: -10.523}
---- !u!114 &40718967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 40718965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d54cd45d5b542c43b584c5ec1a8d987, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  item:
-  - {fileID: 266549944}
-  clueGameCondition: 17
-  delay: 0
 --- !u!114 &40718968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,7 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monologueToTrigger: 42
   monologueDelay: 5
-  item: {fileID: 40718967}
+  item: {fileID: 0}
   myOrderIndex: 0
 --- !u!65 &40718969
 BoxCollider:
@@ -228,7 +211,6 @@ GameObject:
   - component: {fileID: 266549947}
   - component: {fileID: 266549946}
   - component: {fileID: 266549945}
-  - component: {fileID: 266549944}
   m_Layer: 0
   m_Name: MusicNote2
   m_TagString: Untagged
@@ -251,24 +233,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 40718966}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &266549944
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 266549942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42fb4eec3b60d134a866ca1ce111e4e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 266549946}
-  VFXGraph: {fileID: 0}
-  dissolveMaterialTemplate: {fileID: 2100000, guid: 230a1b4658c82fb498ef670dedd13b5b, type: 2}
-  dissolveRate: 0.0125
-  refreshRate: 0.025
-  restoreOriginalAfterDissolve: 0
 --- !u!65 &266549945
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -461,6 +425,10 @@ PrefabInstance:
     - target: {fileID: 3791644277354736605, guid: a7cfd94fd7fdef7428f94513779662ce, type: 3}
       propertyPath: m_Name
       value: EvidenceCounter
+      objectReference: {fileID: 0}
+    - target: {fileID: 3791644277354736605, guid: a7cfd94fd7fdef7428f94513779662ce, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4599706620215128423, guid: a7cfd94fd7fdef7428f94513779662ce, type: 3}
       propertyPath: m_LocalScale.x

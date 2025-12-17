@@ -2732,7 +2732,6 @@ GameObject:
   - component: {fileID: 440743558}
   - component: {fileID: 440743557}
   - component: {fileID: 440743556}
-  - component: {fileID: 440743555}
   m_Layer: 0
   m_Name: MusicNote3
   m_TagString: Untagged
@@ -2755,24 +2754,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 537168300}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &440743555
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 440743553}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42fb4eec3b60d134a866ca1ce111e4e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 440743557}
-  VFXGraph: {fileID: 0}
-  dissolveMaterialTemplate: {fileID: 2100000, guid: 230a1b4658c82fb498ef670dedd13b5b, type: 2}
-  dissolveRate: 0.0125
-  refreshRate: 0.025
-  restoreOriginalAfterDissolve: 0
 --- !u!65 &440743556
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3217,7 +3198,6 @@ GameObject:
   - component: {fileID: 537168304}
   - component: {fileID: 537168303}
   - component: {fileID: 537168302}
-  - component: {fileID: 537168301}
   m_Layer: 0
   m_Name: MusicNote
   m_TagString: Untagged
@@ -3241,22 +3221,6 @@ Transform:
   - {fileID: 440743554}
   m_Father: {fileID: 1568788972}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &537168301
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 537168299}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d54cd45d5b542c43b584c5ec1a8d987, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  item:
-  - {fileID: 440743555}
-  clueGameCondition: 18
-  delay: 0
 --- !u!114 &537168302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3271,7 +3235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monologueToTrigger: 43
   monologueDelay: 5
-  item: {fileID: 537168301}
+  item: {fileID: 0}
   myOrderIndex: 0
 --- !u!65 &537168303
 BoxCollider:

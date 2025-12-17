@@ -163,7 +163,6 @@ GameObject:
   - component: {fileID: 299894803}
   - component: {fileID: 299894802}
   - component: {fileID: 299894801}
-  - component: {fileID: 299894800}
   m_Layer: 0
   m_Name: MusicNote4
   m_TagString: Untagged
@@ -186,24 +185,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 759174235}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &299894800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 299894798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42fb4eec3b60d134a866ca1ce111e4e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 299894802}
-  VFXGraph: {fileID: 0}
-  dissolveMaterialTemplate: {fileID: 2100000, guid: 230a1b4658c82fb498ef670dedd13b5b, type: 2}
-  dissolveRate: 0.0125
-  refreshRate: 0.025
-  restoreOriginalAfterDissolve: 0
 --- !u!65 &299894801
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5804,7 +5785,6 @@ GameObject:
   - component: {fileID: 759174239}
   - component: {fileID: 759174238}
   - component: {fileID: 759174237}
-  - component: {fileID: 759174236}
   m_Layer: 0
   m_Name: MusicNote
   m_TagString: Untagged
@@ -5828,22 +5808,6 @@ Transform:
   - {fileID: 299894799}
   m_Father: {fileID: 826699208}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &759174236
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 759174234}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d54cd45d5b542c43b584c5ec1a8d987, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  item:
-  - {fileID: 299894800}
-  clueGameCondition: 19
-  delay: 0
 --- !u!114 &759174237
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5858,7 +5822,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monologueToTrigger: 44
   monologueDelay: 5
-  item: {fileID: 759174236}
+  item: {fileID: 0}
   myOrderIndex: 0
 --- !u!65 &759174238
 BoxCollider:
@@ -6039,6 +6003,10 @@ PrefabInstance:
     - target: {fileID: 3791644277354736605, guid: a7cfd94fd7fdef7428f94513779662ce, type: 3}
       propertyPath: m_Name
       value: EvidenceCounter
+      objectReference: {fileID: 0}
+    - target: {fileID: 3791644277354736605, guid: a7cfd94fd7fdef7428f94513779662ce, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4599706620215128423, guid: a7cfd94fd7fdef7428f94513779662ce, type: 3}
       propertyPath: m_LocalScale.x
