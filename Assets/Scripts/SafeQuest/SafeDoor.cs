@@ -103,8 +103,8 @@ public class SafeDoor : MonoBehaviour, IInteract
             {
                 StartCoroutine(CooldownRoutine());
                 active = true;
-                EventBus.Publish(new DoorEvent { SoundID = unlockDoorSoundEventID, ShouldPlay = true });
-                OnUnlockDoorEvent?.Invoke();
+                //EventBus.Publish(new DoorEvent { SoundID = unlockDoorSoundEventID, ShouldPlay = true });
+                DelayUtility.Instance.Delay(3f, () => OnUnlockDoorEvent?.Invoke());
             }
         }
 
@@ -122,10 +122,10 @@ public class SafeDoor : MonoBehaviour, IInteract
                 CloseSequence();
             }
         }
-        else
-        {
-            EventBus.Publish(new DoorEvent { SoundID = lockedDoorSoundEventID, ShouldPlay = true });
-        }
+        //else
+        //{
+        //    EventBus.Publish(new DoorEvent { SoundID = lockedDoorSoundEventID, ShouldPlay = true });
+        //}
     }
     IEnumerator CooldownRoutine()
     {
