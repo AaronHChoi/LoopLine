@@ -1,6 +1,7 @@
 
 public enum GameCondition
 {
+    None,
     IsClockQuestComplete,
     IsPhotoQuestComplete,
     ClockDoorOpen,
@@ -13,6 +14,7 @@ public enum GameCondition
     TeleportAvailable,
     PillsClue5,
     IsFirstLoopsCompleted,
+    IsFirstTimeInClockScene,
     #region Music Quest
     MusicSafeDoorOpen,
     AllMusicNotesCollected,
