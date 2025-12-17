@@ -15,6 +15,7 @@ public class FinalQuestManager : MonoBehaviour, IFinalQuestManager
     [SerializeField] private int[] result, correctCombination;
     [SerializeField] SingleDoorInteract doorInteract;
     [SerializeField] ItemInteract doorKey;
+    [SerializeField] GameObject FinalQuestGameObject;
     [SerializeField] List<WordsActivations> wordsActivations;
 
     public event Action OnQuestCompleted;
@@ -73,6 +74,7 @@ public class FinalQuestManager : MonoBehaviour, IFinalQuestManager
         {
             Debug.Log("Final Quest Completed");
             GameManager.Instance.SetCondition(GameCondition.FinalQuestCompleted, true);
+            FinalQuestGameObject.gameObject.SetActive(false);
             OnQuestCompleted?.Invoke();
         }
     }
