@@ -77,6 +77,7 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
             clockLock.SetLockState(true);
             gearRotator.StopGears();
 
+            playerStateController.StateMachine.TransitionTo(playerStateController.CinematicState);
             DelayUtility.Instance.Delay(1f, () =>
                 cinematicManager.PlayCinematic(successCinematic, () =>
                 {

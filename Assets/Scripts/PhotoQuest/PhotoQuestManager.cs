@@ -1,4 +1,5 @@
 using DependencyInjection;
+using Player;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -32,13 +33,14 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
     IGameSceneManager gameSceneManager;
     IFinalQuestManager finalQuestManager;
     ICinematicManager cinematicManager;
-
+    IPlayerStateController playerStateController;
     private void Awake()
     {
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
         gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
         finalQuestManager = InterfaceDependencyInjector.Instance.Resolve<IFinalQuestManager>();
         cinematicManager = InterfaceDependencyInjector.Instance.Resolve<ICinematicManager>();
+        playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
     }
     private void Start()
     {
@@ -120,12 +122,16 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
             frame.AllCorrectPhotoPlaced();
         }
 
-        cinematicManager.PlayCinematic(successCinematic, () =>
-        {
-            PhotoQuestComplete();
-            GameManager.Instance.SetCondition(GameCondition.WordGroup2, true);
-            finalQuestManager.UpdateWordsActivation();
-        });
+        playerStateController.StateMachine.TransitionTo(playerStateController.CinematicState);
+        DelayUtility.Instance.Delay(1f, () =>
+            cinematicManager.PlayCinematic(successCinematic, () =>
+            {
+                PhotoQuestComplete();
+                GameManager.Instance.SetCondition(GameCondition.WordGroup2, true);
+                finalQuestManager.UpdateWordsActivation();
+                playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
+            })
+        );
     }
     public void OpenDoorPhotoQuest()
     {

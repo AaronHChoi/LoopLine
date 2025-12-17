@@ -1,4 +1,5 @@
 using DependencyInjection;
+using Player;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,11 +27,13 @@ public class SafeQuestManager : MonoBehaviour, ISafeQuestManager
     IInventoryUI inventoryUI;
     IFinalQuestManager finalQuestManager;
     ICinematicManager cinematicManager;
+    IPlayerStateController playerStateController;
     private void Awake()
     {
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
         finalQuestManager = InterfaceDependencyInjector.Instance.Resolve<IFinalQuestManager>();
         cinematicManager = InterfaceDependencyInjector.Instance.Resolve<ICinematicManager>();
+        playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
     }
     void Start()
     {
@@ -97,16 +100,21 @@ public class SafeQuestManager : MonoBehaviour, ISafeQuestManager
         {
             isSolved = true;
 
-            cinematicManager.PlayCinematic(successCinematic, () =>
-            {
-                OnSafeQuestCompleted?.Invoke();
+            playerStateController.StateMachine.TransitionTo(playerStateController.CinematicState);
+            DelayUtility.Instance.Delay(1f, () =>
+                cinematicManager.PlayCinematic(successCinematic, () =>
+                {
+                    OnSafeQuestCompleted?.Invoke();
 
-                GameManager.Instance.SetCondition(GameCondition.IsMusicQuestComplete, true);
+                    GameManager.Instance.SetCondition(GameCondition.IsMusicQuestComplete, true);
 
-                GameManager.Instance.SetCondition(GameCondition.WordGroup3, true);
+                    GameManager.Instance.SetCondition(GameCondition.WordGroup3, true);
 
-                finalQuestManager.UpdateWordsActivation();
-            });
+                    finalQuestManager.UpdateWordsActivation();
+
+                    playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
+                })
+            );
         }
     }
     void UpdateMusicNoteActivationStates()

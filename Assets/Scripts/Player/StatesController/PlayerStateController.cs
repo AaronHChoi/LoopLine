@@ -42,6 +42,7 @@ namespace Player
         public MindPlaceState MindPlaceState { get;  set; }
         public ObjectInHandState ObjectInHandState { get;  set; }
         public PuzzleState PuzzleState { get; set; }
+        public CinematicState CinematicState { get; set; }
         private void Awake()
         {         
             inputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
@@ -64,6 +65,7 @@ namespace Player
             MindPlaceState = new MindPlaceState(this, inputHandler, playerMovement);
             ObjectInHandState = new ObjectInHandState(this, inputHandler, playerMovement, cinemachinePOVExtension);
             PuzzleState = new PuzzleState(playerMovement, inputHandler, this, cinemachinePOVExtension);
+            CinematicState = new CinematicState(playerMovement, cinemachinePOVExtension);
 
             stateMachine.Initialize(NormalState);
         }
@@ -162,5 +164,6 @@ namespace Player
         MindPlaceState MindPlaceState { get; set; }
         ObjectInHandState ObjectInHandState { get; set; }
         PuzzleState PuzzleState { get; set; }
+        CinematicState CinematicState { get; set; }
     }
 }
