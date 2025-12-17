@@ -8,8 +8,11 @@ public class MonologueSpeaker : DialogueSpeakerBase, IMonologueSpeaker
 
     [SerializeField] private Events defaultEvent = Events.MonologueTest3;
     [SerializeField] private float startDelay = 1.5f;
+    [SerializeField] private float autoAdvanceDelay = 3f;
 
     private Events currentMonologueEvent;
+
+    private Coroutine autoAdvanceCoroutine;
 
     protected override void Start()
     {
@@ -39,6 +42,8 @@ public class MonologueSpeaker : DialogueSpeakerBase, IMonologueSpeaker
     }
     protected override void ShowCurrentDialogue()
     {
+        StopAutoAdvance();
+
         if (currentDialogueIndex < currentDialogues.Count)
         {
             DialogueSO2 dialogue = currentDialogues[currentDialogueIndex];
@@ -46,15 +51,46 @@ public class MonologueSpeaker : DialogueSpeakerBase, IMonologueSpeaker
 
             if (autoAdvance)
             {
-                Invoke(nameof(ShowNextDialogue), 3f);
+                //Invoke(nameof(ShowNextDialogue), 3f);
+                autoAdvanceCoroutine = StartCoroutine(WaitAndAdvance());
             }
         }
+        else
+        {
+            EndDialogueSequence();
+        }
+    }
+    private IEnumerator WaitAndAdvance()
+    {
+        yield return new WaitForSeconds(autoAdvanceDelay);
+
+        ShowNextDialogue();
+    }
+    public override void ShowNextDialogue()
+    {
+        //CancelInvoke(nameof(ShowNextDialogue));
+        StopAutoAdvance();
+        base.ShowNextDialogue();
     }
     protected override void EndDialogueSequence()
     {
-        base.EndDialogueSequence();
+        //CancelInvoke(nameof(ShowNextDialogue));
+        StopAutoAdvance();
+        isShowingDialogue = false;
+        currentDialogueIndex = 0;
+
+        DialogueManager.Instance.HideDialogue();
+        //base.EndDialogueSequence();
 
         OnMonologueEnded?.Invoke(currentMonologueEvent);
+    }
+    void StopAutoAdvance()
+    {
+        if (autoAdvanceCoroutine != null)
+        {
+            StopCoroutine(autoAdvanceCoroutine);
+            autoAdvanceCoroutine = null;
+        }
     }
     public Events CurrentMonologueEvent => currentMonologueEvent;
 }

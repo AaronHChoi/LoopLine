@@ -25,7 +25,7 @@ public abstract class DialogueSpeakerBase : MonoBehaviour
     protected bool isShowingDialogue = false;
 
     protected IPlayerStateController playerStateController;
-
+    //protected int currentLineIndex = 0;
     public NPCType NPCType => npcType;
 
     protected virtual void Awake()

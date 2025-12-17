@@ -130,7 +130,6 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
         string lastScene = activeScenes[activeScenes.Count - 1];
         StartCoroutine(UnloadSceneAsync(lastScene));
     }
-
     public void ChangeSceneWeighth(string SceneName, int newWeight)
     {
         for (int i = 0; i < weightedScenes.Count; i++) 
