@@ -14,7 +14,6 @@ public class Dial : MonoBehaviour, IInteract
     [SerializeField] SoundData _mi;
     [SerializeField] SoundData _sol;
 
-
     private void Start()
     {
         coroutineAllowed = true;
