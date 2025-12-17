@@ -1,10 +1,15 @@
 using DependencyInjection;
+using Player;
 using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Video;
+
 public class FinalDoor : MonoBehaviour, IInteract
 {
+    [SerializeField] VideoClip succesCinematic;
+
     public event Action OnDoorOpened;
     public event Action OnDoorClosed;
 
@@ -30,6 +35,8 @@ public class FinalDoor : MonoBehaviour, IInteract
 
     IPlayerController playerController;
     IInventoryUI inventoryUI;
+    IPlayerStateController playerStateController;
+    ICinematicManager cinematicManager;
 
     [SerializeField] GameObject doorHandler;
     [SerializeField] TutorialInteract correctKey;
@@ -51,7 +58,9 @@ public class FinalDoor : MonoBehaviour, IInteract
     {
         playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
+        playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
         StartRotation = doorGameObject.transform.rotation.eulerAngles;
+        cinematicManager = InterfaceDependencyInjector.Instance.Resolve<ICinematicManager>();
         Forward = doorGameObject.transform.forward; //this is because the forward of the door is orienteted to the right if the forwar chages chage this line
     }
     private void Start()
@@ -110,6 +119,8 @@ public class FinalDoor : MonoBehaviour, IInteract
 
         Vector3 playerPos = playerController.GetTransform().position;
         ToggleDoor(playerPos);
+
+        
     }
 
     private void ToggleDoor(Vector3 userPosition, bool fromLinkedDoor = false)
@@ -117,6 +128,12 @@ public class FinalDoor : MonoBehaviour, IInteract
         if (!isOpen)
         {
             OpenSequence(userPosition);
+            cinematicManager.PlayCinematic(succesCinematic, () =>
+            {
+                //playerStateController.StateMachine.TransitionTo(playerStateController.CinematicState);
+
+                GameManager.Instance.SetGameConditions();
+            });
         }
         else
         {
