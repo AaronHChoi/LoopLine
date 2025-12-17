@@ -39239,8 +39239,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2117729048}
   - component: {fileID: 2117729049}
-  - component: {fileID: 2117729051}
-  - component: {fileID: 2117729050}
   m_Layer: 0
   m_Name: TimeLineManager
   m_TagString: Untagged
@@ -39300,62 +39298,6 @@ PlayableDirector:
     - 55a56d86b645c3948a137ef4e8c2af71: {fileID: 1490399046}
     - 34cc566512116864893fc724435948ac: {fileID: 1251455921}
     - 300e2ce82c695634e901dbdaba3e9a44: {fileID: 1490399046}
---- !u!114 &2117729050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2117729047}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Events:
-    m_Signals:
-    - {fileID: 11400000, guid: c5a5d7d495d4ecc4f98d4f3671df8f30, type: 2}
-    m_Events:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2117729051}
-          m_TargetAssemblyTypeName: MonologueSpeaker, Assembly-CSharp
-          m_MethodName: StartMonologue
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &2117729051
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2117729047}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3227414a9f9bc694b8b7458a2a23f61a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogueGroups:
-  - eventType: 3
-    dialogues:
-    - {fileID: 0}
-    - {fileID: 0}
-  - eventType: 4
-    dialogues:
-    - {fileID: 0}
-    - {fileID: 0}
-  currentEvent: 1
-  npcType: 6
-  autoAdvance: 1
-  defaultEvent: 21
-  startDelay: 0
 --- !u!1 &2144088533
 GameObject:
   m_ObjectHideFlags: 0
