@@ -22,7 +22,8 @@ public class FinalTrigger : MonoBehaviour
         playerStateController.StateMachine.TransitionTo(playerStateController.CinematicState);
         cinematicManager.PlayCinematic(succesCinematic, () =>
         {
-
+            GameManager.Instance.SetGameConditions();
+            gameSceneManager.LoadNextScene("01. MainMenu");
         });
 
     }
