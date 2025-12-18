@@ -14992,6 +14992,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8452035604580023207, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1000978886}
+    - targetCorrespondingSourceObject: {fileID: 8452035604580023207, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1000978890}
+    - targetCorrespondingSourceObject: {fileID: 8452035604580023207, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1000978889}
     - targetCorrespondingSourceObject: {fileID: -4430339315757242380, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
       insertIndex: -1
       addedObject: {fileID: 744338811}
@@ -15297,7 +15303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Door
+  promptMessage: Interact
   uiOffset: {x: 5.64, y: 0, z: 0.22}
   uiOffsetPrompt: {x: 0, y: 0, z: 0}
   uiScale: 5
@@ -32115,6 +32121,41 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1000978889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000978884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2830406988144ce46b7702d0437448cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactText: Open
+  id: 
+  ItemData: {fileID: 11400000, guid: 9c026af4957cc7a4c96d20b011dba8e6, type: 2}
+  canBePicked: 0
+  deactivateOnPickup: 1
+  resetLayerOnPickup: 1
+  objectPrefab: {fileID: 0}
+--- !u!114 &1000978890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000978884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptMessage: Interact
+  uiOffset: {x: 0, y: 0, z: 0}
+  uiOffsetPrompt: {x: 0, y: 0, z: 0}
+  uiScale: 6
 --- !u!1 &1012141332
 GameObject:
   m_ObjectHideFlags: 0
@@ -63393,7 +63434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  promptMessage: Door
+  promptMessage: Interact
   uiOffset: {x: 5.64, y: 0, z: 0.22}
   uiOffsetPrompt: {x: 0, y: 0, z: 0}
   uiScale: 5
@@ -64125,8 +64166,16 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5770653730108683784, guid: 87f02029658f14745aa6efb5f610adda, type: 3}
-      propertyPath: 'correctCombination.Array.data[3]'
+      propertyPath: 'correctCombination.Array.data[1]'
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5770653730108683784, guid: 87f02029658f14745aa6efb5f610adda, type: 3}
+      propertyPath: 'correctCombination.Array.data[2]'
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5770653730108683784, guid: 87f02029658f14745aa6efb5f610adda, type: 3}
+      propertyPath: 'correctCombination.Array.data[3]'
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5770653730108683784, guid: 87f02029658f14745aa6efb5f610adda, type: 3}
       propertyPath: musicNotesActivations.Array.size
