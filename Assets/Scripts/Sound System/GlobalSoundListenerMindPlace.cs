@@ -7,9 +7,13 @@ public class GlobalSoundListenerMindPlace : MonoBehaviour
     [Header("UI Sounds")]
     [SerializeField] SoundData inventoryOpenSound;
     [SerializeField] SoundData inventoryCloseSound;
-    
+
+    [SerializeField] SoundData finalDoorSound;
+
     [Header("Interaction Sounds")]
     [SerializeField] List<SoundData> grabSounds;
+
+
 
     IInventoryUI inventoryUI;
     private void Awake()
@@ -20,11 +24,13 @@ public class GlobalSoundListenerMindPlace : MonoBehaviour
     {
         EventBus.Subscribe<PlayerInventoryEvent>(OnInventoryToggled);
         EventBus.Subscribe<PlayerGrabItemEvent>(OnGrabItems);
+        EventBus.Subscribe<FinalQuestCompleteEvent>(OnFinalDoor);
     }
     private void OnDisable()
     {
         EventBus.Unsubscribe<PlayerInventoryEvent>(OnInventoryToggled);
         EventBus.Unsubscribe<PlayerGrabItemEvent>(OnGrabItems);
+        EventBus.Unsubscribe<FinalQuestCompleteEvent>(OnFinalDoor);
     }
     void OnInventoryToggled(PlayerInventoryEvent ev)
     {
@@ -44,4 +50,12 @@ public class GlobalSoundListenerMindPlace : MonoBehaviour
             .WithSoundData(grabSounds[Random.Range(0, grabSounds.Count)])
             .Play();
     }
+
+    void OnFinalDoor(FinalQuestCompleteEvent ev) 
+    {
+        SoundManager.Instance.CreateSound()
+            .WithSoundData(finalDoorSound)
+            .Play();
+    }
+
 }
