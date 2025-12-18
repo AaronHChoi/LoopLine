@@ -1,7 +1,6 @@
 using DependencyInjection;
 using System.Collections;
 using UnityEngine;
-using static Unity.Collections.AllocatorManager;
 
 public class Dial : MonoBehaviour, IInteract
 {

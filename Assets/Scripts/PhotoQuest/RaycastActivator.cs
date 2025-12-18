@@ -8,7 +8,6 @@ public class RaycastActivator : MonoBehaviour
     [SerializeField] int myOrderIndex;
     [SerializeField] bool musicalNote;
     [SerializeField] string idMusicalNote;
-    [SerializeField] bool LOOP4;
     private void Awake()
     {
         if (GameManager.Instance.GetCondition(GameCondition.MusicSafeDoorOpen) && musicalNote)
@@ -48,13 +47,14 @@ public class RaycastActivator : MonoBehaviour
                 if (isFromPhoto && GameManager.Instance.GetCondition(GameCondition.MusicSafeDoorOpen))
                 {
                     item.TakePhoto();
-
-                    if (LOOP4 && !GameManager.Instance.GetCondition(GameCondition.FirstTimeLoop4))
+                    if (GameManager.Instance.GetCondition(GameCondition.MusicNote1) &&
+                        GameManager.Instance.GetCondition(GameCondition.MusicNote2) && 
+                        GameManager.Instance.GetCondition(GameCondition.MusicNote3) &&
+                        GameManager.Instance.GetCondition(GameCondition.MusicNote4))
                     {
-                        GameManager.Instance.SetCondition(GameCondition.LOOP4, true);
-                        GameManager.Instance.SetCondition(GameCondition.FirstTimeLoop4, true);
-                        GameManager.Instance.SetCondition(GameCondition.TeleportAvailable, false);
+                        GameManager.Instance.SetCondition(GameCondition.AllMusicNotesCollected, true);
                     }
+                    DelayUtility.Instance.Delay(2f, () => gameObject.SetActive(false));
                 }
             }
             else
