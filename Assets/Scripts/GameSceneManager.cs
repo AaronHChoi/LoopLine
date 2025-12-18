@@ -8,6 +8,7 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
 {
     [Header("Scene Settings")]
     [SerializeField] private WeightScene firstScene;
+    [SerializeField] private WeightScene secondScene;
     [SerializeField] private List<WeightScene> weightedScenes = new List<WeightScene>();
 
     [Header("Active Scenes")]
@@ -16,17 +17,31 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
     bool isInInitialLoop = false;
 
     IMonologueSpeaker monologueSpeaker;
+    ISceneWeightController weightController;
     protected override void Awake()
     {
         base.Awake();
 
         monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
+        weightController = InterfaceDependencyInjector.Instance.Resolve<ISceneWeightController>();
     }
     private void Start()
     {
+        if (GameManager.Instance.GetCondition(GameCondition.PolaroidTaken) && IsCurrentScene("04. Train"))
+        {
+            StartCoroutine(LoadSceneAsync(firstScene.sceneName));
+            return;
+        }
+        if (GameManager.Instance.GetCondition(GameCondition.PhotoDoorOpen) && IsCurrentScene("04. Train"))
+        {
+            StartCoroutine(LoadSceneAsync(secondScene.sceneName));
+            weightController.HandleConditionChanged(GameCondition.PhotoDoorOpen, true);
+            return;
+        }
         if (IsCurrentScene("04. Train"))
         {
             StartCoroutine(LoadSceneAsync(firstScene.sceneName));
+            return;
         }
     }
     public void SetInitialLoop(bool isActive)
@@ -58,22 +73,32 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
     }
     private string GetRandomSceneByWeight()
     {
-        float totalWeight = 0f;
-        foreach (var scene in weightedScenes)
-            totalWeight += scene.weight;
+        float totalDynamicWeight = 0f;
 
-        float randomValue = Random.value * totalWeight;
+        foreach (var scene in weightedScenes)
+        {
+            float dynamicWeight = scene.weight / (scene.TimesLoaded + 1);
+            totalDynamicWeight += dynamicWeight;
+        }
+        //float totalWeight = 0f;
+        //foreach (var scene in weightedScenes)
+        //    totalWeight += scene.weight;
+
+        float randomValue = Random.value * totalDynamicWeight;
         float current = 0f;
 
         foreach (var scene in weightedScenes)
         {
-            current += scene.weight;
+            float dynamicWeight = scene.weight / (scene.TimesLoaded + 1);
+            current += dynamicWeight;
+
             if (randomValue <= current)
+            {
                 return scene.sceneName;
+            }
         }
         return weightedScenes[0].sceneName;
     }
-
     public WeightScene GetWeightScene(string sceneName)
     {
         foreach (var scene in weightedScenes)
@@ -95,9 +120,9 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
     {
         if (monologueSpeaker != null)
         {
-            if (sceneData != null && sceneData.SceneEvent != Events.None && sceneData.TimesLoaded == TimestoLoad)
+            if (sceneData.TimesLoaded == TimestoLoad)
             {
-                DelayUtility.Instance.Delay(3f, () =>
+                DelayUtility.Instance.Delay(2f, () =>
                 {
                     if (monologueSpeaker != null)
                     {

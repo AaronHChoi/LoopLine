@@ -492,6 +492,9 @@ MonoBehaviour:
   monologueDelay: 0
   item: {fileID: 112514028}
   myOrderIndex: 0
+  musicalNote: 0
+  idMusicalNote: 
+  LOOP4: 0
 --- !u!65 &112514030
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -818,7 +821,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rules:
   - ruleName: Clock Quest Complete
-    conditionToCheck: 1
+    conditionToCheck: 4
     scenesToModify:
     - sceneName: AS_Camera
       weightIfConditionTrue: 100
@@ -837,6 +840,19 @@ MonoBehaviour:
       weightIfConditionTrue: 20
     - sceneName: AS_Clocks
       weightIfConditionTrue: 20
+    - sceneName: AS_LOOP4
+      weightIfConditionTrue: 20
+    - sceneName: AS_NoNPC-NoItems
+      weightIfConditionTrue: 20
+    - sceneName: AS_NPC
+      weightIfConditionTrue: 20
+  - ruleName: MusicOpenDoor
+    conditionToCheck: 14
+    scenesToModify:
+    - sceneName: AS_Camera
+      weightIfConditionTrue: 20
+    - sceneName: AS_Clocks
+      weightIfConditionTrue: 0
     - sceneName: AS_LOOP4
       weightIfConditionTrue: 20
     - sceneName: AS_NoNPC-NoItems
@@ -9619,7 +9635,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Current time: 00:00 PM. The next station is:'
+  m_text: 'The next station is: London Bridge'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1e546eb927a208e498f309c6b2f2bccf, type: 2}
   m_sharedMaterial: {fileID: -2088430492931441728, guid: 1e546eb927a208e498f309c6b2f2bccf, type: 2}
@@ -22450,6 +22466,10 @@ PrefabInstance:
       value: AS_NoNPC-NoItems
       objectReference: {fileID: 0}
     - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
+      propertyPath: secondScene.sceneName
+      value: AS_Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
       propertyPath: weightedScenes.Array.size
       value: 5
       objectReference: {fileID: 0}
@@ -22467,7 +22487,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
       propertyPath: weightedScenes.Array.data[3].weight
-      value: 25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
       propertyPath: weightedScenes.Array.data[4].weight
@@ -22491,11 +22511,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
       propertyPath: weightedScenes.Array.data[2].SceneEvent
-      value: 33
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
       propertyPath: weightedScenes.Array.data[2].sceneCondition
-      value: 13
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4875127341170380560, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
       propertyPath: m_Name
@@ -26354,9 +26374,15 @@ MonoBehaviour:
   - eventType: 41
     dialogues:
     - {fileID: 11400000, guid: 756008494753e844b8f04506860141b4, type: 2}
+  - eventType: 45
+    dialogues:
+    - {fileID: 11400000, guid: 5d6a361f779369949a03faada1191ef8, type: 2}
+  - eventType: 48
+    dialogues:
+    - {fileID: 11400000, guid: f767befb6a68e064c8359518507b4ea7, type: 2}
   currentEvent: 21
   npcType: 6
-  autoAdvance: 1
+  autoAdvance: 0
   defaultEvent: 21
   startDelay: 1.5
   autoAdvanceDelay: 3
@@ -37523,7 +37549,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2117729048
 Transform:
   m_ObjectHideFlags: 0

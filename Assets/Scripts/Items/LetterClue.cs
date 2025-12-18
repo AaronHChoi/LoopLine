@@ -23,6 +23,9 @@ public class LetterClue : ItemInteract
         {
             item.TakePhoto();
             GameManager.Instance.SetCondition(GameCondition.LetterClue6, true);
+            GameManager.Instance.SetCondition(GameCondition.LOOP4, false);
+            GameManager.Instance.SetCondition(GameCondition.TeleportAvailable, true);
+            DelayUtility.Instance.Delay(3f, () => gameObject.SetActive(false));
             return true;
         }
         return false;

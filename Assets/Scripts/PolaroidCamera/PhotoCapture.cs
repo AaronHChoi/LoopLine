@@ -67,7 +67,7 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
         GameObject target = playerInteract.GetRaycastTarget();
         if (target != null && target.TryGetComponent(out RaycastActivator activator))
         {
-            if (activator.SetChildrenActive(true))
+            if (activator.SetChildrenActive(true, true))
             {
                 Events eventToPlay = activator.monologueToTrigger;
                 DelayUtility.Instance.Delay(activator.monologueDelay, () => monologueSpeaker.StartMonologue(eventToPlay));

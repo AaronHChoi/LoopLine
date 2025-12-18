@@ -1,5 +1,4 @@
 using DependencyInjection;
-using Player;
 using UnityEngine;
 
 public class FinalTrigger : MonoBehaviour

@@ -87,6 +87,7 @@ public class PauseMenuManager : Singleton<PauseMenuManager>, IPauseMenuManager
         //gameStateController.ChangeState(gameStateController.GameplayState);
         //gameStateController.GameplayState.Enter();
         //inputHandler.PauseMenuModePressed();
+        GameManager.Instance.SetGameConditions();
         Time.timeScale = 1f;
         pauseMenu.SetActive(false);
         SceneManager.LoadScene("01. MainMenu");

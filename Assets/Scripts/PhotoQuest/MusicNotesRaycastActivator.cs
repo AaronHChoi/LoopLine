@@ -10,14 +10,14 @@ public class MusicNotesRaycastActivator : MonoBehaviour
 
     private void Start()
     {
-        if (GameManager.Instance.GetCondition(GameCondition.MusicSafeDoorOpen))
-        {
-            SetChildrenActive(true);
-        }
-        else
-        {
-            SetChildrenActive(false);
-        }
+        //if (GameManager.Instance.GetCondition(GameCondition.MusicSafeDoorOpen))
+        //{
+        //    SetChildrenActive(true);
+        //}
+        //else
+        //{
+        //    SetChildrenActive(false);
+        //}
     }
     public bool SetChildrenActive(bool active)
     {

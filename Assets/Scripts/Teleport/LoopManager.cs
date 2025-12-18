@@ -5,11 +5,13 @@ public class LoopManager : MonoBehaviour
 {
     IGameSceneManager gameSceneManager;
     IUIManager uiManager;
+    IMonologueSpeaker monologueSpeaker;
 
     private void Awake()
     {
         gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
     }
     private void OnEnable()
     {
@@ -59,6 +61,11 @@ public class LoopManager : MonoBehaviour
                 break;
             case 4:
                 {
+                    gameSceneManager.LoadSceneAsync2("AS_Clocks");
+                }
+                break;
+            case 5:
+                {
                     CompleteFirstLoopSequence();
                 }
                 break;
@@ -71,10 +78,20 @@ public class LoopManager : MonoBehaviour
     }
     void CompleteFirstLoopSequence()
     {
-        uiManager.ShowPanel(UIPanelID.TeleportTutorial);
+        monologueSpeaker.OnMonologueEnded += OnTutorialMonologueEnded;
+        DelayUtility.Instance.Delay(1f, () => monologueSpeaker.StartMonologue(Events.TutorialTeleport));
+       
         GameManager.Instance.SetCondition(GameCondition.TeleportAvailable, true);
         GameManager.Instance.SetCondition(GameCondition.IsFirstLoopsCompleted, true);
         gameSceneManager.LoadRandomScene();
+    }
+    void OnTutorialMonologueEnded(Events finishedEvent)
+    {
+        if (finishedEvent == Events.TutorialTeleport)
+        {
+            monologueSpeaker.OnMonologueEnded -= OnTutorialMonologueEnded;
+            uiManager.ShowPanel(UIPanelID.TeleportTutorial);
+        }
     }
     void LoadRandomNextScene()
     {

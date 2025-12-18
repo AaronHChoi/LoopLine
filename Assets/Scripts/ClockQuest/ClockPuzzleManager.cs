@@ -28,6 +28,7 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
     IGearRotator gearRotator;
     IClock clockLock;
     ICinematicManager cinematicManager;
+    IUIManager uiManager;
 
     private void Awake()
     {
@@ -37,6 +38,7 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
         clockLock = InterfaceDependencyInjector.Instance.Resolve<IClock>();
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
         cinematicManager = InterfaceDependencyInjector.Instance.Resolve<ICinematicManager>();
+        uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
     }
     private void Start()
     {
@@ -88,6 +90,7 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
             DelayUtility.Instance.Delay(1f, () =>
                 cinematicManager.PlayCinematic(successCinematic, () =>
                 {
+                    monologueSpeaker.OnMonologueEnded += OnClockQuestMonologueEnded;
                     DelayUtility.Instance.Delay(3f, () => monologueSpeaker.StartMonologue(QuestCompleteEvent));
 
                     RevealObject();
@@ -102,6 +105,14 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
                     OnClockQuestFinished?.Invoke();
                 })
             );
+        }
+    } 
+    void OnClockQuestMonologueEnded(Events finishedEvent)
+    {
+        if (finishedEvent == Events.ClockQuestComplete)
+        {
+            monologueSpeaker.OnMonologueEnded -= OnClockQuestMonologueEnded;
+            uiManager.ShowPanel(UIPanelID.InventoryTutorial);
         }
     }
     private void RevealObject()

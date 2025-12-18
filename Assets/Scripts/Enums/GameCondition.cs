@@ -30,4 +30,7 @@ public enum GameCondition
     WordGroup3,
     FinalQuestCompleted,
     #endregion
+    FirstTimeInMindPlace,
+    LOOP4,
+    FirstTimeLoop4,
 }

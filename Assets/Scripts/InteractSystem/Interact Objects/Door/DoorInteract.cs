@@ -1,3 +1,4 @@
+using DependencyInjection;
 using System.Collections;
 using UnityEngine;
 
@@ -32,6 +33,13 @@ public class DoorInteract : MonoBehaviour, IInteract
 
     [SerializeField] TeleportLoop tp;
 
+    IMonologueSpeaker monologueSpeaker;
+
+    private void Awake()
+    {
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
+    }
+
     void Start()
     {
         if (doorLeft != null)
@@ -59,20 +67,27 @@ public class DoorInteract : MonoBehaviour, IInteract
     public string GetInteractText() => doorText;
     public void Interact()
     {
-        if (isMoving || isOpen) return;
-        if(tp != null)
+        if (!GameManager.Instance.GetCondition(GameCondition.LOOP4))
         {
-            tp.Teleport();
-
-            if(connectedDoor != null)
+            if (isMoving || isOpen) return;
+            if (tp != null)
             {
-                connectedDoor.OpenDoors();
+                tp.Teleport();
+
+                if (connectedDoor != null)
+                {
+                    connectedDoor.OpenDoors();
+                }
+            }
+
+            if (connectedDoor == null)
+            {
+                OpenDoors();
             }
         }
-
-        if(connectedDoor == null)
+        else
         {
-            OpenDoors();
+            monologueSpeaker.StartMonologue(Events.ClosedDoorsTrain);
         }
     }
     public void OpenDoors()

@@ -3,12 +3,9 @@ using UnityEngine;
 
 public class TutorialInteract : ItemInteract
 {
-    IUIManager uiManager;
-    [SerializeField] UIPanelID panelID;
     protected override void Awake()
     {
         base.Awake();
-        uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
     }
     public override void Start()
     {
@@ -16,8 +13,6 @@ public class TutorialInteract : ItemInteract
     }
     public override bool Interact()
     {
-        uiManager.ShowPanel(panelID);
-
         EventBus.Publish(new PlayerGrabItemEvent());
         return base.Interact();
     }

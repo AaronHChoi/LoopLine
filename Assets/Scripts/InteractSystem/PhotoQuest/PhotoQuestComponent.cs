@@ -1,6 +1,3 @@
-using DependencyInjection;
-using JetBrains.Annotations;
-using UnityEngine;
 
 public class PhotoQuestComponent : ItemInteract
 {
@@ -28,6 +25,5 @@ public class PhotoQuestComponent : ItemInteract
             EventBus.Publish(new PlayerGrabItemEvent());
             return base.Interact();
         }
-        
     }
 }

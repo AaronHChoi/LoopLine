@@ -1,3 +1,4 @@
+using DependencyInjection;
 using System.Collections;
 using UnityEngine;
 using static Unity.Collections.AllocatorManager;
@@ -14,6 +15,11 @@ public class Dial : MonoBehaviour, IInteract
     [SerializeField] SoundData _mi;
     [SerializeField] SoundData _sol;
 
+    IMonologueSpeaker monologueSpeaker;
+    private void Awake()
+    {
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
+    }
     private void Start()
     {
         coroutineAllowed = true;
@@ -21,9 +27,18 @@ public class Dial : MonoBehaviour, IInteract
     }
     public void Interact()
     {
-        if (coroutineAllowed && GameManager.Instance.GetCondition(conditionToRotate))
+        if (!coroutineAllowed)
+        {
+            return;
+        }
+
+        if (GameManager.Instance.GetCondition(conditionToRotate))
         {
             StartCoroutine(Rotate());
+        }
+        else
+        {
+            monologueSpeaker.StartMonologue(Events.MusicClue1);
         }
     }
     private IEnumerator Rotate()

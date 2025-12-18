@@ -57,4 +57,13 @@ public enum Events
     MusicNotePicked2,
     MusicNotePicked3,
     MusicNotePicked4,
+    TutorialTeleport,
+    Mindplace1,
+    MusicClue1,
+    ClosedDoorsTrain,
+    ASNPC,
+    ASCLOCKS,
+    ASLOOP,
+    ASCAMERA,
+    ASNOITEMS,
 }
