@@ -34,7 +34,7 @@ public class MindplaceManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I))
         {
             GameManager.Instance.SetCondition(GameCondition.PhotoDoorOpen, true);
-            GameManager.Instance.SetCondition(GameCondition.MusicSafeDoorOpen, true);
+            //GameManager.Instance.SetCondition(GameCondition.MusicSafeDoorOpen, true);
         }
     }
 #endif
