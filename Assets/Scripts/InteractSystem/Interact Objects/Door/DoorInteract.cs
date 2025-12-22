@@ -39,7 +39,6 @@ public class DoorInteract : MonoBehaviour, IInteract
     {
         monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
     }
-
     void Start()
     {
         if (doorLeft != null)
@@ -67,27 +66,27 @@ public class DoorInteract : MonoBehaviour, IInteract
     public string GetInteractText() => doorText;
     public void Interact()
     {
-        if (!GameManager.Instance.GetCondition(GameCondition.LOOP4))
-        {
-            if (isMoving || isOpen) return;
-            if (tp != null)
-            {
-                tp.Teleport();
-
-                if (connectedDoor != null)
-                {
-                    connectedDoor.OpenDoors();
-                }
-            }
-
-            if (connectedDoor == null)
-            {
-                OpenDoors();
-            }
-        }
-        else
+        if (GameManager.Instance.GetCondition(GameCondition.LOOP4))
         {
             monologueSpeaker.StartMonologue(Events.ClosedDoorsTrain);
+            return;
+        }
+
+        if (isMoving || isOpen) return;
+
+        if (tp != null)
+        {
+            tp.Teleport();
+
+            if (connectedDoor != null)
+            {
+                connectedDoor.OpenDoors();
+            }
+        }
+
+        if (connectedDoor == null)
+        {
+            OpenDoors();
         }
     }
     public void OpenDoors()
