@@ -1,5 +1,6 @@
 using UnityEngine;
 using DependencyInjection;
+
 public class PlayerMovement : MonoBehaviour, IPlayerMovement
 {
     bool canMove = true;
@@ -8,10 +9,16 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
         get => canMove; 
         set => canMove = value; 
     }
-    private float stepTimer; 
-    private bool wasMovingLastFrame;
     public float walkStepInterval = 0.6f; 
     public float runStepInterval = 0.35f;
+
+    Vector3 lastPosition;
+    float distanceAccumulated;
+
+    [Header("Footstep Settings")]
+    [SerializeField] float walkStepDistance = 1.8f;
+    [SerializeField] float runStepDistance = 2.2f; 
+    [SerializeField] float minVelocityThreshold = 0.5f;
 
     IPlayerController controller;
     IPlayerInputHandler input;
@@ -48,47 +55,35 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
             moveDirection.y = (controller.PlayerModel.YAxisLocation - transform.position.y) * 0.9f;
         }
 
-        if (input.IsSprinting())
+        float currentSpeed = input.IsSprinting() ? controller.PlayerModel.SprintSpeed : controller.PlayerModel.Speed;
+        Vector3 velocity = moveDirection * currentSpeed;
+
+        playerView.Move(velocity * Time.deltaTime);
+
+        Vector3 currentPos = transform.position;
+        Vector3 horizontalDisplacement = new Vector3(currentPos.x - lastPosition.x, 0, currentPos.z - lastPosition.z);
+        float distanceMovedThisFrame = horizontalDisplacement.magnitude;
+
+        float realVelocity = distanceMovedThisFrame / Time.deltaTime;
+
+        if (inputMovement.magnitude > 0.1f && realVelocity > 0.5f)
         {
-            moveDirection *= controller.PlayerModel.SprintSpeed;
+            distanceAccumulated += distanceMovedThisFrame;
+
+            float threshold = input.IsSprinting() ? runStepInterval : walkStepInterval;
+
+            if (distanceAccumulated >= threshold)
+            {
+                EventBus.Publish(stepEvent);
+                distanceAccumulated = 0f; // Reset
+            }
         }
         else
         {
-            moveDirection *= controller.PlayerModel.Speed;
+            distanceAccumulated = Mathf.MoveTowards(distanceAccumulated, 0, Time.deltaTime);
         }
 
-        float movementThreshold = 0.1f;
-
-        // Chequeo de movimiento real
-        bool isMoving = inputMovement.magnitude > movementThreshold;
-
-        if (!isMoving)
-        {
-            wasMovingLastFrame = false;
-            stepTimer = 0f;
-        }
-        else
-        {
-            float interval = input.IsSprinting() ? runStepInterval : walkStepInterval;
-
-            if (!wasMovingLastFrame)
-            {
-                EventBus.Publish(stepEvent);
-                stepTimer = 0f;
-            }
-
-            wasMovingLastFrame = true;
-
-            stepTimer += Time.deltaTime;
-
-            if (stepTimer >= interval)
-            {
-                EventBus.Publish(stepEvent);
-                stepTimer = 0f;
-            }
-        }
-
-        playerView.Move(moveDirection * Time.deltaTime);
+        lastPosition = transform.position;
     }
     public void RotateCharacterToCamera()
     {
@@ -100,7 +95,6 @@ public class PlayerMovement : MonoBehaviour, IPlayerMovement
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * controller.PlayerModel.SpeedRotation);
     }
 }
-
 public interface IPlayerMovement
 {
     Transform transform { get; }
