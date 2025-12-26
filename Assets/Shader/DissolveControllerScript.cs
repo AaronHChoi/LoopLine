@@ -67,17 +67,7 @@ public class DissolveControllerScript : MonoBehaviour
     }
     void ActivateDissolve2(FinalQuestCompleteEvent ev)
     {
-        if (!Application.isPlaying)
-        {
-            Debug.LogWarning("DissolveController: ActivateDissolve called in edit mode. Enter Play Mode to run dissolve.");
-            return;
-        }
-
-        if (!_isDissolving)
-        {
-            PrepareMaterials();
-            StartCoroutine(DissolveEffect());
-        }
+        ActivateDissolve();
     }
 
     [ContextMenu("Test Dissolve")]
@@ -112,25 +102,26 @@ public class DissolveControllerScript : MonoBehaviour
 
         meshRenderer.materials = _runtimeMaterials;
     }
-
     private IEnumerator DissolveEffect()
     {
         _isDissolving = true;
         if (VFXGraph != null) VFXGraph.Play();
 
-        if (_runtimeMaterials != null && _runtimeMaterials.Length > 0)
+        float elapsed = 0f;
+
+        float duration = 1f / dissolveRate * refreshRate;
+
+        while (elapsed < duration)
         {
-            float counter = 0f;
-            while (counter < 1f)
+            elapsed += Time.deltaTime;
+            float normalizedTime = Mathf.Clamp01(elapsed / duration);
+
+            for (int i = 0; i < _runtimeMaterials.Length; i++)
             {
-                counter += dissolveRate;
-                for (int i = 0; i < _runtimeMaterials.Length; i++)
-                {
-                    var m = _runtimeMaterials[i];
-                    if (m != null) m.SetFloat(DissolveAmountId, counter);
-                }
-                yield return new WaitForSeconds(refreshRate);
+                if (_runtimeMaterials[i] != null)
+                    _runtimeMaterials[i].SetFloat(DissolveAmountId, normalizedTime);
             }
+            yield return null;
         }
 
         if (restoreOriginalAfterDissolve && _originalSharedMaterials != null)
@@ -139,7 +130,6 @@ public class DissolveControllerScript : MonoBehaviour
         }
         _isDissolving = false;
     }
-
     private void OnDestroy()
     {
         if (_runtimeMaterials != null && Application.isPlaying)

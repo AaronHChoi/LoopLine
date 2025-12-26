@@ -21,19 +21,19 @@ public class RaycastActivator : MonoBehaviour
     }
     public bool SetChildrenActive(bool active, bool isFromPhoto = false)
     {
-        //bool isRightOrder = false;
-        //if (active)
-        //{
-        //    if (myOrderIndex != GameManager.Instance.currentPhotoIndex)
-        //    {
-        //        return isRightOrder;
-        //    }
-        //    else
-        //    {
-        //        isRightOrder = true;
-        //    }
-        //    GameManager.Instance.currentPhotoIndex++;
-        //}
+        bool isRightOrder = false;
+        if (active)
+        {
+            if (myOrderIndex != GameManager.Instance.currentPhotoIndex)
+            {
+                return isRightOrder;
+            }
+            else
+            {
+                isRightOrder = true;
+            }
+            GameManager.Instance.currentPhotoIndex++;
+        }
 
         foreach (Transform child in transform)
         {
