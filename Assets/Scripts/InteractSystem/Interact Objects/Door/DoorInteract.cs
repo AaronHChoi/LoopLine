@@ -33,6 +33,8 @@ public class DoorInteract : MonoBehaviour, IInteract
 
     [SerializeField] TeleportLoop tp;
 
+    private Coroutine autoCloseCoroutine;
+
     IMonologueSpeaker monologueSpeaker;
 
     private void Awake()
@@ -91,25 +93,33 @@ public class DoorInteract : MonoBehaviour, IInteract
     }
     public void OpenDoors()
     {
-        StopAllCoroutines();
-        closeTimer = closeDelayInitial;
+        //StopAllCoroutines();
+        //closeTimer = closeDelayInitial;
+        StopActiveMovement();
         StartCoroutine(MoveDoors(true));
     }
     public void CloseDoors()
     {
         if (isMoving || !isOpen) return;
-        StopAllCoroutines();
+        //topAllCoroutines();
+        StopActiveMovement();
         StartCoroutine(MoveDoors(false));
     }
-    private void Update()
+    void StopActiveMovement()
     {
-        if (isOpen && !isMoving)
-        {
-            closeTimer -= Time.deltaTime;
-            if (closeTimer <= 0f)
-                CloseDoors();
-        }
+        StopAllCoroutines();
+        autoCloseCoroutine = null;
+        isMoving = false;
     }
+    //private void Update()
+    //{
+    //    if (isOpen && !isMoving)
+    //    {
+    //        closeTimer -= Time.deltaTime;
+    //        if (closeTimer <= 0f)
+    //            CloseDoors();
+    //    }
+    //}
     private IEnumerator MoveDoors(bool opening)
     {
         isMoving = true;
@@ -150,6 +160,17 @@ public class DoorInteract : MonoBehaviour, IInteract
 
         isOpen = opening;
         isMoving = false;
-        if (isOpen) closeTimer = closeDelayInitial;
+
+        if (isOpen)
+        {
+            autoCloseCoroutine = StartCoroutine(WaitAndClose());
+        }
+
+        //if (isOpen) closeTimer = closeDelayInitial;
+    }
+    IEnumerator WaitAndClose()
+    {
+        yield return new WaitForSeconds(closeDoorsAfterTime);
+        CloseDoors();
     }
 }
