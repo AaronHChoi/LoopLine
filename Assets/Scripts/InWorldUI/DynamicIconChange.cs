@@ -9,29 +9,32 @@ namespace InWorldUI
         [SerializeField] private Sprite grabIcon;
         [SerializeField] private Sprite interactIcon;
 
-        BaseItemInteract item;
+        ItemInteract item;
         IInteract interact;
 
         void OnEnable()
         {
-            if (item == null)
-                item = GetComponentInParent<BaseItemInteract>();
-
-            if (item == null)
-            {
-                interact = GetComponentInParent<IInteract>() ;
-                if (interact == null)
-                    return;
-                if (!iconImage)
-                    iconImage = GetComponentInChildren<Image>();
-                iconImage.sprite = interactIcon;
-                return;
-            }
+            item = GetComponentInParent<ItemInteract>();
+            interact = GetComponentInParent<IInteract>();
 
             if (!iconImage)
                 iconImage = GetComponentInChildren<Image>();
 
-            iconImage.sprite = item.canBePicked ? grabIcon : interactIcon;
+            UpdateIcon();
+        }
+
+        void UpdateIcon()
+        {
+            if (item != null)
+            {
+                iconImage.sprite = item.canBePicked ? grabIcon : interactIcon;
+                return;
+            }
+
+            if (interact != null)
+            {
+                iconImage.sprite = interactIcon;
+            }
         }
     }
 }
