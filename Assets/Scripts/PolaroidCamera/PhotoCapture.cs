@@ -1,7 +1,6 @@
 using System.Collections;
 using Player;
 using UnityEngine;
-using UnityEngine.UI;
 using DependencyInjection;
 
 public class PhotoCapture : MonoBehaviour, IPhotoCapture
@@ -65,6 +64,13 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
         yield return new WaitForSeconds(delay);
 
         GameObject target = playerInteract.GetRaycastTarget();
+
+        if (target != null && target.TryGetComponent(out IPhotographable photoTarget))
+        {
+            photoTarget.ProceesPhoto();
+        }
+
+
         if (target != null && target.TryGetComponent(out RaycastActivator activator))
         {
             if (activator.SetChildrenActive(true, true))
