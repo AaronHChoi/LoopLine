@@ -22,6 +22,12 @@ public class PlayerController : MonoBehaviour, IPlayerController
         playerMovement = InterfaceDependencyInjector.Instance.Resolve<IPlayerMovement>();
         gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
     }
+
+    private void Start()
+    {
+        sceneTransitionController.isTransitioning = false;
+        Debug.Log(sceneTransitionController.isTransitioning);
+    }
     private void Update()
     {
         playerMovement.HandleMovement();
@@ -42,20 +48,24 @@ public class PlayerController : MonoBehaviour, IPlayerController
     }
     private void TeleportPlayer()
     {
-        if (gameSceneManager.IsCurrentScene("04. Train"))
+        if (gameSceneManager.IsCurrentScene("04. Train") && !sceneTransitionController.isTransitioning)
         {
+            sceneTransitionController.isTransitioning = true;
             sceneTransitionController.StartTransition(true);
             DelayUtility.Instance.Delay(2f, () =>
             {
+                //sceneTransitionController.isTransitioning = false;
                 gameSceneManager.LoadNextScene("05. MindPlace");
             });
         }
 
-        if (gameSceneManager.IsCurrentScene("05. MindPlace"))
+        if (gameSceneManager.IsCurrentScene("05. MindPlace") && !sceneTransitionController.isTransitioning)
         {
+            sceneTransitionController.isTransitioning = true;
             sceneTransitionController.StartTransition(true);
             DelayUtility.Instance.Delay(2f, () =>
             {
+                //sceneTransitionController.isTransitioning = false;
                 gameSceneManager.LoadNextScene("04. Train");
             });
         }

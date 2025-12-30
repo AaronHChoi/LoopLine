@@ -17,6 +17,9 @@ public class SceneTransitionController : MonoBehaviour, ISceneTransitionControll
     [SerializeField] private float endFOV = 120f;
     [SerializeField] private float fadeTargetWeight = 1f;
 
+    [SerializeField] public bool isTransitioning { get; set; } = false;
+
+
     private Coroutine currentTransition = null;
 
     private void Start()
@@ -103,4 +106,6 @@ public class SceneTransitionController : MonoBehaviour, ISceneTransitionControll
 public interface ISceneTransitionController
 {
     void StartTransition(bool forward);
+
+    bool isTransitioning { get; set; }
 }
