@@ -178,8 +178,8 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
             UIInventoryItemSlot slot = itemUI.GetComponent<UIInventoryItemSlot>();
             slot.Set(item);            
             inventorySlots.Add(slot);
-            MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
-            
+            StartCoroutine(UpdateArrowNextFrame());
+
         }
               
     }
@@ -199,9 +199,6 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
                 slotToRemove.transform.parent = null;
                 inventorySlots.Remove(slotToRemove);
                 InventoryManager.Instance.RemoveItemFromInventory(item.ItemData);
-                Debug.Log("Item Removed from Inventory: " + item.ItemData.itemName);
-                Debug.Log("Current Inventory Count: " + inventorySlots.Count);
-                Debug.Log("Current Slot Index: " + currentSlotIndex);
                 StartCoroutine(UpdateArrowNextFrame());
             }
             else
