@@ -60,19 +60,65 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
             PhotoQuestComplete();
             GameManager.Instance.SetCondition(GameCondition.WordGroup2, true);
         }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (photoActivations == null) return;
+
+            foreach (var entry in photoActivations)
+            {
+                bool isConditionMet = GameManager.Instance.GetCondition(entry.condition);
+
+                if (entry.photo != null)
+                {
+                    entry.photo.SetActive(isConditionMet);
+                }
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            if (photoActivations == null) return;
+
+            foreach (var entry in photoActivations)
+            {
+                GameManager.Instance.SetCondition(entry.condition, true);
+            }
+        }
     }
 #endif
     void UpdatePhotoActivationStates()
     {
-        if (photoActivations == null) return;
-
-        foreach (var entry in photoActivations)
+        if (!GameManager.Instance.GetCondition(GameCondition.IsPhotoQuestComplete))
         {
-            bool isConditionMet = GameManager.Instance.GetCondition(entry.condition);
+            if (photoActivations == null) return;
 
-            if (entry.photo != null)
+            foreach (var entry in photoActivations)
             {
-                entry.photo.SetActive(isConditionMet);
+                bool isConditionMet = GameManager.Instance.GetCondition(entry.condition);
+
+                if (entry.photo != null)
+                {
+                    entry.photo.SetActive(isConditionMet);
+                }
+            }
+
+        }
+        else
+        {
+            ReplaceItemsOnQuestCompleted();
+            for (int i = 0; i < frames.Count; i++)
+            {
+               PhotoQuestComponent placedPhoto = frames[i].CorrectPhoto;
+               frames[i].RestorePhoto(placedPhoto);
+            }
+
+            foreach (var entry in photoActivations)
+            {
+                if (entry.photo != null)
+                {
+                    entry.photo.SetActive(false);
+                }
             }
         }
     }
@@ -96,7 +142,7 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
                 Photos[i].gameObject.transform.position = frame.SpawnPosition.position;
                 Photos[i].gameObject.SetActive(true);
                 Photos[i].gameObject.layer = LayerMask.NameToLayer("Default");
-                break;
+                //break;
             }
         }
     }
@@ -132,6 +178,18 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
                 playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
             })
         );
+    }
+
+    private void ReplaceItemsOnQuestCompleted()
+    {
+        for (int i = 0; i < frames.Count; i++)
+        {
+            if (frames[i].currentPhoto != null)
+            {
+                PhotoQuestComponent placedPhoto = frames[i].CorrectPhoto;
+                frames[i].RestorePhoto(placedPhoto);
+            }
+        }
     }
     public void OpenDoorPhotoQuest()
     {

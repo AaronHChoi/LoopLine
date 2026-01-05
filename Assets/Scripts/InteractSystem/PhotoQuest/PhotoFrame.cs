@@ -10,6 +10,7 @@ public class PhotoFrame : MonoBehaviour, IInteract
     [SerializeField] public PhotoQuestComponent currentPhoto;
     [SerializeField] public Transform SpawnPosition;
     public bool CorrectPhotoPlaced { get; private set; }
+    public PhotoQuestComponent CorrectPhoto => correctPhoto;
     private bool isFrameOccupied = false;
 
     private IInventoryUI inventoryUI;
@@ -59,6 +60,25 @@ public class PhotoFrame : MonoBehaviour, IInteract
 
         //if (photo == correctPhoto)
         //    CorrectPhotoPlaced = true;
+
+        if (correctPhoto != null && photo.id == correctPhoto.id)
+        {
+            CorrectPhotoPlaced = true;
+        }
+        else
+        {
+            CorrectPhotoPlaced = false;
+        }
+    }
+
+    public void RestorePhoto(PhotoQuestComponent photo)
+    {
+        photoQuestManager.SetPhotoPosition(photo, this);
+
+        isFrameOccupied = true;
+        photo.isItemPlaced = true;
+        photo.photoFrame = this;
+        currentPhoto = photo;
 
         if (correctPhoto != null && photo.id == correctPhoto.id)
         {
