@@ -13,6 +13,7 @@ public class RaycastActivator : MonoBehaviour
         if (GameManager.Instance.GetCondition(GameCondition.MusicSafeDoorOpen) && musicalNote)
         {
             SetChildrenActive(true, false);
+            //SetChildrenActive(false, false);
         }
         else
         {
@@ -24,7 +25,7 @@ public class RaycastActivator : MonoBehaviour
         bool isRightOrder = false;
         if (active)
         {
-            if (myOrderIndex != GameManager.Instance.currentPhotoIndex)
+            if (myOrderIndex != GameManager.Instance.currentPhotoIndex && !musicalNote)
             {
                 return isRightOrder;
             }

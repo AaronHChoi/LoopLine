@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
+using static UnityEngine.EventSystems.EventTrigger;
 
 [Serializable]
 public struct PhotoActivationEntry
@@ -60,9 +61,35 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
             PhotoQuestComplete();
             GameManager.Instance.SetCondition(GameCondition.WordGroup2, true);
         }
+
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (photoActivations == null) return;
+
+            foreach (var entry in photoActivations)
+            {
+                bool isConditionMet = GameManager.Instance.GetCondition(entry.condition);
+
+                if (entry.photo != null)
+                {
+                    entry.photo.SetActive(isConditionMet);
+                }
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            if (photoActivations == null) return;
+
+            foreach (var entry in photoActivations)
+            {
+                GameManager.Instance.SetCondition(entry.condition, true);
+            }
+        }
     }
 #endif
-    void UpdatePhotoActivationStates()
+void UpdatePhotoActivationStates()
     {
         if (photoActivations == null) return;
 
