@@ -1,0 +1,68 @@
+using Player;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+using DependencyInjection;
+
+namespace Gameplay.Inventory
+{
+    public class UIInventoryItemSlot : MonoBehaviour
+    {
+        [SerializeField] private TextMeshProUGUI itemNameLabel;
+        [SerializeField] private Image itemImage;
+        [SerializeField] public string itemId;
+        public ItemInteract itemToSpawn { get; private set; }
+
+        bool isActive = false;
+        public bool IsActive
+        {
+            get => isActive;
+            set
+            {
+                if (isActive == value) return;
+                isActive = value;
+
+                if (isActive)
+                    ActivateItem();
+                else
+                    DeactivateItem();
+            }
+        }
+        IPlayerStateController controller;
+
+        private void Awake()
+        {
+            controller = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
+        }
+
+        public void Set(ItemInteract item)
+        {
+            itemImage.sprite = item.ItemData.itemIcon;
+            itemNameLabel.text = item.ItemData.itemName;
+            itemToSpawn = item;
+            itemId = item.id;
+        }
+        void ActivateItem()
+        {
+            GameObject item = itemToSpawn.objectPrefab;
+
+            if (item != null)
+            {
+                item.SetActive(true);
+                item.transform.position = InventoryUI.Instance.GetSpawnPosition().position;
+                item.transform.rotation = InventoryUI.Instance.GetSpawnPosition().rotation;
+                item.transform.SetParent(InventoryUI.Instance.GetSpawnPosition());
+
+                InventoryUI.Instance.ItemInUse = itemToSpawn;
+
+                controller.ChangeState(controller.ObjectInHandState);
+            }
+        }
+        void DeactivateItem()
+        {
+            itemToSpawn.objectPrefab.gameObject.SetActive(false);
+
+            controller.ChangeState(controller.NormalState);
+        }
+    } 
+}
