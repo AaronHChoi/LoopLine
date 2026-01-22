@@ -1,5 +1,7 @@
-using DependencyInjection;
 using UnityEngine;
+using Core.DependencyInjection;
+using Core.Utilities;
+using Gameplay.Dialogue;
 
 public class MindplaceManager : MonoBehaviour
 {
@@ -8,13 +10,11 @@ public class MindplaceManager : MonoBehaviour
     IClockPuzzleManager clockPuzzleManager;
     IMonologueSpeaker monologueSpeaker;
 
-    private void Awake()
+    private void Start()
     {
         clockPuzzleManager = InterfaceDependencyInjector.Instance.Resolve<IClockPuzzleManager>();
         monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
-    }
-    private void Start()
-    {
+
         doorLightPhotoQuest.SetActive(false);
 
         if (GameManager.Instance.GetCondition(GameCondition.IsClockQuestComplete))

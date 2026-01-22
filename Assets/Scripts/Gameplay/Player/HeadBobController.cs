@@ -1,6 +1,6 @@
-using DependencyInjection;
-using Player;
 using UnityEngine;
+using Core.DependencyInjection;
+using Gameplay.Player;
 
 public class HeadBobController : MonoBehaviour
 {
@@ -9,7 +9,7 @@ public class HeadBobController : MonoBehaviour
     IPlayerCamera playerCamera;
     IPlayerStateController playerStateController;
 
-    private void Awake()
+    private void Start()
     {
         inputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
         controller = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();

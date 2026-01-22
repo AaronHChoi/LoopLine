@@ -1,4 +1,4 @@
-using UnityEngine;
+using Gameplay.Items;
 
 public class TestItemSon : ItemInteract
 {

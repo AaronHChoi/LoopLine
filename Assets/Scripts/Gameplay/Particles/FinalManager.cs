@@ -1,6 +1,5 @@
-using DependencyInjection;
-using Unity.VisualScripting;
 using UnityEngine;
+using Core.DependencyInjection;
 
 public class FinalManager : MonoBehaviour
 {
@@ -13,15 +12,13 @@ public class FinalManager : MonoBehaviour
     ISafeQuestManager safeQuestManager;
     IFinalQuestManager finalQuestManager;
 
-    private void Awake()
+    private void Start()
     {
         clockPuzzleManager = InterfaceDependencyInjector.Instance.Resolve<IClockPuzzleManager>();
         photoQuestManager = InterfaceDependencyInjector.Instance.Resolve<IPhotoQuestManager>();
         safeQuestManager = InterfaceDependencyInjector.Instance.Resolve<ISafeQuestManager>();
         finalQuestManager = InterfaceDependencyInjector.Instance.Resolve<IFinalQuestManager>();
-    }
-    private void Start()
-    {
+
         if (!GameManager.Instance.GetCondition(GameCondition.IsClockQuestComplete))
         {
             distortion.SetFloat("_Distorsion_Strength", 0.05f);

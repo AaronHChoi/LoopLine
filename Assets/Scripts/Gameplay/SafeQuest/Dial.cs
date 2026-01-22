@@ -1,6 +1,8 @@
-using DependencyInjection;
 using System.Collections;
 using UnityEngine;
+using Core.DependencyInjection;
+using Audio.SoundSystem;
+using Gameplay.Dialogue;
 
 public class Dial : MonoBehaviour, IInteract
 {
@@ -15,12 +17,11 @@ public class Dial : MonoBehaviour, IInteract
     [SerializeField] SoundData _sol;
 
     IMonologueSpeaker monologueSpeaker;
-    private void Awake()
-    {
-        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
-    }
+
     private void Start()
     {
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
+
         coroutineAllowed = true;
         indexShown = 0;
     }

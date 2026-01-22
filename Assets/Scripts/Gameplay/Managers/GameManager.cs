@@ -1,8 +1,9 @@
-using DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using Core.DependencyInjection;
+using Core.Utilities;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -45,7 +46,9 @@ public class GameManager : Singleton<GameManager>
     protected override void Awake()
     {
         base.Awake();
-
+    }
+    private void Start()
+    {
         screenManager = InterfaceDependencyInjector.Instance.Resolve<IScreenManager>();
 
         SetGameConditions();

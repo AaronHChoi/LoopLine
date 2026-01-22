@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using DependencyInjection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Core.DependencyInjection;
+using Core.Utilities;
+using Gameplay.Dialogue;
 
 public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
 {
@@ -21,12 +23,12 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
     protected override void Awake()
     {
         base.Awake();
-
-        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
-        weightController = InterfaceDependencyInjector.Instance.Resolve<ISceneWeightController>();
     }
     private void Start()
     {
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
+        weightController = InterfaceDependencyInjector.Instance.Resolve<ISceneWeightController>();
+
         if (GameManager.Instance.GetCondition(GameCondition.PolaroidTaken) && IsCurrentScene("04. Train"))
         {
             StartCoroutine(LoadSceneAsync(firstScene.sceneName));

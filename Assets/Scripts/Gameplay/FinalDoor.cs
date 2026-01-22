@@ -1,10 +1,13 @@
-using DependencyInjection;
-using Player;
 using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Video;
+using Core.DependencyInjection;
+using Core.Utilities;
+using Core.EventBus;
+using Gameplay.Inventory;
+using Gameplay.Player;
 
 public class FinalDoor : MonoBehaviour, IInteract
 {
@@ -56,15 +59,16 @@ public class FinalDoor : MonoBehaviour, IInteract
 
     private void Awake()
     {
-        playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
-        inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
-        playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
         StartRotation = doorGameObject.transform.rotation.eulerAngles;
-        cinematicManager = InterfaceDependencyInjector.Instance.Resolve<ICinematicManager>();
         Forward = doorGameObject.transform.forward; //this is because the forward of the door is orienteted to the right if the forwar chages chage this line
     }
     private void Start()
     {
+        playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
+        inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
+        playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
+        cinematicManager = InterfaceDependencyInjector.Instance.Resolve<ICinematicManager>();
+
         if (GameManager.Instance.GetCondition(GameCondition.PhotoDoorOpen) && doorHandler != null)
         {
             active = true;

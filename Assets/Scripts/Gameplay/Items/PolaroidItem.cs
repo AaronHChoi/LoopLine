@@ -1,7 +1,8 @@
-
 using System;
-using DependencyInjection;
 using UnityEngine;
+using Core.DependencyInjection;
+using Core.EventBus;
+using Gameplay.Items;
 
 public class PolaroidItem : ItemInteract, IPolaraidItem
 {
@@ -16,12 +17,13 @@ public class PolaroidItem : ItemInteract, IPolaraidItem
     protected override void Awake()
     {
         base.Awake();
-        uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
-        gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
-        weightController = InterfaceDependencyInjector.Instance.Resolve<ISceneWeightController>();
     }
     public override void Start()
     {
+        uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
+        gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
+        weightController = InterfaceDependencyInjector.Instance.Resolve<ISceneWeightController>();
+
         base.Start();
 
         if (GameManager.Instance.GetCondition(GameCondition.PolaroidTaken))

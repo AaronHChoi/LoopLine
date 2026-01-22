@@ -1,8 +1,12 @@
-using DependencyInjection;
 using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using Core.DependencyInjection;
+using Core.EventBus;
+using Core.Utilities;
+using Gameplay.Player;
+using Gameplay.Inventory;
 
 public class SingleDoorInteract : MonoBehaviour, IInteract
 {
@@ -53,13 +57,14 @@ public class SingleDoorInteract : MonoBehaviour, IInteract
 
     private void Awake()
     {
-        playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
-        inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
         StartRotation = doorGameObject.transform.rotation.eulerAngles;
         Forward = doorGameObject.transform.forward; //this is because the forward of the door is orienteted to the right if the forwar chages chage this line
     }
     private void Start()
     {
+        playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
+        inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
+
         if (usePersistence)
         {
             if (GameManager.Instance.GetCondition(doorCondition) && doorHandler != null)

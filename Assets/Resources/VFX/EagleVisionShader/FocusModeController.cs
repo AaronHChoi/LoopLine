@@ -1,7 +1,5 @@
-using Player;
 using UnityEngine;
 using UnityEngine.Rendering;
-using DependencyInjection;
 
 public class FocusModeController : MonoBehaviour
 {

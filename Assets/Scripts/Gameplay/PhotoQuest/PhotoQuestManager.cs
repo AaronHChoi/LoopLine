@@ -1,11 +1,14 @@
-using DependencyInjection;
-using Player;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 using static UnityEngine.EventSystems.EventTrigger;
+using Core.DependencyInjection;
+using Core.Utilities;
+using Gameplay.Items;
+using Gameplay.Inventory;
+using Gameplay.Player;
 
 [Serializable]
 public struct PhotoActivationEntry
@@ -36,16 +39,14 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
     ICinematicManager cinematicManager;
     IPlayerStateController playerStateController;
 
-    private void Awake()
+    private void Start()
     {
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
         gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
         finalQuestManager = InterfaceDependencyInjector.Instance.Resolve<IFinalQuestManager>();
         cinematicManager = InterfaceDependencyInjector.Instance.Resolve<ICinematicManager>();
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
-    }
-    private void Start()
-    {
+
         if (GameManager.Instance.GetCondition(GameCondition.PhotoDoorOpen))
         {
             doorHandler.gameObject.SetActive(false);

@@ -1,5 +1,7 @@
-using DependencyInjection;
 using UnityEngine;
+using Core.DependencyInjection;
+using Gameplay.Inventory;
+using Gameplay.Dialogue;
 
 public class PhotoFrame : MonoBehaviour, IInteract
 {
@@ -17,7 +19,7 @@ public class PhotoFrame : MonoBehaviour, IInteract
     private IPlayerInputHandler playerInputHandler;
     private IMonologueSpeaker monologueSpeaker;
 
-    private void Awake()
+    private void Start()
     {
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
         photoQuestManager = InterfaceDependencyInjector.Instance.Resolve<IPhotoQuestManager>();
@@ -94,6 +96,5 @@ public class PhotoFrame : MonoBehaviour, IInteract
         isFrameOccupied = false;
         CorrectPhotoPlaced = false;
     }
-
     public string GetInteractText() => interactText;
 }

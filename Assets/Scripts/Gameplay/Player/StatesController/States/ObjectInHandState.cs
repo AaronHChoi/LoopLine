@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Player
+namespace Gameplay.Player
 {
     public class ObjectInHandState : IState
     {

@@ -1,42 +1,45 @@
 using UnityEngine;
 using Core.EventBus;
 
-public class LocalSoundEmitter : MonoBehaviour
+namespace Audio.SoundSystem
 {
-    [SerializeField] EventsID emitterID;
-    [SerializeField] SoundData sound;
-    [SerializeField] bool PlayOnStart = false;
-     
-    private void OnEnable()
+    public class LocalSoundEmitter : MonoBehaviour
     {
-        EventBus.Subscribe<DoorEvent>(OnToggleEvent);
+        [SerializeField] EventsID emitterID;
+        [SerializeField] SoundData sound;
+        [SerializeField] bool PlayOnStart = false;
 
-        if (PlayOnStart)
+        private void OnEnable()
         {
-            ToggleSound(true);
-        }
-    }
-    private void OnDisable()
-    {
-        EventBus.Unsubscribe<DoorEvent>(OnToggleEvent);
+            EventBus.Subscribe<DoorEvent>(OnToggleEvent);
 
-        ToggleSound(false);
-    }
-    void OnToggleEvent(DoorEvent ev)
-    {
-        if (ev.SoundID == emitterID || ev.SoundID == EventsID.All)
-        {
-            ToggleSound(ev.ShouldPlay);
+            if (PlayOnStart)
+            {
+                ToggleSound(true);
+            }
         }
-    }
-    private void ToggleSound(bool shouldPlay)
-    {
-        if (shouldPlay)
+        private void OnDisable()
         {
-            SoundManager.Instance.CreateSound()
-                .WithSoundData(sound)
-                .WithSoundPosition(transform.position)
-                .Play();
+            EventBus.Unsubscribe<DoorEvent>(OnToggleEvent);
+
+            ToggleSound(false);
         }
-    }
+        void OnToggleEvent(DoorEvent ev)
+        {
+            if (ev.SoundID == emitterID || ev.SoundID == EventsID.All)
+            {
+                ToggleSound(ev.ShouldPlay);
+            }
+        }
+        private void ToggleSound(bool shouldPlay)
+        {
+            if (shouldPlay)
+            {
+                SoundManager.Instance.CreateSound()
+                    .WithSoundData(sound)
+                    .WithSoundPosition(transform.position)
+                    .Play();
+            }
+        }
+    } 
 }

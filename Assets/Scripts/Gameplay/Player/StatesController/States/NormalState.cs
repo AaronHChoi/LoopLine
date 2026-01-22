@@ -1,6 +1,7 @@
 using UnityEngine;
+using Core.EventBus;
 
-namespace Player
+namespace Gameplay.Player
 {
     public class NormalState : IState
     {

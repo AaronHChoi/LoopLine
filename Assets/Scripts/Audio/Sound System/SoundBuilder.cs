@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SoundSystem
+namespace Audio.SoundSystem
 {
     public class SoundBuilder
     {

@@ -1,12 +1,12 @@
-using Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Gameplay.Items;
 using Core.DependencyInjection;
 using Core.EventBus;
+using Gameplay.Items;
+using Gameplay.Player;
 
 namespace Gameplay.Inventory
 {
@@ -48,13 +48,11 @@ namespace Gameplay.Inventory
         IPlayerInputHandler inputHandler;
 
         #region MagicMethods
-        private void Awake()
+        private void Start()
         {
             inputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
             controller = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
-        }
-        private void Start()
-        {
+
             if (Instance == null)
             {
                 Instance = this;
@@ -343,24 +341,23 @@ namespace Gameplay.Inventory
             yield return null;
             MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
         }
-    } 
-}
+    }
+    public interface IInventoryUI
+    {
+        public List<UIInventoryItemSlot> inventorySlots { get; }
 
-public interface IInventoryUI
-{
-    public List<UIInventoryItemSlot> inventorySlots { get; }
-
-    bool isFirstTimeOpening { get;}
-    int CurrentSlotIndex { get; }
-    bool IsInventoryOpen { get; }
-    public BaseItemInteract HandItemUI { get; }
-    public ItemInteract ItemInUse { get; set; }
-    Transform GetSpawnPosition();
-    void AddHandItem();
-    void MoveArrowToSlot(RectTransform slotTransform);
-    void AddInventorySlot(ItemInteract item);
-    void RemoveInventorySlot(ItemInteract item);
-    void RemoveUIInventoryLastSlot(UIInventoryItemSlot slotToRemove);
-    bool CheckInventory(ItemInteract itemInteract);
-    bool CheckItemInUse(ItemInteract itemInteract);
+        bool isFirstTimeOpening { get; }
+        int CurrentSlotIndex { get; }
+        bool IsInventoryOpen { get; }
+        public BaseItemInteract HandItemUI { get; }
+        public ItemInteract ItemInUse { get; set; }
+        Transform GetSpawnPosition();
+        void AddHandItem();
+        void MoveArrowToSlot(RectTransform slotTransform);
+        void AddInventorySlot(ItemInteract item);
+        void RemoveInventorySlot(ItemInteract item);
+        void RemoveUIInventoryLastSlot(UIInventoryItemSlot slotToRemove);
+        bool CheckInventory(ItemInteract itemInteract);
+        bool CheckItemInUse(ItemInteract itemInteract);
+    }
 }

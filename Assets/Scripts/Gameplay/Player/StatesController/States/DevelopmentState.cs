@@ -1,7 +1,6 @@
 using UnityEngine;
-using Unity.Cinemachine.Samples;
 
-namespace Player
+namespace Gameplay.Player
 {
     public class DevelopmentState : IState
     {

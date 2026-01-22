@@ -1,7 +1,6 @@
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
+using Gameplay.Items;
 
 public class ItemManager : MonoBehaviour, IItemManager
 {
@@ -22,7 +21,6 @@ public class ItemManager : MonoBehaviour, IItemManager
         {
             items.Add(obj);
         }
-
     }
 }
 

@@ -1,11 +1,11 @@
-using DependencyInjection;
 using UnityEngine;
+using Core.DependencyInjection;
 
 public class FinalTrigger : MonoBehaviour
 {
     IGameSceneManager gameSceneManager;
 
-    private void Awake()
+    private void Start()
     {
         gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
     }

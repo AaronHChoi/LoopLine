@@ -1,9 +1,12 @@
-using DependencyInjection;
-using Player;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
+using Core.DependencyInjection;
+using Core.Utilities;
+using Gameplay.Player;
+using Gameplay.Items;
+using Gameplay.Inventory;
 
 [Serializable]
 public struct MusicNotesActivations
@@ -28,15 +31,14 @@ public class SafeQuestManager : MonoBehaviour, ISafeQuestManager
     IFinalQuestManager finalQuestManager;
     ICinematicManager cinematicManager;
     IPlayerStateController playerStateController;
-    private void Awake()
+
+    void Start()
     {
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
         finalQuestManager = InterfaceDependencyInjector.Instance.Resolve<IFinalQuestManager>();
         cinematicManager = InterfaceDependencyInjector.Instance.Resolve<ICinematicManager>();
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
-    }
-    void Start()
-    {
+
         //result = new int[] { 1, 1, 1};
         //correctCombination = new int[] { 2, 4, 3};
         if (GameManager.Instance.GetCondition(GameCondition.IsMusicQuestComplete))

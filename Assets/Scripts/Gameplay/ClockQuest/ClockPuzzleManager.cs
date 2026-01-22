@@ -1,8 +1,11 @@
-using DependencyInjection;
-using Player;
 using System;
 using UnityEngine;
 using UnityEngine.Video;
+using Core.DependencyInjection;
+using Core.Utilities;
+using Audio.SoundSystem;
+using Gameplay.Dialogue;
+using Gameplay.Player;
 
 public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
 {
@@ -30,7 +33,7 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
     ICinematicManager cinematicManager;
     IUIManager uiManager;
 
-    private void Awake()
+    private void Start()
     {
         monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
         finalQuestManager = InterfaceDependencyInjector.Instance.Resolve<IFinalQuestManager>();
@@ -39,9 +42,7 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
         cinematicManager = InterfaceDependencyInjector.Instance.Resolve<ICinematicManager>();
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
-    }
-    private void Start()
-    {
+
         if (GameManager.Instance.GetCondition(GameCondition.IsClockQuestComplete))
         {
             clockLock.SetLockState(true);

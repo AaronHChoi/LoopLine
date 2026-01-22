@@ -1,5 +1,7 @@
-using DependencyInjection;
 using UnityEngine;
+using Core.DependencyInjection;
+using Core.EventBus;
+using Gameplay.Items;
 
 public class TutorialInteract : ItemInteract
 {

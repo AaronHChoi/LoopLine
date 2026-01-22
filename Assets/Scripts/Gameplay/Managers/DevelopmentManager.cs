@@ -1,10 +1,8 @@
-using System.Collections.Generic;
-using Player;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
-using DependencyInjection;
-
+using Core.DependencyInjection;
+using Gameplay.Player;
 public class DevelopmentManager : MonoBehaviour
 {
     [SerializeField] private GameObject UIPrinciplal;
@@ -22,15 +20,14 @@ public class DevelopmentManager : MonoBehaviour
     IPlayerController playerController;
     IPlayerStateController playerStateController;
     ITimeProvider timeManager;
-    private void Awake()
+
+    void Start()
     {
         timeManager = InterfaceDependencyInjector.Instance.Resolve<ITimeProvider>();
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
         playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
         itemManager = InterfaceDependencyInjector.Instance.Resolve<IItemManager>();
-    }
-    void Start()
-    {
+
         timeManager.ChangeLoopTime = false;
         UpdateCursorState();       
         //Mute(false);

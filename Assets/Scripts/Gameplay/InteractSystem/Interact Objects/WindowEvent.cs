@@ -1,5 +1,5 @@
 using UnityEngine;
-using DependencyInjection;
+using Core.DependencyInjection;
 public class WindowEvent : MonoBehaviour, IObserver
 {
     IEventManager eventManager;
@@ -7,7 +7,7 @@ public class WindowEvent : MonoBehaviour, IObserver
     [SerializeField] private GameObject crystalBreakEffect;
     public string Id { get; }
 
-    void Awake()
+    private void Start()
     {
         eventManager = InterfaceDependencyInjector.Instance.Resolve<IEventManager>();
     }

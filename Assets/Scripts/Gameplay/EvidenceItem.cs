@@ -1,4 +1,4 @@
-using DependencyInjection;
+using Core.DependencyInjection;
 using UnityEngine;
 
 public class EvidenceItem : MonoBehaviour
@@ -10,6 +10,9 @@ public class EvidenceItem : MonoBehaviour
     private void Awake()
     {
         evidenceCollider = GetComponent<BoxCollider>();
+    }
+    private void Start()
+    {
         item = InterfaceDependencyInjector.Instance.Resolve<IPolaraidItem>();
     }
     private void OnEnable()

@@ -1,5 +1,6 @@
 using UnityEngine;
 using Core.DependencyInjection;
+using Gameplay.Inventory;
 
 namespace Gameplay.Items
 {
@@ -21,10 +22,11 @@ namespace Gameplay.Items
 
         protected virtual void Awake()
         {
-            inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
         }
         public virtual void Start()
         {
+            inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
+
             id = ItemData.itemName;
             interactText = ItemData.itemName;
             if (objectPrefab == null && transform.childCount > 0)

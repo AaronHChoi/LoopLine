@@ -23,13 +23,16 @@ namespace Gameplay.DependencyContainer
                 return;
             }
             Instance = this;
+            Initialize();
         }
-        private void Start()
+        private void Initialize()
         {
             var injector = InterfaceDependencyInjector.Instance;
 
             if (injector != null)
             {
+                injector.ClearDependencies();
+
                 RegisterAllServices(injector);
             }
         }

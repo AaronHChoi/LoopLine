@@ -1,9 +1,10 @@
 using System;
-using DependencyInjection;
-using Player;
-using SoundSystem;
 using Unity.Cinemachine;
 using UnityEngine;
+using Core.DependencyInjection;
+using Audio.SoundSystem;
+using Gameplay.Dialogue;
+using Gameplay.Player;
 
 public class Clock : MonoBehaviour, IInteract, IClock
 {
@@ -43,13 +44,11 @@ public class Clock : MonoBehaviour, IInteract, IClock
 
     bool isLocked = false;
 
-    private void Awake()
+    private void Start()
     {
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
-    }
-    private void Start()
-    {
+
         clockAnimator = GetComponent<Animator>();
 
         clockAudioSource = SoundManager.Instance.CreateSound()

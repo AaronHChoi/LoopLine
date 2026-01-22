@@ -1,5 +1,6 @@
-using DependencyInjection;
 using UnityEngine;
+using Core.DependencyInjection;
+using Gameplay.Inventory;
 
 public class TrashcanInteract : MonoBehaviour, IInteract
 {
@@ -7,26 +8,13 @@ public class TrashcanInteract : MonoBehaviour, IInteract
 
     IInventoryUI inventory;
 
-    private void Awake()
+    void Start()
     {
         inventory = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
     }
-
     public void Interact()
     {
         inventory.RemoveUIInventoryLastSlot(inventory.inventorySlots[inventory.CurrentSlotIndex]);
-    }
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
     public string GetInteractText()
     {

@@ -1,17 +1,20 @@
 using UnityEngine;
 
-public class BGMController : MonoBehaviour
+namespace Audio.SoundSystem
 {
-    [SerializeField] SoundData bgmData;
-    [SerializeField] SoundData noiseData;
-    private void Start()
+    public class BGMController : MonoBehaviour
     {
-        SoundManager.Instance.CreateSound()
-            .WithSoundData(bgmData)
-            .Play();
+        [SerializeField] SoundData bgmData;
+        [SerializeField] SoundData noiseData;
+        private void Start()
+        {
+            SoundManager.Instance.CreateSound()
+                .WithSoundData(bgmData)
+                .Play();
 
-        SoundManager.Instance.CreateSound()
-            .WithSoundData(noiseData)
-            .Play();
-    }
+            SoundManager.Instance.CreateSound()
+                .WithSoundData(noiseData)
+                .Play();
+        }
+    } 
 }

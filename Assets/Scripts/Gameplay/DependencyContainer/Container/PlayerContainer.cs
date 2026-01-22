@@ -1,5 +1,5 @@
 using InWorldUI;
-using Player;
+using Gameplay.Player;
 using Core.DependencyInjection;
 
 namespace Gameplay.DependencyContainer

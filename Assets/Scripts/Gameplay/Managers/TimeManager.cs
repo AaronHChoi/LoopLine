@@ -1,5 +1,5 @@
 using UnityEngine;
-using DependencyInjection;
+using Core.DependencyInjection;
 public class TimeManager : MonoBehaviour, ITimeProvider
 {
     IGameSceneManager gameSceneManager;
@@ -18,12 +18,9 @@ public class TimeManager : MonoBehaviour, ITimeProvider
         set => changeLoopTime = value;
     }
     const float DEFAULT_LOOP_TIME = 360f;
-    private void Awake()
-    {
-        gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
-    }
     private void Start()
     {
+        gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
         ResetLoopTime();
     }
     private void Update()

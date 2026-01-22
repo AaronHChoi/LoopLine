@@ -1,18 +1,10 @@
 using Core.DependencyInjection;
+using Gameplay.Dialogue;
 
 namespace Gameplay.DependencyContainer
 {
     public class ManagerContainer : BaseContainer
     {
-        GameManager gameManager;
-        public GameManager GameManager => gameManager ??= FindAndValidate<GameManager>();
-
-        DevelopmentManager developmentManager;
-        public DevelopmentManager DevelopmentManager => developmentManager ??= FindAndValidate<DevelopmentManager>();
-
-        SoundManager soundManager;
-        public SoundManager SoundManager => soundManager ??= FindAndValidate<SoundManager>();
-
         public void RegisterServices(InterfaceDependencyInjector injector)
         {
             injector.Register<IDialogueManager>(() => FindAndValidate<DialogueManager>());

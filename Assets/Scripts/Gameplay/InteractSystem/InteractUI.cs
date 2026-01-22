@@ -1,6 +1,7 @@
-using DependencyInjection;
-using TMPro;
 using UnityEngine;
+using TMPro;
+using Core.DependencyInjection;
+using Gameplay.Dialogue;
 //using static Unity.Cinemachine.InputAxisControllerBase<T>;
 
 public class InteractUI : MonoBehaviour
@@ -11,7 +12,8 @@ public class InteractUI : MonoBehaviour
 
     private IPlayerInteract playerInteract;
     private IDialogueManager dialogueManager;
-    private void Awake()
+
+    private void Start()
     {
         playerInteract = InterfaceDependencyInjector.Instance.Resolve<IPlayerInteract>();
         dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();

@@ -1,10 +1,11 @@
-using DependencyInjection;
 using UnityEngine;
+using Core.DependencyInjection;
 
 public class MusicalNote : MonoBehaviour, IInteract
 {
     IClueSafeQuest clue;
-    private void Awake()
+
+    private void Start()
     {
         clue = InterfaceDependencyInjector.Instance.Resolve<IClueSafeQuest>();
     }

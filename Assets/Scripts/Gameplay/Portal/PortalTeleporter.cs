@@ -1,8 +1,6 @@
-using DependencyInjection;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using Core.DependencyInjection;
+using Gameplay.Player;
 
 public class PortalTeleporter : MonoBehaviour {
 
@@ -11,12 +9,12 @@ public class PortalTeleporter : MonoBehaviour {
 
 	private bool playerIsOverlapping = false;
 
-    private void Awake()
+    private void Start()
     {
         player = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
     }
-    // Update is called once per frame
-    void Update () {
+    void Update() 
+	{
 		if (playerIsOverlapping)
 		{
 			Vector3 portalToPlayer = player.GetTransform().position - transform.position;
@@ -39,7 +37,6 @@ public class PortalTeleporter : MonoBehaviour {
 			}
 		}
 	}
-
 	void OnTriggerEnter (Collider other)
 	{
 		if (other.tag == "Player")
@@ -47,7 +44,6 @@ public class PortalTeleporter : MonoBehaviour {
 			playerIsOverlapping = true;
 		}
 	}
-
 	void OnTriggerExit (Collider other)
 	{
 		if (other.tag == "Player")

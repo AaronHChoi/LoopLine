@@ -1,6 +1,7 @@
-using UnityEngine;
 using System;
 using System.Collections;
+using UnityEngine;
+using Core.EventBus;
 
 public class ClockController : MonoBehaviour
 {

@@ -1,77 +1,80 @@
-using DependencyInjection;
-using Player;
 using UnityEngine;
+using Core.DependencyInjection;
+using Core.Utilities;
 
-[RequireComponent(typeof(PlayerMovement))]
-[RequireComponent(typeof(PlayerStateController))]
-public class PlayerController : MonoBehaviour, IPlayerController
+namespace Gameplay.Player
 {
-    [SerializeField] PlayerModel playerModel;
-
-    IPlayerMovement playerMovement;
-    IPlayerStateController playerStateController;
-    IGameSceneManager gameSceneManager;
-    ISceneTransitionController sceneTransitionController;
-
-    public PlayerModel PlayerModel => playerModel;
-
-    private void Awake()
+    [RequireComponent(typeof(PlayerMovement))]
+    [RequireComponent(typeof(PlayerStateController))]
+    public class PlayerController : MonoBehaviour, IPlayerController
     {
-        sceneTransitionController = InterfaceDependencyInjector.Instance.Resolve<ISceneTransitionController>();
-        playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
-        playerMovement = InterfaceDependencyInjector.Instance.Resolve<IPlayerMovement>();
-        gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
-    }
-    private void Update()
-    {
-        playerMovement.HandleMovement();
-    }
-    private void OnEnable()
-    {
-        if (playerStateController != null)
+        [SerializeField] PlayerModel playerModel;
+
+        IPlayerMovement playerMovement;
+        IPlayerStateController playerStateController;
+        IGameSceneManager gameSceneManager;
+        ISceneTransitionController sceneTransitionController;
+
+        public PlayerModel PlayerModel => playerModel;
+
+        private void Start()
         {
-            playerStateController.OnTeleport += TeleportPlayer;
+            sceneTransitionController = InterfaceDependencyInjector.Instance.Resolve<ISceneTransitionController>();
+            playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
+            playerMovement = InterfaceDependencyInjector.Instance.Resolve<IPlayerMovement>();
+            gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
         }
-    }
-    private void OnDisable()
-    {
-        if (playerStateController != null)
+        private void Update()
         {
-            playerStateController.OnTeleport -= TeleportPlayer;
+            playerMovement.HandleMovement();
         }
-    }
-    private void TeleportPlayer()
-    {
-        if (gameSceneManager.IsCurrentScene("04. Train"))
+        private void OnEnable()
         {
-            sceneTransitionController.StartTransition(true);
-            DelayUtility.Instance.Delay(2f, () =>
+            if (playerStateController != null)
             {
-                gameSceneManager.LoadNextScene("05. MindPlace");
-            });
+                playerStateController.OnTeleport += TeleportPlayer;
+            }
         }
-
-        if (gameSceneManager.IsCurrentScene("05. MindPlace"))
+        private void OnDisable()
         {
-            sceneTransitionController.StartTransition(true);
-            DelayUtility.Instance.Delay(2f, () =>
+            if (playerStateController != null)
             {
-                gameSceneManager.LoadNextScene("04. Train");
-            });
+                playerStateController.OnTeleport -= TeleportPlayer;
+            }
+        }
+        private void TeleportPlayer()
+        {
+            if (gameSceneManager.IsCurrentScene("04. Train"))
+            {
+                sceneTransitionController.StartTransition(true);
+                DelayUtility.Instance.Delay(2f, () =>
+                {
+                    gameSceneManager.LoadNextScene("05. MindPlace");
+                });
+            }
+
+            if (gameSceneManager.IsCurrentScene("05. MindPlace"))
+            {
+                sceneTransitionController.StartTransition(true);
+                DelayUtility.Instance.Delay(2f, () =>
+                {
+                    gameSceneManager.LoadNextScene("04. Train");
+                });
+            }
+        }
+        public Transform GetTransform()
+        {
+            return playerMovement.transform;
+        }
+        public GameObject GetGameObject()
+        {
+            return gameObject;
         }
     }
-    public Transform GetTransform()
+    public interface IPlayerController
     {
-        return playerMovement.transform;
-    }
-    public GameObject GetGameObject()
-    {
-        return gameObject;
-    }
-}
-public interface IPlayerController
-{
-    Transform GetTransform();
-    GameObject GetGameObject();
-    public PlayerModel PlayerModel { get; }
+        Transform GetTransform();
+        GameObject GetGameObject();
+        public PlayerModel PlayerModel { get; }
+    } 
 }

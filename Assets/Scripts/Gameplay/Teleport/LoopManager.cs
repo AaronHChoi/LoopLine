@@ -1,5 +1,8 @@
-using DependencyInjection;
 using UnityEngine;
+using Core.DependencyInjection;
+using Core.EventBus;
+using Core.Utilities;
+using Gameplay.Dialogue;
 
 public class LoopManager : MonoBehaviour
 {
@@ -7,7 +10,7 @@ public class LoopManager : MonoBehaviour
     IUIManager uiManager;
     IMonologueSpeaker monologueSpeaker;
 
-    private void Awake()
+    private void Start()
     {
         gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();

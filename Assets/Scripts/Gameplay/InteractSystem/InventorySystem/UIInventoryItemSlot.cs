@@ -1,8 +1,9 @@
-using Player;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using DependencyInjection;
+using TMPro;
+using Core.DependencyInjection;
+using Gameplay.Player;
+using Gameplay.Items;
 
 namespace Gameplay.Inventory
 {
@@ -30,11 +31,10 @@ namespace Gameplay.Inventory
         }
         IPlayerStateController controller;
 
-        private void Awake()
+        private void Start()
         {
             controller = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
         }
-
         public void Set(ItemInteract item)
         {
             itemImage.sprite = item.ItemData.itemIcon;

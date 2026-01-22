@@ -1,6 +1,6 @@
-using DependencyInjection;
 using System.Collections.Generic;
 using UnityEngine;
+using Core.DependencyInjection;
 
 public class SceneWeightController : MonoBehaviour, ISceneWeightController
 {
@@ -24,12 +24,10 @@ public class SceneWeightController : MonoBehaviour, ISceneWeightController
 
     IGameSceneManager gameSceneManager;
 
-    private void Awake()
-    {
-        gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
-    }
     private void Start()
     {
+        gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
+
         if (GameManager.Instance.TrainLoop >= 1)
         {
             ApplyAllRules();

@@ -1,4 +1,5 @@
 using Core.DependencyInjection;
+using Gameplay.Dialogue;
 
 namespace Gameplay.DependencyContainer
 {

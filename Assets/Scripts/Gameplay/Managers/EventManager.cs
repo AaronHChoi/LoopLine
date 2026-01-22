@@ -1,9 +1,11 @@
 using System.Collections;
-using UnityEngine;
-using DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+using Core.DependencyInjection;
+using Gameplay.Dialogue;
+using Audio.SoundSystem;
 
 [Serializable]
 public class MonologuePanelMapping
@@ -11,7 +13,6 @@ public class MonologuePanelMapping
     public Events monologueEvent;
     public UIPanelID panelID;
 }
-
 public class EventManager : Subject, IEventManager
 {
     [Header("Sound System Event 1")]
@@ -35,14 +36,13 @@ public class EventManager : Subject, IEventManager
     ITimeProvider timeManager;
     IUIManager uiManager;
     IDialogueManager dialogueManager;
-    private void Awake()
+
+    private void Start()
     {
         dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
         timeManager = InterfaceDependencyInjector.Instance.Resolve<ITimeProvider>();
-    }
-    private void Start()
-    {
+
         stopButtonInteract = FindAnyObjectByType<StopButtonInteract>();
 
         MonologueSpeaker[] allSpeakers = FindObjectsByType<MonologueSpeaker>(FindObjectsInactive.Include, FindObjectsSortMode.None);

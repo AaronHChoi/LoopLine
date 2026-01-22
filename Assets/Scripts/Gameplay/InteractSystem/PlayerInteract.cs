@@ -1,7 +1,9 @@
-using Player;
-using UnityEngine;
-using DependencyInjection;
 using System.Collections.Generic;
+using UnityEngine;
+using Core.DependencyInjection;
+using Core.EventBus;
+using Audio.SoundSystem;
+using Gameplay.Player;
 
 public class PlayerInteract : MonoBehaviour, IPlayerInteract
 {
@@ -11,7 +13,7 @@ public class PlayerInteract : MonoBehaviour, IPlayerInteract
     IPlayerStateController playerStateController;
     IGameSceneManager gameSceneManager;
 
-    private void Awake()
+    private void Start()
     {
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
         gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();

@@ -1,8 +1,9 @@
-using DependencyInjection;
-using Player;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
+using Core.DependencyInjection;
+using Gameplay.Dialogue;
+using Gameplay.Player;
 
 public class TimelineMonologueController : MonoBehaviour
 {
@@ -15,13 +16,11 @@ public class TimelineMonologueController : MonoBehaviour
     IPlayerStateController playerStateController;
     IUIManager uiManager;
 
-    private void Awake()
+    private void Start()
     {
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
-    }
-    private void Start()
-    {
+
         monologueSpeaker = GetComponent<MonologueSpeaker>();
         playableDirector = GetComponent<PlayableDirector>();
 

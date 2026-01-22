@@ -1,4 +1,6 @@
 using UnityEngine;
+using Core.Utilities;
+using Gameplay.Items;
 
 public class LetterClue : ItemInteract
 {

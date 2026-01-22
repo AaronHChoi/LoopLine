@@ -1,5 +1,9 @@
 using UnityEngine;
-using DependencyInjection;
+using Core.DependencyInjection;
+using Audio.SoundSystem;
+using Gameplay.Inventory;
+using Gameplay.Items;
+
 public class StopButtonInteract : MonoBehaviour, IInteract
 {
 
@@ -19,15 +23,12 @@ public class StopButtonInteract : MonoBehaviour, IInteract
     IInventoryUI inventoryUI;
     IEventManager eventManager;
 
-    private void Awake()
+    private void Start()
     {
         itemManager = InterfaceDependencyInjector.Instance.Resolve<IItemManager>();
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
         eventManager = InterfaceDependencyInjector.Instance.Resolve<IEventManager>();
-    }
 
-    private void Start()
-    {
         foreach (var item in itemManager.items) 
         {
             if (item.id == "Rock") //asegurarse que el item de la roca tenga este id

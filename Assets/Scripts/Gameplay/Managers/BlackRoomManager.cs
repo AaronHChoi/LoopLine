@@ -1,7 +1,7 @@
-using DependencyInjection;
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
+using Core.DependencyInjection;
+using Gameplay.Player;
 
 public class BlackRoomManager : MonoBehaviour, IBlackRoomManager
 {
@@ -15,11 +15,12 @@ public class BlackRoomManager : MonoBehaviour, IBlackRoomManager
     IPlayerController playerController;
     private void Awake()
     {   
-        playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
         InstantiateBlackRoomComponents();
     }
     private void Start()
     {
+        playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
+
         FindAllBlackRoomComponentInScene();
         AssignRandomDoorSpawnPoint();
     }

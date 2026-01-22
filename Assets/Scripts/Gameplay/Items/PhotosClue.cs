@@ -1,3 +1,4 @@
+using Gameplay.Items;
 
 public class PhotosClue : ItemInteract
 {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using DependencyInjection;
+using Core.DependencyInjection;
 public class Parallax : MonoBehaviour, IObserver
 {
     [System.Serializable]
@@ -33,7 +33,7 @@ public class Parallax : MonoBehaviour, IObserver
 
     public string Id { get; set; }
 
-    private void Awake()
+    private void Start()
     {
         eventManager = InterfaceDependencyInjector.Instance.Resolve<IEventManager>();
     }

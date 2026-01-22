@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
-using DependencyInjection;
 using UnityEngine.InputSystem;
+using Core.DependencyInjection;
+using Gameplay.Player;
 
 namespace Unity.Cinemachine.Samples
 {
@@ -24,7 +25,7 @@ namespace Unity.Cinemachine.Samples
         { Value = 0, Range = new Vector2(-180, 180), Wrap = true, Center = 0, Restrictions = InputAxis.RestrictionFlags.NoRecentering };
         static InputAxis DefaultTilt => new()
         { Value = 0, Range = new Vector2(-70, 70), Wrap = false, Center = 0, Restrictions = InputAxis.RestrictionFlags.NoRecentering };
-        private void Awake()
+        private void Start()
         {
             inputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
             controller = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();

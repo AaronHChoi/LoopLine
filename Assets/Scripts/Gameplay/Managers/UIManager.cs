@@ -1,11 +1,12 @@
-using DependencyInjection;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
+using Core.DependencyInjection;
+using Core.Utilities;
 
 public enum PanelPosition
 {
@@ -49,8 +50,6 @@ public class UIManager : Singleton<UIManager>, IUIManager
     {
         base.Awake();
 
-        gameController = InterfaceDependencyInjector.Instance.Resolve<IGameStateController>();
-        crosshairFade = InterfaceDependencyInjector.Instance.Resolve<ICrosshairFade>();
         //pauseManager = InterfaceDependencyInjector.Instance.Resolve<IPauseMenuManager>();
 
         if (infoPanelObject != null)
@@ -68,11 +67,12 @@ public class UIManager : Singleton<UIManager>, IUIManager
         }
 
         SceneManager.sceneLoaded += OnSceneLoaded;
-        
     }
-
     private void Start()
     {
+        gameController = InterfaceDependencyInjector.Instance.Resolve<IGameStateController>();
+        crosshairFade = InterfaceDependencyInjector.Instance.Resolve<ICrosshairFade>();
+
         Screen.SetResolution(1920, 1080, FullScreenMode.FullScreenWindow);
     }
     private void OnEnable()

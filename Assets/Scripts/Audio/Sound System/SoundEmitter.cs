@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using Core.Utilities;
 
-namespace SoundSystem
+namespace Audio.SoundSystem
 {
     public class SoundEmitter : MonoBehaviour
     {

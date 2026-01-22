@@ -1,5 +1,4 @@
-using Player;
-using UnityEngine;
+using Gameplay.Player;
 
 public class GameplayState : IGameState
 {

@@ -1,6 +1,8 @@
-using DependencyInjection;
 using System.Collections;
 using UnityEngine;
+using Core.DependencyInjection;
+using Audio.SoundSystem;
+using Gameplay.Dialogue;
 
 public class DoorInteract : MonoBehaviour, IInteract
 {
@@ -37,12 +39,10 @@ public class DoorInteract : MonoBehaviour, IInteract
 
     IMonologueSpeaker monologueSpeaker;
 
-    private void Awake()
-    {
-        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
-    }
     void Start()
     {
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
+
         if (doorLeft != null)
         {
             doorLeftClosed = doorLeft.localPosition;

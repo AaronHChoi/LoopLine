@@ -1,5 +1,5 @@
 
-namespace Player
+namespace Gameplay.Player
 {
     public class MindPlaceState : IState
     {

@@ -1,7 +1,7 @@
-using DependencyInjection;
-using Player;
 using System;
 using UnityEngine;
+using Core.DependencyInjection;
+using Gameplay.Player;
 
 public class GameStateController : MonoBehaviour, IGameStateController
 {
@@ -19,7 +19,7 @@ public class GameStateController : MonoBehaviour, IGameStateController
 
     [SerializeField] PlayerStateController playerStateController;
 
-    private void Awake()
+    private void Start()
     {
         inputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
         gameStateMachine = new GameStateMachine();
@@ -28,10 +28,7 @@ public class GameStateController : MonoBehaviour, IGameStateController
         PauseState = new PauseState(this, inputHandler);
 
         gameStateMachine.Initialize(GameplayState);
-    }
 
-    private void Start()
-    {
         ChangeState(GameplayState);
     }
     private void Update()

@@ -1,5 +1,5 @@
-using DependencyInjection;
 using UnityEngine;
+using Core.DependencyInjection;
 
 public class BlackRoomComponent : MonoBehaviour, IBlackRoomComponent
 {
@@ -12,11 +12,12 @@ public class BlackRoomComponent : MonoBehaviour, IBlackRoomComponent
 
     private void Awake()
     {
-        BKRoomManager = InterfaceDependencyInjector.Instance.Resolve<IBlackRoomManager>();
         AudioSource = GetComponent<AudioSource>();
     }
     private void Start()
     {
+        BKRoomManager = InterfaceDependencyInjector.Instance.Resolve<IBlackRoomManager>();
+
         if (ObjectToActivate == null && transform.childCount > 0)
         {
             ObjectToActivate = transform.GetChild(0).gameObject;

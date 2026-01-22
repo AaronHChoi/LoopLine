@@ -1,6 +1,7 @@
-using DependencyInjection;
-using Player;
 using UnityEngine;
+using Core.DependencyInjection;
+using Gameplay.Player;
+using Gameplay.Dialogue;
 
 public class TriggerMindPlace : MonoBehaviour
 {
@@ -9,8 +10,8 @@ public class TriggerMindPlace : MonoBehaviour
     private IMonologueSpeaker monologueSpeaker;
     private IPlayerStateController playerStateController;
 
-    private void Awake()
-    { 
+    private void Start()
+    {
         monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
     }

@@ -1,7 +1,10 @@
 using System.Collections;
-using Player;
 using UnityEngine;
-using DependencyInjection;
+using Core.DependencyInjection;
+using Core.Utilities;
+using Audio.SoundSystem;
+using Gameplay.Dialogue;
+using Gameplay.Player;
 
 public class PhotoCapture : MonoBehaviour, IPhotoCapture
 {
@@ -24,7 +27,7 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
     IMonologueSpeaker monologueSpeaker;
 
     #region MAGIC_METHODS
-    private void Awake()
+    private void Start()
     {
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
         uiAnimation = InterfaceDependencyInjector.Instance.Resolve<IPolaroidUIAnimation>();

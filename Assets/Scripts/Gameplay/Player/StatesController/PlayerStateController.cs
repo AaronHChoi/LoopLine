@@ -1,8 +1,8 @@
-using UnityEngine;
 using System;
-using DependencyInjection;
+using UnityEngine;
+using Core.DependencyInjection;
 
-namespace Player
+namespace Gameplay.Player
 {
     public class PlayerStateController : MonoBehaviour, IPlayerStateController
     {
@@ -43,8 +43,9 @@ namespace Player
         public ObjectInHandState ObjectInHandState { get;  set; }
         public PuzzleState PuzzleState { get; set; }
         public CinematicState CinematicState { get; set; }
-        private void Awake()
-        {         
+       
+        private void Start()
+        {
             inputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
             playerMovement = InterfaceDependencyInjector.Instance.Resolve<IPlayerMovement>();
             interaction = InterfaceDependencyInjector.Instance.Resolve<IPlayerInteractMarkerPrompt>();

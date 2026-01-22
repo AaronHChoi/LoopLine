@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 using Unity.Cinemachine;
-
+using Core.EventBus;
 public class SceneTransitionController : MonoBehaviour, ISceneTransitionController
 {
     [Header("Transition Settings")]

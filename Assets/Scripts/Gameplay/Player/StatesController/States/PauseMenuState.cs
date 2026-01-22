@@ -1,8 +1,6 @@
-
-using Player;
 using UnityEngine;
 
-namespace Player
+namespace Gameplay.Player
 {
     public class PauseMenuState : IState
     {

@@ -1,5 +1,6 @@
-﻿using DependencyInjection;
+﻿using Core.DependencyInjection;
 using UnityEngine;
+using Gameplay.Player;
 
 public class RaycastController : MonoBehaviour, IRaycast
 {
@@ -92,7 +93,7 @@ public class RaycastController : MonoBehaviour, IRaycast
     #endregion
 }
 
-interface IRaycast
+public interface IRaycast
 {
     public bool FoundInteract { get; }
     public GameObject Target { get; }

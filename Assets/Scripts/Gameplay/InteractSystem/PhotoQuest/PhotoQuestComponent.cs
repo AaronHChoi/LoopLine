@@ -1,3 +1,5 @@
+using Core.EventBus;
+using Gameplay.Items;
 
 public class PhotoQuestComponent : ItemInteract
 {

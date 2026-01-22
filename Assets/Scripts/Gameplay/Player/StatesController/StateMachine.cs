@@ -1,6 +1,6 @@
 using System;
 
-namespace Player
+namespace Gameplay.Player
 {
     [Serializable]
     public class StateMachine
