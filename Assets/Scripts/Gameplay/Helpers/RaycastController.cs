@@ -1,6 +1,6 @@
-﻿using Core.DependencyInjection;
-using UnityEngine;
+﻿using UnityEngine;
 using Gameplay.Player;
+using Gameplay.DependencyInjection;
 
 public class RaycastController : MonoBehaviour, IRaycast
 {

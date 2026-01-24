@@ -2,7 +2,7 @@ using InWorldUI;
 using Gameplay.Player;
 using Core.DependencyInjection;
 
-namespace Gameplay.DependencyContainer
+namespace Gameplay.DependencyInjection
 {
     public class PlayerContainer : BaseContainer
     {

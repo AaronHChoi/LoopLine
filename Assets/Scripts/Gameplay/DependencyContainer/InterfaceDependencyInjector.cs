@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-namespace Core.DependencyInjection
+namespace Gameplay.DependencyInjection
 {
     public class InterfaceDependencyInjector : MonoBehaviour
     {
@@ -43,10 +43,6 @@ namespace Core.DependencyInjection
                 instances[type] = instance;
             }
             return (T)instance;
-        }
-        public void ClearDependencies()
-        {
-            instances.Clear();
         }
     }
 }

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 using Unity.Cinemachine;
-using Core.DependencyInjection;
+using Gameplay.DependencyInjection;
 
 public class ToMindPlace : MonoBehaviour
 {

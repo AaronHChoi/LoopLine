@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Gameplay.Player;
-using Core.DependencyInjection;
+using Gameplay.DependencyInjection;
 
 namespace Gameplay.Dialogue
 {

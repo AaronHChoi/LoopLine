@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Core.DependencyInjection;
+using Gameplay.DependencyInjection;
 using Gameplay.Player;
 using Gameplay.Items;
 

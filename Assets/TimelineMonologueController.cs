@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
-using Core.DependencyInjection;
+using Gameplay.DependencyInjection;
 using Gameplay.Dialogue;
 using Gameplay.Player;
 

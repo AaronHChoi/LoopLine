@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using Core.DependencyInjection;
+using Gameplay.DependencyInjection;
 using Audio.SoundSystem;
 using Gameplay.Player;
 

@@ -1,5 +1,5 @@
 using UnityEngine;
-using Core.DependencyInjection;
+using Gameplay.DependencyInjection;
 using Gameplay.Player;
 
 public class PortalTeleporter : MonoBehaviour {

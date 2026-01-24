@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Video;
-using Core.DependencyInjection;
+using Gameplay.DependencyInjection;
 using Core.Utilities;
 using Core.EventBus;
 using Gameplay.Inventory;

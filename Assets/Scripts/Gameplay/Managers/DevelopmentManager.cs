@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
-using Core.DependencyInjection;
+using Gameplay.DependencyInjection;
 using Gameplay.Player;
 public class DevelopmentManager : MonoBehaviour
 {

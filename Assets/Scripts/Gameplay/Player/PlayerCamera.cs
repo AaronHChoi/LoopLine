@@ -1,10 +1,10 @@
 using Unity.Cinemachine;
 using UnityEngine;
-using Core.DependencyInjection;
+using Gameplay.DependencyInjection;
 
 namespace Gameplay.Player
 {
-    public class PlayerCamera : MonoBehaviour, IDependencyInjectable, IPlayerCamera
+    public class PlayerCamera : MonoBehaviour,/* IDependencyInjectable,*/ IPlayerCamera
     {
         CinemachineCamera virtualCamera;
         CinemachineCameraOffset cameraOffset;

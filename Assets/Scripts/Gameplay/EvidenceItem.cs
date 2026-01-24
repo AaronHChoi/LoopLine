@@ -1,4 +1,4 @@
-using Core.DependencyInjection;
+using Gameplay.DependencyInjection;
 using UnityEngine;
 
 public class EvidenceItem : MonoBehaviour

@@ -2,7 +2,7 @@ using Core.DependencyInjection;
 using Gameplay.Inventory;
 using UnityEngine;
 
-namespace Gameplay.DependencyContainer
+namespace Gameplay.DependencyInjection
 {
     public class UIContainer : BaseContainer
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 using TMPro;
-using Core.DependencyInjection;
+using Gameplay.DependencyInjection;
 using Gameplay.Dialogue;
 //using static Unity.Cinemachine.InputAxisControllerBase<T>;
 

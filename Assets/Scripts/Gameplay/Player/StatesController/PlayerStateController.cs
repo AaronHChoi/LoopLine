@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using Core.DependencyInjection;
+using Gameplay.DependencyInjection;
 
 namespace Gameplay.Player
 {

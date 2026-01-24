@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-using Core.DependencyInjection;
+using Gameplay.DependencyInjection;
 using Core.Utilities;
 using Audio.SoundSystem;
 using Gameplay.Dialogue;

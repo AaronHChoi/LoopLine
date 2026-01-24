@@ -1,4 +1,4 @@
-using Core.DependencyInjection;
+using Gameplay.DependencyInjection;
 using UnityEngine;
 //using static Unity.Cinemachine.InputAxisControllerBase<T>;
 

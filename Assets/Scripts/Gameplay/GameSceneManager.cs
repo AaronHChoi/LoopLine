@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Core.DependencyInjection;
+using Gameplay.DependencyInjection;
 using Core.Utilities;
 using Gameplay.Dialogue;
 

@@ -1,7 +1,7 @@
 using Core.DependencyInjection;
 using Gameplay.Dialogue;
 
-namespace Gameplay.DependencyContainer
+namespace Gameplay.DependencyInjection
 {
 	public class DialogueContainer : BaseContainer
 	{

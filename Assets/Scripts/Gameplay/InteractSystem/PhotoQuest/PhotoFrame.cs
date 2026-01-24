@@ -1,5 +1,5 @@
 using UnityEngine;
-using Core.DependencyInjection;
+using Gameplay.DependencyInjection;
 using Gameplay.Inventory;
 using Gameplay.Dialogue;
 

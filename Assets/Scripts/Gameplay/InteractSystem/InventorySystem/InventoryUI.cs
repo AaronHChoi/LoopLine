@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Core.DependencyInjection;
+using Gameplay.DependencyInjection;
 using Core.EventBus;
 using Gameplay.Items;
 using Gameplay.Player;

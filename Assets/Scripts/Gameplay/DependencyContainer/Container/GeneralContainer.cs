@@ -1,6 +1,6 @@
 using Core.DependencyInjection;
 
-namespace Gameplay.DependencyContainer
+namespace Gameplay.DependencyInjection
 {
     public class GeneralContainer : BaseContainer
     {

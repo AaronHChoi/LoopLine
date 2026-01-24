@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Core.DependencyInjection;
+using Gameplay.DependencyInjection;
 using Core.Utilities;
 using Gameplay.Player;
 

@@ -1,5 +1,5 @@
 using UnityEngine;
-using Core.DependencyInjection;
+using Gameplay.DependencyInjection;
 public class TimeManager : MonoBehaviour, ITimeProvider
 {
     IGameSceneManager gameSceneManager;

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Core.DependencyInjection;
+using Gameplay.DependencyInjection;
 using Gameplay.Player;
 
 public class BlackRoomManager : MonoBehaviour, IBlackRoomManager

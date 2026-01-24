@@ -1,7 +1,7 @@
 using Unity.Cinemachine.Samples;
 using Core.DependencyInjection;
 
-namespace Gameplay.DependencyContainer
+namespace Gameplay.DependencyInjection
 {
     public class CinemachineContainer : BaseContainer
     {

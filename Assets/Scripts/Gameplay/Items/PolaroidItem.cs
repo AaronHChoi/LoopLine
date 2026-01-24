@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using Core.DependencyInjection;
+using Gameplay.DependencyInjection;
 using Core.EventBus;
 using Gameplay.Items;
 

@@ -1,7 +1,7 @@
 using System;
 using Unity.Cinemachine;
 using UnityEngine;
-using Core.DependencyInjection;
+using Gameplay.DependencyInjection;
 using Audio.SoundSystem;
 using Gameplay.Dialogue;
 using Gameplay.Player;

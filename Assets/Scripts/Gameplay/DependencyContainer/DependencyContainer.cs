@@ -1,7 +1,6 @@
-using Core.DependencyInjection;
 using UnityEngine;
 
-namespace Gameplay.DependencyContainer
+namespace Gameplay.DependencyInjection
 {
     public class DependencyContainer : MonoBehaviour
     {
@@ -23,28 +22,6 @@ namespace Gameplay.DependencyContainer
                 return;
             }
             Instance = this;
-            Initialize();
-        }
-        private void Initialize()
-        {
-            var injector = InterfaceDependencyInjector.Instance;
-
-            if (injector != null)
-            {
-                injector.ClearDependencies();
-
-                RegisterAllServices(injector);
-            }
-        }
-        private void RegisterAllServices(InterfaceDependencyInjector injector)
-        {
-            PlayerContainer.RegisterServices(injector);
-            UIContainer.RegisterServices(injector);
-            GeneralContainer.RegisterServices(injector);
-            CinemachineContainer.RegisterServices(injector);
-            PhotoContainer.RegisterServices(injector);
-            ManagerContainer.RegisterServices(injector);
-            DialogueContainer.RegisterServices(injector);
         }
     }
 }
