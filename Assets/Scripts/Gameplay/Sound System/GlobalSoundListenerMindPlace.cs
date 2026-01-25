@@ -1,6 +1,9 @@
-using DependencyInjection;
 using System.Collections.Generic;
 using UnityEngine;
+using DependencyInjection;
+using Core.EventBus;
+
+using Audio.SoundSystem;
 
 public class GlobalSoundListenerMindPlace : MonoBehaviour
 {
@@ -13,9 +16,8 @@ public class GlobalSoundListenerMindPlace : MonoBehaviour
     [Header("Interaction Sounds")]
     [SerializeField] List<SoundData> grabSounds;
 
-
-
     IInventoryUI inventoryUI;
+
     private void Awake()
     {
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();

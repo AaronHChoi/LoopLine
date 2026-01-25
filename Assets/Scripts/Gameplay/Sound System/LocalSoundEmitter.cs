@@ -1,4 +1,6 @@
 using UnityEngine;
+using Core.EventBus;
+using Audio.SoundSystem;
 
 public class LocalSoundEmitter : MonoBehaviour
 {

@@ -1,3 +1,4 @@
+using Core.EventBus;
 
 public class PhotoQuestComponent : ItemInteract
 {

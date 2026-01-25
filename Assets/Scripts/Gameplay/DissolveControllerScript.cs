@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.VFX;
+using Core.EventBus;
 
 public class DissolveControllerScript : MonoBehaviour
 {

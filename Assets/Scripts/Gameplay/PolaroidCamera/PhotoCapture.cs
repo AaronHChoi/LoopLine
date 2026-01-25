@@ -1,7 +1,9 @@
 using System.Collections;
-using Player;
 using UnityEngine;
 using DependencyInjection;
+using Player;
+using Core.Utilities;
+using Audio.SoundSystem;
 
 public class PhotoCapture : MonoBehaviour, IPhotoCapture
 {

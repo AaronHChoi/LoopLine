@@ -1,5 +1,6 @@
-using DependencyInjection;
 using UnityEngine;
+using DependencyInjection;
+using Core.Utilities;
 
 public class MindplaceManager : MonoBehaviour
 {

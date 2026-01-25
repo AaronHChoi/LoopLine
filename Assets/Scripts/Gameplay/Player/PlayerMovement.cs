@@ -1,5 +1,7 @@
 using UnityEngine;
 using DependencyInjection;
+using Core.EventBus;
+
 public class PlayerMovement : MonoBehaviour, IPlayerMovement
 {
     bool canMove = true;

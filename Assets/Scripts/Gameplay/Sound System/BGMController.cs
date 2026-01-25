@@ -1,4 +1,5 @@
 using UnityEngine;
+using Audio.SoundSystem;
 
 public class BGMController : MonoBehaviour
 {

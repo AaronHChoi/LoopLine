@@ -1,6 +1,7 @@
+using UnityEngine;
 using DependencyInjection;
 using Player;
-using UnityEngine;
+using Core.Utilities;
 
 [RequireComponent(typeof(PlayerMovement))]
 [RequireComponent(typeof(PlayerStateController))]

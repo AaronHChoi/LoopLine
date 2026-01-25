@@ -1,8 +1,10 @@
-using DependencyInjection;
-using Player;
 using System;
 using UnityEngine;
 using UnityEngine.Video;
+using DependencyInjection;
+using Player;
+using Core.Utilities;
+using Audio.SoundSystem;
 
 public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
 {

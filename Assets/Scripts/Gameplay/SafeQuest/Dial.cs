@@ -1,6 +1,7 @@
 using DependencyInjection;
 using System.Collections;
 using UnityEngine;
+using Audio.SoundSystem;
 
 public class Dial : MonoBehaviour, IInteract
 {

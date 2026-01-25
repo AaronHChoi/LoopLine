@@ -1,10 +1,11 @@
-using DependencyInjection;
-using Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DependencyInjection;
+using Player;
+using Core.EventBus;
 
 public class InventoryUI : MonoBehaviour, IInventoryUI
 {

@@ -1,7 +1,9 @@
-using Player;
+using System.Collections.Generic;
 using UnityEngine;
 using DependencyInjection;
-using System.Collections.Generic;
+using Player;
+using Core.EventBus;
+using Audio.SoundSystem;
 
 public class PlayerInteract : MonoBehaviour, IPlayerInteract
 {

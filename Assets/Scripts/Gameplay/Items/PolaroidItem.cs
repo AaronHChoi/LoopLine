@@ -1,7 +1,7 @@
-
 using System;
-using DependencyInjection;
 using UnityEngine;
+using DependencyInjection;
+using Core.EventBus;
 
 public class PolaroidItem : ItemInteract, IPolaraidItem
 {

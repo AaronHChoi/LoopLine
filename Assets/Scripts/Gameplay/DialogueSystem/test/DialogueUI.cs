@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using DependencyInjection;
 using Player;
 using TMPro;
-using UnityEngine;
+using Audio.SoundSystem;
 
 public class DialogueUI : MonoBehaviour
 {

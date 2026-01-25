@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Core.EventBus;
+using Core.Utilities;
 
 [Serializable]
 public struct WordsActivations

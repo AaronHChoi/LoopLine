@@ -1,8 +1,10 @@
-using DependencyInjection;
 using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using DependencyInjection;
+using Core.EventBus;
+using Core.Utilities;
 
 public class SingleDoorInteract : MonoBehaviour, IInteract
 {

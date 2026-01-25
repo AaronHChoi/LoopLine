@@ -1,4 +1,5 @@
 using UnityEngine;
+using Core.EventBus;
 
 public class TeleportLoop : MonoBehaviour
 {

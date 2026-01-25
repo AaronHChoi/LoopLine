@@ -1,11 +1,12 @@
-using DependencyInjection;
-using Player;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 using static UnityEngine.EventSystems.EventTrigger;
+using DependencyInjection;
+using Player;
+using Core.Utilities;
 
 [Serializable]
 public struct PhotoActivationEntry

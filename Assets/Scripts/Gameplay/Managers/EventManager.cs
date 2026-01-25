@@ -1,9 +1,10 @@
 using System.Collections;
-using UnityEngine;
-using DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+using DependencyInjection;
+using Audio.SoundSystem;
 
 [Serializable]
 public class MonologuePanelMapping

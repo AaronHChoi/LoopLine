@@ -1,9 +1,9 @@
 using System;
 using DependencyInjection;
 using Player;
-using SoundSystem;
 using Unity.Cinemachine;
 using UnityEngine;
+using Audio.SoundSystem;
 
 public class Clock : MonoBehaviour, IInteract, IClock
 {

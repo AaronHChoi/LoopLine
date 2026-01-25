@@ -1,4 +1,5 @@
 using UnityEngine;
+using Core.Utilities;
 
 public class InventoryManager : Singleton<InventoryManager>
 {
