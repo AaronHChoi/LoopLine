@@ -1,5 +1,5 @@
 using UnityEngine;
-using DependencyInjection;
+using Core.DependencyInjection;
 
 public abstract class ItemInteract : MonoBehaviour, IItemGrabInteractable
 {

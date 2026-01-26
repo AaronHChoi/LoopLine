@@ -1,8 +1,6 @@
-using DependencyInjection;
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
-using UnityEngine.UIElements;
+using Core.DependencyInjection;
 
 public class PortalTeleporter : MonoBehaviour {
 

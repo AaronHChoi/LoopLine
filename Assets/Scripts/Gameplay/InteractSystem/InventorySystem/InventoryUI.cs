@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using DependencyInjection;
 using Player;
 using Core.EventBus;
+using Core.DependencyInjection;
 
 public class InventoryUI : MonoBehaviour, IInventoryUI
 {

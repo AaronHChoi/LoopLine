@@ -1,6 +1,6 @@
-using DependencyInjection;
 using System.Collections.Generic;
 using UnityEngine;
+using Core.DependencyInjection;
 
 public class SceneWeightController : MonoBehaviour, ISceneWeightController
 {

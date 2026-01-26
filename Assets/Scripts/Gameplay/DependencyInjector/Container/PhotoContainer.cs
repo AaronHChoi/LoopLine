@@ -1,4 +1,5 @@
 using UI;
+using Core.DependencyInjection;
 
 namespace DependencyInjection
 {

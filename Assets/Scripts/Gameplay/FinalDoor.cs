@@ -3,10 +3,10 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Video;
-using DependencyInjection;
 using Player;
 using Core.EventBus;
 using Core.Utilities;
+using Core.DependencyInjection;
 
 public class FinalDoor : MonoBehaviour, IInteract
 {

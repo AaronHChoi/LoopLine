@@ -2,9 +2,9 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
-using DependencyInjection;
 using Core.EventBus;
 using Core.Utilities;
+using Core.DependencyInjection;
 
 public class SingleDoorInteract : MonoBehaviour, IInteract
 {

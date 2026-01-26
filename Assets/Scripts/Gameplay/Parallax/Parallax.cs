@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-using DependencyInjection;
+using Core.DependencyInjection;
+
 public class Parallax : MonoBehaviour, IObserver
 {
     [System.Serializable]

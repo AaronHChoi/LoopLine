@@ -1,7 +1,6 @@
-using DependencyInjection;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
+using Core.DependencyInjection;
 
 public class NPCDialogueSpeaker : DialogueSpeakerBase, IInteract
 { 

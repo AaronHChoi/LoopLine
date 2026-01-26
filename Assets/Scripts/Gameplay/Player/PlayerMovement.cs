@@ -1,6 +1,6 @@
 using UnityEngine;
-using DependencyInjection;
 using Core.EventBus;
+using Core.DependencyInjection;
 
 public class PlayerMovement : MonoBehaviour, IPlayerMovement
 {

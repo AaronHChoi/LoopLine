@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using DependencyInjection;
 using Audio.SoundSystem;
+using Core.DependencyInjection;
 
 [Serializable]
 public class MonologuePanelMapping

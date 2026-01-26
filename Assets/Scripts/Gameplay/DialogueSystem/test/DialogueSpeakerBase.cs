@@ -2,9 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using DependencyInjection;
 using Player;
 using UnityEngine;
+using Core.DependencyInjection;
 
 [Serializable]
 public class DialogueGroup

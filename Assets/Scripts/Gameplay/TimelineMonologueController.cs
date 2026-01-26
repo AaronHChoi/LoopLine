@@ -1,8 +1,8 @@
-using DependencyInjection;
 using Player;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
+using Core.DependencyInjection;
 
 public class TimelineMonologueController : MonoBehaviour
 {

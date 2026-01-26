@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DependencyInjection
+namespace Core.DependencyInjection
 {
     public abstract class BaseContainer
     {

@@ -1,5 +1,5 @@
 using UnityEngine;
-using DependencyInjection;
+using Core.DependencyInjection;
 public class WindowEvent : MonoBehaviour, IObserver
 {
     IEventManager eventManager;

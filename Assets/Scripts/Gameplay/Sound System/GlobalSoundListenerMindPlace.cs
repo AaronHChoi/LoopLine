@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-using DependencyInjection;
 using Core.EventBus;
-
+using Core.DependencyInjection;
 using Audio.SoundSystem;
 
 public class GlobalSoundListenerMindPlace : MonoBehaviour

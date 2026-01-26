@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 using static UnityEngine.EventSystems.EventTrigger;
-using DependencyInjection;
+using Core.DependencyInjection;
 using Player;
 using Core.Utilities;
 

@@ -1,5 +1,5 @@
-using DependencyInjection;
 using UnityEngine;
+using Core.DependencyInjection;
 
 public class TrashcanInteract : MonoBehaviour, IInteract
 {

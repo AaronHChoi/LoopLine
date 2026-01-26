@@ -1,7 +1,7 @@
-using DependencyInjection;
 using Player;
 using System;
 using UnityEngine;
+using Core.DependencyInjection;
 
 public class GameStateController : MonoBehaviour, IGameStateController
 {

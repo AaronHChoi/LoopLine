@@ -1,6 +1,6 @@
-using DependencyInjection;
 using TMPro;
 using UnityEngine;
+using Core.DependencyInjection;
 //using static Unity.Cinemachine.InputAxisControllerBase<T>;
 
 public class InteractUI : MonoBehaviour

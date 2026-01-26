@@ -1,5 +1,6 @@
 using InWorldUI;
 using Player;
+using Core.DependencyInjection;
 
 namespace DependencyInjection
 {

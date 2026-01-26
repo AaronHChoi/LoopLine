@@ -1,3 +1,5 @@
+using Core.DependencyInjection;
+
 namespace DependencyInjection
 {
     public class GeneralContainer : BaseContainer

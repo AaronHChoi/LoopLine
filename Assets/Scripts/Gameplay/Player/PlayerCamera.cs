@@ -1,7 +1,8 @@
 using Unity.Cinemachine;
 using UnityEngine;
 using DependencyInjection;
-public class PlayerCamera : MonoBehaviour, IDependencyInjectable, IPlayerCamera
+
+public class PlayerCamera : MonoBehaviour, IPlayerCamera
 {
     CinemachineCamera virtualCamera;
     CinemachineCameraOffset cameraOffset;

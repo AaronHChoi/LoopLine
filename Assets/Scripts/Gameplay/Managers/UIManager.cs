@@ -5,8 +5,8 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
-using DependencyInjection;
 using Core.Utilities;
+using Core.DependencyInjection;
 
 public enum PanelPosition
 {

@@ -1,6 +1,5 @@
-using DependencyInjection;
-using Unity.VisualScripting;
 using UnityEngine;
+using Core.DependencyInjection;
 
 public class FinalManager : MonoBehaviour
 {

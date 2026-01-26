@@ -4,8 +4,8 @@ using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Core.Utilities;
-using DependencyInjection;
 using Player;
+using Core.DependencyInjection;
 
 public class PauseMenuManager : Singleton<PauseMenuManager>, IPauseMenuManager
 {

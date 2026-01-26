@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
-using DependencyInjection;
 using Audio.SoundSystem;
+using Core.DependencyInjection;
 
 public class DoorInteract : MonoBehaviour, IInteract
 {

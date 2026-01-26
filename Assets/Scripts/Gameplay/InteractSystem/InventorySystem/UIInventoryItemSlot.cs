@@ -1,8 +1,9 @@
-using Player;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using DependencyInjection;
+using Player;
+using TMPro;
+using Core.DependencyInjection;
+
 public class UIInventoryItemSlot : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI itemNameLabel;

@@ -1,5 +1,6 @@
 using Unity.Cinemachine;
 using Unity.Cinemachine.Samples;
+using Core.DependencyInjection;
 
 namespace DependencyInjection
 {

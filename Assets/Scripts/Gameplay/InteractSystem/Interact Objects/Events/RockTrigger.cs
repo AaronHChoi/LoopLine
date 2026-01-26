@@ -1,5 +1,5 @@
-using DependencyInjection;
 using UnityEngine;
+using Core.DependencyInjection;
 //using static Unity.Cinemachine.InputAxisControllerBase<T>;
 public class RockTrigger : MonoBehaviour
 {

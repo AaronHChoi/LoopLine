@@ -1,7 +1,6 @@
-using DependencyInjection;
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
+using Core.DependencyInjection;
 
 public class BlackRoomManager : MonoBehaviour, IBlackRoomManager
 {

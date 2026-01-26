@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
-using DependencyInjection;
 using Player;
 using Core.Utilities;
+using Core.DependencyInjection;
 
 [Serializable]
 public struct MusicNotesActivations

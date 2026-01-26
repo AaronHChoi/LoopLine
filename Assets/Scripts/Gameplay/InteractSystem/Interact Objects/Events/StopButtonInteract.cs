@@ -1,6 +1,6 @@
 using UnityEngine;
-using DependencyInjection;
 using Audio.SoundSystem;
+using Core.DependencyInjection;
 
 public class StopButtonInteract : MonoBehaviour, IInteract
 {

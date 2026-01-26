@@ -1,6 +1,6 @@
-using DependencyInjection;
 using Player;
 using UnityEngine;
+using Core.DependencyInjection;
 
 public class TriggerMindPlace : MonoBehaviour
 {

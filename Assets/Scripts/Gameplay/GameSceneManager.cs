@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using DependencyInjection;
 using Core.Utilities;
+using Core.DependencyInjection;
 
 public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
 {

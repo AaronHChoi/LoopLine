@@ -1,7 +1,7 @@
 using UnityEngine;
-using DependencyInjection;
 using Core.EventBus;
 using Core.Utilities;
+using Core.DependencyInjection;
 
 public class LoopManager : MonoBehaviour
 {

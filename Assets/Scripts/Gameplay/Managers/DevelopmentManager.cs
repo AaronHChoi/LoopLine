@@ -1,9 +1,8 @@
-using System.Collections.Generic;
 using Player;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
-using DependencyInjection;
+using Core.DependencyInjection;
 
 public class DevelopmentManager : MonoBehaviour
 {

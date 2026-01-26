@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-using DependencyInjection;
 using UnityEngine.InputSystem;
+using Core.DependencyInjection;
 
 namespace Unity.Cinemachine.Samples
 {
