@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Core.EventBus;
 using Core.DependencyInjection;
-using Audio.SoundSystem;
+using Core.Audio;
 
 public class GlobalSoundListenerMindPlace : MonoBehaviour
 {
@@ -16,9 +16,11 @@ public class GlobalSoundListenerMindPlace : MonoBehaviour
     [SerializeField] List<SoundData> grabSounds;
 
     IInventoryUI inventoryUI;
+    ISoundManager soundManager;
 
     private void Awake()
     {
+        soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
     }
     private void OnEnable()
@@ -39,7 +41,7 @@ public class GlobalSoundListenerMindPlace : MonoBehaviour
 
         if (soundToPlay != null && !inventoryUI.isFirstTimeOpening)
         {
-            SoundManager.Instance.CreateSound()
+            soundManager.CreateSound()
                 .WithSoundData(soundToPlay)
                 .WithRandomPitch()
                 .Play();
@@ -47,16 +49,14 @@ public class GlobalSoundListenerMindPlace : MonoBehaviour
     }
     void OnGrabItems(PlayerGrabItemEvent ev)
     {
-        SoundManager.Instance.CreateSound()
+        soundManager.CreateSound()
             .WithSoundData(grabSounds[Random.Range(0, grabSounds.Count)])
             .Play();
     }
-
     void OnFinalDoor(FinalQuestCompleteEvent ev) 
     {
-        SoundManager.Instance.CreateSound()
+        soundManager.CreateSound()
             .WithSoundData(finalDoorSound)
             .Play();
     }
-
 }

@@ -1,15 +1,22 @@
 using UnityEngine;
-using Audio.SoundSystem;
+using Core.Audio;
+using Core.DependencyInjection;
 
 public class AdditiveBGM : MonoBehaviour
 {
     [SerializeField] SoundData bgmData;
 
-    private SoundEmitter soundEmitted;
+    ISoundEmitter soundEmitted;
+    ISoundManager soundManager;
+
+    private void Awake()
+    {
+        soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();    
+    }
     private void Start()
     {
         soundEmitted =
-            SoundManager.Instance.CreateSound()
+            soundManager.CreateSound()
             .WithSoundData(bgmData)
             .Play();
     }

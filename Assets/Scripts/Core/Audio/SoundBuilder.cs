@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
 
-namespace Audio.SoundSystem
+namespace Core.Audio
 {
     public class SoundBuilder
     {
-        readonly SoundManager soundManager;
+        readonly ISoundManager soundManager;
         SoundData soundData;
         Vector3 position = Vector3.zero;
         bool randomPitch;
         bool is3D;
 
-        public SoundBuilder(SoundManager soundManager)
+        public SoundBuilder(ISoundManager soundManager)
         {
             this.soundManager = soundManager;
         }
@@ -32,7 +32,7 @@ namespace Audio.SoundSystem
             return this;
 
         }
-        public SoundEmitter Play()
+        public ISoundEmitter Play()
         {
             var soundEmitted = PlayBase();
             soundEmitted.Play();
@@ -43,12 +43,12 @@ namespace Audio.SoundSystem
         {
             PlayBase().PlayWithDelay(soundData.secondsDelay);
         }
-        private SoundEmitter PlayBase()
+        private ISoundEmitter PlayBase()
         {
-            SoundEmitter soundEmitter = soundManager.Get();
+            var soundEmitter = soundManager.GetEmitter();
             soundEmitter.Initialize(soundData);
             soundEmitter.transform.position = position;
-            soundEmitter.transform.parent = SoundManager.Instance.transform;
+            soundEmitter.transform.parent = soundManager.GetPoolParent();
             soundEmitter.With3D(is3D);
 
             if (randomPitch) soundEmitter.WithRandomPitch();

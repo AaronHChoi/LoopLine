@@ -1,7 +1,8 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Audio.SoundSystem;
+using Core.Audio;
+using Core.DependencyInjection;
 
 public class MenuManager : MonoBehaviour
 {
@@ -32,6 +33,12 @@ public class MenuManager : MonoBehaviour
     private bool isDecreasingVolume = false;
     private float bgmVolumeBase;
 
+    ISoundManager soundManager;
+
+    private void Awake()
+    {
+        soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();   
+    }
     void Start()
     {
         Cursor.SetCursor(cursorTexture, Vector2.zero, CursorMode.Auto);
@@ -89,7 +96,7 @@ public class MenuManager : MonoBehaviour
     {
         StartCoroutine(flashCanvasAlpha());
 
-        SoundManager.Instance.CreateSound()
+        soundManager.CreateSound()
             .WithSoundData(clickSoundData)
             .WithRandomPitch()
             .Play();

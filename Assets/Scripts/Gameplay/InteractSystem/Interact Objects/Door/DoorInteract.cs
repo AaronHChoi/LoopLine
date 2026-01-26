@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-using Audio.SoundSystem;
+using Core.Audio;
 using Core.DependencyInjection;
 
 public class DoorInteract : MonoBehaviour, IInteract
@@ -37,9 +37,11 @@ public class DoorInteract : MonoBehaviour, IInteract
     private Coroutine autoCloseCoroutine;
 
     IMonologueSpeaker monologueSpeaker;
+    ISoundManager soundManager;
 
     private void Awake()
     {
+        soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();
         monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
     }
     void Start()
@@ -125,7 +127,9 @@ public class DoorInteract : MonoBehaviour, IInteract
     {
         isMoving = true;
 
-        SoundManager.Instance.PlayQuickSound(openDoorSound);
+        soundManager.CreateSound()
+            .WithSoundData(openDoorSound)
+            .Play();
 
         if (doorLeftAnimator != null)
             doorLeftAnimator.SetTrigger(opening ? openTrigger : closeTrigger);

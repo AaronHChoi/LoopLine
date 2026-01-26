@@ -1,7 +1,6 @@
-
 using System.Collections;
 using UnityEngine;
-using Audio.SoundSystem;
+using Core.Audio;
 using Core.DependencyInjection;
 
 public class Dial : MonoBehaviour, IInteract
@@ -17,8 +16,11 @@ public class Dial : MonoBehaviour, IInteract
     [SerializeField] SoundData _sol;
 
     IMonologueSpeaker monologueSpeaker;
+    ISoundManager soundManager;
+
     private void Awake()
     {
+        soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();
         monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
     }
     private void Start()
@@ -56,25 +58,25 @@ public class Dial : MonoBehaviour, IInteract
         switch (indexShown)
         {
             case 0:
-                SoundManager.Instance.CreateSound()
+                soundManager.CreateSound()
                   .WithSoundData(_do)
                   .WithSoundPosition(transform.position)
                   .Play();
                 break;
             case 1:
-                SoundManager.Instance.CreateSound()
+                soundManager.CreateSound()
                   .WithSoundData(_re)
                   .WithSoundPosition(transform.position)
                   .Play();
                 break;
             case 2:
-                SoundManager.Instance.CreateSound()
+                soundManager.CreateSound()
                   .WithSoundData(_mi)
                   .WithSoundPosition(transform.position)
                   .Play();
                 break;
             case 3:
-                SoundManager.Instance.CreateSound()
+                soundManager.CreateSound()
                   .WithSoundData(_sol)
                   .WithSoundPosition(transform.position)
                   .Play();

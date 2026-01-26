@@ -1,17 +1,25 @@
 using UnityEngine;
-using Audio.SoundSystem;
+using Core.Audio;
+using Core.DependencyInjection;
 
 public class BGMController : MonoBehaviour
 {
     [SerializeField] SoundData bgmData;
     [SerializeField] SoundData noiseData;
+
+    ISoundManager soundManager;
+
+    private void Awake()
+    {
+        soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();
+    }
     private void Start()
     {
-        SoundManager.Instance.CreateSound()
+        soundManager.CreateSound()
             .WithSoundData(bgmData)
             .Play();
 
-        SoundManager.Instance.CreateSound()
+        soundManager.CreateSound()
             .WithSoundData(noiseData)
             .Play();
     }

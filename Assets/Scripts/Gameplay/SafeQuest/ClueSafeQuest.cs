@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Audio.SoundSystem;
+using Core.Audio;
+using Core.DependencyInjection;
 
 public class ClueSafeQuest : MonoBehaviour, IClueSafeQuest
 {
@@ -23,6 +24,12 @@ public class ClueSafeQuest : MonoBehaviour, IClueSafeQuest
     [SerializeField] SoundData _mi;
     [SerializeField] SoundData _sol;
 
+    ISoundManager soundManager;
+
+    private void Awake()
+    {
+        soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();
+    }
     [ContextMenu("Test")]
     public void PlaySequence()
     {
@@ -30,28 +37,28 @@ public class ClueSafeQuest : MonoBehaviour, IClueSafeQuest
     }
     private IEnumerator SequenceRoutine()
     {
-        SoundManager.Instance.CreateSound()
+        soundManager.CreateSound()
                  .WithSoundData(_do)
                  .WithSoundPosition(transform.position)
                  .Play();
         yield return StartCoroutine(FlashGroupMaterial(blueNotes, blueOnMaterial));
         yield return new WaitForSeconds(delayBetweenColors);
 
-        SoundManager.Instance.CreateSound()
+        soundManager.CreateSound()
                  .WithSoundData(_re)
                  .WithSoundPosition(transform.position)
                  .Play();
         yield return StartCoroutine(FlashGroupMaterial(yellowNotes, yellowOnMaterial));
         yield return new WaitForSeconds(delayBetweenColors);
 
-        SoundManager.Instance.CreateSound()
+        soundManager.CreateSound()
                  .WithSoundData(_mi)
                  .WithSoundPosition(transform.position)
                  .Play();
         yield return StartCoroutine(FlashGroupMaterial(greenNotes, greenOnMaterial));
         yield return new WaitForSeconds(delayBetweenColors);
 
-        SoundManager.Instance.CreateSound()
+        soundManager.CreateSound()
                 .WithSoundData(_sol)
                 .WithSoundPosition(transform.position)
                 .Play();

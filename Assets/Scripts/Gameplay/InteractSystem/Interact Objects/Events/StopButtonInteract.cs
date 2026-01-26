@@ -1,14 +1,12 @@
 using UnityEngine;
-using Audio.SoundSystem;
+using Core.Audio;
 using Core.DependencyInjection;
 
 public class StopButtonInteract : MonoBehaviour, IInteract
 {
-
     [Header("Sound System")]
     [SerializeField] private SoundData BreakSecurityCrystal;
     [SerializeField] private SoundData PushButton;
-
 
     [SerializeField] private string interactText = "";
     [SerializeField] private GameObject Crystal;
@@ -20,14 +18,15 @@ public class StopButtonInteract : MonoBehaviour, IInteract
     IItemManager itemManager;
     IInventoryUI inventoryUI;
     IEventManager eventManager;
+    ISoundManager soundManager;
 
     private void Awake()
     {
+        soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();
         itemManager = InterfaceDependencyInjector.Instance.Resolve<IItemManager>();
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
         eventManager = InterfaceDependencyInjector.Instance.Resolve<IEventManager>();
     }
-
     private void Start()
     {
         foreach (var item in itemManager.items) 
@@ -48,7 +47,7 @@ public class StopButtonInteract : MonoBehaviour, IInteract
                 if (inventoryUI.ItemInUse == Rock)
                 {
 
-                    SoundManager.Instance.CreateSound()
+                    soundManager.CreateSound()
                         .WithSoundData(BreakSecurityCrystal)
                         .Play();
                     Crystal.gameObject.SetActive(false);
@@ -58,7 +57,7 @@ public class StopButtonInteract : MonoBehaviour, IInteract
             }
             else
             {
-                SoundManager.Instance.CreateSound()
+                soundManager.CreateSound()
                         .WithSoundData(PushButton)
                         .Play();
 
@@ -68,7 +67,6 @@ public class StopButtonInteract : MonoBehaviour, IInteract
             }
         }
     }
-
     void Update()
     {
         if (eventManager.stopTrain == true)
@@ -77,10 +75,8 @@ public class StopButtonInteract : MonoBehaviour, IInteract
             if(eventManager.StopedTimeForTrain < 0) eventManager.StopedTimeForTrain = 0;
         }       
     }
-
     public string GetInteractText()
     {
         return interactText;
     }
-
 }

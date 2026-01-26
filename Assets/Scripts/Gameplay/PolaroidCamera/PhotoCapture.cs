@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using Player;
 using Core.Utilities;
-using Audio.SoundSystem;
+using Core.Audio;
 using Core.DependencyInjection;
 
 public class PhotoCapture : MonoBehaviour, IPhotoCapture
@@ -24,14 +24,19 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
     IPolaroidUIAnimation uiAnimation;
     IPlayerInteract playerInteract;
     IMonologueSpeaker monologueSpeaker;
+    ISoundManager soundManager;
 
     #region MAGIC_METHODS
     private void Awake()
+    {
+    }
+    private void Start()
     {
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
         uiAnimation = InterfaceDependencyInjector.Instance.Resolve<IPolaroidUIAnimation>();
         playerInteract = InterfaceDependencyInjector.Instance.Resolve<IPlayerInteract>();
         monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
+        soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();
     }
     private void OnEnable()
     {
@@ -59,7 +64,9 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
     {
         yield return new WaitForEndOfFrame();
 
-        SoundManager.Instance.PlayQuickSound(soundData);
+        soundManager.CreateSound()
+            .WithSoundData(soundData)
+            .Play();
 
         uiAnimation.PhotoUIAnimation();
 

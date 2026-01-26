@@ -2,10 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.SceneManagement;
+using Core.Audio;
+using Core.DependencyInjection;
 
 namespace Audio.SoundSystem
 {
-    public class SoundManager : MonoBehaviour
+    public class SoundManager : MonoBehaviour, ISoundManager
     {
         public static SoundManager Instance { get; private set; }
 
@@ -24,13 +26,14 @@ namespace Audio.SoundSystem
                 Instance = this;
                 transform.SetParent(null);
                 DontDestroyOnLoad(gameObject);
+                InterfaceDependencyInjector.Instance.Register<ISoundManager>(() => this);
                 SceneManager.activeSceneChanged += OnActiveSceneChanged;
+                InitializePool();
             }
             else
             {
                 Destroy(gameObject);
             }
-            InitializePool();
         }
         private void OnActiveSceneChanged(Scene oldScene, Scene newScene)
         {
@@ -40,13 +43,17 @@ namespace Audio.SoundSystem
             }
         }
         public SoundBuilder CreateSound() => new SoundBuilder(this);
+        public ISoundEmitter GetEmitter() => soundEmitterPool.Get();
         public SoundEmitter Get()
         {
             return soundEmitterPool.Get();
         }
-        public void ReturnToPool(SoundEmitter soundEmitter)
+        public void ReturnToPool(ISoundEmitter soundEmitter)
         {
-            soundEmitterPool.Release(soundEmitter);
+            if (soundEmitter is SoundEmitter concreteEmitter)
+            {
+                soundEmitterPool.Release(concreteEmitter);
+            }
         }
         private void InitializePool()
         {
@@ -91,5 +98,6 @@ namespace Audio.SoundSystem
                 .WithSoundData(soundData)
                 .Play();
         }
+        public Transform GetPoolParent() => transform;
     } 
 }

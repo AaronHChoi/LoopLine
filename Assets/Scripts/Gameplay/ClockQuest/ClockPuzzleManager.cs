@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Video;
 using Player;
 using Core.Utilities;
-using Audio.SoundSystem;
+using Core.Audio;
 using Core.DependencyInjection;
 
 public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
@@ -31,9 +31,11 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
     IClock clockLock;
     ICinematicManager cinematicManager;
     IUIManager uiManager;
+    ISoundManager soundManager;
 
     private void Awake()
     {
+        soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();
         monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
         finalQuestManager = InterfaceDependencyInjector.Instance.Resolve<IFinalQuestManager>();
         gearRotator = InterfaceDependencyInjector.Instance.Resolve<IGearRotator>();
@@ -97,7 +99,7 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
 
                     RevealObject();
 
-                    SoundManager.Instance.CreateSound()
+                    soundManager.CreateSound()
                         .WithSoundData(complete)
                         .WithSoundPosition(transform.position)
                         .Play();

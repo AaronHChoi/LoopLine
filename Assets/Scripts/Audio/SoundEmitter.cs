@@ -2,10 +2,12 @@
 using UnityEngine;
 using Random = UnityEngine.Random;
 using Core.Utilities;
+using Core.Audio;
+using Core.DependencyInjection;
 
 namespace Audio.SoundSystem
 {
-    public class SoundEmitter : MonoBehaviour
+    public class SoundEmitter : MonoBehaviour, ISoundEmitter
     {
         private AudioSource audioSource;
         private Coroutine playingCoroutine;
@@ -13,6 +15,8 @@ namespace Audio.SoundSystem
         private void Awake()
         {
             audioSource = gameObject.GetOrAdd<AudioSource>();
+
+            InterfaceDependencyInjector.Instance.Register<ISoundEmitter>(() => this);
         }
         public void Initialize(SoundData data)
         {
@@ -59,11 +63,11 @@ namespace Audio.SoundSystem
             yield return new WaitWhile(() => audioSource.isPlaying);
             SoundManager.Instance.ReturnToPool(this);
         }
-        internal void With3D(bool is3D)
+        public void With3D(bool is3D)
         {
             audioSource.spatialBlend = is3D ? 1 : 0;
         }
-        internal void WithRandomPitch(float min = -0.05f, float max = 0.05f)
+        public void WithRandomPitch(float min = -0.05f, float max = 0.05f)
         {
             audioSource.pitch += Random.Range(min, max);
         }

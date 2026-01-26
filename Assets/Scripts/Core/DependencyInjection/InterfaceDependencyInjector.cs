@@ -7,11 +7,30 @@ namespace Core.DependencyInjection
 {
     public class InterfaceDependencyInjector : Singleton<InterfaceDependencyInjector>
     {
+        private static InterfaceDependencyInjector _instance;
+        public static new InterfaceDependencyInjector Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = FindFirstObjectByType<InterfaceDependencyInjector>();
+                }
+                return _instance;
+            }
+        }
+
         Dictionary<Type, Func<object>> factories = new();
         Dictionary<Type, object> instances = new();
 
         protected override void Awake()
         {
+            if (_instance != null && _instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            _instance = this;
             base.Awake();
         }
         public void Register<T>(Func<T> factory)
@@ -27,7 +46,7 @@ namespace Core.DependencyInjection
         {
             var type = typeof(T);
 
-            if(!instances.TryGetValue(type, out var instance))
+            if(!instances.TryGetValue(type, out var instance) || IsUnityObjectDestroyed(instance))
             {
                 if (!factories.TryGetValue(type, out var factory))
                     throw new Exception($"No service registered for {type}");
@@ -36,6 +55,18 @@ namespace Core.DependencyInjection
                 instances[type] = instance;
             }
             return (T)instance;
+        }
+        private bool IsUnityObjectDestroyed(object obj)
+        {
+            if (obj is UnityEngine.Object unityObj)
+            {
+                return unityObj == null;
+            }
+            return obj == null;
+        }
+        public void ClearInstances()
+        {
+            instances.Clear();
         }
     }
 }

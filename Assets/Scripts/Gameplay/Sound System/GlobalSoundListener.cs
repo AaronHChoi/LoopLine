@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Core.EventBus;
 using Core.Utilities;
-using Audio.SoundSystem;
+using Core.Audio;
+using Core.DependencyInjection;
 
 public class GlobalSoundListener : Singleton<GlobalSoundListener>
 {
@@ -10,6 +11,14 @@ public class GlobalSoundListener : Singleton<GlobalSoundListener>
     [SerializeField] private List<SoundData> PlayerSteps;
     [SerializeField] SoundData transition;
 
+    ISoundManager soundManager;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();
+    }
     private void OnEnable()
     {
         EventBus.Subscribe<PlayerStepEvent>(PlayPlayerStepSound);
@@ -25,14 +34,14 @@ public class GlobalSoundListener : Singleton<GlobalSoundListener>
         if (PlayerSteps.Count == 0) return;
         int randomIndex = Random.Range(0, PlayerSteps.Count);
         SoundData stepSound = PlayerSteps[randomIndex];
-        SoundManager.Instance.CreateSound()
+        soundManager.CreateSound()
             .WithSoundData(stepSound)
             .WithRandomPitch()
             .Play();
     }
     void PlayTransition(TransitionEvent ev)
     {
-        SoundManager.Instance.CreateSound()
+        soundManager.CreateSound()
            .WithSoundData(transition)
            .WithRandomPitch()
            .Play();

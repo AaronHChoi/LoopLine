@@ -1,13 +1,20 @@
 using UnityEngine;
 using Core.EventBus;
-using Audio.SoundSystem;
+using Core.Audio;
+using Core.DependencyInjection;
 
 public class LocalSoundEmitter : MonoBehaviour
 {
     [SerializeField] EventsID emitterID;
     [SerializeField] SoundData sound;
     [SerializeField] bool PlayOnStart = false;
-     
+    
+    ISoundManager soundManager;
+
+    private void Awake()
+    {
+        soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();
+    }
     private void OnEnable()
     {
         EventBus.Subscribe<DoorEvent>(OnToggleEvent);
@@ -34,7 +41,7 @@ public class LocalSoundEmitter : MonoBehaviour
     {
         if (shouldPlay)
         {
-            SoundManager.Instance.CreateSound()
+            soundManager.CreateSound()
                 .WithSoundData(sound)
                 .WithSoundPosition(transform.position)
                 .Play();

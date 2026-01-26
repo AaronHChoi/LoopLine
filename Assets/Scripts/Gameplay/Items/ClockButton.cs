@@ -1,6 +1,7 @@
 using UnityEngine;
 using Core.EventBus;
-using Audio.SoundSystem;
+using Core.Audio;
+using Core.DependencyInjection;
 
 public class ClockButton : MonoBehaviour, IInteract
 {
@@ -11,9 +12,12 @@ public class ClockButton : MonoBehaviour, IInteract
     [SerializeField] private float cooldownDuration = 1f;
     private float nextInteractTime = 0f;
 
+    ISoundManager soundManager;
+
     private void Awake()
     {
         buttonAnimator = GetComponent<Animator>();
+        soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();
     }
     public string GetInteractText()
     {
@@ -27,7 +31,7 @@ public class ClockButton : MonoBehaviour, IInteract
         }
         nextInteractTime = Time.time + cooldownDuration;
 
-        SoundManager.Instance.CreateSound()
+        soundManager.CreateSound()
                 .WithSoundData(sound)
                 .WithSoundPosition(transform.position)
                 .Play();

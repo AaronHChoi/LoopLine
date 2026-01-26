@@ -2,8 +2,8 @@ using System;
 using Player;
 using Unity.Cinemachine;
 using UnityEngine;
-using Audio.SoundSystem;
 using Core.DependencyInjection;
+using Core.Audio;
 
 public class Clock : MonoBehaviour, IInteract, IClock
 {
@@ -34,10 +34,11 @@ public class Clock : MonoBehaviour, IInteract, IClock
 
     IUIManager uiManager;
     IPlayerStateController playerStateController;
+    ISoundEmitter clockAudioSource;
+    ISoundManager soundManager;
 
     [SerializeField] SoundData clockSecondsData;
     [SerializeField] SoundData clockHandler;
-    SoundEmitter clockAudioSource;
     [SerializeField] DialogueUI dialogueUI;
     [SerializeField] Animator clockAnimator;
 
@@ -45,6 +46,7 @@ public class Clock : MonoBehaviour, IInteract, IClock
 
     private void Awake()
     {
+        soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();   
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
     }
@@ -52,7 +54,7 @@ public class Clock : MonoBehaviour, IInteract, IClock
     {
         clockAnimator = GetComponent<Animator>();
 
-        clockAudioSource = SoundManager.Instance.CreateSound()
+        clockAudioSource = soundManager.CreateSound()
             .WithSoundData(clockSecondsData)
             .WithSoundPosition(transform.position)
             .Play();
@@ -160,7 +162,7 @@ public class Clock : MonoBehaviour, IInteract, IClock
             if (currentMinuteIndex >= minuteAngle.Length) currentMinuteIndex = 0;
         }
 
-        SoundManager.Instance.CreateSound()
+        soundManager.CreateSound()
                .WithSoundData(clockHandler)
                .WithSoundPosition(transform.position)
                .Play();

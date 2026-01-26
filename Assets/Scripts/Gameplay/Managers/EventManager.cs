@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Audio.SoundSystem;
+using Core.Audio;
 using Core.DependencyInjection;
 
 [Serializable]
@@ -36,11 +36,14 @@ public class EventManager : Subject, IEventManager
     ITimeProvider timeManager;
     IUIManager uiManager;
     IDialogueManager dialogueManager;
+    ISoundManager soundManager;
+
     private void Awake()
     {
         dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
         timeManager = InterfaceDependencyInjector.Instance.Resolve<ITimeProvider>();
+        soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();
     }
     private void Start()
     {
@@ -86,7 +89,7 @@ public class EventManager : Subject, IEventManager
             if (!stopTrain)
             {
                 timeManager.AddTime(AddTime);
-                SoundManager.Instance.CreateSound()
+                soundManager.CreateSound()
                     .WithSoundData(trainStopSoundData)
                     .Play();
 
@@ -104,7 +107,7 @@ public class EventManager : Subject, IEventManager
             if (!stopTrain2)
             {
                 stopButtonInteract.TriggerRock.gameObject.SetActive(false);
-                SoundManager.Instance.CreateSound()
+                soundManager.CreateSound()
                     .WithSoundData(trainStopSoundData2)
                     .Play();
 
@@ -118,7 +121,7 @@ public class EventManager : Subject, IEventManager
 
         if (!brokenWindow && timeManager.LoopTime <= 60 && timeManager.LoopTime >= 55)
         {
-            SoundManager.Instance.CreateSound()
+            soundManager.CreateSound()
                 .WithSoundData(crystalBreakSoundData)
                 .WithSoundPosition(crystalBreakTransform.position)
                 .PlayWithDelay(crystalBreakSoundData);

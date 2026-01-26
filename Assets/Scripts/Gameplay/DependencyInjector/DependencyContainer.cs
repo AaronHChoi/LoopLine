@@ -1,5 +1,6 @@
 using Core.DependencyInjection;
 using Core.Utilities;
+using UnityEngine;
 
 namespace DependencyInjection
 {
@@ -12,11 +13,24 @@ namespace DependencyInjection
         public PhotoContainer PhotoContainer { get; private set; } = new PhotoContainer();
         public ManagerContainer ManagerContainer { get; private set; } = new ManagerContainer();
         public DialogueContainer DialogueContainer { get; private set; } = new DialogueContainer();
+
         protected override void Awake()
         {
             base.Awake();
 
+            RegisterAll();
+        }
+        private void RegisterAll()
+        {
             var injector = InterfaceDependencyInjector.Instance;
+
+            if (injector == null)
+            {
+                Debug.LogError("[DependencyContainer] No se encontró el Inyector en la escena.");
+                return;
+            }
+
+            injector.ClearInstances();
 
             PlayerContainer.RegisterServices(injector);
             UIContainer.RegisterServices(injector);

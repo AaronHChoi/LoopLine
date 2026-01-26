@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Player;
 using TMPro;
-using Audio.SoundSystem;
+using Core.Audio;
 using Core.DependencyInjection;
 
 public class DialogueUI : MonoBehaviour
@@ -30,8 +30,11 @@ public class DialogueUI : MonoBehaviour
     IPlayerStateController playerStateController;
     IDialogueManager dialogueManager;
     IClock mindplaceClock;
+    ISoundManager soundManager;
+
     private void Awake()
     {
+        soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
         dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
         mindplaceClock = InterfaceDependencyInjector.Instance.Resolve<IClock>();
@@ -253,7 +256,7 @@ public class DialogueUI : MonoBehaviour
                 }
             }
             dialogueText.text += fullText[i];
-            SoundManager.Instance.CreateSound()
+            soundManager.CreateSound()
                         .WithSoundData(typeSound)
                         .Play();
             i++;
