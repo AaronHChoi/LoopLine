@@ -26,7 +26,7 @@ public class FinalQuestManager : MonoBehaviour, IFinalQuestManager
         //correctCombination = new int[] { 2, 4, 3};
         if (GameManager.Instance.GetCondition(GameCondition.MusicSafeDoorOpen))
         {
-            doorKey.gameObject.SetActive(false);
+            //doorKey.gameObject.SetActive(false);
         }
         UpdateWordsActivation();
     }
