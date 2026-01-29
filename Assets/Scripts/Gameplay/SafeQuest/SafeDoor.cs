@@ -32,6 +32,7 @@ public class SafeDoor : MonoBehaviour, IInteract
 
     IPlayerController playerController;
     IInventoryUI inventoryUI;
+    ISafeQuestManager safeQuestManager;
 
     [SerializeField] GameObject doorHandler;
     [SerializeField] TutorialInteract correctKey;
@@ -47,11 +48,14 @@ public class SafeDoor : MonoBehaviour, IInteract
     [Header("Cooldown Config")]
     [SerializeField] private float interactCooldown = 1.0f;
     private bool inCooldown = false;
+    bool isLocked = false;
 
     private void Awake()
     {
         playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
+        safeQuestManager = InterfaceDependencyInjector.Instance.Resolve<ISafeQuestManager>();
+
         StartRotation = doorGameObject.transform.rotation.eulerAngles;
         Forward = doorGameObject.transform.forward; //this is because the forward of the door is orienteted to the right if the forwar chages chage this line
     }
@@ -110,7 +114,7 @@ public class SafeDoor : MonoBehaviour, IInteract
             }
         }
 
-        if (active)
+        if (active && !safeQuestManager.isSolved)
         {
             StartCoroutine(CooldownRoutine());
             if (!isOpen)
@@ -192,4 +196,5 @@ public class SafeDoor : MonoBehaviour, IInteract
             time += Time.deltaTime * Speed;
         }
     }
+
 }

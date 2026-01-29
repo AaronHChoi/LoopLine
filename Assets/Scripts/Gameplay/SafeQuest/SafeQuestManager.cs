@@ -5,6 +5,7 @@ using UnityEngine.Video;
 using Player;
 using Core.Utilities;
 using Core.DependencyInjection;
+using Codice.Client.BaseCommands.Merge.Restorer;
 
 [Serializable]
 public struct MusicNotesActivations
@@ -23,7 +24,7 @@ public class SafeQuestManager : MonoBehaviour, ISafeQuestManager
 
     public event Action OnSafeQuestCompleted;
 
-    bool isSolved = false;
+    public bool isSolved { get; set; } = false;
 
     IInventoryUI inventoryUI;
     IFinalQuestManager finalQuestManager;
@@ -138,4 +139,6 @@ public interface ISafeQuestManager
 {
     event Action OnSafeQuestCompleted;
     void OpenDoorMusicSafeQuest();
+
+    public bool isSolved { get; }
 }
