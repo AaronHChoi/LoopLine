@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using Player;
 using Core.EventBus;
 using Core.DependencyInjection;
-
+using Core.UI;
 public class InventoryUI : MonoBehaviour, IInventoryUI
 {
     [SerializeField] public List<UIInventoryItemSlot> inventorySlots { get; } = new List<UIInventoryItemSlot>(); 
@@ -37,10 +37,10 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
     }
     public static InventoryUI Instance { get; private set; }
 
-    //FadeInOutController FadeController;
+    IFadeInOutController fadeController;
     CanvasGroup InventoryCanvasGroup;
     CanvasGroup ArrowCanvasGroup;
-    //FadeInOutController ArrowFadeController;
+    IFadeInOutController arrowFadeController;
     IPlayerStateController controller;
     IPlayerInputHandler inputHandler;
 
@@ -49,6 +49,8 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
     {
         inputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
         controller = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
+        fadeController = InterfaceDependencyInjector.Instance.Resolve<IFadeInOutController>(FadeID.Inventory);
+        arrowFadeController = InterfaceDependencyInjector.Instance.Resolve<IFadeInOutController>(FadeID.Arrow);
     }
     private void Start()
     {
@@ -147,7 +149,7 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
         {
             controller.ChangeState(controller.NormalState);
         }
-        //ArrowFadeController.ForceFade(true);
+        arrowFadeController.ForceFade(true);
         MoveArrowToSlot(inventorySlots[currentSlotIndex].transform as RectTransform);
     }
     public void MoveArrowToSlot(RectTransform slotTransform)
@@ -317,14 +319,14 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
             InventoryCanvasGroup.alpha = 1;
             ArrowCanvasGroup.alpha = 1;
         }
-        //FadeController.ForceFade(true);
+        fadeController.ForceFade(true);
         isInventoryOpen = true;
 
         EventBus.Publish(new PlayerInventoryEvent { IsOpening = true });
     }
     private void HideInventory()
     {
-        //FadeController.ForceFade(false);
+        fadeController.ForceFade(false);
         isInventoryOpen = false;
 
         EventBus.Publish(new PlayerInventoryEvent { IsOpening = false });
