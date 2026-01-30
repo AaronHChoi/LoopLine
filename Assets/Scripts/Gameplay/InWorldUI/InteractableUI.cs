@@ -1,16 +1,22 @@
 using UnityEngine;
 using TMPro;
+using Core.UI;
+using Core.DependencyInjection;
 
 namespace InWorldUI
 {
     public class InteractableUI : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI promptText;
-        [SerializeField] private FadeInOutController fadeInOutLabel;
-        [SerializeField] private FadeInOutController fadeInOutMarker;
+
+        IFadeInOutController fadeInOutLabel;
+        IFadeInOutController fadeInOutMarker;
 
         void Awake()
         {
+            fadeInOutLabel = InterfaceDependencyInjector.Instance.Resolve<IFadeInOutController>(FadeID.Canvas);
+            fadeInOutMarker = InterfaceDependencyInjector.Instance.Resolve<IFadeInOutController>(FadeID.Canvas);
+
             if (promptText == null)
                 promptText = GetComponentInChildren<TextMeshProUGUI>();
         }

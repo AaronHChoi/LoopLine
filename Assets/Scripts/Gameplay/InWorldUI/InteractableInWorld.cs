@@ -1,4 +1,5 @@
 using UnityEngine;
+using Core.UI;
 
 namespace InWorldUI
 {
@@ -13,14 +14,12 @@ namespace InWorldUI
         private FadeState markerState;
         private FadeState promptState;
 
-
         void Start()
         {
             markerState = FadeState.FadeIn;
             promptState = FadeState.FadeIn;
             CreateUIInstance();
         }
-
         private void CreateUIInstance()
         {
             if (_uiInstance != null) return;

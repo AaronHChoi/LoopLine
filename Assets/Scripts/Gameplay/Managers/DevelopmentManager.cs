@@ -1,8 +1,9 @@
-using Player;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using Core.DependencyInjection;
+using Core.UI;
+using Player;
 
 public class DevelopmentManager : MonoBehaviour
 {
@@ -11,7 +12,6 @@ public class DevelopmentManager : MonoBehaviour
 
     [SerializeField] private AudioMixer audioMixer;
 
-    [SerializeField] private FadeInOutController cinemaFade;
     //private Dictionary<AudioSource, float> audiosVolumeDic;
     bool isCursorVisible = false;
     bool isUIActive = false;
@@ -21,12 +21,15 @@ public class DevelopmentManager : MonoBehaviour
     IPlayerController playerController;
     IPlayerStateController playerStateController;
     ITimeProvider timeManager;
+    IFadeInOutController cinemaFade;
+
     private void Awake()
     {
         timeManager = InterfaceDependencyInjector.Instance.Resolve<ITimeProvider>();
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
         playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
         itemManager = InterfaceDependencyInjector.Instance.Resolve<IItemManager>();
+        cinemaFade = InterfaceDependencyInjector.Instance.Resolve<IFadeInOutController>(FadeID.CinematicCanvas);
     }
     void Start()
     {

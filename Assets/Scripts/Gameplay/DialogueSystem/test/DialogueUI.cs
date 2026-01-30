@@ -5,13 +5,13 @@ using Player;
 using TMPro;
 using Core.Audio;
 using Core.DependencyInjection;
+using Core.UI;
 
 public class DialogueUI : MonoBehaviour
 {
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] GameObject continueIndicator;
-    [SerializeField] private FadeInOutController letterBoxFadeInOut;
     [SerializeField] private Color dialogueColor;
     [SerializeField] private Color monologueColor;
 
@@ -31,6 +31,7 @@ public class DialogueUI : MonoBehaviour
     IDialogueManager dialogueManager;
     IClock mindplaceClock;
     ISoundManager soundManager;
+    IFadeInOutController letterBoxFadeInOut;
 
     private void Awake()
     {
@@ -38,6 +39,7 @@ public class DialogueUI : MonoBehaviour
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
         dialogueManager = InterfaceDependencyInjector.Instance.Resolve<IDialogueManager>();
         mindplaceClock = InterfaceDependencyInjector.Instance.Resolve<IClock>();
+        letterBoxFadeInOut = InterfaceDependencyInjector.Instance.Resolve<IFadeInOutController>(FadeID.CinematicCanvas);
     }
     private void Start()
     {

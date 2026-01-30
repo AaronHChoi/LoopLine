@@ -3,11 +3,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Core.Audio;
 using Core.DependencyInjection;
+using Core.UI;
 
 public class MenuManager : MonoBehaviour
 {
     [Header("Fade")]
-    [SerializeField] FadeInOutController fade;
     [SerializeField] float timeToChangeSceneAfterCommand;
     [SerializeField] string nextSceneName;
     [SerializeField] float timeToEnableButtons;
@@ -34,10 +34,11 @@ public class MenuManager : MonoBehaviour
     private float bgmVolumeBase;
 
     ISoundManager soundManager;
-
+    IFadeInOutController fade;
     private void Awake()
     {
         soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();   
+        fade = InterfaceDependencyInjector.Instance.Resolve<IFadeInOutController>();
     }
     void Start()
     {

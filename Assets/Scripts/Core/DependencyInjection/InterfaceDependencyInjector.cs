@@ -20,8 +20,8 @@ namespace Core.DependencyInjection
             }
         }
 
-        Dictionary<Type, Func<object>> factories = new();
-        Dictionary<Type, object> instances = new();
+        private Dictionary<(Type, object), Func<object>> factories = new();
+        private Dictionary<(Type, object), object> instances = new();
 
         protected override void Awake()
         {
@@ -33,24 +33,25 @@ namespace Core.DependencyInjection
             _instance = this;
             base.Awake();
         }
-        public void Register<T>(Func<T> factory)
+        public void Register<T>(Func<T> factory, object id = null)
         {
             if (factory == null)
             {
                 Debug.LogWarning($"[Injector] Tried to register null for {typeof(T)}");
                 return;
             }
-            factories[typeof(T)] = () => factory();
+            factories[(typeof(T), id)] = () => factory();
         }
-        public T Resolve<T>()
+        public T Resolve<T>(object id = null)
         {
-            var type = typeof(T);
+            var type = (typeof(T), id);
 
             if(!instances.TryGetValue(type, out var instance) || IsUnityObjectDestroyed(instance))
             {
                 if (!factories.TryGetValue(type, out var factory))
+                {
                     throw new Exception($"No service registered for {type}");
-
+                }
                 instance = factory();
                 instances[type] = instance;
             }

@@ -4284,7 +4284,6 @@ MonoBehaviour:
   UIPrinciplal: {fileID: 1961571233}
   UIDeveloperMode: {fileID: 883203092}
   audioMixer: {fileID: 24100000, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
-  cinemaFade: {fileID: 1909266832}
 --- !u!1 &478144311
 GameObject:
   m_ObjectHideFlags: 0
@@ -24735,7 +24734,6 @@ MonoBehaviour:
   dialoguePanel: {fileID: 1362966858}
   dialogueText: {fileID: 1362966857}
   continueIndicator: {fileID: 1362966856}
-  letterBoxFadeInOut: {fileID: 1909266832}
   dialogueColor: {r: 1, g: 1, b: 1, a: 1}
   monologueColor: {r: 1, g: 0.90588236, b: 0.5176471, a: 1}
   typingSpeed: 0.02
@@ -24843,6 +24841,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 820d7666d2409f247bec0122dbc9d941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  identifier: 3
   settings: {fileID: 11400000, guid: 64e128653e5c0464c97cf34027a7efb0, type: 2}
 --- !u!225 &1371651436
 CanvasGroup:
@@ -25483,6 +25482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 820d7666d2409f247bec0122dbc9d941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  identifier: 1
   settings: {fileID: 11400000, guid: c18f626c535d0c24e82365dfe6f9373d, type: 2}
 --- !u!225 &1458761942
 CanvasGroup:
@@ -29923,6 +29923,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 820d7666d2409f247bec0122dbc9d941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  identifier: 0
   settings: {fileID: 11400000, guid: b91b290518d6df043986f61f68a6aeb4, type: 2}
 --- !u!225 &1809992836
 CanvasGroup:
@@ -30915,6 +30916,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1961571235}
     m_Modifications:
+    - target: {fileID: 1408908552061256858, guid: 3e8638fa412ff77408707944e91defd4, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2225422097613312480, guid: 3e8638fa412ff77408707944e91defd4, type: 3}
+      propertyPath: identifier
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8825727025237809989, guid: 3e8638fa412ff77408707944e91defd4, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -37869,7 +37878,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2117729048
 Transform:
   m_ObjectHideFlags: 0

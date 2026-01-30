@@ -845,7 +845,6 @@ MonoBehaviour:
   UIPrinciplal: {fileID: 0}
   UIDeveloperMode: {fileID: 1621560652}
   audioMixer: {fileID: 24100000, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
-  cinemaFade: {fileID: 0}
 --- !u!114 &37244485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5421,9 +5420,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 37244479}
     m_Modifications:
+    - target: {fileID: 1408908552061256858, guid: 3e8638fa412ff77408707944e91defd4, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2010959311667015909, guid: 3e8638fa412ff77408707944e91defd4, type: 3}
       propertyPath: m_Alpha
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2225422097613312480, guid: 3e8638fa412ff77408707944e91defd4, type: 3}
+      propertyPath: identifier
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8825727025237809989, guid: 3e8638fa412ff77408707944e91defd4, type: 3}
       propertyPath: m_Pivot.x
@@ -27059,6 +27066,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 820d7666d2409f247bec0122dbc9d941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  identifier: 1
   settings: {fileID: 11400000, guid: c18f626c535d0c24e82365dfe6f9373d, type: 2}
 --- !u!225 &704870186
 CanvasGroup:
@@ -29514,6 +29522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 820d7666d2409f247bec0122dbc9d941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  identifier: 0
   settings: {fileID: 11400000, guid: 7267e066d88d9394ea1df19a16be2ce4, type: 2}
 --- !u!114 &879268974
 MonoBehaviour:
@@ -30908,7 +30917,6 @@ MonoBehaviour:
   dialoguePanel: {fileID: 2042112950}
   dialogueText: {fileID: 1209442992}
   continueIndicator: {fileID: 212313877}
-  letterBoxFadeInOut: {fileID: 237206919}
   dialogueColor: {r: 1, g: 1, b: 1, a: 1}
   monologueColor: {r: 1, g: 0.90588236, b: 0.5176471, a: 1}
   typingSpeed: 0.02
@@ -38656,6 +38664,10 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1459494111517177953, guid: 02b82f6c457e3c448be87eb43fc898ef, type: 3}
+      propertyPath: identifier
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2538307375052489311, guid: 02b82f6c457e3c448be87eb43fc898ef, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -38787,6 +38799,10 @@ PrefabInstance:
     - target: {fileID: 3426044327213248745, guid: 02b82f6c457e3c448be87eb43fc898ef, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4828399200231807804, guid: 02b82f6c457e3c448be87eb43fc898ef, type: 3}
+      propertyPath: identifier
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4864778448207425411, guid: 02b82f6c457e3c448be87eb43fc898ef, type: 3}
       propertyPath: m_TagString
@@ -45275,6 +45291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 820d7666d2409f247bec0122dbc9d941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  identifier: 0
   settings: {fileID: 11400000, guid: b91b290518d6df043986f61f68a6aeb4, type: 2}
 --- !u!225 &1447519587
 CanvasGroup:

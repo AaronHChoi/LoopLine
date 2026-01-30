@@ -1,11 +1,11 @@
-using System;
 using UnityEngine;
-using UnityEngine.UI;
+using Core.UI;
+using Core.DependencyInjection;
 
 public class CrosshairFadeController : MonoBehaviour, ICrosshairFade
 {
-    [SerializeField] private FadeInOutController fadeCrosshairBig;
-    [SerializeField] private FadeInOutController fadeCrosshairSmall;
+    IFadeInOutController fadeCrosshairBig;
+    IFadeInOutController fadeCrosshairSmall;
     [SerializeField] private RaycastController rayController;
 
     private bool bigCroshairVisibility = false;
@@ -13,6 +13,11 @@ public class CrosshairFadeController : MonoBehaviour, ICrosshairFade
 
     string ignoreTag = "PhotoQuest";
 
+    private void Awake()
+    {
+        fadeCrosshairBig = InterfaceDependencyInjector.Instance.Resolve<IFadeInOutController>(FadeID.CrosshairBig);
+        fadeCrosshairSmall = InterfaceDependencyInjector.Instance.Resolve<IFadeInOutController>(FadeID.CrosshairSmall);
+    }
     void Start()
     {
         Cursor.visible = false;
@@ -41,7 +46,7 @@ public class CrosshairFadeController : MonoBehaviour, ICrosshairFade
             ShowCrosshairByFade(fadeCrosshairSmall, ref smallCroshairVisibility, true);
         }
     }
-    private void ShowCrosshairByFade(FadeInOutController fade, ref bool visibility, bool show)
+    private void ShowCrosshairByFade(IFadeInOutController fade, ref bool visibility, bool show)
     {
         //Fades if it can be fade and save it's state
         if (visibility == show) return;
