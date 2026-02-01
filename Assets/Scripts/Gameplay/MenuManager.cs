@@ -38,7 +38,7 @@ public class MenuManager : MonoBehaviour
     private void Awake()
     {
         soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();   
-        fade = InterfaceDependencyInjector.Instance.Resolve<IFadeInOutController>();
+        fade = InterfaceDependencyInjector.Instance.Resolve<IFadeInOutController>(FadeID.MenuFade);
     }
     void Start()
     {

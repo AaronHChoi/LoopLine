@@ -9,5 +9,6 @@ namespace Core.UI
 		Canvas,
 		Arrow,
 		Inventory,
+		MenuFade,
 	} 
 }
