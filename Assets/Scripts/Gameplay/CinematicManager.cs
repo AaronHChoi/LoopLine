@@ -13,6 +13,7 @@ public class CinematicManager : MonoBehaviour, ICinematicManager
     [SerializeField] float fadeDuration = 1f;
 
     Action onCinematicFinishedCallback;
+    Coroutine currentFadeCoroutine;
 
     private void Start()
     {
@@ -27,6 +28,33 @@ public class CinematicManager : MonoBehaviour, ICinematicManager
     {
         videoPlayer.loopPointReached -= OnVideoFinished;
         videoPlayer.prepareCompleted -= OnVideoPrepared;
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SkipCinematic();
+        }
+    }
+    public void SkipCinematic()
+    {
+        if (onCinematicFinishedCallback == null && !cinematicPanel.activeSelf)
+        {
+            return;
+        }
+        if (currentFadeCoroutine != null)
+        {
+            StopCoroutine(currentFadeCoroutine);
+            currentFadeCoroutine = null;
+        }
+
+        videoPlayer.Stop();
+        cinematicPanel.SetActive(false);
+        SetAlpha(0f);
+
+        var callback = onCinematicFinishedCallback;
+        onCinematicFinishedCallback = null;
+        callback?.Invoke();
     }
     public void PlayCinematic(VideoClip clip, Action onComplete = null)
     {
@@ -86,6 +114,7 @@ public class CinematicManager : MonoBehaviour, ICinematicManager
         displayImage.color = new Color(currentColor.r, currentColor.g, currentColor.b, endAlpha);
 
         onFadeComplete?.Invoke();
+        currentFadeCoroutine = null;
     }
 
     private void SetAlpha(float alpha)
@@ -100,4 +129,5 @@ public class CinematicManager : MonoBehaviour, ICinematicManager
 public interface ICinematicManager
 {
     void PlayCinematic(VideoClip clip, Action onComplete = null);
+    void SkipCinematic();
 }

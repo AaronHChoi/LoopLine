@@ -29,9 +29,6 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
     #region MAGIC_METHODS
     private void Awake()
     {
-    }
-    private void Start()
-    {
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
         uiAnimation = InterfaceDependencyInjector.Instance.Resolve<IPolaroidUIAnimation>();
         playerInteract = InterfaceDependencyInjector.Instance.Resolve<IPlayerInteract>();
