@@ -255,9 +255,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 32770732}
+  - component: {fileID: 32770738}
+  - component: {fileID: 32770737}
+  - component: {fileID: 32770736}
   - component: {fileID: 32770735}
-  - component: {fileID: 32770734}
   - component: {fileID: 32770733}
+  - component: {fileID: 32770734}
   m_Layer: 3
   m_Name: Photo#5
   m_TagString: PhotoQuest
@@ -338,7 +341,6 @@ MonoBehaviour:
   - {fileID: 1507279084}
   - {fileID: 787733227}
   - {fileID: 1811755855}
-  clueGameCondition: 11
   delay: 6
 --- !u!114 &32770735
 MonoBehaviour:
@@ -349,16 +351,102 @@ MonoBehaviour:
   m_GameObject: {fileID: 32770731}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0637132e6f36d3540947ab30aa962387, type: 3}
+  m_Script: {fileID: 11500000, guid: 09e59cce1d9de844f970d63343614414, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monologueToTrigger: 31
-  monologueDelay: 0
-  item: {fileID: 32770734}
   myOrderIndex: 4
-  musicalNote: 0
-  idMusicalNote: 
-  LOOP4: 0
+  OnValidateInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 32770737}
+        m_TargetAssemblyTypeName: ConditionTrigger, Gameplay
+        m_MethodName: TriggerCondition
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 32770738}
+        m_TargetAssemblyTypeName: Core.Utilities.VisibilityController, Core
+        m_MethodName: SetChildrenActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 32770734}
+        m_TargetAssemblyTypeName: ItemDissolve, Gameplay
+        m_MethodName: TakePhoto
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &32770736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 32770731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40c3b2bcefc9e0849bea157a08baabb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnPhotoTaken:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 32770735}
+        m_TargetAssemblyTypeName: OrderedInteraction, Gameplay
+        m_MethodName: TryInteract
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &32770737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 32770731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45ea8cce66e960342934f66a17b6e2cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  condition: 11
+  targetValue: 1
+--- !u!114 &32770738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 32770731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9652fec666e4510409f4cf3634a66cc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &58131058
 GameObject:
   m_ObjectHideFlags: 0
@@ -1821,7 +1909,6 @@ MonoBehaviour:
   myOrderIndex: 0
   musicalNote: 1
   idMusicalNote: Green
-  LOOP4: 0
 --- !u!114 &255995569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1836,7 +1923,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item:
   - {fileID: 440743559}
-  clueGameCondition: 18
   delay: 0
 --- !u!65 &255995570
 BoxCollider:

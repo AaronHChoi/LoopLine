@@ -205,7 +205,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 384130966}
-  - component: {fileID: 384130968}
+  - component: {fileID: 384130973}
+  - component: {fileID: 384130972}
+  - component: {fileID: 384130971}
+  - component: {fileID: 384130970}
   - component: {fileID: 384130967}
   - component: {fileID: 384130969}
   m_Layer: 3
@@ -256,24 +259,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.413548, y: 2.6900659, z: 3.6577432}
   m_Center: {x: 0.206774, y: 1.6070106, z: -0.21390474}
---- !u!114 &384130968
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 384130965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0637132e6f36d3540947ab30aa962387, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  monologueToTrigger: 32
-  monologueDelay: 1
-  item: {fileID: 384130969}
-  myOrderIndex: 5
-  musicalNote: 0
-  idMusicalNote: 
 --- !u!114 &384130969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,9 +273,112 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item:
   - {fileID: 1212454694}
-  clueGameCondition: 0
   delay: 0.1
-  LOOP4: 1
+--- !u!114 &384130970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384130965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09e59cce1d9de844f970d63343614414, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myOrderIndex: 5
+  OnValidateInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 384130972}
+        m_TargetAssemblyTypeName: ConditionTrigger, Gameplay
+        m_MethodName: TriggerCondition
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 384130973}
+        m_TargetAssemblyTypeName: Core.Utilities.VisibilityController, Core
+        m_MethodName: SetChildrenActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 384130969}
+        m_TargetAssemblyTypeName: ItemDissolve, Gameplay
+        m_MethodName: TakePhoto
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &384130971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384130965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40c3b2bcefc9e0849bea157a08baabb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnPhotoTaken:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 384130970}
+        m_TargetAssemblyTypeName: OrderedInteraction, Gameplay
+        m_MethodName: TryInteract
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &384130972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384130965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45ea8cce66e960342934f66a17b6e2cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  condition: 6
+  targetValue: 1
+--- !u!114 &384130973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384130965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9652fec666e4510409f4cf3634a66cc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &500550331
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,9 +446,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item:
   - {fileID: 687364653}
-  clueGameCondition: 16
   delay: 0
-  LOOP4: 0
 --- !u!65 &500550335
 BoxCollider:
   m_ObjectHideFlags: 0

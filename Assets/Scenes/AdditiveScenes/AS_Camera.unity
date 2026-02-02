@@ -943,7 +943,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item:
   - {fileID: 66026875}
-  clueGameCondition: 19
   delay: 0
 --- !u!65 &653148605
 BoxCollider:
@@ -1005,9 +1004,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 681580657}
-  - component: {fileID: 681580659}
   - component: {fileID: 681580658}
+  - component: {fileID: 681580662}
+  - component: {fileID: 681580661}
   - component: {fileID: 681580660}
+  - component: {fileID: 681580659}
   m_Layer: 3
   m_Name: Photo#4
   m_TagString: PhotoQuest
@@ -1062,15 +1063,49 @@ MonoBehaviour:
   m_GameObject: {fileID: 681580656}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0637132e6f36d3540947ab30aa962387, type: 3}
+  m_Script: {fileID: 11500000, guid: 09e59cce1d9de844f970d63343614414, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monologueToTrigger: 30
-  monologueDelay: 0
-  item: {fileID: 681580660}
   myOrderIndex: 3
-  musicalNote: 0
-  idMusicalNote: 
+  OnValidateInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 681580661}
+        m_TargetAssemblyTypeName: ConditionTrigger, Gameplay
+        m_MethodName: TriggerCondition
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 681580662}
+        m_TargetAssemblyTypeName: Core.Utilities.VisibilityController, Core
+        m_MethodName: SetChildrenActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1067963610}
+        m_TargetAssemblyTypeName: ItemDissolve, Gameplay
+        m_MethodName: TakePhoto
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &681580660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1080,13 +1115,50 @@ MonoBehaviour:
   m_GameObject: {fileID: 681580656}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d54cd45d5b542c43b584c5ec1a8d987, type: 3}
+  m_Script: {fileID: 11500000, guid: 40c3b2bcefc9e0849bea157a08baabb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item:
-  - {fileID: 1067963608}
-  clueGameCondition: 8
-  delay: 5
+  OnPhotoTaken:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 681580659}
+        m_TargetAssemblyTypeName: OrderedInteraction, Gameplay
+        m_MethodName: TryInteract
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &681580661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 681580656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45ea8cce66e960342934f66a17b6e2cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  condition: 8
+  targetValue: 1
+--- !u!114 &681580662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 681580656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9652fec666e4510409f4cf3634a66cc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &689981634
 GameObject:
   m_ObjectHideFlags: 0
@@ -6190,8 +6262,8 @@ GameObject:
   - component: {fileID: 965605906}
   - component: {fileID: 965605910}
   - component: {fileID: 965605909}
-  - component: {fileID: 965605908}
   - component: {fileID: 965605907}
+  - component: {fileID: 965605908}
   m_Layer: 3
   m_Name: Photo#1
   m_TagString: PhotoQuest
@@ -6251,18 +6323,6 @@ MonoBehaviour:
   OnPhotoTaken:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 965605910}
-        m_TargetAssemblyTypeName: Core.Utilities.VisibilityController, Core
-        m_MethodName: SetChildrenActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 965605908}
         m_TargetAssemblyTypeName: OrderedInteraction, Gameplay
         m_MethodName: TryInteract
@@ -6287,7 +6347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09e59cce1d9de844f970d63343614414, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myOrderIndex: 0
+  myOrderIndex: 1
   OnValidateInteraction:
     m_PersistentCalls:
       m_Calls:
@@ -6303,27 +6363,27 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1949327156}
-        m_TargetAssemblyTypeName: ItemDissolve, Gameplay
-        m_MethodName: DeactivatePhoto
-        m_Mode: 1
+      - m_Target: {fileID: 965605910}
+        m_TargetAssemblyTypeName: Core.Utilities.VisibilityController, Core
+        m_MethodName: SetChildrenActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 965605910}
-        m_TargetAssemblyTypeName: Core.Utilities.VisibilityController, Core
-        m_MethodName: DeactivateSelfWithDelay
-        m_Mode: 4
+      - m_Target: {fileID: 1949327156}
+        m_TargetAssemblyTypeName: ItemDissolve, Gameplay
+        m_MethodName: TakePhoto
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 5
+          m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -6530,6 +6590,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 467427076}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7359426875308882540, guid: b7359b9d7891f9b4ba6cab798785e579, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1067963610}
     - targetCorrespondingSourceObject: {fileID: 3960079763392518788, guid: b7359b9d7891f9b4ba6cab798785e579, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1067963608}
@@ -6555,6 +6618,11 @@ GameObject:
 --- !u!23 &1067963606 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 7619266759408172200, guid: b7359b9d7891f9b4ba6cab798785e579, type: 3}
+  m_PrefabInstance: {fileID: 1067963602}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1067963607 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7359426875308882540, guid: b7359b9d7891f9b4ba6cab798785e579, type: 3}
   m_PrefabInstance: {fileID: 1067963602}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1067963608
@@ -6597,6 +6665,21 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -915661510970944972, guid: 8ba7fc7a6b0a4234f9634bac4b654b8b, type: 3}
+--- !u!114 &1067963610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067963607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d54cd45d5b542c43b584c5ec1a8d987, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item:
+  - {fileID: 1067963608}
+  delay: 5
 --- !u!1 &1093169044
 GameObject:
   m_ObjectHideFlags: 1
@@ -7642,8 +7725,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item:
   - {fileID: 721550334}
-  clueGameCondition: 0
-  delay: 0
+  delay: 5
 --- !u!1 &2053157376
 GameObject:
   m_ObjectHideFlags: 1

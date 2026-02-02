@@ -831,13 +831,13 @@ VisualEffect:
       m_Array: []
     m_Vector3f:
       m_Array:
-      - m_Value: {x: -0.000000061204254, y: -0.00000014358255, z: 0.0000016787322}
+      - m_Value: {x: -0.00000008387789, y: -0.00000020688425, z: 0.0000016787322}
         m_Name: Transform_angles
         m_Overridden: 1
-      - m_Value: {x: 0.00000019305836, y: -0.00000023875788, z: 0.0000004977055}
+      - m_Value: {x: 0.00000019305836, y: -0.00000023875788, z: 0.00000040297178}
         m_Name: Transform_position
         m_Overridden: 1
-      - m_Value: {x: 1.0000006, y: 1.0000005, z: 1.0000011}
+      - m_Value: {x: 1.0000006, y: 1.0000005, z: 1.000001}
         m_Name: Transform_scale
         m_Overridden: 1
     m_Vector4f:
@@ -868,9 +868,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 191857517}
-  - component: {fileID: 191857519}
   - component: {fileID: 191857518}
+  - component: {fileID: 191857522}
+  - component: {fileID: 191857521}
   - component: {fileID: 191857520}
+  - component: {fileID: 191857519}
   m_Layer: 3
   m_Name: Photo#2
   m_TagString: PhotoQuest
@@ -924,13 +926,49 @@ MonoBehaviour:
   m_GameObject: {fileID: 191857516}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0637132e6f36d3540947ab30aa962387, type: 3}
+  m_Script: {fileID: 11500000, guid: 09e59cce1d9de844f970d63343614414, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monologueToTrigger: 28
-  monologueDelay: 0
-  item: {fileID: 191857520}
   myOrderIndex: 2
+  OnValidateInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 191857521}
+        m_TargetAssemblyTypeName: ConditionTrigger, Gameplay
+        m_MethodName: TriggerCondition
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 191857522}
+        m_TargetAssemblyTypeName: Core.Utilities.VisibilityController, Core
+        m_MethodName: SetChildrenActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1086219756}
+        m_TargetAssemblyTypeName: ItemDissolve, Gameplay
+        m_MethodName: TakePhoto
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &191857520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -940,13 +978,50 @@ MonoBehaviour:
   m_GameObject: {fileID: 191857516}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d54cd45d5b542c43b584c5ec1a8d987, type: 3}
+  m_Script: {fileID: 11500000, guid: 40c3b2bcefc9e0849bea157a08baabb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item:
-  - {fileID: 1318573023}
-  clueGameCondition: 9
-  delay: 0
+  OnPhotoTaken:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 191857519}
+        m_TargetAssemblyTypeName: OrderedInteraction, Gameplay
+        m_MethodName: TryInteract
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &191857521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191857516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45ea8cce66e960342934f66a17b6e2cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  condition: 9
+  targetValue: 1
+--- !u!114 &191857522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191857516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9652fec666e4510409f4cf3634a66cc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &195182341
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4792,13 +4867,36 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: e9c5dc3440c515140b4a32bec2fe1052, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1163844011}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e9c5dc3440c515140b4a32bec2fe1052, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1086219756}
   m_SourcePrefab: {fileID: 100100000, guid: e9c5dc3440c515140b4a32bec2fe1052, type: 3}
 --- !u!4 &1086219754 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e9c5dc3440c515140b4a32bec2fe1052, type: 3}
   m_PrefabInstance: {fileID: 1086219753}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1086219755 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e9c5dc3440c515140b4a32bec2fe1052, type: 3}
+  m_PrefabInstance: {fileID: 1086219753}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1086219756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1086219755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d54cd45d5b542c43b584c5ec1a8d987, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item:
+  - {fileID: 1318573023}
+  delay: 0
 --- !u!1 &1093169044
 GameObject:
   m_ObjectHideFlags: 1
