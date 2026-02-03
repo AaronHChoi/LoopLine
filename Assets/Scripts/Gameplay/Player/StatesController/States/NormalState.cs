@@ -5,6 +5,10 @@ namespace Player
 {
     public class NormalState : IState
     {
+        private const float TELEPORT_COOLDOWN_DURATION = 5f;
+
+        private bool hasTriggeredTeleport;
+
         IPlayerStateController controller;
         IPlayerInputHandler input;
         IPlayerMovement movement;
@@ -31,6 +35,8 @@ namespace Player
         {
             movement.CanMove = true;
             playerCameraOrientation.CanLook = true;
+            hasTriggeredTeleport = false;
+
             Debug.Log("Entering NormalState");
         }
         public void Execute()
@@ -60,14 +66,16 @@ namespace Player
             }
             if (GameManager.Instance.GetCondition(GameCondition.TeleportAvailable))
             {
-                if (input.Teleport())
+                bool isCooldownFinished = Time.timeSinceLevelLoad >= TELEPORT_COOLDOWN_DURATION;
+
+                if (isCooldownFinished && !hasTriggeredTeleport && input.Teleport())
                 {
+                    hasTriggeredTeleport = true;
                     EventBus.Publish(new TransitionEvent());
                     uiManager.HideCurrentPanel();
                     controller.UseEventTeleport();
                 }
             }
-   
         }
         public void Exit()
         {

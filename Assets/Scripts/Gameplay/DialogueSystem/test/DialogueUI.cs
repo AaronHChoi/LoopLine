@@ -1,14 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Player;
 using TMPro;
+using Player;
 using Core.Audio;
 using Core.DependencyInjection;
 using Core.UI;
 
-public class DialogueUI : MonoBehaviour
+public class DialogueUI : MonoBehaviour, IDialogueUI
 {
+    public event Action OnTypingFinished;
+
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] GameObject continueIndicator;
@@ -237,6 +240,7 @@ public class DialogueUI : MonoBehaviour
         StopAllCoroutines();
         dialogueText.text = fullText;
         isTyping = false;
+        OnTypingFinished?.Invoke();
     }
     private IEnumerator TypeText()
     {
@@ -266,9 +270,15 @@ public class DialogueUI : MonoBehaviour
         }
         isTyping = false;
         typingCoroutine = null;
+
+        OnTypingFinished?.Invoke();
     }
     private string ApplyItalicFormat(string text)
     {
         return $"<i>{text}</i>";
     }
+}
+public interface IDialogueUI
+{
+    event Action OnTypingFinished;
 }

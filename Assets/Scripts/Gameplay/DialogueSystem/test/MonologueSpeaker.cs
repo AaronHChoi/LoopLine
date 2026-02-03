@@ -1,3 +1,4 @@
+using Core.DependencyInjection;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -14,6 +15,12 @@ public class MonologueSpeaker : DialogueSpeakerBase, IMonologueSpeaker
 
     private Coroutine autoAdvanceCoroutine;
 
+    IDialogueUI dialogueUI;
+
+    protected override void Awake()
+    {
+        dialogueUI = InterfaceDependencyInjector.Instance.Resolve<IDialogueUI>();
+    }
     protected override void Start()
     {
         base.Start();
@@ -47,17 +54,24 @@ public class MonologueSpeaker : DialogueSpeakerBase, IMonologueSpeaker
         if (currentDialogueIndex < currentDialogues.Count)
         {
             DialogueSO2 dialogue = currentDialogues[currentDialogueIndex];
-            DialogueManager.Instance.ShowDialogue(dialogue, this);
 
-            if (autoAdvance)
-            {
-                //Invoke(nameof(ShowNextDialogue), 3f);
-                autoAdvanceCoroutine = StartCoroutine(WaitAndAdvance());
-            }
+            dialogueUI.OnTypingFinished += HandleTypingFinished;
+
+            DialogueManager.Instance.ShowDialogue(dialogue, this);
         }
         else
         {
             EndDialogueSequence();
+        }
+    }
+    private void HandleTypingFinished()
+    {
+        dialogueUI.OnTypingFinished -= HandleTypingFinished;
+
+        if (autoAdvance)
+        {
+            //Invoke(nameof(ShowNextDialogue), 3f);
+            autoAdvanceCoroutine = StartCoroutine(WaitAndAdvance());
         }
     }
     private IEnumerator WaitAndAdvance()

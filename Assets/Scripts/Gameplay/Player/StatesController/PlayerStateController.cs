@@ -22,6 +22,15 @@ namespace Player
         public event Action OnPuzzleLeftInteract;
         public event Action OnPuzzleRightInteract;
         
+        public NormalState NormalState { get; set; }
+        public DialogueState DialogueState { get;  set; }
+        public CameraState CameraState { get;  set; }
+        public DevelopmentState DevelopmentState { get;  set; }
+        public PauseMenuState PauseMenuState { get; set; }
+        public MindPlaceState MindPlaceState { get;  set; }
+        public ObjectInHandState ObjectInHandState { get;  set; }
+        public PuzzleState PuzzleState { get; set; }
+        public CinematicState CinematicState { get; set; }
         StateMachine stateMachine { get; set; }
 
         ITimeProvider timeManager;
@@ -34,15 +43,6 @@ namespace Player
         IUIManager uiManager;
         IPlayerCamera playerCamera;
         IPlayerController playerController;
-        public NormalState NormalState { get; set; }
-        public DialogueState DialogueState { get;  set; }
-        public CameraState CameraState { get;  set; }
-        public DevelopmentState DevelopmentState { get;  set; }
-        public PauseMenuState PauseMenuState { get; set; }
-        public MindPlaceState MindPlaceState { get;  set; }
-        public ObjectInHandState ObjectInHandState { get;  set; }
-        public PuzzleState PuzzleState { get; set; }
-        public CinematicState CinematicState { get; set; }
         private void Awake()
         {         
             inputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
