@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using Unity.Cinemachine;
 using Core.EventBus;
+using Core.Data;
 
 public class SceneTransitionController : MonoBehaviour, ISceneTransitionController
 {

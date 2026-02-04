@@ -1,3 +1,4 @@
+using Core.Data;
 
 public class RockClue : ItemInteract
 {

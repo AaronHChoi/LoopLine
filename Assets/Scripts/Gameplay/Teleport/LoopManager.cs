@@ -2,6 +2,7 @@ using UnityEngine;
 using Core.EventBus;
 using Core.Utilities;
 using Core.DependencyInjection;
+using Core.Data;
 
 public class LoopManager : MonoBehaviour
 {

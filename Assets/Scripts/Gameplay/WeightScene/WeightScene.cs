@@ -1,4 +1,5 @@
-using UnityEngine;
+using Core.Data;
+
 [System.Serializable]
 public class WeightScene 
 {

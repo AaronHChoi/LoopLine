@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Core.Utilities;
 using Core.DependencyInjection;
+using Core.Data;
 
 public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
 {

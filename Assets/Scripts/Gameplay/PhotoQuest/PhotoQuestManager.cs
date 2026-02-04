@@ -7,6 +7,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 using Core.DependencyInjection;
 using Player;
 using Core.Utilities;
+using Core.Data;
 
 [Serializable]
 public struct PhotoActivationEntry

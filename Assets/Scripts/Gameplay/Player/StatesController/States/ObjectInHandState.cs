@@ -1,4 +1,5 @@
 using UnityEngine;
+using Core.Data;
 
 namespace Player
 {
@@ -47,6 +48,10 @@ namespace Player
                 {
                     controller.UseEventTeleport();
                 }
+            }
+            if (input.PassDialogPressed() && !GameManager.Instance.isCinematicMonologue)
+            {
+                controller.UseEventDialogueNext();
             }
         }
         public void Exit()

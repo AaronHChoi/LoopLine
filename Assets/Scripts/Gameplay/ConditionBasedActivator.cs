@@ -1,4 +1,5 @@
 using UnityEngine;
+using Core.Data;
 
 public class ConditionBasedActivator : MonoBehaviour
 {

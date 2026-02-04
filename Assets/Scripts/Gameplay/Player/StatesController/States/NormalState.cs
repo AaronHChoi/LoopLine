@@ -1,5 +1,6 @@
 using UnityEngine;
 using Core.EventBus;
+using Core.Data;
 
 namespace Player
 {

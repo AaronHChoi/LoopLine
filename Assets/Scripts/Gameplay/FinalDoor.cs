@@ -7,6 +7,7 @@ using Player;
 using Core.EventBus;
 using Core.Utilities;
 using Core.DependencyInjection;
+using Core.Data;
 
 public class FinalDoor : MonoBehaviour, IInteract
 {

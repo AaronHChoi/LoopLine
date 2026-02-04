@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using Core.EventBus;
 using Core.DependencyInjection;
+using Core.Data;
 
 public class PolaroidItem : ItemInteract, IPolaraidItem
 {
