@@ -28,13 +28,13 @@ public class SafeQuestManager : MonoBehaviour, ISafeQuestManager
     public bool isSolved { get; set; } = false;
 
     IInventoryUI inventoryUI;
-    IFinalQuestManager finalQuestManager;
+    //IFinalQuestManager finalQuestManager;
     ICinematicManager cinematicManager;
     IPlayerStateController playerStateController;
     private void Awake()
     {
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
-        finalQuestManager = InterfaceDependencyInjector.Instance.Resolve<IFinalQuestManager>();
+        //finalQuestManager = InterfaceDependencyInjector.Instance.Resolve<IFinalQuestManager>();
         cinematicManager = InterfaceDependencyInjector.Instance.Resolve<ICinematicManager>();
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
     }
@@ -107,11 +107,11 @@ public class SafeQuestManager : MonoBehaviour, ISafeQuestManager
             {
                 OnSafeQuestCompleted?.Invoke();
 
-                GameManager.Instance.SetCondition(GameCondition.WordGroup3, true);
+                //GameManager.Instance.SetCondition(GameCondition.WordGroup3, true);
                 
                 finalKeyInteract.Interact();
 
-                finalQuestManager.UpdateWordsActivation();
+                //finalQuestManager.UpdateWordsActivation();
 
                 playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
             })

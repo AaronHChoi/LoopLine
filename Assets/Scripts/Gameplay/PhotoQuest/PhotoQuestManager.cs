@@ -156,8 +156,8 @@ void UpdatePhotoActivationStates()
             cinematicManager.PlayCinematic(successCinematic, () =>
             {
                 PhotoQuestComplete();
-                GameManager.Instance.SetCondition(GameCondition.WordGroup2, true);
-                finalQuestManager.UpdateWordsActivation();
+                //GameManager.Instance.SetCondition(GameCondition.WordGroup2, true);
+                //finalQuestManager.UpdateWordsActivation();
                 playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
             })
         );
