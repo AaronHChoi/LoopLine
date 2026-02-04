@@ -947,6 +947,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 160152849}
   m_CullTransparentMesh: 1
+--- !u!224 &179658241 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7687490090476451703, guid: 96acb2545beb58147b11c96fda4e7ebe, type: 3}
+  m_PrefabInstance: {fileID: 1668097370}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &181815102 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7427375230432960450, guid: 31f77fb967606ec4a81d63719b8271b2, type: 3}
@@ -1850,6 +1855,75 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7cfd94fd7fdef7428f94513779662ce, type: 3}
+--- !u!1 &301180343
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 301180344}
+  - component: {fileID: 301180345}
+  m_Layer: 0
+  m_Name: BlurBackground
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &301180344
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 301180343}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 179658241}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &301180345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 301180343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26d6499a6bd256e47b859377446493a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 0
+  fadeRadius: 0
+  priority: 0
+  customPasses:
+  - rid: 2789597437102129335
+  injectionPoint: 2
+  m_TargetCamera: {fileID: 349358449}
+  useTargetCamera: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 2789597437102129335
+      type: {class: FullScreenCustomPass, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
+      data:
+        m_Name: BlurBackground
+        enabled: 1
+        targetColorBuffer: 0
+        targetDepthBuffer: 0
+        clearFlags: 0
+        passFoldout: 0
+        m_Version: 0
+        fullscreenPassMaterial: {fileID: 2100000, guid: 90e67e77bd5b99743b78cbc544898dbe, type: 2}
+        materialPassIndex: 0
+        materialPassName: Custom Pass 0
+        fetchColorBuffer: 0
 --- !u!1001 &301818662
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3017,10 +3091,6 @@ PrefabInstance:
     - target: {fileID: -7951639704373743910, guid: 0f9551ae205a00d4f9b4fec7e5f8a9d8, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: -7903564463279434191, guid: 0f9551ae205a00d4f9b4fec7e5f8a9d8, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: -7813836809952394851, guid: 0f9551ae205a00d4f9b4fec7e5f8a9d8, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
@@ -28616,6 +28686,22 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5133635668161480047, guid: 96acb2545beb58147b11c96fda4e7ebe, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5133635668161480047, guid: 96acb2545beb58147b11c96fda4e7ebe, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5133635668161480047, guid: 96acb2545beb58147b11c96fda4e7ebe, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5133635668161480047, guid: 96acb2545beb58147b11c96fda4e7ebe, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5688026536845234075, guid: 96acb2545beb58147b11c96fda4e7ebe, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
@@ -28754,7 +28840,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 7687490090476451703, guid: 96acb2545beb58147b11c96fda4e7ebe, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 301180344}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96acb2545beb58147b11c96fda4e7ebe, type: 3}
 --- !u!1 &1670239525
