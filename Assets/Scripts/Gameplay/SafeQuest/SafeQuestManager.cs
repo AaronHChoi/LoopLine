@@ -18,6 +18,7 @@ public class SafeQuestManager : MonoBehaviour, ISafeQuestManager
     [SerializeField] private int[] result, correctCombination;
     [SerializeField] SingleDoorInteract doorInteract;
     [SerializeField] ItemInteract doorKey;
+    [SerializeField] TutorialInteract finalKeyInteract;
     [SerializeField] List<MusicNotesActivations> musicNotesActivations;
 
     [SerializeField] VideoClip successCinematic;
@@ -107,6 +108,8 @@ public class SafeQuestManager : MonoBehaviour, ISafeQuestManager
                 OnSafeQuestCompleted?.Invoke();
 
                 GameManager.Instance.SetCondition(GameCondition.WordGroup3, true);
+                
+                finalKeyInteract.Interact();
 
                 finalQuestManager.UpdateWordsActivation();
 
