@@ -169,7 +169,7 @@ public class InventoryUI : MonoBehaviour, IInventoryUI
 
     public void AddInventorySlot(ItemInteract item)
     {
-        if (inventorySlots.Count < maxInventorySlots)
+        if (inventorySlots.Count <= maxInventorySlots)
         {
             if (CheckInventory(item))
             {
