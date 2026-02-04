@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using Core.EventBus;
 using Core.Utilities;
 using Core.DependencyInjection;
+using Core.Data;
 
 public class SafeDoor : MonoBehaviour, IInteract
 {

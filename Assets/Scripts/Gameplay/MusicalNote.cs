@@ -1,5 +1,6 @@
 using UnityEngine;
 using Core.DependencyInjection;
+using Core.Data;
 
 public class MusicalNote : MonoBehaviour, IInteract
 {

@@ -1,5 +1,6 @@
 using UnityEngine;
 using Core.Utilities;
+using Core.Data;
 
 public class RaycastActivator : MonoBehaviour
 {

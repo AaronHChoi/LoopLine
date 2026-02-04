@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Core.EventBus;
 using Core.Utilities;
+using Core.Data;
 
 [Serializable]
 public struct WordsActivations

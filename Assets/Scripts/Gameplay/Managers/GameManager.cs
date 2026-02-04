@@ -4,6 +4,7 @@ using System.Text;
 using UnityEngine;
 using Core.Utilities;
 using Core.DependencyInjection;
+using Core.Data;
 
 public class GameManager : Singleton<GameManager>
 {
