@@ -73,6 +73,7 @@ public class FinalManager : MonoBehaviour
         var emissionModule = twirlParticles.emission;
         distortion.SetFloat("_Distorsion_Strength", 0f);
         emissionModule.rateOverTime = 0f;
+        finalEffectObject.gameObject.SetActive(false);
     }
 
     private void LastQuestCompleted()
