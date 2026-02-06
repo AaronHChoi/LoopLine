@@ -8,49 +8,70 @@ namespace InWorldUI
     public class InteractableUI : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI promptText;
+        [SerializeField] private GameObject labelCanvas;   // Assign the canvas with the prompt/label
+        [SerializeField] private GameObject markerCanvas;  // Assign the canvas with the marker
 
         IFadeInOutController fadeInOutLabel;
         IFadeInOutController fadeInOutMarker;
 
         void Awake()
         {
-            fadeInOutLabel = InterfaceDependencyInjector.Instance.Resolve<IFadeInOutController>(FadeID.Canvas);
-            fadeInOutMarker = InterfaceDependencyInjector.Instance.Resolve<IFadeInOutController>(FadeID.Canvas);
+            var fadeControllers = GetComponentsInChildren<IFadeInOutController>();
+            
+            if (fadeControllers.Length >= 2)
+            {
+                fadeInOutLabel = fadeControllers[0];   // First canvas
+                fadeInOutMarker = fadeControllers[1];  // Second canvas
+            }
 
             if (promptText == null)
                 promptText = GetComponentInChildren<TextMeshProUGUI>();
         }
+        
         public void Init(string promptMessage, Vector3 promptOffset)
         {
             SetMessage(promptMessage);
             MovePromptOffset(promptOffset);
-            
         }
+        
         private void MovePromptOffset(Vector3 promptOffset)
         {
-            var canvasTransform = fadeInOutLabel.gameObject.GetComponent<Canvas>().transform;
-            canvasTransform.position = canvasTransform.position + canvasTransform.rotation * promptOffset;
+            if (fadeInOutLabel != null && fadeInOutLabel.gameObject != null)
+            {
+                var canvasTransform = fadeInOutLabel.gameObject.GetComponent<Canvas>().transform;
+                if (canvasTransform != null)
+                    canvasTransform.position = canvasTransform.position + canvasTransform.rotation * promptOffset;
+            }
         }
+        
         private void SetMessage(string message)
         {
             if (promptText != null)
                 promptText.text = message;
         }
+        
         public void ShowPrompt()
         {
-            fadeInOutLabel.ForceFade(true);
+            if (fadeInOutLabel != null)
+                fadeInOutLabel.ForceFade(true);
         }
+        
         public void HidePrompt()
         {
-            fadeInOutLabel.ForceFade(false);
+            if (fadeInOutLabel != null)
+                fadeInOutLabel.ForceFade(false);
         }
+        
         public void ShowMarker()
         {
-            fadeInOutMarker.ForceFade(true);
+            if (fadeInOutMarker != null)
+                fadeInOutMarker.ForceFade(true);
         }
+        
         public void HideMarker()
         {
-            fadeInOutMarker.ForceFade(false);
+            if (fadeInOutMarker != null)
+                fadeInOutMarker.ForceFade(false);
         }
     }
 }
