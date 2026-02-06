@@ -821,41 +821,47 @@ MonoBehaviour:
   - ruleName: Clock Quest Complete
     conditionToCheck: 4
     scenesToModify:
+    - sceneName: AS_Clocks
+      weightIfConditionTrue: 0
     - sceneName: AS_Camera
       weightIfConditionTrue: 100
-    - sceneName: AS_Clocks
+    - sceneName: AS_NPC
       weightIfConditionTrue: 0
     - sceneName: AS_LOOP4
       weightIfConditionTrue: 0
     - sceneName: AS_NoNPC-NoItems
-      weightIfConditionTrue: 0
-    - sceneName: AS_NPC
       weightIfConditionTrue: 0
   - ruleName: Polaroid Taken
     conditionToCheck: 5
     scenesToModify:
     - sceneName: AS_Camera
       weightIfConditionTrue: 20
-    - sceneName: AS_Clocks
+    - sceneName: AS_Photo2
       weightIfConditionTrue: 20
-    - sceneName: AS_LOOP4
+    - sceneName: AS_Photo5
+      weightIfConditionTrue: 20
+    - sceneName: AS_Photo6
       weightIfConditionTrue: 20
     - sceneName: AS_NoNPC-NoItems
-      weightIfConditionTrue: 20
-    - sceneName: AS_NPC
       weightIfConditionTrue: 20
   - ruleName: MusicOpenDoor
     conditionToCheck: 14
     scenesToModify:
     - sceneName: AS_Camera
-      weightIfConditionTrue: 20
-    - sceneName: AS_Clocks
       weightIfConditionTrue: 0
-    - sceneName: AS_LOOP4
+    - sceneName: AS_Photo2
+      weightIfConditionTrue: 0
+    - sceneName: AS_Photo5
+      weightIfConditionTrue: 0
+    - sceneName: AS_Photo6
+      weightIfConditionTrue: 0
+    - sceneName: AS_MusicNote1
       weightIfConditionTrue: 20
-    - sceneName: AS_NoNPC-NoItems
+    - sceneName: AS_MusicNote2
       weightIfConditionTrue: 20
-    - sceneName: AS_NPC
+    - sceneName: AS_MusicNote3
+      weightIfConditionTrue: 20
+    - sceneName: AS_MusicNote4
       weightIfConditionTrue: 20
 --- !u!4 &159319079
 Transform:
@@ -22543,7 +22549,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
       propertyPath: weightedScenes.Array.size
-      value: 5
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
       propertyPath: initialSceneSequence.Array.size
@@ -22567,15 +22573,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
       propertyPath: weightedScenes.Array.data[3].sceneName
-      value: AS_LOOP4
+      value: AS_Camera
       objectReference: {fileID: 0}
     - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
       propertyPath: weightedScenes.Array.data[4].sceneName
-      value: AS_Camera
+      value: AS_Photo2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
+      propertyPath: weightedScenes.Array.data[5].sceneName
+      value: AS_Photo5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
+      propertyPath: weightedScenes.Array.data[6].sceneName
+      value: AS_Photo6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
+      propertyPath: weightedScenes.Array.data[7].sceneName
+      value: AS_MusicNote1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
+      propertyPath: weightedScenes.Array.data[8].sceneName
+      value: AS_MusicNote2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
+      propertyPath: weightedScenes.Array.data[9].sceneName
+      value: AS_MusicNote3
       objectReference: {fileID: 0}
     - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
       propertyPath: weightedScenes.Array.data[0].SceneEvent
       value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
+      propertyPath: weightedScenes.Array.data[10].sceneName
+      value: AS_MusicNote4
       objectReference: {fileID: 0}
     - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
       propertyPath: weightedScenes.Array.data[1].SceneEvent
