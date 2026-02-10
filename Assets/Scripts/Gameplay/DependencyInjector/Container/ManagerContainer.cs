@@ -19,6 +19,7 @@ namespace DependencyInjection
             injector.Register<IClockPuzzleManager>(() => FindAndValidate<ClockPuzzleManager>());
             injector.Register<ISafeQuestManager>(() => FindAndValidate<SafeQuestManager>());
             injector.Register<IFinalQuestManager>(() => FindAndValidate<FinalQuestManager>());
+            injector.Register<IMenuManager>(() => FindAndValidate<MenuManager>());
         }
     }
 }

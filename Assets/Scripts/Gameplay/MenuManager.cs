@@ -1,11 +1,15 @@
-using System.Collections;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 using Core.Audio;
 using Core.DependencyInjection;
 using Core.UI;
+using Core.Utilities;
+using System.Collections;
+using TMPro;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using static UnityEngine.Rendering.DebugUI;
 
-public class MenuManager : MonoBehaviour
+public class MenuManager : MonoBehaviour, IMenuManager
 {
     [Header("Fade")]
     [SerializeField] float timeToChangeSceneAfterCommand;
@@ -14,7 +18,9 @@ public class MenuManager : MonoBehaviour
 
     [Header("Sound")]
     [SerializeField] SoundData clickSoundData;
+    [SerializeField] SoundData hoverSoundData;
     [SerializeField] AudioSource bgmAudio;
+
 
     [Header ("Flash")]
     [SerializeField] CanvasGroup flashCanvasGroup;
@@ -26,6 +32,20 @@ public class MenuManager : MonoBehaviour
     [Header("Buttons")]
     [SerializeField] Animator animator1;
     [SerializeField] Animator animator2;
+
+    [Header("CinemaMachineSttings")]
+    [SerializeField] Animator cinemachineAnimator;
+    private bool isCamera2Active = false;
+
+    [Header("Panel Settings")]
+    [SerializeField] GameObject activePanel;
+    [SerializeField] GameObject UIActivePanel;
+    [SerializeField] MenuPanel panel_1;
+    [SerializeField] MenuPanel panel_2;
+    [SerializeField] MenuPanel panel_3;
+    [SerializeField] TextMeshPro PanelTitleText;
+    [SerializeField] Animator doorAnimator;
+
 
     private bool buttonsAllowed = false;
     private bool isFlashing = false;
@@ -49,8 +69,9 @@ public class MenuManager : MonoBehaviour
             StartCoroutine(AllowButtons(true, timeToEnableButtons));
             fade.ForceFade(false);
         }
-
+        activePanel = panel_1.gameObject;
         bgmVolumeBase = bgmAudio.volume;
+
     }
     private void Update()
     {
@@ -70,6 +91,12 @@ public class MenuManager : MonoBehaviour
         if (isDecreasingVolume)
         {
             bgmAudio.volume -= (bgmVolumeBase) * Time.deltaTime * (1/ (timeToChangeSceneAfterCommand));
+        }
+
+        if (Input.anyKeyDown && !isCamera2Active)
+        {
+            ChangeCamera();
+            isCamera2Active = true;
         }
     }
 
@@ -92,6 +119,48 @@ public class MenuManager : MonoBehaviour
         StartCoroutine(ExitGame(timeToChangeSceneAfterCommand));
     }
 
+    public void ChangeCamera()
+    {
+        cinemachineAnimator.SetBool("IsCamera1", !cinemachineAnimator.GetBool("IsCamera1"));
+        ClikBehaviour();
+        DelayUtility.Instance.Delay(2f, () => 
+        {
+            doorAnimator.SetTrigger("DoorOpened");
+            panel_1.UIPanel.SetActive(true);
+            UIActivePanel = panel_1.UIPanel;
+            doorAnimator.SetTrigger("DoorIdleOpen");
+        });
+        
+    }
+
+    public void ChangeActivePanel (MenuPanel Panel)
+    {
+
+        doorAnimator.SetTrigger("DoorClosed");
+        doorAnimator.SetTrigger("DoorIdleClosed");
+        DelayUtility.Instance.Delay(2f, () =>
+        {
+            activePanel.SetActive(false);            
+            UIActivePanel.SetActive(false);
+        });
+
+        StartCoroutine(ChangePanelAfterClose(Panel));
+    }
+    private IEnumerator ChangePanelAfterClose(MenuPanel panel)
+    {
+        yield return new WaitForSeconds(3); 
+
+        activePanel = panel.gameObject;
+        UIActivePanel = panel.UIPanel;
+
+        activePanel.SetActive(true);
+        UIActivePanel.SetActive(true);
+
+        PanelTitleText.text = panel.panelTitle;
+
+        doorAnimator.SetTrigger("DoorOpened");
+        doorAnimator.SetTrigger("DoorIdleOpen");
+    }
 
     private void ClikBehaviour()
     {
@@ -102,6 +171,15 @@ public class MenuManager : MonoBehaviour
             .WithRandomPitch()
             .Play();
         buttonsAllowed = false;
+    }
+
+    public void HoverBehaviour()
+    {
+        if (!buttonsAllowed) return;
+        soundManager.CreateSound()
+            .WithSoundData(hoverSoundData)
+            .WithRandomPitch()
+            .Play();
     }
     private IEnumerator flashCanvasAlpha()
     {
@@ -142,4 +220,10 @@ public class MenuManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
     }
+
+}
+
+public interface IMenuManager
+{
+    void HoverBehaviour();
 }

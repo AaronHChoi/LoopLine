@@ -10,5 +10,6 @@ namespace Core.UI
 		Arrow,
 		Inventory,
 		MenuFade,
-	} 
+		MenuPanel,
+    } 
 }
