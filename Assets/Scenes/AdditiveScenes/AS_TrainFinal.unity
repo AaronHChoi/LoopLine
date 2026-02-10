@@ -506,7 +506,6 @@ MonoBehaviour:
   - {fileID: 920942986}
   - {fileID: 382360636}
   - {fileID: 785002798}
-  clueGameCondition: 9
   delay: 6
 --- !u!114 &112514029
 MonoBehaviour:
@@ -524,6 +523,8 @@ MonoBehaviour:
   monologueDelay: 0
   item: {fileID: 112514028}
   myOrderIndex: 0
+  musicalNote: 0
+  idMusicalNote: 
 --- !u!65 &112514030
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1548,7 +1549,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptMessage: Door
   uiOffset: {x: 0.25, y: 0, z: 1.66}
-  uiOffsetPrompt: {x: 0, y: 0, z: 1.66}
+  uiOffsetPrompt: {x: 0, y: -0.1, z: 1.66}
   uiScale: 2
 --- !u!114 &251641883
 MonoBehaviour:
@@ -4252,7 +4253,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptMessage: Door
   uiOffset: {x: 0.25, y: 0, z: 1.66}
-  uiOffsetPrompt: {x: 0, y: 0, z: 1.66}
+  uiOffsetPrompt: {x: 0, y: -0.1, z: 1.66}
   uiScale: 2
 --- !u!1 &407904257
 GameObject:
@@ -4324,7 +4325,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptMessage: Door
   uiOffset: {x: -0.25, y: 0, z: 1.66}
-  uiOffsetPrompt: {x: -0.25, y: 0, z: 1.66}
+  uiOffsetPrompt: {x: -0.25, y: -0.1, z: 1.66}
   uiScale: 2
 --- !u!23 &407904261
 MeshRenderer:
@@ -4471,7 +4472,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptMessage: Door
   uiOffset: {x: -0.25, y: 0, z: 1.66}
-  uiOffsetPrompt: {x: -0.25, y: 0, z: 1.66}
+  uiOffsetPrompt: {x: -0.25, y: -0.1, z: 1.66}
   uiScale: 2
 --- !u!23 &420814433
 MeshRenderer:
@@ -4854,7 +4855,6 @@ MonoBehaviour:
   UIPrinciplal: {fileID: 1961571233}
   UIDeveloperMode: {fileID: 883203092}
   audioMixer: {fileID: 24100000, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
-  cinemaFade: {fileID: 1909266832}
 --- !u!1 &478144311
 GameObject:
   m_ObjectHideFlags: 0
@@ -23751,7 +23751,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptMessage: Door
   uiOffset: {x: 0.25, y: 0, z: 1.66}
-  uiOffsetPrompt: {x: 0, y: 0, z: 1.66}
+  uiOffsetPrompt: {x: 0, y: -0.1, z: 1.66}
   uiScale: 2
 --- !u!1001 &1178397498
 PrefabInstance:
@@ -25282,6 +25282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eecc91eeec0966847851fa68bf380f3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 1
 --- !u!4 &1334902840
 Transform:
   m_ObjectHideFlags: 0
@@ -25734,7 +25735,6 @@ MonoBehaviour:
   dialoguePanel: {fileID: 1362966858}
   dialogueText: {fileID: 1362966857}
   continueIndicator: {fileID: 1362966856}
-  letterBoxFadeInOut: {fileID: 1909266832}
   dialogueColor: {r: 1, g: 1, b: 1, a: 1}
   monologueColor: {r: 1, g: 0.90588236, b: 0.5176471, a: 1}
   typingSpeed: 0.02
@@ -25842,6 +25842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 820d7666d2409f247bec0122dbc9d941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  identifier: 0
   settings: {fileID: 11400000, guid: 64e128653e5c0464c97cf34027a7efb0, type: 2}
 --- !u!225 &1371651436
 CanvasGroup:
@@ -26482,6 +26483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 820d7666d2409f247bec0122dbc9d941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  identifier: 0
   settings: {fileID: 11400000, guid: c18f626c535d0c24e82365dfe6f9373d, type: 2}
 --- !u!225 &1458761942
 CanvasGroup:
@@ -27182,7 +27184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptMessage: Door
   uiOffset: {x: -0.25, y: 0, z: 1.66}
-  uiOffsetPrompt: {x: 0, y: 0, z: 1.66}
+  uiOffsetPrompt: {x: 0, y: -0.1, z: 1.66}
   uiScale: 2
 --- !u!1001 &1500752707
 PrefabInstance:
@@ -29630,7 +29632,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptMessage: Door
   uiOffset: {x: -0.25, y: 0, z: 1.66}
-  uiOffsetPrompt: {x: 0, y: 0, z: 1.66}
+  uiOffsetPrompt: {x: 0, y: -0.1, z: 1.66}
   uiScale: 2
 --- !u!114 &1681251810
 MonoBehaviour:
@@ -30405,7 +30407,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptMessage: Door
   uiOffset: {x: -0.25, y: 0, z: 1.66}
-  uiOffsetPrompt: {x: -0.25, y: 0, z: 1.66}
+  uiOffsetPrompt: {x: -0.25, y: -0.1, z: 1.66}
   uiScale: 2
 --- !u!1 &1796506411 stripped
 GameObject:
@@ -30618,6 +30620,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 820d7666d2409f247bec0122dbc9d941, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  identifier: 0
   settings: {fileID: 11400000, guid: b91b290518d6df043986f61f68a6aeb4, type: 2}
 --- !u!225 &1809992836
 CanvasGroup:
@@ -31638,7 +31641,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptMessage: Door
   uiOffset: {x: 0.25, y: 0, z: 1.66}
-  uiOffsetPrompt: {x: 0, y: 0, z: 1.66}
+  uiOffsetPrompt: {x: 0, y: -0.1, z: 1.66}
   uiScale: 2
 --- !u!23 &1885379979
 MeshRenderer:
@@ -33202,7 +33205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptMessage: Door
   uiOffset: {x: 0.25, y: 0, z: 1.66}
-  uiOffsetPrompt: {x: 0, y: 0, z: 1.66}
+  uiOffsetPrompt: {x: 0, y: -0.1, z: 1.66}
   uiScale: 2
 --- !u!23 &2043135517
 MeshRenderer:
@@ -33555,7 +33558,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptMessage: Door
   uiOffset: {x: -0.25, y: 0, z: 1.66}
-  uiOffsetPrompt: {x: 0, y: 0, z: 1.66}
+  uiOffsetPrompt: {x: 0, y: -0.1, z: 1.66}
   uiScale: 2
 --- !u!1 &2071456526
 GameObject:
@@ -38972,7 +38975,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   promptMessage: Door
   uiOffset: {x: 0.25, y: 0, z: 1.66}
-  uiOffsetPrompt: {x: 0, y: 0, z: 1.66}
+  uiOffsetPrompt: {x: 0, y: -0.1, z: 1.66}
   uiScale: 2
 --- !u!1001 &2112021541
 PrefabInstance:
