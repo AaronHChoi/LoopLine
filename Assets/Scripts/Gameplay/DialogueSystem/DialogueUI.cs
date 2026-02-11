@@ -8,6 +8,14 @@ using Core.Audio;
 using Core.DependencyInjection;
 using Core.UI;
 
+[System.Serializable]
+public struct NPCAudioSettings
+{
+    public NPCType npcType;
+    public float pitch;
+    public float customTypingSpeed;
+}
+
 public class DialogueUI : MonoBehaviour, IDialogueUI
 {
     public event Action OnTypingFinished;
@@ -26,6 +34,10 @@ public class DialogueUI : MonoBehaviour, IDialogueUI
     private string fullText;
     private DialogueSO2 currentDialogue;
     private int currentLineIndex = 0;
+
+    [SerializeField] private List<NPCAudioSettings> npcAudioConfigs;
+    private NPCAudioSettings currentAudioSettings;
+    private float defaultPitch = 1f;
 
     DialogueSpeakerBase currentSpeaker;
     Coroutine typingCoroutine;
@@ -87,6 +99,16 @@ public class DialogueUI : MonoBehaviour, IDialogueUI
         {
             mindplaceClock.OnEnterClock -= OnClockStartedHandler;
             mindplaceClock.OnExitClock -= OnClockEndedHandler;
+        }
+    }
+    private void SetAudioSettingsForNPC(NPCType type)
+    {
+        currentAudioSettings = npcAudioConfigs.Find(x => x.npcType == type);
+        
+        if (currentAudioSettings.npcType == NPCType.None && type != NPCType.None)
+        {
+            currentAudioSettings.pitch = defaultPitch;
+            currentAudioSettings.customTypingSpeed = typingSpeed;
         }
     }
     private void OnDialogueStartedHandler()
@@ -173,6 +195,9 @@ public class DialogueUI : MonoBehaviour, IDialogueUI
     private void ShowCurrentLine()
     {
         var line = currentDialogue.lines[currentLineIndex];
+
+        SetAudioSettingsForNPC(line.npcType);
+
         NPCType npcTypeToUse = line.npcType;
         string npcName = GetNPCName(npcTypeToUse, currentDialogue.IsAMonologue);
 
@@ -262,11 +287,16 @@ public class DialogueUI : MonoBehaviour, IDialogueUI
                 }
             }
             dialogueText.text += fullText[i];
+
             soundManager.CreateSound()
                         .WithSoundData(typeSound)
+                        .WithPitch(currentAudioSettings.pitch)
                         .Play();
             i++;
-            yield return new WaitForSeconds(typingSpeed);
+
+            float speed = currentAudioSettings.customTypingSpeed > 0 ? currentAudioSettings.customTypingSpeed : typingSpeed;
+
+            yield return new WaitForSeconds(speed);
         }
         isTyping = false;
         typingCoroutine = null;

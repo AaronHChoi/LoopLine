@@ -25,6 +25,7 @@ namespace Audio.SoundSystem
             audioSource.loop = data.isALoop;
             audioSource.playOnAwake = data.isAPlayOnAwake;
             audioSource.volume = data.volume;
+            audioSource.pitch = data.pitch;
         }
         public void Play()
         {
@@ -70,6 +71,10 @@ namespace Audio.SoundSystem
         public void WithRandomPitch(float min = -0.05f, float max = 0.05f)
         {
             audioSource.pitch += Random.Range(min, max);
+        }
+        public void WithPitch(float pitch)
+        {
+            audioSource.pitch = pitch;
         }
     }
 }

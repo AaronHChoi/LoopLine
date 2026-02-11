@@ -9,12 +9,19 @@ namespace Core.Audio
         Vector3 position = Vector3.zero;
         bool randomPitch;
         bool is3D;
+        float pitch = 1f;
+        bool pitchSet = false;
 
         public SoundBuilder(ISoundManager soundManager)
         {
             this.soundManager = soundManager;
         }
-
+        public SoundBuilder WithPitch(float pitch)
+        {
+            this.pitch = pitch;
+            this.pitchSet = true;
+            return this;
+        }
         public SoundBuilder WithSoundData(SoundData soundData)
         {
             this.soundData = soundData;
@@ -50,6 +57,8 @@ namespace Core.Audio
             soundEmitter.transform.position = position;
             soundEmitter.transform.parent = soundManager.GetPoolParent();
             soundEmitter.With3D(is3D);
+            float finalPitch = pitchSet ? pitch : soundData.pitch;
+            soundEmitter.WithPitch(finalPitch);
 
             if (randomPitch) soundEmitter.WithRandomPitch();
 
