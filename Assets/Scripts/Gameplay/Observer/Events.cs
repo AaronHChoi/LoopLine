@@ -66,4 +66,7 @@ public enum Events
     ASLOOP,
     ASCAMERA,
     ASNOITEMS,
+    EvidenceMarker1,
+    EvidenceMarker2,
+    EvidenceMarker3,
 }
