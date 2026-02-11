@@ -11,5 +11,6 @@ namespace Core.UI
 		Inventory,
 		MenuFade,
 		MenuPanel,
+		InfoPanel,
     } 
 }
