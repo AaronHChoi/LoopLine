@@ -163,6 +163,7 @@ GameObject:
   - component: {fileID: 322696154}
   - component: {fileID: 322696153}
   - component: {fileID: 322696155}
+  - component: {fileID: 322696156}
   m_Layer: 3
   m_Name: EvidenceMarker
   m_TagString: Untagged
@@ -199,10 +200,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueGroups:
-  - eventType: 17
+  - eventType: 54
     dialogues:
     - {fileID: 11400000, guid: 0e8c66af74e27ea439fedd06d06073ae, type: 2}
-  currentEvent: 17
+  currentEvent: 54
   npcType: 6
   autoAdvance: 0
   interactText: 
@@ -227,8 +228,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.2300458, y: 0.26205403, z: 0.29910994}
-  m_Center: {x: 0.03230846, y: 0.11425558, z: -0.014495492}
+  m_Size: {x: 0.2300458, y: 0.26205403, z: 0.49107027}
+  m_Center: {x: 0.03230846, y: 0.11425558, z: -0.11047566}
 --- !u!114 &322696155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,6 +242,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2057d10d595727e49a7de2ad483a66c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &322696156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 322696151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptMessage: Evidence marker
+  uiOffset: {x: 0, y: 0, z: 0}
+  uiOffsetPrompt: {x: 0, y: 0, z: 0}
+  uiScale: 1
 --- !u!1001 &333884562
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5893,8 +5910,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.9594406, y: 1.5670972, z: 2.2948606}
-  m_Center: {x: 0.23373336, y: 0.8083204, z: -0.25695702}
+  m_Size: {x: 0.9594406, y: 1.5670972, z: 2.06672}
+  m_Center: {x: 0.23373336, y: 0.8083204, z: -0.14288694}
 --- !u!114 &965605907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6872,7 +6889,8 @@ GameObject:
   - component: {fileID: 1279881154}
   - component: {fileID: 1279881153}
   - component: {fileID: 1279881155}
-  m_Layer: 0
+  - component: {fileID: 1279881156}
+  m_Layer: 3
   m_Name: EvidenceMarker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6908,10 +6926,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueGroups:
-  - eventType: 17
+  - eventType: 54
     dialogues:
     - {fileID: 11400000, guid: 0e8c66af74e27ea439fedd06d06073ae, type: 2}
-  currentEvent: 17
+  currentEvent: 54
   npcType: 1
   autoAdvance: 0
   interactText: 
@@ -6950,6 +6968,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2057d10d595727e49a7de2ad483a66c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1279881156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279881151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4100bcd82b83b9847add2ca012f6e1a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptMessage: Evidence marker
+  uiOffset: {x: 0, y: 0, z: 0}
+  uiOffsetPrompt: {x: 0, y: 0, z: 0}
+  uiScale: 1
 --- !u!1 &1392415245
 GameObject:
   m_ObjectHideFlags: 0
