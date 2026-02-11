@@ -4,15 +4,27 @@ using System.Linq;
 using System.Collections.Generic;
 
 /// <summary>
-/// Automatic importer compatible with the Blender "Props" addon.
-/// Builds colliders, creates an EXACT LOD distribution, and applies Static Flags
-/// to the FULL hierarchy reliably on import.
+/// FINAL production‑ready Props importer.
+///
+/// Features:
+/// - Detects _COL meshes and converts to real colliders
+/// - Removes MeshFilter from collision objects (clean production setup)
+/// - Builds exact LODGroup distribution (100 → 30 → 10 → 1 culled)
+/// - Creates professional hierarchy:
+///     Root
+///       └─ Render (LOD meshes)
+/// - Colliders remain directly under Root (no unnecessary empty)
+/// - Applies Static flags to the FULL hierarchy
 /// </summary>
 public class PropsImporter : AssetPostprocessor
 {
     void OnPostprocessModel(GameObject root)
     {
         var transforms = root.GetComponentsInChildren<Transform>(true);
+
+        // ---------- CREATE RENDER ROOT ----------
+        var renderRoot = new GameObject("Render").transform;
+        renderRoot.SetParent(root.transform, false);
 
         // ---------- COLLISIONS ----------
         foreach (var t in transforms)
@@ -26,12 +38,17 @@ public class PropsImporter : AssetPostprocessor
             if (meshFilter == null || meshFilter.sharedMesh == null)
                 continue;
 
+            Mesh mesh = meshFilter.sharedMesh;
+
+            // Keep collider directly under root (no Collision empty)
+            t.SetParent(root.transform, true);
+
+            // Remove renderer
             var renderer = t.GetComponent<MeshRenderer>();
             if (renderer != null)
                 Object.DestroyImmediate(renderer);
 
-            Mesh mesh = meshFilter.sharedMesh;
-
+            // Create proper collider
             if (IsSimpleBox(mesh))
             {
                 var box = t.gameObject.AddComponent<BoxCollider>();
@@ -44,29 +61,29 @@ public class PropsImporter : AssetPostprocessor
                 meshCollider.sharedMesh = mesh;
                 meshCollider.convex = true;
             }
+
+            // Remove MeshFilter AFTER assigning mesh to collider
+            Object.DestroyImmediate(meshFilter);
         }
 
-        // ---------- LOD GROUPS (STRICT VALUES) ----------
-        foreach (var t in transforms)
+        // ---------- RENDER MESHES + LOD DETECTION ----------
+        var meshRenderers = root.GetComponentsInChildren<MeshRenderer>(true)
+            .Where(r => !r.name.ToLower().Contains("_col"))
+            .ToArray();
+
+        foreach (var r in meshRenderers)
+            r.transform.SetParent(renderRoot, true);
+
+        var lod0 = meshRenderers.FirstOrDefault(r => r.name.EndsWith("_LOD0") || r.name == root.name);
+        var lod1 = meshRenderers.FirstOrDefault(r => r.name.EndsWith("_LOD1"));
+        var lod2 = meshRenderers.FirstOrDefault(r => r.name.EndsWith("_LOD2"));
+
+        // ---------- LOD GROUP ----------
+        if (lod0 != null && lod1 != null && lod2 != null)
         {
-            // Only EMPTY root objects
-            if (t.GetComponent<MeshRenderer>() != null)
-                continue;
-
-            var children = t.GetComponentsInChildren<MeshRenderer>(true);
-            if (children.Length == 0)
-                continue;
-
-            var lod0 = children.FirstOrDefault(r => r.name == t.name || r.name.EndsWith("_LOD0"));
-            var lod1 = children.FirstOrDefault(r => r.name.EndsWith("_LOD1"));
-            var lod2 = children.FirstOrDefault(r => r.name.EndsWith("_LOD2"));
-
-            if (lod0 == null || lod1 == null || lod2 == null)
-                continue;
-
-            var lodGroup = t.gameObject.GetComponent<LODGroup>();
+            var lodGroup = root.GetComponent<LODGroup>();
             if (lodGroup == null)
-                lodGroup = t.gameObject.AddComponent<LODGroup>();
+                lodGroup = root.AddComponent<LODGroup>();
 
             var lods = new LOD[]
             {
@@ -77,12 +94,11 @@ public class PropsImporter : AssetPostprocessor
 
             lodGroup.fadeMode = LODFadeMode.CrossFade;
             lodGroup.animateCrossFading = true;
-
             lodGroup.SetLODs(lods);
             lodGroup.RecalculateBounds();
         }
 
-        // ---------- STATIC FLAGS (APPLY ALWAYS, NOT ONLY IF LOD EXISTS) ----------
+        // ---------- STATIC FLAGS ----------
         ApplyStaticFlagsRecursively(root);
     }
 
@@ -102,7 +118,6 @@ public class PropsImporter : AssetPostprocessor
             );
         }
 
-        // ALSO ensure the root itself is static
         GameObjectUtility.SetStaticEditorFlags(
             root,
             StaticEditorFlags.BatchingStatic |
