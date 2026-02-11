@@ -29,34 +29,34 @@ public class StopButtonInteract : MonoBehaviour, IInteract
     }
     private void Start()
     {
-        foreach (var item in itemManager.items) 
-        {
-            if (item.id == "Rock") //asegurarse que el item de la roca tenga este id
-            {
-                Rock = item;
-            }
-        }
+        //foreach (var item in itemManager.items) 
+        //{
+        //    if (item.id == "Rock") //asegurarse que el item de la roca tenga este id
+        //    {
+        //        Rock = item;
+        //    }
+        //}
     }
     public void Interact()
     {
         if (!hasStoped)
         {
-            if (Crystal.gameObject.activeSelf == true)
-            {
+            //if (Crystal.gameObject.activeSelf == true)
+            //{
 
-                if (inventoryUI.ItemInUse == Rock)
-                {
+            //    if (inventoryUI.ItemInUse == Rock)
+            //    {
 
-                    soundManager.CreateSound()
-                        .WithSoundData(BreakSecurityCrystal)
-                        .Play();
-                    Crystal.gameObject.SetActive(false);
-                    inventoryUI.RemoveInventorySlot(Rock);
+            //        soundManager.CreateSound()
+            //            .WithSoundData(BreakSecurityCrystal)
+            //            .Play();
+            //        Crystal.gameObject.SetActive(false);
+            //        inventoryUI.RemoveInventorySlot(Rock);
 
-                }
-            }
-            else
-            {
+            //    }
+            //}
+            //else
+            //{
                 soundManager.CreateSound()
                         .WithSoundData(PushButton)
                         .Play();
@@ -64,7 +64,7 @@ public class StopButtonInteract : MonoBehaviour, IInteract
                 eventManager.TrainEventStopTrain();
                 gameObject.layer = LayerMask.NameToLayer("Default");
                 hasStoped = true;
-            }
+            //}
         }
     }
     void Update()
