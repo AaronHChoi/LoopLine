@@ -5,7 +5,8 @@ using System.Collections.Generic;
 
 /// <summary>
 /// Automatic importer compatible with the Blender "Props" addon.
-/// Detects _COL meshes and LOD hierarchy under an empty root object.
+/// Builds colliders, creates an EXACT LOD distribution, and applies Static Flags
+/// to the FULL hierarchy reliably on import.
 /// </summary>
 public class PropsImporter : AssetPostprocessor
 {
@@ -18,7 +19,7 @@ public class PropsImporter : AssetPostprocessor
         {
             string name = t.name.ToLower();
 
-            if (!name.EndsWith("_col"))
+            if (!name.Contains("_col"))
                 continue;
 
             var meshFilter = t.GetComponent<MeshFilter>();
@@ -45,10 +46,10 @@ public class PropsImporter : AssetPostprocessor
             }
         }
 
-        // ---------- LOD GROUPS (empty parent workflow) ----------
+        // ---------- LOD GROUPS (STRICT VALUES) ----------
         foreach (var t in transforms)
         {
-            // We only care about EMPTY root objects (no MeshRenderer)
+            // Only EMPTY root objects
             if (t.GetComponent<MeshRenderer>() != null)
                 continue;
 
@@ -56,29 +57,60 @@ public class PropsImporter : AssetPostprocessor
             if (children.Length == 0)
                 continue;
 
-            var lod0 = children.FirstOrDefault(r => r.name.EndsWith("_LOD0") || r.name == t.name);
+            var lod0 = children.FirstOrDefault(r => r.name == t.name || r.name.EndsWith("_LOD0"));
             var lod1 = children.FirstOrDefault(r => r.name.EndsWith("_LOD1"));
             var lod2 = children.FirstOrDefault(r => r.name.EndsWith("_LOD2"));
 
-            if (lod0 == null || lod1 == null)
-                continue; // Need at least LOD0 + LOD1 to be valid
+            if (lod0 == null || lod1 == null || lod2 == null)
+                continue;
 
-            var lodGroup = t.gameObject.AddComponent<LODGroup>();
+            var lodGroup = t.gameObject.GetComponent<LODGroup>();
+            if (lodGroup == null)
+                lodGroup = t.gameObject.AddComponent<LODGroup>();
 
-            var lods = new List<LOD>
+            var lods = new LOD[]
             {
-                new LOD(0.6f, new[] { lod0 })
+                new LOD(0.30f, new[] { lod0 }),
+                new LOD(0.10f, new[] { lod1 }),
+                new LOD(0.01f, new[] { lod2 })
             };
 
-            if (lod1 != null)
-                lods.Add(new LOD(0.3f, new[] { lod1 }));
+            lodGroup.fadeMode = LODFadeMode.CrossFade;
+            lodGroup.animateCrossFading = true;
 
-            if (lod2 != null)
-                lods.Add(new LOD(0.1f, new[] { lod2 }));
-
-            lodGroup.SetLODs(lods.ToArray());
+            lodGroup.SetLODs(lods);
             lodGroup.RecalculateBounds();
         }
+
+        // ---------- STATIC FLAGS (APPLY ALWAYS, NOT ONLY IF LOD EXISTS) ----------
+        ApplyStaticFlagsRecursively(root);
+    }
+
+    void ApplyStaticFlagsRecursively(GameObject root)
+    {
+        var all = root.GetComponentsInChildren<Transform>(true);
+
+        foreach (var t in all)
+        {
+            GameObjectUtility.SetStaticEditorFlags(
+                t.gameObject,
+                StaticEditorFlags.BatchingStatic |
+                StaticEditorFlags.ContributeGI |
+                StaticEditorFlags.OccluderStatic |
+                StaticEditorFlags.OccludeeStatic |
+                StaticEditorFlags.ReflectionProbeStatic
+            );
+        }
+
+        // ALSO ensure the root itself is static
+        GameObjectUtility.SetStaticEditorFlags(
+            root,
+            StaticEditorFlags.BatchingStatic |
+            StaticEditorFlags.ContributeGI |
+            StaticEditorFlags.OccluderStatic |
+            StaticEditorFlags.OccludeeStatic |
+            StaticEditorFlags.ReflectionProbeStatic
+        );
     }
 
     bool IsSimpleBox(Mesh mesh)
