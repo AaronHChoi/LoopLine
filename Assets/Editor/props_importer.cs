@@ -4,17 +4,14 @@ using System.Linq;
 using System.Collections.Generic;
 
 /// <summary>
-/// FINAL production‑ready Props importer.
+/// FINAL production-ready Props importer.
 ///
-/// Features:
-/// - Detects _COL meshes and converts to real colliders
-/// - Removes MeshFilter from collision objects (clean production setup)
-/// - Builds exact LODGroup distribution (100 → 30 → 10 → 1 culled)
-/// - Creates professional hierarchy:
-///     Root
-///       └─ Render (LOD meshes)
-/// - Colliders remain directly under Root (no unnecessary empty)
-/// - Applies Static flags to the FULL hierarchy
+/// Rules:
+/// - If the model has NO _LOD and NO _COL → importer does NOTHING.
+/// - If it has _COL → converts to real colliders and removes render/meshfilter.
+/// - If it has full LOD chain → builds exact LODGroup (100 → 30 → 10 → 1).
+/// - Creates Render root ONLY when processing is needed.
+/// - Applies Static flags only when processing occurs.
 /// </summary>
 public class PropsImporter : AssetPostprocessor
 {
@@ -22,9 +19,24 @@ public class PropsImporter : AssetPostprocessor
     {
         var transforms = root.GetComponentsInChildren<Transform>(true);
 
-        // ---------- CREATE RENDER ROOT ----------
-        var renderRoot = new GameObject("Render").transform;
-        renderRoot.SetParent(root.transform, false);
+        bool hasLOD0 = transforms.Any(t => t.name.EndsWith("_LOD0") || t.name == root.name);
+        bool hasLOD1 = transforms.Any(t => t.name.EndsWith("_LOD1"));
+        bool hasLOD2 = transforms.Any(t => t.name.EndsWith("_LOD2"));
+
+        bool hasFullLOD = hasLOD0 && hasLOD1 && hasLOD2;
+        bool hasCOL = transforms.Any(t => t.name.ToLower().Contains("_col"));
+
+        // ---------- DO ABSOLUTELY NOTHING IF NO FULL LOD AND NO COLLISION ----------
+        if (!hasFullLOD && !hasCOL)
+            return;
+
+        // ---------- CREATE RENDER ROOT ONLY IF LODs EXIST ----------
+        Transform renderRoot = null;
+        if (hasFullLOD)
+        {
+            renderRoot = new GameObject("Render").transform;
+            renderRoot.SetParent(root.transform, false);
+        }
 
         // ---------- COLLISIONS ----------
         foreach (var t in transforms)
@@ -40,7 +52,7 @@ public class PropsImporter : AssetPostprocessor
 
             Mesh mesh = meshFilter.sharedMesh;
 
-            // Keep collider directly under root (no Collision empty)
+            // Keep collider directly under root
             t.SetParent(root.transform, true);
 
             // Remove renderer
@@ -48,7 +60,7 @@ public class PropsImporter : AssetPostprocessor
             if (renderer != null)
                 Object.DestroyImmediate(renderer);
 
-            // Create proper collider
+            // Create collider
             if (IsSimpleBox(mesh))
             {
                 var box = t.gameObject.AddComponent<BoxCollider>();
@@ -62,17 +74,20 @@ public class PropsImporter : AssetPostprocessor
                 meshCollider.convex = true;
             }
 
-            // Remove MeshFilter AFTER assigning mesh to collider
+            // Remove MeshFilter after assigning mesh
             Object.DestroyImmediate(meshFilter);
         }
 
-        // ---------- RENDER MESHES + LOD DETECTION ----------
+        // ---------- RENDER MESHES ----------
         var meshRenderers = root.GetComponentsInChildren<MeshRenderer>(true)
             .Where(r => !r.name.ToLower().Contains("_col"))
             .ToArray();
 
-        foreach (var r in meshRenderers)
-            r.transform.SetParent(renderRoot, true);
+        if (renderRoot != null)
+        {
+            foreach (var r in meshRenderers)
+                r.transform.SetParent(renderRoot, true);
+        }
 
         var lod0 = meshRenderers.FirstOrDefault(r => r.name.EndsWith("_LOD0") || r.name == root.name);
         var lod1 = meshRenderers.FirstOrDefault(r => r.name.EndsWith("_LOD1"));
