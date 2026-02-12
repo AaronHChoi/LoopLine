@@ -8,9 +8,9 @@ using System.Collections.Generic;
 ///
 /// Rules:
 /// - If the model has NO _LOD and NO _COL → importer does NOTHING.
-/// - If it has _COL → converts to real colliders and removes render/meshfilter.
+/// - If it has _COL → converts to real colliders and places them under a Collision root (EMPTY preserved).
 /// - If it has full LOD chain → builds exact LODGroup (100 → 30 → 10 → 1).
-/// - Creates Render root ONLY when processing is needed.
+/// - Creates Render and Collision roots only when processing is needed.
 /// - Applies Static flags only when processing occurs.
 /// </summary>
 public class PropsImporter : AssetPostprocessor
@@ -38,6 +38,14 @@ public class PropsImporter : AssetPostprocessor
             renderRoot.SetParent(root.transform, false);
         }
 
+        // ---------- CREATE COLLISION ROOT ONLY IF COLLIDERS EXIST ----------
+        Transform collisionRoot = null;
+        if (hasCOL)
+        {
+            collisionRoot = new GameObject("Collision").transform;
+            collisionRoot.SetParent(root.transform, false);
+        }
+
         // ---------- COLLISIONS ----------
         foreach (var t in transforms)
         {
@@ -52,8 +60,9 @@ public class PropsImporter : AssetPostprocessor
 
             Mesh mesh = meshFilter.sharedMesh;
 
-            // Keep collider directly under root
-            t.SetParent(root.transform, true);
+            // Ensure collider stays under Collision EMPTY
+            if (collisionRoot != null)
+                t.SetParent(collisionRoot, true);
 
             // Remove renderer
             var renderer = t.GetComponent<MeshRenderer>();
@@ -74,7 +83,7 @@ public class PropsImporter : AssetPostprocessor
                 meshCollider.convex = true;
             }
 
-            // Remove MeshFilter after assigning mesh
+            // Remove MeshFilter AFTER assigning mesh
             Object.DestroyImmediate(meshFilter);
         }
 
