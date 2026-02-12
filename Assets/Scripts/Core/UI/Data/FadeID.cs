@@ -12,5 +12,6 @@ namespace Core.UI
 		MenuFade,
 		MenuPanel,
 		InfoPanel,
+		InfoChapterTitle,
     } 
 }

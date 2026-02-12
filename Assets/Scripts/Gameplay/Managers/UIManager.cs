@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
 using Core.Utilities;
 using Core.DependencyInjection;
 
@@ -20,16 +19,16 @@ public class UIPanelEntry
     public UIPanelID panelID;
     public UIPanelDataSO panelData;
     public PanelPosition position = PanelPosition.Center;
+    public PanelType panelType = PanelType.TutorialInfo;
 }
-
 public class UIManager : Singleton<UIManager>, IUIManager
 {
-    [SerializeField] private TextMeshProUGUI contador_provicional;
     bool isCursorVisible = false;
 
     [Header("UI Panel Manager")]
     [SerializeField] List<UIPanelEntry> managedPanels = new List<UIPanelEntry>();
     [SerializeField] GameObject infoPanelObject;
+    [SerializeField] GameObject titlePanelObject;
 
     [Header("Panel positions (RectTransforms)")]
     [SerializeField] Transform centerPosition;
@@ -38,12 +37,32 @@ public class UIManager : Singleton<UIManager>, IUIManager
 
     GameObject currentActivePanel = null;
     InfoPanel panelScript;
+    InfoPanel titlePanelScript;
 
     Coroutine activeCloseCoroutine = null;
 
-    //IPauseMenuManager pauseManager;
     ICrosshairFade crosshairFade;
     IGameStateController gameController;
+
+    #region DEBUG_TOOLS
+    [Header("Debug Settings")]
+    [SerializeField] UIPanelID debugPanelToTest;
+
+    [ContextMenu("Debug: Show Selected Panel")]
+    private void DebugShowPanel()
+    {
+        if (!Application.isPlaying)
+        {
+            return;
+        }
+        ShowPanel(debugPanelToTest);
+    }
+    [ContextMenu("DEBUG: Hide Current Panel")]
+    private void DebugHidePanel()
+    {
+        HideCurrentPanel();
+    }
+    #endregion
 
     #region MAGIC_METHODS
     protected override void Awake()
@@ -52,7 +71,6 @@ public class UIManager : Singleton<UIManager>, IUIManager
 
         gameController = InterfaceDependencyInjector.Instance.Resolve<IGameStateController>();
         crosshairFade = InterfaceDependencyInjector.Instance.Resolve<ICrosshairFade>();
-        //pauseManager = InterfaceDependencyInjector.Instance.Resolve<IPauseMenuManager>();
 
         if (infoPanelObject != null)
         {
@@ -68,10 +86,14 @@ public class UIManager : Singleton<UIManager>, IUIManager
             Debug.LogError("UIManager dont have assigned infoPanelObject");
         }
 
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        
-    }
+        if (titlePanelObject != null)
+        {
+            titlePanelObject.SetActive(false);
+            titlePanelScript = titlePanelObject.GetComponent<InfoPanel>();
+        }
 
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
     private void Start()
     {
         Screen.SetResolution(1920, 1080, FullScreenMode.FullScreenWindow);
@@ -98,7 +120,10 @@ public class UIManager : Singleton<UIManager>, IUIManager
 
         HideCurrentPanel();
 
-        if (infoPanelObject  == null || panelScript == null)
+        GameObject targetObject = (entry.panelType == PanelType.ChapterTitle) ? titlePanelObject : infoPanelObject;
+        InfoPanel targetScript = (entry.panelType == PanelType.ChapterTitle) ? titlePanelScript : panelScript;
+
+        if (targetObject == null || targetScript == null)
         {
             Debug.LogError("The panel cannot be displayed, infoPanelObject is not setting");
             return;
@@ -106,12 +131,12 @@ public class UIManager : Singleton<UIManager>, IUIManager
         
         if (entry.panelData != null)
         {
-            panelScript.Setup(entry.panelData);
+            targetScript.Setup(entry.panelData);
 
-            ApplyPanelPosition(entry.position, entry.panelData.OffSetX, entry.panelData.OffSetY);
+            ApplyPanelPosition(targetObject, entry.position, entry.panelData.OffSetX, entry.panelData.OffSetY);
 
-            infoPanelObject.SetActive(true);
-            currentActivePanel = infoPanelObject;
+            targetObject.SetActive(true);
+            currentActivePanel = targetObject;
 
             if (entry.panelData.HowToClose == PanelClose.Time)
             {
@@ -129,7 +154,7 @@ public class UIManager : Singleton<UIManager>, IUIManager
         activeCloseCoroutine = null;
         HideCurrentPanel();
     }
-    private void ApplyPanelPosition(PanelPosition position, float offsetX, float offsetY)
+    private void ApplyPanelPosition(GameObject target, PanelPosition position, float offsetX, float offsetY)
     {
         Transform targetPosition = centerPosition;
 
@@ -148,11 +173,11 @@ public class UIManager : Singleton<UIManager>, IUIManager
 
         if (targetPosition != null)
         {
-            infoPanelObject.transform.position = targetPosition.position;
+            target.transform.position = targetPosition.position;
 
             if (offsetX != 0 || offsetY != 0)
             {
-                infoPanelObject.transform.position += new Vector3(offsetX, offsetY, 0);
+                target.transform.position += new Vector3(offsetX, offsetY, 0);
             }
         }
     }
