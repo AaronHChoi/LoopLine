@@ -21,7 +21,8 @@ public class GameManager : Singleton<GameManager>
     }
 
     Dictionary<GameCondition, bool> conditions = new Dictionary<GameCondition, bool>();
-    //public event Action<GameCondition, bool> OnConditionChanged;
+
+    public event Action<GameCondition, bool> OnConditionChanged;
 
     [Header("DeveloperTools")]
     public bool isMuted = false;
@@ -51,6 +52,10 @@ public class GameManager : Singleton<GameManager>
         screenManager = InterfaceDependencyInjector.Instance.Resolve<IScreenManager>();
 
         SetGameConditions();
+    }
+    private void Start()
+    {
+        DelayUtility.Instance.Delay(3f, () => SetCondition(GameCondition.Chapter0, true));
     }
     private void OnValidate()
     {
@@ -85,10 +90,17 @@ public class GameManager : Singleton<GameManager>
     }
     public void SetCondition(GameCondition condition, bool value)
     {
+        if (conditions.ContainsKey(condition) && conditions[condition] == value)
+        {
+            return;
+        }
+
         conditions[condition] = value;
 
-        //OnConditionChanged?.Invoke(condition, value);
+        OnConditionChanged?.Invoke(condition, value);
     }
+    #region DEBUG_TOOLS
+#if UNITY_EDITOR
     [ContextMenu("Debug All Conditions")]
     public void DebugAllConditions()
     {
@@ -105,4 +117,6 @@ public class GameManager : Singleton<GameManager>
 
         Debug.Log(sb.ToString());
     }
+#endif
+    #endregion
 }

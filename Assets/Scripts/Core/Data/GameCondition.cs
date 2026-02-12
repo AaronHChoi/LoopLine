@@ -35,5 +35,12 @@ namespace Core.Data
         FirstTimeInMindPlace,
         LOOP4,
         FirstTimeLoop4,
-    } 
+        #region UI_CHAPTER_TITLE
+        Chapter0,
+        Chapter1,
+        Chapter2,
+        Chapter3,
+        Chapter4,
+        #endregion
+    }
 }
