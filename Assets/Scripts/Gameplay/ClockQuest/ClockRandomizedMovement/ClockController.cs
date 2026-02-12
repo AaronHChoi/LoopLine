@@ -12,15 +12,15 @@ public class ClockController : MonoBehaviour
 
     [Header("Speed Settings")]
     [SerializeField] private float baseSpeed = 150f;
-    [SerializeField] private float slowdownRangeMinutes = 20f;
-    [SerializeField] private float slowdownStrength = 4f;
-    [SerializeField] private float minSpeedFactor = 0.05f;
+    //[SerializeField] private float slowdownRangeMinutes = 20f;
+    //[SerializeField] private float slowdownStrength = 4f;
+    //[SerializeField] private float minSpeedFactor = 0.05f;
     [SerializeField] private float eventFastForwardSpeed = 1600f;
 
-    [Header("Timing Settings")]
-    [SerializeField] private bool enablePause = false;
-    [SerializeField] private float pauseDuration = 5f;
-    [SerializeField] private float resumeSmoothTime = 3f;
+    //[Header("Timing Settings")]
+    //[SerializeField] private bool enablePause = false;
+    //[SerializeField] private float pauseDuration = 5f;
+    //[SerializeField] private float resumeSmoothTime = 3f;
 
     [Header("Audio")]
     [SerializeField] private AudioSource tickSource;
@@ -39,10 +39,10 @@ public class ClockController : MonoBehaviour
     private float currentSpeed;
     private float elapsed;
     private DateTime startTime;
-    private float pauseTimer;
-    private bool isPaused;
-    private float resumeTimer;
-    private bool isResuming;
+    //private float pauseTimer;
+    //private bool isPaused;
+    //private float resumeTimer;
+    //private bool isResuming;
 
     private bool isEventActive = false;
 
@@ -81,65 +81,66 @@ public class ClockController : MonoBehaviour
             return;
         }
 
-        if (isPaused)
-        {
-            pauseTimer += Time.deltaTime;
-            if (pauseTimer >= pauseDuration)
-            {
-                isPaused = false;
-                isResuming = true;
-                resumeTimer = 0f;
-            }
+        //if (isPaused)
+        //{
+        //    pauseTimer += Time.deltaTime;
+        //    if (pauseTimer >= pauseDuration)
+        //    {
+        //        isPaused = false;
+        //        isResuming = true;
+        //        resumeTimer = 0f;
+        //    }
 
-            UpdateClock(startTime.AddSeconds(elapsed));
-            UpdateJitter();
-            return;
-        }
+        //    UpdateClock(startTime.AddSeconds(elapsed));
+        //    UpdateJitter();
+        //    return;
+        //}
 
-        DateTime currentTime = startTime.AddSeconds(elapsed);
-        TimeSpan current = currentTime.TimeOfDay;
+        //DateTime currentTime = startTime.AddSeconds(elapsed);
+        //TimeSpan current = currentTime.TimeOfDay;
 
-        double diffMinutes = (targetTime - current).TotalMinutes;
-        if (diffMinutes < 0) diffMinutes += 12 * 60;
+        //double diffMinutes = (targetTime - current).TotalMinutes;
+        //if (diffMinutes < 0) diffMinutes += 12 * 60;
 
-        float targetSpeed = baseSpeed;
+        //float targetSpeed = baseSpeed;
 
-        if (enablePause && diffMinutes <= slowdownRangeMinutes && diffMinutes > 0.1f && !isResuming)
-        {
-            float t = Mathf.Clamp01((float)(diffMinutes / slowdownRangeMinutes));
-            t = Mathf.Pow(t, slowdownStrength);
-            targetSpeed = Mathf.Lerp(baseSpeed * minSpeedFactor, baseSpeed, t);
-        }
+        //if (enablePause && diffMinutes <= slowdownRangeMinutes && diffMinutes > 0.1f && !isResuming)
+        //{
+        //    float t = Mathf.Clamp01((float)(diffMinutes / slowdownRangeMinutes));
+        //    t = Mathf.Pow(t, slowdownStrength);
+        //    targetSpeed = Mathf.Lerp(baseSpeed * minSpeedFactor, baseSpeed, t);
+        //}
 
-        if (enablePause && diffMinutes <= 0.1f && !isPaused && !isResuming)
-        {
-            isPaused = true;
-            currentSpeed = 0f;
-            pauseTimer = 0f;
+        //if (enablePause && diffMinutes <= 0.1f && !isPaused && !isResuming)
+        //{
+        //    isPaused = true;
+        //    currentSpeed = 0f;
+        //    pauseTimer = 0f;
 
-            if (tickSource && tickSource.isPlaying)
-                tickSource.Stop();
+        //    if (tickSource && tickSource.isPlaying)
+        //        tickSource.Stop();
 
-            UpdateJitter();
-            return;
-        }
+        //    UpdateJitter();
+        //    return;
+        //}
 
-        if (isResuming)
-        {
-            resumeTimer += Time.deltaTime;
-            float factor = Mathf.Clamp01(resumeTimer / resumeSmoothTime);
-            currentSpeed = Mathf.Lerp(0f, baseSpeed, Mathf.SmoothStep(0f, 1f, factor));
+        //if (isResuming)
+        //{
+        //    resumeTimer += Time.deltaTime;
+        //    float factor = Mathf.Clamp01(resumeTimer / resumeSmoothTime);
+        //    currentSpeed = Mathf.Lerp(0f, baseSpeed, Mathf.SmoothStep(0f, 1f, factor));
 
-            if (factor >= 1f)
-            {
-                isResuming = false;
-                currentSpeed = baseSpeed;
-            }
-        }
-        else
-        {
-            currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, Time.deltaTime * 2f);
-        }
+        //    if (factor >= 1f)
+        //    {
+        //        isResuming = false;
+        //        currentSpeed = baseSpeed;
+        //    }
+        //}
+        //else
+        //{
+        //    currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, Time.deltaTime * 2f);
+        //}
+        currentSpeed = baseSpeed;
 
         elapsed += Time.deltaTime * currentSpeed;
         if (elapsed >= 12 * 3600f) elapsed -= 12 * 3600f;
@@ -148,7 +149,9 @@ public class ClockController : MonoBehaviour
         {
             tickSource.pitch = Mathf.Lerp(minPitch, maxPitch, Mathf.Clamp01(currentSpeed / baseSpeed));
             if (!tickSource.isPlaying)
+            {
                 tickSource.Play();
+            }
         }
 
         UpdateClock(startTime.AddSeconds(elapsed));

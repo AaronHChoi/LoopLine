@@ -5,6 +5,7 @@ using UnityEngine;
 using Core.Utilities;
 using Core.DependencyInjection;
 using Core.Data;
+using Core.UI;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -21,7 +22,8 @@ public class GameManager : Singleton<GameManager>
     }
 
     Dictionary<GameCondition, bool> conditions = new Dictionary<GameCondition, bool>();
-    //public event Action<GameCondition, bool> OnConditionChanged;
+
+    public event Action<GameCondition, bool> OnConditionChanged;
 
     [Header("DeveloperTools")]
     public bool isMuted = false;
@@ -43,14 +45,28 @@ public class GameManager : Singleton<GameManager>
     }
     public int currentPhotoIndex;
 
+    [SerializeField] GameObject UICassette;
+
     public IScreenManager screenManager;
+    ICarretteController carretteControllerLeft;
+    ICarretteController carretteControllerRight;
+
     protected override void Awake()
     {
         base.Awake();
 
         screenManager = InterfaceDependencyInjector.Instance.Resolve<IScreenManager>();
+        carretteControllerLeft = InterfaceDependencyInjector.Instance.Resolve<ICarretteController>(AnimatorEnum.UI_Carrette_Left);
+        carretteControllerRight = InterfaceDependencyInjector.Instance.Resolve<ICarretteController>(AnimatorEnum.UI_Carrette_Right);
 
         SetGameConditions();
+    }
+    private void Start()
+    {
+        if (trainLoop == 0)
+        {
+            DelayUtility.Instance.Delay(3f, () => SetCondition(GameCondition.Chapter0, true));
+        }
     }
     private void OnValidate()
     {
@@ -62,14 +78,20 @@ public class GameManager : Singleton<GameManager>
             }
         }
     }
+#if UNITY_EDITOR
     private void Update()
     {
         //TESTING
         if (Input.GetKeyDown(KeyCode.H))
         {
+            RectTransform rect = UICassette.GetComponent<RectTransform>();
 
+            rect.anchoredPosition = new Vector2(0, -45);
+            carretteControllerLeft.SetRotation(true);
+            carretteControllerRight.SetRotation(true);
         }
     }
+#endif
     public void SetGameConditions()
     {
         conditions.Clear();
@@ -85,10 +107,17 @@ public class GameManager : Singleton<GameManager>
     }
     public void SetCondition(GameCondition condition, bool value)
     {
+        if (conditions.ContainsKey(condition) && conditions[condition] == value)
+        {
+            return;
+        }
+
         conditions[condition] = value;
 
-        //OnConditionChanged?.Invoke(condition, value);
+        OnConditionChanged?.Invoke(condition, value);
     }
+    #region DEBUG_TOOLS
+#if UNITY_EDITOR
     [ContextMenu("Debug All Conditions")]
     public void DebugAllConditions()
     {
@@ -105,4 +134,6 @@ public class GameManager : Singleton<GameManager>
 
         Debug.Log(sb.ToString());
     }
+#endif
+#endregion
 }

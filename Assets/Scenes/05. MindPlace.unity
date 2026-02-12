@@ -891,21 +891,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 0
-  contador_provicional: {fileID: 142067229}
   managedPanels:
   - panelID: 1
     panelData: {fileID: 11400000, guid: 26c2a17af380ac2499d635f3320efedd, type: 2}
     position: 2
+    panelType: 0
   - panelID: 0
     panelData: {fileID: 11400000, guid: 53c5950460b5e904a884101bf695c21a, type: 2}
     position: 0
+    panelType: 0
   - panelID: 3
     panelData: {fileID: 11400000, guid: 49db46317135f38498e2c5c1474b660e, type: 2}
     position: 1
+    panelType: 0
   infoPanelObject: {fileID: 380357069}
+  titlePanelObject: {fileID: 0}
   centerPosition: {fileID: 90185717}
   leftPosition: {fileID: 801307500}
   rightPosition: {fileID: 702005503}
+  debugPanelToTest: 0
 --- !u!1 &39577001
 GameObject:
   m_ObjectHideFlags: 0
@@ -3866,6 +3870,7 @@ MonoBehaviour:
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
+    pitch: 1
     secondsDelay: 0
   PlayOnStart: 0
 --- !u!114 &159241371
@@ -3887,6 +3892,7 @@ MonoBehaviour:
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
+    pitch: 1
     secondsDelay: 0
   PlayOnStart: 0
 --- !u!1 &160662609 stripped
@@ -12392,10 +12398,6 @@ PrefabInstance:
       value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: -7308718804694308083, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 300c5832785805247b5ceb02a0b63de7, type: 2}
-    - target: {fileID: -7308718804694308083, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: 48fe3ffdd73cd06439504cd5398966e3, type: 2}
@@ -13124,10 +13126,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: 5997007b2c28ecb4986d187cf531102d, type: 2}
     - target: {fileID: 1695340186616014668, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 181861aa505c09449822444285468774, type: 2}
-    - target: {fileID: 1738776581880846596, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 181861aa505c09449822444285468774, type: 2}
@@ -14146,6 +14144,7 @@ MonoBehaviour:
     isALoop: 1
     isAPlayOnAwake: 1
     volume: 1
+    pitch: 1
     secondsDelay: 0
   clockHandler:
     clip: {fileID: 8300000, guid: d4d4a8c9b72dc334098ede633d3923f6, type: 3}
@@ -14153,6 +14152,7 @@ MonoBehaviour:
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
+    pitch: 1
     secondsDelay: 0
   dialogueUI: {fileID: 0}
   clockAnimator: {fileID: 0}
@@ -23143,6 +23143,7 @@ MonoBehaviour:
     isALoop: 1
     isAPlayOnAwake: 1
     volume: 0.3
+    pitch: 1
     secondsDelay: 0
   noiseData:
     clip: {fileID: 0}
@@ -23150,6 +23151,7 @@ MonoBehaviour:
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 0
+    pitch: 1
     secondsDelay: 0
 --- !u!1 &879268971 stripped
 GameObject:
@@ -24217,6 +24219,7 @@ MonoBehaviour:
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
+    pitch: 1
     secondsDelay: 0
   PlayOnStart: 0
 --- !u!114 &921083721
@@ -24238,6 +24241,7 @@ MonoBehaviour:
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
+    pitch: 1
     secondsDelay: 0
   PlayOnStart: 0
 --- !u!114 &921083723
@@ -24259,6 +24263,7 @@ MonoBehaviour:
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
+    pitch: 1
     secondsDelay: 0
   PlayOnStart: 0
 --- !u!114 &921083725
@@ -24280,6 +24285,7 @@ MonoBehaviour:
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
+    pitch: 1
     secondsDelay: 0
   PlayOnStart: 0
 --- !u!1 &931645111 stripped
@@ -24484,7 +24490,9 @@ MonoBehaviour:
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
+    pitch: 1
     secondsDelay: 0
+  npcAudioConfigs: []
 --- !u!1 &957936650
 GameObject:
   m_ObjectHideFlags: 0
@@ -30862,6 +30870,7 @@ MonoBehaviour:
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
+    pitch: 1
     secondsDelay: 0
   _re:
     clip: {fileID: 8300000, guid: 0964b590d4af34f4c90801d685e0f2f8, type: 3}
@@ -30869,6 +30878,7 @@ MonoBehaviour:
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
+    pitch: 1
     secondsDelay: 0
   _mi:
     clip: {fileID: 8300000, guid: 671255832299ca94497b418bf7001c16, type: 3}
@@ -30876,6 +30886,7 @@ MonoBehaviour:
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
+    pitch: 1
     secondsDelay: 0
   _sol:
     clip: {fileID: 8300000, guid: d47e235df435e3040a61e537ba2df0f4, type: 3}
@@ -30883,6 +30894,7 @@ MonoBehaviour:
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
+    pitch: 1
     secondsDelay: 0
 --- !u!4 &1032468581
 Transform:
@@ -37317,6 +37329,7 @@ MonoBehaviour:
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
+    pitch: 1
     secondsDelay: 0
   PlayOnStart: 0
 --- !u!114 &1407127148
@@ -37338,6 +37351,7 @@ MonoBehaviour:
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
+    pitch: 1
     secondsDelay: 0
   PlayOnStart: 0
 --- !u!65 &1407127149
@@ -37425,6 +37439,7 @@ MonoBehaviour:
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
+    pitch: 1
     secondsDelay: 0
   PlayOnStart: 0
 --- !u!114 &1407127154
@@ -37446,6 +37461,7 @@ MonoBehaviour:
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
+    pitch: 1
     secondsDelay: 0
   PlayOnStart: 0
 --- !u!1 &1412033981
@@ -37891,6 +37907,74 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1424904816}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1429699785
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1429699786}
+  - component: {fileID: 1429699787}
+  m_Layer: 0
+  m_Name: GlobalSoundListener
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1429699786
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429699785}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.0388523, y: 1.6152601, z: -21.135366}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1551358275}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1429699787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429699785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 434882409911c124986b7660595cdfda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryOpenSound:
+    clip: {fileID: 8300000, guid: 1739df0a34f2b634f98c5251bd7880e7, type: 3}
+    mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 0.75
+    pitch: 1
+    secondsDelay: 0
+  inventoryCloseSound:
+    clip: {fileID: 8300000, guid: faf81418b843f27408a27c268c02d5a1, type: 3}
+    mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 0.75
+    pitch: 1
+    secondsDelay: 0
+  finalDoorSound:
+    clip: {fileID: 8300000, guid: b8e10489f94cd634cac3dd320f0b0101, type: 3}
+    mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 1
+    pitch: 1
+    secondsDelay: 0
 --- !u!1001 &1438518797
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40055,6 +40139,7 @@ Transform:
   - {fileID: 221901080}
   - {fileID: 703375570}
   - {fileID: 512189267}
+  - {fileID: 1429699786}
   - {fileID: 1618034884}
   - {fileID: 17665459}
   - {fileID: 1691079995}
@@ -46002,6 +46087,7 @@ MonoBehaviour:
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
+    pitch: 1
     secondsDelay: 0
   doorInteract: {fileID: 159241366}
   QuestCompleteEvent: 28
@@ -46240,6 +46326,7 @@ MonoBehaviour:
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
+    pitch: 1
     secondsDelay: 0
   PlayOnStart: 0
 --- !u!65 &1621465473
@@ -47097,7 +47184,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3705335142568398951, guid: 75bc562f1892f2841afe6314b5a73f2e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -60880,6 +60968,7 @@ MonoBehaviour:
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
+    pitch: 1
     secondsDelay: 0
   clockHandler:
     clip: {fileID: 0}
@@ -60887,6 +60976,7 @@ MonoBehaviour:
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
+    pitch: 1
     secondsDelay: 0
   dialogueUI: {fileID: 947092153}
   clockAnimator: {fileID: 0}

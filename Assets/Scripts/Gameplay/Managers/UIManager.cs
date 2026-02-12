@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Core.Utilities;
 using Core.DependencyInjection;
+using Core.Data;
 
 public enum PanelPosition
 {
@@ -45,6 +46,7 @@ public class UIManager : Singleton<UIManager>, IUIManager
     IGameStateController gameController;
 
     #region DEBUG_TOOLS
+#if UNITY_EDITOR
     [Header("Debug Settings")]
     [SerializeField] UIPanelID debugPanelToTest;
 
@@ -62,6 +64,7 @@ public class UIManager : Singleton<UIManager>, IUIManager
     {
         HideCurrentPanel();
     }
+#endif
     #endregion
 
     #region MAGIC_METHODS
@@ -76,7 +79,7 @@ public class UIManager : Singleton<UIManager>, IUIManager
         {
             infoPanelObject.SetActive(false);
             panelScript = infoPanelObject.GetComponent<InfoPanel>();
-            if(panelScript == null)
+            if (panelScript == null)
             {
                 Debug.LogError("infoPanelObject dont have the infoPanel script");
             }
@@ -97,6 +100,11 @@ public class UIManager : Singleton<UIManager>, IUIManager
     private void Start()
     {
         Screen.SetResolution(1920, 1080, FullScreenMode.FullScreenWindow);
+
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.OnConditionChanged += OnGameConditionChanged;
+        }
     }
     private void OnEnable()
     {
@@ -105,6 +113,13 @@ public class UIManager : Singleton<UIManager>, IUIManager
     private void OnDisable()
     {
         gameController.OnPauseMenu -= PauseMenu;
+    }
+    protected override void OnDestroy()
+    {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.OnConditionChanged -= OnGameConditionChanged;
+        }
     }
     #endregion
     #region UI_TEXT
@@ -128,7 +143,7 @@ public class UIManager : Singleton<UIManager>, IUIManager
             Debug.LogError("The panel cannot be displayed, infoPanelObject is not setting");
             return;
         }
-        
+
         if (entry.panelData != null)
         {
             targetScript.Setup(entry.panelData);
@@ -232,6 +247,37 @@ public class UIManager : Singleton<UIManager>, IUIManager
             Cursor.visible = isCursorVisible;
             Cursor.lockState = isCursorVisible ? CursorLockMode.None : CursorLockMode.Locked;
         }
+    }
+    private void OnGameConditionChanged(GameCondition condition, bool isActive)
+    {
+        if (!isActive)
+        {
+            return;
+        }
+
+        UIPanelID panelToShow = UIPanelID.Default;
+
+        switch (condition)
+        {
+            case GameCondition.Chapter0:
+                panelToShow = UIPanelID.Chapter0;
+                break;
+            case GameCondition.Chapter1:
+                panelToShow = UIPanelID.Chapter1;
+                break;
+            case GameCondition.Chapter2:
+                panelToShow = UIPanelID.Chapter2;
+                break;
+            case GameCondition.Chapter3:
+                panelToShow = UIPanelID.Chapter3;
+                break;
+            case GameCondition.Chapter4:
+                panelToShow = UIPanelID.Chapter4;
+                break;
+            default:
+                return;
+        }
+        ShowPanel(panelToShow);
     }
 }
 public interface IUIManager
