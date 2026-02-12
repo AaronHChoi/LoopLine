@@ -38,13 +38,14 @@ public class MenuManager : MonoBehaviour, IMenuManager
     private bool isCamera2Active = false;
 
     [Header("Panel Settings")]
-    [SerializeField] GameObject activePanel;
+    [SerializeField] MenuPanel activePanel;
     [SerializeField] GameObject UIActivePanel;
     [SerializeField] MenuPanel panel_1;
     [SerializeField] MenuPanel panel_2;
     [SerializeField] MenuPanel panel_3;
     [SerializeField] TextMeshPro PanelTitleText;
     [SerializeField] Animator doorAnimator;
+    [SerializeField] DoorInteract door;
 
 
     private bool buttonsAllowed = false;
@@ -55,10 +56,15 @@ public class MenuManager : MonoBehaviour, IMenuManager
 
     ISoundManager soundManager;
     IFadeInOutController fade;
+    IFadeInOutController fadePanel1;
+    IFadeInOutController fadePanel2;
+
     private void Awake()
     {
         soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();   
         fade = InterfaceDependencyInjector.Instance.Resolve<IFadeInOutController>(FadeID.MenuFade);
+        fadePanel1 = InterfaceDependencyInjector.Instance.Resolve<IFadeInOutController>(panel_1.fadeID);
+        fadePanel2 = InterfaceDependencyInjector.Instance.Resolve<IFadeInOutController>(panel_2.fadeID);
     }
     void Start()
     {
@@ -69,7 +75,8 @@ public class MenuManager : MonoBehaviour, IMenuManager
             StartCoroutine(AllowButtons(true, timeToEnableButtons));
             fade.ForceFade(false);
         }
-        activePanel = panel_1.gameObject;
+        activePanel = panel_1;
+        //panel_2.Fade(false);
         bgmVolumeBase = bgmAudio.volume;
 
     }
@@ -125,10 +132,13 @@ public class MenuManager : MonoBehaviour, IMenuManager
         ClikBehaviour();
         DelayUtility.Instance.Delay(2f, () => 
         {
-            doorAnimator.SetTrigger("DoorOpened");
+            //doorAnimator.SetTrigger("DoorOpened");
+            door.OpenDoors();
             panel_1.UIPanel.SetActive(true);
+            //panel_1.Fade(true);
             UIActivePanel = panel_1.UIPanel;
-            doorAnimator.SetTrigger("DoorIdleOpen");
+            door.CloseDoors();
+            //doorAnimator.SetTrigger("DoorIdleOpen");
         });
         
     }
@@ -136,30 +146,34 @@ public class MenuManager : MonoBehaviour, IMenuManager
     public void ChangeActivePanel (MenuPanel Panel)
     {
 
-        doorAnimator.SetTrigger("DoorClosed");
-        doorAnimator.SetTrigger("DoorIdleClosed");
-        DelayUtility.Instance.Delay(2f, () =>
+        //doorAnimator.SetTrigger("DoorClosed");
+        door.CloseDoors();
+        DelayUtility.Instance.Delay(2.5f, () =>
         {
-            activePanel.SetActive(false);            
+             activePanel.gameObject.SetActive(false);
+            //Panel.Fade(false);
             UIActivePanel.SetActive(false);
         });
 
+        //doorAnimator.SetTrigger("DoorIdleClosed");
         StartCoroutine(ChangePanelAfterClose(Panel));
     }
     private IEnumerator ChangePanelAfterClose(MenuPanel panel)
     {
-        yield return new WaitForSeconds(3); 
+        yield return new WaitForSeconds(3);
 
-        activePanel = panel.gameObject;
+        activePanel = panel;
         UIActivePanel = panel.UIPanel;
 
-        activePanel.SetActive(true);
+        //activePanel.Fade(true);
+        activePanel.gameObject.SetActive(true);
         UIActivePanel.SetActive(true);
 
         PanelTitleText.text = panel.panelTitle;
 
-        doorAnimator.SetTrigger("DoorOpened");
-        doorAnimator.SetTrigger("DoorIdleOpen");
+        door.OpenDoors();
+        //doorAnimator.SetTrigger("DoorOpened");
+        //doorAnimator.SetTrigger("DoorIdleOpen");
     }
 
     private void ClikBehaviour()

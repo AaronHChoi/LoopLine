@@ -12,6 +12,7 @@ public class DoorInteract : MonoBehaviour, IInteract
     [SerializeField] private float doorSpeed;
     [SerializeField] private float doorDistance;
     [SerializeField] private float closeDoorsAfterTime;
+    [SerializeField] private bool closeAutomatically = true;    
 
     [SerializeField] private Vector3 doorLeftMovement = Vector3.forward;
     [SerializeField] private Vector3 doorRightMovement = Vector3.back;
@@ -22,6 +23,7 @@ public class DoorInteract : MonoBehaviour, IInteract
     private Vector3 doorLeftClosed, doorRightClosed;
     private bool isOpen;
     private bool isMoving;
+
 
     private float closeDelayInitial;
     private float closeTimer;
@@ -167,7 +169,7 @@ public class DoorInteract : MonoBehaviour, IInteract
         isOpen = opening;
         isMoving = false;
 
-        if (isOpen)
+        if (isOpen && closeAutomatically)
         {
             autoCloseCoroutine = StartCoroutine(WaitAndClose());
         }
