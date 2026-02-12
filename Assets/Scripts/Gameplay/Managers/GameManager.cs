@@ -5,6 +5,7 @@ using UnityEngine;
 using Core.Utilities;
 using Core.DependencyInjection;
 using Core.Data;
+using Core.UI;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -45,11 +46,16 @@ public class GameManager : Singleton<GameManager>
     public int currentPhotoIndex;
 
     public IScreenManager screenManager;
+    ICarretteController carretteControllerLeft;
+    ICarretteController carretteControllerRight;
+
     protected override void Awake()
     {
         base.Awake();
 
         screenManager = InterfaceDependencyInjector.Instance.Resolve<IScreenManager>();
+        carretteControllerLeft = InterfaceDependencyInjector.Instance.Resolve<ICarretteController>(AnimatorEnum.UI_Carrette_Left);
+        carretteControllerRight = InterfaceDependencyInjector.Instance.Resolve<ICarretteController>(AnimatorEnum.UI_Carrette_Right);
 
         SetGameConditions();
     }
@@ -75,7 +81,8 @@ public class GameManager : Singleton<GameManager>
         //TESTING
         if (Input.GetKeyDown(KeyCode.H))
         {
-
+            carretteControllerLeft.SetRotation(true);
+            carretteControllerRight.SetRotation(true);
         }
     }
     public void SetGameConditions()
