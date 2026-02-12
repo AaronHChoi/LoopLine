@@ -8,9 +8,12 @@ public class MenuPanel : MonoBehaviour
     public GameObject UIPanel;
     public string panelTitle;
 
-    public IFadeInOutController fade;
-    private void Awake()
+    [SerializeField] public IFadeInOutController fade;
+
+    [SerializeField] public FadeID fadeID;
+
+    public void Fade(bool Fade)
     {
-        fade = InterfaceDependencyInjector.Instance.Resolve<IFadeInOutController>(FadeID.MenuPanel);
+        fade.ForceFade(Fade);
     }
 }

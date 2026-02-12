@@ -56,7 +56,14 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
     }
     public void LoadRandomScene()
     {
-        string selectedScene = GetRandomSceneByWeight();
+        string selectedScene;
+
+        do
+        {
+            selectedScene = GetRandomSceneByWeight();
+        }
+        while (IsCurrentScene(selectedScene));
+
         StartCoroutine(LoadSceneAsync(selectedScene));
 
         WeightScene sceneData = GetWeightScene(selectedScene);
