@@ -45,6 +45,8 @@ public class GameManager : Singleton<GameManager>
     }
     public int currentPhotoIndex;
 
+    [SerializeField] GameObject UICassette;
+
     public IScreenManager screenManager;
     ICarretteController carretteControllerLeft;
     ICarretteController carretteControllerRight;
@@ -76,15 +78,20 @@ public class GameManager : Singleton<GameManager>
             }
         }
     }
+#if UNITY_EDITOR
     private void Update()
     {
         //TESTING
         if (Input.GetKeyDown(KeyCode.H))
         {
+            RectTransform rect = UICassette.GetComponent<RectTransform>();
+
+            rect.anchoredPosition = new Vector2(0, -45);
             carretteControllerLeft.SetRotation(true);
             carretteControllerRight.SetRotation(true);
         }
     }
+#endif
     public void SetGameConditions()
     {
         conditions.Clear();
@@ -128,5 +135,5 @@ public class GameManager : Singleton<GameManager>
         Debug.Log(sb.ToString());
     }
 #endif
-    #endregion
+#endregion
 }
