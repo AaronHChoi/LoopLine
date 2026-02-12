@@ -21,7 +21,6 @@ public class GlobalSoundListenerMindPlace : MonoBehaviour
     }
     private void OnEnable()
     {
-        Debug.Log($"[GlobalSoundListener] Intentando suscribir a PlayerInventoryEvent en el objeto: {gameObject.name}");
         EventBus.Subscribe<PlayerInventoryEvent>(OnInventoryToggled);
         EventBus.Subscribe<FinalQuestCompleteEvent>(OnFinalDoor);
     }
