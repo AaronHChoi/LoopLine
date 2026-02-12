@@ -55,7 +55,10 @@ public class GameManager : Singleton<GameManager>
     }
     private void Start()
     {
-        DelayUtility.Instance.Delay(3f, () => SetCondition(GameCondition.Chapter0, true));
+        if (trainLoop == 0)
+        {
+            DelayUtility.Instance.Delay(3f, () => SetCondition(GameCondition.Chapter0, true));
+        }
     }
     private void OnValidate()
     {
