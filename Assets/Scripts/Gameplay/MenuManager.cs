@@ -52,6 +52,7 @@ public class MenuManager : MonoBehaviour, IMenuManager
     private bool isFlashing = false;
     private bool isGrowing = true;
     private bool isDecreasingVolume = false;
+    private bool isDoorOpening= false;
     private float bgmVolumeBase;
 
     ISoundManager soundManager;
@@ -146,13 +147,20 @@ public class MenuManager : MonoBehaviour, IMenuManager
     public void ChangeActivePanel (MenuPanel Panel)
     {
 
+        UIActivePanel.SetActive(false);
         //doorAnimator.SetTrigger("DoorClosed");
-        door.CloseDoors();
+        if (!isDoorOpening)
+        {
+            door.CloseDoors();
+            DelayUtility.Instance.Delay(2f, () =>
+            {
+                isDoorOpening = true;
+            });
+        }
         DelayUtility.Instance.Delay(2.5f, () =>
         {
              activePanel.gameObject.SetActive(false);
-            //Panel.Fade(false);
-            UIActivePanel.SetActive(false);
+             isDoorOpening = false;
         });
 
         //doorAnimator.SetTrigger("DoorIdleClosed");
