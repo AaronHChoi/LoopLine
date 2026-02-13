@@ -111,9 +111,9 @@ public class PropsImporter : AssetPostprocessor
 
             var lods = new LOD[]
             {
-                new LOD(0.30f, new[] { lod0 }),
-                new LOD(0.10f, new[] { lod1 }),
-                new LOD(0.01f, new[] { lod2 })
+                new LOD(0.05f, new[] { lod0 }),
+                new LOD(0.01f, new[] { lod1 }),
+                new LOD(0.001f, new[] { lod2 })
             };
 
             lodGroup.fadeMode = LODFadeMode.CrossFade;
