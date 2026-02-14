@@ -69,4 +69,7 @@ public enum Events
     EvidenceMarker1,
     EvidenceMarker2,
     EvidenceMarker3,
+    NPCL_BassistGirl_M,
+    NPCL_WorkingMan_M,
+    NPCL_CameraGirl_M,
 }

@@ -22760,19 +22760,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
       propertyPath: weightedScenes.Array.size
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
       propertyPath: initialSceneSequence.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
+      propertyPath: weightedScenes.Array.data[0].weight
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
       propertyPath: weightedScenes.Array.data[1].weight
-      value: 20
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
       propertyPath: weightedScenes.Array.data[2].weight
-      value: 25
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
       propertyPath: weightedScenes.Array.data[3].weight
@@ -22812,11 +22816,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
       propertyPath: weightedScenes.Array.data[0].SceneEvent
-      value: 17
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
       propertyPath: weightedScenes.Array.data[10].sceneName
       value: AS_MusicNote4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
+      propertyPath: weightedScenes.Array.data[11].sceneName
+      value: AS_NPC_LOCKED
       objectReference: {fileID: 0}
     - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
       propertyPath: weightedScenes.Array.data[1].SceneEvent
@@ -26927,6 +26935,12 @@ MonoBehaviour:
   - eventType: 54
     dialogues:
     - {fileID: 11400000, guid: 0e8c66af74e27ea439fedd06d06073ae, type: 2}
+  - eventType: 59
+    dialogues:
+    - {fileID: 11400000, guid: f918275a4abdbeb42914b43c143f0dcf, type: 2}
+  - eventType: 57
+    dialogues:
+    - {fileID: 11400000, guid: c0a69865a9a0c3849ac784e1fb70be2e, type: 2}
   currentEvent: 21
   npcType: 6
   autoAdvance: 0
