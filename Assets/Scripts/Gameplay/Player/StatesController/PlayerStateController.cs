@@ -11,6 +11,7 @@ namespace Player
 
         public event Action<IState> OnStateChanged;
         public event Action OnTakePhoto;
+        public event Action OnTakeAudioTape;
         public event Action OnInteract;
         public event Action OnDialogueNext;
         public event Action OnOpenInventory;
@@ -25,6 +26,7 @@ namespace Player
         public NormalState NormalState { get; set; }
         public DialogueState DialogueState { get;  set; }
         public CameraState CameraState { get;  set; }
+        public WalkManMusicState WalkManMusicState { get; set; }
         public DevelopmentState DevelopmentState { get;  set; }
         public PauseMenuState PauseMenuState { get; set; }
         public MindPlaceState MindPlaceState { get;  set; }
@@ -36,6 +38,7 @@ namespace Player
         ITimeProvider timeManager;
         ICameraOrientation cinemachinePOVExtension;
         IPhotoCapture photoCapture;
+        IWalkman walkman;
         IPlayerInteractMarkerPrompt interaction;
         IPlayerMovement playerMovement;
         IPlayerInputHandler inputHandler;
@@ -49,6 +52,7 @@ namespace Player
             playerMovement = InterfaceDependencyInjector.Instance.Resolve<IPlayerMovement>();
             interaction = InterfaceDependencyInjector.Instance.Resolve<IPlayerInteractMarkerPrompt>();
             photoCapture = InterfaceDependencyInjector.Instance.Resolve<IPhotoCapture>();
+            walkman = InterfaceDependencyInjector.Instance.Resolve<IWalkman>();
             cinemachinePOVExtension = InterfaceDependencyInjector.Instance.Resolve<ICameraOrientation>();
             timeManager = InterfaceDependencyInjector.Instance.Resolve<ITimeProvider>();
             gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
@@ -61,6 +65,7 @@ namespace Player
             NormalState = new NormalState(this, inputHandler, playerMovement, cinemachinePOVExtension, uiManager, playerController, playerCamera, gameSceneManager);
             DialogueState = new DialogueState(this, inputHandler, playerMovement, cinemachinePOVExtension);
             CameraState = new CameraState(this, inputHandler, playerMovement, photoCapture, cinemachinePOVExtension, interaction);
+            WalkManMusicState = new WalkManMusicState(this, inputHandler, playerMovement, interaction, walkman);
             DevelopmentState = new DevelopmentState(this, inputHandler, playerMovement, cinemachinePOVExtension, timeManager);
             MindPlaceState = new MindPlaceState(this, inputHandler, playerMovement);
             ObjectInHandState = new ObjectInHandState(this, inputHandler, playerMovement, cinemachinePOVExtension);
@@ -90,6 +95,10 @@ namespace Player
         public void UseEventTakePhoto()
         {
             OnTakePhoto?.Invoke();
+        }
+        public void UseEventTakeAudioTape()
+        {
+            OnTakeAudioTape?.Invoke();
         }
         public void UseEventDialogueNext()
         {
@@ -133,6 +142,7 @@ namespace Player
     {
         public event Action<IState> OnStateChanged;
         public event Action OnTakePhoto;
+        public event Action OnTakeAudioTape;
         public event Action OnInteract;
         public event Action OnDialogueNext;
         public event Action OnOpenInventory;
@@ -148,6 +158,7 @@ namespace Player
         void ChangeState(IState newState);
         void UseEventInteract();
         void UseEventTakePhoto();
+        void UseEventTakeAudioTape();
         void UseEventOpenInventory();
         void UseEventDevelopment();
         void UseEventDialogueNext();
@@ -159,6 +170,7 @@ namespace Player
         NormalState NormalState { get;  set; }
         DialogueState DialogueState { get; set; }
         CameraState CameraState { get; set; }
+        WalkManMusicState WalkManMusicState { get; set; }
         DevelopmentState DevelopmentState { get; set; }
         PauseMenuState PauseMenuState { get; set; }
         MindPlaceState MindPlaceState { get; set; }
