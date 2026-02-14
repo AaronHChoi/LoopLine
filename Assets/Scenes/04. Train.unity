@@ -855,10 +855,14 @@ MonoBehaviour:
       weightIfConditionTrue: 0
     - sceneName: AS_Photo6
       weightIfConditionTrue: 0
+    - sceneName: AS_NPC
+      weightIfConditionTrue: 0
+    - sceneName: AS_NoNPC-NoItems
+      weightIfConditionTrue: 0
     - sceneName: AS_MusicNote1
       weightIfConditionTrue: 20
   - ruleName: WalkMan Picked
-    conditionToCheck: 14
+    conditionToCheck: 33
     scenesToModify:
     - sceneName: AS_MusicNote1
       weightIfConditionTrue: 0
@@ -3219,7 +3223,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 756d3e5278d0d5a4b9634e2f24df6280, type: 2}
     - target: {fileID: -4119555210001628404, guid: 0f9551ae205a00d4f9b4fec7e5f8a9d8, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -3976728762346791057, guid: 0f9551ae205a00d4f9b4fec7e5f8a9d8, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -3543,7 +3547,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3964489355052135955, guid: 0f9551ae205a00d4f9b4fec7e5f8a9d8, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3964489355052135955, guid: 0f9551ae205a00d4f9b4fec7e5f8a9d8, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -32427,9 +32431,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a02dd1bf66114ac46aaad3b06e34c361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkmanUI: {fileID: 0}
+  walkmanUI: {fileID: 475850143}
   delay: 0
-  isListeningAudioTape: 0
   soundData:
     clip: {fileID: 0}
     mixerGroup: {fileID: 0}

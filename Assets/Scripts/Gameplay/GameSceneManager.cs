@@ -49,8 +49,9 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
             StartCoroutine(LoadSceneAsync(firstScene.sceneName));
             return;
         }
+        if (IsCurrentScene("04. Train"))
+            CheckTrainModel();
 
-        CheckTrainModel();
 
     }
     public void SetInitialLoop(bool isActive)

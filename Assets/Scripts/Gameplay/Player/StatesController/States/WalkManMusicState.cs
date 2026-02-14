@@ -20,7 +20,8 @@ namespace Player
         }
         public void Enter()
         {
-            interaction.IsDetecting = false;
+            if (walkman.isListeningAudioTape)
+                interaction.IsDetecting = false;
             movement.CanMove = true;
 
             walkman.SetWalkManUIVisible(true);
@@ -30,7 +31,7 @@ namespace Player
 
         public void Execute()
         {
-            if (input.ToggleWalkmanPressed())
+            if (input.ToggleWalkmanPressed() && !walkman.isListeningAudioTape)
             {
                 controller.ChangeState(controller.NormalState);
             }
@@ -38,6 +39,7 @@ namespace Player
 
         public void Exit()
         {
+
             interaction.IsDetecting = true;
             movement.CanMove = false;
 

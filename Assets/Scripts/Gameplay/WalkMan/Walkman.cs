@@ -12,7 +12,7 @@ public class Walkman : MonoBehaviour, IWalkman
     //[SerializeField] GameObject photoFrame;
     [SerializeField] GameObject walkmanUI;
     [SerializeField] float delay;
-    [SerializeField] bool isListeningAudioTape = false;
+    [SerializeField] public bool isListeningAudioTape { get; set; }
 
     [Header("Audio")]
     [SerializeField] SoundData soundData;
@@ -76,7 +76,7 @@ public class Walkman : MonoBehaviour, IWalkman
            .Play();
 
             isListeningAudioTape = true;
-            monologueSpeaker.StartMonologue(tapeTarget.monologueToTrigger);
+            monologueSpeaker.StartMonologue(tapeTarget.GetMonologueToTrigger());
 
             yield return new WaitForSeconds(tapeTarget.GetSoundData().clip.length);
 
@@ -94,5 +94,6 @@ public class Walkman : MonoBehaviour, IWalkman
 }
 public interface IWalkman
 {
+    bool isListeningAudioTape { get; }
     void SetWalkManUIVisible(bool isVisible);
 }
