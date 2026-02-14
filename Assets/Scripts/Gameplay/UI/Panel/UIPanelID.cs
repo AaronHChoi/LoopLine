@@ -12,4 +12,5 @@ public enum UIPanelID
     Chapter2,
     Chapter3,
     Chapter4,
+    WalkMan,
 }

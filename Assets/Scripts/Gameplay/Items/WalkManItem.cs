@@ -47,8 +47,9 @@ public class WalkManItem : ItemInteract, IWalkmanItem
         return false;
     }
 }
-}
+
 
 public interface IWalkmanItem
 {
+    event Action OnWalkManTaken;
 }
