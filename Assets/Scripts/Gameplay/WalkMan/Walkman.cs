@@ -9,7 +9,7 @@ public class Walkman : MonoBehaviour, IWalkman
 {
 
     [Header("WalkMan")]
-    [SerializeField] GameObject photoFrame;
+    //[SerializeField] GameObject photoFrame;
     [SerializeField] GameObject walkmanUI;
     [SerializeField] float delay;
     [SerializeField] bool isListeningAudioTape = false;
