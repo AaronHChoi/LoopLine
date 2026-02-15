@@ -50,6 +50,7 @@ public class GameManager : Singleton<GameManager>
     public IScreenManager screenManager;
     ICarretteController carretteControllerLeft;
     ICarretteController carretteControllerRight;
+    IMonologueSpeaker monologueSpeaker;
 
     protected override void Awake()
     {
@@ -58,6 +59,7 @@ public class GameManager : Singleton<GameManager>
         screenManager = InterfaceDependencyInjector.Instance.Resolve<IScreenManager>();
         carretteControllerLeft = InterfaceDependencyInjector.Instance.Resolve<ICarretteController>(AnimatorEnum.UI_Carrette_Left);
         carretteControllerRight = InterfaceDependencyInjector.Instance.Resolve<ICarretteController>(AnimatorEnum.UI_Carrette_Right);
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
 
         SetGameConditions();
     }
@@ -66,6 +68,7 @@ public class GameManager : Singleton<GameManager>
         if (trainLoop == 0)
         {
             DelayUtility.Instance.Delay(3f, () => SetCondition(GameCondition.Chapter0, true));
+            DelayUtility.Instance.Delay(3f, () => monologueSpeaker.StartMonologue(Events.InitialMonologue));
         }
     }
     private void OnValidate()

@@ -53,28 +53,22 @@ public class LoopManager : MonoBehaviour
 
         switch (GameManager.Instance.TrainLoop)
         {
-            case 0:
             case 1:
                 {
-                    gameSceneManager.LoadSceneAsync2("AS_NPC_LOCKED");
+                    gameSceneManager.LoadSceneAsync2("AS_NPC_PROLOGUE");
                 }
                 break;
             case 2:
                 {
-                    gameSceneManager.LoadSceneAsync2("AS_NPC");
+                    gameSceneManager.LoadSceneAsync2("AS_Clocks");
                 }
                 break;
             case 3:
                 {
-                    gameSceneManager.LoadSceneAsync2("AS_Clocks");
-                }
-                break;
-            case 4:
-                {
                     gameSceneManager.LoadSceneAsync2("AS_NPC");
                 }
                 break;
-            case 5:
+            case 4:
                 {
                     CompleteFirstLoopSequence();
                 }

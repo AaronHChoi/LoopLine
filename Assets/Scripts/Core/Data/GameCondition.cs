@@ -45,5 +45,6 @@ namespace Core.Data
         AllNpcsLockedSpoken,
         PrologueDoorsLocked,
         WalkManTaken,
+        StayMonologueQueued,
     }
 }

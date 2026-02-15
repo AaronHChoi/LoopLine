@@ -7,7 +7,7 @@ using UnityEngine;
 public class NPCSceneController : MonoBehaviour
 {
     private const int TOTAL_REQUIRED = 3;
-    [SerializeField] private List<NPCType> npcsTakedTo = new List<NPCType>();
+    private List<NPCType> npcsTakedTo = new List<NPCType>();
 
     IMonologueSpeaker monologueSpeaker;
 
@@ -15,7 +15,6 @@ public class NPCSceneController : MonoBehaviour
     {
         monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
     }
-
     public void OnNpcTaked(NPCType type)
     {
         if (!npcsTakedTo.Contains(type))
@@ -26,13 +25,14 @@ public class NPCSceneController : MonoBehaviour
             {
                 GameManager.Instance.SetCondition(GameCondition.AllNpcsLockedSpoken, true);
                 GameManager.Instance.SetCondition(GameCondition.PrologueDoorsLocked, false);
+               
                 TriggerEndSceneMonologue();
             }
         }
     }
     private void TriggerEndSceneMonologue()
     {
-        DelayUtility.Instance.Delay(3f, () => monologueSpeaker.StartMonologue(Events.NPCL_AllNPCSpoken));
+        DelayUtility.Instance.Delay(5f, () => monologueSpeaker.StartMonologue(Events.NPCL_AllNPCSpoken));
     }
 #if UNITY_EDITOR
     #region DEBUG_TOOLS
@@ -40,7 +40,8 @@ public class NPCSceneController : MonoBehaviour
     private void DebugForceComplete()
     {
         GameManager.Instance.SetCondition(GameCondition.AllNpcsLockedSpoken, true);
-
+        GameManager.Instance.SetCondition(GameCondition.PrologueDoorsLocked, false);
+      
         TriggerEndSceneMonologue();
     }
     #endregion
