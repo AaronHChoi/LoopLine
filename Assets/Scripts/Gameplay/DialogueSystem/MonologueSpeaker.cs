@@ -1,6 +1,7 @@
 using Core.DependencyInjection;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MonologueSpeaker : DialogueSpeakerBase, IMonologueSpeaker
@@ -10,10 +11,13 @@ public class MonologueSpeaker : DialogueSpeakerBase, IMonologueSpeaker
     [SerializeField] private Events defaultEvent = Events.MonologueTest3;
     [SerializeField] private float startDelay = 1.5f;
     [SerializeField] private float autoAdvanceDelay = 3f;
+    [SerializeField] private float delayBetweenQueuedMonologues = 1.0f;
 
     private Events currentMonologueEvent;
-
     private Coroutine autoAdvanceCoroutine;
+    private Coroutine queueProcessCoroutine;
+    private Queue<Events> monologueQueue = new Queue<Events>();
+    private bool isWaitingForNext = false;
 
     IDialogueUI dialogueUI;
 
@@ -33,6 +37,16 @@ public class MonologueSpeaker : DialogueSpeakerBase, IMonologueSpeaker
         }
     }
     public void StartMonologue(Events eventType)
+    {
+        if (isShowingDialogue || isWaitingForNext)
+        {
+            monologueQueue.Enqueue(eventType);
+            return;
+        }
+
+        ExecuteMonologue(eventType);
+    }
+    private void ExecuteMonologue(Events eventType)
     {
         currentMonologueEvent = eventType;
         SetCurrentEvent(eventType);
@@ -97,6 +111,29 @@ public class MonologueSpeaker : DialogueSpeakerBase, IMonologueSpeaker
         //base.EndDialogueSequence();
 
         OnMonologueEnded?.Invoke(currentMonologueEvent);
+
+        if (monologueQueue.Count > 0)
+        {
+            if (queueProcessCoroutine != null)
+            {
+                StopCoroutine(queueProcessCoroutine);
+            }
+            queueProcessCoroutine = StartCoroutine(ProcessQueueRoutine());
+        }
+    }
+    private IEnumerator ProcessQueueRoutine()
+    {
+        isWaitingForNext = true;
+
+        yield return new WaitForSeconds(delayBetweenQueuedMonologues);
+
+        isWaitingForNext = false;
+
+        if(monologueQueue.Count > 0)
+        {
+            Events nextEvent = monologueQueue.Dequeue();
+            ExecuteMonologue(nextEvent);
+        }
     }
     void StopAutoAdvance()
     {
