@@ -73,7 +73,7 @@ public class MenuManager : MonoBehaviour, IMenuManager
 
         if (fade != null)
         {
-            StartCoroutine(AllowButtons(true, timeToEnableButtons));
+           
             fade.ForceFade(false);
         }
         activePanel = panel_1;
@@ -139,6 +139,7 @@ public class MenuManager : MonoBehaviour, IMenuManager
             //panel_1.Fade(true);
             UIActivePanel = panel_1.UIPanel;
             door.CloseDoors();
+            StartCoroutine(AllowButtons(true));
             //doorAnimator.SetTrigger("DoorIdleOpen");
         });
         

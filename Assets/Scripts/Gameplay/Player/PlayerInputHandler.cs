@@ -11,6 +11,9 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerInputHandler
     InputAction toggleCameraAction;
     InputAction takePhotoAction;
     #endregion
+    #region WALKMAN
+    InputAction toggleWalkmanAction;
+    #endregion
     InputAction interact;
     InputAction passDialog;
     InputAction openInventory;
@@ -34,6 +37,9 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerInputHandler
         #region CAMERA
         toggleCameraAction = playerInput.actions["ToggleCamera"];
         takePhotoAction = playerInput.actions["TakePhoto"];
+        #endregion
+        #region WALKMAN
+        toggleWalkmanAction = playerInput.actions["ToggleWalkman"];
         #endregion
         interact = playerInput.actions["Interact1"];
         passDialog = playerInput.actions["PassDialog"];
@@ -84,6 +90,10 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerInputHandler
     {
         return toggleCameraAction.WasPerformedThisFrame();
     }
+    public bool ToggleWalkmanPressed()
+    {
+        return toggleWalkmanAction.WasPerformedThisFrame();
+    }
     public bool TakePhotoPressed()
     {
         return takePhotoAction.WasPerformedThisFrame();
@@ -125,6 +135,7 @@ public interface IPlayerInputHandler
     bool OpenInventoryPressed();
     bool ToggleCameraPressed();
     bool TakePhotoPressed();
+    bool ToggleWalkmanPressed();
     bool DevelopmentModePressed();
     bool PauseMenuModePressed();
     bool GrabItemPressed();

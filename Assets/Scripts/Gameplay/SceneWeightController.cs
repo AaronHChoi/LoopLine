@@ -13,6 +13,14 @@ public class SceneWeightController : MonoBehaviour, ISceneWeightController
     }
 
     [System.Serializable]
+    public struct GameObjectTarget
+    {
+        public GameObject objectTarget;
+        public bool valueIfConditionTrue;
+    }
+
+
+    [System.Serializable]
     public struct WeightRule
     {
         public string ruleName;
@@ -20,8 +28,17 @@ public class SceneWeightController : MonoBehaviour, ISceneWeightController
         public List<SceneWeightTarget> scenesToModify;
     }
 
+    [System.Serializable]
+    public struct GameObjectWeightRule 
+    {
+        public string ruleName;
+        public GameCondition conditionToCheck;
+        public List<GameObjectTarget> objectsToModify;
+    }
+
     [Header("Rules Configuration")]
     [SerializeField] List<WeightRule> rules = new List<WeightRule>();
+    [SerializeField] List<GameObjectWeightRule> gameObjectRules = new List<GameObjectWeightRule>();
 
     IGameSceneManager gameSceneManager;
 
@@ -47,6 +64,14 @@ public class SceneWeightController : MonoBehaviour, ISceneWeightController
                 ApplyRule(rule);
             }
         }
+
+        foreach (var rule in gameObjectRules)
+        {
+            if (rule.conditionToCheck == condition)
+            {
+                ApplyGameObjectRule(rule);
+            }
+        }
     }
     void ApplyRule(WeightRule rule)
     {
@@ -57,6 +82,15 @@ public class SceneWeightController : MonoBehaviour, ISceneWeightController
             gameSceneManager.ChangeSceneWeighth(target.sceneName, target.weightIfConditionTrue);
         }
     }
+    void ApplyGameObjectRule(GameObjectWeightRule rule)
+    {
+        foreach (var target in rule.objectsToModify)
+        {
+            Debug.Log($"[Rule: {rule.ruleName}] Condition {rule.conditionToCheck} is TRUE. Updating {target} to {target.valueIfConditionTrue}");
+
+            target.objectTarget.SetActive(target.valueIfConditionTrue);
+        }
+    }
     void ApplyAllRules()
     {
         foreach (var rule in rules)
@@ -65,6 +99,14 @@ public class SceneWeightController : MonoBehaviour, ISceneWeightController
             if (currentState)
             {
                 ApplyRule(rule);
+            }
+        }
+        foreach (var rule in gameObjectRules)
+        {
+            bool currentState = GameManager.Instance.GetCondition(rule.conditionToCheck);
+            if (currentState)
+            {
+                ApplyGameObjectRule(rule);
             }
         }
     }

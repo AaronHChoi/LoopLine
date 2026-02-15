@@ -80,4 +80,6 @@ public enum Events
     NPCL_BassistGirl_M2,
     InitialMonologue,
     SecondMonologueStay,
+    BrokenTrain,
+    CasseteTutorial,
 }

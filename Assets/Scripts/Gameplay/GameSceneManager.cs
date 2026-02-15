@@ -16,6 +16,10 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
     [Header("Active Scenes")]
     [SerializeField] private List<string> activeScenes = new List<string>();
 
+    [Header("TrainModel Settings")]
+    [SerializeField] private GameObject trainModel;
+    [SerializeField] private GameObject BrokenTrainModel;
+
     bool isInInitialLoop = false;
 
     IMonologueSpeaker monologueSpeaker;
@@ -45,6 +49,7 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
             StartCoroutine(LoadSceneAsync(firstScene.sceneName));
             return;
         }
+
     }
     public void SetInitialLoop(bool isActive)
     {
@@ -57,12 +62,19 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
     public void LoadRandomScene()
     {
         string selectedScene;
+        if (GameManager.Instance.GetCondition(GameCondition.MusicSafeDoorOpen) == false)
+        {
+            do
+            {
+                selectedScene = GetRandomSceneByWeight();
+            }
+            while (IsCurrentScene(selectedScene));
 
-        do
+        }
+        else
         {
             selectedScene = GetRandomSceneByWeight();
         }
-        while (IsCurrentScene(selectedScene));
 
         StartCoroutine(LoadSceneAsync(selectedScene));
 
@@ -199,6 +211,7 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
 
         activeScenes.Remove(sceneName);
     }
+
 }
 public interface IGameSceneManager
 {
