@@ -129,7 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3953778}
   - component: {fileID: 3953777}
-  - component: {fileID: 3953776}
+  - component: {fileID: 3953779}
   m_Layer: 0
   m_Name: Trigger (3)
   m_TagString: Untagged
@@ -137,21 +137,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &3953776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3953775}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e884ed231804954b83d14aed01003f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggersToDisable:
-  - {fileID: 347261013}
-  - {fileID: 3953775}
 --- !u!65 &3953777
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -188,6 +173,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3953779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3953775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f35c44e356b6fc41875f64d986511b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggersToDisable:
+  - {fileID: 3953775}
+  - {fileID: 347261013}
 --- !u!1 &6130682
 GameObject:
   m_ObjectHideFlags: 0
@@ -2039,7 +2039,7 @@ GameObject:
   m_Component:
   - component: {fileID: 347261016}
   - component: {fileID: 347261015}
-  - component: {fileID: 347261014}
+  - component: {fileID: 347261017}
   m_Layer: 0
   m_Name: Trigger (2)
   m_TagString: Untagged
@@ -2047,21 +2047,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &347261014
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 347261013}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e884ed231804954b83d14aed01003f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggersToDisable:
-  - {fileID: 347261013}
-  - {fileID: 3953775}
 --- !u!65 &347261015
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2098,6 +2083,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &347261017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 347261013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f35c44e356b6fc41875f64d986511b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggersToDisable:
+  - {fileID: 3953775}
+  - {fileID: 347261013}
 --- !u!1001 &361266522
 PrefabInstance:
   m_ObjectHideFlags: 0
