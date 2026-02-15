@@ -32,7 +32,7 @@ public class NPCSceneController : MonoBehaviour
     }
     private void TriggerEndSceneMonologue()
     {
-        DelayUtility.Instance.Delay(3f, () => monologueSpeaker.StartMonologue(Events.NPCL_AllNPCSpoken));
+        DelayUtility.Instance.Delay(5f, () => monologueSpeaker.StartMonologue(Events.NPCL_AllNPCSpoken));
     }
 #if UNITY_EDITOR
     #region DEBUG_TOOLS
