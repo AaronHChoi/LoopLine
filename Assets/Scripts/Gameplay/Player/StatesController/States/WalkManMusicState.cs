@@ -33,6 +33,10 @@ namespace Player
 
         public void Execute()
         {
+            if (input.InteractPressed())
+            {
+                controller.UseEventInteract();
+            }
             if (input.ToggleWalkmanPressed() && !walkman.isListeningAudioTape)
             {
                 controller.ChangeState(controller.NormalState);

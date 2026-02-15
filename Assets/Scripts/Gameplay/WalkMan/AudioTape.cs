@@ -3,7 +3,9 @@ using Core.Data;
 using Core.DependencyInjection;
 using Core.EventBus;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
+using Core.Utilities;
+using Player;
+
 
 public class AudioTape : ItemInteract, IAudioTape
 {
@@ -17,28 +19,49 @@ public class AudioTape : ItemInteract, IAudioTape
     IUIManager uiManager;
     IGameSceneManager gameSceneManager;
     ISceneWeightController weightController;
+    ISoundManager soundManager;
+    IWalkman walkman;
+    IMonologueSpeaker monologueSpeaker;
+    IPlayerStateController stateController;
 
     [SerializeField] UIPanelID panelID;
+
+
     protected override void Awake()
     {
         base.Awake();
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
         gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
         weightController = InterfaceDependencyInjector.Instance.Resolve<ISceneWeightController>();
+        soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();
+        walkman = InterfaceDependencyInjector.Instance.Resolve<IWalkman>();
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
+        stateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
     }
 
     public override bool Interact()
     {
-        if (canBePicked)
+        if (!canBePicked)
         {
-            GameManager.Instance.SetCondition(conditionToTrigger, true);
-            weightController.HandleConditionChanged(conditionToTrigger, true);
-            gameSceneManager.SetInitialLoop(false);
-            EventBus.Publish(new PlayerGrabItemEvent());
-            gameObject.SetActive(false);
-            parentGameObject.SetActive(false);
+           // gameObject.SetActive(false);
+           // parentGameObject.SetActive(false);
+
+           // soundManager.CreateSound()
+           //.WithSoundData(soundData)
+           //.Play();
+
+           // walkman.isListeningAudioTape = true;
+           // monologueSpeaker.StartMonologue(monologueToTrigger);
+
+           // DelayUtility.Instance.Delay(soundData.clip.length, () => 
+           // { 
+           //     walkman.isListeningAudioTape = false;
+           //     gameObject.SetActive(true);
+           // });
+            walkman.HandleListenMusic();
+
             return true;
-        }
+        } 
         return false;
     }
 

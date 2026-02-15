@@ -9,9 +9,9 @@ public class Walkman : MonoBehaviour, IWalkman
 {
 
     [Header("WalkMan")]
-    //[SerializeField] GameObject photoFrame;
     [SerializeField] GameObject walkmanUI;
     [SerializeField] float delay;
+    [SerializeField] GameObject UICassette;
     [SerializeField] public bool isListeningAudioTape { get; set; }
 
     [Header("Audio")]
@@ -25,7 +25,7 @@ public class Walkman : MonoBehaviour, IWalkman
     IMonologueSpeaker monologueSpeaker;
     ISoundManager soundManager;
 
-    #region MAGIC_METHODS
+
     private void Awake()
     {
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
@@ -34,23 +34,9 @@ public class Walkman : MonoBehaviour, IWalkman
         monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
         soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();
     }
-    private void OnEnable()
-    {
-        if (playerStateController != null)
-        {
-            playerStateController.OnTakeAudioTape += HandleListenMusic;
-        }
-    }
-    private void OnDisable()
-    {
-        if (playerStateController != null)
-        {
-            playerStateController.OnTakeAudioTape -= HandleListenMusic;
-        }
-    }
-    #endregion
 
-    private void HandleListenMusic()
+
+    public void HandleListenMusic()
     {
         if (isListeningAudioTape) return;
 
@@ -63,7 +49,7 @@ public class Walkman : MonoBehaviour, IWalkman
 
         //uiAnimation.PhotoUIAnimation();
 
-        yield return new WaitForSeconds(delay);
+        //yield return new WaitForSeconds(delay);
 
         GameObject target = playerInteract.GetRaycastTarget();
 
@@ -90,10 +76,14 @@ public class Walkman : MonoBehaviour, IWalkman
     public void SetWalkManUIVisible(bool isVisible)
     {
         walkmanUI.SetActive(isVisible);
+        RectTransform rect = UICassette.GetComponent<RectTransform>();
+
+        rect.anchoredPosition = new Vector2(0, -45);
     }
 }
 public interface IWalkman
 {
-    bool isListeningAudioTape { get; }
+    bool isListeningAudioTape { get; set; }
     void SetWalkManUIVisible(bool isVisible);
+    void HandleListenMusic();
 }
