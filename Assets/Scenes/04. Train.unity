@@ -862,7 +862,7 @@ MonoBehaviour:
     - sceneName: AS_MusicNote1
       weightIfConditionTrue: 20
   - ruleName: WalkMan Picked
-    conditionToCheck: 33
+    conditionToCheck: 35
     scenesToModify:
     - sceneName: AS_MusicNote1
       weightIfConditionTrue: 0
@@ -26965,12 +26965,16 @@ MonoBehaviour:
   - eventType: 61
     dialogues:
     - {fileID: 11400000, guid: 3f1c6bc63b4a3c947bd992abd6c5df63, type: 2}
+  - eventType: 62
+    dialogues:
+    - {fileID: 11400000, guid: 1b3193b5757d39248bb970fe68284c86, type: 2}
   currentEvent: 21
   npcType: 6
   autoAdvance: 0
   defaultEvent: 21
   startDelay: 1.5
   autoAdvanceDelay: 3
+  delayBetweenQueuedMonologues: 1
 --- !u!1 &1544543420
 GameObject:
   m_ObjectHideFlags: 0
@@ -39414,6 +39418,7 @@ MonoBehaviour:
   defaultEvent: 21
   startDelay: 0
   autoAdvanceDelay: 4.5
+  delayBetweenQueuedMonologues: 1
 --- !u!114 &2117729052
 MonoBehaviour:
   m_ObjectHideFlags: 0

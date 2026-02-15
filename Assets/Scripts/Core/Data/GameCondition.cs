@@ -44,5 +44,6 @@ namespace Core.Data
         #endregion
         AllNpcsLockedSpoken,
         PrologueDoorsLocked,
+        WalkManTaken,
     }
 }
