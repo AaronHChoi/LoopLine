@@ -819,6 +819,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 106548320}
   m_CullTransparentMesh: 1
+--- !u!1 &123888566 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e58dac2020a2c1540b0e288bb92294b0, type: 3}
+  m_PrefabInstance: {fileID: 1921111697}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &138927328
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2681,7 +2686,7 @@ Transform:
   m_LocalScale: {x: 4.6092, y: 4.3728, z: 0.27497998}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1996990048}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &281208342
 MeshRenderer:
@@ -2769,7 +2774,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6418b11aa2c21f43bc07a7a94651f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Event: 57
+  Event: 62
   requiredCondition: 0
 --- !u!1 &294619703
 GameObject:
@@ -9932,7 +9937,7 @@ Transform:
   m_LocalScale: {x: 4.6092, y: 4.3728, z: 1.7766715}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1996990048}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &602960761
 BoxCollider:
@@ -11767,6 +11772,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dd3070f9d4aca4146808bb6fff3ee22d, type: 3}
   m_PrefabInstance: {fileID: 774483544}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &805701205 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e58dac2020a2c1540b0e288bb92294b0, type: 3}
+  m_PrefabInstance: {fileID: 1530695107}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &814448192
 PrefabInstance:
@@ -22927,8 +22937,9 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     secondsDelay: 0
-  monologueToTrigger: 0
+  monologueToTrigger: 44
   conditionToTrigger: 0
+  parentGameObject: {fileID: 805701205}
   panelID: 0
 --- !u!114 &1530695112
 MonoBehaviour:
@@ -29393,7 +29404,7 @@ Transform:
   m_LocalScale: {x: 4.6092, y: 4.3728, z: 0.27497998}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1996990048}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &1775562158
 MeshRenderer:
@@ -29481,7 +29492,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6418b11aa2c21f43bc07a7a94651f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Event: 57
+  Event: 62
   requiredCondition: 0
 --- !u!114 &1786690565
 MonoBehaviour:
@@ -30399,8 +30410,9 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     secondsDelay: 0
-  monologueToTrigger: 0
+  monologueToTrigger: 43
   conditionToTrigger: 0
+  parentGameObject: {fileID: 123888566}
   panelID: 0
 --- !u!114 &1921111702
 MonoBehaviour:
@@ -31039,9 +31051,6 @@ Transform:
   - {fileID: 1560829780}
   - {fileID: 326694406}
   - {fileID: 1368651181}
-  - {fileID: 281208341}
-  - {fileID: 602960760}
-  - {fileID: 1775562157}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1998729109
@@ -36883,3 +36892,6 @@ SceneRoots:
   - {fileID: 1568788972}
   - {fileID: 1996990048}
   - {fileID: 1518316433}
+  - {fileID: 281208341}
+  - {fileID: 602960760}
+  - {fileID: 1775562157}

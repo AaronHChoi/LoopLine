@@ -49,9 +49,6 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
             StartCoroutine(LoadSceneAsync(firstScene.sceneName));
             return;
         }
-        if (IsCurrentScene("04. Train"))
-            CheckTrainModel();
-
 
     }
     public void SetInitialLoop(bool isActive)
@@ -65,12 +62,19 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
     public void LoadRandomScene()
     {
         string selectedScene;
+        if (GameManager.Instance.GetCondition(GameCondition.MusicSafeDoorOpen) == false)
+        {
+            do
+            {
+                selectedScene = GetRandomSceneByWeight();
+            }
+            while (IsCurrentScene(selectedScene));
 
-        do
+        }
+        else
         {
             selectedScene = GetRandomSceneByWeight();
         }
-        while (IsCurrentScene(selectedScene));
 
         StartCoroutine(LoadSceneAsync(selectedScene));
 
@@ -208,19 +212,6 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
         activeScenes.Remove(sceneName);
     }
 
-    private void CheckTrainModel()
-    {
-        if (GameManager.Instance.GetCondition(GameCondition.MusicSafeDoorOpen) && IsCurrentScene("04. Train"))
-        {
-            trainModel.SetActive(false);
-            BrokenTrainModel.SetActive(true);
-        }
-        else
-        {
-                trainModel.SetActive(true);
-                BrokenTrainModel.SetActive(false);
-        }
-    }
 }
 public interface IGameSceneManager
 {

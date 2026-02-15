@@ -12,7 +12,7 @@ public class AudioTape : ItemInteract, IAudioTape
 
     [SerializeField] private Events monologueToTrigger;
     [SerializeField] private GameCondition conditionToTrigger;
-
+    [SerializeField] private GameObject parentGameObject;
 
     IUIManager uiManager;
     IGameSceneManager gameSceneManager;
@@ -36,7 +36,7 @@ public class AudioTape : ItemInteract, IAudioTape
             gameSceneManager.SetInitialLoop(false);
             EventBus.Publish(new PlayerGrabItemEvent());
             gameObject.SetActive(false);
-
+            parentGameObject.SetActive(false);
             return true;
         }
         return false;

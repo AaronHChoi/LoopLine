@@ -8,6 +8,7 @@ public class WalkManItem : ItemInteract, IWalkmanItem
 {
     public event Action OnWalkManTaken;
 
+    [SerializeField] GameObject ParentGameObject;
     IUIManager uiManager;
     IGameSceneManager gameSceneManager;
     ISceneWeightController weightController;
@@ -28,6 +29,7 @@ public class WalkManItem : ItemInteract, IWalkmanItem
         if (GameManager.Instance.GetCondition(GameCondition.WalkManTaken))
         {
             this.gameObject.SetActive(false);
+            ParentGameObject.SetActive(false);
         }
     }
     public override bool Interact()
@@ -41,11 +43,13 @@ public class WalkManItem : ItemInteract, IWalkmanItem
             gameSceneManager.SetInitialLoop(false);
             EventBus.Publish(new PlayerGrabItemEvent());
             gameObject.SetActive(false);
+            ParentGameObject.SetActive(false);
 
             return true;
         }
         return false;
     }
+
 }
 
 

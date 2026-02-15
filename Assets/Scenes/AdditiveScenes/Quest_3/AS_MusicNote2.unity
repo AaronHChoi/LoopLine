@@ -7700,8 +7700,9 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     secondsDelay: 0
-  monologueToTrigger: 0
+  monologueToTrigger: 42
   conditionToTrigger: 0
+  parentGameObject: {fileID: 455578317}
   panelID: 0
 --- !u!114 &455578315
 MonoBehaviour:
@@ -7735,6 +7736,11 @@ MonoBehaviour:
   uiOffset: {x: 0, y: 0, z: 0}
   uiOffsetPrompt: {x: 0, y: 0, z: 0}
   uiScale: 1
+--- !u!1 &455578317 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e58dac2020a2c1540b0e288bb92294b0, type: 3}
+  m_PrefabInstance: {fileID: 455578312}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &458988080
 GameObject:
   m_ObjectHideFlags: 0
@@ -15881,7 +15887,7 @@ Transform:
   m_LocalScale: {x: 4.6092, y: 4.3728, z: 0.27497998}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1336878061}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1065320495
 MonoBehaviour:
@@ -15895,7 +15901,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6418b11aa2c21f43bc07a7a94651f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Event: 57
+  Event: 62
   requiredCondition: 0
 --- !u!1 &1065956567
 GameObject:
@@ -16164,8 +16170,9 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     secondsDelay: 0
-  monologueToTrigger: 0
+  monologueToTrigger: 41
   conditionToTrigger: 0
+  parentGameObject: {fileID: 1135144713}
   panelID: 0
 --- !u!114 &1135144711
 MonoBehaviour:
@@ -16199,6 +16206,11 @@ MonoBehaviour:
   uiOffset: {x: 0, y: 0, z: 0}
   uiOffsetPrompt: {x: 0, y: 0, z: 0}
   uiScale: 1
+--- !u!1 &1135144713 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e58dac2020a2c1540b0e288bb92294b0, type: 3}
+  m_PrefabInstance: {fileID: 1135144708}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1147361393
 GameObject:
   m_ObjectHideFlags: 0
@@ -18584,9 +18596,6 @@ Transform:
   - {fileID: 1937249694}
   - {fileID: 1821849474}
   - {fileID: 1238026050}
-  - {fileID: 1580536127}
-  - {fileID: 1810706503}
-  - {fileID: 1065320494}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1343555125
@@ -20038,7 +20047,7 @@ Transform:
   m_LocalScale: {x: 4.6092, y: 4.3728, z: 0.27497998}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1336878061}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1580536128
 MonoBehaviour:
@@ -20052,7 +20061,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6418b11aa2c21f43bc07a7a94651f32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Event: 57
+  Event: 62
   requiredCondition: 0
 --- !u!1 &1589323860
 GameObject:
@@ -22778,7 +22787,7 @@ Transform:
   m_LocalScale: {x: 4.6092, y: 4.3728, z: 1.7766715}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1336878061}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1819255554
 GameObject:
@@ -34686,3 +34695,6 @@ SceneRoots:
   - {fileID: 1556017359}
   - {fileID: 1135144708}
   - {fileID: 455578312}
+  - {fileID: 1580536127}
+  - {fileID: 1810706503}
+  - {fileID: 1065320494}

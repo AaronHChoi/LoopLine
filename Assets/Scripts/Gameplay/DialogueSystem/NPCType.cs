@@ -8,5 +8,6 @@ public enum NPCType
     WorkingMan,
     BassGirl,
     Player,
-    StrangeVoice
+    StrangeVoice,
+    MusicTape,
 }
