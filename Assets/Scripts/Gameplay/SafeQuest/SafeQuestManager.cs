@@ -50,7 +50,7 @@ public class SafeQuestManager : MonoBehaviour, ISafeQuestManager
         {
             doorKey.gameObject.SetActive(false);
         }
-        UpdateMusicNoteActivationStates();
+        //UpdateMusicNoteActivationStates();
     }
 
     private void OnEnable()
@@ -78,16 +78,16 @@ public class SafeQuestManager : MonoBehaviour, ISafeQuestManager
     {
         switch (dialName)
         {
-            case "Dial1":
+            case "Dial_1":
                 result[0] = indexShown;
                 break;
-            case "Dial2":
+            case "Dial_2":
                 result[1] = indexShown;
                 break;
-            case "Dial3":
+            case "Dial_3":
                 result[2] = indexShown;
                 break;
-            case "Dial4":
+            case "Dial_4":
                 result[3] = indexShown;
                 break;
         }

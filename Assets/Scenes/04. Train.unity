@@ -880,6 +880,13 @@ MonoBehaviour:
       valueIfConditionTrue: 1
     - objectTarget: {fileID: 303819656}
       valueIfConditionTrue: 1
+  - ruleName: Broken Window
+    conditionToCheck: 8
+    objectsToModify:
+    - objectTarget: {fileID: 717394027}
+      valueIfConditionTrue: 0
+    - objectTarget: {fileID: 717394026}
+      valueIfConditionTrue: 1
 --- !u!4 &159319079
 Transform:
   m_ObjectHideFlags: 0
@@ -11158,6 +11165,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 703975867}
   m_CullTransparentMesh: 1
+--- !u!1 &717394026 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -1328507906469270993, guid: 0f9551ae205a00d4f9b4fec7e5f8a9d8, type: 3}
+  m_PrefabInstance: {fileID: 382829428}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &717394027 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8890405062343156371, guid: 0f9551ae205a00d4f9b4fec7e5f8a9d8, type: 3}
+  m_PrefabInstance: {fileID: 382829428}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &717901030
 GameObject:
   m_ObjectHideFlags: 0
@@ -22917,7 +22934,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
       propertyPath: firstScene.sceneName
-      value: AS_MusicNote1
+      value: AS_Camera
       objectReference: {fileID: 0}
     - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
       propertyPath: secondScene.sceneName

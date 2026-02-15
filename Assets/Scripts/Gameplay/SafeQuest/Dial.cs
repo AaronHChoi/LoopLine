@@ -36,14 +36,10 @@ public class Dial : MonoBehaviour, IInteract
             return;
         }
 
-        if (GameManager.Instance.GetCondition(conditionToRotate))
-        {
-            StartCoroutine(Rotate());
-        }
-        else
-        {
-            monologueSpeaker.StartMonologue(Events.MusicClue1);
-        }
+       
+        StartCoroutine(Rotate());
+        
+
     }
     private IEnumerator Rotate()
     {
@@ -56,39 +52,39 @@ public class Dial : MonoBehaviour, IInteract
             indexShown = 0;
         }
 
-        switch (indexShown)
-        {
-            case 0:
-                soundManager.CreateSound()
-                  .WithSoundData(_do)
-                  .WithSoundPosition(transform.position)
-                  .Play();
-                break;
-            case 1:
-                soundManager.CreateSound()
-                  .WithSoundData(_re)
-                  .WithSoundPosition(transform.position)
-                  .Play();
-                break;
-            case 2:
-                soundManager.CreateSound()
-                  .WithSoundData(_mi)
-                  .WithSoundPosition(transform.position)
-                  .Play();
-                break;
-            case 3:
-                soundManager.CreateSound()
-                  .WithSoundData(_sol)
-                  .WithSoundPosition(transform.position)
-                  .Play();
-                break;
-            default:
-                break;
-        }
+        //switch (indexShown)
+        //{
+        //    case 0:
+        //        soundManager.CreateSound()
+        //          .WithSoundData(_do)
+        //          .WithSoundPosition(transform.position)
+        //          .Play();
+        //        break;
+        //    case 1:
+        //        soundManager.CreateSound()
+        //          .WithSoundData(_re)
+        //          .WithSoundPosition(transform.position)
+        //          .Play();
+        //        break;
+        //    case 2:
+        //        soundManager.CreateSound()
+        //          .WithSoundData(_mi)
+        //          .WithSoundPosition(transform.position)
+        //          .Play();
+        //        break;
+        //    case 3:
+        //        soundManager.CreateSound()
+        //          .WithSoundData(_sol)
+        //          .WithSoundPosition(transform.position)
+        //          .Play();
+        //        break;
+        //    default:
+        //        break;
+        //}
 
-        for (int i = 0; i < 90; i++)
+        for (int i = 0; i < 36; i++)
         {
-            transform.Rotate(0, 0, 1);
+            transform.Rotate(0, 1, 0);
             yield return new WaitForSeconds(0.01f);
         }
 
