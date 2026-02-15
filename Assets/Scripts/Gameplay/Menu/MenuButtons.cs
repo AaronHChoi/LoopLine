@@ -34,4 +34,9 @@ public class MenuButtons : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
     }
 
+    private void OnEnable()
+    {
+        if (HoverGameObject != null)
+            HoverGameObject.SetActive(false);
+    }
 }
