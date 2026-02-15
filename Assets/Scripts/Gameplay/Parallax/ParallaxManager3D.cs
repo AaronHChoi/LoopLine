@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,9 +15,9 @@ public class ParallaxManager3D : MonoBehaviour
 {
     [SerializeField] private float limitZ = -706f;
     [SerializeField] private List<ParallaxLayer> layers = new List<ParallaxLayer>();
-    
-    //[SerializeField] private Color limitColor = Color.red;
-    //[SerializeField] private Color teleportColor = Color.green;
+
+    private float globalSpeedMultiplier = 1f;
+    private bool isTransitiong = false;
 
     private void Start()
     {
@@ -44,7 +45,7 @@ public class ParallaxManager3D : MonoBehaviour
             foreach (var obj in layer.objects)
             {
                 if (obj == null) continue;
-                obj.Translate(Vector3.back * layer.moveSpeed * Time.deltaTime, Space.World);
+                obj.Translate(Vector3.back * (layer.moveSpeed * globalSpeedMultiplier) * Time.deltaTime, Space.World);
             }
 
             foreach (var obj in layer.objects)
@@ -62,6 +63,49 @@ public class ParallaxManager3D : MonoBehaviour
             }
         }
     }
+
+    [ContextMenu("Debug: Trigger stop and resume")]
+    public void DebugStartStopSequence()
+    {
+        StartStopSequence();
+    }
+    public void StartStopSequence(float stopDuration = 5f, float waitTime = 10f, float resumeDuration = 5f)
+    {
+        if (isTransitiong)
+        {
+            return;
+        }
+        StartCoroutine(StopAndResumeRoutine(stopDuration, waitTime, resumeDuration));
+    }
+
+    private IEnumerator StopAndResumeRoutine(float stopDuration, float waitTime, float resumeDuration)
+    {
+        isTransitiong = true;
+        float timer = 0f;
+
+        while (timer < stopDuration)
+        {
+            timer += Time.deltaTime;
+            globalSpeedMultiplier = Mathf.Lerp(1f, 0f, timer / stopDuration);
+            yield return null;
+        }
+        globalSpeedMultiplier = 0f;
+
+        yield return new WaitForSeconds(waitTime);
+
+        timer = 0f;
+        
+        while (timer < resumeDuration)
+        {
+            timer += Time.deltaTime;
+            globalSpeedMultiplier = Mathf.Lerp(0f, 1f, timer / resumeDuration);
+            yield return null;
+        }
+
+        globalSpeedMultiplier = 1f;
+
+        isTransitiong = false;
+    }
     private Transform GetFrontMostObject(List<Transform> objs)
     {
         Transform front = objs[0];
@@ -72,15 +116,4 @@ public class ParallaxManager3D : MonoBehaviour
         }
         return front;
     }
-//    private void OnDrawGizmos()
-//    {
-//        Gizmos.color = limitColor;
-//        Vector3 limitStart = new Vector3(-1000, gizmoHeight, limitZ);
-//        Vector3 limitEnd = new Vector3(1000, gizmoHeight, limitZ);
-//        Gizmos.DrawLine(limitStart, limitEnd);
-
-//#if UNITY_EDITOR
-//        UnityEditor.Handles.Label(new Vector3(0, gizmoHeight + 2, limitZ), "Límite Z");
-//#endif
-//    }
 }

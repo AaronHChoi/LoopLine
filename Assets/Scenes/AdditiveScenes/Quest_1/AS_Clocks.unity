@@ -335,6 +335,7 @@ MonoBehaviour:
     isALoop: 1
     isAPlayOnAwake: 0
     volume: 0.1
+    pitch: 1
     secondsDelay: 0
 --- !u!4 &88629403
 Transform:
@@ -1615,6 +1616,7 @@ MonoBehaviour:
   interactText: 
   animator: {fileID: 0}
   ikTarget: {fileID: 0}
+  sceneController: {fileID: 0}
 --- !u!65 &381970456
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5425,6 +5427,7 @@ MonoBehaviour:
   interactText: 
   animator: {fileID: 1665349234}
   ikTarget: {fileID: 701314739}
+  sceneController: {fileID: 0}
 --- !u!65 &1665349233
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6708,6 +6711,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BotonStop
       objectReference: {fileID: 0}
+    - target: {fileID: 8622359076793662196, guid: 244ae04dc4dd0d04d89cbb3703b337e9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8999059884508373070, guid: 244ae04dc4dd0d04d89cbb3703b337e9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.898
@@ -6802,13 +6809,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 959477bcc5674bd4abbb6dd7d299f426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sound:
-    clip: {fileID: 8300000, guid: 897e505bcec5c6e4f8c2e29546e935e1, type: 3}
-    mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
-    isALoop: 0
-    isAPlayOnAwake: 0
-    volume: 1
-    secondsDelay: 0
   cooldownDuration: 1
 --- !u!114 &1854943480
 MonoBehaviour:
