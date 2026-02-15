@@ -55,7 +55,7 @@ public class LoopManager : MonoBehaviour
         {
             case 1:
                 {
-                    gameSceneManager.LoadSceneAsync2("AS_NPC");
+                    gameSceneManager.LoadSceneAsync2("AS_NPC_PROLOGUE");
                 }
                 break;
             case 2:

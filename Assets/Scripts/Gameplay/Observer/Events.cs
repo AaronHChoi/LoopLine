@@ -75,4 +75,9 @@ public enum Events
     NPCL_Monologue,
     NPCL_AllNPCSpoken,
     LOOP2_Monologue,
+    NPCL_CameraGirl_M2,
+    NPCL_WorkingMan_M2,
+    NPCL_BassistGirl_M2,
+    InitialMonologue,
+    SecondMonologueStay,
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 using Core.Utilities;
 using Core.DependencyInjection;
 
-public class TriggerMonologue : BaseTrigger
+public class MonologueTrigger : BaseTrigger
 {
     IMonologueSpeaker monologueSpeaker;
 
