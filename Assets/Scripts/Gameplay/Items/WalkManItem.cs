@@ -1,3 +1,4 @@
+using Core.Audio;
 using Core.Data;
 using Core.DependencyInjection;
 using Core.EventBus;
@@ -12,8 +13,12 @@ public class WalkManItem : ItemInteract, IWalkmanItem
     IUIManager uiManager;
     IGameSceneManager gameSceneManager;
     ISceneWeightController weightController;
+    ISoundManager soundManager;
 
     [SerializeField] UIPanelID panelID;
+
+    [Header("Audio")]
+    [SerializeField] SoundData soundData;
 
     protected override void Awake()
     {
@@ -21,6 +26,7 @@ public class WalkManItem : ItemInteract, IWalkmanItem
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
         gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
         weightController = InterfaceDependencyInjector.Instance.Resolve<ISceneWeightController>();
+        soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();
     }
     public override void Start()
     {
@@ -41,6 +47,9 @@ public class WalkManItem : ItemInteract, IWalkmanItem
             GameManager.Instance.SetCondition(GameCondition.WalkManTaken, true);
             weightController.HandleConditionChanged(GameCondition.WalkManTaken, true);
             gameSceneManager.SetInitialLoop(false);
+            soundManager.CreateSound()
+           .WithSoundData(soundData)
+           .Play();
             EventBus.Publish(new PlayerGrabItemEvent());
             gameObject.SetActive(false);
             ParentGameObject.SetActive(false);
