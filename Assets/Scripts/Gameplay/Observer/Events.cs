@@ -74,4 +74,5 @@ public enum Events
     NPCL_CameraGirl_M,
     NPCL_Monologue,
     NPCL_AllNPCSpoken,
+    LOOP2_Monologue,
 }

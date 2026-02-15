@@ -1,24 +1,13 @@
 using UnityEngine;
 using Core.Data;
+using Core.Utilities;
 
-public class DoorTrigger : MonoBehaviour
+public class DoorTrigger : BaseTrigger
 {
-    [SerializeField] private GameObject[] triggersToDisable;
-
-    private void OnTriggerEnter(Collider other)
+    protected override void OnTriggerEnter(Collider other)
     {
         GameManager.Instance.SetCondition(GameCondition.PrologueDoorsLocked, true);
 
-        DisableAllTriggers();
-    }
-    private void DisableAllTriggers()
-    {
-        foreach (GameObject obj in triggersToDisable)
-        {
-            if (obj != null)
-            {
-                obj.SetActive(false);
-            }
-        }
+        base.OnTriggerEnter(other);
     }
 }
