@@ -26,6 +26,13 @@ public class LoopManager : MonoBehaviour
     }
     void HandleLoopTransition(LoopTeleportEvent ev)
     {
+        if (!GameManager.Instance.GetCondition(GameCondition.AllNpcsLockedSpoken))
+        {
+            gameSceneManager.UnloadLastScene();
+            gameSceneManager.LoadSceneAsync2("AS_NPC_LOCKED");
+            return;
+        }
+
         GameManager.Instance.TrainLoop += 1;
 
         bool isInitialLoop = gameSceneManager.GetIsInInitialLoop();
@@ -49,12 +56,12 @@ public class LoopManager : MonoBehaviour
             case 0:
             case 1:
                 {
-                    gameSceneManager.LoadSceneAsync2("AS_NPC");
+                    gameSceneManager.LoadSceneAsync2("AS_NPC_LOCKED");
                 }
                 break;
             case 2:
                 {
-                    gameSceneManager.LoadSceneAsync2("AS_NoNPC-NoItems");
+                    gameSceneManager.LoadSceneAsync2("AS_NPC");
                 }
                 break;
             case 3:
@@ -64,7 +71,7 @@ public class LoopManager : MonoBehaviour
                 break;
             case 4:
                 {
-                    gameSceneManager.LoadSceneAsync2("AS_Clocks");
+                    gameSceneManager.LoadSceneAsync2("AS_NPC");
                 }
                 break;
             case 5:

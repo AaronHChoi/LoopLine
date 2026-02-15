@@ -103,7 +103,7 @@ public abstract class DialogueSpeakerBase : MonoBehaviour
 
             if (willTriggerMonologue)
             {
-                DialogueManager.Instance.StartInteractionCooldown(0.6f);
+                DialogueManager.Instance.StartInteractionCooldown(2.5f);
             }
         }
 

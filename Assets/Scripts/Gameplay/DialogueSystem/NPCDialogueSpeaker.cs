@@ -10,9 +10,11 @@ public class NPCDialogueSpeaker : DialogueSpeakerBase, IInteract
     private Coroutine returnRotationCoroutine;
     private Quaternion originalRotation;
     private float maxRotationAngle = 70f;
+
     [SerializeField] Animator animator;
     [SerializeField] private GameObject ikTarget;
 
+    [SerializeField] NPCSceneController sceneController;
 
     protected override void Awake()
     {
@@ -85,7 +87,10 @@ public class NPCDialogueSpeaker : DialogueSpeakerBase, IInteract
             
         //}
        
-
+        if (sceneController != null)
+        {
+            sceneController.OnNpcTaked(npcType);
+        }
     }
 
 
