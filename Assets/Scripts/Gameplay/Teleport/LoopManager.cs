@@ -26,6 +26,13 @@ public class LoopManager : MonoBehaviour
     }
     void HandleLoopTransition(LoopTeleportEvent ev)
     {
+        if (!GameManager.Instance.GetCondition(GameCondition.AllNpcsLockedSpoken))
+        {
+            gameSceneManager.UnloadLastScene();
+            gameSceneManager.LoadSceneAsync2("AS_NPC_LOCKED");
+            return;
+        }
+
         GameManager.Instance.TrainLoop += 1;
 
         bool isInitialLoop = gameSceneManager.GetIsInInitialLoop();

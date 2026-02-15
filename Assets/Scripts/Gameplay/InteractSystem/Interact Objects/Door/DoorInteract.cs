@@ -24,7 +24,6 @@ public class DoorInteract : MonoBehaviour, IInteract
     private bool isOpen;
     private bool isMoving;
 
-
     private float closeDelayInitial;
     private float closeTimer;
 
@@ -74,9 +73,9 @@ public class DoorInteract : MonoBehaviour, IInteract
     public string GetInteractText() => doorText;
     public void Interact()
     {
-        if (GameManager.Instance.GetCondition(GameCondition.LOOP4))
+        if (GameManager.Instance.GetCondition(GameCondition.PrologueDoorsLocked))
         {
-            monologueSpeaker.StartMonologue(Events.ClosedDoorsTrain);
+            monologueSpeaker.StartMonologue(Events.NPCL_Monologue);
             return;
         }
 

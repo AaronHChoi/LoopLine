@@ -42,5 +42,7 @@ namespace Core.Data
         Chapter3,
         Chapter4,
         #endregion
+        AllNpcsLockedSpoken,
+        PrologueDoorsLocked,
     }
 }
