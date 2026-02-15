@@ -7,23 +7,19 @@ namespace Player
         IPlayerStateController controller;
         IPlayerInputHandler input;
         IPlayerMovement movement;
-        IPlayerInteractMarkerPrompt interaction;
         ICameraOrientation playerCamera;
         IWalkman walkman;
 
-        public WalkManMusicState(IPlayerStateController controller, IPlayerInputHandler input, IPlayerMovement movement, IPlayerInteractMarkerPrompt interaction, ICameraOrientation playerCamera, IWalkman walkman)
+        public WalkManMusicState(IPlayerStateController controller, IPlayerInputHandler input, IPlayerMovement movement, ICameraOrientation playerCamera, IWalkman walkman)
         {
             this.controller = controller;
             this.input = input;
             this.movement = movement;
-            this.interaction = interaction;
             this.walkman = walkman;
             this.playerCamera = playerCamera;
         }
         public void Enter()
         {
-            if (walkman.isListeningAudioTape)
-                interaction.IsDetecting = false;
             movement.CanMove = true;
             playerCamera.CanLook = true;
             walkman.SetWalkManUIVisible(true);
@@ -33,9 +29,13 @@ namespace Player
 
         public void Execute()
         {
-            if (input.InteractPressed())
+            if (input.InteractPressed() && !walkman.isListeningAudioTape)
             {
                 controller.UseEventInteract();
+            }
+            if (input.GrabItemPressed() && !walkman.isListeningAudioTape)
+            {
+                controller.UseEventGrab();
             }
             if (input.ToggleWalkmanPressed() && !walkman.isListeningAudioTape)
             {
@@ -46,7 +46,6 @@ namespace Player
         public void Exit()
         {
 
-            interaction.IsDetecting = true;
             movement.CanMove = false;
             playerCamera.CanLook = false;
 

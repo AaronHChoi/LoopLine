@@ -75,4 +75,5 @@ public enum Events
     NPCL_Monologue,
     NPCL_AllNPCSpoken,
     BrokenTrain,
+    CasseteTutorial,
 }

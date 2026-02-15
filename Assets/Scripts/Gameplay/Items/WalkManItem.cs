@@ -46,11 +46,12 @@ public class WalkManItem : ItemInteract, IWalkmanItem
             uiManager.ShowPanel(panelID);
             GameManager.Instance.SetCondition(GameCondition.WalkManTaken, true);
             weightController.HandleConditionChanged(GameCondition.WalkManTaken, true);
-            gameSceneManager.SetInitialLoop(false);
+
             soundManager.CreateSound()
-           .WithSoundData(soundData)
-           .Play();
+                .WithSoundData(soundData)
+                .Play();
             EventBus.Publish(new PlayerGrabItemEvent());
+
             gameObject.SetActive(false);
             ParentGameObject.SetActive(false);
 

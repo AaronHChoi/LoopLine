@@ -65,7 +65,7 @@ namespace Player
             NormalState = new NormalState(this, inputHandler, playerMovement, cinemachinePOVExtension, uiManager, playerController, playerCamera, gameSceneManager);
             DialogueState = new DialogueState(this, inputHandler, playerMovement, cinemachinePOVExtension);
             CameraState = new CameraState(this, inputHandler, playerMovement, photoCapture, cinemachinePOVExtension, interaction);
-            WalkManMusicState = new WalkManMusicState(this, inputHandler, playerMovement, interaction, cinemachinePOVExtension, walkman);
+            WalkManMusicState = new WalkManMusicState(this, inputHandler, playerMovement, cinemachinePOVExtension, walkman);
             DevelopmentState = new DevelopmentState(this, inputHandler, playerMovement, cinemachinePOVExtension, timeManager);
             MindPlaceState = new MindPlaceState(this, inputHandler, playerMovement);
             ObjectInHandState = new ObjectInHandState(this, inputHandler, playerMovement, cinemachinePOVExtension);
