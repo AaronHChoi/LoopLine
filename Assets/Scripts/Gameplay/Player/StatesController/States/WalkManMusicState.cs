@@ -41,6 +41,10 @@ namespace Player
             {
                 controller.ChangeState(controller.NormalState);
             }
+            if (input.PassDialogPressed() && !GameManager.Instance.isCinematicMonologue)
+            {
+                controller.UseEventDialogueNext();
+            }
         }
 
         public void Exit()

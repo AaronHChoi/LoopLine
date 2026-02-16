@@ -29,6 +29,7 @@ public class CinematicManager : MonoBehaviour, ICinematicManager
         videoPlayer.loopPointReached -= OnVideoFinished;
         videoPlayer.prepareCompleted -= OnVideoPrepared;
     }
+#if UNITY_EDITOR
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -36,6 +37,7 @@ public class CinematicManager : MonoBehaviour, ICinematicManager
             SkipCinematic();
         }
     }
+#endif
     public void SkipCinematic()
     {
         if (onCinematicFinishedCallback == null && !cinematicPanel.activeSelf)

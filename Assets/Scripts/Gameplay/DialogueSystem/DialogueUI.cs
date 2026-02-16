@@ -184,7 +184,10 @@ public class DialogueUI : MonoBehaviour, IDialogueUI
 
         ChangeDialogeColor(data.IsAMonologue);
 
-        playerStateController.ChangeState(playerStateController.DialogueState);
+        if (!data.IsACassette)
+        {
+            playerStateController.ChangeState(playerStateController.DialogueState);
+        }
         
         dialoguePanel.SetActive(true);
         ShowCurrentLine();
