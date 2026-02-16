@@ -165,7 +165,6 @@ public class MenuManager : MonoBehaviour, IMenuManager
              isDoorOpening = false;
         });
 
-        //doorAnimator.SetTrigger("DoorIdleClosed");
         StartCoroutine(ChangePanelAfterClose(Panel));
     }
     private IEnumerator ChangePanelAfterClose(MenuPanel panel)
@@ -175,16 +174,17 @@ public class MenuManager : MonoBehaviour, IMenuManager
         activePanel = panel;
         UIActivePanel = panel.UIPanel;
 
-        //activePanel.Fade(true);
-        activePanel.gameObject.SetActive(true);
-        UIActivePanel.SetActive(true);
-
         PanelTitleText.text = panel.panelTitle;
 
         door.OpenDoors();
+        
+        //activePanel.Fade(true);        
+        activePanel.gameObject.SetActive(true);      
+        UIActivePanel.SetActive(true);
+
+        yield return new WaitForSeconds(1);
         buttonsAllowed = true;
-        //doorAnimator.SetTrigger("DoorOpened");
-        //doorAnimator.SetTrigger("DoorIdleOpen");
+
     }
 
     private void ClikBehaviour()
