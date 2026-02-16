@@ -37,7 +37,7 @@ namespace Player
             {
                 controller.UseEventGrab();
             }
-            if (input.ToggleWalkmanPressed() && !walkman.isListeningAudioTape)
+            if (input.ToggleCameraPressed() && !walkman.isListeningAudioTape)
             {
                 controller.ChangeState(controller.NormalState);
             }
