@@ -11,15 +11,12 @@ public class SceneWeightController : MonoBehaviour, ISceneWeightController
         public string sceneName;
         public int weightIfConditionTrue;
     }
-
     [System.Serializable]
     public struct GameObjectTarget
     {
         public GameObject objectTarget;
         public bool valueIfConditionTrue;
     }
-
-
     [System.Serializable]
     public struct WeightRule
     {
@@ -27,7 +24,6 @@ public class SceneWeightController : MonoBehaviour, ISceneWeightController
         public GameCondition conditionToCheck;
         public List<SceneWeightTarget> scenesToModify;
     }
-
     [System.Serializable]
     public struct GameObjectWeightRule 
     {

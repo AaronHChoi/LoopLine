@@ -45,8 +45,6 @@ public class GameManager : Singleton<GameManager>
     }
     public int currentPhotoIndex;
 
-    [SerializeField] GameObject UICassette;
-
     public IScreenManager screenManager;
     ICarretteController carretteControllerLeft;
     ICarretteController carretteControllerRight;
@@ -87,11 +85,11 @@ public class GameManager : Singleton<GameManager>
         //TESTING
         if (Input.GetKeyDown(KeyCode.H))
         {
-            RectTransform rect = UICassette.GetComponent<RectTransform>();
+            //RectTransform rect = UICassette.GetComponent<RectTransform>();
 
-            rect.anchoredPosition = new Vector2(0, -45);
-            carretteControllerLeft.SetRotation(true);
-            carretteControllerRight.SetRotation(true);
+            //rect.anchoredPosition = new Vector2(0, -45);
+            //carretteControllerLeft.SetRotation(true);
+            //carretteControllerRight.SetRotation(true);
         }
     }
 #endif

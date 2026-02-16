@@ -58,8 +58,8 @@ public class Walkman : MonoBehaviour, IWalkman
 
         if (target != null && target.TryGetComponent(out IAudioTape tapeTarget))
         {
-            target.gameObject.SetActive(false);
-            parentGameObject.SetActive(false);
+            //target.gameObject.SetActive(false);
+            //parentGameObject.SetActive(false);
 
             soundManager.CreateSound()
            .WithSoundData(tapeTarget.GetSoundData())
@@ -69,7 +69,7 @@ public class Walkman : MonoBehaviour, IWalkman
             carretteControllerLeft.SetRotation(true);
             carretteControllerRight.SetRotation(true);
 
-            //monologueSpeaker.StartMonologue(tapeTarget.GetMonologueToTrigger());
+            monologueSpeaker.StartMonologue(tapeTarget.GetMonologueToTrigger());
 
             yield return new WaitForSeconds(tapeTarget.GetSoundData().clip.length);
 
@@ -77,8 +77,8 @@ public class Walkman : MonoBehaviour, IWalkman
             carretteControllerRight.SetRotation(false);
 
             isListeningAudioTape = false;
-            target.gameObject.SetActive(true);
-            parentGameObject.SetActive(true);
+            //target.gameObject.SetActive(true);
+            //parentGameObject.SetActive(true);
 
         }
 

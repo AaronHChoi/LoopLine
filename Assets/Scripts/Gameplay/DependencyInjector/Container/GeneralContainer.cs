@@ -7,9 +7,6 @@ namespace DependencyInjection
         ItemInteract itemInteract;
         public ItemInteract ItemInteract => itemInteract ??= FindAndValidate<ItemInteract>();
 
-        Parallax parallax;
-        public Parallax Parallax => parallax ??= FindAndValidate<Parallax>();
-
         public void RegisterServices(InterfaceDependencyInjector injector)
         {
             injector.Register<IGameStateController>(() => FindAndValidate<GameStateController>());
