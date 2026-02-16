@@ -46,7 +46,8 @@ public class MenuManager : MonoBehaviour, IMenuManager
     [SerializeField] TextMeshPro PanelTitleText;
     [SerializeField] Animator doorAnimator;
     [SerializeField] DoorInteract door;
-
+    private bool isTransitioning;
+    private Coroutine transitionCoroutine;
 
     private bool buttonsAllowed = false;
     private bool isFlashing = false;
@@ -145,46 +146,45 @@ public class MenuManager : MonoBehaviour, IMenuManager
         
     }
 
-    public void ChangeActivePanel (MenuPanel Panel)
+    public void ChangeActivePanel (MenuPanel panel)
     {
-        if (!buttonsAllowed) return;
+        if (isTransitioning) return;
+     
 
-        buttonsAllowed = false;
-        UIActivePanel.SetActive(false);
-        //doorAnimator.SetTrigger("DoorClosed");
-        
-        door.CloseDoors();
-        DelayUtility.Instance.Delay(2f, () =>
-        {
-            isDoorOpening = true;
-            activePanel.gameObject.SetActive(false);
-        });
-        
-        DelayUtility.Instance.Delay(2.5f, () =>
-        {
-             isDoorOpening = false;
-        });
+        if (transitionCoroutine != null)
+            StopCoroutine(transitionCoroutine);
 
-        StartCoroutine(ChangePanelAfterClose(Panel));
+        transitionCoroutine = StartCoroutine(TransitionRoutine(panel));
     }
-    private IEnumerator ChangePanelAfterClose(MenuPanel panel)
+    private IEnumerator TransitionRoutine(MenuPanel panel)
     {
-        yield return new WaitForSeconds(3);
+        isTransitioning = true;
+        buttonsAllowed = false;
+
+        UIActivePanel.SetActive(false);
+
+        door.CloseDoors();
+
+        yield return new WaitUntil(() => !door.isOpen);
+
+        activePanel.gameObject.SetActive(false);
+
+        yield return new WaitForSeconds(1f); // total 3 segundos
 
         activePanel = panel;
         UIActivePanel = panel.UIPanel;
 
         PanelTitleText.text = panel.panelTitle;
 
-        door.OpenDoors();
-        
-        //activePanel.Fade(true);        
-        activePanel.gameObject.SetActive(true);      
+        activePanel.gameObject.SetActive(true);
         UIActivePanel.SetActive(true);
 
-        yield return new WaitForSeconds(1);
-        buttonsAllowed = true;
+        door.OpenDoors();
+        Debug.Log("Door opened");
+        yield return new WaitUntil(() => door.isOpen);
 
+        buttonsAllowed = true;
+        isTransitioning = false;
     }
 
     private void ClikBehaviour()
