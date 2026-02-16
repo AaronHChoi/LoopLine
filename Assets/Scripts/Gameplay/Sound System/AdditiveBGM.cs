@@ -22,6 +22,11 @@ public class AdditiveBGM : MonoBehaviour
     }
     private void OnDisable()
     {
+        if (!Application.isPlaying)
+        {
+            return;
+        }
+
         if (soundEmitted != null)
         {
             soundEmitted.Stop();

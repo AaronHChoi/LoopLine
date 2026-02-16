@@ -46,5 +46,6 @@ namespace Core.Data
         PrologueDoorsLocked,
         WalkManTaken,
         StayMonologueQueued,
+        IsClockFrozen,
     }
 }
