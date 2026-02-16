@@ -946,11 +946,16 @@ MonoBehaviour:
       weightIfConditionTrue: 0
     - sceneName: AS_MusicNote1
       weightIfConditionTrue: 20
+    - sceneName: AS_NoNPC-NoItems
+      weightIfConditionTrue: 0
+  - ruleName: WalkManTaken
+    conditionToCheck: 35
+    scenesToModify:
     - sceneName: AS_MusicNote2
       weightIfConditionTrue: 20
     - sceneName: AS_MusicNote3
       weightIfConditionTrue: 20
-    - sceneName: AS_MusicNote4
+    - sceneName: AS_MusicNote3
       weightIfConditionTrue: 20
   gameObjectRules:
   - ruleName: WalkManTaken
@@ -3636,7 +3641,7 @@ PrefabInstance:
     - target: {fileID: -448764334822128057, guid: 0f9551ae205a00d4f9b4fec7e5f8a9d8, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
-      objectReference: {fileID: 2100000, guid: bf17f1901f60dcf4bbc7a6af00aca3f4, type: 2}
+      objectReference: {fileID: 2100000, guid: 4fda51de4c8793e4881154eb1e099535, type: 2}
     - target: {fileID: -384031694408127106, guid: 0f9551ae205a00d4f9b4fec7e5f8a9d8, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 2147483647
@@ -3968,7 +3973,7 @@ PrefabInstance:
     - target: {fileID: 8320335076569783786, guid: 0f9551ae205a00d4f9b4fec7e5f8a9d8, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
-      objectReference: {fileID: 2100000, guid: bf17f1901f60dcf4bbc7a6af00aca3f4, type: 2}
+      objectReference: {fileID: 2100000, guid: 4fda51de4c8793e4881154eb1e099535, type: 2}
     - target: {fileID: 8345112198077964893, guid: 0f9551ae205a00d4f9b4fec7e5f8a9d8, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -22672,7 +22677,10 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 6408213331684775633, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 1133552872947455245, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 982594671}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
 --- !u!4 &910019720 stripped
@@ -22897,6 +22905,69 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 5e262693254d32547abbc70c0458d29a, type: 3}
   m_PrefabInstance: {fileID: 1219240303}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &982594670
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 982594671}
+  - component: {fileID: 982594672}
+  m_Layer: 0
+  m_Name: Walkman
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &982594671
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982594670}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 910019720}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &982594672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982594670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a02dd1bf66114ac46aaad3b06e34c361, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkmanUI: {fileID: 475850143}
+  delay: 0
+  UICassette: {fileID: 475850143}
+  soundData:
+    clip: {fileID: 0}
+    mixerGroup: {fileID: 0}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 1
+    pitch: 1
+    secondsDelay: 0
+  soundData2:
+    clip: {fileID: 0}
+    mixerGroup: {fileID: 0}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 1
+    pitch: 1
+    secondsDelay: 0
 --- !u!1 &985977824
 GameObject:
   m_ObjectHideFlags: 0

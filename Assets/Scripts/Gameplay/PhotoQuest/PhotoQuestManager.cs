@@ -158,6 +158,7 @@ void UpdatePhotoActivationStates()
                 PhotoQuestComplete();
                 //GameManager.Instance.SetCondition(GameCondition.WordGroup2, true);
                 //finalQuestManager.UpdateWordsActivation();
+                GameManager.Instance.SetCondition(GameCondition.PolaroidTaken, false);
                 playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
             })
         );

@@ -48,7 +48,7 @@ namespace Player
             {
                 controller.StateMachine.TransitionTo(controller.CameraState);
             }
-            if (GameManager.Instance.GetCondition(GameCondition.WalkManTaken) && input.ToggleWalkmanPressed() && gameSceneManager.IsCurrentScene("04. Train"))
+            if (GameManager.Instance.GetCondition(GameCondition.WalkManTaken) && input.ToggleCameraPressed() && gameSceneManager.IsCurrentScene("04. Train"))
             {
                 controller.StateMachine.TransitionTo(controller.WalkManMusicState);
             }

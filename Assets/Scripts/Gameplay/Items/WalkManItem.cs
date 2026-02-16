@@ -52,6 +52,7 @@ public class WalkManItem : ItemInteract, IWalkmanItem
                 .Play();
             EventBus.Publish(new PlayerGrabItemEvent());
 
+
             gameObject.SetActive(false);
             ParentGameObject.SetActive(false);
 
