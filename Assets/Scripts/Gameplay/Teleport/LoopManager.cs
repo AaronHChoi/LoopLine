@@ -61,6 +61,7 @@ public class LoopManager : MonoBehaviour
             case 2:
                 {
                     gameSceneManager.LoadSceneAsync2("AS_Clocks");
+                    DelayUtility.Instance.Delay(1.5f, () => GameManager.Instance.SetCondition(GameCondition.Chapter1, true));
                 }
                 break;
             case 3:
