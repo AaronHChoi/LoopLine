@@ -47,7 +47,7 @@ public class Dial : MonoBehaviour, IInteract
 
         indexShown++;
 
-        if (indexShown > 3)
+        if (indexShown > 9)
         {
             indexShown = 0;
         }
@@ -84,7 +84,7 @@ public class Dial : MonoBehaviour, IInteract
 
         for (int i = 0; i < 36; i++)
         {
-            transform.Rotate(0, 1, 0);
+            transform.Rotate(0, -1, 0);
             yield return new WaitForSeconds(0.01f);
         }
 
