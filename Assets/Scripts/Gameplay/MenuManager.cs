@@ -147,20 +147,21 @@ public class MenuManager : MonoBehaviour, IMenuManager
 
     public void ChangeActivePanel (MenuPanel Panel)
     {
+        if (!buttonsAllowed) return;
 
+        buttonsAllowed = false;
         UIActivePanel.SetActive(false);
         //doorAnimator.SetTrigger("DoorClosed");
-        if (!isDoorOpening)
+        
+        door.CloseDoors();
+        DelayUtility.Instance.Delay(2f, () =>
         {
-            door.CloseDoors();
-            DelayUtility.Instance.Delay(2f, () =>
-            {
-                isDoorOpening = true;
-            });
-        }
+            isDoorOpening = true;
+            activePanel.gameObject.SetActive(false);
+        });
+        
         DelayUtility.Instance.Delay(2.5f, () =>
         {
-             activePanel.gameObject.SetActive(false);
              isDoorOpening = false;
         });
 
@@ -181,6 +182,7 @@ public class MenuManager : MonoBehaviour, IMenuManager
         PanelTitleText.text = panel.panelTitle;
 
         door.OpenDoors();
+        buttonsAllowed = true;
         //doorAnimator.SetTrigger("DoorOpened");
         //doorAnimator.SetTrigger("DoorIdleOpen");
     }
