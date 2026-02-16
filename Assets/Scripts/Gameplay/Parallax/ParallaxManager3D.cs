@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Core.EventBus;
+using Core.Data;
 
 [Serializable]
 public class ParallaxLayer
@@ -63,9 +65,17 @@ public class ParallaxManager3D : MonoBehaviour
             }
         }
     }
+    private void OnEnable()
+    {
+        EventBus.Subscribe<ClockSyncEvent>(DebugStartStopSequence);
+    }
+    private void OnDisable()
+    {
+        EventBus.Unsubscribe<ClockSyncEvent>(DebugStartStopSequence);
+    }
 
     [ContextMenu("Debug: Trigger stop and resume")]
-    public void DebugStartStopSequence()
+    public void DebugStartStopSequence(ClockSyncEvent ev)
     {
         StartStopSequence();
     }
@@ -91,7 +101,13 @@ public class ParallaxManager3D : MonoBehaviour
         }
         globalSpeedMultiplier = 0f;
 
+        GameManager.Instance.SetCondition(GameCondition.IsClockFrozen, true);
+        EventBus.Publish(new ClockFreezeEvent(11, 20, 0));
+        
         yield return new WaitForSeconds(waitTime);
+
+        GameManager.Instance.SetCondition(GameCondition.IsClockFrozen, false);
+        EventBus.Publish(new ClockResumeEvent());
 
         timer = 0f;
         
