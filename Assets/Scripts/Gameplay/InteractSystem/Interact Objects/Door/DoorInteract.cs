@@ -21,11 +21,12 @@ public class DoorInteract : MonoBehaviour, IInteract
 
     private Vector3 doorLeftPosOpen, doorRightPosOpen;
     private Vector3 doorLeftClosed, doorRightClosed;
-    private bool isOpen;
     private bool isMoving;
 
     private float closeDelayInitial;
     private float closeTimer;
+
+    public bool isOpen;
 
     [SerializeField] SoundData openDoorSound;
 
