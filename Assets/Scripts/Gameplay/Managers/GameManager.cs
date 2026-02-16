@@ -63,11 +63,8 @@ public class GameManager : Singleton<GameManager>
     }
     private void Start()
     {
-        if (trainLoop == 0)
-        {
-            DelayUtility.Instance.Delay(1f, () => SetCondition(GameCondition.Chapter0, true));
-            DelayUtility.Instance.Delay(4.5f, () => monologueSpeaker.StartMonologue(Events.InitialMonologue));
-        }
+        DelayUtility.Instance.Delay(80f, () => SetCondition(GameCondition.Chapter0, true));
+        DelayUtility.Instance.Delay(80f, () => monologueSpeaker.StartMonologue(Events.InitialMonologue));
     }
     private void OnValidate()
     {
