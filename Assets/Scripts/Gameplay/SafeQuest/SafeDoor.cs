@@ -104,15 +104,12 @@ public class SafeDoor : MonoBehaviour, IInteract
             return;
         }
 
-        if (!active)
+        if (GameManager.Instance.GetCondition(GameCondition.IsMusicQuestComplete))
         {
-            if (GameManager.Instance.GetCondition(GameCondition.IsMusicQuestComplete))
-            {
-                StartCoroutine(CooldownRoutine());
-                active = true;
-                //EventBus.Publish(new DoorEvent { SoundID = unlockDoorSoundEventID, ShouldPlay = true });
-                DelayUtility.Instance.Delay(3f, () => OnUnlockDoorEvent?.Invoke());
-            }
+            StartCoroutine(CooldownRoutine());
+            active = true;
+            //EventBus.Publish(new DoorEvent { SoundID = unlockDoorSoundEventID, ShouldPlay = true });
+            DelayUtility.Instance.Delay(3f, () => OnUnlockDoorEvent?.Invoke());
         }
 
         if (active && !safeQuestManager.isSolved)
