@@ -1,6 +1,7 @@
-using UnityEngine;
 using System;
 using System.Collections;
+using UnityEngine;
+using Core.Data;
 using Core.EventBus;
 
 public class ClockController : MonoBehaviour
@@ -12,15 +13,7 @@ public class ClockController : MonoBehaviour
 
     [Header("Speed Settings")]
     [SerializeField] private float baseSpeed = 150f;
-    //[SerializeField] private float slowdownRangeMinutes = 20f;
-    //[SerializeField] private float slowdownStrength = 4f;
-    //[SerializeField] private float minSpeedFactor = 0.05f;
     [SerializeField] private float eventFastForwardSpeed = 1600f;
-
-    //[Header("Timing Settings")]
-    //[SerializeField] private bool enablePause = false;
-    //[SerializeField] private float pauseDuration = 5f;
-    //[SerializeField] private float resumeSmoothTime = 3f;
 
     [Header("Audio")]
     [SerializeField] private AudioSource tickSource;
@@ -39,10 +32,6 @@ public class ClockController : MonoBehaviour
     private float currentSpeed;
     private float elapsed;
     private DateTime startTime;
-    //private float pauseTimer;
-    //private bool isPaused;
-    //private float resumeTimer;
-    //private bool isResuming;
 
     private bool isEventActive = false;
 
@@ -51,28 +40,26 @@ public class ClockController : MonoBehaviour
 
     void Start()
     {
-        if (!startAt)
-        {
-            int hour = UnityEngine.Random.Range(0, 12);
-            int minute = UnityEngine.Random.Range(0, 60);
-            int second = UnityEngine.Random.Range(0, 60);
-
-            startTime = new DateTime(ARBITRARY_YEAR, ARBITRARY_MONTH, ARBITRARY_DAY, hour, minute, second);
-        }
-        else
-        {
-            startTime = new DateTime(ARBITRARY_YEAR, ARBITRARY_MONTH, ARBITRARY_DAY, 10, 40, 0);
-        }
+        SetupInitialTime();
 
         currentSpeed = baseSpeed;
+
+        if (GameManager.Instance.GetCondition(GameCondition.IsClockFrozen))
+        {
+            SetTimeAndPause(11, 20, 0);
+        }
     }
     private void OnEnable()
     {
         EventBus.Subscribe<ClockSyncEvent>(ForceTimeAndPause);
+        EventBus.Subscribe<ClockFreezeEvent>(HandleFreeze);
+        EventBus.Subscribe<ClockResumeEvent>(HandleResume);
     }
     private void OnDisable()
     {
         EventBus.Unsubscribe<ClockSyncEvent>(ForceTimeAndPause);
+        EventBus.Unsubscribe<ClockFreezeEvent>(HandleFreeze);
+        EventBus.Unsubscribe<ClockResumeEvent>(HandleResume);
     }
     void Update()
     {
@@ -80,66 +67,6 @@ public class ClockController : MonoBehaviour
         {
             return;
         }
-
-        //if (isPaused)
-        //{
-        //    pauseTimer += Time.deltaTime;
-        //    if (pauseTimer >= pauseDuration)
-        //    {
-        //        isPaused = false;
-        //        isResuming = true;
-        //        resumeTimer = 0f;
-        //    }
-
-        //    UpdateClock(startTime.AddSeconds(elapsed));
-        //    UpdateJitter();
-        //    return;
-        //}
-
-        //DateTime currentTime = startTime.AddSeconds(elapsed);
-        //TimeSpan current = currentTime.TimeOfDay;
-
-        //double diffMinutes = (targetTime - current).TotalMinutes;
-        //if (diffMinutes < 0) diffMinutes += 12 * 60;
-
-        //float targetSpeed = baseSpeed;
-
-        //if (enablePause && diffMinutes <= slowdownRangeMinutes && diffMinutes > 0.1f && !isResuming)
-        //{
-        //    float t = Mathf.Clamp01((float)(diffMinutes / slowdownRangeMinutes));
-        //    t = Mathf.Pow(t, slowdownStrength);
-        //    targetSpeed = Mathf.Lerp(baseSpeed * minSpeedFactor, baseSpeed, t);
-        //}
-
-        //if (enablePause && diffMinutes <= 0.1f && !isPaused && !isResuming)
-        //{
-        //    isPaused = true;
-        //    currentSpeed = 0f;
-        //    pauseTimer = 0f;
-
-        //    if (tickSource && tickSource.isPlaying)
-        //        tickSource.Stop();
-
-        //    UpdateJitter();
-        //    return;
-        //}
-
-        //if (isResuming)
-        //{
-        //    resumeTimer += Time.deltaTime;
-        //    float factor = Mathf.Clamp01(resumeTimer / resumeSmoothTime);
-        //    currentSpeed = Mathf.Lerp(0f, baseSpeed, Mathf.SmoothStep(0f, 1f, factor));
-
-        //    if (factor >= 1f)
-        //    {
-        //        isResuming = false;
-        //        currentSpeed = baseSpeed;
-        //    }
-        //}
-        //else
-        //{
-        //    currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, Time.deltaTime * 2f);
-        //}
         currentSpeed = baseSpeed;
 
         elapsed += Time.deltaTime * currentSpeed;
@@ -156,6 +83,21 @@ public class ClockController : MonoBehaviour
 
         UpdateClock(startTime.AddSeconds(elapsed));
         UpdateJitter();
+    }
+    private void SetupInitialTime()
+    {
+        if (!startAt)
+        {
+            int hour = UnityEngine.Random.Range(0, 12);
+            int minute = UnityEngine.Random.Range(0, 60);
+            int second = UnityEngine.Random.Range(0, 60);
+
+            startTime = new DateTime(ARBITRARY_YEAR, ARBITRARY_MONTH, ARBITRARY_DAY, hour, minute, second);
+        }
+        else
+        {
+            startTime = new DateTime(ARBITRARY_YEAR, ARBITRARY_MONTH, ARBITRARY_DAY, 10, 40, 0);
+        }
     }
     [ContextMenu("Trigger 11:20 Event")]
     public void ForceTimeAndPause(ClockSyncEvent ev)
@@ -263,5 +205,47 @@ public class ClockController : MonoBehaviour
 
         jitterComponent.jitterAmount = Mathf.Lerp(jitterComponent.jitterAmount, targetAmount, Time.deltaTime * jitterSmooth);
         jitterComponent.jitterSpeed = Mathf.Lerp(jitterComponent.jitterSpeed, targetSpeed, Time.deltaTime * jitterSmooth);
+    }
+
+    public void SetTimeAndPause(int hours, int minutes, int seconds)
+    {
+        isEventActive = true;
+
+        DateTime target = new DateTime(ARBITRARY_YEAR, ARBITRARY_MONTH, ARBITRARY_DAY, hours, minutes, seconds);
+        double secondsToTarget = (target - startTime).TotalSeconds;
+
+        if (secondsToTarget < 0)
+        {
+            secondsToTarget += 12 * 3600;
+        }
+
+        elapsed = (float)secondsToTarget;
+        currentSpeed = 0;
+
+        if (tickSource != null)
+        {
+            tickSource.Stop();
+        }
+
+        UpdateClock(startTime.AddSeconds(elapsed));
+        UpdateJitter();
+    }
+    public void ResumeClock()
+    {
+        isEventActive = false;
+        currentSpeed = baseSpeed;
+
+        if (tickSource != null && !tickSource.isPlaying)
+        {
+            tickSource.Play();
+        }
+    }
+    private void HandleFreeze(ClockFreezeEvent ev)
+    {
+        SetTimeAndPause(ev.hour, ev.minute, ev.second);
+    }
+    private void HandleResume(ClockResumeEvent ev)
+    {
+        ResumeClock();
     }
 }

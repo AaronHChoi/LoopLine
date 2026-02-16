@@ -49,12 +49,22 @@ namespace Audio.SoundSystem
         }
         public void Stop()
         {
+            if (this == null)
+            {
+                return;
+            }
+
             if (playingCoroutine != null)
             {
                 StopCoroutine(playingCoroutine);
                 playingCoroutine = null;
             }
-            audioSource.Stop();
+
+            if (audioSource != null)
+            {
+                audioSource.Stop();
+            }
+            
             SoundManager.Instance.ReturnToPool(this);
         }
 
