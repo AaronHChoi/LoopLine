@@ -29,71 +29,22 @@ public class FinalQuestManager : MonoBehaviour, IFinalQuestManager
         {
             //doorKey.gameObject.SetActive(false);
         }
-        UpdateWordsActivation();
+      
     }
-    private void OnEnable()
-    {
-        FinalQuestDial.OnDialRotated += CheckResult;
-    }
-    private void OnDisable()
-    {
-        FinalQuestDial.OnDialRotated -= CheckResult;
-    }
+
 #if UNITY_EDITOR
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            UpdateWordsActivation();
+           
         }
     }
 #endif
 
-    private void CheckResult(string dialName, int indexShown)
-    {
-        switch (dialName)
-        {
-            case "WordGroup1":
-                result[0] = indexShown;
-                break;
-            case "WordGroup2":
-                result[1] = indexShown;
-                break;
-            case "WordGroup3":
-                result[2] = indexShown;
-                break;
-        }
-        if (result[0] == correctCombination[0] &&
-            result[1] == correctCombination[1] &&
-            result[2] == correctCombination[2] )
-        {
-            DelayUtility.Instance.Delay(5f, () =>
-            {
-                GameManager.Instance.SetCondition(GameCondition.FinalQuestCompleted, true);
 
-                EventBus.Publish(new FinalQuestCompleteEvent());
-                DelayUtility.Instance.Delay(2f, () => FinalQuestGameObject.gameObject.SetActive(false));
-                OnQuestCompleted?.Invoke();
-            });
-        }
-    }
-    public void UpdateWordsActivation()
-    {
-        if (wordsActivations == null) return;
-
-        foreach (var entry in wordsActivations)
-        {
-            bool isConditionMet = GameManager.Instance.GetCondition(entry.condition);
-
-            if (entry.musicNote != null)
-            {
-                entry.musicNote.SetActive(isConditionMet);
-            }
-        }
-    }
 }
 public interface IFinalQuestManager
 {
-    void UpdateWordsActivation();
-    event Action OnQuestCompleted;
+    
 }

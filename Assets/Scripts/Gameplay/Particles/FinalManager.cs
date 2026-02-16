@@ -42,14 +42,14 @@ public class FinalManager : MonoBehaviour
         clockPuzzleManager.OnClockQuestFinished += FirstQuestComplete;
         photoQuestManager.OnPhotoQuestFinished += SecondQuestComplete;
         safeQuestManager.OnSafeQuestCompleted += ThirdQuestCompleted;
-        finalQuestManager.OnQuestCompleted += LastQuestCompleted;
+        //finalQuestManager.OnQuestCompleted += LastQuestCompleted;
     }
     private void OnDisable()
     {
         clockPuzzleManager.OnClockQuestFinished -= FirstQuestComplete;
         photoQuestManager.OnPhotoQuestFinished -= SecondQuestComplete;
         safeQuestManager.OnSafeQuestCompleted -= ThirdQuestCompleted;
-        finalQuestManager.OnQuestCompleted -= LastQuestCompleted;
+        //finalQuestManager.OnQuestCompleted -= LastQuestCompleted;
     }
     private void FirstQuestComplete()
     {
