@@ -1557,6 +1557,31 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 78773060}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &83325451 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -3473804891428822069, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
+  m_PrefabInstance: {fileID: 322971944}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &83325453 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -3528566674478783498, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
+  m_PrefabInstance: {fileID: 322971944}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &83325455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 83325451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b79dc556a32f008438109f8c4d4f183a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightSource: {fileID: 620912052}
+  meshRenderer: {fileID: 83325453}
+  onMaterial: {fileID: 2100000, guid: 493fe709f7d1bee4ab273434642cc0c7, type: 2}
 --- !u!1 &90185716
 GameObject:
   m_ObjectHideFlags: 0
@@ -12855,6 +12880,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -5634658458172260467, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
       insertIndex: -1
       addedObject: {fileID: 842177138}
+    - targetCorrespondingSourceObject: {fileID: -7644814924579955426, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2036725274}
+    - targetCorrespondingSourceObject: {fileID: -3473804891428822069, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 83325455}
     - targetCorrespondingSourceObject: {fileID: 2962513944448613628, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
       insertIndex: -1
       addedObject: {fileID: 322971949}
@@ -44412,7 +44443,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8a7659ffa21fb840b7a6b881fd01511, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorLightPhotoQuest: {fileID: 303015914}
+  photoLightController: {fileID: 0}
+  musicLightController: {fileID: 0}
 --- !u!1001 &1134472999
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -76013,6 +76045,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2032864627}
   m_CullTransparentMesh: 1
+--- !u!1 &2036725273 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -7644814924579955426, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
+  m_PrefabInstance: {fileID: 322971944}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2036725274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036725273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b79dc556a32f008438109f8c4d4f183a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightSource: {fileID: 303015917}
+  meshRenderer: {fileID: 2036725275}
+  onMaterial: {fileID: 2100000, guid: 493fe709f7d1bee4ab273434642cc0c7, type: 2}
+--- !u!23 &2036725275 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -2267774056579882173, guid: 1b76517c24abdf3448bfe84d6a87e018, type: 3}
+  m_PrefabInstance: {fileID: 322971944}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2040533058
 GameObject:
   m_ObjectHideFlags: 0

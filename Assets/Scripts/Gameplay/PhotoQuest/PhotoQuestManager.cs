@@ -3,11 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
-using static UnityEngine.EventSystems.EventTrigger;
 using Core.DependencyInjection;
-using Player;
 using Core.Utilities;
 using Core.Data;
+using Player;
 
 [Serializable]
 public struct PhotoActivationEntry
@@ -30,6 +29,7 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
     [SerializeField] private List<PhotoQuestComponent> Photos;
 
     [SerializeField] List<PhotoActivationEntry> photoActivations;
+
     public bool allFramesCorrect { get; private set; } = false;
 
     IInventoryUI inventoryUI;
@@ -160,6 +160,8 @@ void UpdatePhotoActivationStates()
                 //finalQuestManager.UpdateWordsActivation();
                 GameManager.Instance.SetCondition(GameCondition.PolaroidTaken, false);
                 playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
+
+                OnPhotoQuestFinished?.Invoke();
             })
         );
     }
