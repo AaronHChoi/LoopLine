@@ -32,7 +32,7 @@ public class SafeDoor : MonoBehaviour, IInteract
     private Coroutine AnimationCorutine;
 
     IPlayerController playerController;
-    IInventoryUI inventoryUI;
+    //IInventoryUI inventoryUI;
     ISafeQuestManager safeQuestManager;
 
     [SerializeField] GameObject doorHandler;
@@ -54,7 +54,7 @@ public class SafeDoor : MonoBehaviour, IInteract
     private void Awake()
     {
         playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
-        inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
+        //inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
         safeQuestManager = InterfaceDependencyInjector.Instance.Resolve<ISafeQuestManager>();
 
         StartRotation = doorGameObject.transform.rotation.eulerAngles;
@@ -112,7 +112,7 @@ public class SafeDoor : MonoBehaviour, IInteract
             DelayUtility.Instance.Delay(3f, () => OnUnlockDoorEvent?.Invoke());
         }
 
-        if (active && !safeQuestManager.isSolved)
+        if (active && !safeQuestManager.isSolved && GameManager.Instance.GetCondition(GameCondition.IsMusicQuestComplete))
         {
             StartCoroutine(CooldownRoutine());
             if (!isOpen)
