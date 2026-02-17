@@ -29,18 +29,21 @@ public class UIManager : Singleton<UIManager>, IUIManager
     [Header("UI Panel Manager")]
     [SerializeField] List<UIPanelEntry> managedPanels = new List<UIPanelEntry>();
     [SerializeField] GameObject infoPanelObject;
-    [SerializeField] GameObject titlePanelObject;
+    [SerializeField] GameObject titlePanelObject; 
+
+    GameObject activeInfoPanel = null;
+    GameObject activeTitlePanel = null;
 
     [Header("Panel positions (RectTransforms)")]
     [SerializeField] Transform centerPosition;
     [SerializeField] Transform leftPosition;
     [SerializeField] Transform rightPosition;
 
-    GameObject currentActivePanel = null;
     InfoPanel panelScript;
     InfoPanel titlePanelScript;
 
-    Coroutine activeCloseCoroutine = null;
+    Coroutine infoCloseCoroutine = null;
+    Coroutine titleCloseCoroutine = null;
 
     ICrosshairFade crosshairFade;
     IGameStateController gameController;
@@ -122,6 +125,7 @@ public class UIManager : Singleton<UIManager>, IUIManager
         }
     }
     #endregion
+
     #region UI_TEXT
     public void ShowPanel(UIPanelID panelID)
     {
@@ -133,29 +137,41 @@ public class UIManager : Singleton<UIManager>, IUIManager
             return;
         }
 
-        HideCurrentPanel();
+        bool isTitle = (entry.panelType == PanelType.ChapterTitle);
+        GameObject targetObject = isTitle ? titlePanelObject : infoPanelObject;
+        InfoPanel targetScript = isTitle ? titlePanelScript : panelScript;
 
-        GameObject targetObject = (entry.panelType == PanelType.ChapterTitle) ? titlePanelObject : infoPanelObject;
-        InfoPanel targetScript = (entry.panelType == PanelType.ChapterTitle) ? titlePanelScript : panelScript;
+        HidePanelByType(entry.panelType);
 
-        if (targetObject == null || targetScript == null)
-        {
-            Debug.LogError("The panel cannot be displayed, infoPanelObject is not setting");
-            return;
-        }
-
-        if (entry.panelData != null)
+        if (entry.panelData != null && targetObject != null && targetScript != null)
         {
             targetScript.Setup(entry.panelData);
 
             ApplyPanelPosition(targetObject, entry.position, entry.panelData.OffSetX, entry.panelData.OffSetY);
 
             targetObject.SetActive(true);
-            currentActivePanel = targetObject;
+
+            if (isTitle)
+            {
+                activeTitlePanel = targetObject;
+            }
+            else
+            {
+                activeInfoPanel = targetObject;
+            }
 
             if (entry.panelData.HowToClose == PanelClose.Time)
             {
-                activeCloseCoroutine = StartCoroutine(AutoClosePanel(entry.panelData.CloseTime));
+                Coroutine routine = StartCoroutine(AutoClosePanel(entry.panelData.CloseTime, entry.panelType));
+                
+                if (isTitle)
+                {
+                    titleCloseCoroutine = routine;
+                }
+                else
+                {
+                    infoCloseCoroutine = routine;
+                }
             }
         }
         else
@@ -163,11 +179,39 @@ public class UIManager : Singleton<UIManager>, IUIManager
             Debug.LogError($"The panel {panelID.ToString()} does not have UIPanelData. it will be displayed empty");
         }
     }
-    private IEnumerator AutoClosePanel(float delay)
+    private IEnumerator AutoClosePanel(float delay, PanelType type)
     {
         yield return new WaitForSeconds(delay);
-        activeCloseCoroutine = null;
-        HideCurrentPanel();
+        HidePanelByType(type);
+    }
+    public void HidePanelByType(PanelType type)
+    {
+        if (type == PanelType.ChapterTitle)
+        {
+            if (titleCloseCoroutine != null)
+            {
+                StopCoroutine(titleCloseCoroutine);
+                titleCloseCoroutine = null;
+            }
+            if (titlePanelObject != null)
+            {
+                titlePanelObject.SetActive(false);
+            }
+            activeTitlePanel = null;
+        }
+        else
+        {
+            if (infoCloseCoroutine != null)
+            {
+                StopCoroutine(infoCloseCoroutine);
+                infoCloseCoroutine = null;
+            }
+            if (infoPanelObject != null)
+            {
+                infoPanelObject.SetActive(false);
+            }
+            activeInfoPanel = null;
+        }
     }
     private void ApplyPanelPosition(GameObject target, PanelPosition position, float offsetX, float offsetY)
     {
@@ -198,17 +242,20 @@ public class UIManager : Singleton<UIManager>, IUIManager
     }
     public void HideCurrentPanel()
     {
-        if (activeCloseCoroutine != null)
-        {
-            StopCoroutine(activeCloseCoroutine);
-            activeCloseCoroutine = null;
-        }
+        HidePanelByType(PanelType.TutorialInfo);
+        HidePanelByType(PanelType.ChapterTitle);
 
-        if (currentActivePanel != null)
-        {
-            currentActivePanel.SetActive(false);
-            currentActivePanel = null;
-        }
+        //if (infoCloseCoroutine != null)
+        //{
+        //    StopCoroutine(infoCloseCoroutine);
+        //    infoCloseCoroutine = null;
+        //}
+
+        //if (currentActivePanel != null)
+        //{
+        //    currentActivePanel.SetActive(false);
+        //    currentActivePanel = null;
+        //}
     }
     #endregion
     public void PauseMenu()

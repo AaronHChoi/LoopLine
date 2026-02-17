@@ -67,14 +67,13 @@ public class LoopManager : MonoBehaviour
             case 3:
                 {
                     gameSceneManager.LoadSceneAsync2("AS_NPC");
+                }
+                break;
+            case 4:
+                {
                     CompleteFirstLoopSequence();
                 }
                 break;
-            //case 4:
-            //    {
-            //        CompleteFirstLoopSequence();
-            //    }
-            //    break;
             default:
                 {
                     gameSceneManager.LoadRandomScene();
@@ -89,7 +88,7 @@ public class LoopManager : MonoBehaviour
        
         GameManager.Instance.SetCondition(GameCondition.TeleportAvailable, true);
         GameManager.Instance.SetCondition(GameCondition.IsFirstLoopsCompleted, true);
-        //gameSceneManager.LoadRandomScene();
+        gameSceneManager.LoadRandomScene();
     }
     void OnTutorialMonologueEnded(Events finishedEvent)
     {

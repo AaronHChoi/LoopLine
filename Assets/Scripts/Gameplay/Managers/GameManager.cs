@@ -63,9 +63,9 @@ public class GameManager : Singleton<GameManager>
     }
     private void Start()
     { 
-        // ACTIVATE ON BUILD
-        //DelayUtility.Instance.Delay(80f, () => SetCondition(GameCondition.Chapter0, true));
-        //DelayUtility.Instance.Delay(80f, () => monologueSpeaker.StartMonologue(Events.InitialMonologue));
+       // ACTIVATE ON BUILD
+       //DelayUtility.Instance.Delay(1f, () => SetCondition(GameCondition.Chapter0, true));
+       //DelayUtility.Instance.Delay(80f, () => monologueSpeaker.StartMonologue(Events.InitialMonologue));
     }
     private void OnValidate()
     {
