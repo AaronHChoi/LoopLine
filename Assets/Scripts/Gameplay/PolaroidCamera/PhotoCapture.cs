@@ -4,6 +4,7 @@ using Player;
 using Core.Utilities;
 using Core.Audio;
 using Core.DependencyInjection;
+using Core.Data;
 
 public class PhotoCapture : MonoBehaviour, IPhotoCapture
 {
@@ -25,6 +26,7 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
     IPlayerInteract playerInteract;
     IMonologueSpeaker monologueSpeaker;
     ISoundManager soundManager;
+    ISceneWeightController weightController;
 
     #region MAGIC_METHODS
     private void Awake()
@@ -34,6 +36,7 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
         playerInteract = InterfaceDependencyInjector.Instance.Resolve<IPlayerInteract>();
         monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
         soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();
+        weightController = InterfaceDependencyInjector.Instance.Resolve<ISceneWeightController>();
     }
     private void OnEnable()
     {
@@ -76,14 +79,18 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
             photoTarget.ProceesPhoto();
         }
 
-
-        if (target != null && target.TryGetComponent(out RaycastActivator activator))
+        if (target != null && target.TryGetComponent(out IMonologueTrigger monologueTrigger))
         {
-            if (activator.SetChildrenActive(true, true))
+            if (monologueTrigger is MonoBehaviour mb && mb.isActiveAndEnabled)
             {
-                Events eventToPlay = activator.monologueToTrigger;
-                DelayUtility.Instance.Delay(activator.monologueDelay, () => monologueSpeaker.StartMonologue(eventToPlay));
+                Events eventToPlay = monologueTrigger.monologueToTrigger;
+                DelayUtility.Instance.Delay(monologueTrigger.monologueDelay, () => monologueSpeaker.StartMonologue(eventToPlay));
             }
+        }
+
+        if (GameManager.Instance.GetCondition(GameCondition.RockClue4))
+        {
+            weightController.HandleConditionChanged(GameCondition.RockClue4, true);
         }
     }
     public void SetCameraUIVisible(bool isVisible)

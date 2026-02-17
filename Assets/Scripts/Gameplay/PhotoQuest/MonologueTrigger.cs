@@ -1,7 +1,10 @@
 using UnityEngine;
 
-public class MonologueTrigger : MonoBehaviour
+namespace Gameplay.QuestPhoto
 {
-    [SerializeField] public Events monologueToTrigger;
-    [SerializeField] public int monologueDelay;
+	public class MonologueTrigger : MonoBehaviour, IMonologueTrigger
+	{
+		[field: SerializeField] public Events monologueToTrigger { get; set; }
+        [field: SerializeField] public int monologueDelay { get; set; }
+	}
 }
