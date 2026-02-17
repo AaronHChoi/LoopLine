@@ -6,6 +6,9 @@ using Core.Audio;
 public class GlobalSoundListenerTrain : MonoBehaviour
 {
     [SerializeField] SoundData pushClockButton;
+    [SerializeField] SoundData brokenGlass;
+
+    [SerializeField] GameObject brokenGlassPositon;
 
     ISoundManager soundManager;
 
@@ -16,10 +19,12 @@ public class GlobalSoundListenerTrain : MonoBehaviour
     private void OnEnable()
     {
         EventBus.Subscribe<ClockSyncEvent>(OnPushClockButton);
+        EventBus.Subscribe<GlassBreakingSound>(OnGlassBreaking);
     }
     private void OnDisable()
     {
         EventBus.Unsubscribe<ClockSyncEvent>(OnPushClockButton);
+        EventBus.Unsubscribe<GlassBreakingSound>(OnGlassBreaking);
     }
     void OnPushClockButton(ClockSyncEvent ev)
     {
@@ -29,5 +34,12 @@ public class GlobalSoundListenerTrain : MonoBehaviour
                 .WithSoundData(pushClockButton)
                 .WithSoundPosition(buttonPosition)
                 .Play();
+    }
+    void OnGlassBreaking(GlassBreakingSound ev)
+    {
+        soundManager.CreateSound()
+            .WithSoundData(brokenGlass)
+            .WithSoundPosition(brokenGlassPositon.transform.position)
+            .Play();
     }
 }

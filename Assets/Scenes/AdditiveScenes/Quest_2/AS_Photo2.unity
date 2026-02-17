@@ -11019,9 +11019,33 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 191857523}
+        m_TargetAssemblyTypeName: Gameplay.QuestPhoto.MonologueTrigger, Gameplay
+        m_MethodName: set_HasTriggered
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
       - m_Target: {fileID: 1086219756}
         m_TargetAssemblyTypeName: ItemDissolve, Gameplay
         m_MethodName: TakePhoto
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 191857523}
+        m_TargetAssemblyTypeName: Gameplay.QuestPhoto.MonologueTrigger, Gameplay
+        m_MethodName: StartMonologueAfterPhoto
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11097,7 +11121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monologueToTrigger: 30
-  monologueDelay: 0
+  monologueDelay: 5
 --- !u!1001 &195182341
 PrefabInstance:
   m_ObjectHideFlags: 0

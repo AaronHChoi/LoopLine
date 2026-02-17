@@ -46,8 +46,6 @@ public class GameManager : Singleton<GameManager>
     public int currentPhotoIndex;
 
     public IScreenManager screenManager;
-    ICarretteController carretteControllerLeft;
-    ICarretteController carretteControllerRight;
     IMonologueSpeaker monologueSpeaker;
 
     protected override void Awake()
@@ -55,8 +53,6 @@ public class GameManager : Singleton<GameManager>
         base.Awake();
 
         screenManager = InterfaceDependencyInjector.Instance.Resolve<IScreenManager>();
-        carretteControllerLeft = InterfaceDependencyInjector.Instance.Resolve<ICarretteController>(AnimatorEnum.UI_Carrette_Left);
-        carretteControllerRight = InterfaceDependencyInjector.Instance.Resolve<ICarretteController>(AnimatorEnum.UI_Carrette_Right);
         monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
 
         SetGameConditions();

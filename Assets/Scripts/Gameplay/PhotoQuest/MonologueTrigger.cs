@@ -1,10 +1,22 @@
 using UnityEngine;
+using Core.DependencyInjection;
 
 namespace Gameplay.QuestPhoto
 {
-	public class MonologueTrigger : MonoBehaviour, IMonologueTrigger
+	public class MonologueTrigger : MonoBehaviour
 	{
-		[field: SerializeField] public Events monologueToTrigger { get; set; }
-        [field: SerializeField] public int monologueDelay { get; set; }
-	}
+        public Events monologueToTrigger;
+        public int monologueDelay;
+
+        IMonologueSpeaker monologueSpeaker;
+
+        private void Awake()
+        {
+            monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();    
+        }
+        public void StartMonologueAfterPhoto()
+        {
+            monologueSpeaker.StartMonologue(monologueToTrigger);
+        }
+    }
 }

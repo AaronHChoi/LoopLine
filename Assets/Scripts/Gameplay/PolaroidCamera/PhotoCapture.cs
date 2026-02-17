@@ -5,6 +5,7 @@ using Core.Utilities;
 using Core.Audio;
 using Core.DependencyInjection;
 using Core.Data;
+using Core.EventBus;
 
 public class PhotoCapture : MonoBehaviour, IPhotoCapture
 {
@@ -76,21 +77,15 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
 
         if (target != null && target.TryGetComponent(out IPhotographable photoTarget))
         {
+            bool wasAlreadyTrue = GameManager.Instance.GetCondition(GameCondition.RockClue4);
+
             photoTarget.ProceesPhoto();
-        }
 
-        if (target != null && target.TryGetComponent(out IMonologueTrigger monologueTrigger))
-        {
-            if (monologueTrigger is MonoBehaviour mb && mb.isActiveAndEnabled)
+            if (!wasAlreadyTrue && GameManager.Instance.GetCondition(GameCondition.RockClue4))
             {
-                Events eventToPlay = monologueTrigger.monologueToTrigger;
-                DelayUtility.Instance.Delay(monologueTrigger.monologueDelay, () => monologueSpeaker.StartMonologue(eventToPlay));
+                weightController.HandleConditionChanged(GameCondition.RockClue4, true);
+                EventBus.Publish(new GlassBreakingSound());
             }
-        }
-
-        if (GameManager.Instance.GetCondition(GameCondition.RockClue4))
-        {
-            weightController.HandleConditionChanged(GameCondition.RockClue4, true);
         }
     }
     public void SetCameraUIVisible(bool isVisible)

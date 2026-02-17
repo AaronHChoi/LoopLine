@@ -4898,6 +4898,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TeleportZoneObject: {fileID: 1473496769}
   player: {fileID: 1239135392}
+--- !u!1 &489185829
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 489185830}
+  m_Layer: 0
+  m_Name: BrokenGlassPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &489185830
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489185829}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.001, y: 1.876, z: 13.496}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &494751394
 GameObject:
   m_ObjectHideFlags: 0
@@ -30821,6 +30852,15 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     secondsDelay: 0
+  brokenGlass:
+    clip: {fileID: 8300000, guid: 09ddac16b9ebe364ea47b96166958729, type: 3}
+    mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 1
+    pitch: 1
+    secondsDelay: 0
+  brokenGlassPositon: {fileID: 489185829}
 --- !u!4 &1705078953 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6738153658621300136, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
@@ -41014,3 +41054,4 @@ SceneRoots:
   - {fileID: 1941502222}
   - {fileID: 1984333166}
   - {fileID: 1568450721}
+  - {fileID: 489185830}
