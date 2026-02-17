@@ -82,4 +82,7 @@ public enum Events
     SecondMonologueStay,
     BrokenTrain,
     CasseteTutorial,
+    NPC_CG,
+    NPC_WM,
+    NPC_BG,
 }
