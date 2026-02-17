@@ -199,7 +199,7 @@ public class MenuManager : MonoBehaviour, IMenuManager
 
     public void HoverBehaviour()
     {
-        if (!buttonsAllowed) return;
+        //if (!buttonsAllowed) return;
         soundManager.CreateSound()
             .WithSoundData(hoverSoundData)
             .WithRandomPitch()
