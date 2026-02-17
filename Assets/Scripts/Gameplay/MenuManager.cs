@@ -104,7 +104,7 @@ public class MenuManager : MonoBehaviour, IMenuManager
 
         if (Input.anyKeyDown && !isCamera2Active)
         {
-            ChangeCamera();
+            StartCoroutine(ChangeCamera());
             isCamera2Active = true;
         }
     }
@@ -128,21 +128,20 @@ public class MenuManager : MonoBehaviour, IMenuManager
         StartCoroutine(ExitGame(timeToChangeSceneAfterCommand));
     }
 
-    public void ChangeCamera()
+    public IEnumerator ChangeCamera()
     {
         cinemachineAnimator.SetBool("IsCamera1", !cinemachineAnimator.GetBool("IsCamera1"));
         ClikBehaviour();
-        DelayUtility.Instance.Delay(2f, () => 
-        {
-            //doorAnimator.SetTrigger("DoorOpened");
-            door.OpenDoors();
-            panel_1.UIPanel.SetActive(true);
-            //panel_1.Fade(true);
-            UIActivePanel = panel_1.UIPanel;
-            door.CloseDoors();
-            StartCoroutine(AllowButtons(true));
-            //doorAnimator.SetTrigger("DoorIdleOpen");
-        });
+        yield return new WaitForSeconds(2f);
+        door.OpenDoors();
+
+        yield return new WaitUntil(() => door.isOpen);
+        panel_1.UIPanel.SetActive(true);
+        //panel_1.Fade(true);
+        UIActivePanel = panel_1.UIPanel;
+
+        StartCoroutine(AllowButtons(true));
+
         
     }
 
@@ -224,6 +223,7 @@ public class MenuManager : MonoBehaviour, IMenuManager
     private IEnumerator AllowButtons(bool isAllowed, float seconds = 0f)
     {
         yield return new WaitForSeconds(seconds);
+        yield return new WaitUntil(() => door.isOpen);
         buttonsAllowed = true;
         animator1.SetBool("IsAllowed", isAllowed);
         animator2.SetBool("IsAllowed", isAllowed);
