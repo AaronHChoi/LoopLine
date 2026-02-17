@@ -23,6 +23,8 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
 
     [SerializeField] VideoClip successCinematic;
 
+    [SerializeField] ParticleCinematicController particleController;
+
     public event Action OnClockQuestFinished;
 
     IMonologueSpeaker monologueSpeaker;
@@ -108,6 +110,8 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
                     playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
 
                     OnClockQuestFinished?.Invoke();
+
+                    particleController.ApplyParticleSettings();
                 })
             );
         }

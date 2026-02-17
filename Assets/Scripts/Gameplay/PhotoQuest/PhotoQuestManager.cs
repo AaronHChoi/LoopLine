@@ -29,7 +29,7 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
     [SerializeField] private List<PhotoQuestComponent> Photos;
 
     [SerializeField] List<PhotoActivationEntry> photoActivations;
-
+    [SerializeField] ParticleCinematicController particleController;
     public bool allFramesCorrect { get; private set; } = false;
 
     IInventoryUI inventoryUI;
@@ -162,6 +162,8 @@ void UpdatePhotoActivationStates()
                 playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
 
                 OnPhotoQuestFinished?.Invoke();
+
+                particleController.ApplyParticleSettings();
             })
         );
     }
