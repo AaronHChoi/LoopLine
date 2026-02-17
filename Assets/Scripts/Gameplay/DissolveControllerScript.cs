@@ -53,10 +53,19 @@ public class DissolveControllerScript : MonoBehaviour
     // Public dissolve trigger
     public void ActivateDissolve()
     {
+        if (this == null)
+        {
+            return;
+        }
         // Prevent any material changes while in edit mode
         if (!Application.isPlaying)
         {
             Debug.LogWarning("DissolveController: ActivateDissolve called in edit mode. Enter Play Mode to run dissolve.");
+            return;
+        }
+
+        if (!gameObject.activeInHierarchy)
+        {
             return;
         }
 
