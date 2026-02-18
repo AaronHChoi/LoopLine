@@ -1,14 +1,19 @@
+using Player;
 using UnityEngine;
 
 public class CinematicState : IState
 {
     IPlayerMovement movement;
     ICameraOrientation playerCamera;
+    IPlayerInputHandler input;
+    IPlayerStateController controller;
 
-    public CinematicState(IPlayerMovement movement, ICameraOrientation playerCamera)
+    public CinematicState(IPlayerMovement movement, ICameraOrientation playerCamera, IPlayerInputHandler input, IPlayerStateController controller)
     {
         this.movement = movement;
         this.playerCamera = playerCamera;
+        this.input = input;
+        this.controller = controller;
     }
     public void Enter()
     {
@@ -18,7 +23,10 @@ public class CinematicState : IState
     }
     public void Execute()
     {
-
+        if (input.SkipCinematicInteract())
+        {
+            controller.UseEventSkipCinematic();
+        }
     }
     public void Exit()
     {

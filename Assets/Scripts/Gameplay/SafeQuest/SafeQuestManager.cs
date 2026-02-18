@@ -22,6 +22,7 @@ public class SafeQuestManager : MonoBehaviour, ISafeQuestManager
     [SerializeField] List<MusicNotesActivations> musicNotesActivations;
 
     [SerializeField] VideoClip successCinematic;
+    [SerializeField] ParticleCinematicController particleController;
 
     public event Action OnSafeQuestCompleted;
 

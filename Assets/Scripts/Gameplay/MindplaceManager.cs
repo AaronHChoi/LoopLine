@@ -5,23 +5,28 @@ using Core.Data;
 
 public class MindplaceManager : MonoBehaviour
 {
-    [SerializeField] GameObject doorLightPhotoQuest;
+    [SerializeField] GenericLightController photoLightController;
+    [SerializeField] GenericLightController musicLightController;
 
     IClockPuzzleManager clockPuzzleManager;
+    IPhotoQuestManager photoQuestManager;
     IMonologueSpeaker monologueSpeaker;
 
     private void Awake()
     {
         clockPuzzleManager = InterfaceDependencyInjector.Instance.Resolve<IClockPuzzleManager>();
         monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
+        photoQuestManager = InterfaceDependencyInjector.Instance.Resolve<IPhotoQuestManager>();
     }
     private void Start()
     {
-        doorLightPhotoQuest.SetActive(false);
-
         if (GameManager.Instance.GetCondition(GameCondition.IsClockQuestComplete))
         {
-            doorLightPhotoQuest.SetActive(true);
+            photoLightController.SetLight(true);
+        }
+        if (GameManager.Instance.GetCondition(GameCondition.IsPhotoQuestComplete))
+        {
+            musicLightController.SetLight(true);
         }
         if (!GameManager.Instance.GetCondition(GameCondition.FirstTimeInMindPlace))
         {
@@ -43,13 +48,19 @@ public class MindplaceManager : MonoBehaviour
     private void OnEnable()
     {
         clockPuzzleManager.OnClockQuestFinished += ClockQuestCompleted;
+        photoQuestManager.OnPhotoQuestFinished += PhotoQuestCompleted;
     }
     private void OnDisable()
     {
         clockPuzzleManager.OnClockQuestFinished -= ClockQuestCompleted;
+        photoQuestManager.OnPhotoQuestFinished -= PhotoQuestCompleted;
     }
     private void ClockQuestCompleted()
     {
-        doorLightPhotoQuest.SetActive(true);
+        photoLightController.SetLight(true);
+    }
+    void PhotoQuestCompleted()
+    {
+        musicLightController.SetLight(true);
     }
 }

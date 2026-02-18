@@ -438,9 +438,33 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 32770739}
+        m_TargetAssemblyTypeName: Gameplay.QuestPhoto.MonologueTrigger, Gameplay
+        m_MethodName: set_HasTriggered
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
       - m_Target: {fileID: 32770734}
         m_TargetAssemblyTypeName: ItemDissolve, Gameplay
         m_MethodName: TakePhoto
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 32770739}
+        m_TargetAssemblyTypeName: Gameplay.QuestPhoto.MonologueTrigger, Gameplay
+        m_MethodName: StartMonologueAfterPhoto
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -516,7 +540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monologueToTrigger: 33
-  monologueDelay: 0
+  monologueDelay: 1
 --- !u!1001 &79617558
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13184,6 +13208,7 @@ MonoBehaviour:
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
   connectedDoor: {fileID: 0}
+  isOpen: 0
   openDoorSound:
     clip: {fileID: 8300000, guid: 67f80b7e2188da84f8de36e59ea19bb9, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
@@ -13659,6 +13684,7 @@ MonoBehaviour:
   OnFolderDestroy:
     m_PersistentCalls:
       m_Calls: []
+  notes: 
 --- !u!4 &848172371
 Transform:
   m_ObjectHideFlags: 0
@@ -13937,6 +13963,7 @@ MonoBehaviour:
   OnFolderDestroy:
     m_PersistentCalls:
       m_Calls: []
+  notes: 
 --- !u!4 &897902405
 Transform:
   m_ObjectHideFlags: 0
@@ -22398,6 +22425,7 @@ MonoBehaviour:
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
   connectedDoor: {fileID: 1633105742}
+  isOpen: 0
   openDoorSound:
     clip: {fileID: 8300000, guid: 67f80b7e2188da84f8de36e59ea19bb9, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
@@ -29033,6 +29061,7 @@ MonoBehaviour:
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
   connectedDoor: {fileID: 0}
+  isOpen: 0
   openDoorSound:
     clip: {fileID: 8300000, guid: 67f80b7e2188da84f8de36e59ea19bb9, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
@@ -29385,6 +29414,7 @@ MonoBehaviour:
   OnFolderDestroy:
     m_PersistentCalls:
       m_Calls: []
+  notes: 
 --- !u!4 &1639322190
 Transform:
   m_ObjectHideFlags: 0
@@ -29794,6 +29824,7 @@ MonoBehaviour:
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
   connectedDoor: {fileID: 804011500}
+  isOpen: 0
   openDoorSound:
     clip: {fileID: 8300000, guid: 67f80b7e2188da84f8de36e59ea19bb9, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
@@ -29916,7 +29947,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 22e98dc965e5eee41a7790bc86849323, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.991
+      value: -2.094
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 22e98dc965e5eee41a7790bc86849323, type: 3}
       propertyPath: m_LocalPosition.y
@@ -29924,7 +29955,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 22e98dc965e5eee41a7790bc86849323, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -15.485
+      value: -14.246
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 22e98dc965e5eee41a7790bc86849323, type: 3}
       propertyPath: m_LocalRotation.w
@@ -31442,6 +31473,7 @@ MonoBehaviour:
   OnFolderDestroy:
     m_PersistentCalls:
       m_Calls: []
+  notes: 
 --- !u!4 &2004268355
 Transform:
   m_ObjectHideFlags: 0
@@ -32383,6 +32415,7 @@ MonoBehaviour:
   OnFolderDestroy:
     m_PersistentCalls:
       m_Calls: []
+  notes: 
 --- !u!4 &2015743552
 Transform:
   m_ObjectHideFlags: 0

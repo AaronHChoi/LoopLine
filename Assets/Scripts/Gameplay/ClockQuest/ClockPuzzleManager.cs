@@ -23,6 +23,8 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
 
     [SerializeField] VideoClip successCinematic;
 
+    [SerializeField] ParticleCinematicController particleController;
+
     public event Action OnClockQuestFinished;
 
     IMonologueSpeaker monologueSpeaker;

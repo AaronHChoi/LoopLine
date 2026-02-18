@@ -81,6 +81,10 @@ namespace Player
                     controller.UseEventTeleport();
                 }
             }
+            if (input.ActivateCinematicInteract() && GameManager.Instance.GetCondition(GameCondition.IsCinematicActivated))
+            {
+                controller.UseEventActivateCinematicInteract();
+            }
         }
         public void Exit()
         {

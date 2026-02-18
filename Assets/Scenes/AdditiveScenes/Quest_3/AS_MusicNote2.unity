@@ -1546,6 +1546,7 @@ MonoBehaviour:
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
   connectedDoor: {fileID: 1238026083}
+  isOpen: 0
   openDoorSound:
     clip: {fileID: 8300000, guid: 67f80b7e2188da84f8de36e59ea19bb9, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
@@ -7693,7 +7694,7 @@ MonoBehaviour:
   resetLayerOnPickup: 1
   objectPrefab: {fileID: 0}
   soundData:
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: e82505bef0b4a3f42bab1fd75e18f0b5, type: 3}
     mixerGroup: {fileID: 0}
     isALoop: 0
     isAPlayOnAwake: 0
@@ -8689,6 +8690,7 @@ MonoBehaviour:
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
   connectedDoor: {fileID: 0}
+  isOpen: 0
   openDoorSound:
     clip: {fileID: 8300000, guid: 67f80b7e2188da84f8de36e59ea19bb9, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
@@ -15927,15 +15929,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e58dac2020a2c1540b0e288bb92294b0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.266
+      value: -2.296
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e58dac2020a2c1540b0e288bb92294b0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.973
+      value: 0.787
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e58dac2020a2c1540b0e288bb92294b0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.042
+      value: 8.956
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e58dac2020a2c1540b0e288bb92294b0, type: 3}
       propertyPath: m_LocalRotation.w
@@ -16040,7 +16042,7 @@ MonoBehaviour:
   resetLayerOnPickup: 1
   objectPrefab: {fileID: 0}
   soundData:
-    clip: {fileID: 8300000, guid: 975010dd31d33014287d9d41a033e652, type: 3}
+    clip: {fileID: 8300000, guid: e82505bef0b4a3f42bab1fd75e18f0b5, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
     isALoop: 0
     isAPlayOnAwake: 0
@@ -17829,6 +17831,7 @@ MonoBehaviour:
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
   connectedDoor: {fileID: 0}
+  isOpen: 0
   openDoorSound:
     clip: {fileID: 8300000, guid: 67f80b7e2188da84f8de36e59ea19bb9, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
@@ -18430,7 +18433,7 @@ GameObject:
   m_Icon: {fileID: 2800000, guid: 4445790c252970d45ae069bd9011b484, type: 3}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1336878060
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18451,6 +18454,7 @@ MonoBehaviour:
   OnFolderDestroy:
     m_PersistentCalls:
       m_Calls: []
+  notes: 
 --- !u!4 &1336878061
 Transform:
   m_ObjectHideFlags: 0
@@ -19657,6 +19661,7 @@ MonoBehaviour:
   OnFolderDestroy:
     m_PersistentCalls:
       m_Calls: []
+  notes: 
 --- !u!4 &1556017359
 Transform:
   m_ObjectHideFlags: 0
@@ -28098,6 +28103,7 @@ MonoBehaviour:
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
   connectedDoor: {fileID: 611588391}
+  isOpen: 0
   openDoorSound:
     clip: {fileID: 8300000, guid: 67f80b7e2188da84f8de36e59ea19bb9, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
@@ -34255,6 +34261,7 @@ MonoBehaviour:
   OnFolderDestroy:
     m_PersistentCalls:
       m_Calls: []
+  notes: 
 --- !u!4 &2143595126
 Transform:
   m_ObjectHideFlags: 0
@@ -34308,6 +34315,7 @@ MonoBehaviour:
   OnFolderDestroy:
     m_PersistentCalls:
       m_Calls: []
+  notes: 
 --- !u!4 &2146917046
 Transform:
   m_ObjectHideFlags: 0

@@ -4898,6 +4898,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TeleportZoneObject: {fileID: 1473496769}
   player: {fileID: 1239135392}
+--- !u!1 &489185829
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 489185830}
+  m_Layer: 0
+  m_Name: BrokenGlassPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &489185830
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489185829}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.001, y: 1.876, z: 13.496}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &494751394
 GameObject:
   m_ObjectHideFlags: 0
@@ -23632,8 +23663,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48
-  m_fontSizeBase: 48
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -27500,7 +27531,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 923cf600f74e754488f7061acc89158d, type: 2}
   - eventType: 26
     dialogues:
-    - {fileID: 11400000, guid: 9893dc73c888ab6489e820a5fa4ef4ec, type: 2}
+    - {fileID: 11400000, guid: e2b309de671c0234b997975d3469aa17, type: 2}
   - eventType: 23
     dialogues:
     - {fileID: 11400000, guid: d81dce6aacbcb8d4680faa8e17794a00, type: 2}
@@ -27585,6 +27616,15 @@ MonoBehaviour:
   - eventType: 69
     dialogues:
     - {fileID: 11400000, guid: a73019c05d96d9a4c99611db8645e11e, type: 2}
+  - eventType: 72
+    dialogues:
+    - {fileID: 11400000, guid: 600bd84a45fda6940af3e68a3d8337be, type: 2}
+  - eventType: 71
+    dialogues:
+    - {fileID: 11400000, guid: e67e09ff8408e4840a7f8d840ab634f4, type: 2}
+  - eventType: 70
+    dialogues:
+    - {fileID: 11400000, guid: 24f0f85768032c946a7c7720c81e7e12, type: 2}
   currentEvent: 21
   npcType: 6
   autoAdvance: 0
@@ -30821,6 +30861,15 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     secondsDelay: 0
+  brokenGlass:
+    clip: {fileID: 8300000, guid: 09ddac16b9ebe364ea47b96166958729, type: 3}
+    mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 1
+    pitch: 1
+    secondsDelay: 0
+  brokenGlassPositon: {fileID: 489185829}
 --- !u!4 &1705078953 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6738153658621300136, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
@@ -31164,6 +31213,7 @@ MonoBehaviour:
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
   connectedDoor: {fileID: 0}
+  isOpen: 0
   openDoorSound:
     clip: {fileID: 8300000, guid: 67f80b7e2188da84f8de36e59ea19bb9, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
@@ -31826,6 +31876,7 @@ MonoBehaviour:
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
   connectedDoor: {fileID: 1828878329}
+  isOpen: 0
   openDoorSound:
     clip: {fileID: 8300000, guid: 67f80b7e2188da84f8de36e59ea19bb9, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
@@ -31859,6 +31910,7 @@ MonoBehaviour:
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
   connectedDoor: {fileID: 0}
+  isOpen: 0
   openDoorSound:
     clip: {fileID: 8300000, guid: 67f80b7e2188da84f8de36e59ea19bb9, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
@@ -33433,7 +33485,7 @@ PrefabInstance:
     - target: {fileID: 6551025050477080150, guid: 56422696f875fd340be386f7c79f94e5, type: 3}
       propertyPath: managedPanels.Array.data[0].panelData
       value: 
-      objectReference: {fileID: 11400000, guid: 53c5950460b5e904a884101bf695c21a, type: 2}
+      objectReference: {fileID: 11400000, guid: 6b314137f3d8d744ea7d35835dac0b01, type: 2}
     - target: {fileID: 6551025050477080150, guid: 56422696f875fd340be386f7c79f94e5, type: 3}
       propertyPath: managedPanels.Array.data[1].panelData
       value: 
@@ -33804,6 +33856,7 @@ MonoBehaviour:
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
   connectedDoor: {fileID: 1764281716}
+  isOpen: 0
   openDoorSound:
     clip: {fileID: 8300000, guid: 67f80b7e2188da84f8de36e59ea19bb9, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
@@ -39833,7 +39886,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2117729048
 Transform:
   m_ObjectHideFlags: 0
@@ -41010,3 +41063,4 @@ SceneRoots:
   - {fileID: 1941502222}
   - {fileID: 1984333166}
   - {fileID: 1568450721}
+  - {fileID: 489185830}

@@ -26,6 +26,9 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerInputHandler
     InputAction puzzleInteract;
     InputAction leftPuzzleInteract;
     InputAction rightPuzzleInteract;
+    InputAction activateCinematic;
+    InputAction skipCinematic;
+
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
@@ -53,6 +56,8 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerInputHandler
         puzzleInteract = playerInput.actions["PuzzleInteract"];
         leftPuzzleInteract = playerInput.actions["LeftPuzzleInteract"];
         rightPuzzleInteract = playerInput.actions["RightPuzzleInteract"];
+        activateCinematic = playerInput.actions["ActivateCinematic"];
+        skipCinematic = playerInput.actions["SkipCinematic"];
     }
     public Vector2 GetInputMove()
     {
@@ -123,6 +128,14 @@ public class PlayerInputHandler : MonoBehaviour, IPlayerInputHandler
     {
         return rightPuzzleInteract.WasPerformedThisFrame();
     }
+    public bool ActivateCinematicInteract()
+    {
+        return activateCinematic.WasPerformedThisFrame();
+    }
+    public bool SkipCinematicInteract()
+    {
+        return skipCinematic.WasPerformedThisFrame();
+    }
 }
 public interface IPlayerInputHandler
 {
@@ -143,4 +156,6 @@ public interface IPlayerInputHandler
     bool PuzzleInteract();
     bool PuzzleLeftInteract();
     bool PuzzleRightInteract();
+    bool ActivateCinematicInteract();
+    bool SkipCinematicInteract();
 }

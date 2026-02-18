@@ -11019,9 +11019,33 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 191857523}
+        m_TargetAssemblyTypeName: Gameplay.QuestPhoto.MonologueTrigger, Gameplay
+        m_MethodName: set_HasTriggered
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
       - m_Target: {fileID: 1086219756}
         m_TargetAssemblyTypeName: ItemDissolve, Gameplay
         m_MethodName: TakePhoto
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 191857523}
+        m_TargetAssemblyTypeName: Gameplay.QuestPhoto.MonologueTrigger, Gameplay
+        m_MethodName: StartMonologueAfterPhoto
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11097,7 +11121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monologueToTrigger: 30
-  monologueDelay: 0
+  monologueDelay: 5
 --- !u!1001 &195182341
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17160,6 +17184,7 @@ MonoBehaviour:
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
   connectedDoor: {fileID: 0}
+  isOpen: 0
   openDoorSound:
     clip: {fileID: 8300000, guid: 67f80b7e2188da84f8de36e59ea19bb9, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
@@ -18069,6 +18094,7 @@ MonoBehaviour:
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
   connectedDoor: {fileID: 265437526}
+  isOpen: 0
   openDoorSound:
     clip: {fileID: 8300000, guid: 67f80b7e2188da84f8de36e59ea19bb9, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
@@ -18459,6 +18485,7 @@ MonoBehaviour:
   OnFolderDestroy:
     m_PersistentCalls:
       m_Calls: []
+  notes: 
 --- !u!4 &476044738
 Transform:
   m_ObjectHideFlags: 0
@@ -18650,6 +18677,7 @@ MonoBehaviour:
   OnFolderDestroy:
     m_PersistentCalls:
       m_Calls: []
+  notes: 
 --- !u!4 &522155960
 Transform:
   m_ObjectHideFlags: 0
@@ -22962,7 +22990,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item:
   - {fileID: 1318573023}
-  delay: 0
+  delay: 5
 --- !u!1 &1093169044
 GameObject:
   m_ObjectHideFlags: 1
@@ -23369,6 +23397,7 @@ MonoBehaviour:
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
   connectedDoor: {fileID: 0}
+  isOpen: 0
   openDoorSound:
     clip: {fileID: 8300000, guid: 67f80b7e2188da84f8de36e59ea19bb9, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
@@ -25301,6 +25330,7 @@ MonoBehaviour:
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
   connectedDoor: {fileID: 1214637493}
+  isOpen: 0
   openDoorSound:
     clip: {fileID: 8300000, guid: 67f80b7e2188da84f8de36e59ea19bb9, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
@@ -33027,6 +33057,7 @@ MonoBehaviour:
   OnFolderDestroy:
     m_PersistentCalls:
       m_Calls: []
+  notes: 
 --- !u!4 &1983597664
 Transform:
   m_ObjectHideFlags: 0
@@ -33795,6 +33826,7 @@ MonoBehaviour:
   OnFolderDestroy:
     m_PersistentCalls:
       m_Calls: []
+  notes: 
 --- !u!4 &2146917046
 Transform:
   m_ObjectHideFlags: 0

@@ -79,7 +79,7 @@ public class ParallaxManager3D : MonoBehaviour
     {
         StartStopSequence();
     }
-    public void StartStopSequence(float stopDuration = 5f, float waitTime = 10f, float resumeDuration = 5f)
+    public void StartStopSequence(float stopDuration = 7.5f, float waitTime = 30f, float resumeDuration = 7.5f)
     {
         if (isTransitiong)
         {

@@ -46,8 +46,6 @@ public class GameManager : Singleton<GameManager>
     public int currentPhotoIndex;
 
     public IScreenManager screenManager;
-    ICarretteController carretteControllerLeft;
-    ICarretteController carretteControllerRight;
     IMonologueSpeaker monologueSpeaker;
 
     protected override void Awake()
@@ -55,16 +53,15 @@ public class GameManager : Singleton<GameManager>
         base.Awake();
 
         screenManager = InterfaceDependencyInjector.Instance.Resolve<IScreenManager>();
-        carretteControllerLeft = InterfaceDependencyInjector.Instance.Resolve<ICarretteController>(AnimatorEnum.UI_Carrette_Left);
-        carretteControllerRight = InterfaceDependencyInjector.Instance.Resolve<ICarretteController>(AnimatorEnum.UI_Carrette_Right);
         monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
 
         SetGameConditions();
     }
     private void Start()
-    {
-        DelayUtility.Instance.Delay(80f, () => SetCondition(GameCondition.Chapter0, true));
-        DelayUtility.Instance.Delay(80f, () => monologueSpeaker.StartMonologue(Events.InitialMonologue));
+    { 
+       // ACTIVATE ON BUILD
+       //DelayUtility.Instance.Delay(1f, () => SetCondition(GameCondition.Chapter0, true));
+       //DelayUtility.Instance.Delay(80f, () => monologueSpeaker.StartMonologue(Events.InitialMonologue));
     }
     private void OnValidate()
     {

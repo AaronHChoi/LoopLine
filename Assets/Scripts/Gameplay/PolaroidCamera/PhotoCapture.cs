@@ -4,6 +4,8 @@ using Player;
 using Core.Utilities;
 using Core.Audio;
 using Core.DependencyInjection;
+using Core.Data;
+using Core.EventBus;
 
 public class PhotoCapture : MonoBehaviour, IPhotoCapture
 {
@@ -25,6 +27,7 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
     IPlayerInteract playerInteract;
     IMonologueSpeaker monologueSpeaker;
     ISoundManager soundManager;
+    ISceneWeightController weightController;
 
     #region MAGIC_METHODS
     private void Awake()
@@ -34,6 +37,7 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
         playerInteract = InterfaceDependencyInjector.Instance.Resolve<IPlayerInteract>();
         monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
         soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();
+        weightController = InterfaceDependencyInjector.Instance.Resolve<ISceneWeightController>();
     }
     private void OnEnable()
     {
@@ -73,16 +77,14 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
 
         if (target != null && target.TryGetComponent(out IPhotographable photoTarget))
         {
+            bool wasAlreadyTrue = GameManager.Instance.GetCondition(GameCondition.RockClue4);
+
             photoTarget.ProceesPhoto();
-        }
 
-
-        if (target != null && target.TryGetComponent(out RaycastActivator activator))
-        {
-            if (activator.SetChildrenActive(true, true))
+            if (!wasAlreadyTrue && GameManager.Instance.GetCondition(GameCondition.RockClue4))
             {
-                Events eventToPlay = activator.monologueToTrigger;
-                DelayUtility.Instance.Delay(activator.monologueDelay, () => monologueSpeaker.StartMonologue(eventToPlay));
+                weightController.HandleConditionChanged(GameCondition.RockClue4, true);
+                EventBus.Publish(new GlassBreakingSound());
             }
         }
     }
