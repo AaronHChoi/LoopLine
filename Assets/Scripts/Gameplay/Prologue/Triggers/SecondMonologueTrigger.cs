@@ -1,8 +1,9 @@
-using UnityEngine;
-using Core.DependencyInjection;
-using Core.Utilities;
 using Core.Data;
+using Core.DependencyInjection;
+using Core.UI;
+using Core.Utilities;
 using System.Collections;
+using UnityEngine;
 
 public class SecondMonologueTrigger : BaseTrigger
 {
@@ -11,7 +12,7 @@ public class SecondMonologueTrigger : BaseTrigger
 
     private void Awake()
     {
-        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>(MonologueID.Player);
     }
     private void Start()
     {

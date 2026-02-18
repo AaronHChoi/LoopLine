@@ -1,10 +1,11 @@
+using Core.Data;
+using Core.DependencyInjection;
+using Core.UI;
+using Core.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Core.Utilities;
-using Core.DependencyInjection;
-using Core.Data;
 
 public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
 {
@@ -28,7 +29,7 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
     {
         base.Awake();
 
-        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>(MonologueID.Player);
         weightController = InterfaceDependencyInjector.Instance.Resolve<ISceneWeightController>();
     }
     private void Start()

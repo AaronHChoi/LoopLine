@@ -53,15 +53,15 @@ public class GameManager : Singleton<GameManager>
         base.Awake();
 
         screenManager = InterfaceDependencyInjector.Instance.Resolve<IScreenManager>();
-        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>(MonologueID.Player);
 
         SetGameConditions();
     }
     private void Start()
     { 
-       // ACTIVATE ON BUILD
-       //DelayUtility.Instance.Delay(1f, () => SetCondition(GameCondition.Chapter0, true));
-       //DelayUtility.Instance.Delay(80f, () => monologueSpeaker.StartMonologue(Events.InitialMonologue));
+        // ACTIVATE ON BUILD
+        DelayUtility.Instance.Delay(1f, () => SetCondition(GameCondition.Chapter0, true));
+        DelayUtility.Instance.Delay(1f, () => monologueSpeaker.StartMonologue(Events.InitialMonologue));
     }
     private void OnValidate()
     {

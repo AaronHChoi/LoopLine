@@ -1,8 +1,9 @@
-using UnityEngine;
-using Core.EventBus;
-using Core.Utilities;
-using Core.DependencyInjection;
 using Core.Data;
+using Core.DependencyInjection;
+using Core.EventBus;
+using Core.UI;
+using Core.Utilities;
+using UnityEngine;
 
 public class LoopManager : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class LoopManager : MonoBehaviour
     {
         gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
-        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>(MonologueID.Player);
     }
     private void OnEnable()
     {

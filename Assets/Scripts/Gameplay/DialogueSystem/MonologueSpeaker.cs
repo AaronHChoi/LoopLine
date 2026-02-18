@@ -1,10 +1,12 @@
 using Core.DependencyInjection;
+using Core.UI;
 using System;
 using System.Collections;
 using UnityEngine;
 
 public class MonologueSpeaker : DialogueSpeakerBase, IMonologueSpeaker
 {
+    [SerializeField] MonologueID identifier;
     public event Action<Events> OnMonologueEnded;
 
     [SerializeField] private Events defaultEvent = Events.MonologueTest3;
@@ -15,10 +17,13 @@ public class MonologueSpeaker : DialogueSpeakerBase, IMonologueSpeaker
 
     private Coroutine autoAdvanceCoroutine;
 
+    public MonologueID Identifier => identifier;
+
     IDialogueUI dialogueUI;
 
     protected override void Awake()
     {
+        InterfaceDependencyInjector.Instance.Register<IMonologueSpeaker>(() => this, identifier);
         dialogueUI = InterfaceDependencyInjector.Instance.Resolve<IDialogueUI>();
     }
     protected override void Start()

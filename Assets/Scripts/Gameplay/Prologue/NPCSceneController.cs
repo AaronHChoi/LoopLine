@@ -1,5 +1,6 @@
 using Core.Data;
 using Core.DependencyInjection;
+using Core.UI;
 using Core.Utilities;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +14,7 @@ public class NPCSceneController : MonoBehaviour
 
     private void Awake()
     {
-        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>(MonologueID.Player);
     }
     public void OnNpcTaked(NPCType type)
     {

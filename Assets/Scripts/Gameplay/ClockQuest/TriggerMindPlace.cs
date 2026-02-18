@@ -1,7 +1,8 @@
+using Core.Data;
+using Core.DependencyInjection;
+using Core.UI;
 using Player;
 using UnityEngine;
-using Core.DependencyInjection;
-using Core.Data;
 
 public class TriggerMindPlace : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class TriggerMindPlace : MonoBehaviour
 
     private void Awake()
     { 
-        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>(MonologueID.Player);
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
     }
     private void OnTriggerEnter(Collider other)
