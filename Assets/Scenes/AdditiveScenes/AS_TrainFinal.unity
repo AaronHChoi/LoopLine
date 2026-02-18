@@ -684,6 +684,7 @@ MonoBehaviour:
   OnFolderDestroy:
     m_PersistentCalls:
       m_Calls: []
+  notes: 
 --- !u!1 &158463795
 GameObject:
   m_ObjectHideFlags: 0
@@ -876,6 +877,7 @@ MonoBehaviour:
       weightIfConditionTrue: 20
     - sceneName: AS_NPC
       weightIfConditionTrue: 20
+  gameObjectRules: []
 --- !u!4 &159319079
 Transform:
   m_ObjectHideFlags: 0
@@ -4586,6 +4588,7 @@ MonoBehaviour:
   OnFolderDestroy:
     m_PersistentCalls:
       m_Calls: []
+  notes: 
 --- !u!4 &436025941
 Transform:
   m_ObjectHideFlags: 0
@@ -4906,7 +4909,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -5315,6 +5318,7 @@ MonoBehaviour:
   OnFolderDestroy:
     m_PersistentCalls:
       m_Calls: []
+  notes: 
 --- !u!1 &546229478
 GameObject:
   m_ObjectHideFlags: 0
@@ -10921,6 +10925,7 @@ MonoBehaviour:
   OnFolderDestroy:
     m_PersistentCalls:
       m_Calls: []
+  notes: 
 --- !u!4 &660822900
 Transform:
   m_ObjectHideFlags: 0
@@ -10993,6 +10998,7 @@ MonoBehaviour:
   OnFolderDestroy:
     m_PersistentCalls:
       m_Calls: []
+  notes: 
 --- !u!1 &682508239 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 806827749952246048, guid: 002ecf8dc93abc4478e944281e92837b, type: 3}
@@ -11113,6 +11119,7 @@ MonoBehaviour:
     isALoop: 1
     isAPlayOnAwake: 1
     volume: 1
+    pitch: 1
     secondsDelay: 0
   noiseData:
     clip: {fileID: 0}
@@ -11120,6 +11127,7 @@ MonoBehaviour:
     isALoop: 1
     isAPlayOnAwake: 1
     volume: 1
+    pitch: 1
     secondsDelay: 0
 --- !u!1 &685726526
 GameObject:
@@ -16615,7 +16623,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -22471,6 +22479,7 @@ MonoBehaviour:
   OnFolderDestroy:
     m_PersistentCalls:
       m_Calls: []
+  notes: 
 --- !u!1001 &901710825
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22851,6 +22860,7 @@ MonoBehaviour:
   OnFolderDestroy:
     m_PersistentCalls:
       m_Calls: []
+  notes: 
 --- !u!4 &949011527
 Transform:
   m_ObjectHideFlags: 0
@@ -23477,42 +23487,49 @@ MonoBehaviour:
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
+    pitch: 1
     secondsDelay: 0
   - clip: {fileID: 8300000, guid: b24be9020369d0c4980f7014f9d25194, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
+    pitch: 1
     secondsDelay: 0
   - clip: {fileID: 8300000, guid: 98f8e74e746bbea458215d12c93a7821, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
+    pitch: 1
     secondsDelay: 0
   - clip: {fileID: 8300000, guid: b82be37ddf3dd6641b5312cd35c2378b, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
+    pitch: 1
     secondsDelay: 0
   - clip: {fileID: 8300000, guid: 9f3c624649434c3409f56a5ef4ee6b68, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
+    pitch: 1
     secondsDelay: 0
   - clip: {fileID: 8300000, guid: 4d0b860e65f699141a15b0fffb12b368, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
+    pitch: 1
     secondsDelay: 0
   - clip: {fileID: 8300000, guid: 5e9e7e29ea654474da9cb111c1f59059, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
+    pitch: 1
     secondsDelay: 0
   transition:
     clip: {fileID: 8300000, guid: 14ceaae903662c148b4e5640dae1bd5f, type: 3}
@@ -23520,7 +23537,9 @@ MonoBehaviour:
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
+    pitch: 1
     secondsDelay: 0
+  grabSounds: []
 --- !u!1 &1134065923
 GameObject:
   m_ObjectHideFlags: 0
@@ -24024,15 +24043,18 @@ MonoBehaviour:
   doorSpeed: 2.5
   doorDistance: -1.2
   closeDoorsAfterTime: 0.01
+  closeAutomatically: 1
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
   connectedDoor: {fileID: 0}
+  isOpen: 0
   openDoorSound:
     clip: {fileID: 8300000, guid: 67f80b7e2188da84f8de36e59ea19bb9, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 0.3
+    pitch: 1
     secondsDelay: 0
   doorLeftAnimator: {fileID: 273424321}
   doorRightAnimator: {fileID: 1314441632}
@@ -24273,6 +24295,7 @@ MonoBehaviour:
   OnFolderDestroy:
     m_PersistentCalls:
       m_Calls: []
+  notes: 
 --- !u!4 &1206841326
 Transform:
   m_ObjectHideFlags: 0
@@ -24679,6 +24702,7 @@ MonoBehaviour:
   OnFolderDestroy:
     m_PersistentCalls:
       m_Calls: []
+  notes: 
 --- !u!4 &1247324453
 Transform:
   m_ObjectHideFlags: 0
@@ -25744,7 +25768,9 @@ MonoBehaviour:
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
+    pitch: 1
     secondsDelay: 0
+  npcAudioConfigs: []
 --- !u!1 &1371651432
 GameObject:
   m_ObjectHideFlags: 0
@@ -25870,7 +25896,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -28360,6 +28386,7 @@ MonoBehaviour:
   OnFolderDestroy:
     m_PersistentCalls:
       m_Calls: []
+  notes: 
 --- !u!4 &1568450721
 Transform:
   m_ObjectHideFlags: 0
@@ -29835,6 +29862,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1e214ce0f41f9447a3ad457e2e27272, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pushClockButton:
+    clip: {fileID: 0}
+    mixerGroup: {fileID: 0}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 1
+    pitch: 1
+    secondsDelay: 0
+  brokenGlass:
+    clip: {fileID: 0}
+    mixerGroup: {fileID: 0}
+    isALoop: 0
+    isAPlayOnAwake: 0
+    volume: 1
+    pitch: 1
+    secondsDelay: 0
+  brokenGlassPositon: {fileID: 0}
 --- !u!4 &1705078953 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6738153658621300136, guid: 534cd93f0a9530748891a2d6b4ec1535, type: 3}
@@ -29882,6 +29926,7 @@ MonoBehaviour:
   OnFolderDestroy:
     m_PersistentCalls:
       m_Calls: []
+  notes: 
 --- !u!4 &1739044747
 Transform:
   m_ObjectHideFlags: 0
@@ -30173,15 +30218,18 @@ MonoBehaviour:
   doorSpeed: 2.5
   doorDistance: -1.2
   closeDoorsAfterTime: 0.01
+  closeAutomatically: 1
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
   connectedDoor: {fileID: 0}
+  isOpen: 0
   openDoorSound:
     clip: {fileID: 8300000, guid: 67f80b7e2188da84f8de36e59ea19bb9, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 0.3
+    pitch: 1
     secondsDelay: 0
   doorLeftAnimator: {fileID: 1307348010}
   doorRightAnimator: {fileID: 1307348009}
@@ -30865,15 +30913,18 @@ MonoBehaviour:
   doorSpeed: 2.5
   doorDistance: -1.2
   closeDoorsAfterTime: 0.01
+  closeAutomatically: 1
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
   connectedDoor: {fileID: 1828878329}
+  isOpen: 0
   openDoorSound:
     clip: {fileID: 8300000, guid: 67f80b7e2188da84f8de36e59ea19bb9, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 0.3
+    pitch: 1
     secondsDelay: 0
   doorLeftAnimator: {fileID: 1442103404}
   doorRightAnimator: {fileID: 1649269440}
@@ -30896,15 +30947,18 @@ MonoBehaviour:
   doorSpeed: 2.5
   doorDistance: -1.2
   closeDoorsAfterTime: 0.01
+  closeAutomatically: 1
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
   connectedDoor: {fileID: 0}
+  isOpen: 0
   openDoorSound:
     clip: {fileID: 8300000, guid: 67f80b7e2188da84f8de36e59ea19bb9, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 0.3
+    pitch: 1
     secondsDelay: 0
   doorLeftAnimator: {fileID: 375072221}
   doorRightAnimator: {fileID: 1047109313}
@@ -32095,6 +32149,7 @@ MonoBehaviour:
   OnFolderDestroy:
     m_PersistentCalls:
       m_Calls: []
+  notes: 
 --- !u!4 &1941502222
 Transform:
   m_ObjectHideFlags: 0
@@ -32899,15 +32954,18 @@ MonoBehaviour:
   doorSpeed: 2.5
   doorDistance: -1.2
   closeDoorsAfterTime: 0.01
+  closeAutomatically: 1
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
   connectedDoor: {fileID: 1764281716}
+  isOpen: 0
   openDoorSound:
     clip: {fileID: 8300000, guid: 67f80b7e2188da84f8de36e59ea19bb9, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 0.3
+    pitch: 1
     secondsDelay: 0
   doorLeftAnimator: {fileID: 874177753}
   doorRightAnimator: {fileID: 1796506415}
@@ -33067,6 +33125,7 @@ MonoBehaviour:
   OnFolderDestroy:
     m_PersistentCalls:
       m_Calls: []
+  notes: 
 --- !u!4 &1984333166
 Transform:
   m_ObjectHideFlags: 0
@@ -33400,6 +33459,7 @@ MonoBehaviour:
   OnFolderDestroy:
     m_PersistentCalls:
       m_Calls: []
+  notes: 
 --- !u!4 &2056181628
 Transform:
   m_ObjectHideFlags: 0
@@ -33499,6 +33559,7 @@ MonoBehaviour:
   OnFolderDestroy:
     m_PersistentCalls:
       m_Calls: []
+  notes: 
 --- !u!1 &2069378214 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2031747289856472478, guid: 0f9551ae205a00d4f9b4fec7e5f8a9d8, type: 3}
@@ -33732,15 +33793,18 @@ MonoBehaviour:
   doorSpeed: 2.5
   doorDistance: -1.2
   closeDoorsAfterTime: 0.01
+  closeAutomatically: 1
   doorLeftMovement: {x: 0.5, y: 0, z: 0}
   doorRightMovement: {x: -0.5, y: 0, z: 0}
   connectedDoor: {fileID: 0}
+  isOpen: 0
   openDoorSound:
     clip: {fileID: 8300000, guid: 67f80b7e2188da84f8de36e59ea19bb9, type: 3}
     mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 0.3
+    pitch: 1
     secondsDelay: 0
   doorLeftAnimator: {fileID: 273919528}
   doorRightAnimator: {fileID: 891788578}
