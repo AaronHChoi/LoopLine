@@ -46,7 +46,14 @@ public class DoorInteract : MonoBehaviour, IInteract
     private void Awake()
     {
         soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();
-        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>(MonologueID.Player);
+        try
+        {
+            monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>(MonologueID.Player);
+        }
+        catch
+        {
+            monologueSpeaker = null;
+        }
     }
     void Start()
     {

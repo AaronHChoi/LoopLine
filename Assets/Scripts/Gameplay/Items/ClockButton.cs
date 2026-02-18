@@ -19,12 +19,11 @@ public class ClockButton : MonoBehaviour, IInteract
     }
     public void Interact()
     {
-        buttonAnimator.SetTrigger("Interact");
-
         if (Time.time < nextInteractTime)
         {
             return;
         }
+        buttonAnimator.SetTrigger("Interact");
         nextInteractTime = Time.time + cooldownDuration;
 
         DelayUtility.Instance.Delay(0.5f, () => EventBus.Publish(new ClockSyncEvent()));
