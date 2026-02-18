@@ -110,8 +110,6 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
                     playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
 
                     OnClockQuestFinished?.Invoke();
-
-                    particleController.ApplyParticleSettings();
                 })
             );
         }

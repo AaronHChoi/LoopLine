@@ -47,5 +47,6 @@ namespace Core.Data
         WalkManTaken,
         StayMonologueQueued,
         IsClockFrozen,
+        IsCinematicActivated,
     }
 }
