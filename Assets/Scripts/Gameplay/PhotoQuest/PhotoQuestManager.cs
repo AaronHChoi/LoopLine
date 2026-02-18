@@ -162,8 +162,6 @@ void UpdatePhotoActivationStates()
                 playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
 
                 OnPhotoQuestFinished?.Invoke();
-
-                particleController.ApplyParticleSettings();
             })
         );
     }

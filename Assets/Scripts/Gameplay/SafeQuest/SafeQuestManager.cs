@@ -115,8 +115,6 @@ public class SafeQuestManager : MonoBehaviour, ISafeQuestManager
                 //finalQuestManager.UpdateWordsActivation();
 
                 playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
-
-                particleController.ApplyParticleSettings();
             })
         );
     }

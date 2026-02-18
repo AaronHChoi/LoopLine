@@ -1,3 +1,5 @@
+using Core.DependencyInjection;
+using Player;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -15,6 +17,12 @@ public class CinematicManager : MonoBehaviour, ICinematicManager
     Action onCinematicFinishedCallback;
     Coroutine currentFadeCoroutine;
 
+    IPlayerStateController controller;
+
+    private void Awake()
+    {
+        controller = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
+    }
     private void Start()
     {
         cinematicPanel.SetActive(false);
@@ -23,21 +31,14 @@ public class CinematicManager : MonoBehaviour, ICinematicManager
     {
         videoPlayer.loopPointReached += OnVideoFinished;
         videoPlayer.prepareCompleted += OnVideoPrepared;
+        controller.OnSkipCinematic += SkipCinematic;
     }
     private void OnDisable()
     {
         videoPlayer.loopPointReached -= OnVideoFinished;
         videoPlayer.prepareCompleted -= OnVideoPrepared;
+        controller.OnSkipCinematic -= SkipCinematic;
     }
-#if UNITY_EDITOR
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SkipCinematic();
-        }
-    }
-#endif
     public void SkipCinematic()
     {
         if (onCinematicFinishedCallback == null && !cinematicPanel.activeSelf)

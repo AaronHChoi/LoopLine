@@ -22,6 +22,8 @@ namespace Player
         public event Action OnPuzzleInteract;
         public event Action OnPuzzleLeftInteract;
         public event Action OnPuzzleRightInteract;
+        public event Action OnActivateCinematic;
+        public event Action OnSkipCinematic;
         
         public NormalState NormalState { get; set; }
         public DialogueState DialogueState { get;  set; }
@@ -70,7 +72,7 @@ namespace Player
             MindPlaceState = new MindPlaceState(this, inputHandler, playerMovement);
             ObjectInHandState = new ObjectInHandState(this, inputHandler, playerMovement, cinemachinePOVExtension);
             PuzzleState = new PuzzleState(playerMovement, inputHandler, this, cinemachinePOVExtension);
-            CinematicState = new CinematicState(playerMovement, cinemachinePOVExtension);
+            CinematicState = new CinematicState(playerMovement, cinemachinePOVExtension, inputHandler, this);
 
             stateMachine.Initialize(NormalState);
         }
@@ -136,6 +138,14 @@ namespace Player
         {
             OnPuzzleRightInteract?.Invoke();
         }
+        public void UseEventActivateCinematicInteract()
+        {
+            OnActivateCinematic?.Invoke();
+        }
+        public void UseEventSkipCinematic()
+        {
+            OnSkipCinematic?.Invoke();
+        }
         #endregion
     }
     public interface IPlayerStateController
@@ -153,6 +163,8 @@ namespace Player
         public event Action OnPuzzleInteract;
         public event Action OnPuzzleLeftInteract;
         public event Action OnPuzzleRightInteract;
+        public event Action OnActivateCinematic;
+        public event Action OnSkipCinematic;
         public StateMachine StateMachine { get; }
         bool IsInState(IState state);
         void ChangeState(IState newState);
@@ -167,6 +179,8 @@ namespace Player
         void UseEventPuzzleInteract();
         void UseEventPuzzleLeftInteract();
         void UseEventPuzzleRightInteract();
+        void UseEventActivateCinematicInteract();
+        void UseEventSkipCinematic();
         NormalState NormalState { get;  set; }
         DialogueState DialogueState { get; set; }
         CameraState CameraState { get; set; }
