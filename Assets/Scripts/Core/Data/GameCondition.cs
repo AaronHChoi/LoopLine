@@ -48,5 +48,6 @@ namespace Core.Data
         StayMonologueQueued,
         IsClockFrozen,
         IsCinematicActivated,
+        IsTimelineActivated,
     }
 }

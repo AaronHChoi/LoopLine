@@ -19,7 +19,7 @@ public class GameplayState : IGameState
     }
     public void Execute()
     {
-        if (input.PauseMenuModePressed())
+        if (input.PauseMenuModePressed() && GameManager.Instance.GetCondition(Core.Data.GameCondition.IsTimelineActivated))
         {
             controller.UseEventPauseMenu();
             controller.ChangeState(controller.PauseState);

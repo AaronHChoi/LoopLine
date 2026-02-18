@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using Core.DependencyInjection;
+using Core.Data;
 using Player;
 
 public class TimelineMonologueController : MonoBehaviour
@@ -50,6 +51,7 @@ public class TimelineMonologueController : MonoBehaviour
     public void ShowTooltipPanel()
     {
         uiManager.ShowPanel(panelID);
+        GameManager.Instance.SetCondition(GameCondition.IsTimelineActivated, true);
     }
     public void DeactivateTimeline()
     {
