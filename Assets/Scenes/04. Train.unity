@@ -16994,6 +16994,72 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 810646458}
   m_CullTransparentMesh: 1
+--- !u!1 &821588072
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 821588073}
+  - component: {fileID: 821588074}
+  m_Layer: 0
+  m_Name: CasseteManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &821588073
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821588072}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2062721427}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &821588074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821588072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3227414a9f9bc694b8b7458a2a23f61a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueGroups:
+  - eventType: 69
+    dialogues:
+    - {fileID: 11400000, guid: a73019c05d96d9a4c99611db8645e11e, type: 2}
+  - eventType: 41
+    dialogues:
+    - {fileID: 11400000, guid: ee516059d18f8f34d90d75ca3a3fa134, type: 2}
+  - eventType: 42
+    dialogues:
+    - {fileID: 11400000, guid: 0faf20280dddc8e459563a195fc61271, type: 2}
+  - eventType: 43
+    dialogues:
+    - {fileID: 11400000, guid: fc762e4491991284592d2d4e991b4996, type: 2}
+  - eventType: 44
+    dialogues:
+    - {fileID: 11400000, guid: 9fcb1d613295bfe4389d37f53f1fba3d, type: 2}
+  currentEvent: 0
+  npcType: 6
+  autoAdvance: 1
+  defaultEvent: 0
+  startDelay: 0
+  autoAdvanceDelay: 3
 --- !u!1 &823506335
 GameObject:
   m_ObjectHideFlags: 0
@@ -22970,22 +23036,23 @@ MonoBehaviour:
   walkmanUI: {fileID: 475850143}
   delay: 0
   UICassette: {fileID: 475850143}
-  soundData:
-    clip: {fileID: 0}
-    mixerGroup: {fileID: 0}
+  CassetteStart:
+    clip: {fileID: 8300000, guid: 0c96f131cb6a7f54da9448702819e013, type: 3}
+    mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
     pitch: 1
     secondsDelay: 0
-  soundData2:
-    clip: {fileID: 0}
-    mixerGroup: {fileID: 0}
+  CasseteEnded:
+    clip: {fileID: 8300000, guid: 6c6b649a18d71084aab3717a3e3ec946, type: 3}
+    mixerGroup: {fileID: -4547414119901275189, guid: cb37a964a35aad94e93dd002fe59ff91, type: 2}
     isALoop: 0
     isAPlayOnAwake: 0
     volume: 1
     pitch: 1
     secondsDelay: 0
+  monologueSpeaker: {fileID: 821588074}
 --- !u!1 &985977824
 GameObject:
   m_ObjectHideFlags: 0
@@ -23227,7 +23294,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
       propertyPath: firstScene.sceneName
-      value: AS_NoNPC-NoItems
+      value: AS_MusicNote1
       objectReference: {fileID: 0}
     - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
       propertyPath: secondScene.sceneName
@@ -27559,18 +27626,12 @@ MonoBehaviour:
   - eventType: 0
     dialogues:
     - {fileID: 0}
-  - eventType: 41
-    dialogues:
-    - {fileID: 11400000, guid: ee516059d18f8f34d90d75ca3a3fa134, type: 2}
-  - eventType: 42
-    dialogues:
-    - {fileID: 11400000, guid: 0faf20280dddc8e459563a195fc61271, type: 2}
-  - eventType: 43
-    dialogues:
-    - {fileID: 11400000, guid: fc762e4491991284592d2d4e991b4996, type: 2}
-  - eventType: 44
-    dialogues:
-    - {fileID: 11400000, guid: 9fcb1d613295bfe4389d37f53f1fba3d, type: 2}
+  - eventType: 0
+    dialogues: []
+  - eventType: 0
+    dialogues: []
+  - eventType: 0
+    dialogues: []
   - eventType: 45
     dialogues:
     - {fileID: 11400000, guid: 5d6a361f779369949a03faada1191ef8, type: 2}
@@ -27613,9 +27674,6 @@ MonoBehaviour:
   - eventType: 68
     dialogues:
     - {fileID: 11400000, guid: 1b3193b5757d39248bb970fe68284c86, type: 2}
-  - eventType: 69
-    dialogues:
-    - {fileID: 11400000, guid: a73019c05d96d9a4c99611db8645e11e, type: 2}
   - eventType: 72
     dialogues:
     - {fileID: 11400000, guid: 600bd84a45fda6940af3e68a3d8337be, type: 2}
@@ -34469,6 +34527,7 @@ Transform:
   - {fileID: 159319079}
   - {fileID: 2144088534}
   - {fileID: 2117729048}
+  - {fileID: 821588073}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2062721428
@@ -39886,7 +39945,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2117729048
 Transform:
   m_ObjectHideFlags: 0

@@ -16,15 +16,16 @@ public class Walkman : MonoBehaviour, IWalkman
     [SerializeField] public bool isListeningAudioTape { get; set; }
 
     [Header("Audio")]
-    [SerializeField] SoundData soundData;
-    [SerializeField] SoundData soundData2;
+    [SerializeField] SoundData CassetteStart;
+    [SerializeField] SoundData CasseteEnded;
 
+    [SerializeField] MonologueSpeaker monologueSpeaker;
 
+    ISoundEmitter soundEmitter;
     IPlayerStateController playerStateController;
     ICarretteController carretteControllerLeft;
     ICarretteController carretteControllerRight;
     IPlayerInteract playerInteract;
-    IMonologueSpeaker monologueSpeaker;
     ISoundManager soundManager;
 
 
@@ -32,9 +33,9 @@ public class Walkman : MonoBehaviour, IWalkman
     {
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
         carretteControllerLeft = InterfaceDependencyInjector.Instance.Resolve<ICarretteController>(AnimatorEnum.UI_Carrette_Left);
-        carretteControllerRight = InterfaceDependencyInjector.Instance.Resolve<ICarretteController>(AnimatorEnum.UI_Carrette_Right);
+        carretteControllerRight = InterfaceDependencyInjector.Instance.Resolve<ICarretteController>(AnimatorEnum.UI_Carrette_Right);      
         playerInteract = InterfaceDependencyInjector.Instance.Resolve<IPlayerInteract>();
-        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
+        //monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
         soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();
     }
 
@@ -60,10 +61,14 @@ public class Walkman : MonoBehaviour, IWalkman
         {
             //target.gameObject.SetActive(false);
             //parentGameObject.SetActive(false);
-
             soundManager.CreateSound()
-           .WithSoundData(tapeTarget.GetSoundData())
-           .Play();
+                .WithSoundData(CassetteStart)
+                .Play();
+
+         
+            soundEmitter = soundManager.CreateSound()
+                .WithSoundData(tapeTarget.GetSoundData())
+                .Play();
 
             isListeningAudioTape = true;
             carretteControllerLeft.SetRotation(true);
@@ -73,15 +78,29 @@ public class Walkman : MonoBehaviour, IWalkman
 
             yield return new WaitForSeconds(tapeTarget.GetSoundData().clip.length);
 
+            soundManager.CreateSound()
+              .WithSoundData(CasseteEnded)
+              .Play();
             carretteControllerLeft.SetRotation(false);
             carretteControllerRight.SetRotation(false);
 
             isListeningAudioTape = false;
-            //target.gameObject.SetActive(true);
-            //parentGameObject.SetActive(true);
 
         }
 
+    }
+
+    public void StopListeningSoundEmitter()
+    {
+        soundEmitter.Stop();
+
+        soundManager.CreateSound()
+                .WithSoundData(CasseteEnded)
+                .Play();
+        carretteControllerLeft.SetRotation(false);
+        carretteControllerRight.SetRotation(false);
+
+        isListeningAudioTape = false;
     }
 
     public void SetWalkManUIVisible(bool isVisible)
@@ -99,4 +118,5 @@ public interface IWalkman
     bool isListeningAudioTape { get; set; }
     void SetWalkManUIVisible(bool isVisible);
     void HandleListenMusic(GameObject parentGameObject);
+    void StopListeningSoundEmitter();
 }

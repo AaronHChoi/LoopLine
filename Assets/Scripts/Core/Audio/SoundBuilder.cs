@@ -46,6 +46,11 @@ namespace Core.Audio
 
             return soundEmitted;
         }
+
+        public void Stop(ISoundEmitter soundEmiter)
+        {
+            soundEmiter.Stop();
+        }
         public void PlayWithDelay(SoundData soundData)
         {
             PlayBase().PlayWithDelay(soundData.secondsDelay);
