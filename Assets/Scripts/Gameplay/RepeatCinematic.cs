@@ -12,11 +12,13 @@ public class RepeatCinematic : MonoBehaviour
 
     ICinematicManager cinematicManager;
     IPlayerStateController playerStateController;
+    IUIManager uiManager;
 
     private void Awake()
     {
         cinematicManager = InterfaceDependencyInjector.Instance.Resolve<ICinematicManager>();
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
+        uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
     }
     private void Start()
     {
@@ -44,6 +46,7 @@ public class RepeatCinematic : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         GameManager.Instance.SetCondition(GameCondition.IsCinematicActivated, true);
+        uiManager.ShowPanel(UIPanelID.Cinematic);
     }
     private void OnTriggerExit(Collider other)
     {

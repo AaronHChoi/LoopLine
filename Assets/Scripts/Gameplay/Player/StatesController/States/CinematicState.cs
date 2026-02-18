@@ -1,5 +1,6 @@
 using Player;
 using UnityEngine;
+using Core.Data;
 
 public class CinematicState : IState
 {
@@ -23,7 +24,7 @@ public class CinematicState : IState
     }
     public void Execute()
     {
-        if (input.SkipCinematicInteract())
+        if (input.SkipCinematicInteract() && GameManager.Instance.GetCondition(GameCondition.IsCinematicActivated))
         {
             controller.UseEventSkipCinematic();
         }
