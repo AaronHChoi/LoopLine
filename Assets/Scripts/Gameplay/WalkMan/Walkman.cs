@@ -19,7 +19,7 @@ public class Walkman : MonoBehaviour, IWalkman
     [SerializeField] SoundData CassetteStart;
     [SerializeField] SoundData CasseteEnded;
 
-    [SerializeField] MonologueSpeaker monologueSpeaker;
+    IMonologueSpeaker monologueSpeaker;
 
     ISoundEmitter soundEmitter;
     IPlayerStateController playerStateController;
@@ -35,7 +35,7 @@ public class Walkman : MonoBehaviour, IWalkman
         carretteControllerLeft = InterfaceDependencyInjector.Instance.Resolve<ICarretteController>(AnimatorEnum.UI_Carrette_Left);
         carretteControllerRight = InterfaceDependencyInjector.Instance.Resolve<ICarretteController>(AnimatorEnum.UI_Carrette_Right);      
         playerInteract = InterfaceDependencyInjector.Instance.Resolve<IPlayerInteract>();
-        //monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>(MonologueID.Cassette);
         soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();
     }
 
