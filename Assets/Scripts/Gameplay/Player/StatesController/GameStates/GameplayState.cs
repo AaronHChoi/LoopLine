@@ -1,5 +1,4 @@
 using Player;
-using UnityEngine;
 
 public class GameplayState : IGameState
 {
@@ -18,7 +17,6 @@ public class GameplayState : IGameState
     {
         playerController.enabled = true;
     }
-
     public void Execute()
     {
         if (input.PauseMenuModePressed())
@@ -27,7 +25,6 @@ public class GameplayState : IGameState
             controller.ChangeState(controller.PauseState);
         }
     }
-
     public void Exit()
     {
         playerController.enabled = false;

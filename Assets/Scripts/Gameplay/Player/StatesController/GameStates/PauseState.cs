@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 public class PauseState : IGameState
@@ -15,7 +14,6 @@ public class PauseState : IGameState
     {
         Time.timeScale = 0f;
     }
-
     public void Execute()
     {
         if (input.PauseMenuModePressed())
@@ -24,9 +22,7 @@ public class PauseState : IGameState
             controller.UseEventPauseMenu();
             controller.ChangeState(controller.GameplayState);
         }
-
     }
-
     public void Exit()
     {
         Time.timeScale = 1f;
