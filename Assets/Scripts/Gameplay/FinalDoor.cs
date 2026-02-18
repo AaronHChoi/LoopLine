@@ -57,6 +57,10 @@ public class FinalDoor : MonoBehaviour, IInteract
     [SerializeField] private float interactCooldown = 1.0f;
     private bool inCooldown = false;
 
+    [Header("Persistence Settings")]
+    [SerializeField] private bool usePersistence = true;
+    [SerializeField] private GameCondition doorCondition;
+
     private void Awake()
     {
         playerController = InterfaceDependencyInjector.Instance.Resolve<IPlayerController>();
@@ -108,6 +112,23 @@ public class FinalDoor : MonoBehaviour, IInteract
         if (inCooldown)
             return;
 
+        if (keyString != null)
+        {
+            if (inventoryUI.ItemInUse.id == keyString && !active)
+            {
+                StartCoroutine(CooldownRoutine());
+
+                active = true;
+                if (usePersistence)
+                {
+                    GameManager.Instance.SetCondition(doorCondition, true);
+                }
+                EventBus.Publish(new DoorEvent { SoundID = unlockDoorSoundEventID, ShouldPlay = true });
+                OnUnlockDoorEvent?.Invoke();
+                return;
+            }
+        }
+
         StartCoroutine(CooldownRoutine());
 
         if (!active)
@@ -119,9 +140,12 @@ public class FinalDoor : MonoBehaviour, IInteract
             });
             return;
         }
+        if (active)
+        {
+            Vector3 playerPos = playerController.GetTransform().position;
+            ToggleDoor(playerPos);
+        }
 
-        Vector3 playerPos = playerController.GetTransform().position;
-        ToggleDoor(playerPos);
 
         
     }
