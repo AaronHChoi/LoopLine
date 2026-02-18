@@ -17,9 +17,18 @@ public class ParallaxManager3D : MonoBehaviour
 {
     [SerializeField] private float limitZ = -706f;
     [SerializeField] private List<ParallaxLayer> layers = new List<ParallaxLayer>();
+    [SerializeField] private ParticleSystem snowRight;
+    [SerializeField] private ParticleSystem snowLeft;
+    [SerializeField] private ParticleSystem stormRight;
+    [SerializeField] private ParticleSystem stormLeft;
 
     private float globalSpeedMultiplier = 1f;
     private bool isTransitiong = false;
+
+    private const float PARTICLE_SPEED_NORMAL_SNOW = 2.5f;
+    private const float PARTICLE_SPEED_STOPPED_SNOW = 0.3f;
+    private const float PARTICLE_SPEED_NORMAL_STORM = 1f;
+    private const float PARTICLE_SPEED_STOPPED_STORM = 0.5f;
 
     private void Start()
     {
@@ -93,13 +102,36 @@ public class ParallaxManager3D : MonoBehaviour
         isTransitiong = true;
         float timer = 0f;
 
+        var mainSnowRight = snowRight.main;
+        var mainSnowLeft = snowLeft.main;
+        var mainStormRight = stormRight.main;
+        var mainStormLeft = stormLeft.main;
+
         while (timer < stopDuration)
         {
             timer += Time.deltaTime;
-            globalSpeedMultiplier = Mathf.Lerp(1f, 0f, timer / stopDuration);
+            float ratio = timer / stopDuration;
+
+            globalSpeedMultiplier = Mathf.Lerp(1f, 0f, ratio);
+
+            float currentSnowSpeed = Mathf.Lerp(PARTICLE_SPEED_NORMAL_SNOW, PARTICLE_SPEED_STOPPED_SNOW, ratio);
+            float currentStormSpeed = Mathf.Lerp(PARTICLE_SPEED_NORMAL_STORM, PARTICLE_SPEED_STOPPED_STORM, ratio);
+
+            mainSnowRight.simulationSpeed = currentSnowSpeed;
+            mainSnowLeft.simulationSpeed = currentSnowSpeed;
+
+            mainStormRight.simulationSpeed = currentStormSpeed;
+            mainStormLeft.simulationSpeed = currentStormSpeed;
+
             yield return null;
         }
         globalSpeedMultiplier = 0f;
+
+        mainSnowRight.simulationSpeed = PARTICLE_SPEED_STOPPED_SNOW;
+        mainSnowLeft.simulationSpeed = PARTICLE_SPEED_STOPPED_SNOW;
+
+        mainStormRight.simulationSpeed = PARTICLE_SPEED_STOPPED_STORM;
+        mainStormLeft.simulationSpeed = PARTICLE_SPEED_STOPPED_STORM;
 
         GameManager.Instance.SetCondition(GameCondition.IsClockFrozen, true);
         EventBus.Publish(new ClockFreezeEvent(11, 20, 0));
@@ -114,11 +146,29 @@ public class ParallaxManager3D : MonoBehaviour
         while (timer < resumeDuration)
         {
             timer += Time.deltaTime;
-            globalSpeedMultiplier = Mathf.Lerp(0f, 1f, timer / resumeDuration);
+            float ratio = timer / resumeDuration;
+
+            globalSpeedMultiplier = Mathf.Lerp(0f, 1f, ratio);
+
+            float currentSnowSpeed = Mathf.Lerp(PARTICLE_SPEED_STOPPED_SNOW, PARTICLE_SPEED_NORMAL_SNOW, ratio);
+            float currentStormSpeed = Mathf.Lerp(PARTICLE_SPEED_STOPPED_STORM, PARTICLE_SPEED_NORMAL_STORM, ratio);
+
+            mainSnowRight.simulationSpeed = currentSnowSpeed;
+            mainSnowLeft.simulationSpeed = currentSnowSpeed;
+
+            mainStormRight.simulationSpeed = currentStormSpeed;
+            mainStormLeft.simulationSpeed = currentStormSpeed;
+
             yield return null;
         }
 
         globalSpeedMultiplier = 1f;
+
+        mainSnowRight.simulationSpeed = PARTICLE_SPEED_NORMAL_SNOW;
+        mainSnowLeft.simulationSpeed = PARTICLE_SPEED_NORMAL_SNOW;
+
+        mainStormRight.simulationSpeed = PARTICLE_SPEED_NORMAL_STORM;
+        mainStormLeft.simulationSpeed = PARTICLE_SPEED_NORMAL_STORM;
 
         isTransitiong = false;
     }

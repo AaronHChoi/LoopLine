@@ -1,11 +1,12 @@
+using Core.Audio;
+using Core.Data;
+using Core.DependencyInjection;
+using Core.EventBus;
+using Core.UI;
+using Core.Utilities;
+using Player;
 using System.Collections;
 using UnityEngine;
-using Player;
-using Core.Utilities;
-using Core.Audio;
-using Core.DependencyInjection;
-using Core.Data;
-using Core.EventBus;
 
 public class PhotoCapture : MonoBehaviour, IPhotoCapture
 {
@@ -35,7 +36,7 @@ public class PhotoCapture : MonoBehaviour, IPhotoCapture
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
         uiAnimation = InterfaceDependencyInjector.Instance.Resolve<IPolaroidUIAnimation>();
         playerInteract = InterfaceDependencyInjector.Instance.Resolve<IPlayerInteract>();
-        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>(MonologueID.Player);
         soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();
         weightController = InterfaceDependencyInjector.Instance.Resolve<ISceneWeightController>();
     }

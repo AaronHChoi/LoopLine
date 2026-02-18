@@ -1,7 +1,8 @@
-using UnityEngine;
-using Core.Utilities;
-using Core.DependencyInjection;
 using Core.Data;
+using Core.DependencyInjection;
+using Core.UI;
+using Core.Utilities;
+using UnityEngine;
 
 public class MindplaceManager : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class MindplaceManager : MonoBehaviour
     private void Awake()
     {
         clockPuzzleManager = InterfaceDependencyInjector.Instance.Resolve<IClockPuzzleManager>();
-        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>(MonologueID.Player);
         photoQuestManager = InterfaceDependencyInjector.Instance.Resolve<IPhotoQuestManager>();
     }
     private void Start()

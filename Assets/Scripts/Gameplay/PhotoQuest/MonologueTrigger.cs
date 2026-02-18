@@ -1,5 +1,6 @@
-using UnityEngine;
 using Core.DependencyInjection;
+using Core.UI;
+using UnityEngine;
 
 namespace Gameplay.QuestPhoto
 {
@@ -12,7 +13,7 @@ namespace Gameplay.QuestPhoto
 
         private void Awake()
         {
-            monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();    
+            monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>(MonologueID.Player);    
         }
         public void StartMonologueAfterPhoto()
         {

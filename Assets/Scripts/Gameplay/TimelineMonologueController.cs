@@ -51,4 +51,8 @@ public class TimelineMonologueController : MonoBehaviour
     {
         uiManager.ShowPanel(panelID);
     }
+    public void DeactivateTimeline()
+    {
+        this.gameObject.SetActive(false);
+    }
 }

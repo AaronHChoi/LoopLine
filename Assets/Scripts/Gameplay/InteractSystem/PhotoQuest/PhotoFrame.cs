@@ -1,5 +1,6 @@
-using UnityEngine;
 using Core.DependencyInjection;
+using Core.UI;
+using UnityEngine;
 
 public class PhotoFrame : MonoBehaviour, IInteract
 {
@@ -22,7 +23,7 @@ public class PhotoFrame : MonoBehaviour, IInteract
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
         photoQuestManager = InterfaceDependencyInjector.Instance.Resolve<IPhotoQuestManager>();
         playerInputHandler = InterfaceDependencyInjector.Instance.Resolve<IPlayerInputHandler>();
-        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>(MonologueID.Player);
     }
     public void Interact()
     {

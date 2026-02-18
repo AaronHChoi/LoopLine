@@ -1,4 +1,5 @@
 using Core.DependencyInjection;
+using Core.UI;
 using UnityEngine;
 
 public class BaseMonologueItemInteract : BaseItemInteract
@@ -10,7 +11,7 @@ public class BaseMonologueItemInteract : BaseItemInteract
     protected override void Awake()
     {
         base.Awake();
-        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>(MonologueID.Player);
     }
     public override void Start()
     {

@@ -1,8 +1,9 @@
+using Core.Audio;
+using Core.Data;
+using Core.DependencyInjection;
+using Core.UI;
 using System.Collections;
 using UnityEngine;
-using Core.Audio;
-using Core.DependencyInjection;
-using Core.Data;
 
 public class Dial : MonoBehaviour, IInteract
 {
@@ -22,7 +23,7 @@ public class Dial : MonoBehaviour, IInteract
     private void Awake()
     {
         soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();
-        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>(MonologueID.Player);
     }
     private void Start()
     {

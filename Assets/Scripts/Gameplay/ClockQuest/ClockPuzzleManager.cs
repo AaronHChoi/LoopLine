@@ -6,6 +6,7 @@ using Core.Utilities;
 using Core.Audio;
 using Core.DependencyInjection;
 using Core.Data;
+using Core.UI;
 
 public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
 {
@@ -39,7 +40,7 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
     private void Awake()
     {
         soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();
-        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>(MonologueID.Player);
         finalQuestManager = InterfaceDependencyInjector.Instance.Resolve<IFinalQuestManager>();
         gearRotator = InterfaceDependencyInjector.Instance.Resolve<IGearRotator>();
         clockLock = InterfaceDependencyInjector.Instance.Resolve<IClock>();

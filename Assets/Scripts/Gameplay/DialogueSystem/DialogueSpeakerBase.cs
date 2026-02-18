@@ -5,6 +5,7 @@ using System.Linq;
 using Player;
 using UnityEngine;
 using Core.DependencyInjection;
+using Core.UI;
 
 [Serializable]
 public class DialogueGroup
@@ -116,7 +117,7 @@ public abstract class DialogueSpeakerBase : MonoBehaviour
             return false;
         }
 
-        MonologueSpeaker monologueSpeaker = FindFirstObjectByType<MonologueSpeaker>();
+        IMonologueSpeaker monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>(MonologueID.Player);
         if (monologueSpeaker == null)
         {
             return false;
@@ -124,7 +125,7 @@ public abstract class DialogueSpeakerBase : MonoBehaviour
         StartCoroutine(StartMonologueAfterDelay(monologueSpeaker, dialogue.postMonologueEvent));
         return true;
     }
-    private IEnumerator StartMonologueAfterDelay(MonologueSpeaker speaker, Events monologueEvent)
+    private IEnumerator StartMonologueAfterDelay(IMonologueSpeaker speaker, Events monologueEvent)
     {
         yield return new WaitForSeconds(0.5f);
         speaker.StartMonologue(monologueEvent);

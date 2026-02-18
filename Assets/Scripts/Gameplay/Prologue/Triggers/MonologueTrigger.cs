@@ -1,6 +1,7 @@
-using UnityEngine;
-using Core.Utilities;
 using Core.DependencyInjection;
+using Core.UI;
+using Core.Utilities;
+using UnityEngine;
 
 namespace Gameplay.Prologue
 {
@@ -10,7 +11,7 @@ namespace Gameplay.Prologue
 
         private void Awake()
         {
-            monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
+            monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>(MonologueID.Player);
         }
         private void Start()
         {
