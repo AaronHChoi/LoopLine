@@ -33,7 +33,7 @@ public class NPCDialogueSpeaker : DialogueSpeakerBase, IInteract
             }
             else
             {
-                Debug.LogError($"NPCDialogueManager.Instance is null for NPC: {npcType}");
+                Debug.Log($"<color=yellow>[NPC]</color> {npcType} detected, but NPCDialogueManager does not exist in this scene. Skipping logging");
             }
         }
         else
