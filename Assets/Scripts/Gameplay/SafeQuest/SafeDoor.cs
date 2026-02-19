@@ -62,9 +62,9 @@ public class SafeDoor : MonoBehaviour, IInteract
     }
     private void Start()
     {
-        if (GameManager.Instance.GetCondition(GameCondition.PhotoDoorOpen) && doorHandler != null)
+        if (GameManager.Instance.GetCondition(GameCondition.IsMusicQuestComplete) && doorHandler != null)
         {
-            active = true;
+            //active = true;
             doorHandler.SetActive(true);
         }
     }
