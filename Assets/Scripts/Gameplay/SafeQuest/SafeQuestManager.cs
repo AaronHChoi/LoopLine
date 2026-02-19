@@ -67,11 +67,15 @@ public class SafeQuestManager : MonoBehaviour, ISafeQuestManager
     {
         if (Input.GetKeyDown(KeyCode.L))
         {
-            GameManager.Instance.SetCondition(GameCondition.WordGroup3, true);
-            GameManager.Instance.SetCondition(GameCondition.MusicNote1, true);
-            GameManager.Instance.SetCondition(GameCondition.MusicNote2, true);
-            GameManager.Instance.SetCondition(GameCondition.MusicNote3, true);
-            GameManager.Instance.SetCondition(GameCondition.MusicNote4, true);
+            OnSafeQuestCompleted?.Invoke();
+
+            //GameManager.Instance.SetCondition(GameCondition.WordGroup3, true);
+
+            finalKeyInteract.Interact();
+
+            //finalQuestManager.UpdateWordsActivation();
+
+            playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
         }
     }
 #endif

@@ -8,6 +8,7 @@ using Core.EventBus;
 using Core.Utilities;
 using Core.DependencyInjection;
 using Core.Data;
+using Core.UI;
 
 public class FinalDoor : MonoBehaviour, IInteract
 {
@@ -30,16 +31,17 @@ public class FinalDoor : MonoBehaviour, IInteract
     [Header("Rotating Config")]
     [SerializeField] private float RotatingAmount = 90f;
     [SerializeField] private float ForwardDirection = 0f;
-
     private Vector3 StartRotation;
     private Vector3 Forward;
-
     private Coroutine AnimationCorutine;
 
     IPlayerController playerController;
     IInventoryUI inventoryUI;
     IPlayerStateController playerStateController;
     ICinematicManager cinematicManager;
+    IFadeInOutController fadeInOutController;
+    IMonologueSpeaker monologueSpeaker;
+    IPlayerMovement playerMovement;
 
     [SerializeField] GameObject doorHandler;
     [SerializeField] TutorialInteract correctKey;
@@ -60,6 +62,7 @@ public class FinalDoor : MonoBehaviour, IInteract
     [Header("Persistence Settings")]
     [SerializeField] private bool usePersistence = true;
     [SerializeField] private GameCondition doorCondition;
+    [SerializeField] private Events monologueToTrigger;
 
     private void Awake()
     {
@@ -68,11 +71,14 @@ public class FinalDoor : MonoBehaviour, IInteract
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
         StartRotation = doorGameObject.transform.rotation.eulerAngles;
         cinematicManager = InterfaceDependencyInjector.Instance.Resolve<ICinematicManager>();
+        fadeInOutController = InterfaceDependencyInjector.Instance.Resolve<IFadeInOutController>(FadeID.FinalFade);
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>(MonologueID.FinalMonologue);
+        playerMovement = InterfaceDependencyInjector.Instance.Resolve<IPlayerMovement>();
         Forward = doorGameObject.transform.forward; //this is because the forward of the door is orienteted to the right if the forwar chages chage this line
     }
     private void Start()
     {
-        if (GameManager.Instance.GetCondition(GameCondition.PhotoDoorOpen) && doorHandler != null)
+        if (GameManager.Instance.GetCondition(GameCondition.FinalQuestCompleted) && doorHandler != null)
         {
             active = true;
             doorHandler.SetActive(true);
@@ -155,12 +161,13 @@ public class FinalDoor : MonoBehaviour, IInteract
         if (!isOpen)
         {
             OpenSequence(userPosition);
-            cinematicManager.PlayCinematic(succesCinematic, () =>
-            {
-                //playerStateController.StateMachine.TransitionTo(playerStateController.CinematicState);
+            //cinematicManager.PlayCinematic(succesCinematic, () =>
+            //{
+                 //playerStateController.StateMachine.TransitionTo(playerStateController.CinematicState);
 
-                GameManager.Instance.SetGameConditions();
-            });
+            //    GameManager.Instance.SetGameConditions();
+            //});
+            
         }
         else
         {
@@ -186,8 +193,20 @@ public class FinalDoor : MonoBehaviour, IInteract
 
     public void DoorUnlocked()
     {
+        inventoryUI.RemoveInventorySlot(correctKey);
         keyString = "";
         active = true;
+        StartCoroutine(PlayCinematic());
+    }
+
+    private IEnumerator PlayCinematic()
+    {
+        playerMovement.CanMove = false;
+        fadeInOutController.ForceFade(true);
+        monologueSpeaker.StartMonologue(monologueToTrigger);
+        yield return new WaitForSeconds(5f);
+        fadeInOutController.ForceFade(false);
+        playerMovement.CanMove = true;
     }
     private void OpenSequence(Vector3 userPosition)
     {
