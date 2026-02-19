@@ -56,7 +56,10 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
             doorHandler.gameObject.SetActive(false);
         }
         StartCoroutine(UpdateNextFrame());
-        UpdatePhotoActivationStates();
+        if (!GameManager.Instance.GetCondition(GameCondition.IsPhotoQuestComplete))
+        {
+            UpdatePhotoActivationStates();
+        }
     }
 #if UNITY_EDITOR
     private void Update()

@@ -93,4 +93,5 @@ public enum Events
     AfterCompleteMusicQuest,
     PolaroidTakenMonologue,
     EnterToCameraLoop,
+    BrokenTrainMonologue,
 }

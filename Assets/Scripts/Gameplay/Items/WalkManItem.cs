@@ -2,6 +2,7 @@ using Core.Audio;
 using Core.Data;
 using Core.DependencyInjection;
 using Core.EventBus;
+using Core.UI;
 using System;
 using UnityEngine;
 
@@ -14,7 +15,10 @@ public class WalkManItem : ItemInteract, IWalkmanItem
     IGameSceneManager gameSceneManager;
     ISceneWeightController weightController;
     ISoundManager soundManager;
+    IMonologueSpeaker monologueSpeaker;
 
+
+    [SerializeField] Events monologueToPlay;
     [SerializeField] UIPanelID panelID;
 
     [Header("Audio")]
@@ -27,6 +31,7 @@ public class WalkManItem : ItemInteract, IWalkmanItem
         gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
         weightController = InterfaceDependencyInjector.Instance.Resolve<ISceneWeightController>();
         soundManager = InterfaceDependencyInjector.Instance.Resolve<ISoundManager>();
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>(MonologueID.Player);
     }
     public override void Start()
     {
@@ -46,6 +51,7 @@ public class WalkManItem : ItemInteract, IWalkmanItem
             uiManager.ShowPanel(panelID);
             GameManager.Instance.SetCondition(GameCondition.WalkManTaken, true);
             weightController.HandleConditionChanged(GameCondition.WalkManTaken, true);
+            monologueSpeaker.StartMonologue(monologueToPlay);
 
             soundManager.CreateSound()
                 .WithSoundData(soundData)
