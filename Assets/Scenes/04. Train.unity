@@ -933,7 +933,7 @@ MonoBehaviour:
     - sceneName: AS_Photo6
       weightIfConditionTrue: 20
     - sceneName: AS_NoNPC-NoItems
-      weightIfConditionTrue: 20
+      weightIfConditionTrue: 5
   - ruleName: MusicOpenDoor
     conditionToCheck: 14
     scenesToModify:
@@ -946,7 +946,7 @@ MonoBehaviour:
     - sceneName: AS_Photo6
       weightIfConditionTrue: 0
     - sceneName: AS_MusicNote1
-      weightIfConditionTrue: 20
+      weightIfConditionTrue: 100
     - sceneName: AS_NoNPC-NoItems
       weightIfConditionTrue: 0
   - ruleName: WalkManTaken
@@ -23350,8 +23350,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
+      propertyPath: fourScene.sceneName
+      value: AS_MusicNote3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
       propertyPath: firstScene.sceneName
       value: AS_NoNPC-NoItems
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
+      propertyPath: thirdScene.sceneName
+      value: AS_MusicNote1
       objectReference: {fileID: 0}
     - target: {fileID: 1416002775525381038, guid: 918b8391d816ebb4899bc43aeb589d8d, type: 3}
       propertyPath: secondScene.sceneName
@@ -27740,6 +27748,12 @@ MonoBehaviour:
   - eventType: 70
     dialogues:
     - {fileID: 11400000, guid: 24f0f85768032c946a7c7720c81e7e12, type: 2}
+  - eventType: 79
+    dialogues:
+    - {fileID: 11400000, guid: c498e435b4778a541aca6d0ee07e21b4, type: 2}
+  - eventType: 80
+    dialogues:
+    - {fileID: 11400000, guid: 63f8dc01b5f2ae64eafc4562920b5248, type: 2}
   currentEvent: 21
   npcType: 6
   autoAdvance: 0

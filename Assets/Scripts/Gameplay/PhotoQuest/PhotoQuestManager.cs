@@ -196,6 +196,7 @@ void UpdatePhotoActivationStates()
         GameManager.Instance.SetCondition(GameCondition.TeleportAvailable, true);
         gameSceneManager.SetInitialLoop(true);
     }
+    [ContextMenu("DebugTools")]
     private void PhotoQuestComplete()
     { 
         Key.Interact();

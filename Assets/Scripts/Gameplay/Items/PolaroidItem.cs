@@ -11,6 +11,7 @@ public class PolaroidItem : ItemInteract, IPolaraidItem
     IUIManager uiManager;
     IGameSceneManager gameSceneManager;
     ISceneWeightController weightController;
+    IMonologueSpeaker monologueSpeaker;
 
     [SerializeField] UIPanelID panelID;
 
@@ -20,6 +21,7 @@ public class PolaroidItem : ItemInteract, IPolaraidItem
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
         gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
         weightController = InterfaceDependencyInjector.Instance.Resolve<ISceneWeightController>();
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
     }
     public override void Start()
     {
@@ -41,6 +43,7 @@ public class PolaroidItem : ItemInteract, IPolaraidItem
             gameSceneManager.SetInitialLoop(false);
             EventBus.Publish(new PlayerGrabItemEvent());
             gameObject.SetActive(false);
+            monologueSpeaker.StartMonologue(Events.PolaroidTakenMonologue);
 
             return true;
         }

@@ -129,6 +129,11 @@ public class GameManager : Singleton<GameManager>
 
         Debug.Log(sb.ToString());
     }
+    [ContextMenu("Debug TP")]
+    private void DebugTP()
+    {
+        GameManager.Instance.SetCondition(GameCondition.TeleportAvailable, true);
+    }
 #endif
 #endregion
 }

@@ -91,4 +91,6 @@ public enum Events
     BeforeCompleteMusicQuest,
     AfterCompletePhotoQuest,
     AfterCompleteMusicQuest,
+    PolaroidTakenMonologue,
+    EnterToCameraLoop,
 }

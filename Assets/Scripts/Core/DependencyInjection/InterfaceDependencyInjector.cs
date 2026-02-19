@@ -42,14 +42,14 @@ namespace Core.DependencyInjection
             }
             factories[(typeof(T), id)] = () => factory();
 #if UNITY_EDITOR
-            Debug.Log($"<color=cyan>[DI]</color> Registering: {(typeof(T), id)} with ID: {id ?? "NULL"}");
+            //Debug.Log($"<color=cyan>[DI]</color> Registering: {(typeof(T), id)} with ID: {id ?? "NULL"}");
 #endif
         }
         public T Resolve<T>(object id = null)
         {
             var type = (typeof(T), id);
 #if UNITY_EDITOR
-            Debug.Log($"<color=yellow>[DI]</color> Searching: {type.Item1} with ID: {id ?? "NULL"}");
+            //Debug.Log($"<color=yellow>[DI]</color> Searching: {type.Item1} with ID: {id ?? "NULL"}");
 #endif
             if (!instances.TryGetValue(type, out var instance) || IsUnityObjectDestroyed(instance))
             {

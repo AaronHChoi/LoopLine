@@ -12,6 +12,8 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
     [Header("Scene Settings")]
     [SerializeField] private WeightScene firstScene;
     [SerializeField] private WeightScene secondScene;
+    [SerializeField] private WeightScene thirdScene;
+    [SerializeField] private WeightScene fourScene;
     [SerializeField] private List<WeightScene> weightedScenes = new List<WeightScene>();
 
     [Header("Active Scenes")]
@@ -34,6 +36,18 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
     }
     private void Start()
     {
+        if (GameManager.Instance.GetCondition(GameCondition.WalkManTaken) && IsCurrentScene("04. Train"))
+        {
+            StartCoroutine(LoadSceneAsync(fourScene.sceneName));
+            weightController.HandleConditionChanged(GameCondition.WalkManTaken, true);
+            return;
+        }
+        if (GameManager.Instance.GetCondition(GameCondition.MusicSafeDoorOpen) && IsCurrentScene("04. Train"))
+        {
+            StartCoroutine(LoadSceneAsync(thirdScene.sceneName));
+            weightController.HandleConditionChanged(GameCondition.MusicSafeDoorOpen, true);
+            return;
+        }
         if (GameManager.Instance.GetCondition(GameCondition.PolaroidTaken) && IsCurrentScene("04. Train"))
         {
             StartCoroutine(LoadSceneAsync(firstScene.sceneName));
@@ -41,10 +55,16 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
         }
         if (GameManager.Instance.GetCondition(GameCondition.PhotoDoorOpen) && IsCurrentScene("04. Train"))
         {
+            bool active = true;
             StartCoroutine(LoadSceneAsync(secondScene.sceneName));
             weightController.HandleConditionChanged(GameCondition.PhotoDoorOpen, true);
+            if (active)
+            {
+                DelayUtility.Instance.Delay(2f, () => monologueSpeaker.StartMonologue(Events.EnterToCameraLoop));
+                active = false;
+            }
             return;
-        }
+        } 
         if (IsCurrentScene("04. Train"))
         {
             StartCoroutine(LoadSceneAsync(firstScene.sceneName));

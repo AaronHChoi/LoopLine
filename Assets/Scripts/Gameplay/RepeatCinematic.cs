@@ -51,6 +51,7 @@ public class RepeatCinematic : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         GameManager.Instance.SetCondition(GameCondition.IsCinematicActivated, false);
+        uiManager.HideCurrentPanel();
     }
     public void RepeatCinematicAfterCompleteQuest()
     {
