@@ -87,4 +87,8 @@ public enum Events
     NPC_BG,
     FinalQuestMonologue,
     BeforeCompleteClockQuest,
+    BeforeCompletePhotoQuest,
+    BeforeCompleteMusicQuest,
+    AfterCompletePhotoQuest,
+    AfterCompleteMusicQuest,
 }

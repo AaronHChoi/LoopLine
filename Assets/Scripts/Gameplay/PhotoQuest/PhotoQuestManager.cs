@@ -7,6 +7,7 @@ using Core.DependencyInjection;
 using Core.Utilities;
 using Core.Data;
 using Player;
+using Core.UI;
 
 [Serializable]
 public struct PhotoActivationEntry
@@ -37,6 +38,7 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
     IFinalQuestManager finalQuestManager;
     ICinematicManager cinematicManager;
     IPlayerStateController playerStateController;
+    IMonologueSpeaker monologueSpeaker;
 
     private void Awake()
     {
@@ -45,6 +47,7 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
         finalQuestManager = InterfaceDependencyInjector.Instance.Resolve<IFinalQuestManager>();
         cinematicManager = InterfaceDependencyInjector.Instance.Resolve<ICinematicManager>();
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>(MonologueID.Player);
     }
     private void Start()
     {
@@ -152,18 +155,39 @@ void UpdatePhotoActivationStates()
         }
 
         playerStateController.StateMachine.TransitionTo(playerStateController.CinematicState);
-        DelayUtility.Instance.Delay(1f, () =>
-            cinematicManager.PlayCinematic(successCinematic, () =>
-            {
-                PhotoQuestComplete();
-                //GameManager.Instance.SetCondition(GameCondition.WordGroup2, true);
-                //finalQuestManager.UpdateWordsActivation();
-                GameManager.Instance.SetCondition(GameCondition.PolaroidTaken, false);
-                playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
 
-                OnPhotoQuestFinished?.Invoke();
-            })
-        );
+        monologueSpeaker.OnMonologueEnded += StartCinematicAfterMonologue;
+
+        monologueSpeaker.StartMonologue(Events.BeforeCompletePhotoQuest);
+
+        //DelayUtility.Instance.Delay(1f, () =>
+        //    cinematicManager.PlayCinematic(successCinematic, () =>
+        //    {
+        //        PhotoQuestComplete();
+        //        //GameManager.Instance.SetCondition(GameCondition.WordGroup2, true);
+        //        //finalQuestManager.UpdateWordsActivation();
+        //        GameManager.Instance.SetCondition(GameCondition.PolaroidTaken, false);
+        //        playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
+
+        //        OnPhotoQuestFinished?.Invoke();
+        //    })
+        //);
+    }
+    private void StartCinematicAfterMonologue(Events finishedEvent)
+    {
+        monologueSpeaker.OnMonologueEnded -= StartCinematicAfterMonologue;
+
+        cinematicManager.PlayCinematic(successCinematic, () =>
+        {
+            PhotoQuestComplete();
+
+            GameManager.Instance.SetCondition(GameCondition.PolaroidTaken, false);
+            playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
+
+            OnPhotoQuestFinished?.Invoke();
+
+            monologueSpeaker.StartMonologue(Events.AfterCompletePhotoQuest);
+        });
     }
     public void OpenDoorPhotoQuest()
     {
