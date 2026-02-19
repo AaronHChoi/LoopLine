@@ -6,5 +6,6 @@ namespace Core.UI
 		Player,
 		Timeline,
 		Cassette,
+		FinalMonologue,
 	} 
 }
