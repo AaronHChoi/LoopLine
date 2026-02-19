@@ -134,6 +134,8 @@ public class SafeQuestManager : MonoBehaviour, ISafeQuestManager
     private void StartCinematicAfterMonologue(Events finishedEvent)
     {
         monologueSpeaker.OnMonologueEnded -= StartCinematicAfterMonologue;
+        if (inventoryUI.IsInventoryOpen)
+            playerStateController.UseEventOpenInventory();
 
         cinematicManager.PlayCinematic(successCinematic, () =>
         {

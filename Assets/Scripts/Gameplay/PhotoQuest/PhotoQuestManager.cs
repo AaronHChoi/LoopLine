@@ -181,6 +181,8 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
     private void StartCinematicAfterMonologue(Events finishedEvent)
     {
         monologueSpeaker.OnMonologueEnded -= StartCinematicAfterMonologue;
+        if (inventoryUI.IsInventoryOpen)
+            playerStateController.UseEventOpenInventory();
 
         cinematicManager.PlayCinematic(successCinematic, () =>
         {
