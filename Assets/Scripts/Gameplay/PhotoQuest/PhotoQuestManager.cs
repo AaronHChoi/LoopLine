@@ -56,7 +56,7 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
             doorHandler.gameObject.SetActive(false);
         }
         StartCoroutine(UpdateNextFrame());
-        if (!GameManager.Instance.GetCondition(GameCondition.IsPhotoQuestComplete))
+        if (!GameManager.Instance.GetCondition(GameCondition.MusicSafeDoorOpen))
         {
             UpdatePhotoActivationStates();
         }
