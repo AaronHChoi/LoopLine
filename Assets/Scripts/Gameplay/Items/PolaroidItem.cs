@@ -1,8 +1,9 @@
 using System;
 using UnityEngine;
-using Core.EventBus;
-using Core.DependencyInjection;
 using Core.Data;
+using Core.DependencyInjection;
+using Core.EventBus;
+using Core.UI;
 
 public class PolaroidItem : ItemInteract, IPolaraidItem
 {
@@ -21,7 +22,7 @@ public class PolaroidItem : ItemInteract, IPolaraidItem
         uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
         gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
         weightController = InterfaceDependencyInjector.Instance.Resolve<ISceneWeightController>();
-        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>();
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>(MonologueID.Player);
     }
     public override void Start()
     {
