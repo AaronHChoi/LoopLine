@@ -97,20 +97,22 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
         }
     }
 #endif
-void UpdatePhotoActivationStates()
-    {
-        if (photoActivations == null) return;
-
-        foreach (var entry in photoActivations)
+    void UpdatePhotoActivationStates()
         {
-            bool isConditionMet = GameManager.Instance.GetCondition(entry.condition);
+            if (photoActivations == null) return;
 
-            if (entry.photo != null)
+            bool IsQuestComplete = GameManager.Instance.GetCondition(GameCondition.IsPhotoQuestComplete);
+
+            foreach (var entry in photoActivations)
             {
-                entry.photo.SetActive(isConditionMet);
+                bool isConditionMet =  !IsQuestComplete && GameManager.Instance.GetCondition(entry.condition);
+
+                if (entry.photo != null)
+                {
+                    entry.photo.SetActive(isConditionMet);
+                }
             }
         }
-    }
     public void CheckAllFrames()
     {
         foreach (var frame in frames)
