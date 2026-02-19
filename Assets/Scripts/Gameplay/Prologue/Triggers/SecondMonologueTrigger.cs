@@ -29,7 +29,7 @@ public class SecondMonologueTrigger : BaseTrigger
     }
     private IEnumerator MonologueTimerRoutine()
     {
-        yield return new WaitForSeconds(15f);
+        yield return new WaitForSeconds(95f);
 
         monologueSpeaker.StartMonologue(Events.SecondMonologueStay);
     }
