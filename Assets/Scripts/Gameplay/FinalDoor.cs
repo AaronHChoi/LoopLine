@@ -216,7 +216,6 @@ public class FinalDoor : MonoBehaviour, IInteract
         monologueSpeaker.StartMonologue(monologueToTrigger);
         yield return new WaitForSeconds(30f);
         fadeInOutController.ForceFade(false);
-        yield return new WaitForSeconds(1f);
         finalFade2.ForceFade(true);
         yield return new WaitForSeconds(3f);
         finalFade2.ForceFade(false);
