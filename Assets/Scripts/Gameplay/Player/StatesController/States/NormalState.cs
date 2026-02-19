@@ -75,6 +75,7 @@ namespace Player
 
                 if (isCooldownFinished && !hasTriggeredTeleport && input.Teleport())
                 {
+                    GameManager.Instance.SetCondition(GameCondition.IsClockFrozen, false);
                     hasTriggeredTeleport = true;
                     EventBus.Publish(new TransitionEvent());
                     uiManager.HideCurrentPanel();
