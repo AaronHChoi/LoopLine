@@ -56,7 +56,7 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
             doorHandler.gameObject.SetActive(false);
         }
         StartCoroutine(UpdateNextFrame());
-        if (!GameManager.Instance.GetCondition(GameCondition.IsPhotoQuestComplete))
+        if (!GameManager.Instance.GetCondition(GameCondition.MusicSafeDoorOpen))
         {
             UpdatePhotoActivationStates();
         }
@@ -178,6 +178,8 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
     private void StartCinematicAfterMonologue(Events finishedEvent)
     {
         monologueSpeaker.OnMonologueEnded -= StartCinematicAfterMonologue;
+        if (inventoryUI.IsInventoryOpen)
+            playerStateController.UseEventOpenInventory();
 
         playerStateController.StateMachine.TransitionTo(playerStateController.CinematicState);
 

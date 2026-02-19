@@ -44,6 +44,7 @@ public class FinalDoor : MonoBehaviour, IInteract
     IMonologueSpeaker monologueSpeaker;
     IPlayerMovement playerMovement;
     IGameSceneManager gameSceneManager;
+    IInventoryUI inventory;
 
     [SerializeField] GameObject doorHandler;
     [SerializeField] TutorialInteract correctKey;
@@ -78,6 +79,7 @@ public class FinalDoor : MonoBehaviour, IInteract
         monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>(MonologueID.FinalMonologue);
         gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
         playerMovement = InterfaceDependencyInjector.Instance.Resolve<IPlayerMovement>();
+        inventory = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
         Forward = doorGameObject.transform.forward; //this is because the forward of the door is orienteted to the right if the forwar chages chage this line
     }
     private void Start()
@@ -205,6 +207,10 @@ public class FinalDoor : MonoBehaviour, IInteract
 
     private IEnumerator PlayCinematic()
     {
+        if (inventory.IsInventoryOpen)
+        {
+            playerStateController.UseEventOpenInventory();
+        }
         playerMovement.CanMove = false;
         fadeInOutController.ForceFade(true);
         monologueSpeaker.StartMonologue(monologueToTrigger);
