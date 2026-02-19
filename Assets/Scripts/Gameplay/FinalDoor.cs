@@ -220,6 +220,7 @@ public class FinalDoor : MonoBehaviour, IInteract
         finalFade2.ForceFade(true);
         yield return new WaitForSeconds(3f);
         finalFade2.ForceFade(false);
+        playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
         playerMovement.CanMove = true;
         gameSceneManager.LoadNextScene("01. MainMenu");
     }
