@@ -52,5 +52,7 @@ namespace Core.Data
         FirstTimeCameraSeen,
         FirstTimeWalkmanSeen,
         PolaroidTakenSecond,
+        StopTrainButton,
+        FirstTimeClocks,
     }
 }
