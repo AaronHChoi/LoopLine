@@ -6,6 +6,7 @@ using Player;
 using Core.Utilities;
 using Core.DependencyInjection;
 using Core.Data;
+using Core.UI;
 
 [Serializable]
 public struct MusicNotesActivations
@@ -32,12 +33,15 @@ public class SafeQuestManager : MonoBehaviour, ISafeQuestManager
     //IFinalQuestManager finalQuestManager;
     ICinematicManager cinematicManager;
     IPlayerStateController playerStateController;
+    IMonologueSpeaker monologueSpeaker;
+
     private void Awake()
     {
         inventoryUI = InterfaceDependencyInjector.Instance.Resolve<IInventoryUI>();
         //finalQuestManager = InterfaceDependencyInjector.Instance.Resolve<IFinalQuestManager>();
         cinematicManager = InterfaceDependencyInjector.Instance.Resolve<ICinematicManager>();
         playerStateController = InterfaceDependencyInjector.Instance.Resolve<IPlayerStateController>();
+        monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>(MonologueID.Player);
     }
     void Start()
     {
@@ -107,20 +111,40 @@ public class SafeQuestManager : MonoBehaviour, ISafeQuestManager
     public void OnCompleteMusicQuest()
     {
         playerStateController.StateMachine.TransitionTo(playerStateController.CinematicState);
-        DelayUtility.Instance.Delay(1f, () =>
-            cinematicManager.PlayCinematic(successCinematic, () =>
-            {
-                OnSafeQuestCompleted?.Invoke();
 
-                //GameManager.Instance.SetCondition(GameCondition.WordGroup3, true);
+        monologueSpeaker.OnMonologueEnded += StartCinematicAfterMonologue;
+
+        monologueSpeaker.StartMonologue(Events.BeforeCompleteMusicQuest);
+
+        //DelayUtility.Instance.Delay(1f, () =>
+        //    cinematicManager.PlayCinematic(successCinematic, () =>
+        //    {
+        //        OnSafeQuestCompleted?.Invoke();
+
+        //        //GameManager.Instance.SetCondition(GameCondition.WordGroup3, true);
                 
-                finalKeyInteract.Interact();
+        //        finalKeyInteract.Interact();
 
-                //finalQuestManager.UpdateWordsActivation();
+        //        //finalQuestManager.UpdateWordsActivation();
 
-                playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
-            })
-        );
+        //        playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
+        //    })
+        //);
+    }
+    private void StartCinematicAfterMonologue(Events finishedEvent)
+    {
+        monologueSpeaker.OnMonologueEnded -= StartCinematicAfterMonologue;
+
+        cinematicManager.PlayCinematic(successCinematic, () =>
+        {
+            OnSafeQuestCompleted?.Invoke();
+
+            finalKeyInteract.Interact();
+
+            playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
+
+            monologueSpeaker.StartMonologue(Events.AfterCompleteMusicQuest);
+        });
     }
     void UpdateMusicNoteActivationStates()
     {

@@ -95,39 +95,38 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
             gearRotator.StopGears();
 
             playerStateController.StateMachine.TransitionTo(playerStateController.CinematicState);
-            DelayUtility.Instance.Delay(1f, () =>
-                cinematicManager.PlayCinematic(successCinematic, () =>
-                {
-                    monologueSpeaker.OnMonologueEnded += OnClockQuestMonologueEnded;
-                    DelayUtility.Instance.Delay(3f, () => monologueSpeaker.StartMonologue(QuestCompleteEvent));
 
-                    RevealObject();
+            monologueSpeaker.OnMonologueEnded += StartCinematicAfterMonologue;
 
-                    soundManager.CreateSound()
-                        .WithSoundData(complete)
-                        .WithSoundPosition(transform.position)
-                        .Play();
-
-                    playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
-
-                    OnClockQuestFinished?.Invoke();
-                })
-            );
+            monologueSpeaker.StartMonologue(Events.BeforeCompleteClockQuest);
         }
     } 
-    void OnClockQuestMonologueEnded(Events finishedEvent)
+    void StartCinematicAfterMonologue(Events finishedEvent)
     {
-        if (finishedEvent == Events.ClockQuestComplete)
+        monologueSpeaker.OnMonologueEnded -= StartCinematicAfterMonologue;
+
+        cinematicManager.PlayCinematic(successCinematic, () =>
         {
-            monologueSpeaker.OnMonologueEnded -= OnClockQuestMonologueEnded;
+            RevealObject();
+
+            soundManager.CreateSound()
+                .WithSoundData(complete)
+                .WithSoundPosition(transform.position)
+                .Play();
+
+            playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
+
+            OnClockQuestFinished?.Invoke();
+
             uiManager.ShowPanel(UIPanelID.InventoryTutorial);
-        }
+
+            monologueSpeaker.StartMonologue(Events.ClockQuestComplete);
+        });
     }
     private void RevealObject()
     {
         DelayUtility.Instance.Delay(2f, () => Key.Interact());
-        //GameManager.Instance.SetCondition(GameCondition.WordGroup1, true);
-        //finalQuestManager.UpdateWordsActivation();
+
         GameManager.Instance.SetCondition(GameCondition.IsClockQuestComplete, true);
         GameManager.Instance.SetCondition(GameCondition.TeleportAvailable, false);
     }
