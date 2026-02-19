@@ -10,6 +10,8 @@ public class RepeatCinematic : MonoBehaviour
     [SerializeField] VideoClip successCinematic;
     [SerializeField] GameCondition thisGameCondition;
 
+    private bool isPlayerInside = false;
+
     ICinematicManager cinematicManager;
     IPlayerStateController playerStateController;
     IUIManager uiManager;
@@ -45,16 +47,23 @@ public class RepeatCinematic : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        isPlayerInside = true;
         GameManager.Instance.SetCondition(GameCondition.IsCinematicActivated, true);
         uiManager.ShowPanel(UIPanelID.Cinematic);
     }
     private void OnTriggerExit(Collider other)
     {
+        isPlayerInside = false;
         GameManager.Instance.SetCondition(GameCondition.IsCinematicActivated, false);
         uiManager.HideCurrentPanel();
     }
     public void RepeatCinematicAfterCompleteQuest()
     {
+        if (!isPlayerInside)
+        {
+            return;
+        }
+
         playerStateController.StateMachine.TransitionTo(playerStateController.CinematicState);
         DelayUtility.Instance.Delay(0.3f, () =>
         cinematicManager.PlayCinematic(successCinematic, () =>
