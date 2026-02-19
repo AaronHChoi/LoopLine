@@ -40,8 +40,10 @@ public class FinalDoor : MonoBehaviour, IInteract
     IPlayerStateController playerStateController;
     ICinematicManager cinematicManager;
     IFadeInOutController fadeInOutController;
+    IFadeInOutController finalFade2;
     IMonologueSpeaker monologueSpeaker;
     IPlayerMovement playerMovement;
+    IGameSceneManager gameSceneManager;
 
     [SerializeField] GameObject doorHandler;
     [SerializeField] TutorialInteract correctKey;
@@ -72,7 +74,9 @@ public class FinalDoor : MonoBehaviour, IInteract
         StartRotation = doorGameObject.transform.rotation.eulerAngles;
         cinematicManager = InterfaceDependencyInjector.Instance.Resolve<ICinematicManager>();
         fadeInOutController = InterfaceDependencyInjector.Instance.Resolve<IFadeInOutController>(FadeID.FinalFade);
+        finalFade2 = InterfaceDependencyInjector.Instance.Resolve<IFadeInOutController>(FadeID.FinalFade2);
         monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>(MonologueID.FinalMonologue);
+        gameSceneManager = InterfaceDependencyInjector.Instance.Resolve<IGameSceneManager>();
         playerMovement = InterfaceDependencyInjector.Instance.Resolve<IPlayerMovement>();
         Forward = doorGameObject.transform.forward; //this is because the forward of the door is orienteted to the right if the forwar chages chage this line
     }
@@ -206,7 +210,12 @@ public class FinalDoor : MonoBehaviour, IInteract
         monologueSpeaker.StartMonologue(monologueToTrigger);
         yield return new WaitForSeconds(5f);
         fadeInOutController.ForceFade(false);
+        yield return new WaitForSeconds(1f);
+        finalFade2.ForceFade(true);
+        yield return new WaitForSeconds(3f);
+        finalFade2.ForceFade(false);
         playerMovement.CanMove = true;
+        gameSceneManager.LoadNextScene("01. MainMenu");
     }
     private void OpenSequence(Vector3 userPosition)
     {

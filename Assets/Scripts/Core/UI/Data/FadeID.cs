@@ -14,5 +14,6 @@ namespace Core.UI
 		InfoPanel,
 		InfoChapterTitle,
 		FinalFade,
+		FinalFade2,
     } 
 }
