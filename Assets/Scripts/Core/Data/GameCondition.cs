@@ -49,5 +49,8 @@ namespace Core.Data
         IsClockFrozen,
         IsCinematicActivated,
         IsTimelineActivated,
+        FirstTimeCameraSeen,
+        FirstTimeWalkmanSeen,
+        PolaroidTakenSecond,
     }
 }

@@ -14,6 +14,7 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
     [SerializeField] private WeightScene secondScene;
     [SerializeField] private WeightScene thirdScene;
     [SerializeField] private WeightScene fourScene;
+    [SerializeField] private WeightScene fifthScene;
     [SerializeField] private List<WeightScene> weightedScenes = new List<WeightScene>();
 
     [Header("Active Scenes")]
@@ -27,15 +28,18 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
 
     IMonologueSpeaker monologueSpeaker;
     ISceneWeightController weightController;
+    IUIManager uiManager;
+
     protected override void Awake()
     {
         base.Awake();
 
         monologueSpeaker = InterfaceDependencyInjector.Instance.Resolve<IMonologueSpeaker>(MonologueID.Player);
         weightController = InterfaceDependencyInjector.Instance.Resolve<ISceneWeightController>();
+        uiManager = InterfaceDependencyInjector.Instance.Resolve<IUIManager>();
     }
     private void Start()
-    {
+     {
         if (GameManager.Instance.GetCondition(GameCondition.WalkManTaken) && IsCurrentScene("04. Train"))
         {
             StartCoroutine(LoadSceneAsync(fourScene.sceneName));
@@ -46,25 +50,32 @@ public class GameSceneManager : Singleton<GameSceneManager>, IGameSceneManager
         {
             StartCoroutine(LoadSceneAsync(thirdScene.sceneName));
             weightController.HandleConditionChanged(GameCondition.MusicSafeDoorOpen, true);
+
+            if (!GameManager.Instance.GetCondition(GameCondition.FirstTimeWalkmanSeen))
+            {
+                uiManager.ShowPanel(UIPanelID.Chapter3);
+                GameManager.Instance.SetCondition(GameCondition.FirstTimeWalkmanSeen, true);
+            }
             return;
         }
-        if (GameManager.Instance.GetCondition(GameCondition.PolaroidTaken) && IsCurrentScene("04. Train"))
+        if (GameManager.Instance.GetCondition(GameCondition.PolaroidTakenSecond) && IsCurrentScene("04. Train"))
         {
             StartCoroutine(LoadSceneAsync(firstScene.sceneName));
             return;
         }
-        if (GameManager.Instance.GetCondition(GameCondition.PhotoDoorOpen) && IsCurrentScene("04. Train"))
+        if (GameManager.Instance.GetCondition(GameCondition.PhotoDoorOpen) && IsCurrentScene("04. Train") && !GameManager.Instance.GetCondition(GameCondition.IsPhotoQuestComplete))
         {
-            bool active = true;
             StartCoroutine(LoadSceneAsync(secondScene.sceneName));
             weightController.HandleConditionChanged(GameCondition.PhotoDoorOpen, true);
-            if (active)
+
+            if (!GameManager.Instance.GetCondition(GameCondition.FirstTimeCameraSeen))
             {
+                uiManager.ShowPanel(UIPanelID.Chapter2);
                 DelayUtility.Instance.Delay(2f, () => monologueSpeaker.StartMonologue(Events.EnterToCameraLoop));
-                active = false;
+                GameManager.Instance.SetCondition(GameCondition.FirstTimeCameraSeen, true);
             }
             return;
-        } 
+        }
         if (IsCurrentScene("04. Train"))
         {
             StartCoroutine(LoadSceneAsync(firstScene.sceneName));

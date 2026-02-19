@@ -110,8 +110,6 @@ public class SafeQuestManager : MonoBehaviour, ISafeQuestManager
     }
     public void OnCompleteMusicQuest()
     {
-        playerStateController.StateMachine.TransitionTo(playerStateController.CinematicState);
-
         monologueSpeaker.OnMonologueEnded += StartCinematicAfterMonologue;
 
         monologueSpeaker.StartMonologue(Events.BeforeCompleteMusicQuest);
@@ -122,7 +120,7 @@ public class SafeQuestManager : MonoBehaviour, ISafeQuestManager
         //        OnSafeQuestCompleted?.Invoke();
 
         //        //GameManager.Instance.SetCondition(GameCondition.WordGroup3, true);
-                
+
         //        finalKeyInteract.Interact();
 
         //        //finalQuestManager.UpdateWordsActivation();
@@ -134,6 +132,8 @@ public class SafeQuestManager : MonoBehaviour, ISafeQuestManager
     private void StartCinematicAfterMonologue(Events finishedEvent)
     {
         monologueSpeaker.OnMonologueEnded -= StartCinematicAfterMonologue;
+
+        playerStateController.StateMachine.TransitionTo(playerStateController.CinematicState);
 
         cinematicManager.PlayCinematic(successCinematic, () =>
         {

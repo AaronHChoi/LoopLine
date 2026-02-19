@@ -40,6 +40,7 @@ public class PolaroidItem : ItemInteract, IPolaraidItem
             OnPolaroidTaken?.Invoke();
             uiManager.ShowPanel(panelID);
             GameManager.Instance.SetCondition(GameCondition.PolaroidTaken, true);
+            GameManager.Instance.SetCondition(GameCondition.PolaroidTakenSecond, true);
             weightController.HandleConditionChanged(GameCondition.PolaroidTaken, true);
             gameSceneManager.SetInitialLoop(false);
             EventBus.Publish(new PlayerGrabItemEvent());

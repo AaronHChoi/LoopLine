@@ -158,9 +158,6 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
         {
             frame.AllCorrectPhotoPlaced();
         }
-
-        playerStateController.StateMachine.TransitionTo(playerStateController.CinematicState);
-
         monologueSpeaker.OnMonologueEnded += StartCinematicAfterMonologue;
 
         monologueSpeaker.StartMonologue(Events.BeforeCompletePhotoQuest);
@@ -182,11 +179,14 @@ public class PhotoQuestManager : MonoBehaviour, IPhotoQuestManager
     {
         monologueSpeaker.OnMonologueEnded -= StartCinematicAfterMonologue;
 
+        playerStateController.StateMachine.TransitionTo(playerStateController.CinematicState);
+
         cinematicManager.PlayCinematic(successCinematic, () =>
         {
             PhotoQuestComplete();
 
             GameManager.Instance.SetCondition(GameCondition.PolaroidTaken, false);
+
             playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
 
             OnPhotoQuestFinished?.Invoke();

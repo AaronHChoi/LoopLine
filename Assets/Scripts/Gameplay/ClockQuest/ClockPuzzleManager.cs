@@ -94,8 +94,6 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
             clockLock.SetLockState(true);
             gearRotator.StopGears();
 
-            playerStateController.StateMachine.TransitionTo(playerStateController.CinematicState);
-
             monologueSpeaker.OnMonologueEnded += StartCinematicAfterMonologue;
 
             monologueSpeaker.StartMonologue(Events.BeforeCompleteClockQuest);
@@ -104,6 +102,8 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
     void StartCinematicAfterMonologue(Events finishedEvent)
     {
         monologueSpeaker.OnMonologueEnded -= StartCinematicAfterMonologue;
+
+        playerStateController.StateMachine.TransitionTo(playerStateController.CinematicState);
 
         cinematicManager.PlayCinematic(successCinematic, () =>
         {
