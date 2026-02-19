@@ -94,4 +94,6 @@ public enum Events
     PolaroidTakenMonologue,
     EnterToCameraLoop,
     BrokenTrainMonologue,
+    MonologueStopTrainButton,
+    MonologueFirstClock,
 }
