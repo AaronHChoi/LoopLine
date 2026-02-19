@@ -211,6 +211,7 @@ public class FinalDoor : MonoBehaviour, IInteract
         {
             playerStateController.UseEventOpenInventory();
         }
+        playerStateController.StateMachine.TransitionTo(playerStateController.CinematicState);
         playerMovement.CanMove = false;
         fadeInOutController.ForceFade(true);
         monologueSpeaker.StartMonologue(monologueToTrigger);
