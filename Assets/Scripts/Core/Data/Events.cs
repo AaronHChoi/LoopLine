@@ -86,4 +86,5 @@ public enum Events
     NPC_WM,
     NPC_BG,
     FinalQuestMonologue,
+    BeforeCompleteClockQuest,
 }

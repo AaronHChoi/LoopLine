@@ -99,65 +99,34 @@ public class ClockPuzzleManager : MonoBehaviour, IClockPuzzleManager
             monologueSpeaker.OnMonologueEnded += StartCinematicAfterMonologue;
 
             monologueSpeaker.StartMonologue(Events.BeforeCompleteClockQuest);
-
-            //DelayUtility.Instance.Delay(1f, () =>
-            //    cinematicManager.PlayCinematic(successCinematic, () =>
-            //    {
-            //        monologueSpeaker.OnMonologueEnded += OnClockQuestMonologueEnded;
-            //        DelayUtility.Instance.Delay(3f, () => monologueSpeaker.StartMonologue(QuestCompleteEvent));
-
-            //        RevealObject();
-
-            //        soundManager.CreateSound()
-            //            .WithSoundData(complete)
-            //            .WithSoundPosition(transform.position)
-            //            .Play();
-
-            //        playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
-
-            //        OnClockQuestFinished?.Invoke();
-            //    })
-            //);
         }
     } 
     void StartCinematicAfterMonologue(Events finishedEvent)
     {
-        if (finishedEvent == QuestCompleteEvent)
+        monologueSpeaker.OnMonologueEnded -= StartCinematicAfterMonologue;
+
+        cinematicManager.PlayCinematic(successCinematic, () =>
         {
-            monologueSpeaker.OnMonologueEnded -= StartCinematicAfterMonologue;
+            RevealObject();
 
-            cinematicManager.PlayCinematic(successCinematic, () =>
-            {
-                RevealObject();
+            soundManager.CreateSound()
+                .WithSoundData(complete)
+                .WithSoundPosition(transform.position)
+                .Play();
 
-                soundManager.CreateSound()
-                    .WithSoundData(complete)
-                    .WithSoundPosition(transform.position)
-                    .Play();
+            playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
 
-                playerStateController.StateMachine.TransitionTo(playerStateController.NormalState);
+            OnClockQuestFinished?.Invoke();
 
-                OnClockQuestFinished?.Invoke();
+            uiManager.ShowPanel(UIPanelID.InventoryTutorial);
 
-                uiManager.ShowPanel(UIPanelID.InventoryTutorial);
-
-                monologueSpeaker.StartMonologue(QuestCompleteEvent);
-            });
-        }
+            monologueSpeaker.StartMonologue(Events.ClockQuestComplete);
+        });
     }
-    //void OnClockQuestMonologueEnded(Events finishedEvent)
-    //{
-    //    if (finishedEvent == Events.ClockQuestComplete)
-    //    {
-    //        monologueSpeaker.OnMonologueEnded -= OnClockQuestMonologueEnded;
-    //        uiManager.ShowPanel(UIPanelID.InventoryTutorial);
-    //    }
-    //}
     private void RevealObject()
     {
         DelayUtility.Instance.Delay(2f, () => Key.Interact());
-        //GameManager.Instance.SetCondition(GameCondition.WordGroup1, true);
-        //finalQuestManager.UpdateWordsActivation();
+
         GameManager.Instance.SetCondition(GameCondition.IsClockQuestComplete, true);
         GameManager.Instance.SetCondition(GameCondition.TeleportAvailable, false);
     }
