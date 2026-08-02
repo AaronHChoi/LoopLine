@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using Mono.Cecil;
+using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -7,6 +8,7 @@ using UnityEngine.UIElements;
 public static class PlaySceneToolbarButton
 {
     private const string ScenePath = "Assets/Scenes/04. Train.unity";
+    private const string MainMenuScenePath = "Assets/Scenes/01. MainMenu.unity";
 
     static PlaySceneToolbarButton()
     {
@@ -40,14 +42,37 @@ public static class PlaySceneToolbarButton
             toolbar.Q("ToolbarZoneMiddleAlign") ??
             toolbar;
 
-        // Create the button
-        var button = new Button(OnPlaySceneClicked)
+        if (centerZone.Q("CustomSceneButtonsContainer") != null) return;
+
+        var container = new VisualElement
         {
-            text = "  ▶ Train Scene",
-            tooltip = "Play the main scene"
+            name = "CustomSceneButtonContainer",
+            style =
+            {
+                flexDirection = FlexDirection.Row,
+                alignSelf = Align.Center
+            }
         };
-        // Force the button to show a green background
-        button.style.backgroundColor = new Color(0.4f, 0.65f, 0.4f, 1f); // Solid green
+
+        var btnMainMenu = CreateToolbarButton("▶ Main Menu", "Play Main Menu scene", new Color(0.3f, 0.5f, 0.7f, 1f), () => OnPlaySceneClicked(MainMenuScenePath));
+
+        var btnTrain = CreateToolbarButton("▶ Train", "Play Train scene", new Color(0.4f, 0.65f, 0.4f, 1f), () => OnPlaySceneClicked(ScenePath));
+
+        container.Add(btnMainMenu);
+        container.Add(btnTrain);
+
+        centerZone.Insert(0, container);
+    }
+
+    private static Button CreateToolbarButton(string text, string tooltip, Color bgColor, System.Action onClick)
+    {
+        var button = new Button(onClick)
+        {
+            text = text,
+            tooltip = tooltip
+        };
+
+        button.style.backgroundColor = bgColor;
         button.style.color = Color.white;
         button.style.unityFontStyleAndWeight = FontStyle.Bold;
         button.style.height = 22;
@@ -65,10 +90,10 @@ public static class PlaySceneToolbarButton
         // Remove internal toolbar button styles that force white background
         button.RemoveFromClassList("unity-button");
 
-        centerZone.Insert(0, button);
+        return button;
     }
 
-    private static void OnPlaySceneClicked()
+    private static void OnPlaySceneClicked(string scenePath)
     {
         if (EditorApplication.isPlaying)
         {
@@ -78,7 +103,7 @@ public static class PlaySceneToolbarButton
 
         if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())
         {
-            EditorSceneManager.OpenScene(ScenePath);
+            EditorSceneManager.OpenScene(scenePath);
             EditorApplication.EnterPlaymode();
         }
     }
